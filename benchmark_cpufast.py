@@ -8,6 +8,8 @@ import argparse
 import functools
 import hashlib
 import json
+import os
+import platform
 import statistics
 import time
 from pathlib import Path
@@ -74,6 +76,8 @@ def main():
     parser.add_argument("--packed-fft", action="store_true")
     parser.add_argument("--fused-finish", action="store_true")
     parser.add_argument("--tap-small", action="store_true")
+    parser.add_argument("--fast-experimental", action="store_true")
+    parser.add_argument("--no-save-audio", action="store_true")
     parser.add_argument("--head-major", action="store_true")
     parser.add_argument("--cook-phase", action="store_true")
     parser.add_argument("--cook-resblock", type=int, choices=[0, 6, 8], default=0)
@@ -95,6 +99,8 @@ def main():
         args.threads = 1 if args.engine else 2
     if args.tap_small and not args.engine:
         parser.error("--tap-small requires --engine")
+    if args.fast_experimental and not args.engine:
+        parser.error("--fast-experimental requires --engine")
     if (
         args.output.exists()
         or not 1 <= args.samples <= 20
@@ -148,6 +154,7 @@ def main():
             tap_small=args.tap_small,
             ar_threads=args.ar_threads,
             acoustic_threads=args.threads,
+            fast_experimental=args.fast_experimental,
         )
         ar_install_seconds = 0.0
         packing_seconds = time.perf_counter() - start_install
@@ -159,6 +166,9 @@ def main():
         args.backend = "phase_fft_winograd"
         args.ar_layout = "cpp"
         args.native_predictor = args.fused_fft = True
+        if args.fast_experimental:
+            args.head_major = args.cook_phase = args.fft_layout = True
+            args.packed_fft = args.fused_finish = True
     else:
         ar_audit = None
         ar_install_start = time.perf_counter()
@@ -297,14 +307,18 @@ def main():
                 "packed_fft",
                 "fused_finish",
                 "tap_small",
+                "fast_experimental",
             )
         },
-        "scope": "fixed CPU-quota throughput proxy; not a real N1 measurement",
+        "scope": "nonstreaming synthesis on the executing host; see cgroup and hardware",
         "cgroup": cgroup(),
+        "hardware": {"machine": platform.machine(), "platform": platform.platform(),
+                     "python": platform.python_version(), "torch": torch.__version__,
+                     "cpu_affinity": sorted(os.sched_getaffinity(0)) if hasattr(os, "sched_getaffinity") else None},
         "inputs": inputs,
         "backend": args.backend,
         "ar_threads": args.ar_threads,
-        "ar_layout": args.ar_layout,
+        "ar_layout": "cpp_int8_experimental" if args.fast_experimental else args.ar_layout,
         "ar_coefficient_audit": ar_audit,
         "native_predictor": args.native_predictor,
         "inference_mode": args.inference_mode,
@@ -378,7 +392,7 @@ def main():
                 )
         is_warmup = index < args.warmups
         report["warmups" if is_warmup else "runs"].append(row)
-        if index == args.warmups:
+        if index == args.warmups and not args.no_save_audio:
             sf.write(args.output.with_suffix(".wav"), audio, rate, subtype="PCM_16")
         args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
         print("CPUFAST_RESULT", json.dumps(row), flush=True)

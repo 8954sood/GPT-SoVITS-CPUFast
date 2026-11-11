@@ -256,6 +256,10 @@ Chinese shows an even larger end-to-end gain than the overall average because it
 - The biggest memory-side change is that inference no longer builds `self.h` at all on the main T2S path. The runtime now rebuilds `t2s_transformer` directly from the state dict and only keeps what inference actually uses.
 - This is not benchmark-only machinery. It is wired into the real inference path and mainly helps reduce steady-state RSS and peak RSS so CPU machines are less likely to stall or be reclaimed under memory pressure.
 
+## ARM experimental benchmark
+
+See [ARM_BENCHMARK.md](ARM_BENCHMARK.md) for the opt-in fast path, quality caveats, host requirements, and manual GitHub Actions measurements.
+
 ## Upstream and Credits
 
 This project is based on and uses code from:

@@ -1,0 +1,90 @@
+name: ARM RTF benchmark
+
+on:
+  workflow_dispatch:
+    inputs:
+      warmups:
+        description: Excluded warmup runs (1–5)
+        type: choice
+        options: ['1', '2', '3']
+        default: '2'
+      samples:
+        description: Measured runs (1–20)
+        type: choice
+        options: ['1', '3', '5']
+        default: '3'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cpufast-arm-benchmark
+  cancel-in-progress: false
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run benchmark on ARM host
+        env:
+          ARM_HOST: ${{ secrets.ARM_SSH_HOST }}
+          ARM_USER: ${{ secrets.ARM_SSH_USER }}
+          ARM_PRIVATE_KEY: ${{ secrets.ARM_SSH_PRIVATE_KEY }}
+          ARM_PASSPHRASE: ${{ secrets.ARM_SSH_PASSPHRASE }}
+          ARM_KNOWN_HOSTS: ${{ secrets.ARM_SSH_KNOWN_HOSTS }}
+          ARM_BENCH_ROOT: ${{ vars.ARM_BENCH_ROOT }}
+          ARM_BENCH_IMAGE: ${{ vars.ARM_BENCH_IMAGE }}
+          ARM_BENCH_MEMORY: ${{ vars.ARM_BENCH_MEMORY }}
+          ARM_BENCH_CPUS: ${{ vars.ARM_BENCH_CPUS }}
+          WARMUPS: ${{ inputs.warmups }}
+          SAMPLES: ${{ inputs.samples }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          : "${ARM_HOST:?Missing ARM_SSH_HOST secret}" "${ARM_USER:?Missing ARM_SSH_USER secret}" "${ARM_PRIVATE_KEY:?Missing ARM_SSH_PRIVATE_KEY secret}" "${ARM_KNOWN_HOSTS:?Missing ARM_SSH_KNOWN_HOSTS secret}"
+          [[ "$ARM_HOST" =~ ^[A-Za-z0-9._-]+$ && "$ARM_USER" =~ ^[A-Za-z_][A-Za-z0-9_-]*$ ]]
+          [[ "$WARMUPS" =~ ^[1-5]$ && "$SAMPLES" =~ ^([1-9]|1[0-9]|20)$ ]]
+          [[ "$GITHUB_RUN_ID" =~ ^[0-9]+$ && "$GITHUB_RUN_ATTEMPT" =~ ^[0-9]+$ ]]
+          umask 077
+          printf '%s\n' "$ARM_PRIVATE_KEY" > "$RUNNER_TEMP/arm_key"
+          printf '%s\n' "$ARM_KNOWN_HOSTS" > "$RUNNER_TEMP/arm_known_hosts"
+          cat > "$RUNNER_TEMP/arm_askpass" <<'EOF'
+          #!/usr/bin/env bash
+          printf '%s\n' "$ARM_PASSPHRASE"
+          EOF
+          chmod 700 "$RUNNER_TEMP/arm_askpass"
+          export SSH_ASKPASS="$RUNNER_TEMP/arm_askpass" SSH_ASKPASS_REQUIRE=force DISPLAY=:0
+          ssh_args=(-i "$RUNNER_TEMP/arm_key" -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/arm_known_hosts" -o ServerAliveInterval=15 -o ConnectTimeout=20)
+          target="$ARM_USER@$ARM_HOST"
+          remote_rel=".cache/cpufast-actions/${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          cleanup_remote() { ssh "${ssh_args[@]}" "$target" "rm -rf \"\$HOME/$remote_rel\"" || true; }
+          trap cleanup_remote EXIT
+          ssh "${ssh_args[@]}" "$target" "mkdir -p \"\$HOME/$remote_rel\""
+          git archive "$GITHUB_SHA" | ssh "${ssh_args[@]}" "$target" "tar -x -C \"\$HOME/$remote_rel\""
+          printf -v benchmark_args ' %q' "${ARM_BENCH_ROOT:-}" "${ARM_BENCH_IMAGE:-}" "${ARM_BENCH_MEMORY:-}" "${ARM_BENCH_CPUS:-}" "$WARMUPS" "$SAMPLES"
+          ssh "${ssh_args[@]}" "$target" "bash \"\$HOME/$remote_rel/scripts/run_arm_benchmark.sh\"$benchmark_args"
+          mkdir -p ci-artifact
+          scp "${ssh_args[@]}" "$target:$remote_rel/ci-results/benchmark.json" ci-artifact/benchmark.json
+          python3 - <<'PY' | tee -a "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          d = json.loads(Path('ci-artifact/benchmark.json').read_text())
+          print('### ARM fast experimental RTF')
+          print(f"Median RTF: **{d['median_rtf']:.4f}**; median generation time: **{d['median_seconds']:.3f} s**")
+          print('Individual RTFs:', ', '.join(f"{row['rtf']:.4f}" for row in d['runs']))
+          print('Output duration includes 0.3 seconds of appended silence. Model loading is excluded.')
+          print('Experimental W8A8/FP16 path; compare audio quality on more than one sentence.')
+          PY
+      - name: Upload measurement JSON
+        uses: actions/upload-artifact@v4
+        with:
+          name: arm-rtf-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ci-artifact/benchmark.json
+          if-no-files-found: error
+          retention-days: 14
+      - name: Remove local SSH credentials
+        if: always()
+        shell: bash
+        run: rm -f "$RUNNER_TEMP/arm_key" "$RUNNER_TEMP/arm_known_hosts" "$RUNNER_TEMP/arm_askpass"

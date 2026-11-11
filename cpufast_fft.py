@@ -30,6 +30,8 @@ class FFTConv1d(torch.nn.Module):
         self._key = self._wr = self._wi = self._ws = None
         self.backend = backend
         self._packed = None
+        self._packed_half = None
+        self.fast_half = False
         self._native = None
         self.output_layout = False
         self.fused_finish = False
@@ -58,6 +60,7 @@ class FFTConv1d(torch.nn.Module):
             for p in self.parameters()
         )
         if self._key != key:
+            self._packed_half = None
             w = self.weight.detach()
             kernel = w.new_zeros(w.shape[0], w.shape[1], self.effective_kernel)
             kernel[..., :: self.dilation] = w
@@ -102,7 +105,12 @@ class FFTConv1d(torch.nn.Module):
         transformed_raw = torch.fft.rfft(windows, n=self.n_fft)
         if self.backend == "packed":
             packed_input = torch.ops.cpufast_cpp.fft_pack(transformed_raw.contiguous())
-            products = torch.ops.cpufast_cpp.fft_packed_gemm(packed_input, self._packed)
+            if self.fast_half:
+                if self._packed_half is None:
+                    self._packed_half = self._packed.half()
+                products = torch.ops.cpufast_cpp.fft_hgemm(packed_input.half(), self._packed_half)
+            else:
+                products = torch.ops.cpufast_cpp.fft_packed_gemm(packed_input, self._packed)
             product = (
                 torch.ops.cpufast_cpp.fft_unpack_layout(products, x.shape[0], blocks)
                 if self.output_layout
