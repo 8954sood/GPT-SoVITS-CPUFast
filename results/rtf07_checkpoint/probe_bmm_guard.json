@@ -1,0 +1,20 @@
+{
+  "command": [
+    "python",
+    "/repo/.experiments/probe_bmm.py"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 1594380288,
+  "kernel_child_peak_rss_bytes": 1594376192,
+  "cpu_seconds": 5.778005,
+  "elapsed_seconds": 8.055420961999971,
+  "average_cpu_cores": 0.7172815706661043,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 667,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}

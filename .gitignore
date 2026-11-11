@@ -215,3 +215,5 @@ models/
 reference_segment.wav
 libcpufast_ar_torch.so.json
 local-results/
+
+.experiments/

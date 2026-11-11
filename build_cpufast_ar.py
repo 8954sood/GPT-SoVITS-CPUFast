@@ -13,9 +13,15 @@ from torch.utils.cpp_extension import include_paths, library_paths
 ROOT = Path(__file__).resolve().parent
 SOURCES = [
     "native/cpufast_ar_torch.cpp",
+    "native/cpufast_attention_torch.cpp",
     "native/cpufast_ar_gemv.cpp",
     "native/cpufast_winograd_torch.cpp",
     "native/cpufast_fft_torch.cpp",
+    "native/cpufast_cooktoom_torch.cpp",
+    "native/cpufast_fft_packed.cpp",
+    "native/acl_sgemm_8x12.cpp",
+    "native/acl_asmlib.hpp",
+    "native/cpufast_finish_torch.cpp",
 ]
 
 
@@ -39,19 +45,28 @@ def main():
     command = ["c++", *flags]
     for path in include_paths():
         command.extend(["-I", path])
-    command.extend(
-        [
-            str(ROOT / SOURCES[0]),
-            str(ROOT / SOURCES[2]),
-            str(ROOT / SOURCES[3]),
-            "-o",
-            str(args.output),
-        ]
-    )
+    # Include-only GEMV/ACL sources are hashed above but compiled via their callers.
+    units = [
+        name
+        for name in SOURCES
+        if name.endswith(".cpp")
+        and name not in ("native/cpufast_ar_gemv.cpp", "native/acl_sgemm_8x12.cpp")
+    ]
+    command.extend(str(ROOT / name) for name in units)
+    command.extend(["-o", str(args.output)])
     for path in library_paths():
         command.extend(["-L", path, f"-Wl,-rpath,{path}"])
     command.extend(["-ltorch", "-ltorch_cpu", "-lc10"])
+    source_hashes = {
+        name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in SOURCES
+    }
     subprocess.run(command, check=True)
+    if source_hashes != {
+        name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in SOURCES
+    }:
+        raise RuntimeError(
+            "Sources changed while building; rebuild from a stable checkout"
+        )
     manifest = {
         "abi": 1,
         "torch_version": torch.__version__,

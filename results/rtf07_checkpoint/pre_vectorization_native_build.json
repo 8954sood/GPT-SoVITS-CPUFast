@@ -1,0 +1,30 @@
+{
+  "abi": 1,
+  "torch_version": "2.8.0+cpu",
+  "system": "Linux",
+  "architecture": "aarch64",
+  "flags": [
+    "-O3",
+    "-std=c++17",
+    "-march=armv8-a",
+    "-mtune=neoverse-n1",
+    "-ffp-contract=off",
+    "-fno-fast-math",
+    "-fPIC",
+    "-shared",
+    "-D_GLIBCXX_USE_CXX11_ABI=1"
+  ],
+  "sources": {
+    "native/cpufast_ar_torch.cpp": "d0f6179738c462fe5725d060a97a08920a51729e1204817a236b03d015f78cd9",
+    "native/cpufast_attention_torch.cpp": "213811855ccdfce3f8205993d7e8b18751793b046fe7efc6e8b7d40b8d25c2de",
+    "native/cpufast_ar_gemv.cpp": "5908aaa75258f53872e82f4cbcb1bafb315859aede3f0204f3b28d4b538a86af",
+    "native/cpufast_winograd_torch.cpp": "408719ee90f974b5afad02dbc55cd46e4c479341ea8f1021a2bb63d26fe786ed",
+    "native/cpufast_fft_torch.cpp": "3389ad332f2d56f09d58011f74976c2df58b3ae586b2d25f3dc87457a6b1026c",
+    "native/cpufast_cooktoom_torch.cpp": "fcf95dc67c8311fbca166b1bcd85f7b4828495862a70964369dfda31c51b4214",
+    "native/cpufast_fft_packed.cpp": "27abcb59f2b225c0f407bba4690168d232c652a43cb763313149f5859bae1996",
+    "native/acl_sgemm_8x12.cpp": "5be9c92b0bee523b1f54f9b65cf4d85445b8fb3c42d331ae35438ae9e05992c5",
+    "native/acl_asmlib.hpp": "9ce1af08a2a6708ed36406a9a61ae8ce2ab220cb9a627d394f619842e7584048",
+    "native/cpufast_finish_torch.cpp": "fc1ca181cb91f614db8aa15498ba269f1f97549a596c04482780ad951201317a"
+  },
+  "library_sha256": "0e430a8e2002e2a3ad2cf36693c2526234f1b0dde2c4b49aca69025016a12fd5"
+}

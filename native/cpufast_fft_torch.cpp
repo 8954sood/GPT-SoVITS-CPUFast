@@ -31,3 +31,13 @@ static at::Tensor fft_combine(const at::Tensor& x) {
 }
 TORCH_LIBRARY_FRAGMENT(cpufast_cpp,m){m.def("fft_split(Tensor input) -> Tensor");m.def("fft_combine(Tensor products) -> Tensor");}
 TORCH_LIBRARY_IMPL(cpufast_cpp,CPU,m){m.impl("fft_split",TORCH_FN(fft_split));m.impl("fft_combine",TORCH_FN(fft_combine));}
+static at::Tensor fft_combine_layout(const at::Tensor& x,int64_t batch) {
+ TORCH_CHECK(x.device().is_cpu() && x.scalar_type()==at::kFloat && x.dim()==3 && x.is_contiguous() && x.size(0)%3==0 && batch>0 && x.size(2)%batch==0,"Invalid FFT products");
+ const auto freq=x.size(0)/3,channels=x.size(1),rows=x.size(2),blocks=rows/batch,count=freq*channels*rows;
+ auto y=at::empty({batch,channels,blocks,freq},x.options().dtype(at::kComplexFloat));auto a=x.const_data_ptr<float>();auto b=a+count;auto c=b+count;auto out=y.mutable_data_ptr<c10::complex<float>>();
+ for(int64_t n=0;n<batch;++n)for(int64_t ch=0;ch<channels;++ch)for(int64_t m0=0;m0<blocks;m0+=16)for(int64_t f0=0;f0<freq;f0+=16)
+  for(int64_t m=m0;m<std::min(blocks,m0+16);++m)for(int64_t f=f0;f<std::min(freq,f0+16);++f){auto i=(f*channels+ch)*rows+n*blocks+m;out[((n*channels+ch)*blocks+m)*freq+f]={a[i]-b[i],(c[i]-a[i])-b[i]};}
+ return y;
+}
+TORCH_LIBRARY_FRAGMENT(cpufast_cpp,m){m.def("fft_combine_layout(Tensor products, int batch) -> Tensor");}
+TORCH_LIBRARY_IMPL(cpufast_cpp,CPU,m){m.impl("fft_combine_layout",TORCH_FN(fft_combine_layout));}

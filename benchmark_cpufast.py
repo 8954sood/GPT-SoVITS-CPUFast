@@ -71,7 +71,16 @@ def main():
         default="original",
     )
     parser.add_argument("--compare-pcm", type=Path)
-    parser.add_argument("--engine", action="store_true", help="Use the optimized engine factory")
+    parser.add_argument("--packed-fft", action="store_true")
+    parser.add_argument("--fused-finish", action="store_true")
+    parser.add_argument("--head-major", action="store_true")
+    parser.add_argument("--cook-phase", action="store_true")
+    parser.add_argument("--cook-resblock", type=int, choices=[0, 6, 8], default=0)
+    parser.add_argument("--fft-layout", action="store_true")
+    parser.add_argument("--native-attention", action="store_true")
+    parser.add_argument(
+        "--engine", action="store_true", help="Use the optimized engine factory"
+    )
     parser.add_argument("--native-predictor", action="store_true")
     parser.add_argument("--inference-mode", action="store_true")
     parser.add_argument("--fused-fft", action="store_true")
@@ -122,7 +131,16 @@ def main():
         from cpufast_engine import optimize
 
         start_install = time.perf_counter()
-        runtime = optimize(pipeline)
+        runtime = optimize(
+            pipeline,
+            native_attention=args.native_attention,
+            head_major=args.head_major,
+            cook_phase=args.cook_phase,
+            cook_resblock=args.cook_resblock,
+            fft_layout=args.fft_layout,
+            packed_fft=args.packed_fft,
+            fused_finish=args.fused_finish,
+        )
         ar_install_seconds = 0.0
         packing_seconds = time.perf_counter() - start_install
         ar_audit = runtime.audit["ar_coefficients"]
@@ -261,6 +279,18 @@ def main():
         "fragment_interval": 0.3,
     }
     report = {
+        "experimental_options": {
+            k: getattr(args, k)
+            for k in (
+                "head_major",
+                "cook_phase",
+                "cook_resblock",
+                "fft_layout",
+                "native_attention",
+                "packed_fft",
+                "fused_finish",
+            )
+        },
         "scope": "fixed CPU-quota throughput proxy; not a real N1 measurement",
         "cgroup": cgroup(),
         "inputs": inputs,

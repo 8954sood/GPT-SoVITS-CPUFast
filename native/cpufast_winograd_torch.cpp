@@ -26,13 +26,16 @@ static at::Tensor winograd_input(const at::Tensor& x) {
  }
  return y;
 }
-static at::Tensor winograd_output(const at::Tensor& products,int64_t batch,int64_t dilation,int64_t length,const std::optional<at::Tensor>& bias) {
+static at::Tensor winograd_output(const at::Tensor& products,int64_t batch,int64_t dilation,int64_t length,const std::optional<at::Tensor>& bias,bool activate,const std::optional<at::Tensor>& residual) {
  TORCH_CHECK(products.device().is_cpu() && products.scalar_type()==at::kFloat && products.dim()==3 && products.is_contiguous() && products.size(0)==6,"Invalid Winograd products");
  TORCH_CHECK(batch>0 && dilation>0 && length>0 && products.size(2)%(batch*dilation)==0,"Invalid output geometry");
  const auto channels=products.size(1),tiles=products.size(2)/(batch*dilation),row_size=products.size(2),plane=channels*row_size;
  if(bias)TORCH_CHECK(bias->device().is_cpu() && bias->scalar_type()==at::kFloat && bias->is_contiguous() && bias->numel()==channels,"Invalid bias");
+ if(residual)TORCH_CHECK(residual->device().is_cpu() && residual->scalar_type()==at::kFloat && residual->stride(2)==1 && residual->sizes()==at::IntArrayRef({batch,channels,length}),"Invalid residual");
+ auto rp=residual?residual->const_data_ptr<float>():nullptr;
  auto y=at::empty({batch,channels,length},products.options());auto src=products.const_data_ptr<float>();auto out=y.mutable_data_ptr<float>();const float* bs=bias?bias->const_data_ptr<float>():nullptr;
  for(int64_t b=0;b<batch;++b)for(int64_t c=0;c<channels;++c) {
+  auto rrow=rp?rp+b*residual->stride(0)+c*residual->stride(1):nullptr;
   int64_t first=0;
   if(dilation==1) {
    for(;first+4<=tiles && first*4+15<length;first+=4) {
@@ -44,16 +47,18 @@ static at::Tensor winograd_output(const at::Tensor& products,int64_t batch,int64
     v.val[2]=vaddq_f32(vaddq_f32(m1,m2),vmulq_n_f32(vaddq_f32(m3,m4),4));
     v.val[3]=vaddq_f32(vaddq_f32(vsubq_f32(m1,m2),vmulq_n_f32(vsubq_f32(m3,m4),8)),m5);
     if(bs){auto bias=vdupq_n_f32(bs[c]);for(int j=0;j<4;++j)v.val[j]=vaddq_f32(v.val[j],bias);}
+    if(activate)for(int j=0;j<4;++j)v.val[j]=vbslq_f32(vcgtq_f32(v.val[j],vdupq_n_f32(0)),v.val[j],vmulq_n_f32(v.val[j],0.1f));
+    if(rp){auto r=vld4q_f32(rrow+first*4);for(int j=0;j<4;++j)v.val[j]=vaddq_f32(v.val[j],r.val[j]);}
     vst4q_f32(out+(b*channels+c)*length+first*4,v);
    }
   }
   for(int64_t t=first;t<tiles;++t)for(int64_t r=0;r<dilation;++r) {
    int64_t index=c*row_size+(b*dilation+r)*tiles+t;float m[6];for(int j=0;j<6;++j)m[j]=src[j*plane+index];
    const float v[4]={m[0]+m[1]+m[2]+m[3]+m[4],m[1]-m[2]+2*(m[3]-m[4]),m[1]+m[2]+4*(m[3]+m[4]),m[1]-m[2]+8*(m[3]-m[4])+m[5]};
-   for(int j=0;j<4;++j){auto p=(t*4+j)*dilation+r;if(p<length)out[(b*channels+c)*length+p]=v[j]+(bs?bs[c]:0.f);}
+   for(int j=0;j<4;++j){auto p=(t*4+j)*dilation+r;if(p<length){float value=v[j]+(bs?bs[c]:0.f);if(activate)value=value>0?value:value*0.1f;if(rp)value+=rrow[p];out[(b*channels+c)*length+p]=value;}}
   }
  }
  return y;
 }
-TORCH_LIBRARY_FRAGMENT(cpufast_cpp,m){m.def("winograd_input(Tensor x) -> Tensor");m.def("winograd_output(Tensor products, int batch, int dilation, int length, Tensor? bias) -> Tensor");}
+TORCH_LIBRARY_FRAGMENT(cpufast_cpp,m){m.def("winograd_input(Tensor x) -> Tensor");m.def("winograd_output(Tensor products, int batch, int dilation, int length, Tensor? bias, bool activate=False, Tensor? residual=None) -> Tensor");}
 TORCH_LIBRARY_IMPL(cpufast_cpp,CPU,m){m.impl("winograd_input",TORCH_FN(winograd_input));m.impl("winograd_output",TORCH_FN(winograd_output));}

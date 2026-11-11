@@ -20,7 +20,11 @@ def pack(weight_t: torch.Tensor):
 
 @torch.jit.script
 class CppLosslessBlock:
-    def __init__(self, block: T2SBlock):
+    def __init__(
+        self, block: T2SBlock, native_attention: bool = False, head_major: bool = False
+    ):
+        self.head_major = head_major
+        self.native_attention = native_attention
         self.block = block
         self.qkv = pack(block.qkv_w_t)
         self.out = pack(block.out_w_t)
@@ -35,7 +39,14 @@ class CppLosslessBlock:
         padding: torch.Tensor | None,
         torch_sdpa: bool,
     ):
-        return self.block.process_prompt(x, mask, max_decode_steps, padding, torch_sdpa)
+        x, k, v, length = self.block.process_prompt(
+            x, mask, max_decode_steps, padding, torch_sdpa
+        )
+        if self.head_major and x.shape[0] == 1:
+            b, l, width = k.shape
+            k = k.view(b, l, self.block.num_heads, -1).transpose(1, 2).contiguous()
+            v = v.view(b, l, self.block.num_heads, -1).transpose(1, 2).contiguous()
+        return x, k, v, length
 
     def decode_next_token(
         self,
@@ -55,13 +66,43 @@ class CppLosslessBlock:
             x.contiguous(), self.qkv, b.qkv_b
         ).chunk(3, dim=-1)
         next_len = cache_len + k.shape[1]
-        keys[:, cache_len:next_len] = k
-        values[:, cache_len:next_len] = v
-        q = q.view(1, 1, b.num_heads, -1).transpose(1, 2)
-        k = keys[:, :next_len].view(1, next_len, b.num_heads, -1).transpose(1, 2)
-        v = values[:, :next_len].view(1, next_len, b.num_heads, -1).transpose(1, 2)
-        a = F.scaled_dot_product_attention(q, k, v, ~mask if mask is not None else None)
-        a = a.transpose(1, 2).reshape(1, 1, -1)
+        if self.head_major and keys.dim() == 4:
+            keys[:, :, cache_len:next_len] = k.view(1, 1, b.num_heads, -1).transpose(
+                1, 2
+            )
+            values[:, :, cache_len:next_len] = v.view(1, 1, b.num_heads, -1).transpose(
+                1, 2
+            )
+            a = F.scaled_dot_product_attention(
+                q.view(1, 1, b.num_heads, -1).transpose(1, 2),
+                keys[:, :, :next_len],
+                values[:, :, :next_len],
+                ~mask if mask is not None else None,
+            )
+            a = a.transpose(1, 2).reshape(1, 1, -1)
+        else:
+            keys[:, cache_len:next_len] = k
+            values[:, cache_len:next_len] = v
+            if self.native_attention:
+                a = torch.ops.cpufast_cpp.token_attention(
+                    q, keys, values, next_len, b.num_heads, mask
+                )
+            else:
+                q = q.view(1, 1, b.num_heads, -1).transpose(1, 2)
+                k = (
+                    keys[:, :next_len]
+                    .view(1, next_len, b.num_heads, -1)
+                    .transpose(1, 2)
+                )
+                v = (
+                    values[:, :next_len]
+                    .view(1, next_len, b.num_heads, -1)
+                    .transpose(1, 2)
+                )
+                a = F.scaled_dot_product_attention(
+                    q, k, v, ~mask if mask is not None else None
+                )
+                a = a.transpose(1, 2).reshape(1, 1, -1)
         x = F.layer_norm(
             x
             + torch.ops.cpufast_cpp.lossless_linear(a.contiguous(), self.out, b.out_b),
@@ -126,7 +167,7 @@ class CppLosslessTransformer:
         return x, k_cache, v_cache, cache_len + 1
 
 
-def build(original):
+def build(original, native_attention=False, head_major=False):
     import hashlib
 
     audit = []
@@ -148,7 +189,10 @@ def build(original):
                 {"block": index, "matrix": name, "fp16_roundtrip_exact": exact}
             )
     runtime = CppLosslessTransformer(
-        [CppLosslessBlock(block) for block in original.blocks]
+        [
+            CppLosslessBlock(block, native_attention, head_major)
+            for block in original.blocks
+        ]
     )
     after = hashlib.sha256()
     for cached, block in zip(runtime.blocks, original.blocks):

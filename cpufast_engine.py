@@ -4,7 +4,17 @@ from cpufast_integrity import ar_digest
 from cpufast_optimizations import CPUFastRuntime, install_subpixel, parameter_digest
 
 
-def optimize(pipeline):
+def optimize(
+    pipeline,
+    *,
+    native_attention=False,
+    head_major=False,
+    cook_phase=False,
+    cook_resblock=0,
+    fft_layout=False,
+    packed_fft=False,
+    fused_finish=False,
+):
     """Return a serial engine; every original learned coefficient is preserved.
 
     Instantiate/load the CPUFast TTS pipeline before calling this function.
@@ -32,11 +42,51 @@ def optimize(pipeline):
         "vits_parameters": parameter_digest(pipeline.vits_model),
     }
     # build() fails closed if any coefficient cannot be represented exactly.
-    decoder.t2s_transformer, audit = build(decoder.t2s_transformer)
+    decoder.t2s_transformer, audit = build(
+        decoder.t2s_transformer,
+        native_attention=native_attention,
+        head_major=head_major,
+    )
     decoder.ar_predict_layer = NativePredictor(decoder.ar_predict_layer)
+    if cook_phase:
+        from cpufast_cooktoom import CookToomPhase
+
+        for index, layer in enumerate(pipeline.vits_model.dec.ups):
+            if layer.kernel_size[0] // layer.stride[0] > 1:
+                pipeline.vits_model.dec.ups[index] = CookToomPhase(
+                    layer, m=6 if layer.stride[0] >= 8 else 4, native=True
+                )
     phase = install_subpixel(pipeline.vits_model.dec)
-    fft = install_fft(pipeline.vits_model.dec.resblocks, backend="fused")
+    fft = install_fft(
+        pipeline.vits_model.dec.resblocks, backend="packed" if packed_fft else "fused"
+    )
     winograd = install_winograd(pipeline.vits_model.dec.resblocks, native=True)
+    if fft_layout:
+        from cpufast_fft import FFTConv1d
+
+        for module in pipeline.vits_model.dec.modules():
+            if isinstance(module, FFTConv1d):
+                module.output_layout = True
+    if cook_resblock:
+        from cpufast_cooktoom import CookToomConv1d
+        from cpufast_winograd import WinogradConv1d
+
+        for block in pipeline.vits_model.dec.resblocks:
+            for group in (block.convs1, block.convs2):
+                for index, module in enumerate(group):
+                    if isinstance(module, WinogradConv1d):
+                        group[index] = CookToomConv1d(
+                            module, m=cook_resblock, native=True
+                        )
+    if fused_finish:
+        from cpufast_fused_blocks import install_fused_blocks
+
+        install_fused_blocks(pipeline.vits_model.dec.resblocks)
+        from cpufast_fft import FFTConv1d
+
+        for module in pipeline.vits_model.dec.modules():
+            if isinstance(module, FFTConv1d):
+                module.fused_finish = True
     after = {
         "ar_tensors": ar_digest(decoder.t2s_transformer),
         "ar_parameters": parameter_digest(decoder),

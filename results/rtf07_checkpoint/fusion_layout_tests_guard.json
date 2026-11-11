@@ -1,0 +1,20 @@
+{
+  "command": [
+    "python",
+    "/repo/.experiments/test_fusion_layout.py"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 310620160,
+  "kernel_child_peak_rss_bytes": 311877632,
+  "cpu_seconds": 1.595064,
+  "elapsed_seconds": 2.185356000999491,
+  "average_cpu_cores": 0.7298874871052974,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 189,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}

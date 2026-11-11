@@ -20,3 +20,11 @@ TORCH_LIBRARY(cpufast_cpp, m) {
 TORCH_LIBRARY_IMPL(cpufast_cpp, CPU, m) {
  m.impl("lossless_linear", TORCH_FN(lossless_linear));
 }
+static at::Tensor lossless_linear16(const at::Tensor& x,const at::Tensor& w,const at::Tensor& b){
+ TORCH_CHECK(x.device().is_cpu() && w.device().is_cpu() && b.device().is_cpu() && x.scalar_type()==at::kFloat && w.scalar_type()==at::kHalf && b.scalar_type()==at::kFloat,"CPU FP32 input and exact half cache required");
+ TORCH_CHECK(w.dim()==3 && w.size(2)==16 && w.size(1)%4==0 && x.dim()>0 && x.numel()==w.size(1) && x.size(-1)==w.size(1) && b.numel()==w.size(0)*16 && x.is_contiguous() && w.is_contiguous() && b.is_contiguous(),"Invalid GEMV16 geometry");
+ auto shape=x.sizes().vec();shape.back()=w.size(0)*16;auto y=at::empty(shape,x.options());
+ gemv16(x.const_data_ptr<float>(),reinterpret_cast<const float16_t*>(w.const_data_ptr<at::Half>()),b.const_data_ptr<float>(),y.mutable_data_ptr<float>(),shape.back(),w.size(1));return y;
+}
+TORCH_LIBRARY_FRAGMENT(cpufast_cpp,m){m.def("lossless_linear16(Tensor input, Tensor weight, Tensor bias) -> Tensor");}
+TORCH_LIBRARY_IMPL(cpufast_cpp,CPU,m){m.impl("lossless_linear16",TORCH_FN(lossless_linear16));}

@@ -1,0 +1,20 @@
+{
+  "command": [
+    "python",
+    "/repo/.experiments/probe_long_cook.py"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 1256906752,
+  "kernel_child_peak_rss_bytes": 1256800256,
+  "cpu_seconds": 11.869056,
+  "elapsed_seconds": 16.39919713299969,
+  "average_cpu_cores": 0.7237583586403873,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 1244,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}

@@ -31,9 +31,11 @@ class FFTConv1d(torch.nn.Module):
         self.backend = backend
         self._packed = None
         self._native = None
+        self.output_layout = False
+        self.fused_finish = False
         self.train(original.training)
 
-    def forward(self, x):
+    def forward(self, x, *, activate=False, residual=None):
         if (
             self.training
             or torch.is_grad_enabled()
@@ -45,9 +47,12 @@ class FFTConv1d(torch.nn.Module):
             or self.weight.dtype != torch.float32
             or any(p.is_inference() for p in self.parameters())
         ):
-            return F.conv1d(
+            y = F.conv1d(
                 x, self.weight, self.bias, padding=self.padding, dilation=self.dilation
             )
+            if activate:
+                y = F.leaky_relu(y, 0.1)
+            return y if residual is None else y + residual
         key = tuple(
             (id(p), p._version, p.data_ptr(), p.dtype, p.device)
             for p in self.parameters()
@@ -65,7 +70,7 @@ class FFTConv1d(torch.nn.Module):
                     (self._wr, self._wi, self._ws), dim=0
                 ).contiguous()
                 self._wr = self._wi = self._ws = None
-            elif self.backend == "native":
+            elif self.backend in ("native", "packed"):
                 if w.shape[0] % 12:
                     raise ValueError(
                         "Native spectral GEMM requires output channels divisible by 12"
@@ -82,21 +87,35 @@ class FFTConv1d(torch.nn.Module):
             elif self.backend not in ("torch", "fused"):
                 raise ValueError("Unknown spectral GEMM backend")
             self._key = key
-        padded = F.pad(x, (self.padding, self.padding))
-        output_length = padded.shape[-1] - self.effective_kernel + 1
+        padded_length = x.shape[-1] + 2 * self.padding
+        output_length = padded_length - self.effective_kernel + 1
         if output_length <= 0:
-            return F.conv1d(
-                x, self.weight, self.bias, padding=self.padding, dilation=self.dilation
-            )
-        blocks = (padded.shape[-1] + self.hop - 1) // self.hop
+            raise ValueError("Input is shorter than the effective kernel")
+        blocks = (padded_length + self.hop - 1) // self.hop
         windows = F.pad(
-            padded, (self.effective_kernel - 1, blocks * self.hop - padded.shape[-1])
+            x,
+            (
+                self.padding + self.effective_kernel - 1,
+                self.padding + blocks * self.hop - padded_length,
+            ),
         ).unfold(-1, self.n_fft, self.hop)
         transformed_raw = torch.fft.rfft(windows, n=self.n_fft)
-        if self.backend == "fused":
+        if self.backend == "packed":
+            packed_input = torch.ops.cpufast_cpp.fft_pack(transformed_raw.contiguous())
+            products = torch.ops.cpufast_cpp.fft_packed_gemm(packed_input, self._packed)
+            product = (
+                torch.ops.cpufast_cpp.fft_unpack_layout(products, x.shape[0], blocks)
+                if self.output_layout
+                else torch.ops.cpufast_cpp.fft_unpack(products, x.shape[0] * blocks)
+            )
+        elif self.backend == "fused":
             packed_input = torch.ops.cpufast_cpp.fft_split(transformed_raw.contiguous())
             products = torch.bmm(self._packed, packed_input)
-            product = torch.ops.cpufast_cpp.fft_combine(products)
+            product = (
+                torch.ops.cpufast_cpp.fft_combine_layout(products, x.shape[0])
+                if self.output_layout
+                else torch.ops.cpufast_cpp.fft_combine(products)
+            )
         else:
             transformed = transformed_raw.permute(3, 1, 0, 2).reshape(
                 self.n_fft // 2 + 1, x.shape[1], -1
@@ -110,19 +129,30 @@ class FFTConv1d(torch.nn.Module):
                 b = torch.bmm(self._wi, imag)
                 c = torch.bmm(self._ws, real + imag)
             product = torch.complex(a - b, c - a - b)
-        product = product.reshape(
-            self.n_fft // 2 + 1, self.weight.shape[0], x.shape[0], blocks
-        ).permute(2, 1, 3, 0)
-        output = torch.fft.irfft(product, n=self.n_fft)[
-            ..., self.effective_kernel - 1 :
-        ]
+        if not (self.backend in ("fused", "packed") and self.output_layout):
+            product = product.reshape(
+                self.n_fft // 2 + 1, self.weight.shape[0], x.shape[0], blocks
+            ).permute(2, 1, 3, 0)
+        inverse = torch.fft.irfft(product, n=self.n_fft)
+        if self.fused_finish:
+            return torch.ops.cpufast_cpp.fft_finish(
+                inverse.contiguous(),
+                self.bias,
+                self.effective_kernel,
+                output_length,
+                activate,
+                residual,
+            )
+        output = inverse[..., self.effective_kernel - 1 :]
         output = output.reshape(x.shape[0], self.weight.shape[0], -1)
         output = output[
             ..., self.effective_kernel - 1 : self.effective_kernel - 1 + output_length
         ]
         if self.bias is not None:
             output = output + self.bias[None, :, None]
-        return output
+        if activate:
+            output = F.leaky_relu(output, 0.1)
+        return output if residual is None else output + residual
 
     def _native_mix(self, real, imag):
         if self._native is None:

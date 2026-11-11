@@ -2,6 +2,10 @@
 
 This fork adds an **opt-in** CPU inference engine for GPT-SoVITS V2ProPlus. It is tuned for one measured deployment proxy: Linux ARM64, a 0.7426 CPU cgroup quota (7,426 / 10,000 µs), CPUs 0–1, 8,000,000,000 bytes of memory and no swap. It is not a general performance guarantee and it does not emulate or benchmark a Neoverse N1. Measure again on the actual target. The original CPUFast interfaces remain available; the original project documentation follows below.
 
+## Ongoing RTF 0.7 research
+
+The latest experimental checkpoint reached warmed median RTF **0.849** on the first Japanese sentence (three measured runs). The 0.7 target remains open. These experimental options are not enabled by default and have not received a new listening approval. See [the checkpoint and next steps](docs/RTF07_CHECKPOINT.md) and [raw experiment reports](results/rtf07_checkpoint/). The final NEON input-packing edit is not included in that measured performance claim and requires a fresh rebuild/validation.
+
 ## Results and scope
 
 With the same Japanese reference, inputs, unchanged checkpoints, full HuBERT, FP32 arithmetic, and seed 42, the following warmed results were recorded on a local ARM64 Docker host. Three warmups were excluded and all subsequent measurements were retained. Loading and installation time are separate.

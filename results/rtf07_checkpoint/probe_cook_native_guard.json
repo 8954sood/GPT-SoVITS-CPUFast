@@ -1,0 +1,20 @@
+{
+  "command": [
+    "python",
+    "/repo/.experiments/probe_cook_native.py"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 810209280,
+  "kernel_child_peak_rss_bytes": 810090496,
+  "cpu_seconds": 8.651926999999999,
+  "elapsed_seconds": 12.058218297000167,
+  "average_cpu_cores": 0.7175128851459273,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 942,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}

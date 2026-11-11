@@ -21,7 +21,7 @@ class WinogradConv1d(torch.nn.Module):
         self.native = native
         self.train(original.training)
 
-    def forward(self, x):
+    def forward(self, x, *, activate=False, residual=None):
         if (
             self.training
             or torch.is_grad_enabled()
@@ -33,9 +33,12 @@ class WinogradConv1d(torch.nn.Module):
             or self.weight.dtype != torch.float32
             or any(p.is_inference() for p in self.parameters())
         ):
-            return F.conv1d(
+            y = F.conv1d(
                 x, self.weight, self.bias, padding=self.padding, dilation=self.dilation
             )
+            if activate:
+                y = F.leaky_relu(y, 0.1)
+            return y if residual is None else y + residual
         key = tuple(
             (id(p), p._version, p.data_ptr(), p.dtype, p.device)
             for p in self.parameters()
@@ -65,7 +68,7 @@ class WinogradConv1d(torch.nn.Module):
             transformed = torch.ops.cpufast_cpp.winograd_input(streams.contiguous())
             products = torch.bmm(self._transformed, transformed)
             return torch.ops.cpufast_cpp.winograd_output(
-                products, n, d, desired, self.bias
+                products, n, d, desired, self.bias, activate, residual
             )
         length = streams.shape[-1] - 2
         windows = F.pad(streams, (0, (-length) % 4)).unfold(-1, 6, 4)
@@ -107,7 +110,11 @@ class WinogradConv1d(torch.nn.Module):
             .permute(0, 2, 3, 1)
             .reshape(n, self.weight.shape[0], -1)[..., :desired]
         )
-        return outputs if self.bias is None else outputs + self.bias[None, :, None]
+        if self.bias is not None:
+            outputs = outputs + self.bias[None, :, None]
+        if activate:
+            outputs = F.leaky_relu(outputs, 0.1)
+        return outputs if residual is None else outputs + residual
 
 
 def install_winograd(model, *, native=False):

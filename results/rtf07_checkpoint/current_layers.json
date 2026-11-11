@@ -1,0 +1,982 @@
+[
+  {
+    "name": "ups.2",
+    "class": "PhaseUpsample1d",
+    "shape": [
+      1,
+      192,
+      22720
+    ],
+    "seconds": 0.09240249999947991
+  },
+  {
+    "name": "ups.1",
+    "class": "PhaseUpsample1d",
+    "shape": [
+      1,
+      384,
+      2840
+    ],
+    "seconds": 0.08717029200033721
+  },
+  {
+    "name": "resblocks.5.convs1.2",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      192,
+      22720
+    ],
+    "seconds": 0.0800140419996751
+  },
+  {
+    "name": "resblocks.5.convs2.1",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      192,
+      22720
+    ],
+    "seconds": 0.07520579100037139
+  },
+  {
+    "name": "resblocks.5.convs1.1",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      192,
+      22720
+    ],
+    "seconds": 0.07261891699999978
+  },
+  {
+    "name": "resblocks.5.convs2.0",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      192,
+      22720
+    ],
+    "seconds": 0.07116025000050286
+  },
+  {
+    "name": "resblocks.2.convs1.2",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      384,
+      2840
+    ],
+    "seconds": 0.06906020899987197
+  },
+  {
+    "name": "resblocks.5.convs2.2",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      192,
+      22720
+    ],
+    "seconds": 0.06726229099967895
+  },
+  {
+    "name": "resblocks.5.convs1.0",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      192,
+      22720
+    ],
+    "seconds": 0.06551191700054915
+  },
+  {
+    "name": "resblocks.4.convs2.2",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      192,
+      22720
+    ],
+    "seconds": 0.061986958999113995
+  },
+  {
+    "name": "resblocks.4.convs2.0",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      192,
+      22720
+    ],
+    "seconds": 0.061502249999648484
+  },
+  {
+    "name": "resblocks.4.convs1.1",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      192,
+      22720
+    ],
+    "seconds": 0.06016337500022928
+  },
+  {
+    "name": "resblocks.4.convs1.2",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      192,
+      22720
+    ],
+    "seconds": 0.05848516700007167
+  },
+  {
+    "name": "resblocks.10.convs2.1",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      48,
+      90880
+    ],
+    "seconds": 0.0584301669996421
+  },
+  {
+    "name": "resblocks.10.convs1.2",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      48,
+      90880
+    ],
+    "seconds": 0.05831420899994555
+  },
+  {
+    "name": "resblocks.4.convs1.0",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      192,
+      22720
+    ],
+    "seconds": 0.05661104200044065
+  },
+  {
+    "name": "resblocks.4.convs2.1",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      192,
+      22720
+    ],
+    "seconds": 0.05655741700047656
+  },
+  {
+    "name": "resblocks.2.convs2.0",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      384,
+      2840
+    ],
+    "seconds": 0.054720666999855894
+  },
+  {
+    "name": "resblocks.7.convs1.0",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      96,
+      45440
+    ],
+    "seconds": 0.05428079099965544
+  },
+  {
+    "name": "resblocks.1.convs2.2",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      384,
+      2840
+    ],
+    "seconds": 0.05320199999914621
+  },
+  {
+    "name": "resblocks.2.convs2.2",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      384,
+      2840
+    ],
+    "seconds": 0.05292433400063601
+  },
+  {
+    "name": "resblocks.8.convs1.2",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      96,
+      45440
+    ],
+    "seconds": 0.05142954100028874
+  },
+  {
+    "name": "resblocks.1.convs2.0",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      384,
+      2840
+    ],
+    "seconds": 0.05002112500005751
+  },
+  {
+    "name": "resblocks.2.convs2.1",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      384,
+      2840
+    ],
+    "seconds": 0.04990287500004342
+  },
+  {
+    "name": "ups.0",
+    "class": "PhaseUpsample1d",
+    "shape": [
+      1,
+      768,
+      284
+    ],
+    "seconds": 0.04921666600057506
+  },
+  {
+    "name": "resblocks.1.convs1.2",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      384,
+      2840
+    ],
+    "seconds": 0.04728274999979476
+  },
+  {
+    "name": "resblocks.7.convs1.1",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      96,
+      45440
+    ],
+    "seconds": 0.04681337500005611
+  },
+  {
+    "name": "resblocks.7.convs1.2",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      96,
+      45440
+    ],
+    "seconds": 0.045435332999659295
+  },
+  {
+    "name": "resblocks.8.convs2.2",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      96,
+      45440
+    ],
+    "seconds": 0.04528933300025528
+  },
+  {
+    "name": "resblocks.1.convs1.0",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      384,
+      2840
+    ],
+    "seconds": 0.04473441699974501
+  },
+  {
+    "name": "resblocks.3.convs1.1",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      192,
+      22720
+    ],
+    "seconds": 0.04400549999991199
+  },
+  {
+    "name": "resblocks.3.convs2.1",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      192,
+      22720
+    ],
+    "seconds": 0.04359949999980017
+  },
+  {
+    "name": "resblocks.7.convs2.1",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      96,
+      45440
+    ],
+    "seconds": 0.043418084000222734
+  },
+  {
+    "name": "resblocks.8.convs1.1",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      96,
+      45440
+    ],
+    "seconds": 0.042582958000821236
+  },
+  {
+    "name": "resblocks.10.convs1.1",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      48,
+      90880
+    ],
+    "seconds": 0.04219612499946379
+  },
+  {
+    "name": "resblocks.7.convs2.0",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      96,
+      45440
+    ],
+    "seconds": 0.041604249999181775
+  },
+  {
+    "name": "resblocks.10.convs2.2",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      48,
+      90880
+    ],
+    "seconds": 0.0403434580002795
+  },
+  {
+    "name": "resblocks.3.convs1.2",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      192,
+      22720
+    ],
+    "seconds": 0.03942425000059302
+  },
+  {
+    "name": "resblocks.10.convs1.0",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      48,
+      90880
+    ],
+    "seconds": 0.03908716600017215
+  },
+  {
+    "name": "resblocks.3.convs2.2",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      192,
+      22720
+    ],
+    "seconds": 0.03870383299999958
+  },
+  {
+    "name": "resblocks.10.convs2.0",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      48,
+      90880
+    ],
+    "seconds": 0.03780300000016723
+  },
+  {
+    "name": "resblocks.11.convs1.2",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      48,
+      90880
+    ],
+    "seconds": 0.0376866250007879
+  },
+  {
+    "name": "resblocks.8.convs2.0",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      96,
+      45440
+    ],
+    "seconds": 0.037442583000483864
+  },
+  {
+    "name": "resblocks.8.convs2.1",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      96,
+      45440
+    ],
+    "seconds": 0.03721037500054081
+  },
+  {
+    "name": "resblocks.7.convs2.2",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      96,
+      45440
+    ],
+    "seconds": 0.0369204170001467
+  },
+  {
+    "name": "resblocks.8.convs1.0",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      96,
+      45440
+    ],
+    "seconds": 0.036529457999677106
+  },
+  {
+    "name": "resblocks.2.convs1.0",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      384,
+      2840
+    ],
+    "seconds": 0.03645349999987957
+  },
+  {
+    "name": "resblocks.3.convs1.0",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      192,
+      22720
+    ],
+    "seconds": 0.03636700000060955
+  },
+  {
+    "name": "resblocks.11.convs1.0",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      48,
+      90880
+    ],
+    "seconds": 0.035704916000213416
+  },
+  {
+    "name": "resblocks.11.convs1.1",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      48,
+      90880
+    ],
+    "seconds": 0.035125459000482806
+  },
+  {
+    "name": "resblocks.3.convs2.0",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      192,
+      22720
+    ],
+    "seconds": 0.03499533300055191
+  },
+  {
+    "name": "resblocks.1.convs2.1",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      384,
+      2840
+    ],
+    "seconds": 0.03436691700062511
+  },
+  {
+    "name": "resblocks.11.convs2.0",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      48,
+      90880
+    ],
+    "seconds": 0.03313245900062611
+  },
+  {
+    "name": "resblocks.11.convs2.1",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      48,
+      90880
+    ],
+    "seconds": 0.03300620799927856
+  },
+  {
+    "name": "resblocks.1.convs1.1",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      384,
+      2840
+    ],
+    "seconds": 0.032832957999744394
+  },
+  {
+    "name": "resblocks.2.convs1.1",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      384,
+      2840
+    ],
+    "seconds": 0.03246887500063167
+  },
+  {
+    "name": "resblocks.14.convs1.2",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      24,
+      181760
+    ],
+    "seconds": 0.031685416999607696
+  },
+  {
+    "name": "resblocks.13.convs1.1",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      24,
+      181760
+    ],
+    "seconds": 0.03105845899972337
+  },
+  {
+    "name": "resblocks.9.convs1.2",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      48,
+      90880
+    ],
+    "seconds": 0.030540583000401966
+  },
+  {
+    "name": "resblocks.11.convs2.2",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      48,
+      90880
+    ],
+    "seconds": 0.029884250000577595
+  },
+  {
+    "name": "resblocks.13.convs1.0",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      24,
+      181760
+    ],
+    "seconds": 0.029620833000080893
+  },
+  {
+    "name": "resblocks.6.convs1.2",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      96,
+      45440
+    ],
+    "seconds": 0.029206082999735372
+  },
+  {
+    "name": "resblocks.6.convs1.1",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      96,
+      45440
+    ],
+    "seconds": 0.029118916000697936
+  },
+  {
+    "name": "resblocks.14.convs2.0",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      24,
+      181760
+    ],
+    "seconds": 0.029082125000059023
+  },
+  {
+    "name": "resblocks.6.convs2.2",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      96,
+      45440
+    ],
+    "seconds": 0.028636082999582868
+  },
+  {
+    "name": "resblocks.13.convs1.2",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      24,
+      181760
+    ],
+    "seconds": 0.02843741700053215
+  },
+  {
+    "name": "resblocks.6.convs1.0",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      96,
+      45440
+    ],
+    "seconds": 0.026612666999426438
+  },
+  {
+    "name": "resblocks.14.convs2.1",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      24,
+      181760
+    ],
+    "seconds": 0.026201958000456216
+  },
+  {
+    "name": "resblocks.13.convs2.1",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      24,
+      181760
+    ],
+    "seconds": 0.02597870800036617
+  },
+  {
+    "name": "resblocks.14.convs1.0",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      24,
+      181760
+    ],
+    "seconds": 0.025505749999865657
+  },
+  {
+    "name": "resblocks.14.convs2.2",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      24,
+      181760
+    ],
+    "seconds": 0.025392833000296378
+  },
+  {
+    "name": "resblocks.9.convs2.2",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      48,
+      90880
+    ],
+    "seconds": 0.025322082999991835
+  },
+  {
+    "name": "resblocks.14.convs1.1",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      24,
+      181760
+    ],
+    "seconds": 0.024872125000001688
+  },
+  {
+    "name": "resblocks.13.convs2.0",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      24,
+      181760
+    ],
+    "seconds": 0.023459125000044878
+  },
+  {
+    "name": "resblocks.13.convs2.2",
+    "class": "FFTConv1d",
+    "shape": [
+      1,
+      24,
+      181760
+    ],
+    "seconds": 0.023196500000267406
+  },
+  {
+    "name": "resblocks.6.convs2.1",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      96,
+      45440
+    ],
+    "seconds": 0.021698874999856343
+  },
+  {
+    "name": "resblocks.9.convs1.0",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      48,
+      90880
+    ],
+    "seconds": 0.021236125000541506
+  },
+  {
+    "name": "resblocks.0.convs1.1",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      384,
+      2840
+    ],
+    "seconds": 0.021002208000027167
+  },
+  {
+    "name": "resblocks.6.convs2.0",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      96,
+      45440
+    ],
+    "seconds": 0.020951125000465254
+  },
+  {
+    "name": "resblocks.0.convs1.0",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      384,
+      2840
+    ],
+    "seconds": 0.020807958999284892
+  },
+  {
+    "name": "resblocks.0.convs2.0",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      384,
+      2840
+    ],
+    "seconds": 0.020750208999743336
+  },
+  {
+    "name": "resblocks.9.convs1.1",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      48,
+      90880
+    ],
+    "seconds": 0.02066366700000799
+  },
+  {
+    "name": "resblocks.0.convs2.2",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      384,
+      2840
+    ],
+    "seconds": 0.02030462500079011
+  },
+  {
+    "name": "resblocks.0.convs2.1",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      384,
+      2840
+    ],
+    "seconds": 0.018969499999911932
+  },
+  {
+    "name": "resblocks.9.convs2.0",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      48,
+      90880
+    ],
+    "seconds": 0.018803625000145985
+  },
+  {
+    "name": "resblocks.9.convs2.1",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      48,
+      90880
+    ],
+    "seconds": 0.018339500999900338
+  },
+  {
+    "name": "conv_post",
+    "class": "PackedConv1d",
+    "shape": [
+      1,
+      24,
+      181760
+    ],
+    "seconds": 0.018240958999740542
+  },
+  {
+    "name": "ups.3",
+    "class": "PhaseUpsample1d",
+    "shape": [
+      1,
+      96,
+      45440
+    ],
+    "seconds": 0.017986040999858233
+  },
+  {
+    "name": "resblocks.0.convs1.2",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      384,
+      2840
+    ],
+    "seconds": 0.017091167000216956
+  },
+  {
+    "name": "ups.4",
+    "class": "PhaseUpsample1d",
+    "shape": [
+      1,
+      48,
+      90880
+    ],
+    "seconds": 0.015685958999711147
+  },
+  {
+    "name": "resblocks.12.convs1.1",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      24,
+      181760
+    ],
+    "seconds": 0.015626749999682943
+  },
+  {
+    "name": "resblocks.12.convs2.0",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      24,
+      181760
+    ],
+    "seconds": 0.011861709000186238
+  },
+  {
+    "name": "resblocks.12.convs1.2",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      24,
+      181760
+    ],
+    "seconds": 0.011389750000489585
+  },
+  {
+    "name": "resblocks.12.convs2.2",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      24,
+      181760
+    ],
+    "seconds": 0.010706582999773673
+  },
+  {
+    "name": "resblocks.12.convs2.1",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      24,
+      181760
+    ],
+    "seconds": 0.010667249999642081
+  },
+  {
+    "name": "resblocks.12.convs1.0",
+    "class": "WinogradConv1d",
+    "shape": [
+      1,
+      24,
+      181760
+    ],
+    "seconds": 0.01028150000001915
+  },
+  {
+    "name": "conv_pre",
+    "class": "PackedConv1d",
+    "shape": [
+      1,
+      192,
+      284
+    ],
+    "seconds": 0.009948208999958297
+  },
+  {
+    "name": "cond",
+    "class": "PackedConv1d",
+    "shape": [
+      1,
+      1024,
+      1
+    ],
+    "seconds": 0.0007058330002109869
+  }
+]
