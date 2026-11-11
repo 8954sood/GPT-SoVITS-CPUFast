@@ -2,6 +2,12 @@
 
 This fork adds an **opt-in** CPU inference engine for GPT-SoVITS V2ProPlus. It is tuned for one measured deployment proxy: Linux ARM64, a 0.7426 CPU cgroup quota (7,426 / 10,000 µs), CPUs 0–1, 8,000,000,000 bytes of memory and no swap. It is not a general performance guarantee and it does not emulate or benchmark a Neoverse N1. Measure again on the actual target. The original CPUFast interfaces remain available; the original project documentation follows below.
 
+## Experimental Neoverse N1 tuning
+
+`optimize(..., ar_threads=2, acoustic_threads=2, tap_small=True)` optionally uses two threads per stage and tap GEMMs for eligible decoder FFT convolutions with up to 48 input channels. The default remains one thread per stage with tap GEMMs off. The native build enables OpenMP for the parallel GEMV and packed FFT kernels; use a compiler and OpenMP runtime available for the target PyTorch environment. Rebuild the source-checked library before testing.
+
+On an actual 2-vCPU Neoverse N1 with an 8,000,000,000-byte container limit and no swap, an experimental `head_major`, `cook_phase`, `fft_layout`, `packed_fft`, `fused_finish` configuration with both thread settings at 2 and `GOMP_SPINCOUNT=100000` produced warmed RTF medians of 1.554 without and 1.508 with tap GEMMs, alternating three runs per variant after one warmup each. The 5.98-second output includes 0.3 seconds of appended silence. On this one Japanese sentence, semantic tokens matched and 25 of 191,360 PCM samples differed by at most one 16-bit unit; a second sentence was checked once. These small, exploratory results do not establish general quality or an RTF below 1. The tap route does not change model weights; FP32 accumulation order can differ. It is an opt-in experiment, not a new default.
+
 ## Ongoing RTF 0.7 research
 
 The latest experimental checkpoint reached warmed median RTF **0.849** on the first Japanese sentence (three measured runs). The 0.7 target remains open. These experimental options are not enabled by default and have not received a new listening approval. See [the checkpoint and next steps](docs/RTF07_CHECKPOINT.md) and [raw experiment reports](results/rtf07_checkpoint/). The final NEON input-packing edit is not included in that measured performance claim and requires a fresh rebuild/validation.

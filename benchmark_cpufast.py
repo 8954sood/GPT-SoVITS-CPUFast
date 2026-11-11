@@ -55,7 +55,7 @@ def main():
     parser.add_argument("--samples", type=int, default=3)
     parser.add_argument("--warmups", type=int, default=1)
     parser.add_argument("--ar-threads", type=int, choices=[1, 2], default=1)
-    parser.add_argument("--threads", type=int, choices=[1, 2], default=2)
+    parser.add_argument("--threads", type=int, choices=[1, 2])
     parser.add_argument(
         "--backend",
         choices=[
@@ -73,6 +73,7 @@ def main():
     parser.add_argument("--compare-pcm", type=Path)
     parser.add_argument("--packed-fft", action="store_true")
     parser.add_argument("--fused-finish", action="store_true")
+    parser.add_argument("--tap-small", action="store_true")
     parser.add_argument("--head-major", action="store_true")
     parser.add_argument("--cook-phase", action="store_true")
     parser.add_argument("--cook-resblock", type=int, choices=[0, 6, 8], default=0)
@@ -90,6 +91,10 @@ def main():
         default="original",
     )
     args = parser.parse_args()
+    if args.threads is None:
+        args.threads = 1 if args.engine else 2
+    if args.tap_small and not args.engine:
+        parser.error("--tap-small requires --engine")
     if (
         args.output.exists()
         or not 1 <= args.samples <= 20
@@ -140,6 +145,9 @@ def main():
             fft_layout=args.fft_layout,
             packed_fft=args.packed_fft,
             fused_finish=args.fused_finish,
+            tap_small=args.tap_small,
+            ar_threads=args.ar_threads,
+            acoustic_threads=args.threads,
         )
         ar_install_seconds = 0.0
         packing_seconds = time.perf_counter() - start_install
@@ -148,7 +156,6 @@ def main():
         fft_replaced = runtime.audit["fft_convolutions"]
         winograd_replaced = runtime.audit["winograd_convolutions"]
         parameters_before = runtime.audit["before"]["vits_parameters"]
-        args.ar_threads = args.threads = 1
         args.backend = "phase_fft_winograd"
         args.ar_layout = "cpp"
         args.native_predictor = args.fused_fft = True
@@ -289,6 +296,7 @@ def main():
                 "native_attention",
                 "packed_fft",
                 "fused_finish",
+                "tap_small",
             )
         },
         "scope": "fixed CPU-quota throughput proxy; not a real N1 measurement",

@@ -14,15 +14,25 @@ def optimize(
     fft_layout=False,
     packed_fft=False,
     fused_finish=False,
+    tap_small=False,
+    ar_threads=1,
+    acoustic_threads=1,
 ):
     """Return a serial engine; every original learned coefficient is preserved.
 
     Instantiate/load the CPUFast TTS pipeline before calling this function.
+    Set ar_threads and acoustic_threads to 1 or 2 for the target CPU.
     Recreate the engine after changing model checkpoints. The native library
     must be built for the installed Linux ARM64 PyTorch version.
     """
+    if ar_threads not in (1, 2) or acoustic_threads not in (1, 2):
+        raise ValueError("Expected one or two CPU threads per stage")
     existing = getattr(pipeline, "_cpufast_engine", None)
     if existing is not None:
+        if (existing.ar_threads, existing.acoustic_threads) != (ar_threads, acoustic_threads):
+            raise ValueError("Recreate the pipeline before changing thread settings")
+        if existing.audit.get("tap_small", False) != tap_small:
+            raise ValueError("Recreate the pipeline before changing tap settings")
         return existing
     if pipeline.configs.version != "v2ProPlus" or pipeline.configs.is_half:
         raise ValueError("This profile requires the FP32 V2ProPlus CPU pipeline")
@@ -87,6 +97,11 @@ def optimize(
         for module in pipeline.vits_model.dec.modules():
             if isinstance(module, FFTConv1d):
                 module.fused_finish = True
+    taps = 0
+    if tap_small:
+        from cpufast_tap import install_small_taps
+
+        taps = install_small_taps(pipeline.vits_model.dec.resblocks)
     after = {
         "ar_tensors": ar_digest(decoder.t2s_transformer),
         "ar_parameters": parameter_digest(decoder),
@@ -94,7 +109,9 @@ def optimize(
     }
     if before != after:
         raise RuntimeError("An authoritative model parameter changed")
-    runtime = CPUFastRuntime(pipeline, ar_threads=1, acoustic_threads=1)
+    runtime = CPUFastRuntime(
+        pipeline, ar_threads=ar_threads, acoustic_threads=acoustic_threads
+    )
     runtime.audit = {
         "profile": "config/cpufast_proxy.json",
         "before": before,
@@ -104,6 +121,8 @@ def optimize(
         "phase_and_layout_replacements": phase,
         "fft_convolutions": fft,
         "winograd_convolutions": winograd,
+        "tap_convolutions": taps,
+        "tap_small": tap_small,
         "arithmetic": "FP32; exact FP16 AR storage cache only",
     }
     pipeline._cpufast_engine = runtime

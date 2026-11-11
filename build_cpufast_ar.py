@@ -33,6 +33,7 @@ def main():
         parser.error("Use Linux ARM64 kernel-build image")
     flags = [
         "-O3",
+        "-fopenmp",
         "-std=c++17",
         "-march=armv8-a",
         "-mtune=neoverse-n1",
