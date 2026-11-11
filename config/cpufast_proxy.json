@@ -1,0 +1,30 @@
+{
+  "source": "https://github.com/baicai-1145/GPT-SoVITS-CPUFast",
+  "revision": "6a5ab49409a4e9e131e6c9d4c1b7ce4ad910fc61",
+  "model": "v2ProPlus",
+  "precision": "FP32 arithmetic; exact-value FP16 AR storage cache after verified roundtrip; no changed checkpoint values",
+  "s1_sha256": "87133414860ea14ff6620c483a3db5ed07b44be42e2c3fcdad65523a729a745a",
+  "s2_sha256": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+  "reference_segment_sha256": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+  "docker_image_id": "sha256:99e8bd4e38242d139bc1a8c21d28d6521ee1f4adb0de7a575887935986240715",
+  "quota_profile": "config/cpufast_proxy.json",
+  "cpu_period_us": 10000,
+  "cpu_quota_us": 7426,
+  "cpuset": "0,1",
+  "memory_bytes": 8000000000,
+  "swap_bytes": 0,
+  "reference_language": "ja",
+  "frontend": "original full HuBERT; non-Chinese zero-BERT path",
+  "scope": "Local fixed-quota throughput proxy; real N1 validation still required",
+  "runtime": {
+    "factory": "cpufast_engine.optimize",
+    "backend": "phase_fft_winograd",
+    "ar_layout": "cpp",
+    "native_predictor": true,
+    "fused_fft": true,
+    "ar_threads": 1,
+    "acoustic_threads": 1,
+    "warmups_for_stable_validation": 3,
+    "ar_cache": "Exact coefficient roundtrip verified for all 96 matrices; original parameters unchanged; FP32 arithmetic"
+  }
+}

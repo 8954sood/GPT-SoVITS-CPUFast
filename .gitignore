@@ -208,3 +208,10 @@ benchmarks
 !GPT_SoVITS/text/g2pw/phrase_overrides_zdic_strict.pkl
 !GPT_SoVITS/text/g2pw/phrase_overrides_hwxnet_idiom.pkl
 OPTIMIZATION_WORKLOG.md
+
+# Locally supplied checkpoints, generated audio and native build manifest
+assets/
+models/
+reference_segment.wav
+libcpufast_ar_torch.so.json
+local-results/

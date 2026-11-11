@@ -1,3 +1,78 @@
+# ARM64 V2ProPlus optimized fork
+
+This fork adds an **opt-in** CPU inference engine for GPT-SoVITS V2ProPlus. It is tuned for one measured deployment proxy: Linux ARM64, a 0.7426 CPU cgroup quota (7,426 / 10,000 µs), CPUs 0–1, 8,000,000,000 bytes of memory and no swap. It is not a general performance guarantee and it does not emulate or benchmark a Neoverse N1. Measure again on the actual target. The original CPUFast interfaces remain available; the original project documentation follows below.
+
+## Results and scope
+
+With the same Japanese reference, inputs, unchanged checkpoints, full HuBERT, FP32 arithmetic, and seed 42, the following warmed results were recorded on a local ARM64 Docker host. Three warmups were excluded and all subsequent measurements were retained. Loading and installation time are separate.
+
+| Run | Warmed median RTF | Individual RTFs |
+| --- | ---: | --- |
+| Previous approved phase/layout runtime, sentence 1 | 1.731 | 1.718, 1.731, 1.735 |
+| Optimized runtime, sentence 1 | 0.883 | 0.883, 0.854, 0.885, 0.878, 0.976 |
+| Optimized runtime, sentence 1, independent repeat | 0.874 | 0.863, 0.856, 0.874, 0.915, 0.884 |
+| Optimized runtime, sentence 2 | 0.936 | 0.936, 0.951, 0.902, 0.900, 0.939 |
+
+RTF is elapsed synthesis time divided by generated audio duration; smaller is faster. The second sentence did not reach the 0.8 range. The cgroup proxy was calibrated against a V5 throughput observation and does not reproduce N1 microarchitecture or stage ratios. Different hardware, text, model, CPU limits, competing workloads or cold starts can change results. Raw timings, cgroup settings, hashes and stage measurements are in [`results/arm64_proxy/`](results/arm64_proxy/) and [`config/cpufast_proxy.json`](config/cpufast_proxy.json). The benchmark used the original non-Chinese zero-BERT path; it skipped loading Chinese BERT and was tested with Japanese inputs.
+
+Relative to the prior approved runtime, both test sentences had matching sample rate and duration; maximum PCM difference was one 16-bit integer step (about 90 dB SNR). The user listened to and accepted the before/after pairs. This does not establish equivalence for all text, voices, or languages.
+
+## What changed
+
+- Serialize access to the mutable pipeline and use one PyTorch intra-op thread for both autoregressive (AR) and acoustic inference under this specific quota.
+- Rewrite decoder transposed convolutions as equivalent phase convolutions and shuffles, and cache convolution layouts.
+- Use overlap-save FFT convolutions and Winograd F(4,3) kernels for selected decoder layers, with fused Linux ARM64 native transforms and FP32 arithmetic.
+- Use a native FP32 AR matrix-vector operator and padded predictor layout. A disposable FP16 **storage cache** is constructed only when every original FP32 coefficient round-trips exactly; arithmetic remains FP32 and the original parameters remain authoritative. Unsupported coefficients fail closed.
+- Verify in-memory AR and acoustic parameter hashes and checkpoint hashes before and after inference. No training, pruning, lossy conversion of model weights, or checkpoint rewriting was performed. Floating-point evaluation order can still change the waveform slightly.
+
+The native operator and caches are specialized to this profile; the optimized engine is not automatically enabled for the original WebUI or API. Changing weights requires creating a fresh pipeline and engine. Keep other inference workloads in separate processes because PyTorch thread settings are process-wide.
+
+## Build and use the optimized engine
+
+Install CPUFast dependencies and obtain the V2ProPlus checkpoints, speaker verification model, full HuBERT and language resources using the upstream setup below. Models and generated audio are not included. On **Linux ARM64**, with the same PyTorch environment used for inference and a C++ compiler, build the native operator from this repository:
+
+```sh
+python build_cpufast_ar.py --output "$PWD/libcpufast_ar_torch.so"
+```
+
+A manifest is written alongside the library. The loader checks the library, source hashes and PyTorch version. Rebuild after changing PyTorch or native source files. `CPUFAST_AR_LIBRARY` can select a different library path.
+
+After constructing a CPU `TTS` pipeline with `v2ProPlus` and `is_half=False`, opt in explicitly:
+
+```python
+import torch
+from cpufast_engine import optimize
+
+# Set once at process startup, before starting parallel PyTorch work.
+torch.set_num_interop_threads(1)
+# pipeline is a fully initialized, evaluation-mode CPUFast TTS instance.
+engine = optimize(pipeline)
+for sample_rate, audio in engine.run(request):
+    pass  # Consume the normal CPUFast audio chunks.
+```
+
+The engine checks the model and parameter hashes during installation. Use `engine.run(...)`, not the original pipeline's `run(...)`, to obtain the serialized scheduling. This engine is experimental; its WebUI/API integration and streaming behavior have not been validated. The benchmark entry point accepts `--engine`; run `python benchmark_cpufast.py --help` for required model and reference paths. Run inside your own Linux ARM64 container with the quota above, appropriate model mounts and available fast-language-detection/OpenJTalk assets. The image used for the recorded experiment was a locally built V5 image, identified by its SHA in the profile, and is not distributed here, so an independently assembled environment may not reproduce identical timing.
+
+For example, with model and reference paths already available inside the container (and `GPT_SoVITS` on `PYTHONPATH`):
+
+```sh
+mkdir -p local-results
+PYTHONPATH="$PWD:$PWD/GPT_SoVITS" python resource_guard.py \
+  --report local-results/guard.json -- python benchmark_cpufast.py \
+  --engine --s1 "$S1_PATH" --s2 "$S2_PATH" --hubert "$HUBERT_DIR" \
+  --reference "$REFERENCE_WAV" --prompt-text "$PROMPT_TEXT" \
+  --text "$SYNTHESIS_TEXT" --lang ja --warmups 3 --samples 5 \
+  --output local-results/measurement.json
+```
+
+Supply the paths and texts yourself. `resource_guard.py` adds a sampled process-tree watchdog; use Docker cgroup flags as well for the measured hard quota and memory limit. The generated report includes every warmup and measured run. A fresh output filename is required.
+
+## Attribution
+
+Based on [baicai-1145/GPT-SoVITS-CPUFast](https://github.com/baicai-1145/GPT-SoVITS-CPUFast), pinned at `6a5ab49409a4e9e131e6c9d4c1b7ce4ad910fc61`. Original project license and upstream attribution remain in this repository.
+
+---
+
 # GPT-SoVITS CPU Inference Fork
 
 Inference-only GPT-SoVITS fork focused on CPU deployment and CPU-side optimization on Windows, Linux, and macOS.
