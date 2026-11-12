@@ -1,0 +1,34 @@
+{
+  "scope": "Native Linux ARM correctness only; no model/listening/N1 performance approval. W8A8 arithmetic remains approximate.",
+  "test_passed": true,
+  "matrices": [
+    {
+      "input": 512,
+      "output": 1536
+    },
+    {
+      "input": 1536,
+      "output": 512
+    }
+  ],
+  "input_geometry": "Single-token [1,1,K] only; multi-row inputs are rejected by the current native GEMV contract",
+  "threads": [
+    1,
+    2
+  ],
+  "cases": [
+    "zero",
+    "random"
+  ],
+  "weight_pack_roundtrip": "Exact only for the explicitly FP16-representable synthetic FP32 matrices tested",
+  "quantized_reference_tolerance": {
+    "rtol": 1e-05,
+    "atol": 1e-05
+  },
+  "source_weights_bias_unchanged": true,
+  "sources": {
+    "tests/test_variable_ffn_int8.py": "b00eaf159f7cb59d26612e15de6ea7ba316fbab34acf4a13ee90b1f8eb8c7b7c",
+    "cpufast_fast_ar.py": "7673a081ada4657ef3e408fce1d41dcfe566734aacd2e08448e539a9f2277f13",
+    "native/cpufast_fast_int8.cpp": "1e6b496c6547e7f4e27a382de9b52cc5882afd46cb38c5f3040af4fb532e4838"
+  }
+}
