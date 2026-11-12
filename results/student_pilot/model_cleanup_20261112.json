@@ -1,0 +1,840 @@
+{
+  "scope": "Explicit user-authorized obsolete model cleanup in CPUFast+V5. Keep originals/default/current K/R/U and active V recovery/corpus; old approved files require verified immutable HF backups.",
+  "completed": true,
+  "deleted_file_count": 67,
+  "deleted_files": [
+    {
+      "path": "CPUFast/.experiments/student/ar_ffn1536/latest.pt",
+      "reason": "Rejected or unapproved superseded candidate; logs/audio/source retained",
+      "bytes": 225700060,
+      "allocated": 225701888,
+      "device": 16777230,
+      "inode": 99703587,
+      "links": 1,
+      "sha256": "74ce19d3ff201235421737fdedaeb3c9393afe0472543ae325246d38a8a8d1e7"
+    },
+    {
+      "path": "CPUFast/.experiments/student/ar_ffn1536/best.pt",
+      "reason": "Rejected or unapproved superseded candidate; logs/audio/source retained",
+      "bytes": 225706177,
+      "allocated": 225710080,
+      "device": 16777230,
+      "inode": 99703586,
+      "links": 1,
+      "sha256": "68a44fedd54d805fc565c94cd79813c9d8a12f82c374607b2056bee52fccf9ac"
+    },
+    {
+      "path": "CPUFast/.experiments/student/ar_ffn1536_init/initial.pt",
+      "reason": "Rejected or unapproved superseded candidate; logs/audio/source retained",
+      "bytes": 225705601,
+      "allocated": 225705984,
+      "device": 16777230,
+      "inode": 99701736,
+      "links": 1,
+      "sha256": "3492ba57fa7416dd8e085f13ffb6603864e0f0062bb6cceda9b52da9c001ba84"
+    },
+    {
+      "path": "CPUFast/.experiments/student/decoder640/latest.pt",
+      "reason": "Rejected or unapproved superseded candidate; logs/audio/source retained",
+      "bytes": 86439644,
+      "allocated": 86441984,
+      "device": 16777230,
+      "inode": 99632692,
+      "links": 1,
+      "sha256": "3451e4e1fb9e8710ad404545624467158b1573d1faf5fa2d9dc0ce18be874975"
+    },
+    {
+      "path": "CPUFast/.experiments/student/decoder640/best.pt",
+      "reason": "Rejected or unapproved superseded candidate; logs/audio/source retained",
+      "bytes": 86445761,
+      "allocated": 86446080,
+      "device": 16777230,
+      "inode": 99632691,
+      "links": 2,
+      "sha256": "2dde4cf509eccfde08eadf8acbc5277c2c662c72df92dc89f9e0307788b4de91"
+    },
+    {
+      "path": "CPUFast/.experiments/student/decoder640_init/initial.pt",
+      "reason": "Rejected or unapproved superseded candidate; logs/audio/source retained",
+      "bytes": 86446209,
+      "allocated": 86450176,
+      "device": 16777230,
+      "inode": 99624977,
+      "links": 1,
+      "sha256": "ac7e22d237ee7d00119908fc4d0a3bb15788ddfd95fcd1b03d28e09a50a7a6c3"
+    },
+    {
+      "path": "CPUFast/.experiments/student/decoder672/latest.pt",
+      "reason": "Rejected or unapproved superseded candidate; logs/audio/source retained",
+      "bytes": 94974172,
+      "allocated": 94978048,
+      "device": 16777230,
+      "inode": 99655120,
+      "links": 1,
+      "sha256": "02dfb9692064d06fb23443fe6e74c3c33c2fafaaac622078e3a6caf0351558fb"
+    },
+    {
+      "path": "CPUFast/.experiments/student/decoder672/best.pt",
+      "reason": "Rejected or unapproved superseded candidate; logs/audio/source retained",
+      "bytes": 94978177,
+      "allocated": 94982144,
+      "device": 16777230,
+      "inode": 99655106,
+      "links": 2,
+      "sha256": "af710a8f2e0d8e52b0a0d9085e56fe3ebbf5f2267c38470d8939953013de7296"
+    },
+    {
+      "path": "CPUFast/.experiments/student/decoder672_recovery/latest.pt",
+      "reason": "Rejected or unapproved superseded candidate; logs/audio/source retained",
+      "bytes": 94974172,
+      "allocated": 94978048,
+      "device": 16777230,
+      "inode": 99666719,
+      "links": 1,
+      "sha256": "84be8b936c2ff52faa8aeb48b259228147acf25b6833049225944500070b2623"
+    },
+    {
+      "path": "CPUFast/.experiments/student/decoder672_recovery/best.pt",
+      "reason": "Rejected or unapproved superseded candidate; logs/audio/source retained",
+      "bytes": 94978177,
+      "allocated": 94982144,
+      "device": 16777230,
+      "inode": 99666718,
+      "links": 1,
+      "sha256": "242299d6298ba7b7260a186d665b7d666ac86d1284f81ead54bea64c44b2df1d"
+    },
+    {
+      "path": "CPUFast/.experiments/student/decoder672_reconstructed_init/initial.pt",
+      "reason": "Rejected or unapproved superseded candidate; logs/audio/source retained",
+      "bytes": 94985345,
+      "allocated": 94986240,
+      "device": 16777230,
+      "inode": 99639844,
+      "links": 1,
+      "sha256": "3664df874fe7d677800605d612cce53f8a048574e8fecad367a28738ea224004"
+    },
+    {
+      "path": "CPUFast/.experiments/student/ar16_prepared/ar16_initial.pt",
+      "reason": "Rejected or unapproved superseded candidate; logs/audio/source retained",
+      "bytes": 206764722,
+      "allocated": 206766080,
+      "device": 16777230,
+      "inode": 99612673,
+      "links": 1,
+      "sha256": "092239c2887f364cffefab0d6d1fc46d19913b567e263a2d4d18d71be5df727a"
+    },
+    {
+      "path": "CPUFast/.experiments/student/ar18_next/best.pt",
+      "reason": "Rejected or unapproved superseded candidate; logs/audio/source retained",
+      "bytes": 231990145,
+      "allocated": 231993344,
+      "device": 16777230,
+      "inode": 99555920,
+      "links": 1,
+      "sha256": "e541bd9d718bbe6c9b7948fbd3cdf232c6d48f8e5c2403ae0101b1ecfce200a0"
+    },
+    {
+      "path": "CPUFast/.experiments/student/ar_ffn1536_half.pt",
+      "reason": "Rejected candidate snapshot",
+      "bytes": 225708713,
+      "allocated": 225710080,
+      "device": 16777230,
+      "inode": 99703973,
+      "links": 1,
+      "sha256": "7105546f5e4228c61fd390172d518da391ceadb7920208e82960e29887862205"
+    },
+    {
+      "path": "CPUFast/.experiments/student/decoder640_best_snapshot.pt",
+      "reason": "Rejected candidate snapshot",
+      "bytes": 86445761,
+      "allocated": 86446080,
+      "device": 16777230,
+      "inode": 99632691,
+      "links": 2,
+      "sha256": "2dde4cf509eccfde08eadf8acbc5277c2c662c72df92dc89f9e0307788b4de91"
+    },
+    {
+      "path": "CPUFast/.experiments/student/decoder672_best_snapshot.pt",
+      "reason": "Rejected candidate snapshot",
+      "bytes": 94978177,
+      "allocated": 94982144,
+      "device": 16777230,
+      "inode": 99655106,
+      "links": 2,
+      "sha256": "af710a8f2e0d8e52b0a0d9085e56fe3ebbf5f2267c38470d8939953013de7296"
+    },
+    {
+      "path": "CPUFast/.experiments/student/bottleneck48/latest.pt",
+      "reason": "Intermediate training copy; approved exact tensors retained locally and immutable HF backup verified",
+      "bytes": 122881820,
+      "allocated": 122884096,
+      "device": 16777230,
+      "inode": 99681145,
+      "links": 1,
+      "sha256": "39e983e609024987f260a02921fa4fc92c1291995653ab3ff0642587171ac714"
+    },
+    {
+      "path": "CPUFast/.experiments/student/bottleneck48/best.pt",
+      "reason": "Intermediate training copy; approved exact tensors retained locally and immutable HF backup verified",
+      "bytes": 122887873,
+      "allocated": 122888192,
+      "device": 16777230,
+      "inode": 99681143,
+      "links": 1,
+      "sha256": "8515edaf11c26e8a3c9085c3716be1053b088c4888718e07a3db856156b5c768"
+    },
+    {
+      "path": "CPUFast/.experiments/student/bottleneck48_init/initial.pt",
+      "reason": "Intermediate training copy; approved exact tensors retained locally and immutable HF backup verified",
+      "bytes": 122888769,
+      "allocated": 122892288,
+      "device": 16777230,
+      "inode": 99669024,
+      "links": 1,
+      "sha256": "d5fdb7c9ca63ef563893aa986806e275652a60770895012ce4037e845b513e1b"
+    },
+    {
+      "path": "CPUFast/.experiments/student/bottleneck192/latest.pt",
+      "reason": "Intermediate training copy; approved exact tensors retained locally and immutable HF backup verified",
+      "bytes": 121260380,
+      "allocated": 121262080,
+      "device": 16777230,
+      "inode": 99743638,
+      "links": 1,
+      "sha256": "035d679550d340bab1d726419c618bc8f5d2f5d178e7788f4f0b9f03b9773c97"
+    },
+    {
+      "path": "CPUFast/.experiments/student/bottleneck192/best.pt",
+      "reason": "Intermediate training copy; approved exact tensors retained locally and immutable HF backup verified",
+      "bytes": 121266433,
+      "allocated": 121270272,
+      "device": 16777230,
+      "inode": 99743632,
+      "links": 1,
+      "sha256": "755a7ffe2c26fbf715862659ff90254797301a6143226a0f26d6d6120941deab"
+    },
+    {
+      "path": "CPUFast/.experiments/student/bottleneck192_init/initial.pt",
+      "reason": "Intermediate training copy; approved exact tensors retained locally and immutable HF backup verified",
+      "bytes": 121275585,
+      "allocated": 121278464,
+      "device": 16777230,
+      "inode": 99732910,
+      "links": 1,
+      "sha256": "5aef79b725042af683014861d31d53e479684ce4375a2977ed7b0f0735525d49"
+    },
+    {
+      "path": "CPUFast/.experiments/student/listening_g_merged/decoder_student.pt",
+      "reason": "Superseded listening export; approved release backed up",
+      "bytes": 133618217,
+      "allocated": 133619712,
+      "device": 16777230,
+      "inode": 99548907,
+      "links": 1,
+      "sha256": "0bf0914adf69118b837e0257da46adf0e46d5808d827db8fdc7bd0e1cd7310fe"
+    },
+    {
+      "path": "CPUFast/.experiments/student/approved_g_20261112/ar.pt",
+      "reason": "Older approved milestone immutable HF backup verified; current L/K/R/U preserved",
+      "bytes": 257216593,
+      "allocated": 257220608,
+      "device": 16777230,
+      "inode": 99547079,
+      "links": 1,
+      "sha256": "9a8571d454c76875057fc894643fca995e090a7abb7516f023ceefae3ca01e82"
+    },
+    {
+      "path": "CPUFast/.experiments/student/approved_g_20261112/decoder.pt",
+      "reason": "Older approved milestone immutable HF backup verified; current L/K/R/U preserved",
+      "bytes": 133618793,
+      "allocated": 133619712,
+      "device": 16777230,
+      "inode": 99547081,
+      "links": 3,
+      "sha256": "ac54705c303b811bdead74d0f38adac93d320044255e3b5c39da1f8bdf114006"
+    },
+    {
+      "path": "CPUFast/.experiments/student/approved_h2_20261112/ar.pt",
+      "reason": "Older approved milestone immutable HF backup verified; current L/K/R/U preserved",
+      "bytes": 231990337,
+      "allocated": 231993344,
+      "device": 16777230,
+      "inode": 99567439,
+      "links": 2,
+      "sha256": "c251559209da56d06d8d0a633602599fab5d287fcc3119a067ab8829276ed130"
+    },
+    {
+      "path": "CPUFast/.experiments/student/approved_h2_20261112/decoder.pt",
+      "reason": "Older approved milestone immutable HF backup verified; current L/K/R/U preserved",
+      "bytes": 133618793,
+      "allocated": 133619712,
+      "device": 16777230,
+      "inode": 99547081,
+      "links": 3,
+      "sha256": "ac54705c303b811bdead74d0f38adac93d320044255e3b5c39da1f8bdf114006"
+    },
+    {
+      "path": "CPUFast/.experiments/student/approved_h3_20261112/ar.pt",
+      "reason": "Older approved milestone immutable HF backup verified; current L/K/R/U preserved",
+      "bytes": 231975560,
+      "allocated": 231976960,
+      "device": 16777230,
+      "inode": 99584142,
+      "links": 7,
+      "sha256": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335"
+    },
+    {
+      "path": "CPUFast/.experiments/student/approved_h3_20261112/decoder.pt",
+      "reason": "Older approved milestone immutable HF backup verified; current L/K/R/U preserved",
+      "bytes": 133618793,
+      "allocated": 133619712,
+      "device": 16777230,
+      "inode": 99547081,
+      "links": 3,
+      "sha256": "ac54705c303b811bdead74d0f38adac93d320044255e3b5c39da1f8bdf114006"
+    },
+    {
+      "path": "CPUFast/.experiments/student/ar18_features/best.pt",
+      "reason": "Older approved milestone immutable HF backup verified; current L/K/R/U preserved",
+      "bytes": 231990337,
+      "allocated": 231993344,
+      "device": 16777230,
+      "inode": 99567439,
+      "links": 2,
+      "sha256": "c251559209da56d06d8d0a633602599fab5d287fcc3119a067ab8829276ed130"
+    },
+    {
+      "path": "CPUFast/.experiments/student/h3_half/ar.pt",
+      "reason": "Older approved milestone immutable HF backup verified; current L/K/R/U preserved",
+      "bytes": 231975560,
+      "allocated": 231976960,
+      "device": 16777230,
+      "inode": 99584142,
+      "links": 7,
+      "sha256": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335"
+    },
+    {
+      "path": "CPUFast/.experiments/student/hf_verify_r/approved-r-20261112/ar.pt",
+      "reason": "Redundant HF staging or fresh-download verification copy; receipt retained",
+      "bytes": 231975560,
+      "allocated": 231976960,
+      "device": 16777230,
+      "inode": 99686369,
+      "links": 1,
+      "sha256": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335"
+    },
+    {
+      "path": "CPUFast/.experiments/student/hf_verify_r/approved-r-20261112/decoder.pt",
+      "reason": "Redundant HF staging or fresh-download verification copy; receipt retained",
+      "bytes": 122888321,
+      "allocated": 122892288,
+      "device": 16777230,
+      "inode": 99686971,
+      "links": 1,
+      "sha256": "7187fabe5a86913dcb5b88de782e02838c94a052e9ebb0785dc0b234c076a487"
+    },
+    {
+      "path": "CPUFast/.experiments/student/hf_verify_u/approved-u-20261112/ar.pt",
+      "reason": "Redundant HF staging or fresh-download verification copy; receipt retained",
+      "bytes": 231975560,
+      "allocated": 231976960,
+      "device": 16777230,
+      "inode": 99748837,
+      "links": 1,
+      "sha256": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335"
+    },
+    {
+      "path": "CPUFast/.experiments/student/hf_verify_u/approved-u-20261112/decoder.pt",
+      "reason": "Redundant HF staging or fresh-download verification copy; receipt retained",
+      "bytes": 121267585,
+      "allocated": 121270272,
+      "device": 16777230,
+      "inode": 99749860,
+      "links": 1,
+      "sha256": "a707f3e2b01c9c1217af0ea758a02dd1d76329c1950f9b39129532b788016d33"
+    },
+    {
+      "path": "CPUFast/.experiments/student/hf_release_r/approved-r-20261112/ar.pt",
+      "reason": "Redundant HF staging or fresh-download verification copy; receipt retained",
+      "bytes": 231975560,
+      "allocated": 231976960,
+      "device": 16777230,
+      "inode": 99584142,
+      "links": 7,
+      "sha256": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335"
+    },
+    {
+      "path": "CPUFast/.experiments/student/hf_release_r/approved-r-20261112/decoder.pt",
+      "reason": "Redundant HF staging or fresh-download verification copy; receipt retained",
+      "bytes": 122888321,
+      "allocated": 122892288,
+      "device": 16777230,
+      "inode": 99681663,
+      "links": 3,
+      "sha256": "7187fabe5a86913dcb5b88de782e02838c94a052e9ebb0785dc0b234c076a487"
+    },
+    {
+      "path": "CPUFast/.experiments/student/hf_release_u/approved-u-20261112/ar.pt",
+      "reason": "Redundant HF staging or fresh-download verification copy; receipt retained",
+      "bytes": 231975560,
+      "allocated": 231976960,
+      "device": 16777230,
+      "inode": 99584142,
+      "links": 7,
+      "sha256": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335"
+    },
+    {
+      "path": "CPUFast/.experiments/student/hf_release_u/approved-u-20261112/decoder.pt",
+      "reason": "Redundant HF staging or fresh-download verification copy; receipt retained",
+      "bytes": 121267585,
+      "allocated": 121270272,
+      "device": 16777230,
+      "inode": 99748136,
+      "links": 2,
+      "sha256": "a707f3e2b01c9c1217af0ea758a02dd1d76329c1950f9b39129532b788016d33"
+    },
+    {
+      "path": "CPUFast/.experiments/student/K_block_replay/ja_stage3_branch1.pt",
+      "reason": "Completed replay scratch; numerical results and hashes retained",
+      "bytes": 10961338,
+      "allocated": 10964992,
+      "device": 16777230,
+      "inode": 99676438,
+      "links": 1,
+      "sha256": "712ed0f29ad705d3a49e6f1554ba3442990b7b3afa4879b6e7f0815d37bc876e"
+    },
+    {
+      "path": "CPUFast/.experiments/student/K_block_replay/en_stage3_branch1.pt",
+      "reason": "Completed replay scratch; numerical results and hashes retained",
+      "bytes": 10838458,
+      "allocated": 10842112,
+      "device": 16777230,
+      "inode": 99676490,
+      "links": 1,
+      "sha256": "e17dc4aecc5f526542d60c7077d17d9997265f8df318ef3a9db24093dc125cb4"
+    },
+    {
+      "path": "CPUFast/.experiments/student/K_block_replay/ko_stage3_branch1.pt",
+      "reason": "Completed replay scratch; numerical results and hashes retained",
+      "bytes": 10715578,
+      "allocated": 10719232,
+      "device": 16777230,
+      "inode": 99676440,
+      "links": 1,
+      "sha256": "c33a7ad8780e1db67fdf53f4bbcc7a58f5dad2c0891293d203f1476ff63ac605"
+    },
+    {
+      "path": "CPUFast/.experiments/student/K_block_replay/en_stage3_branch2.pt",
+      "reason": "Completed replay scratch; numerical results and hashes retained",
+      "bytes": 11059642,
+      "allocated": 11063296,
+      "device": 16777230,
+      "inode": 99676491,
+      "links": 1,
+      "sha256": "a5ef95d228cb99eec65c131b77ff5e94f3f7bf548985d89f2942540067d54ca5"
+    },
+    {
+      "path": "CPUFast/.experiments/student/K_block_replay/ko_stage3_branch2.pt",
+      "reason": "Completed replay scratch; numerical results and hashes retained",
+      "bytes": 10936762,
+      "allocated": 10940416,
+      "device": 16777230,
+      "inode": 99676441,
+      "links": 1,
+      "sha256": "5177000d2539487c9e1d623e09d8e3558ad41a52c094853cb6aec1e944d6cb13"
+    },
+    {
+      "path": "CPUFast/.experiments/student/K_block_replay/ja_stage3_branch2.pt",
+      "reason": "Completed replay scratch; numerical results and hashes retained",
+      "bytes": 11182522,
+      "allocated": 11186176,
+      "device": 16777230,
+      "inode": 99676439,
+      "links": 1,
+      "sha256": "ebdece90398de188c876ee0e9e6c3605d66e4eb5c496088d05eec0424f375409"
+    },
+    {
+      "path": "CPUFast-worker/.experiments/R192_block_replay/ja_stage1_branch2.pt",
+      "reason": "Worker confirmed completed replay scratch has no active dependency",
+      "bytes": 20309818,
+      "allocated": 20312064,
+      "device": 16777230,
+      "inode": 99738696,
+      "links": 1,
+      "sha256": "1fe0b7e2b82f88de7d48cd6fc2603c6e8fedf8f29f395e51d4b5553626b9a3b0"
+    },
+    {
+      "path": "CPUFast-worker/.experiments/R192_block_replay/en_stage1_branch2.pt",
+      "reason": "Worker confirmed completed replay scratch has no active dependency",
+      "bytes": 20186938,
+      "allocated": 20189184,
+      "device": 16777230,
+      "inode": 99738704,
+      "links": 1,
+      "sha256": "14a50ca7434a2f92755712b104533a44d331c6adffe141656a01c749e30d22e4"
+    },
+    {
+      "path": "CPUFast-worker/.experiments/R192_block_replay/ko_stage1_branch2.pt",
+      "reason": "Worker confirmed completed replay scratch has no active dependency",
+      "bytes": 20064058,
+      "allocated": 20066304,
+      "device": 16777230,
+      "inode": 99738699,
+      "links": 1,
+      "sha256": "b2c00e587becfb49b5c6f2de254d5dd0cd0a1f7ef1c3e3c9ba00b5d1143711ec"
+    },
+    {
+      "path": "V5/data/cfm_quality_full16/student.pt",
+      "reason": "Older approved16 checkpoint verified in immutable HF; default12 preserved",
+      "bytes": 990643537,
+      "allocated": 990646272,
+      "device": 16777230,
+      "inode": 98145573,
+      "links": 2,
+      "sha256": "4eda5417eec114c52de597130ff54ee769d84199dbe048527c0b7bcfe61b6553"
+    },
+    {
+      "path": "V5/data/cfm_quality_full16/best.pt",
+      "reason": "Older approved16 checkpoint verified in immutable HF; default12 preserved",
+      "bytes": 990643537,
+      "allocated": 990646272,
+      "device": 16777230,
+      "inode": 98145573,
+      "links": 2,
+      "sha256": "4eda5417eec114c52de597130ff54ee769d84199dbe048527c0b7bcfe61b6553"
+    },
+    {
+      "path": "V5/data/cfm_quality_full8/student.pt",
+      "reason": "Unapproved superseded8-layer candidate; source/results retained",
+      "bytes": 520410289,
+      "allocated": 520413184,
+      "device": 16777230,
+      "inode": 98323916,
+      "links": 2,
+      "sha256": "2f3eee592c76148f422520f70389823a7321422a0a155578b5fdd834d2041b8b"
+    },
+    {
+      "path": "V5/data/cfm_quality_full8/best.pt",
+      "reason": "Unapproved superseded8-layer candidate; source/results retained",
+      "bytes": 520410289,
+      "allocated": 520413184,
+      "device": 16777230,
+      "inode": 98323916,
+      "links": 2,
+      "sha256": "2f3eee592c76148f422520f70389823a7321422a0a155578b5fdd834d2041b8b"
+    },
+    {
+      "path": "V5/data/vocos_periodic/best.pt",
+      "reason": "Unapproved superseded vocoder student; original default vocoder preserved",
+      "bytes": 55743518,
+      "allocated": 55746560,
+      "device": 16777230,
+      "inode": 98413862,
+      "links": 1,
+      "sha256": "f5efc6e4ea156406d17a03c7bd086b2595f38a96a7e38cfeacfe6cfe5d54db42"
+    },
+    {
+      "path": "V5/data/vocos_log_voice_retry/student.pt",
+      "reason": "Unapproved superseded vocoder student; original default vocoder preserved",
+      "bytes": 55743390,
+      "allocated": 55746560,
+      "device": 16777230,
+      "inode": 98540364,
+      "links": 2,
+      "sha256": "4fe8cd24ad4824849b676244906ea5287430a6f324d9c5bfb9a79c7182bb6406"
+    },
+    {
+      "path": "V5/data/vocos_log_voice_retry/best.pt",
+      "reason": "Unapproved superseded vocoder student; original default vocoder preserved",
+      "bytes": 55743390,
+      "allocated": 55746560,
+      "device": 16777230,
+      "inode": 98540364,
+      "links": 2,
+      "sha256": "4fe8cd24ad4824849b676244906ea5287430a6f324d9c5bfb9a79c7182bb6406"
+    },
+    {
+      "path": "V5/data/vocos_decoder_spectral/best.pt",
+      "reason": "Unapproved superseded vocoder student; original default vocoder preserved",
+      "bytes": 55743326,
+      "allocated": 55746560,
+      "device": 16777230,
+      "inode": 98389105,
+      "links": 1,
+      "sha256": "e5239759a2d1d0b00b6dbbedb5802cb6bca5bd6f406eac81a5e555746e5a5362"
+    },
+    {
+      "path": "V5/data/vocos_decoder_adapted/student.pt",
+      "reason": "Unapproved superseded vocoder student; original default vocoder preserved",
+      "bytes": 53632807,
+      "allocated": 53633024,
+      "device": 16777230,
+      "inode": 98346418,
+      "links": 2,
+      "sha256": "f7972317ddc5166389431aa99eb72de6433797da48037e819e48bfe222b177e8"
+    },
+    {
+      "path": "V5/data/vocos_decoder_adapted/best.pt",
+      "reason": "Unapproved superseded vocoder student; original default vocoder preserved",
+      "bytes": 53632807,
+      "allocated": 53633024,
+      "device": 16777230,
+      "inode": 98346418,
+      "links": 2,
+      "sha256": "f7972317ddc5166389431aa99eb72de6433797da48037e819e48bfe222b177e8"
+    },
+    {
+      "path": "V5/data/vocos_mel_correction/student.pt",
+      "reason": "Unapproved superseded vocoder student; original default vocoder preserved",
+      "bytes": 1587093,
+      "allocated": 1589248,
+      "device": 16777230,
+      "inode": 98334600,
+      "links": 1,
+      "sha256": "a027cbce3804e2d375b5be52764253a2abae2ecbd04ebc8965c00471965b1b27"
+    },
+    {
+      "path": "V5/data/vocos_mel_correction/best.pt",
+      "reason": "Unapproved superseded vocoder student; original default vocoder preserved",
+      "bytes": 1587093,
+      "allocated": 1589248,
+      "device": 16777230,
+      "inode": 98334596,
+      "links": 1,
+      "sha256": "376b0c7bd31e1910fbb3d36e2156087a4034a9aabb1944f738e2c25a6524fcf7"
+    },
+    {
+      "path": "V5/data/cpufast-v2proplus/layer_captures.pt",
+      "reason": "Regenerable old runtime capture; no active/default consumer",
+      "bytes": 1545466914,
+      "allocated": 1545469952,
+      "device": 16777230,
+      "inode": 98815263,
+      "links": 1,
+      "sha256": "c807979a7db5759c1912acdcacd0e39183f0ed8fdb7f89586922b1ddca9f136f"
+    },
+    {
+      "path": "V5/data/ort-probe/linear_1024_2048.onnx",
+      "reason": "Completed synthetic operator export probe, regenerable",
+      "bytes": 8396943,
+      "allocated": 8400896,
+      "device": 16777230,
+      "inode": 97925608,
+      "links": 1,
+      "sha256": "cf85f1df9c59848160f3dd6c0bea67aa1c4d8f304eb5b4cd974444b1a19043d5"
+    },
+    {
+      "path": "V5/data/ort-probe/linear_1024_3072.onnx",
+      "reason": "Completed synthetic operator export probe, regenerable",
+      "bytes": 12595343,
+      "allocated": 12599296,
+      "device": 16777230,
+      "inode": 97925612,
+      "links": 1,
+      "sha256": "70568ff4c8a4c77bac23fd258ead32fab6b8f1d0d3826ba7d22bc0e786cfcfa1"
+    },
+    {
+      "path": "V5/data/ort-probe/linear_2048_1024.onnx",
+      "reason": "Completed synthetic operator export probe, regenerable",
+      "bytes": 8392847,
+      "allocated": 8396800,
+      "device": 16777230,
+      "inode": 97925610,
+      "links": 1,
+      "sha256": "1472c7a8635ba44f5fa26b45848e6749969cd69430d2827fbaf73a6c51656c25"
+    },
+    {
+      "path": "V5/data/ort-probe/linear_1024_3072.pt",
+      "reason": "Completed synthetic operator export probe, regenerable",
+      "bytes": 15186034,
+      "allocated": 15187968,
+      "device": 16777230,
+      "inode": 97925611,
+      "links": 1,
+      "sha256": "d918baf442456282e3882f634c851dbf6290c7696c3ce4acee1d52fba997d22f"
+    },
+    {
+      "path": "V5/data/ort-probe/linear_1024_2048.pt",
+      "reason": "Completed synthetic operator export probe, regenerable",
+      "bytes": 10987634,
+      "allocated": 10989568,
+      "device": 16777230,
+      "inode": 97925607,
+      "links": 1,
+      "sha256": "232728b754e18b12f9af493aaa211e37f1338c7a28fee3395e7ff30819b586b0"
+    },
+    {
+      "path": "V5/data/ort-probe/linear_2048_1024.pt",
+      "reason": "Completed synthetic operator export probe, regenerable",
+      "bytes": 13572210,
+      "allocated": 13574144,
+      "device": 16777230,
+      "inode": 97925609,
+      "links": 1,
+      "sha256": "de2d051d549feddf634d509408084c8ad524de318f9ee287a538e8b26a6d90b9"
+    }
+  ],
+  "logical_unlinked_bytes": 11221893023,
+  "estimated_exclusive_allocated_bytes": 7748890624,
+  "byte_identical_teacher_deduplication": [
+    {
+      "path": ".experiments/student/L_contexts36/teacher_decoder.pt",
+      "bytes": 135345601,
+      "old_allocated": 135348224,
+      "sha256": "c7a82874cb08729641612e73354a82b77a671c67d6fbae4a664e83869dbededf",
+      "canonical": ".experiments/student/bottleneck_contexts72/teacher_decoder.pt"
+    },
+    {
+      "path": ".experiments/student/distill_corpus/teacher_decoder.pt",
+      "bytes": 135345601,
+      "old_allocated": 135348224,
+      "sha256": "c7a82874cb08729641612e73354a82b77a671c67d6fbae4a664e83869dbededf",
+      "canonical": ".experiments/student/bottleneck_contexts72/teacher_decoder.pt"
+    },
+    {
+      "path": ".experiments/student/distill_corpus_v2/teacher_decoder.pt",
+      "bytes": 135345601,
+      "old_allocated": 135348224,
+      "sha256": "c7a82874cb08729641612e73354a82b77a671c67d6fbae4a664e83869dbededf",
+      "canonical": ".experiments/student/bottleneck_contexts72/teacher_decoder.pt"
+    },
+    {
+      "path": ".experiments/student/recovery_corpus36/teacher_decoder.pt",
+      "bytes": 135345601,
+      "old_allocated": 135348224,
+      "sha256": "c7a82874cb08729641612e73354a82b77a671c67d6fbae4a664e83869dbededf",
+      "canonical": ".experiments/student/bottleneck_contexts72/teacher_decoder.pt"
+    }
+  ],
+  "remote_backup_verification": {
+    "scope": "Current immutable private HF metadata/LFS hashes checked before deletion of redundant older local approved checkpoints; previous receipts retain fresh-download verification. No model upload/download or token persistence.",
+    "files": [
+      {
+        "repo": "babihoba/gpt-sovits-v2proplus-arm-students",
+        "revision": "7f23879f3a49617251170746a66c1145f47697eb",
+        "path": "approved-g-20261112/ar.pt",
+        "sha256": "9a8571d454c76875057fc894643fca995e090a7abb7516f023ceefae3ca01e82",
+        "remote_lfs_verified_now": true
+      },
+      {
+        "repo": "babihoba/gpt-sovits-v2proplus-arm-students",
+        "revision": "7f23879f3a49617251170746a66c1145f47697eb",
+        "path": "approved-g-20261112/decoder.pt",
+        "sha256": "ac54705c303b811bdead74d0f38adac93d320044255e3b5c39da1f8bdf114006",
+        "remote_lfs_verified_now": true
+      },
+      {
+        "repo": "babihoba/gpt-sovits-v2proplus-arm-students",
+        "revision": "423984f1ff08206bb0a6f6193f6b06c8da3d2991",
+        "path": "approved-h2-20261112/ar.pt",
+        "sha256": "c251559209da56d06d8d0a633602599fab5d287fcc3119a067ab8829276ed130",
+        "remote_lfs_verified_now": true
+      },
+      {
+        "repo": "babihoba/gpt-sovits-v2proplus-arm-students",
+        "revision": "423984f1ff08206bb0a6f6193f6b06c8da3d2991",
+        "path": "approved-h2-20261112/decoder.pt",
+        "sha256": "ac54705c303b811bdead74d0f38adac93d320044255e3b5c39da1f8bdf114006",
+        "remote_lfs_verified_now": true
+      },
+      {
+        "repo": "babihoba/gpt-sovits-v2proplus-arm-students",
+        "revision": "423984f1ff08206bb0a6f6193f6b06c8da3d2991",
+        "path": "approved-h3-20261112/ar.pt",
+        "sha256": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+        "remote_lfs_verified_now": true
+      },
+      {
+        "repo": "babihoba/gpt-sovits-v2proplus-arm-students",
+        "revision": "423984f1ff08206bb0a6f6193f6b06c8da3d2991",
+        "path": "approved-h3-20261112/decoder.pt",
+        "sha256": "ac54705c303b811bdead74d0f38adac93d320044255e3b5c39da1f8bdf114006",
+        "remote_lfs_verified_now": true
+      },
+      {
+        "repo": "babihoba/gpt-sovits-v2proplus-arm-students",
+        "revision": "475ac97f4a503ea9c6581333c8b936fd5c9f6dcd",
+        "path": "approved-k-20261112/ar.pt",
+        "sha256": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+        "remote_lfs_verified_now": true
+      },
+      {
+        "repo": "babihoba/gpt-sovits-v2proplus-arm-students",
+        "revision": "475ac97f4a503ea9c6581333c8b936fd5c9f6dcd",
+        "path": "approved-k-20261112/decoder.pt",
+        "sha256": "a2fe6478aae00a8a481209f32aba85eab97198cd30aca0ce1ff63d9ec31c3c1d",
+        "remote_lfs_verified_now": true
+      },
+      {
+        "repo": "babihoba/gpt-sovits-v2proplus-arm-students",
+        "revision": "d213cf026d492364950de5077b4c2631fc48e910",
+        "path": "approved-r-20261112/ar.pt",
+        "sha256": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+        "remote_lfs_verified_now": true
+      },
+      {
+        "repo": "babihoba/gpt-sovits-v2proplus-arm-students",
+        "revision": "d213cf026d492364950de5077b4c2631fc48e910",
+        "path": "approved-r-20261112/decoder.pt",
+        "sha256": "7187fabe5a86913dcb5b88de782e02838c94a052e9ebb0785dc0b234c076a487",
+        "remote_lfs_verified_now": true
+      },
+      {
+        "repo": "babihoba/gpt-sovits-v2proplus-arm-students",
+        "revision": "9287f847c7272ba2f45d0bd2a18512abec93a6e1",
+        "path": "approved-u-20261112/ar.pt",
+        "sha256": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+        "remote_lfs_verified_now": true
+      },
+      {
+        "repo": "babihoba/gpt-sovits-v2proplus-arm-students",
+        "revision": "9287f847c7272ba2f45d0bd2a18512abec93a6e1",
+        "path": "approved-u-20261112/decoder.pt",
+        "sha256": "a707f3e2b01c9c1217af0ea758a02dd1d76329c1950f9b39129532b788016d33",
+        "remote_lfs_verified_now": true
+      },
+      {
+        "repo": "babihoba/gpt-sovits-v5-turbo-arm-student-full",
+        "revision": "f43c13991a5edda300a78b52b0d52b0cd9be4b6f",
+        "path": "model.safetensors",
+        "sha256": "eeff1e23654c722b0e50d24172997f3af2127ff6cae3d0b542ce262e0840a4f1",
+        "local_checkpoint_sha256": "4eda5417eec114c52de597130ff54ee769d84199dbe048527c0b7bcfe61b6553",
+        "remote_lfs_verified_now": true
+      }
+    ]
+  },
+  "free_bytes_before": 1504284672,
+  "free_bytes_after": 10854121472,
+  "observed_filesystem_free_increase": 9349836800,
+  "repo_disk_usage_bytes_before": {
+    "GPT-SoVITS-CPUFast": 6541475840,
+    "gpt-sovits-v5-optimization": 9241014272
+  },
+  "repo_disk_usage_bytes_after": {
+    "GPT-SoVITS-CPUFast": 1661489152,
+    "gpt-sovits-v5-optimization": 5891297280
+  },
+  "notes": [
+    "Hardlinks are counted once for exclusive-allocation estimates; logical path sizes are not physical savings.",
+    "Observed filesystem free space can also reflect concurrent application writes.",
+    "Source, JSON logs, small listening audio, original teachers/defaults/current K R U and active V checkpoints/corpus retained."
+  ],
+  "post_cleanup_integrity_checks": {
+    "approved_k_20261112": true,
+    "approved_r_20261112": true,
+    "approved_u_20261112": true,
+    "original_AR_s1_unchanged": true,
+    "original_V2_s2_unchanged": true,
+    "V5_default_student12_unchanged": true,
+    "active_V_initial_exists": true,
+    "active_V_current_checkpoint_exists": true,
+    "training_contexts_retained": true,
+    "canonical_teacher_unchanged": true,
+    "V5_original_s2Gv5turbo.pth": true,
+    "V5_original_vocoder.pth": true,
+    "V5_original_s1v3.ckpt": true,
+    "V5_original_chinese-hubert-base/pytorch_model.bin": true,
+    "V5_original_chinese-hubert-base/config.json": true,
+    "V5_original_chinese-hubert-base/preprocessor_config.json": true
+  }
+}

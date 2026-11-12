@@ -1,3 +1,5 @@
+> **환경 이관 / 2026-11-12:** [인수인계 문서](docs/ENVIRONMENT_HANDOFF.md), [W 시험 상태·운영](docs/W_PREFILL_HANDOFF.md). 이 환경은 일시정지. V 실제 N1 시험은 다음 환경에서 진행합니다.
+
 # ARM64 V2ProPlus optimized fork
 
 This fork adds an **opt-in** CPU inference engine for GPT-SoVITS V2ProPlus. It was initially tuned against a local Linux ARM64 proxy with a 0.7426 CPU cgroup quota and has since been measured and further tuned on the target 2-vCPU Neoverse N1 server with an 8,000,000,000-byte memory limit and no swap. The proxy does not emulate N1 microarchitecture; results are specific to each environment. The original CPUFast interfaces remain available; the original project documentation follows below.

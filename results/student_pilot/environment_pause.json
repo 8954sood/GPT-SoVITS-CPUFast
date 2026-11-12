@@ -1,0 +1,15 @@
+{
+  "state": "paused_for_environment_handoff",
+  "owner_instruction": "이제 바로 인수인계 문서 작성해줘. V 테스트는 거기서 진행하게 여기서는 하지말고.",
+  "v_n1_executed": false,
+  "v_next_environment_only": true,
+  "w_existing_run": 43195474472,
+  "w_source_sha": "b88177079aff850861e5ab3848e190032e369b41",
+  "w_last_observed_status": "in_progress",
+  "new_dispatch_allowed_here": false,
+  "host_tests": {
+    "passed": 63,
+    "skipped_arm_specific": 19
+  },
+  "resume_document": "docs/ENVIRONMENT_HANDOFF.md"
+}

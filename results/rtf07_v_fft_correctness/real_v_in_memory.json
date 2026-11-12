@@ -1,0 +1,1728 @@
+{
+  "scope": "Actual V block/native FFT correctness on training inputs, without PT captures.\n\nReconstruct the existing V checkpoint for inference only. Capture one language's\nfive block inputs in memory, compare raw/fused native execution, then release\nthem. No latency, new student initialization, training or quality claim.\n",
+  "candidate_checkpoint_sha256": "57a50e672f825d4e9f1371be50af5c57f1499f3fef258c6c49113107a96cc866",
+  "parent_decoder_sha256": "7187fabe5a86913dcb5b88de782e02838c94a052e9ebb0785dc0b234c076a487",
+  "training_corpus_sha256": "93fb5d1150656150e615b208d0b23383eaa31aae4065cb43bfd7dc772e28b0dd",
+  "stored_activation_or_parameter_PT_files": 0,
+  "nonselected_R_tensors_including_existing_thin_pairs_exact": true,
+  "cases": [
+    {
+      "language": "ja",
+      "training_context_id": "A_voice0_ja_0",
+      "input_context_sha256": "3f6f6e289205fcd9e0e4af0eb9dcdfccad034000ae833afa545ef6461d09b119",
+      "stage": 0,
+      "original_branch": 1,
+      "input_shape": [
+        1,
+        384,
+        1720
+      ],
+      "output_shape": [
+        1,
+        384,
+        1720
+      ],
+      "geometries": [
+        {
+          "pair": 0,
+          "side": 1,
+          "weight_shape": [
+            240,
+            384,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 128,
+          "hop": 122,
+          "backend": "packed"
+        },
+        {
+          "pair": 0,
+          "side": 2,
+          "weight_shape": [
+            384,
+            240,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 1,
+          "weight_shape": [
+            240,
+            384,
+            7
+          ],
+          "dilation": 3,
+          "n_fft": 128,
+          "hop": 110,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 2,
+          "weight_shape": [
+            384,
+            240,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 1,
+          "weight_shape": [
+            240,
+            384,
+            7
+          ],
+          "dilation": 5,
+          "n_fft": 128,
+          "hop": 98,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 2,
+          "weight_shape": [
+            384,
+            240,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        }
+      ],
+      "checks": [
+        {
+          "threads": 1,
+          "max_abs_error": 0.000274658203125,
+          "finite": true
+        },
+        {
+          "threads": 2,
+          "max_abs_error": 0.000274658203125,
+          "finite": true
+        }
+      ],
+      "fft_modules": 6,
+      "tap_modules": 0,
+      "cache_reuse_and_mutation_invalidation": true,
+      "disposable_parameters_restored_exact": true
+    },
+    {
+      "language": "ja",
+      "training_context_id": "A_voice0_ja_0",
+      "input_context_sha256": "3f6f6e289205fcd9e0e4af0eb9dcdfccad034000ae833afa545ef6461d09b119",
+      "stage": 0,
+      "original_branch": 2,
+      "input_shape": [
+        1,
+        384,
+        1720
+      ],
+      "output_shape": [
+        1,
+        384,
+        1720
+      ],
+      "geometries": [
+        {
+          "pair": 0,
+          "side": 1,
+          "weight_shape": [
+            240,
+            384,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 128,
+          "hop": 118,
+          "backend": "packed"
+        },
+        {
+          "pair": 0,
+          "side": 2,
+          "weight_shape": [
+            384,
+            240,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 1,
+          "weight_shape": [
+            240,
+            384,
+            11
+          ],
+          "dilation": 3,
+          "n_fft": 128,
+          "hop": 98,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 2,
+          "weight_shape": [
+            384,
+            240,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 1,
+          "weight_shape": [
+            240,
+            384,
+            11
+          ],
+          "dilation": 5,
+          "n_fft": 128,
+          "hop": 78,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 2,
+          "weight_shape": [
+            384,
+            240,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        }
+      ],
+      "checks": [
+        {
+          "threads": 1,
+          "max_abs_error": 0.00022125244140625,
+          "finite": true
+        },
+        {
+          "threads": 2,
+          "max_abs_error": 0.00022125244140625,
+          "finite": true
+        }
+      ],
+      "fft_modules": 6,
+      "tap_modules": 0,
+      "cache_reuse_and_mutation_invalidation": true,
+      "disposable_parameters_restored_exact": true
+    },
+    {
+      "language": "ja",
+      "training_context_id": "A_voice0_ja_0",
+      "input_context_sha256": "3f6f6e289205fcd9e0e4af0eb9dcdfccad034000ae833afa545ef6461d09b119",
+      "stage": 1,
+      "original_branch": 1,
+      "input_shape": [
+        1,
+        192,
+        13760
+      ],
+      "output_shape": [
+        1,
+        192,
+        13760
+      ],
+      "geometries": [
+        {
+          "pair": 0,
+          "side": 1,
+          "weight_shape": [
+            120,
+            192,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        },
+        {
+          "pair": 0,
+          "side": 2,
+          "weight_shape": [
+            192,
+            120,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 1,
+          "weight_shape": [
+            120,
+            192,
+            7
+          ],
+          "dilation": 3,
+          "n_fft": 256,
+          "hop": 238,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 2,
+          "weight_shape": [
+            192,
+            120,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 1,
+          "weight_shape": [
+            120,
+            192,
+            7
+          ],
+          "dilation": 5,
+          "n_fft": 256,
+          "hop": 226,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 2,
+          "weight_shape": [
+            192,
+            120,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        }
+      ],
+      "checks": [
+        {
+          "threads": 1,
+          "max_abs_error": 3.814697265625e-05,
+          "finite": true
+        },
+        {
+          "threads": 2,
+          "max_abs_error": 3.814697265625e-05,
+          "finite": true
+        }
+      ],
+      "fft_modules": 6,
+      "tap_modules": 0,
+      "cache_reuse_and_mutation_invalidation": true,
+      "disposable_parameters_restored_exact": true
+    },
+    {
+      "language": "ja",
+      "training_context_id": "A_voice0_ja_0",
+      "input_context_sha256": "3f6f6e289205fcd9e0e4af0eb9dcdfccad034000ae833afa545ef6461d09b119",
+      "stage": 1,
+      "original_branch": 2,
+      "input_shape": [
+        1,
+        192,
+        13760
+      ],
+      "output_shape": [
+        1,
+        192,
+        13760
+      ],
+      "geometries": [
+        {
+          "pair": 0,
+          "side": 1,
+          "weight_shape": [
+            96,
+            192,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 0,
+          "side": 2,
+          "weight_shape": [
+            192,
+            96,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 1,
+          "weight_shape": [
+            120,
+            192,
+            11
+          ],
+          "dilation": 3,
+          "n_fft": 256,
+          "hop": 226,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 2,
+          "weight_shape": [
+            192,
+            120,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 1,
+          "weight_shape": [
+            96,
+            192,
+            11
+          ],
+          "dilation": 5,
+          "n_fft": 256,
+          "hop": 206,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 2,
+          "weight_shape": [
+            192,
+            96,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        }
+      ],
+      "checks": [
+        {
+          "threads": 1,
+          "max_abs_error": 4.00543212890625e-05,
+          "finite": true
+        },
+        {
+          "threads": 2,
+          "max_abs_error": 4.00543212890625e-05,
+          "finite": true
+        }
+      ],
+      "fft_modules": 6,
+      "tap_modules": 0,
+      "cache_reuse_and_mutation_invalidation": true,
+      "disposable_parameters_restored_exact": true
+    },
+    {
+      "language": "ja",
+      "training_context_id": "A_voice0_ja_0",
+      "input_context_sha256": "3f6f6e289205fcd9e0e4af0eb9dcdfccad034000ae833afa545ef6461d09b119",
+      "stage": 2,
+      "original_branch": 2,
+      "input_shape": [
+        1,
+        96,
+        27520
+      ],
+      "output_shape": [
+        1,
+        96,
+        27520
+      ],
+      "geometries": [
+        {
+          "pair": 0,
+          "side": 1,
+          "weight_shape": [
+            60,
+            96,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 0,
+          "side": 2,
+          "weight_shape": [
+            96,
+            60,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 1,
+          "weight_shape": [
+            60,
+            96,
+            11
+          ],
+          "dilation": 3,
+          "n_fft": 256,
+          "hop": 226,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 2,
+          "weight_shape": [
+            96,
+            60,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 1,
+          "weight_shape": [
+            60,
+            96,
+            11
+          ],
+          "dilation": 5,
+          "n_fft": 256,
+          "hop": 206,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 2,
+          "weight_shape": [
+            96,
+            60,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        }
+      ],
+      "checks": [
+        {
+          "threads": 1,
+          "max_abs_error": 5.245208740234375e-06,
+          "finite": true
+        },
+        {
+          "threads": 2,
+          "max_abs_error": 5.245208740234375e-06,
+          "finite": true
+        }
+      ],
+      "fft_modules": 6,
+      "tap_modules": 0,
+      "cache_reuse_and_mutation_invalidation": true,
+      "disposable_parameters_restored_exact": true
+    },
+    {
+      "language": "ko",
+      "training_context_id": "A_voice0_ko_0",
+      "input_context_sha256": "25024fd2a94ac7a264c9df49bd20a5eb7305bb598a6fcd801af1544e5fa96ae9",
+      "stage": 0,
+      "original_branch": 1,
+      "input_shape": [
+        1,
+        384,
+        1680
+      ],
+      "output_shape": [
+        1,
+        384,
+        1680
+      ],
+      "geometries": [
+        {
+          "pair": 0,
+          "side": 1,
+          "weight_shape": [
+            240,
+            384,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 128,
+          "hop": 122,
+          "backend": "packed"
+        },
+        {
+          "pair": 0,
+          "side": 2,
+          "weight_shape": [
+            384,
+            240,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 1,
+          "weight_shape": [
+            240,
+            384,
+            7
+          ],
+          "dilation": 3,
+          "n_fft": 128,
+          "hop": 110,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 2,
+          "weight_shape": [
+            384,
+            240,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 1,
+          "weight_shape": [
+            240,
+            384,
+            7
+          ],
+          "dilation": 5,
+          "n_fft": 128,
+          "hop": 98,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 2,
+          "weight_shape": [
+            384,
+            240,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        }
+      ],
+      "checks": [
+        {
+          "threads": 1,
+          "max_abs_error": 0.0001220703125,
+          "finite": true
+        },
+        {
+          "threads": 2,
+          "max_abs_error": 0.0001220703125,
+          "finite": true
+        }
+      ],
+      "fft_modules": 6,
+      "tap_modules": 0,
+      "cache_reuse_and_mutation_invalidation": true,
+      "disposable_parameters_restored_exact": true
+    },
+    {
+      "language": "ko",
+      "training_context_id": "A_voice0_ko_0",
+      "input_context_sha256": "25024fd2a94ac7a264c9df49bd20a5eb7305bb598a6fcd801af1544e5fa96ae9",
+      "stage": 0,
+      "original_branch": 2,
+      "input_shape": [
+        1,
+        384,
+        1680
+      ],
+      "output_shape": [
+        1,
+        384,
+        1680
+      ],
+      "geometries": [
+        {
+          "pair": 0,
+          "side": 1,
+          "weight_shape": [
+            240,
+            384,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 128,
+          "hop": 118,
+          "backend": "packed"
+        },
+        {
+          "pair": 0,
+          "side": 2,
+          "weight_shape": [
+            384,
+            240,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 1,
+          "weight_shape": [
+            240,
+            384,
+            11
+          ],
+          "dilation": 3,
+          "n_fft": 128,
+          "hop": 98,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 2,
+          "weight_shape": [
+            384,
+            240,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 1,
+          "weight_shape": [
+            240,
+            384,
+            11
+          ],
+          "dilation": 5,
+          "n_fft": 128,
+          "hop": 78,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 2,
+          "weight_shape": [
+            384,
+            240,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        }
+      ],
+      "checks": [
+        {
+          "threads": 1,
+          "max_abs_error": 0.000274658203125,
+          "finite": true
+        },
+        {
+          "threads": 2,
+          "max_abs_error": 0.000274658203125,
+          "finite": true
+        }
+      ],
+      "fft_modules": 6,
+      "tap_modules": 0,
+      "cache_reuse_and_mutation_invalidation": true,
+      "disposable_parameters_restored_exact": true
+    },
+    {
+      "language": "ko",
+      "training_context_id": "A_voice0_ko_0",
+      "input_context_sha256": "25024fd2a94ac7a264c9df49bd20a5eb7305bb598a6fcd801af1544e5fa96ae9",
+      "stage": 1,
+      "original_branch": 1,
+      "input_shape": [
+        1,
+        192,
+        13440
+      ],
+      "output_shape": [
+        1,
+        192,
+        13440
+      ],
+      "geometries": [
+        {
+          "pair": 0,
+          "side": 1,
+          "weight_shape": [
+            120,
+            192,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        },
+        {
+          "pair": 0,
+          "side": 2,
+          "weight_shape": [
+            192,
+            120,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 1,
+          "weight_shape": [
+            120,
+            192,
+            7
+          ],
+          "dilation": 3,
+          "n_fft": 256,
+          "hop": 238,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 2,
+          "weight_shape": [
+            192,
+            120,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 1,
+          "weight_shape": [
+            120,
+            192,
+            7
+          ],
+          "dilation": 5,
+          "n_fft": 256,
+          "hop": 226,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 2,
+          "weight_shape": [
+            192,
+            120,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        }
+      ],
+      "checks": [
+        {
+          "threads": 1,
+          "max_abs_error": 3.457069396972656e-05,
+          "finite": true
+        },
+        {
+          "threads": 2,
+          "max_abs_error": 3.457069396972656e-05,
+          "finite": true
+        }
+      ],
+      "fft_modules": 6,
+      "tap_modules": 0,
+      "cache_reuse_and_mutation_invalidation": true,
+      "disposable_parameters_restored_exact": true
+    },
+    {
+      "language": "ko",
+      "training_context_id": "A_voice0_ko_0",
+      "input_context_sha256": "25024fd2a94ac7a264c9df49bd20a5eb7305bb598a6fcd801af1544e5fa96ae9",
+      "stage": 1,
+      "original_branch": 2,
+      "input_shape": [
+        1,
+        192,
+        13440
+      ],
+      "output_shape": [
+        1,
+        192,
+        13440
+      ],
+      "geometries": [
+        {
+          "pair": 0,
+          "side": 1,
+          "weight_shape": [
+            96,
+            192,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 0,
+          "side": 2,
+          "weight_shape": [
+            192,
+            96,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 1,
+          "weight_shape": [
+            120,
+            192,
+            11
+          ],
+          "dilation": 3,
+          "n_fft": 256,
+          "hop": 226,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 2,
+          "weight_shape": [
+            192,
+            120,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 1,
+          "weight_shape": [
+            96,
+            192,
+            11
+          ],
+          "dilation": 5,
+          "n_fft": 256,
+          "hop": 206,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 2,
+          "weight_shape": [
+            192,
+            96,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        }
+      ],
+      "checks": [
+        {
+          "threads": 1,
+          "max_abs_error": 3.814697265625e-05,
+          "finite": true
+        },
+        {
+          "threads": 2,
+          "max_abs_error": 3.814697265625e-05,
+          "finite": true
+        }
+      ],
+      "fft_modules": 6,
+      "tap_modules": 0,
+      "cache_reuse_and_mutation_invalidation": true,
+      "disposable_parameters_restored_exact": true
+    },
+    {
+      "language": "ko",
+      "training_context_id": "A_voice0_ko_0",
+      "input_context_sha256": "25024fd2a94ac7a264c9df49bd20a5eb7305bb598a6fcd801af1544e5fa96ae9",
+      "stage": 2,
+      "original_branch": 2,
+      "input_shape": [
+        1,
+        96,
+        26880
+      ],
+      "output_shape": [
+        1,
+        96,
+        26880
+      ],
+      "geometries": [
+        {
+          "pair": 0,
+          "side": 1,
+          "weight_shape": [
+            60,
+            96,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 0,
+          "side": 2,
+          "weight_shape": [
+            96,
+            60,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 1,
+          "weight_shape": [
+            60,
+            96,
+            11
+          ],
+          "dilation": 3,
+          "n_fft": 256,
+          "hop": 226,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 2,
+          "weight_shape": [
+            96,
+            60,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 1,
+          "weight_shape": [
+            60,
+            96,
+            11
+          ],
+          "dilation": 5,
+          "n_fft": 256,
+          "hop": 206,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 2,
+          "weight_shape": [
+            96,
+            60,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        }
+      ],
+      "checks": [
+        {
+          "threads": 1,
+          "max_abs_error": 5.4836273193359375e-06,
+          "finite": true
+        },
+        {
+          "threads": 2,
+          "max_abs_error": 5.4836273193359375e-06,
+          "finite": true
+        }
+      ],
+      "fft_modules": 6,
+      "tap_modules": 0,
+      "cache_reuse_and_mutation_invalidation": true,
+      "disposable_parameters_restored_exact": true
+    },
+    {
+      "language": "en",
+      "training_context_id": "A_voice0_en_0",
+      "input_context_sha256": "d49b44db673b66901655b02cafb0fd7252d1987ca8ceee3047d5546b04265fcf",
+      "stage": 0,
+      "original_branch": 1,
+      "input_shape": [
+        1,
+        384,
+        1700
+      ],
+      "output_shape": [
+        1,
+        384,
+        1700
+      ],
+      "geometries": [
+        {
+          "pair": 0,
+          "side": 1,
+          "weight_shape": [
+            240,
+            384,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 128,
+          "hop": 122,
+          "backend": "packed"
+        },
+        {
+          "pair": 0,
+          "side": 2,
+          "weight_shape": [
+            384,
+            240,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 1,
+          "weight_shape": [
+            240,
+            384,
+            7
+          ],
+          "dilation": 3,
+          "n_fft": 128,
+          "hop": 110,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 2,
+          "weight_shape": [
+            384,
+            240,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 1,
+          "weight_shape": [
+            240,
+            384,
+            7
+          ],
+          "dilation": 5,
+          "n_fft": 128,
+          "hop": 98,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 2,
+          "weight_shape": [
+            384,
+            240,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        }
+      ],
+      "checks": [
+        {
+          "threads": 1,
+          "max_abs_error": 0.000213623046875,
+          "finite": true
+        },
+        {
+          "threads": 2,
+          "max_abs_error": 0.000213623046875,
+          "finite": true
+        }
+      ],
+      "fft_modules": 6,
+      "tap_modules": 0,
+      "cache_reuse_and_mutation_invalidation": true,
+      "disposable_parameters_restored_exact": true
+    },
+    {
+      "language": "en",
+      "training_context_id": "A_voice0_en_0",
+      "input_context_sha256": "d49b44db673b66901655b02cafb0fd7252d1987ca8ceee3047d5546b04265fcf",
+      "stage": 0,
+      "original_branch": 2,
+      "input_shape": [
+        1,
+        384,
+        1700
+      ],
+      "output_shape": [
+        1,
+        384,
+        1700
+      ],
+      "geometries": [
+        {
+          "pair": 0,
+          "side": 1,
+          "weight_shape": [
+            240,
+            384,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 128,
+          "hop": 118,
+          "backend": "packed"
+        },
+        {
+          "pair": 0,
+          "side": 2,
+          "weight_shape": [
+            384,
+            240,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 1,
+          "weight_shape": [
+            240,
+            384,
+            11
+          ],
+          "dilation": 3,
+          "n_fft": 128,
+          "hop": 98,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 2,
+          "weight_shape": [
+            384,
+            240,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 1,
+          "weight_shape": [
+            240,
+            384,
+            11
+          ],
+          "dilation": 5,
+          "n_fft": 128,
+          "hop": 78,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 2,
+          "weight_shape": [
+            384,
+            240,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        }
+      ],
+      "checks": [
+        {
+          "threads": 1,
+          "max_abs_error": 0.0003509521484375,
+          "finite": true
+        },
+        {
+          "threads": 2,
+          "max_abs_error": 0.0003509521484375,
+          "finite": true
+        }
+      ],
+      "fft_modules": 6,
+      "tap_modules": 0,
+      "cache_reuse_and_mutation_invalidation": true,
+      "disposable_parameters_restored_exact": true
+    },
+    {
+      "language": "en",
+      "training_context_id": "A_voice0_en_0",
+      "input_context_sha256": "d49b44db673b66901655b02cafb0fd7252d1987ca8ceee3047d5546b04265fcf",
+      "stage": 1,
+      "original_branch": 1,
+      "input_shape": [
+        1,
+        192,
+        13600
+      ],
+      "output_shape": [
+        1,
+        192,
+        13600
+      ],
+      "geometries": [
+        {
+          "pair": 0,
+          "side": 1,
+          "weight_shape": [
+            120,
+            192,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        },
+        {
+          "pair": 0,
+          "side": 2,
+          "weight_shape": [
+            192,
+            120,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 1,
+          "weight_shape": [
+            120,
+            192,
+            7
+          ],
+          "dilation": 3,
+          "n_fft": 256,
+          "hop": 238,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 2,
+          "weight_shape": [
+            192,
+            120,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 1,
+          "weight_shape": [
+            120,
+            192,
+            7
+          ],
+          "dilation": 5,
+          "n_fft": 256,
+          "hop": 226,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 2,
+          "weight_shape": [
+            192,
+            120,
+            7
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 250,
+          "backend": "packed"
+        }
+      ],
+      "checks": [
+        {
+          "threads": 1,
+          "max_abs_error": 3.4332275390625e-05,
+          "finite": true
+        },
+        {
+          "threads": 2,
+          "max_abs_error": 3.4332275390625e-05,
+          "finite": true
+        }
+      ],
+      "fft_modules": 6,
+      "tap_modules": 0,
+      "cache_reuse_and_mutation_invalidation": true,
+      "disposable_parameters_restored_exact": true
+    },
+    {
+      "language": "en",
+      "training_context_id": "A_voice0_en_0",
+      "input_context_sha256": "d49b44db673b66901655b02cafb0fd7252d1987ca8ceee3047d5546b04265fcf",
+      "stage": 1,
+      "original_branch": 2,
+      "input_shape": [
+        1,
+        192,
+        13600
+      ],
+      "output_shape": [
+        1,
+        192,
+        13600
+      ],
+      "geometries": [
+        {
+          "pair": 0,
+          "side": 1,
+          "weight_shape": [
+            96,
+            192,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 0,
+          "side": 2,
+          "weight_shape": [
+            192,
+            96,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 1,
+          "weight_shape": [
+            120,
+            192,
+            11
+          ],
+          "dilation": 3,
+          "n_fft": 256,
+          "hop": 226,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 2,
+          "weight_shape": [
+            192,
+            120,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 1,
+          "weight_shape": [
+            96,
+            192,
+            11
+          ],
+          "dilation": 5,
+          "n_fft": 256,
+          "hop": 206,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 2,
+          "weight_shape": [
+            192,
+            96,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        }
+      ],
+      "checks": [
+        {
+          "threads": 1,
+          "max_abs_error": 4.57763671875e-05,
+          "finite": true
+        },
+        {
+          "threads": 2,
+          "max_abs_error": 4.57763671875e-05,
+          "finite": true
+        }
+      ],
+      "fft_modules": 6,
+      "tap_modules": 0,
+      "cache_reuse_and_mutation_invalidation": true,
+      "disposable_parameters_restored_exact": true
+    },
+    {
+      "language": "en",
+      "training_context_id": "A_voice0_en_0",
+      "input_context_sha256": "d49b44db673b66901655b02cafb0fd7252d1987ca8ceee3047d5546b04265fcf",
+      "stage": 2,
+      "original_branch": 2,
+      "input_shape": [
+        1,
+        96,
+        27200
+      ],
+      "output_shape": [
+        1,
+        96,
+        27200
+      ],
+      "geometries": [
+        {
+          "pair": 0,
+          "side": 1,
+          "weight_shape": [
+            60,
+            96,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 0,
+          "side": 2,
+          "weight_shape": [
+            96,
+            60,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 1,
+          "weight_shape": [
+            60,
+            96,
+            11
+          ],
+          "dilation": 3,
+          "n_fft": 256,
+          "hop": 226,
+          "backend": "packed"
+        },
+        {
+          "pair": 1,
+          "side": 2,
+          "weight_shape": [
+            96,
+            60,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 1,
+          "weight_shape": [
+            60,
+            96,
+            11
+          ],
+          "dilation": 5,
+          "n_fft": 256,
+          "hop": 206,
+          "backend": "packed"
+        },
+        {
+          "pair": 2,
+          "side": 2,
+          "weight_shape": [
+            96,
+            60,
+            11
+          ],
+          "dilation": 1,
+          "n_fft": 256,
+          "hop": 246,
+          "backend": "packed"
+        }
+      ],
+      "checks": [
+        {
+          "threads": 1,
+          "max_abs_error": 6.198883056640625e-06,
+          "finite": true
+        },
+        {
+          "threads": 2,
+          "max_abs_error": 6.198883056640625e-06,
+          "finite": true
+        }
+      ],
+      "fft_modules": 6,
+      "tap_modules": 0,
+      "cache_reuse_and_mutation_invalidation": true,
+      "disposable_parameters_restored_exact": true
+    }
+  ],
+  "source_model_and_files_unchanged": true,
+  "complete": true,
+  "quality_approved": false,
+  "actual_N1_candidate_measured": false,
+  "tolerance": {
+    "rtol": 0.0002,
+    "atol": 0.0002,
+    "note": "Relative plus absolute tolerance; maximum absolute error may exceedatol on nonzero reference values. Not bitwise equality."
+  },
+  "maximum_absolute_error": 0.0003509521484375,
+  "native_checks": 30,
+  "guard": {
+    "exit_code": 0,
+    "violation": null,
+    "memory_limit_bytes": 8000000000
+  },
+  "performance_claim": false,
+  "source_sha256": {
+    "experiments/rtf07/replay_budget_fft_in_memory.py": "0e78d49302514db3eb2730a3907cd763e0da2bbb6a4c1c8949e91d988a4223f0",
+    "cpufast_fft.py": "639e0e2da460a1a90748cb54c3c163d1b6cef4c89761ece591571ba72736e562",
+    "cpufast_tap.py": "18197fb1ec9c29a1e85104489da36f1acc4c3a30455deb70ea6dd6a1c4babd8c",
+    "native/cpufast_fft_packed.cpp": "14701b9b17b9a498ceee4c76a88fbd0d131b6396aa8d37cf6449c239c181dc6a"
+  }
+}

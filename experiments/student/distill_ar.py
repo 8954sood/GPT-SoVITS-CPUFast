@@ -54,14 +54,33 @@ MAPPING = {
 
 
 class ARStudent(torch.nn.Module):
-    def __init__(self, checkpoint, keep):
+    def __init__(self, checkpoint, keep, ffn_keep=None):
         super().__init__()
         cfg = checkpoint["config"]["model"]
         width = cfg["hidden_dim"]
         keep = checked_keep(keep, cfg["n_layer"], "AR keep")
         self.keep = keep
+        sizes = cfg.get("linear_units_by_layer", [cfg["linear_units"]] * cfg["n_layer"])
+        if len(sizes) != cfg["n_layer"] or any(
+            type(n) is not int or n < 1 for n in sizes
+        ):
+            raise ValueError("One positive FFN width per source layer required")
+        ffn_keep = {int(k): v for k, v in (ffn_keep or {}).items()}
+        if not set(ffn_keep).issubset(keep):
+            raise ValueError("FFN selections must refer to retained original layers")
+        self.ffn_keep = {
+            k: checked_keep(v, sizes[k], "FFN intermediate keep")
+            for k, v in ffn_keep.items()
+        }
         self.blocks = torch.nn.ModuleList(
-            [StudentBlock(width, cfg["head"], cfg["linear_units"]) for _ in keep]
+            [
+                StudentBlock(
+                    width,
+                    cfg["head"],
+                    len(self.ffn_keep[old]) if old in self.ffn_keep else sizes[old],
+                )
+                for old in keep
+            ]
         )
         self.predictor = torch.nn.Linear(width, cfg["vocab_size"], bias=False)
         state = checkpoint["weight"]
@@ -75,7 +94,14 @@ class ARStudent(torch.nn.Module):
                             + ("_" if local == "qkv" else ".")
                             + field
                         )
-                        getattr(module, field).copy_(state[key].float())
+                        value = state[key].float()
+                        if old in self.ffn_keep:
+                            indices = list(self.ffn_keep[old])
+                            if local == "ff1":
+                                value = value[indices]
+                            elif local == "ff2" and field == "weight":
+                                value = value[:, indices]
+                        getattr(module, field).copy_(value)
             self.predictor.weight.copy_(state["model.ar_predict_layer.weight"].float())
 
     def forward(self, x, blocked, start):
@@ -98,6 +124,11 @@ class ARStudent(torch.nn.Module):
     def checkpoint(self, teacher):
         cfg = copy.deepcopy(teacher["config"])
         cfg["model"]["n_layer"] = len(self.keep)
+        sizes = [block.ff1.out_features for block in self.blocks]
+        if any(size != cfg["model"]["linear_units"] for size in sizes):
+            cfg["model"]["linear_units_by_layer"] = sizes
+        else:
+            cfg["model"].pop("linear_units_by_layer", None)
         weights = {
             k: v
             for k, v in teacher["weight"].items()
@@ -122,6 +153,7 @@ class ARStudent(torch.nn.Module):
             "weight": weights,
             "student_metadata": {
                 "original_layer_ids": self.keep,
+                "ffn_neuron_keep": {str(k): list(v) for k, v in self.ffn_keep.items()},
                 "training": "teacher-context FP32 distillation",
                 "quality_approved": False,
             },
@@ -170,6 +202,11 @@ def main():
     parser.add_argument("--lr-final-ratio", type=float, default=1.0)
     parser.add_argument("--feature-dir", type=Path)
     parser.add_argument("--feature-weight", type=float, default=0.0)
+    parser.add_argument(
+        "--qat-decode",
+        action="store_true",
+        help="Opt-in FP16/W8A8 semantic-decode training surrogate; default unchanged",
+    )
     args = parser.parse_args()
     if (
         args.output.exists()
@@ -202,12 +239,22 @@ def main():
     teacher = torch.load(
         args.teacher, map_location="cpu", weights_only=False, mmap=True
     )
-    keep = json.loads(args.spec.read_text())["ar_keep"]
-    model = ARStudent(teacher, keep)
+    spec = json.loads(args.spec.read_text())
+    keep = spec["ar_keep"]
+    student_type = ARStudent
+    if args.qat_decode:
+        from experiments.student.quant_aware_ar import QuantAwareARStudent
+
+        student_type = QuantAwareARStudent
+    model = student_type(teacher, keep, ffn_keep=spec.get("ar_ffn_keep"))
     if args.resume:
         resumed = torch.load(args.resume, map_location="cpu", weights_only=False)
         if list(resumed["student_metadata"]["original_layer_ids"]) != keep:
             raise ValueError("Resume original-layer selection mismatch")
+        if resumed["student_metadata"].get("ffn_neuron_keep", {}) != {
+            str(k): list(v) for k, v in model.ffn_keep.items()
+        }:
+            raise ValueError("Resume original FFN neuron selection mismatch")
         model.load_state_dict(ARStudent(resumed, list(range(len(keep)))).state_dict())
     if any(
         p.device.type != "cpu" or p.dtype != torch.float32 for p in model.parameters()
@@ -230,6 +277,7 @@ def main():
         "grad_accum": args.grad_accum,
         "lr_final_ratio": args.lr_final_ratio,
         "feature_weight": args.feature_weight,
+        "qat_decode_surrogate": args.qat_decode,
     }
     feature_manifest = None
     if args.feature_dir:
