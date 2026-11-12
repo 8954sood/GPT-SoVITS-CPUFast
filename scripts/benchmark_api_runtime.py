@@ -34,9 +34,17 @@ def main():
     p.add_argument('--runs', type=int, default=3)
     p.add_argument('--profile', action='store_true')
     p.add_argument('--tap-finish', action='store_true')
+    p.add_argument('--int8-probe',choices=('none','quant-neon','ffn2-rows8'),default='none')
+    p.add_argument('--int8-probe-library',type=Path)
+    p.add_argument('--expected-wait-policy')
+    p.add_argument('--expected-spincount')
+    p.add_argument('--expected-preload')
     p.add_argument('--gc-policy', choices=('default','original','gen0','freeze'), default='default')
     args = p.parse_args()
     assert not args.output.exists()
+    for flag,variable in (('expected_wait_policy','OMP_WAIT_POLICY'),('expected_spincount','GOMP_SPINCOUNT'),('expected_preload','LD_PRELOAD')):
+        expected=getattr(args,flag)
+        if expected is not None and os.environ.get(variable)!=expected:p.error('Actual '+variable+' differs from required policy')
     import torch
     from cpufast_server_engine import Engine, APPROVED_MANIFEST_SHA256
     from cpufast_student_assets import snapshot, sha256
@@ -45,6 +53,16 @@ def main():
     inputs_before = {'s2':sha256(args.s2), 'reference':sha256(args.reference)}
     engine = Engine(SimpleNamespace(manifest=args.manifest, manifest_sha256=APPROVED_MANIFEST_SHA256,
         s2=args.s2, hubert=args.hubert, threads=args.threads, ar_threads=args.ar_threads))
+    probe_audit=None
+    if args.int8_probe!='none':
+        if args.int8_probe_library is None:p.error('Explicit probe library required')
+        from experiments.rtf07.bench_fft_output_tiles import load_probe
+        probe_manifest=load_probe(args.int8_probe_library)
+        replacement='-DCPUFAST_REPLACE_INT8_'+('QUANT_NEON' if args.int8_probe=='quant-neon' else 'FFN2_ROWS8')+'=1'
+        assert replacement in probe_manifest['flags']
+        counter=getattr(torch.ops.cpufast_cpp,'int8_quant_neon_calls' if args.int8_probe=='quant-neon' else 'int8_ffn2_rows8_calls')
+        before_calls=counter()
+        probe_audit={'kind':args.int8_probe,'manifest':probe_manifest,'library_sha256':sha256(args.int8_probe_library)}
     manifest = engine.manifest
     case = next(c for c in manifest['listening_report']['cases'] if c['language']=='ko')
     segments = split_text(case['text'])
@@ -138,6 +156,9 @@ def main():
                 for e in prof.key_averages(group_by_input_shape=True)]}
         finally:
             for owner,name,original in wrapped:setattr(owner,name,original)
+    if probe_audit is not None:
+        probe_audit['actual_calls']=counter()-before_calls
+        assert probe_audit['actual_calls']>0
     native_after={n:sha256(Path(__file__).resolve().parents[1]/n) for n in engine.native_files_sha256}
     assert native_after==engine.native_files_sha256
     assert snapshot(args.manifest)==assets_before
@@ -150,7 +171,7 @@ def main():
         cgroup=cgroup,all_expected_pcm_match=all(r['expected_native_and_wire_pcm_match'] for r in rows),observations=rows,excluded_profile=profile,tap_finish_audit=tap_audit,
         loaded_openmp_libraries=sorted({line.split()[-1] for line in Path('/proc/self/maps').read_text().splitlines() if 'libgomp' in line}),
         process_threads=len(list(Path('/proc/self/task').iterdir())),torch_parallel_info=torch.__config__.parallel_info(),
-        model_files_unchanged=True,original_inputs_unchanged=True,native_files_unchanged=True,
+        int8_probe=probe_audit,model_files_unchanged=True,original_inputs_unchanged=True,native_files_unchanged=True,
         native_files_sha256=native_after,model_input_sha256=engine.input_sha256,
         runtime_source_sha256=engine.source_sha256,manifest_sha256=APPROVED_MANIFEST_SHA256)
     args.output.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
