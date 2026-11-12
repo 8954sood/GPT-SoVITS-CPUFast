@@ -220,3 +220,7 @@ local-results/
 .experiments/
 .venv-research/
 TRANSFER_INDEX.json
+
+# Private uploaded voices and persistent prepared-reference tensors.
+/data/styles/
+*.pcm

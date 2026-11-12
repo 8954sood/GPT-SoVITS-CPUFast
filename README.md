@@ -1,4 +1,4 @@
-> **환경 이관 / 2026-11-12:** [인수인계 문서](docs/ENVIRONMENT_HANDOFF.md), [W 시험 상태·운영](docs/W_PREFILL_HANDOFF.md). 이 환경은 일시정지. V 실제 N1 시험은 다음 환경에서 진행합니다.
+> **현재 상태 / 2026-11-13:** 승인 AR17+C24의 실제 N1 warm 파일 RTF 10회 최댓값은 0.962389입니다. [실측·재현](docs/C24_N1_REPRODUCTION.md), [인수인계](docs/ENVIRONMENT_HANDOFF.md). 영구 스타일·PCM 스트리밍 API는 [SERVER.md](SERVER.md)를 참고하세요.
 
 # ARM64 V2ProPlus optimized fork
 

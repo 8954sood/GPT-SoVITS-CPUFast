@@ -1,0 +1,14 @@
+{
+  "source_project": "gpt-sovits-v5-optimization",
+  "source_git_commit": "fdffe614452d49912fd0b5b83d17b3fc8e7c3b52",
+  "source_working_tree_used": true,
+  "files": {
+    "server.py": "9bf65d8c9d0e2882cf0b7ff420052e552f0c8e5bdd5f29810d45dfa7b8008c40",
+    "style_store.py": "cd38edb28d294ae94e87a223d1b2adccda63665609b3272eab470699a300890f",
+    "streaming_audio.py": "77b3e0dc1745800187251e1393a85d56f77ee54ac33c289fae61527e54e173b5",
+    "stream_client.py": "0141afaff18f5b2b9ec98e63675ac4d8385a8592eb23eed5279e6a9436400a16",
+    "test_server.py": "26e0b0af1bc0cfb322f88348d5d3a81ffbef10951861c6b399f42cf91e47cc96",
+    "requirements-server.txt": "f10f3cbee7cc8053bd7286dc64b6332438651a10c7dbca111c8e0233f25be4a7"
+  },
+  "scope": "API transport, durable styles and regression tests ported from the user-provided working tree. Model runtime is independently adapted to approved CPUFast AR17+C24."
+}
