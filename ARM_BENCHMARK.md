@@ -61,3 +61,10 @@ Model loading and installation remain outside that context, preserving normal
 parameter version counters and the cache-validity checks. Both variants use
 fresh processes, with every warmup/sample recorded. Local checks establish
 correctness only; any performance claim must use the target action.
+
+`mode=runtime` batches an independent original-FP32 baseline, parallel transforms,
+inference mode, and their combination with FFT streaming on both fixed
+sentences. The non-baseline order is reversed for the second sentence. Use
+three excluded warmups and five retained samples for confirmation. Every
+candidate is compared to that sentence's baseline WAV, and the combined RTF is
+measured directly. Individual improvements are not added together.

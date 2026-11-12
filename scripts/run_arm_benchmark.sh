@@ -9,7 +9,7 @@ cpus=${4:-2}
 warmups=${5:-2}
 samples=${6:-3}
 mode=${7:-compare}
-[[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention || "$mode" == small || "$mode" == scheduling || "$mode" == packed48 || "$mode" == fft || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
+[[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention || "$mode" == small || "$mode" == scheduling || "$mode" == packed48 || "$mode" == fft || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference || "$mode" == runtime ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
 project="$bench_root/project"
 assets="$bench_root/cpufast-cefae22/assets/pretrained_models"
 reference="$bench_root/reference_ja_4s.wav"
@@ -103,9 +103,27 @@ if [[ "$mode" == diagnostics ]]; then
   done
   exit 0
 fi
+if [[ "$mode" == runtime ]]; then
+  for index in 0 1; do
+    number=$((index + 1))
+    if (( index == 0 )); then variants=(baseline parallel inference combined); else variants=(baseline combined inference parallel); fi
+    for variant in "${variants[@]}"; do
+      candidate_args=()
+      compare_args=()
+      if [[ "$variant" != baseline ]]; then compare_args=(--compare-pcm "/repo/ci-results/baseline_${number}.wav"); fi
+      if [[ "$variant" == parallel ]]; then candidate_args=(--parallel-transforms); fi
+      if [[ "$variant" == inference ]]; then candidate_args=(--inference-mode); fi
+      if [[ "$variant" == combined ]]; then candidate_args=(--fft-stream --parallel-transforms --inference-mode); fi
+      run_container python resource_guard.py --report "/repo/ci-results/${variant}_${number}_guard.json" -- \
+        python benchmark_cpufast.py "${common[@]}" --tap-small "${candidate_args[@]}" --text "${texts[$index]}" \
+        "${compare_args[@]}" --output "/repo/ci-results/${variant}_${number}.json"
+    done
+  done
+  exit 0
+fi
 for index in 0 1; do
   number=$((index + 1))
-  if [[ "$mode" == attention || "$mode" == packed48 || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference ]]; then
+  if [[ "$mode" == attention || "$mode" == packed48 || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference || "$mode" == runtime ]]; then
     candidate_args=(--native-attention)
     if [[ "$mode" == packed48 ]]; then candidate_args=(--packed-small-48); fi
     if [[ "$mode" == fftcandidate ]]; then candidate_args=(--n1-fft-sizes); fi
@@ -113,7 +131,7 @@ for index in 0 1; do
     if [[ "$mode" == prefetchcandidate ]]; then candidate_args=(--ar-prefetch 256); fi
     if [[ "$mode" == direct3 ]]; then candidate_args=(--n1-small-direct); fi
     if [[ "$mode" == fftstream ]]; then candidate_args=(--fft-stream); fi
-    if [[ "$mode" == transforms || "$mode" == inference ]]; then candidate_args=(--parallel-transforms); fi
+    if [[ "$mode" == transforms || "$mode" == inference || "$mode" == runtime ]]; then candidate_args=(--parallel-transforms); fi
     echo "Benchmarking sentence $number: approved tap and $mode candidate"
     run_container python resource_guard.py --report "/repo/ci-results/tap_${number}_guard.json" -- \
       python benchmark_cpufast.py "${common[@]}" --tap-small --text "${texts[$index]}" \
