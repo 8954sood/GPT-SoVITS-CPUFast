@@ -198,3 +198,63 @@ def ar_phase_ranges(model):
             }
             for (phase, role, name, shapes), count in rows.items()
         ]
+
+
+@contextmanager
+def addmm_matrix_ranges(acoustic, ar_model):
+    """Bounded excluded-only addmm/mm shapes and immutable matrix identities.
+
+    No tensors are retained by the observer. Warmed tap cache slices identify
+    the actual matrix used by addmm.out without global profiler record_shapes.
+    """
+    import time
+
+    identities = {}
+    rows = {}
+
+    def identify(tensor, name):
+        identities.setdefault(tensor.data_ptr(), set()).add(name)
+
+    for name, tensor in acoustic.named_parameters():
+        if tensor.ndim >= 2:
+            identify(tensor, "vits." + name)
+    for name, module in acoustic.named_modules():
+        packed = getattr(module, "_packed", None)
+        if isinstance(packed, torch.Tensor) and packed.ndim == 3:
+            for index in range(packed.shape[0]):
+                identify(packed[index], f"vits.{name}._packed[{index}]")
+    for index, cached in enumerate(ar_model.t2s_transformer.blocks):
+        block = getattr(cached, "block", cached)
+        for role, tensor in (("qkv", block.qkv_w_t), ("out", block.out_w_t),
+                             ("ffn1", block.mlp.w1_t), ("ffn2", block.mlp.w2_t)):
+            identify(tensor, f"AR.prefill.block{index}.{role}")
+
+    class Observe(TorchDispatchMode):
+        def __torch_dispatch__(self, func, types, args=(), kwargs=None):
+            name = str(func)
+            if name not in ("aten.addmm.default", "aten.addmm.out", "aten.mm.default", "aten.mm.out"):
+                return func(*args, **(kwargs or {}))
+            matrices = args[1:3] if name.startswith("aten.addmm") else args[:2]
+            labels = tuple(tuple(sorted(identities.get(x.data_ptr(), ()))) for x in matrices)
+            shapes = tuple(tuple(x.shape) for x in args if isinstance(x, torch.Tensor))
+            key = name, shapes, labels
+            row = rows.setdefault(key, {"calls": 0, "observed_wall_seconds": 0., "observed_process_cpu_seconds": 0.})
+            started, cpu = time.perf_counter(), time.process_time()
+            with torch.profiler.record_function("cpufast_matrix_" + ("|".join(labels[0] + labels[1]) or "unattributed")):
+                result = func(*args, **(kwargs or {}))
+            row["calls"] += 1
+            row["observed_wall_seconds"] += time.perf_counter() - started
+            row["observed_process_cpu_seconds"] += time.process_time() - cpu
+            return result
+
+    metadata = {"scope": "One excluded profile only; additional dispatch/label overhead, no production RTF estimate",
+                "attribution": "Actual AR matrix pointer identity and warmed acoustic parameter/tap-cache slice identity; no tensor retention"}
+    with Observe():
+        try:
+            yield metadata
+        finally:
+            metadata["operators"] = [
+                {"operator": name, "input_shapes": [list(x) for x in shapes],
+                 "lhs_matrix_names": list(labels[0]), "rhs_matrix_names": list(labels[1]), **row}
+                for (name, shapes, labels), row in rows.items()
+            ]

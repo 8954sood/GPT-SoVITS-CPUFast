@@ -5,6 +5,7 @@ the CPUFast checkout, its GPT_SoVITS directory, and optional extra dependencies.
 """
 
 import argparse
+from contextlib import nullcontext
 import functools
 import hashlib
 import json
@@ -97,6 +98,7 @@ def main():
         help="Optional fresh JSON for a separate extra profiled inference (excluded from RTF)",
     )
     parser.add_argument("--profile-no-shapes", action="store_true")
+    parser.add_argument("--profile-matrix-shapes", action="store_true", help="Excluded-only addmm/mm matrix identity and shapes; no global tensor retention")
     parser.add_argument("--head-major", action="store_true")
     parser.add_argument("--cook-phase", action="store_true")
     parser.add_argument("--cook-resblock", type=int, choices=[0, 6, 8], default=0)
@@ -120,6 +122,8 @@ def main():
         default="original",
     )
     args = parser.parse_args()
+    if args.profile_matrix_shapes and args.profile_output is None:
+        parser.error("Matrix diagnostics require a separate excluded profile output")
     if args.prompt_lang is None:
         args.prompt_lang = args.lang
     if bool(args.student_manifest) != bool(args.student_manifest_sha256):
@@ -986,6 +990,7 @@ def main():
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     if args.profile_output is not None:
         from cpufast_profiling import (
+            addmm_matrix_ranges,
             ar_phase_ranges,
             decoder_fft_ranges,
             decoder_tap_ranges,
@@ -1005,6 +1010,8 @@ def main():
                 decoder_tap_ranges(pipeline.vits_model.dec) as tap_metadata,
                 decoder_fft_ranges(pipeline.vits_model.dec) as fft_metadata,
                 ar_phase_ranges(pipeline.t2s_model.model) as ar_phase_metadata,
+                (addmm_matrix_ranges(pipeline.vits_model, pipeline.t2s_model.model)
+                 if args.profile_matrix_shapes else nullcontext(None)) as matrix_metadata,
                 torch.inference_mode(args.inference_mode),
             ):
                 profile_chunks = list(runtime.run(inputs))
@@ -1044,6 +1051,7 @@ def main():
                     "decoder_taps": tap_metadata,
                     "decoder_fft": fft_metadata,
                     "ar_phases": ar_phase_metadata,
+                    "matrix_shapes": matrix_metadata,
                     "profile_output_checks": profile_checks,
                     "operators": sorted(
                         rows, key=lambda row: row["self_cpu_us"], reverse=True

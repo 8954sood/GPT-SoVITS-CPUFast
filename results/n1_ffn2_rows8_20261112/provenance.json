@@ -1,0 +1,26 @@
+{
+  "scope": "Actual N1 shape-only FFN2 row8 primitive and one full correctness callgate, not full paired speed evidence",
+  "primitive_source_sha": "e269bd5c779e1c202ec59341daa52973e8f86a94",
+  "primitive_source_archive_sha256": "037bfbe1f3e6c4bcf6099940aa95609c78da6f42b77a15df566dbf4ad9ed5a7b",
+  "primitive_tar_sha256": "c7b8b7c07a06b3e0883e43141dd20b8e63852b354c98fe8c7b5fc038bfcad91e",
+  "full_correctness_source_sha": "0bdc1ee0d4d2f80093e3fd2db52735ff8a3f7ed4",
+  "full_source_archive_sha256": "54e41637da20e90735a05bd4dded0d44e1b6519bacbdf49b059692c90c923f4f",
+  "full_tar_sha256": "ae0af8cbc3d7ad3ba9720637bfce8c6ee4a417aadb8d69f2916447c273e2ee74",
+  "image_id": "sha256:23eb9b78c3c75319c99172766f94bba4faa8cffe05f8765ce4b33a3c34bb989b",
+  "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+  "primitive": "70bit conditions and68actual approved AR17 W8 matrices/syntheticactivation pairs exact;17layer4GEMV53,477,376bytes. All other shapes retain original row4. No QK4.",
+  "ratios": {
+    "hot_actual_FFN2": 0.9854548792258413,
+    "rotating17layers_FFN2_only": 0.9227046253796347,
+    "rotating17layers_all4_GEMV": 0.9717375078377972
+  },
+  "full_gate": "One3warm1sample process. Approved133tokens5.62s PCM exact,9044FFN2row8/27132row4fallbackcalls, actual baseline4fileSHA before/after equal; all original/student/parameter/resource guards pass.",
+  "one_observed_rtf": 1.0025426619470756,
+  "status": "Not adopted: primitive is promising but likely small overall; no paired N1 speed evidence. SingleRTF is correctness-only and does not establish a gain or worst-caseRTF<1. Larger acoustic FFT/Tap bottlenecks prioritized.",
+  "raw_json_sha256": {
+    "primitive.json": "614ec8851c88373be593e432c7b23b658cb6145b1bc4075ce724d698e0b578d5",
+    "primitive_guard.json": "d46de3cfb5ed4dd8fb48225600b9cf3754f6e04a624e4d97a95c94196a83313a",
+    "single_correctness.json": "cf587ee5bfd9ddbc5c4bb42e4916aa548b1b6807efd2f052ee8cca8cabedc3f0",
+    "single_correctness_guard.json": "08bad98830a95cbc8940d900d4a671943a7d3e039c6ced26485ee3e73365ab86"
+  }
+}
