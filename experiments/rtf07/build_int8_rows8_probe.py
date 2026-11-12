@@ -29,16 +29,11 @@ def main():
     args = parser.parse_args()
     if platform.system() != "Linux" or platform.machine() != "aarch64":
         parser.error("Use the Linux ARM64 kernel-build image")
+    # Match the approved fast DSO compiler policy, including default FMA
+    # contraction in the existing dequantization expression.
     flags = [
-        "-O3",
-        "-fopenmp",
-        "-std=c++17",
-        "-march=armv8.2-a+dotprod",
-        "-mtune=neoverse-n1",
-        "-ffp-contract=off",
-        "-fno-fast-math",
-        "-fPIC",
-        "-shared",
+        "-O3", "-std=c++17", "-march=armv8.2-a+fp16+dotprod",
+        "-mtune=neoverse-n1", "-fopenmp", "-fPIC", "-shared",
         f"-D_GLIBCXX_USE_CXX11_ABI={int(torch._C._GLIBCXX_USE_CXX11_ABI)}",
     ]
     before = hashes()
