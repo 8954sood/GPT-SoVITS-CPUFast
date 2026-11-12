@@ -42,6 +42,11 @@ def main():
     if before != {name: digest(ROOT / name) for name in SOURCES}:
         raise RuntimeError("Sources changed during build; rebuild from a stable checkout")
     manifest = {"abi": 1, "torch_version": torch.__version__, "system": platform.system(), "architecture": platform.machine(), "flags": flags, "sources": before, "library_sha256": digest(args.output)}
+    manifest["head_value_schedule"] = {
+        "dim32": "eight_independent_vectors_preserve_token_FMA_order",
+        "other_dims": "original_four_channel_token_loop",
+        "QK_softmax_masks": "unchanged",
+    }
     args.output.with_suffix(args.output.suffix + ".json").write_text(json.dumps(manifest, indent=2) + "\n")
 
 
