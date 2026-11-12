@@ -6,7 +6,7 @@ on:
       mode:
         description: Full audio comparison or targeted diagnostics
         type: choice
-        options: ['compare', 'diagnostics', 'attention', 'small', 'scheduling', 'packed48', 'fft', 'fftcandidate']
+        options: ['compare', 'diagnostics', 'attention', 'small', 'scheduling', 'packed48', 'fft', 'fftcandidate', 'arcache']
         default: 'compare'
       warmups:
         description: Excluded warmup runs (1–5)
@@ -51,7 +51,7 @@ jobs:
           set -euo pipefail
           : "${ARM_HOST:?Missing ARM_SSH_HOST secret}" "${ARM_USER:?Missing ARM_SSH_USER secret}" "${ARM_PRIVATE_KEY:?Missing ARM_SSH_PRIVATE_KEY secret}" "${ARM_KNOWN_HOSTS:?Missing ARM_SSH_KNOWN_HOSTS secret}"
           [[ "$ARM_HOST" =~ ^[A-Za-z0-9._-]+$ && "$ARM_USER" =~ ^[A-Za-z_][A-Za-z0-9_-]*$ ]]
-          [[ "$MODE" == compare || "$MODE" == diagnostics || "$MODE" == attention || "$MODE" == small || "$MODE" == scheduling || "$MODE" == packed48 || "$MODE" == fft || "$MODE" == fftcandidate ]]
+          [[ "$MODE" == compare || "$MODE" == diagnostics || "$MODE" == attention || "$MODE" == small || "$MODE" == scheduling || "$MODE" == packed48 || "$MODE" == fft || "$MODE" == fftcandidate || "$MODE" == arcache ]]
           [[ "$WARMUPS" =~ ^[1-5]$ && "$SAMPLES" =~ ^([1-9]|1[0-9]|20)$ ]]
           [[ "$GITHUB_RUN_ID" =~ ^[0-9]+$ && "$GITHUB_RUN_ATTEMPT" =~ ^[0-9]+$ ]]
           umask 077
@@ -114,7 +114,7 @@ jobs:
                   print(f"- {row['channels']} channels, kernel {row['kernel']}, {row['method']}: {row['median_seconds']:.4f}s")
               print('These are synthetic timings, not speech RTF.')
               raise SystemExit(0)
-          if os.environ['MODE'] in ('attention', 'packed48', 'fftcandidate'):
+          if os.environ['MODE'] in ('attention', 'packed48', 'fftcandidate', 'arcache'):
               print('### ARM 2-vCPU FP32 candidate comparison')
               for n in (1, 2):
                   for name in ('tap', 'attention'):

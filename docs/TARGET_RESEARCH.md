@@ -38,3 +38,7 @@ On the actual 2-vCPU host, [run 43131083453](https://github.com/8954sood/GPT-SoV
 ## FFT size probe
 
 On [run 43131935673](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43131935673), 384 channels, kernel 11, dilation 5 favored FFT 256 (0.1427s) over the current 128 (0.1887s), while 96 channels, kernel 11, dilation 5 favored 512 (0.0725s) over 256 (0.0810s). Other shapes and all measurements are in `results/n1_fft_20261112`. A two-geometry selective full-synthesis comparison is required before adoption.
+
+## FFT selection and AR cache
+
+[Run 43133005529](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43133005529) compared the two selected FFT sizes against tap. Tap/candidate medians were 1.5766/1.5911 and 1.5953/1.5709 across two sentences; mixed and noisy, so do not adopt based on these three samples. Semantic output matched; PCM changed by at most one unit. In the same run, exact-FP16 versus FP32 storage of the same coefficients produced bit-identical GEMV outputs. At two threads the FP32 cache improved all five synthetic matrix shapes by approximately 14–27%, motivating a full synthesis test. All arithmetic remains FP32; higher memory use and full-model performance remain to be checked. Results: `results/n1_fftcandidate_20261112`.

@@ -17,6 +17,7 @@ def optimize(
     tap_small=False,
     packed_small_48=False,
     n1_fft_sizes=False,
+    ar_fp32_cache=False,
     ar_threads=1,
     acoustic_threads=1,
     fast_experimental=False,
@@ -30,6 +31,8 @@ def optimize(
     """
     if ar_threads not in (1, 2) or acoustic_threads not in (1, 2):
         raise ValueError("Expected one or two CPU threads per stage")
+    if fast_experimental and ar_fp32_cache:
+        raise ValueError("FP32 cache cannot be combined with fast experimental mode")
     if packed_small_48 and not tap_small:
         raise ValueError("packed_small_48 requires tap_small")
     if fast_experimental and (tap_small or cook_resblock):
@@ -51,6 +54,8 @@ def optimize(
             )
         if existing.audit.get("n1_fft_sizes", False) != n1_fft_sizes:
             raise ValueError("Recreate the pipeline before changing FFT sizes")
+        if existing.audit.get("ar_fp32_cache", False) != ar_fp32_cache:
+            raise ValueError("Recreate the pipeline before changing AR cache storage")
         if existing.audit.get("fast_experimental", False) != fast_experimental:
             raise ValueError("Recreate the pipeline before changing fast settings")
         return existing
@@ -78,11 +83,10 @@ def optimize(
         "vits_parameters": parameter_digest(pipeline.vits_model),
     }
     # build() fails closed if any coefficient cannot be represented exactly.
-    decoder.t2s_transformer, audit = build(
-        decoder.t2s_transformer,
-        native_attention=native_attention,
-        head_major=head_major,
-    )
+    build_options = {"native_attention": native_attention, "head_major": head_major}
+    if not fast_experimental:
+        build_options["fp32_cache"] = ar_fp32_cache
+    decoder.t2s_transformer, audit = build(decoder.t2s_transformer, **build_options)
     decoder.ar_predict_layer = NativePredictor(decoder.ar_predict_layer)
     if cook_phase:
         from cpufast_cooktoom import CookToomPhase
@@ -181,12 +185,17 @@ def optimize(
         "tap_small": tap_small,
         "packed_small_48": packed_small_48,
         "n1_fft_sizes": n1_fft_sizes,
+        "ar_fp32_cache": ar_fp32_cache,
         "n1_fft_size_count": n1_fft_count,
         "packed_small_48_count": packed_small_count,
         "fast_experimental": fast_experimental,
         "arithmetic": "W8A8 AR and FP16 FFT accumulation"
         if fast_experimental
-        else "FP32; exact FP16 AR storage cache only",
+        else (
+            "FP32 arithmetic and AR cache"
+            if ar_fp32_cache
+            else "FP32; exact FP16 AR storage cache only"
+        ),
     }
     pipeline._cpufast_engine = runtime
     return runtime

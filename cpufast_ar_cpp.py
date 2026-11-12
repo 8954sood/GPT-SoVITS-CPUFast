@@ -8,28 +8,35 @@ import cpufast_cpp_ops
 
 
 @torch.jit.script
-def pack(weight_t: torch.Tensor):
+def pack(weight_t: torch.Tensor, fp32_cache: bool = False):
     w = weight_t.transpose(0, 1)
-    return (
-        w.to(torch.float16)
-        .reshape(w.shape[0] // 8, 8, w.shape[1])
-        .transpose(1, 2)
-        .contiguous()
-    )
+    if not fp32_cache:
+        w = w.to(torch.float16)
+    return w.reshape(w.shape[0] // 8, 8, w.shape[1]).transpose(1, 2).contiguous()
 
 
 @torch.jit.script
 class CppLosslessBlock:
     def __init__(
-        self, block: T2SBlock, native_attention: bool = False, head_major: bool = False
+        self,
+        block: T2SBlock,
+        native_attention: bool = False,
+        head_major: bool = False,
+        fp32_cache: bool = False,
     ):
+        self.fp32_cache = fp32_cache
         self.head_major = head_major
         self.native_attention = native_attention
         self.block = block
-        self.qkv = pack(block.qkv_w_t)
-        self.out = pack(block.out_w_t)
-        self.ff1 = pack(block.mlp.w1_t)
-        self.ff2 = pack(block.mlp.w2_t)
+        self.qkv = pack(block.qkv_w_t, fp32_cache)
+        self.out = pack(block.out_w_t, fp32_cache)
+        self.ff1 = pack(block.mlp.w1_t, fp32_cache)
+        self.ff2 = pack(block.mlp.w2_t, fp32_cache)
+
+    def linear(self, x: torch.Tensor, weights: torch.Tensor, bias: torch.Tensor):
+        if self.fp32_cache:
+            return torch.ops.cpufast_cpp.lossless_linear_f32(x, weights, bias)
+        return torch.ops.cpufast_cpp.lossless_linear(x, weights, bias)
 
     def process_prompt(
         self,
@@ -62,9 +69,7 @@ class CppLosslessBlock:
                 x, keys, values, cache_len, mask, torch_sdpa
             )
         b = self.block
-        q, k, v = torch.ops.cpufast_cpp.lossless_linear(
-            x.contiguous(), self.qkv, b.qkv_b
-        ).chunk(3, dim=-1)
+        q, k, v = self.linear(x.contiguous(), self.qkv, b.qkv_b).chunk(3, dim=-1)
         next_len = cache_len + k.shape[1]
         if self.head_major and keys.dim() == 4:
             keys[:, :, cache_len:next_len] = k.view(1, 1, b.num_heads, -1).transpose(
@@ -73,10 +78,14 @@ class CppLosslessBlock:
             values[:, :, cache_len:next_len] = v.view(1, 1, b.num_heads, -1).transpose(
                 1, 2
             )
-            if self.native_attention and next_len <= 128 and (
-                mask is None
-                or mask.numel() == next_len
-                or mask.numel() == b.num_heads * next_len
+            if (
+                self.native_attention
+                and next_len <= 128
+                and (
+                    mask is None
+                    or mask.numel() == next_len
+                    or mask.numel() == b.num_heads * next_len
+                )
             ):
                 a = torch.ops.cpufast_cpp.head_attn_fp32(
                     q.contiguous(),
@@ -118,21 +127,15 @@ class CppLosslessBlock:
                 )
                 a = a.transpose(1, 2).reshape(1, 1, -1)
         x = F.layer_norm(
-            x
-            + torch.ops.cpufast_cpp.lossless_linear(a.contiguous(), self.out, b.out_b),
+            x + self.linear(a.contiguous(), self.out, b.out_b),
             [b.hidden_dim],
             b.norm_w1,
             b.norm_b1,
             b.norm_eps1,
         )
-        hidden = F.relu(
-            torch.ops.cpufast_cpp.lossless_linear(x.contiguous(), self.ff1, b.mlp.b1)
-        )
+        hidden = F.relu(self.linear(x.contiguous(), self.ff1, b.mlp.b1))
         x = F.layer_norm(
-            x
-            + torch.ops.cpufast_cpp.lossless_linear(
-                hidden.contiguous(), self.ff2, b.mlp.b2
-            ),
+            x + self.linear(hidden.contiguous(), self.ff2, b.mlp.b2),
             [b.hidden_dim],
             b.norm_w2,
             b.norm_b2,
@@ -181,7 +184,7 @@ class CppLosslessTransformer:
         return x, k_cache, v_cache, cache_len + 1
 
 
-def build(original, native_attention=False, head_major=False):
+def build(original, native_attention=False, head_major=False, fp32_cache=False):
     import hashlib
 
     audit = []
@@ -194,7 +197,11 @@ def build(original, native_attention=False, head_major=False):
             ("ff2", block.mlp.w2_t),
         ]:
             exact = torch.equal(weight, weight.half().float())
-            if not exact or weight.shape[1] % 8 or weight.shape[0] % 4:
+            if (
+                (not fp32_cache and not exact)
+                or weight.shape[1] % 8
+                or weight.shape[0] % 4
+            ):
                 raise ValueError(
                     "No lossless ARM packing is possible for this checkpoint"
                 )
@@ -204,7 +211,7 @@ def build(original, native_attention=False, head_major=False):
             )
     runtime = CppLosslessTransformer(
         [
-            CppLosslessBlock(block, native_attention, head_major)
+            CppLosslessBlock(block, native_attention, head_major, fp32_cache)
             for block in original.blocks
         ]
     )
@@ -232,5 +239,6 @@ def build(original, native_attention=False, head_major=False):
         "original_digest_after": after.hexdigest(),
         "all_coefficients_exact": True,
         "arithmetic": "FP32 multiplication and accumulation",
+        "cache_storage": "FP32" if fp32_cache else "exact FP16",
         "native_workers": cpufast_cpp_ops.WORKERS,
     }
