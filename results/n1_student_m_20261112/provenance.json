@@ -1,0 +1,15 @@
+{
+  "run_id": 43170346259,
+  "url": "https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43170346259",
+  "head_sha": "b6dbc40adc1d2fda8296994eeb6ebe0c000c8604",
+  "target": "Actual ARM Neoverse N1,2 vCPU/8000000000 bytes/no swap",
+  "warmups": 3,
+  "samples": 5,
+  "baseline": "Approved L W8A8/native FP32 attention, K bundle, normal FP32 acoustics",
+  "candidate": "M same projections/KV/cache/model/input, Torch SDPA attention only",
+  "rtf_change_percent": 0.14770704128501677,
+  "decision": "No full-synthesis speed improvement. Keep L native attention for subsequent width640 comparison; remove M benchmark/workflow option. Keep default-false fast_ar opt-in API solely for archived Main research helper reproduction, per Main request. No repeated M benchmark.",
+  "correctness": "All five N1M measured PCM/tokens/duration exactly match N1L, and profiled synthesis exactly matches unprofiled same process. All model/reference/checkpoint/resource guards passed.",
+  "approval": "Inherited approved local L Korean PCM equality, not separate user feedback; no JA/EN approval",
+  "limits": "Chronological5sample A/B,0.148% difference not robust speed evidence; small stage/CPU reductions do not establish total latency benefit. Every slower sample retained."
+}

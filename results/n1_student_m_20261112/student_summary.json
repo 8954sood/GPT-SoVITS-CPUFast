@@ -1,0 +1,145 @@
+{
+  "scope": "Actual N1 Korean L/M attention-only comparison; M inherits approved L from exact local PCM, no separate user answer",
+  "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+  "ar_selected_additional_step": 400,
+  "decoder_selected_additional_step": 100,
+  "prefetch_selection": "Same W8A8 projections and head-major KV; native FP32 attention versus Torch SDPA",
+  "cases": [
+    {
+      "language": "ko",
+      "name": "ar_runtime_baseline",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "torch_head_attention": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": false,
+      "original": false,
+      "combined": true,
+      "model_variant": "K",
+      "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "median_rtf": 1.1591682358982554,
+      "rtfs": [
+        1.2326619528471474,
+        1.1424662074096412,
+        1.1591682358982554,
+        1.1636683053199752,
+        1.1589896048890405
+      ],
+      "median_seconds": 5.819024544209242,
+      "median_cpu_seconds": 9.896084680000001,
+      "median_stages": {
+        "ar_seconds": 2.05360440723598,
+        "enc_p_seconds": 0.13044193387031555,
+        "flow_seconds": 0.0775529332458973,
+        "dec_seconds": 3.3696340937167406
+      },
+      "audio_seconds": 5.02,
+      "median_decoder_seconds_per_audio_second": 0.6712418513379962,
+      "peak_sampled_tree_rss_bytes": 5058371584,
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": false
+    },
+    {
+      "language": "ko",
+      "name": "ar_runtime_candidate",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "torch_head_attention": true,
+      "runtime_variant": "M_ar_int8_torch_sdpa",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": false,
+      "original": false,
+      "combined": true,
+      "model_variant": "K",
+      "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "median_rtf": 1.1608804090030165,
+      "rtfs": [
+        1.158907595072016,
+        1.1608804090030165,
+        1.1755573203364218,
+        1.1669617257567042,
+        1.151111163198948
+      ],
+      "median_seconds": 5.827619653195143,
+      "median_cpu_seconds": 9.843834400000006,
+      "median_stages": {
+        "ar_seconds": 2.0356448125094175,
+        "enc_p_seconds": 0.12486221082508564,
+        "flow_seconds": 0.07672092318534851,
+        "dec_seconds": 3.3322223369032145
+      },
+      "audio_seconds": 5.02,
+      "median_decoder_seconds_per_audio_second": 0.6637893101400826,
+      "peak_sampled_tree_rss_bytes": 5068181504,
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": true,
+      "candidate_pcm_exact_to_n1_student": true,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": false
+    }
+  ],
+  "profile_run": {
+    "language": "ko",
+    "name": "ar_runtime_profile_run",
+    "prefetch": null,
+    "approximate_ar_int8_only": true,
+    "torch_head_attention": true,
+    "runtime_variant": "M_ar_int8_torch_sdpa",
+    "runtime_local_generated_tokens_match": true,
+    "runtime_local_pcm_match": false,
+    "original": false,
+    "combined": true,
+    "model_variant": "K",
+    "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+    "ar_cache_storage": "int8_approximate",
+    "student_fp32_control": false,
+    "median_rtf": 1.185117144716451,
+    "rtfs": [
+      1.185117144716451
+    ],
+    "median_seconds": 5.9492880664765835,
+    "median_cpu_seconds": 9.998418519999994,
+    "median_stages": {
+      "ar_seconds": 1.9843050185590982,
+      "enc_p_seconds": 0.1293074432760477,
+      "flow_seconds": 0.07998347282409668,
+      "dec_seconds": 3.5694778095930815
+    },
+    "audio_seconds": 5.02,
+    "median_decoder_seconds_per_audio_second": 0.7110513564926457,
+    "peak_sampled_tree_rss_bytes": 5909667840,
+    "semantic": [
+      {
+        "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+        "index": 118,
+        "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+      }
+    ],
+    "candidate_tokens_exact_to_n1_student": true,
+    "candidate_pcm_exact_to_n1_student": true,
+    "local_approved_pcm_match": false,
+    "local_approved_generated_tokens_match": false
+  },
+  "student_assets_unchanged": true,
+  "complete": true
+}

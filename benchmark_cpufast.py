@@ -108,7 +108,6 @@ def main():
     parser.add_argument("--native-predictor", action="store_true")
     parser.add_argument("--student-fp32-control", action="store_true")
     parser.add_argument("--ar-int8-only", action="store_true")
-    parser.add_argument("--ar-int8-torch-sdpa", action="store_true")
     parser.add_argument("--inference-mode", action="store_true")
     parser.add_argument("--fused-fft", action="store_true")
     parser.add_argument(
@@ -131,10 +130,6 @@ def main():
     ):
         parser.error(
             "AR-only INT8 requires a separately approved half-exact student and normal FP32 acoustic engine"
-        )
-    if args.ar_int8_torch_sdpa and (not args.ar_int8_only or args.lang != "ko"):
-        parser.error(
-            "Torch attention runtime requires AR-only INT8 and its Korean approval scope"
         )
     if args.student_manifest and (not args.engine or args.fast_experimental):
         parser.error("Approved student requires the FP32 arithmetic engine")
@@ -179,33 +174,41 @@ def main():
         student_files_before = snapshot(args.student_manifest)
         if args.ar_int8_only:
             root = Path(__file__).resolve().parent
-            approval_name = (
-                "approved_m_runtime.json"
-                if args.ar_int8_torch_sdpa
-                else "approved_l_runtime.json"
-            )
-            ar_runtime_approval = json.loads(
-                (root / "results/student_pilot" / approval_name).read_text()
-            )
-            if (
-                ar_runtime_approval.get("quality_approved") is not True
-                or ar_runtime_approval["underlying_manifest_sha256"]
-                != args.student_manifest_sha256
-                or ar_runtime_approval["reference_sha256"]
-                != student_manifest["reference_sha256"]
-                or ar_runtime_approval["implementation_sha256"]
-                != file_digest(root / ar_runtime_approval["implementation"])
-            ):
-                parser.error(
-                    "AR-only runtime does not match its separate listening approval"
+            if student_manifest.get("ar_runtime") == "int8_native":
+                from cpufast_student_assets import inline_runtime_approval
+
+                if args.lang != "ko":
+                    parser.error(
+                        "Whole-bundle runtime approval currently covers Korean only"
+                    )
+                ar_runtime_approval = inline_runtime_approval(
+                    student_manifest, args.student_manifest_sha256, root
                 )
-            ar_runtime_listening_case = next(
-                row
-                for row in json.loads(
+                runtime_cases = student_manifest["listening_report"]["cases"]
+            else:
+                ar_runtime_approval = json.loads(
+                    (root / "results/student_pilot/approved_l_runtime.json").read_text()
+                )
+                if (
+                    ar_runtime_approval.get("quality_approved") is not True
+                    or ar_runtime_approval["underlying_manifest_sha256"]
+                    != args.student_manifest_sha256
+                    or ar_runtime_approval["reference_sha256"]
+                    != student_manifest["reference_sha256"]
+                    or ar_runtime_approval["implementation_sha256"]
+                    != file_digest(root / ar_runtime_approval["implementation"])
+                ):
+                    parser.error(
+                        "AR-only runtime does not match its separate listening approval"
+                    )
+                runtime_cases = json.loads(
                     (root / ar_runtime_approval["listening_report"]).read_text()
                 )["comparison"]["cases"]
-                if row["language"] == args.lang
+            ar_runtime_listening_case = next(
+                row for row in runtime_cases if row["language"] == args.lang
             )
+        elif student_manifest.get("ar_runtime") == "int8_native":
+            parser.error("Use the declared approved INT8 runtime for this model bundle")
     if args.threads is None:
         args.threads = 1 if args.engine else 2
     if args.ar_prefetch is None:
@@ -280,6 +283,10 @@ def main():
         )
         if (
             spec["decoder_branches"] != student_manifest["decoder_branches"]
+            or spec.get("decoder_channel_keep")
+            != student_manifest.get("decoder_channel_keep")
+            or trained["student_spec"].get("decoder_channel_keep")
+            != spec.get("decoder_channel_keep")
             or len(spec["ar_keep"]) != student_manifest["ar_layers"]
             or len(set(spec["ar_keep"])) != len(spec["ar_keep"])
             or any(type(i) is not int or not 0 <= i < 24 for i in spec["ar_keep"])
@@ -290,8 +297,13 @@ def main():
             != student_manifest["ar_layers"]
         ):
             raise ValueError("Approved student architecture/teacher mismatch")
+        channel_options = (
+            {"channel_keep": spec["decoder_channel_keep"]}
+            if spec.get("decoder_channel_keep") is not None
+            else {}
+        )
         pipeline.vits_model.dec = StudentGenerator(
-            pipeline.vits_model.dec, spec["decoder_branches"]
+            pipeline.vits_model.dec, spec["decoder_branches"], **channel_options
         ).eval()
         pipeline.vits_model.dec.load_state_dict(trained["state_dict"], strict=True)
         del trained
@@ -335,7 +347,6 @@ def main():
             approximate_ar, details = build_int8_ar(
                 original_ar,
                 head_major=True,
-                torch_head_attention=args.ar_int8_torch_sdpa,
             )
             pipeline.t2s_model.model.t2s_transformer = approximate_ar
             half_acoustics = sum(
@@ -346,9 +357,7 @@ def main():
                 raise RuntimeError("AR-only approximate runtime changed FP32 acoustics")
             runtime.audit.update(
                 ar_coefficients=details,
-                arithmetic="Approximate W8A8 AR/"
-                + ("Torch SDPA" if args.ar_int8_torch_sdpa else "native FP32 attention")
-                + "; unchanged normal FP32 acoustic runtime",
+                arithmetic="Approximate W8A8 AR/native FP32 attention; unchanged normal FP32 acoustic runtime",
                 fp16_acoustic_modules=half_acoustics,
             )
         ar_install_seconds = 0.0
@@ -504,7 +513,6 @@ def main():
         "student_files_before": student_files_before,
         "student_fp32_control": args.student_fp32_control,
         "approximate_ar_int8_only": args.ar_int8_only,
-        "ar_int8_torch_sdpa": args.ar_int8_torch_sdpa,
         "ar_runtime_approval": ar_runtime_approval,
         "ar_runtime_library_manifest": json.loads(
             cpufast_fast_ops.path.with_suffix(
