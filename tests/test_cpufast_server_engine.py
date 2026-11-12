@@ -7,7 +7,6 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 import torch
-import torchaudio.functional  # load resampler before filesystem access is forbidden
 
 from cpufast_server_engine import Engine, REFERENCE_KEYS, _empty_prompt, _encode
 
@@ -80,11 +79,12 @@ def test_disk_reloaded_reference_reproduces_wire_without_reference_file_access(t
     monkeypatch.setattr(Path, 'open', no_open)
     a, report = backend.synthesize_prepared('테스트입니다.', prepared)
     b, report2 = backend.synthesize_prepared('테스트입니다.', reloaded)
-    assert a.dtype == np.float32 and a.ndim == 1 and len(a) == 7680
+    assert a.dtype == np.int16 and a.ndim == 1 and len(a) == 5120
+    assert np.array_equal(a, np.arange(5120, dtype=np.int16))
     assert np.array_equal(a, b)
     assert report['native_pcm_sha256'] == hashlib.sha256(np.arange(5120, dtype=np.int16).tobytes()).hexdigest()
     assert report['native_pcm_sha256'] == report2['native_pcm_sha256']
-    assert report['sample_rate'] == 48000 and report['native_sample_rate'] == 32000
+    assert report['sample_rate'] == 32000 and report['native_sample_rate'] == 32000
     assert report['reference_preprocessing_on_request'] is False
     assert backend.pipeline.prompt_cache['prompt_semantic'] is None
     assert backend.pipeline.prompt_cache['runtime']['decode_ge'] is None

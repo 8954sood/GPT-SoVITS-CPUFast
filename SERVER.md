@@ -21,10 +21,11 @@ mono·stereo WAV에서3–10초 구간을 선택한다. `ja`, `ko`, `en`을 지�
 합성·등록·삭제 작업은 한 번에 하나이며 다른 변경 요청은429/Retry-After:1이다.
 health와 목록 조회는 합성 중에도 응답한다.
 
-응답은 기존과 같은 **48kHz / mono / PCM signed16 little endian**이다.
-`application/octet-stream`이며 WAV 헤더가 없다. 승인 모델은 내부32kHz로
-생성하고, 응답 직전에48kHz로 리샘플링한다. 내부32kHz PCM 검증과 API48kHz
-전송을 구분한다. 기존 `stream_client.py` 사용법도 그대로다.
+응답은 모델의 원래 출력인 **32kHz / mono / PCM signed16 little endian**이다.
+`application/octet-stream`이며 WAV 헤더가 없다. 사용자 요청에 따라 이전 API의
+48kHz 변환을 제거해 모델이 만든 PCM을 재변환 없이 보낸다.
+클라이언트는 `X-Audio-Sample-Rate`를 읽어 재생 속도를 정한다.
+`stream_client.py`의 명령은 같으며 저장할 WAV의 샘플레이트를 응답에서 읽는다.
 
 `latency_mode`의 `quality`/`balanced`/`fast`는 요청 호환을 위해 모두 받지만
 이 엔진에서는 **같은 승인 모델과 전체 레퍼런스**를 사용한다. 기본값은 `fast`다.
@@ -92,7 +93,7 @@ curl --fail-with-body --no-buffer http://127.0.0.1:9880/v1/tts/stream \
   -H 'Content-Type: application/json' \
   -d '{"style_id":"STYLE_ID","text":"こんにちは。","lang":"ja","seed":42}' \
   --output streamed.pcm
-ffplay -nodisp -autoexit -f s16le -ar 48000 -ac 1 streamed.pcm
+ffplay -nodisp -autoexit -f s16le -ar 32000 -ac 1 streamed.pcm
 ```
 
 ## 저장과 수명 관리
@@ -110,10 +111,11 @@ ffplay -nodisp -autoexit -f s16le -ar 48000 -ac 1 streamed.pcm
 받지 않는다. 전송 시작 뒤 실패하면 해당 스트림을 끊고 요청 ID를 로그에 남긴다.
 
 이전 최악RTF0.962389는 워밍업 후 전체 파일 생성 실측이다. 새 HTTP 경로의
-등록 비용·48kHz 변환·첫 오디오 지연과 같은 지표로 취급하지 않는다.
+등록 비용·첫 오디오 지연과 같은 지표로 취급하지 않는다.
 
-## ARM 서버 검증
+## 이식 직후48kHz 경로의 ARM 서버 검증
 
+아래는32kHz 직접 전송과 정리 비용 최적화 전의 기록이다.
 2026-11-13 N1에서2CPU·8,000,000,000바이트·swap0으로 실제 엔진과 임시
 localhost HTTP 서버를 검증했다. 전체 문장 엔진 출력은 승인된32kHz PCM과
 일치했고, 준비한 레퍼런스를 저장한 뒤 다시 읽어도48kHz PCM이 같았다.

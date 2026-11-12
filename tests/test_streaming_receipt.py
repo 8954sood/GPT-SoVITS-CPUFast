@@ -6,7 +6,7 @@ from scripts.measure_streaming_api import PCMReceipt
 
 
 def test_wire_rtf_includes_first_latency_and_reports_starvation():
-    wire = PCMReceipt()
+    wire = PCMReceipt(48000)
     packet = b"\x01\x00" * 48000
     for seconds in (1.0, 2.5, 3.0):
         wire.receive(packet, seconds)
@@ -15,11 +15,11 @@ def test_wire_rtf_includes_first_latency_and_reports_starvation():
     assert report["client_response_rtf"] == pytest.approx(3.2 / 3)
     assert report["client_first_pcm_seconds"] == 1
     assert report["required_extra_initial_buffer_seconds"] == .5
-    assert report["pcm48k_sha256"] == hashlib.sha256(packet * 3).hexdigest()
+    assert report["pcm_sha256"] == hashlib.sha256(packet * 3).hexdigest()
 
 
 def test_network_packet_boundaries_and_empty_chunks_do_not_change_duration():
-    wire = PCMReceipt()
+    wire = PCMReceipt(48000)
     wire.receive(b"", 0)
     wire.receive(b"\x01", .1)
     wire.receive(b"\x02\x03", .2)
