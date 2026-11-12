@@ -71,5 +71,27 @@
   "quality_approved": false,
   "actual_n1_measured": false,
   "parent_checkpoint_preserved": true,
-  "redundant_latest_tensors_equal_best": true
+  "redundant_latest_tensors_equal_best": true,
+  "listening_synthesis": {
+    "scope": "Quality synthesis only; no measured inference RTF; owner listening pending",
+    "source_sha": "d0fc7fbdd7a6e41d19abf778e7410ef6118ef1c6",
+    "report_sha256": "67088c082e90deda810f2858bf30522719bd559bb987bda484a65d79cf3eb4da",
+    "ar_layers": 18,
+    "loaded_blocks": 18,
+    "case": {
+      "language": "ko",
+      "text": "\uc624\ub298\uc740 \ub0a0\uc528\uac00 \ucc38 \uc88b\ub124\uc694. \uc7a0\uae50 \uc26c\uc5c8\ub2e4\uac00 \ud568\uaed8 \uc774\uc57c\uae30\ub97c \uc774\uc5b4 \uac00\uc694.",
+      "sample_rate": 32000,
+      "audio_seconds": 5.02,
+      "semantic": [
+        {
+          "tokens": 118,
+          "sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "pcm_sha256": "17f6c1215bef70abfaf15bca4756bff6c00a30b341507f455dcc5a8430a5ed1f"
+    },
+    "parameters_unchanged": true,
+    "input_files_unchanged": true
+  }
 }
