@@ -1,0 +1,136 @@
+{
+  "scope": "CPU full-context decoder12 conservative experiment, not listening-approved and not N1 performance",
+  "primary_objective": "Actual N1 RTF reduction with accepted quality. No further structure reduction until speed evidence.",
+  "initialization": {
+    "stage": 0,
+    "original_branch_removed": 0,
+    "parent_sha256": "ac54705c303b811bdead74d0f38adac93d320044255e3b5c39da1f8bdf114006",
+    "teacher_s2_sha256": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+    "teacher_decoder_sha256": "c7a82874cb08729641612e73354a82b77a671c67d6fbae4a664e83869dbededf",
+    "quality_approved": false
+  },
+  "history": {
+    "scope": "CPU recovery research; not listening approved or N1 performance",
+    "train_records": 30,
+    "validation_records": 6,
+    "history": [
+      {
+        "step": 0,
+        "validation_objective": 1.0130106210708618,
+        "validation_log_mel": 0.3269025385379791,
+        "validation_log_stft": 0.7129082679748535,
+        "validation_spectral": 1.0157619714736938,
+        "elapsed_seconds": 4.38570924999658
+      },
+      {
+        "step": 20,
+        "validation_objective": 0.5340291857719421,
+        "validation_log_mel": 0.15300825238227844,
+        "validation_log_stft": 0.40696802735328674,
+        "validation_spectral": 0.5585578680038452,
+        "elapsed_seconds": 84.89079183299327
+      },
+      {
+        "step": 40,
+        "validation_objective": 0.47344911098480225,
+        "validation_log_mel": 0.13316692411899567,
+        "validation_log_stft": 0.3664584457874298,
+        "validation_spectral": 0.49733516573905945,
+        "elapsed_seconds": 156.98263879097067
+      },
+      {
+        "step": 60,
+        "validation_objective": 0.445832222700119,
+        "validation_log_mel": 0.12489289790391922,
+        "validation_log_stft": 0.34589552879333496,
+        "validation_spectral": 0.46893084049224854,
+        "elapsed_seconds": 229.60526158299763
+      },
+      {
+        "step": 80,
+        "validation_objective": 0.4262060225009918,
+        "validation_log_mel": 0.11927168816328049,
+        "validation_log_stft": 0.3318147361278534,
+        "validation_spectral": 0.44796130061149597,
+        "elapsed_seconds": 303.0128302910016
+      },
+      {
+        "step": 100,
+        "validation_objective": 0.4203836917877197,
+        "validation_log_mel": 0.11751729249954224,
+        "validation_log_stft": 0.32751208543777466,
+        "validation_spectral": 0.4419768154621124,
+        "elapsed_seconds": 376.17583770799683
+      }
+    ],
+    "provenance": {
+      "teacher_s2_sha256": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+      "manifest_sha256": "54c87e32dbba8277350b82279c8c9e872460fb55b8e4d6abe135c0096d60f98c",
+      "resume_sha256": "8abc751dc733e42b5b42c783e6a3c570c255c7db73a9114643f33bf7d981b7b2",
+      "full_context": true,
+      "log_mel": true,
+      "sample_rate": 32000,
+      "lr": 1e-05,
+      "device": "cpu",
+      "dtype": "float32",
+      "grad_accum": 3,
+      "lr_final_ratio": 0.1
+    }
+  },
+  "host_observation": {
+    "command": [
+      "/Users/byungjun/Desktop/python/gpt-sovits-v5-optimization/.venv/bin/python",
+      "-u",
+      "experiments/student/distill_decoder.py",
+      "--s2",
+      "/Users/byungjun/Desktop/python/gpt-sovits-v5-optimization/data/cpufast-v2proplus/assets/v2Pro/s2Gv2ProPlus.pth",
+      "--spec",
+      ".experiments/student/decoder12_conservative_init/student_spec.json",
+      "--manifest",
+      ".experiments/student/recovery_corpus36_retry/manifest.json",
+      "--resume",
+      ".experiments/student/decoder12_conservative_init/initial.pt",
+      "--output",
+      ".experiments/student/decoder12_conservative",
+      "--steps",
+      "100",
+      "--threads",
+      "8",
+      "--lr",
+      "0.00001",
+      "--grad-accum",
+      "3",
+      "--lr-final-ratio",
+      "0.1",
+      "--validate-every",
+      "20",
+      "--full-context",
+      "--log-mel"
+    ],
+    "platform": "Darwin",
+    "machine": "arm64",
+    "device_policy": "CPU only; train script rejects GPU/MPS parameters",
+    "cpu_quota_cores": null,
+    "memory_limit_bytes": null,
+    "scope": "unrestricted host training observation; not an inference RTF benchmark",
+    "logical_cpus": 14,
+    "physical_ram_bytes": 38654705664,
+    "peak_sampled_tree_rss_bytes": 4121247744,
+    "cpu_seconds": 1088.590872576,
+    "elapsed_seconds": 380.71452249999857,
+    "average_cpu_cores": 2.859336348473558,
+    "exit_code": 0,
+    "status": "complete"
+  },
+  "selected_validation": {
+    "step": 100,
+    "validation_objective": 0.4203836917877197,
+    "validation_log_mel": 0.11751729249954224,
+    "validation_log_stft": 0.32751208543777466,
+    "validation_spectral": 0.4419768154621124,
+    "elapsed_seconds": 376.17583770799683
+  },
+  "selected_sha256": "a2fe6478aae00a8a481209f32aba85eab97198cd30aca0ce1ff63d9ec31c3c1d",
+  "quality_approved": false,
+  "decision": "Numerical gap remains versus G; preserve research candidate, do not adopt or extend training absent deployment speed evidence."
+}
