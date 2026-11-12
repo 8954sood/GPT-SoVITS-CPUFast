@@ -254,3 +254,25 @@ followed by an actual-profile-shaped im2col diagnostic; it was not dispatched
 because the first result did not meet the below-1 condition. `im2col` is the
 historical standalone synthetic mode using the preserved L profile. Repeating
 the rejected tiles/im2col without a new computational hypothesis is unwarranted.
+
+`mode=studentattention` isolates L's native FP32 attention against the Korean
+M Torch-SDPA runtime on the same K bundle, W8A8 projections, head-major KV cache,
+FP32 acoustic engine, reference/request and seed. It runs three warmups and
+five samples each plus an excluded M profile. M inherits Korean approval from
+local exact L PCM/token/duration equality; it does not claim a separate user
+answer. Benchmark `--ar-int8-torch-sdpa` requires `--ar-int8-only`, Korean scope,
+and source-pinned `approved_m_runtime.json`. N1 PCM/tokens/duration must remain
+exact to L before adoption; JA/EN are outside this approval.
+
+For separately approved future widths with non-12-aligned decoder output
+channels, `optimize(..., packed_fft=True, fft_pad_channels=True)` prepares
+zero-filled derived spectral output-cache rows up to the next multiple of 12.
+The packed operator output is narrowed back to the original channel count
+before inverse FFT/finish. Authoritative coefficients, input channels and model
+architecture stay unchanged. Default false preserves the existing aligned
+path and rejects unaligned coefficients. Benchmark flag is
+`--fft-pad-channels`; reports list actually padded modules/output sizes.
+Linux ARM tiny tests at 320/160/80/40/20 channels, one/two threads, batch1/2,
+packed/layout/stream, activation/residual and immutable parameter checks matched
+an explicitly zero-padded reference bit-exactly. This is an execution
+compatibility check, not a width-model quality or N1 speed claim.

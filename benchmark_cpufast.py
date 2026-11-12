@@ -78,6 +78,7 @@ def main():
     parser.add_argument("--compare-pcm", type=Path)
     parser.add_argument("--packed-fft", action="store_true")
     parser.add_argument("--fft-stream", action="store_true")
+    parser.add_argument("--fft-pad-channels", action="store_true")
     parser.add_argument("--parallel-transforms", action="store_true")
     parser.add_argument("--fused-finish", action="store_true")
     parser.add_argument("--tap-small", action="store_true")
@@ -314,6 +315,7 @@ def main():
             fft_layout=args.fft_layout,
             packed_fft=args.packed_fft,
             fft_stream=args.fft_stream,
+            fft_pad_channels=args.fft_pad_channels,
             parallel_transforms=args.parallel_transforms,
             fused_finish=args.fused_finish,
             tap_small=args.tap_small,
@@ -514,6 +516,9 @@ def main():
         "fp16_acoustic_modules": runtime.audit.get("fp16_acoustic_modules", 0)
         if args.engine
         else None,
+        "fft_padded_output_cache": runtime.audit.get("fft_padded_output_cache", [])
+        if args.engine
+        else [],
         "student_load_seconds": student_load_seconds,
         "experimental_options": {
             k: getattr(args, k)
@@ -525,6 +530,7 @@ def main():
                 "native_attention",
                 "packed_fft",
                 "fft_stream",
+                "fft_pad_channels",
                 "parallel_transforms",
                 "fused_finish",
                 "tap_small",
