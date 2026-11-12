@@ -108,6 +108,7 @@ def main():
     parser.add_argument("--native-predictor", action="store_true")
     parser.add_argument("--student-fp32-control", action="store_true")
     parser.add_argument("--ar-int8-only", action="store_true")
+    parser.add_argument("--fft-half-products", action="store_true")
     parser.add_argument("--inference-mode", action="store_true")
     parser.add_argument("--fused-fft", action="store_true")
     parser.add_argument(
@@ -133,10 +134,20 @@ def main():
         )
     if args.student_manifest and (not args.engine or args.fast_experimental):
         parser.error("Approved student requires the FP32 arithmetic engine")
+    if args.fft_half_products and (
+        not args.ar_int8_only
+        or not args.packed_fft
+        or not args.fft_layout
+        or args.lang != "ko"
+    ):
+        parser.error(
+            "FFT half-products requires the separately approved Korean L-derived packed FFT runtime"
+        )
     student_manifest = None
     student_files_before = None
     ar_runtime_approval = None
     ar_runtime_listening_case = None
+    fft_half_runtime_approval = None
     if args.student_manifest:
         from cpufast_student_assets import load_manifest, snapshot
 
@@ -209,6 +220,41 @@ def main():
             )
         elif student_manifest.get("ar_runtime") == "int8_native":
             parser.error("Use the declared approved INT8 runtime for this model bundle")
+        if args.fft_half_products:
+            root = Path(__file__).resolve().parent
+            fft_half_runtime_approval = json.loads(
+                (root / "results/student_pilot/approved_p_runtime.json").read_text()
+            )
+            approval = fft_half_runtime_approval
+            if (
+                approval.get("quality_approved") is not True
+                or approval.get("model_variant") != "P"
+                or approval.get("seed") != 42
+                or approval.get("underlying_manifest_sha256")
+                != args.student_manifest_sha256
+                or approval.get("reference_sha256")
+                != student_manifest["reference_sha256"]
+                or approval.get("implementation")
+                != "experiments/student/listen_fft_half.py"
+                or approval.get("implementation_sha256")
+                != file_digest(root / approval["implementation"])
+                or approval.get("common_helper") != "cpufast_fft_half_runtime.py"
+                or approval.get("common_helper_sha256")
+                != file_digest(root / "cpufast_fft_half_runtime.py")
+            ):
+                parser.error(
+                    "FFT-product runtime does not match its separate listening approval"
+                )
+            runtime_cases = json.loads(
+                (root / approval["listening_report"]).read_text()
+            )["comparison"]["cases"]
+            ar_runtime_listening_case = next(
+                row for row in runtime_cases if row["language"] == "ko"
+            )
+            if ar_runtime_listening_case["text"] != args.text:
+                parser.error(
+                    "FFT-product runtime text differs from its listening approval"
+                )
     if args.threads is None:
         args.threads = 1 if args.engine else 2
     if args.ar_prefetch is None:
@@ -359,6 +405,23 @@ def main():
                 ar_coefficients=details,
                 arithmetic="Approximate W8A8 AR/native FP32 attention; unchanged normal FP32 acoustic runtime",
                 fp16_acoustic_modules=half_acoustics,
+            )
+        if args.fft_half_products:
+            from cpufast_fft_half_runtime import enable_fft_half_products
+
+            product_modules = enable_fft_half_products(pipeline.vits_model.dec)
+            half_acoustics = sum(
+                bool(getattr(module, "fast_half", False))
+                for module in pipeline.vits_model.modules()
+            )
+            if half_acoustics != len(product_modules):
+                raise RuntimeError(
+                    "FFT-product candidate changed unrelated acoustic modules"
+                )
+            runtime.audit.update(
+                fft_half_product_modules=product_modules,
+                fp16_acoustic_modules=half_acoustics,
+                arithmetic="Approximate W8A8 AR/native FP32 attention; large FFT spectral inputs/derived weights and accumulation FP16, materialized FP32 products; transforms/Tap/Winograd FP32",
             )
         ar_install_seconds = 0.0
         packing_seconds = time.perf_counter() - start_install
@@ -514,6 +577,11 @@ def main():
         "student_fp32_control": args.student_fp32_control,
         "approximate_ar_int8_only": args.ar_int8_only,
         "ar_runtime_approval": ar_runtime_approval,
+        "approximate_fft_half_products": args.fft_half_products,
+        "fft_half_runtime_approval": fft_half_runtime_approval,
+        "fft_half_product_modules": runtime.audit.get("fft_half_product_modules", [])
+        if args.engine
+        else [],
         "ar_runtime_library_manifest": json.loads(
             cpufast_fast_ops.path.with_suffix(
                 cpufast_fast_ops.path.suffix + ".json"
@@ -539,6 +607,7 @@ def main():
                 "packed_fft",
                 "fft_stream",
                 "fft_pad_channels",
+                "fft_half_products",
                 "parallel_transforms",
                 "fused_finish",
                 "tap_small",
