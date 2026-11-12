@@ -66,6 +66,7 @@ def synthetic_bundle(root, variant, storage):
         ("exact_fp16", "exact_fp16", False, "packed"),
         ("exact_fp16", "exact_fp16", False, "int8packed"),
         ("exact_fp16", "exact_fp16", False, "outputtile4"),
+        ("exact_fp16", "exact_fp16", False, "headv32"),
         ("exact_fp16", "exact_fp16", False, "profile"),
     ],
 )
@@ -126,7 +127,9 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             index = argv.index(key)
             del argv[index : index + 2]
         argv.append(
-            "--fft-output-tiles-comparison"
+            "--head-v32-comparison"
+            if ar_only == "headv32"
+            else "--fft-output-tiles-comparison"
             if ar_only == "outputtile4"
             else "--int8-prefill-comparison"
             if ar_only == "int8packed"
@@ -142,7 +145,7 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
         )
         if ar_only == "confirm":
             argv.append("--ar-int8-confirm-only")
-        if ar_only in ("int8packed", "outputtile4"):
+        if ar_only in ("int8packed", "outputtile4", "headv32"):
             argv += ["--samples", "5"]
     if decoder_only:
         argv.append("--decoder-only")
@@ -193,6 +196,7 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             else [],
             "fp16_acoustic_modules": 1 if "--fft-half-products" in command else 0,
             "experimental_options": {"fast_experimental": False},
+            "head_v32": {"calls": 120} if "/repo/scripts/benchmark_head_v32.py" in command else {},
             "fft_output_tiles": {"calls": 120} if "/repo/scripts/benchmark_fft_output_tiles.py" in command else {},
             "model_variant": manifest["model_variant"],
             "median_rtf": 1.2,
@@ -233,10 +237,12 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
         assert summary["cases"] == [] and "profile_run" in summary
         assert summary["complete"] and summary["student_assets_unchanged"]
         return
-    if ar_only in ("bottleneck", "bottleneckU", "bottleneckV", "packed", "int8packed", "outputtile4"):
+    if ar_only in ("bottleneck", "bottleneckU", "bottleneckV", "packed", "int8packed", "outputtile4", "headv32"):
         assert len(calls) == 11
         candidate_label = (
-            "tile4"
+            "head_v32"
+            if ar_only == "headv32"
+            else "tile4"
             if ar_only == "outputtile4"
             else "W"
             if ar_only == "int8packed"
@@ -274,7 +280,8 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             assert ("--packed-prefill-ffn" in command) == (label == "packed")
             assert ("--int8-prefill-ffn" in command) == (label == "W")
             assert ("/repo/scripts/benchmark_fft_output_tiles.py" in command) == (label == "tile4")
-        if ar_only in ("bottleneckU", "bottleneckV", "int8packed", "outputtile4"):
+            assert ("/repo/scripts/benchmark_head_v32.py" in command) == (label == "head_v32")
+        if ar_only in ("bottleneckU", "bottleneckV", "int8packed", "outputtile4", "headv32"):
             assert calls[-1][calls[-1].index("--warmups") + 1] == "3"
         summary = json.loads((output / "student_summary.json").read_text())
         assert [r["runtime"] for r in summary["comparison_order"]] == order
@@ -377,3 +384,127 @@ def test_decoder_comparison_rejects_different_ar_before_inference(
     monkeypatch.setattr(run_student_matrix.subprocess, "run", forbidden)
     with pytest.raises(SystemExit):
         run_student_matrix.main()
+
+
+@pytest.mark.parametrize("corruption", [None, "decoder", "pcm", "blocks"])
+def test_ar_depth_separates_approved_lengths_and_guards(monkeypatch, tmp_path, corruption):
+    paths = [synthetic_bundle(tmp_path / "baseline", "V", "exact_fp16"),
+             synthetic_bundle(tmp_path / "candidate", "AR17_QAT200_V400", "exact_fp16")]
+    shared_decoder = (paths[0].parent / "decoder.pt").read_bytes()
+    for index, path in enumerate(paths):
+        (path.parent / "decoder.pt").write_bytes(shared_decoder)
+        data = json.loads(path.read_text())
+        data.update(ar_layers=18-index, ar_runtime="int8_native",
+                    runtime_implementation={"path": "experiments/student/synthetic.py", "sha256": "a"*64})
+        data["files"]["decoder.pt"] = {"bytes": len(shared_decoder), "sha256": sha256(path.parent / "decoder.pt")}
+        data.pop("ar_selected_additional_step")  # New model training metadata is independent.
+        for case in data["listening_report"]["cases"]:
+            case.update(audio_seconds=1.0+index, pcm_sha256=f"pcm{index}",
+                        semantic=[{"tokens": index+1, "sha256": f"semantic{index}"}])
+        path.write_text(json.dumps(data))
+    if corruption == "decoder":
+        path = paths[1]
+        (path.parent / "decoder.pt").write_text("different")
+        data = json.loads(path.read_text())
+        data["files"]["decoder.pt"] = {"bytes": 9, "sha256": sha256(path.parent / "decoder.pt")}
+        path.write_text(json.dumps(data))
+    output = tmp_path / "output"
+    monkeypatch.setattr(sys, "argv", ["matrix", "--ar-depth-comparison", "--warmups", "3", "--samples", "5",
+        "--manifest", str(paths[1]), "--manifest-sha256", sha256(paths[1]),
+        "--baseline-manifest", str(paths[0]), "--baseline-manifest-sha256", sha256(paths[0]),
+        "--output", str(output)])
+    calls = []
+    def execute(command, check):
+        assert check and corruption != "decoder"
+        calls.append(command)
+        value = lambda key: command[command.index(key)+1]
+        manifest = json.loads(Path(value("--student-manifest")).read_text())
+        index = 18-manifest["ar_layers"]
+        assert value("--warmups") == "3" and value("--samples") == "1"
+        assert "--ar-int8-only" in command and "--fft-half-products" not in command
+        file = Path(value("--output"))
+        data = {"checkpoint_files_unchanged": True, "parameters_unchanged": True,
+            "ar_parameters_unchanged": True, "student_files_unchanged": True,
+            "approximate_ar_int8_only": True, "experimental_options": {"fast_experimental": False},
+            "fp16_acoustic_modules": 0, "model_variant": manifest["model_variant"],
+            "median_rtf": 1.2, "median_seconds": 1.2*(1+index),
+            "cgroup": {"cpu.max": "200000 100000", "memory.max": "8000000000", "memory.swap.max": "0"},
+            "ar_coefficient_audit": {"matrices": [{"block": b} for b in range(manifest["ar_layers"]-(corruption == "blocks"))]},
+            "runs": [{"rtf": 1.2, "cpu_seconds": 2., "audio_seconds": float(1+index),
+                "stages": {"ar_seconds": .5, "dec_seconds": .6},
+                "pcm_sha256": "bad" if corruption == "pcm" else f"pcm{index}",
+                "semantic": [{"index": 1+index, "generated_sha256": f"semantic{index}"}],
+                "comparison": {"exact": True}}]}
+        file.write_text(json.dumps(data))
+        file.with_suffix(".wav").write_bytes(b"wav")
+        Path(value("--report")).write_text(json.dumps({"exit_code": 0, "peak_sampled_tree_rss_bytes": 100}))
+        if "--profile-output" in command:
+            Path(value("--profile-output")).write_text("{}")
+    monkeypatch.setattr(run_student_matrix.subprocess, "run", execute)
+    if corruption:
+        with pytest.raises(SystemExit if corruption == "decoder" else RuntimeError):
+            run_student_matrix.main()
+        assert len(calls) == (0 if corruption == "decoder" else 1)
+        return
+    run_student_matrix.main()
+    summary = json.loads((output / "student_summary.json").read_text())
+    assert len(calls) == 12 and summary["complete"] and summary["student_assets_unchanged"]
+    assert [r["runtime"] for r in summary["comparison_order"]] == [
+        "AR18_V400", "AR17_QAT200_V400", "AR17_QAT200_V400", "AR18_V400",
+        "AR18_V400", "AR17_QAT200_V400", "AR17_QAT200_V400", "AR18_V400", "AR18_V400", "AR17_QAT200_V400"]
+    assert [r["audio_seconds"] for r in summary["paired_aggregate"]] == [1., 2.]
+    assert [r["generated_tokens"] for r in summary["paired_aggregate"]] == [1, 2]
+    assert [r["median_ar_seconds_per_generated_token"] for r in summary["paired_aggregate"]] == [.5, .25]
+    assert len(summary["excluded_profiles"]) == 2
+
+
+@pytest.mark.parametrize("bad_geometry", [False, True])
+def test_integrated_head_confirmation_executes_five_fresh_and_profiles(monkeypatch, tmp_path, bad_geometry):
+    path = synthetic_bundle(tmp_path / "bundle", "AR17_QAT200_V400", "exact_fp16")
+    manifest = json.loads(path.read_text())
+    manifest.update(ar_layers=17, ar_runtime="int8_native",
+        runtime_implementation={"path": "experiments/student/synthetic.py", "sha256": "a"*64})
+    path.write_text(json.dumps(manifest))
+    for env, name in (("CPUFAST_AR_LIBRARY", "base.so"), ("CPUFAST_FAST_LIBRARY", "fast.so")):
+        library = tmp_path / name
+        library.write_bytes(b"immutable")
+        library.with_suffix(".so.json").write_text("{}")
+        monkeypatch.setenv(env, str(library))
+    output = tmp_path / "output"
+    monkeypatch.setattr(sys, "argv", ["matrix", "--head-integrated-confirm", "--warmups", "3", "--samples", "5",
+        "--manifest", str(path), "--manifest-sha256", sha256(path), "--output", str(output)])
+    calls = []
+    def execute(command, check):
+        calls.append(command)
+        value = lambda key: command[command.index(key)+1]
+        assert check and value("--warmups") == "3" and value("--samples") == "1"
+        assert "/repo/benchmark_cpufast.py" in command and "--ar-int8-only" in command
+        file = Path(value("--output"))
+        data = {"checkpoint_files_unchanged": True, "parameters_unchanged": True,
+            "ar_parameters_unchanged": True, "student_files_unchanged": True,
+            "approximate_ar_int8_only": True, "experimental_options": {"fast_experimental": False},
+            "fp16_acoustic_modules": 0, "model_variant": manifest["model_variant"],
+            "median_rtf": .99, "median_seconds": .99,
+            "cgroup": {"cpu.max": "200000 100000", "memory.max": "8000000000", "memory.swap.max": "0"},
+            "ar_coefficient_audit": {"head_geometry": [{"block": b, "heads": 16,
+                "dim": 64 if bad_geometry else 32} for b in range(17)]},
+            "ar_runtime_library_manifest": {"head_value_schedule": {
+                "dim32": "eight_independent_vectors_preserve_token_FMA_order"}},
+            "runs": [{"rtf": .99, "cpu_seconds": 2., "audio_seconds": 1.,
+                "stages": {"ar_seconds": .5, "dec_seconds": .4}, "pcm_sha256": "pcm",
+                "semantic": [{"index": 1, "generated_sha256": "semantic"}], "comparison": {"exact": True}}]}
+        file.write_text(json.dumps(data));file.with_suffix(".wav").write_bytes(b"wav")
+        Path(value("--report")).write_text(json.dumps({"exit_code": 0, "peak_sampled_tree_rss_bytes": 100}))
+        if "--profile-output" in command:
+            Path(value("--profile-output")).write_text(json.dumps({"operators": [{"name": "cpufast_cpp::head_attn", "calls": 2261}]}))
+    monkeypatch.setattr(run_student_matrix.subprocess, "run", execute)
+    if bad_geometry:
+        with pytest.raises(RuntimeError, match="geometry/library"):
+            run_student_matrix.main()
+        assert len(calls) == 1
+        return
+    run_student_matrix.main()
+    data = json.loads((output / "student_summary.json").read_text())
+    assert len(calls) == 6 and data["aggregate"]["rtfs"] == [.99]*5
+    assert data["complete"] and data["native_files_unchanged"] and data["student_assets_unchanged"]
+    assert data["profile_head_attn_operator"][0]["calls"] == 2261

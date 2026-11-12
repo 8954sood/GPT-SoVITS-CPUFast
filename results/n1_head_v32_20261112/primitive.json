@@ -1,0 +1,1470 @@
+{
+  "scope": "Actual host primitive only; unchanged QK/softmax and token order",
+  "probe_manifest": {
+    "abi": 1,
+    "torch_version": "2.8.0+cpu",
+    "architecture": "aarch64",
+    "flags": [
+      "-O3",
+      "-std=c++17",
+      "-march=armv8.2-a+fp16+dotprod",
+      "-mtune=neoverse-n1",
+      "-fopenmp",
+      "-fPIC",
+      "-shared",
+      "-D_GLIBCXX_USE_CXX11_ABI=1"
+    ],
+    "sources": {
+      "native/cpufast_head_v32.cpp": "e6f571d728cc12496029f96e65c8bc078ce26d4eb75a7dff95e83c607e697ffc"
+    },
+    "library_sha256": "0b37a30ce2e78908b608dec24b1bf9b55e67d70e0a480dc74cd93777f3ab26c6"
+  },
+  "correctness": [
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "none",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "none",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "none",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "none",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "none",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "none",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "shared",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "shared",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "shared",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "shared",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "shared",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "shared",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "per_head_one_blocked",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "per_head_one_blocked",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "per_head_one_blocked",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "per_head_one_blocked",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "per_head_one_blocked",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "per_head_one_blocked",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "all_blocked",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "all_blocked",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "all_blocked",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "all_blocked",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "all_blocked",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "all_blocked",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "none",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "none",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "none",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "none",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "none",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "none",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "shared",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "shared",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "shared",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "shared",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "shared",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "shared",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "per_head_one_blocked",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "per_head_one_blocked",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "per_head_one_blocked",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "per_head_one_blocked",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "per_head_one_blocked",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "per_head_one_blocked",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "all_blocked",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "all_blocked",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "all_blocked",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "all_blocked",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "all_blocked",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "all_blocked",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "none",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "none",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "none",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "none",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "none",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "none",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "shared",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "shared",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "shared",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "shared",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "shared",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "shared",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "per_head_one_blocked",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "per_head_one_blocked",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "per_head_one_blocked",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "per_head_one_blocked",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "per_head_one_blocked",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "per_head_one_blocked",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "all_blocked",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "all_blocked",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "all_blocked",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "all_blocked",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "all_blocked",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "all_blocked",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    }
+  ],
+  "cases": [
+    {
+      "length": 257,
+      "heads": 16,
+      "dim": 32,
+      "capacity": 1756,
+      "hot_samples": {
+        "baseline": [
+          0.0001026744581758976,
+          0.00010087123140692711,
+          0.00010396165773272514,
+          0.00010471967980265617,
+          0.00010017963126301765,
+          0.0001035376451909542,
+          0.0001009984314441681
+        ],
+        "v32": [
+          9.050676599144935e-05,
+          8.644955232739449e-05,
+          8.689993992447854e-05,
+          8.628511801362038e-05,
+          8.528511971235275e-05,
+          9.372038766741753e-05,
+          8.547231554985046e-05
+        ]
+      },
+      "hot_medians": {
+        "baseline": 0.0001026744581758976,
+        "v32": 8.644955232739449e-05
+      },
+      "hot_candidate_over_baseline": 0.8419771953341377,
+      "rotating_caches": {
+        "layers": 18,
+        "active_bytes": 18948096,
+        "samples": {
+          "baseline": [
+            0.00015276566975646548,
+            0.0001432835641834471,
+            0.0001468255908952819,
+            0.0001518500761853324,
+            0.00015372358676460054,
+            0.00014073225773043104,
+            0.00015440345224406984
+          ],
+          "v32": [
+            0.00011429873605569203,
+            0.00011335199491845237,
+            0.00011305883526802063,
+            0.00010866754584842258,
+            0.0001088897180226114,
+            0.0001104432675573561,
+            0.00011093655808104409
+          ]
+        },
+        "medians": {
+          "baseline": 0.0001518500761853324,
+          "v32": 0.00011093655808104409
+        },
+        "candidate_over_baseline": 0.7305663643240222,
+        "note": "Synthetic KV-only layer traversal; actual AR also streams weights"
+      }
+    },
+    {
+      "length": 315,
+      "heads": 16,
+      "dim": 32,
+      "capacity": 1756,
+      "hot_samples": {
+        "baseline": [
+          0.00012615825980901718,
+          0.00013343071565032007,
+          0.00012515703216195106,
+          0.00012547144666314125,
+          0.000126411858946085,
+          0.0001247534528374672,
+          0.00012828348204493522
+        ],
+        "v32": [
+          0.00010308805853128434,
+          0.00010315727442502975,
+          0.00010943451896309852,
+          0.00010422008112072945,
+          0.00010295366868376732,
+          0.00010258566588163376,
+          0.00010387806221842766
+        ]
+      },
+      "hot_medians": {
+        "baseline": 0.00012615825980901718,
+        "v32": 0.00010315727442502975
+      },
+      "hot_candidate_over_baseline": 0.8176814945069223,
+      "rotating_caches": {
+        "layers": 18,
+        "active_bytes": 23224320,
+        "samples": {
+          "baseline": [
+            0.00017756161590417227,
+            0.00016745014323128594,
+            0.00017041712999343872,
+            0.00016516798900233375,
+            0.00017008350955115425,
+            0.00015954352501365874,
+            0.00015610125329759385
+          ],
+          "v32": [
+            0.00013447004473871656,
+            0.00013174116611480713,
+            0.0001324610784649849,
+            0.00012990335623423258,
+            0.00012819882896211412,
+            0.00012396110428704156,
+            0.00012718772308693992
+          ]
+        },
+        "medians": {
+          "baseline": 0.00016745014323128594,
+          "v32": 0.00012990335623423258
+        },
+        "candidate_over_baseline": 0.7757733360359513,
+        "note": "Synthetic KV-only layer traversal; actual AR also streams weights"
+      }
+    },
+    {
+      "length": 374,
+      "heads": 16,
+      "dim": 32,
+      "capacity": 1756,
+      "hot_samples": {
+        "baseline": [
+          0.00015093564987182618,
+          0.0001507740654051304,
+          0.00014980645850300788,
+          0.00015648812055587768,
+          0.00015021765604615212,
+          0.0001501304656267166,
+          0.00015579812228679656
+        ],
+        "v32": [
+          0.00012015379965305329,
+          0.00013034429401159286,
+          0.0001205742172896862,
+          0.0001240782253444195,
+          0.00011956300586462021,
+          0.00012097302824258805,
+          0.0001234506256878376
+        ]
+      },
+      "hot_medians": {
+        "baseline": 0.0001507740654051304,
+        "v32": 0.00012097302824258805
+      },
+      "hot_candidate_over_baseline": 0.8023463976880449,
+      "rotating_caches": {
+        "layers": 18,
+        "active_bytes": 27574272,
+        "samples": {
+          "baseline": [
+            0.0004847507095999188,
+            0.0005364111728138394,
+            0.0003949811475144492,
+            0.00021229953401618532,
+            0.00020619057532813813,
+            0.0002068950691156917,
+            0.0002002505999472406
+          ],
+          "v32": [
+            0.0005395890523989996,
+            0.0004468636794222726,
+            0.00015816351191865074,
+            0.00016492574165264765,
+            0.00015479895389742323,
+            0.00015813691748513115,
+            0.0001575678793920411
+          ]
+        },
+        "medians": {
+          "baseline": 0.00021229953401618532,
+          "v32": 0.00015816351191865074
+        },
+        "candidate_over_baseline": 0.7450016913677853,
+        "note": "Synthetic KV-only layer traversal; actual AR also streams weights"
+      }
+    },
+    {
+      "length": 768,
+      "heads": 16,
+      "dim": 32,
+      "capacity": 1756,
+      "hot_samples": {
+        "baseline": [
+          0.0003447088971734047,
+          0.0003314455784857273,
+          0.00033398879691958427,
+          0.00035612057894468307,
+          0.0003417232818901539,
+          0.00034689009189605715,
+          0.00033170238137245176
+        ],
+        "v32": [
+          0.00023307275027036666,
+          0.00023279236629605293,
+          0.00023330075666308403,
+          0.00023220034316182137,
+          0.00023192912340164185,
+          0.00023140477016568185,
+          0.00023611677810549735
+        ]
+      },
+      "hot_medians": {
+        "baseline": 0.0003417232818901539,
+        "v32": 0.00023279236629605293
+      },
+      "hot_candidate_over_baseline": 0.6812306290880218,
+      "rotating_caches": {
+        "layers": 18,
+        "active_bytes": 56623104,
+        "samples": {
+          "baseline": [
+            0.0004344525643520885,
+            0.00041690561920404434,
+            0.0004162613509429826,
+            0.0004134590013159646,
+            0.0004059989005327225,
+            0.0004072700523667865,
+            0.0004089767527249124
+          ],
+          "v32": [
+            0.0002883313637640741,
+            0.00028320236338509456,
+            0.00028461342056592304,
+            0.00028498005121946335,
+            0.00028508239322238497,
+            0.0002809157595038414,
+            0.0002944802658425437
+          ]
+        },
+        "medians": {
+          "baseline": 0.0004134590013159646,
+          "v32": 0.00028498005121946335
+        },
+        "candidate_over_baseline": 0.6892583068996534,
+        "note": "Synthetic KV-only layer traversal; actual AR also streams weights"
+      }
+    }
+  ]
+}

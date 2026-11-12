@@ -266,6 +266,11 @@ def build(
         "authoritative_coefficients_unchanged": True,
         "int8_cache_lossless": False,
         "arithmetic": "experimental W8A8 multiplication with per-channel weights",
+        "head_geometry": [
+            {"block": index, "heads": int(block.num_heads),
+             "dim": int(block.qkv_w_t.shape[0] // block.num_heads)}
+            for index, block in enumerate(original.blocks)
+        ],
         "head_major": head_major,
         "torch_head_attention": torch_head_attention,
         "native_workers": cpufast_cpp_ops.WORKERS,

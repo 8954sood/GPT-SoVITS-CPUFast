@@ -1,0 +1,7146 @@
+{
+  "note": "Extra profiled inference, excluded from RTF; CPU totals may overlap across threads and include profiler overhead",
+  "record_shapes": false,
+  "predictor": {
+    "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+    "range": "cpufast_predictor_projection",
+    "weight_shape": [
+      1025,
+      512
+    ],
+    "weight_dtype": "torch.float32",
+    "negative_eligibility_cache": false,
+    "torch_num_threads_observed": 2,
+    "input_shapes": [
+      {
+        "shape": [
+          1,
+          512
+        ],
+        "calls": 134
+      }
+    ],
+    "packed_half_classifier": true
+  },
+  "decoder_taps": [
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K7_D1",
+      "weight_shape": [
+        48,
+        48,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.7.convs1.0",
+      "dilation": 1,
+      "padding": 3,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            85120
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K7_D3",
+      "weight_shape": [
+        48,
+        48,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.7.convs1.1",
+      "dilation": 3,
+      "padding": 9,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            85120
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K7_D5",
+      "weight_shape": [
+        48,
+        48,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.7.convs1.2",
+      "dilation": 5,
+      "padding": 15,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            85120
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K7_D1",
+      "weight_shape": [
+        48,
+        48,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.7.convs2.0",
+      "dilation": 1,
+      "padding": 3,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            85120
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K7_D1",
+      "weight_shape": [
+        48,
+        48,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.7.convs2.1",
+      "dilation": 1,
+      "padding": 3,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            85120
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K7_D1",
+      "weight_shape": [
+        48,
+        48,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.7.convs2.2",
+      "dilation": 1,
+      "padding": 3,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            85120
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K11_D1",
+      "weight_shape": [
+        48,
+        48,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.8.convs1.0",
+      "dilation": 1,
+      "padding": 5,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            85120
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C36_K11_D3",
+      "weight_shape": [
+        36,
+        48,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.8.convs1.1",
+      "dilation": 3,
+      "padding": 15,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            85120
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C36_K11_D5",
+      "weight_shape": [
+        36,
+        48,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.8.convs1.2",
+      "dilation": 5,
+      "padding": 25,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            85120
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K11_D1",
+      "weight_shape": [
+        48,
+        48,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.8.convs2.0",
+      "dilation": 1,
+      "padding": 5,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            85120
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K11_D1",
+      "weight_shape": [
+        48,
+        36,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.8.convs2.1",
+      "dilation": 1,
+      "padding": 5,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            36,
+            85120
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K11_D1",
+      "weight_shape": [
+        48,
+        36,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.8.convs2.2",
+      "dilation": 1,
+      "padding": 5,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            36,
+            85120
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K7_D1",
+      "weight_shape": [
+        24,
+        24,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.10.convs1.0",
+      "dilation": 1,
+      "padding": 3,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            170240
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K7_D3",
+      "weight_shape": [
+        24,
+        24,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.10.convs1.1",
+      "dilation": 3,
+      "padding": 9,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            170240
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K7_D5",
+      "weight_shape": [
+        24,
+        24,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.10.convs1.2",
+      "dilation": 5,
+      "padding": 15,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            170240
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K7_D1",
+      "weight_shape": [
+        24,
+        24,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.10.convs2.0",
+      "dilation": 1,
+      "padding": 3,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            170240
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K7_D1",
+      "weight_shape": [
+        24,
+        24,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.10.convs2.1",
+      "dilation": 1,
+      "padding": 3,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            170240
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K7_D1",
+      "weight_shape": [
+        24,
+        24,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.10.convs2.2",
+      "dilation": 1,
+      "padding": 3,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            170240
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K11_D1",
+      "weight_shape": [
+        24,
+        24,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.11.convs1.0",
+      "dilation": 1,
+      "padding": 5,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            170240
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K11_D3",
+      "weight_shape": [
+        24,
+        24,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.11.convs1.1",
+      "dilation": 3,
+      "padding": 15,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            170240
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K11_D5",
+      "weight_shape": [
+        24,
+        24,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.11.convs1.2",
+      "dilation": 5,
+      "padding": 25,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            170240
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K11_D1",
+      "weight_shape": [
+        24,
+        24,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.11.convs2.0",
+      "dilation": 1,
+      "padding": 5,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            170240
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K11_D1",
+      "weight_shape": [
+        24,
+        24,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.11.convs2.1",
+      "dilation": 1,
+      "padding": 5,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            170240
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K11_D1",
+      "weight_shape": [
+        24,
+        24,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.11.convs2.2",
+      "dilation": 1,
+      "padding": 5,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            170240
+          ],
+          "calls": 1
+        }
+      ]
+    }
+  ],
+  "decoder_fft": [
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin384_Cout240_K7_D1_N128",
+      "weight_shape": [
+        240,
+        384,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.0.convs1.0",
+      "dilation": 1,
+      "n_fft": 128,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            384,
+            2660
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin384_Cout240_K7_D3_N128",
+      "weight_shape": [
+        240,
+        384,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.0.convs1.1",
+      "dilation": 3,
+      "n_fft": 128,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            384,
+            2660
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin384_Cout240_K7_D5_N128",
+      "weight_shape": [
+        240,
+        384,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.0.convs1.2",
+      "dilation": 5,
+      "n_fft": 128,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            384,
+            2660
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin240_Cout384_K7_D1_N256",
+      "weight_shape": [
+        384,
+        240,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.0.convs2.0",
+      "dilation": 1,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            240,
+            2660
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin240_Cout384_K7_D1_N256",
+      "weight_shape": [
+        384,
+        240,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.0.convs2.1",
+      "dilation": 1,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            240,
+            2660
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin240_Cout384_K7_D1_N256",
+      "weight_shape": [
+        384,
+        240,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.0.convs2.2",
+      "dilation": 1,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            240,
+            2660
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin384_Cout240_K11_D1_N128",
+      "weight_shape": [
+        240,
+        384,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.1.convs1.0",
+      "dilation": 1,
+      "n_fft": 128,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            384,
+            2660
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin384_Cout240_K11_D3_N128",
+      "weight_shape": [
+        240,
+        384,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.1.convs1.1",
+      "dilation": 3,
+      "n_fft": 128,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            384,
+            2660
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin384_Cout240_K11_D5_N128",
+      "weight_shape": [
+        240,
+        384,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.1.convs1.2",
+      "dilation": 5,
+      "n_fft": 128,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            384,
+            2660
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin240_Cout384_K11_D1_N256",
+      "weight_shape": [
+        384,
+        240,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.1.convs2.0",
+      "dilation": 1,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            240,
+            2660
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin240_Cout384_K11_D1_N256",
+      "weight_shape": [
+        384,
+        240,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.1.convs2.1",
+      "dilation": 1,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            240,
+            2660
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin240_Cout384_K11_D1_N256",
+      "weight_shape": [
+        384,
+        240,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.1.convs2.2",
+      "dilation": 1,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            240,
+            2660
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin192_Cout120_K7_D1_N256",
+      "weight_shape": [
+        120,
+        192,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.3.convs1.0",
+      "dilation": 1,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            192,
+            21280
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin192_Cout120_K7_D3_N256",
+      "weight_shape": [
+        120,
+        192,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.3.convs1.1",
+      "dilation": 3,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            192,
+            21280
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin192_Cout120_K7_D5_N256",
+      "weight_shape": [
+        120,
+        192,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.3.convs1.2",
+      "dilation": 5,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            192,
+            21280
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin120_Cout192_K7_D1_N256",
+      "weight_shape": [
+        192,
+        120,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.3.convs2.0",
+      "dilation": 1,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            120,
+            21280
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin120_Cout192_K7_D1_N256",
+      "weight_shape": [
+        192,
+        120,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.3.convs2.1",
+      "dilation": 1,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            120,
+            21280
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin120_Cout192_K7_D1_N256",
+      "weight_shape": [
+        192,
+        120,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.3.convs2.2",
+      "dilation": 1,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            120,
+            21280
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin192_Cout96_K11_D1_N256",
+      "weight_shape": [
+        96,
+        192,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.4.convs1.0",
+      "dilation": 1,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            192,
+            21280
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin192_Cout120_K11_D3_N256",
+      "weight_shape": [
+        120,
+        192,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.4.convs1.1",
+      "dilation": 3,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            192,
+            21280
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin192_Cout96_K11_D5_N256",
+      "weight_shape": [
+        96,
+        192,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.4.convs1.2",
+      "dilation": 5,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            192,
+            21280
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin96_Cout192_K11_D1_N256",
+      "weight_shape": [
+        192,
+        96,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.4.convs2.0",
+      "dilation": 1,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            96,
+            21280
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin120_Cout192_K11_D1_N256",
+      "weight_shape": [
+        192,
+        120,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.4.convs2.1",
+      "dilation": 1,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            120,
+            21280
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin96_Cout192_K11_D1_N256",
+      "weight_shape": [
+        192,
+        96,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.4.convs2.2",
+      "dilation": 1,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            96,
+            21280
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin96_Cout60_K11_D1_N256",
+      "weight_shape": [
+        60,
+        96,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.6.convs1.0",
+      "dilation": 1,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            96,
+            42560
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin96_Cout60_K11_D3_N256",
+      "weight_shape": [
+        60,
+        96,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.6.convs1.1",
+      "dilation": 3,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            96,
+            42560
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin96_Cout60_K11_D5_N256",
+      "weight_shape": [
+        60,
+        96,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.6.convs1.2",
+      "dilation": 5,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            96,
+            42560
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin60_Cout96_K11_D1_N256",
+      "weight_shape": [
+        96,
+        60,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.6.convs2.0",
+      "dilation": 1,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            60,
+            42560
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin60_Cout96_K11_D1_N256",
+      "weight_shape": [
+        96,
+        60,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.6.convs2.1",
+      "dilation": 1,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            60,
+            42560
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_fft_Cin60_Cout96_K11_D1_N256",
+      "weight_shape": [
+        96,
+        60,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.6.convs2.2",
+      "dilation": 1,
+      "n_fft": 256,
+      "stream_products": true,
+      "fast_half": false,
+      "half_stream_products": false,
+      "torch_num_threads_observed": 2,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            60,
+            42560
+          ],
+          "calls": 1
+        }
+      ]
+    }
+  ],
+  "ar_phases": {
+    "scope": "Excluded diagnostic only; dispatch labels add overhead, do not use profile wall time for RTF",
+    "classification": "Actual runtime process_prompt/decode scopes and matrix-storage identity; acoustic addmm excluded",
+    "phases": [
+      {
+        "phase": "prefill",
+        "input_shape": [
+          1,
+          256,
+          512
+        ],
+        "calls": 1
+      },
+      {
+        "phase": "decode",
+        "input_shape": [
+          1,
+          1,
+          512
+        ],
+        "calls": 133
+      }
+    ],
+    "operators": [
+      {
+        "phase": "prefill",
+        "role": "qkv",
+        "operator": "aten.addmm.default",
+        "input_shapes": [
+          [
+            1536
+          ],
+          [
+            256,
+            512
+          ],
+          [
+            512,
+            1536
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "prefill",
+        "role": "attention",
+        "operator": "aten.scaled_dot_product_attention.default",
+        "input_shapes": [
+          [
+            1,
+            16,
+            256,
+            32
+          ],
+          [
+            1,
+            16,
+            256,
+            32
+          ],
+          [
+            1,
+            16,
+            256,
+            32
+          ],
+          [
+            1,
+            16,
+            256,
+            256
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "prefill",
+        "role": "attention_out",
+        "operator": "aten.addmm.default",
+        "input_shapes": [
+          [
+            512
+          ],
+          [
+            256,
+            512
+          ],
+          [
+            512,
+            512
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "prefill",
+        "role": "ffn1",
+        "operator": "aten.addmm.default",
+        "input_shapes": [
+          [
+            2048
+          ],
+          [
+            256,
+            512
+          ],
+          [
+            512,
+            2048
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "prefill",
+        "role": "ffn_activation",
+        "operator": "aten.relu.default",
+        "input_shapes": [
+          [
+            256,
+            2048
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "prefill",
+        "role": "ffn2",
+        "operator": "aten.addmm.default",
+        "input_shapes": [
+          [
+            512
+          ],
+          [
+            256,
+            2048
+          ],
+          [
+            2048,
+            512
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "qkv",
+        "operator": "cpufast_cpp.int8_linear.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1536,
+            512
+          ],
+          [
+            1536
+          ],
+          [
+            1536
+          ]
+        ],
+        "calls": 2261
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            257
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention_out",
+        "operator": "cpufast_cpp.int8_linear.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            512,
+            512
+          ],
+          [
+            512
+          ],
+          [
+            512
+          ]
+        ],
+        "calls": 2261
+      },
+      {
+        "phase": "decode",
+        "role": "ffn1",
+        "operator": "cpufast_cpp.int8_linear.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            2048,
+            512
+          ],
+          [
+            2048
+          ],
+          [
+            2048
+          ]
+        ],
+        "calls": 2261
+      },
+      {
+        "phase": "decode",
+        "role": "ffn_activation",
+        "operator": "aten.relu.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            2048
+          ]
+        ],
+        "calls": 2261
+      },
+      {
+        "phase": "decode",
+        "role": "ffn2",
+        "operator": "cpufast_cpp.int8_linear.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            2048
+          ],
+          [
+            512,
+            2048
+          ],
+          [
+            512
+          ],
+          [
+            512
+          ]
+        ],
+        "calls": 2261
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            258
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            259
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            260
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            261
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            262
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            263
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            264
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            265
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            266
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            267
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            268
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            269
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            270
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            271
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            272
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            273
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            274
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            275
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            276
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            277
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            278
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            279
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            280
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            281
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            282
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            283
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            284
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            285
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            286
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            287
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            288
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            289
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            290
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            291
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            292
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            293
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            294
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            295
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            296
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            297
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            298
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            299
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            300
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            301
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            302
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            303
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            304
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            305
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            306
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            307
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            308
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            309
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            310
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            311
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            312
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            313
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            314
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            315
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            316
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            317
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            318
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            319
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            320
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            321
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            322
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            323
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            324
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            325
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            326
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            327
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            328
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            329
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            330
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            331
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            332
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            333
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            334
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            335
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            336
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            337
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            338
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            339
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            340
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            341
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            342
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            343
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            344
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            345
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            346
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            347
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            348
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            349
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            350
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            351
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            352
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            353
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            354
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            355
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            356
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            357
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            358
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            359
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            360
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            361
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            362
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            363
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            364
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            365
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            366
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            367
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            368
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            369
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            370
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            371
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            372
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            373
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            374
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            375
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            376
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            377
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            378
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            379
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            380
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            381
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            382
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            383
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            384
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            385
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            386
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            387
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            388
+          ]
+        ],
+        "calls": 17
+      },
+      {
+        "phase": "decode",
+        "role": "attention",
+        "operator": "cpufast_cpp.head_attn.default",
+        "input_shapes": [
+          [
+            1,
+            1,
+            512
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1756,
+            32
+          ],
+          [
+            1,
+            16,
+            1,
+            389
+          ]
+        ],
+        "calls": 17
+      }
+    ]
+  },
+  "profile_output_checks": {
+    "sample_rate": 32000,
+    "pcm_sha256": "2d7691a829c0f793796be37c9a1287a88497ea41dcd1328729333c6b0ec0e83e",
+    "semantic": [
+      {
+        "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+        "index": 133,
+        "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+      }
+    ],
+    "audio_seconds": 5.62,
+    "exact_to_unprofiled_same_process": true
+  },
+  "operators": [
+    {
+      "name": "aten::addmm",
+      "calls": 328,
+      "input_shapes": "",
+      "self_cpu_us": 1223559.3080000172,
+      "total_cpu_us": 1630544.8910000003
+    },
+    {
+      "name": "cpufast_cpp::int8_linear",
+      "calls": 18088,
+      "input_shapes": "",
+      "self_cpu_us": 962797.6520000024,
+      "total_cpu_us": 2007427.176000019
+    },
+    {
+      "name": "cpufast_cpp::fft_packed_stream",
+      "calls": 30,
+      "input_shapes": "",
+      "self_cpu_us": 555205.3840000015,
+      "total_cpu_us": 555893.2720000008
+    },
+    {
+      "name": "aten::bmm",
+      "calls": 71,
+      "input_shapes": "",
+      "self_cpu_us": 498323.19300000183,
+      "total_cpu_us": 501803.17500000075
+    },
+    {
+      "name": "cpufast_cpp::head_attn",
+      "calls": 4522,
+      "input_shapes": "",
+      "self_cpu_us": 438846.3070000026,
+      "total_cpu_us": 910793.2090000167
+    },
+    {
+      "name": "cpufast_ar_decode",
+      "calls": 133,
+      "input_shapes": "",
+      "self_cpu_us": 382827.0699999763,
+      "total_cpu_us": 3581513.229999998
+    },
+    {
+      "name": "aten::copy_",
+      "calls": 8719,
+      "input_shapes": "",
+      "self_cpu_us": 284060.7429999717,
+      "total_cpu_us": 284060.7429999717
+    },
+    {
+      "name": "aten::slice",
+      "calls": 23390,
+      "input_shapes": "",
+      "self_cpu_us": 277291.444999998,
+      "total_cpu_us": 297431.0760000085
+    },
+    {
+      "name": "aten::_fft_r2c",
+      "calls": 30,
+      "input_shapes": "",
+      "self_cpu_us": 270273.9490000019,
+      "total_cpu_us": 270646.7120000012
+    },
+    {
+      "name": "aten::_fft_c2r",
+      "calls": 30,
+      "input_shapes": "",
+      "self_cpu_us": 260324.1090000011,
+      "total_cpu_us": 260974.1929999981
+    },
+    {
+      "name": "aten::mkldnn_convolution",
+      "calls": 94,
+      "input_shapes": "",
+      "self_cpu_us": 248247.33700001147,
+      "total_cpu_us": 265342.91499999724
+    },
+    {
+      "name": "aten::add",
+      "calls": 4811,
+      "input_shapes": "",
+      "self_cpu_us": 198767.7439999901,
+      "total_cpu_us": 198767.7439999901
+    },
+    {
+      "name": "aten::layer_norm",
+      "calls": 4580,
+      "input_shapes": "",
+      "self_cpu_us": 135026.58900003933,
+      "total_cpu_us": 208590.5230000235
+    },
+    {
+      "name": "cpufast_cpp::fft_pack",
+      "calls": 30,
+      "input_shapes": "",
+      "self_cpu_us": 125528.49499999918,
+      "total_cpu_us": 126115.13900000136
+    },
+    {
+      "name": "cpufast_cpp::winograd_output",
+      "calls": 18,
+      "input_shapes": "",
+      "self_cpu_us": 124666.16799999867,
+      "total_cpu_us": 125006.93000000156
+    },
+    {
+      "name": "aten::view",
+      "calls": 14718,
+      "input_shapes": "",
+      "self_cpu_us": 120827.94999998179,
+      "total_cpu_us": 120827.94999998179
+    },
+    {
+      "name": "aten::mm",
+      "calls": 25,
+      "input_shapes": "",
+      "self_cpu_us": 115282.73100000004,
+      "total_cpu_us": 115304.37099999904
+    },
+    {
+      "name": "cpufast_ar_decode_attention",
+      "calls": 2261,
+      "input_shapes": "",
+      "self_cpu_us": 111725.48300000804,
+      "total_cpu_us": 467268.26300001703
+    },
+    {
+      "name": "cpufast_ar_decode_ffn1",
+      "calls": 2261,
+      "input_shapes": "",
+      "self_cpu_us": 98267.36399998155,
+      "total_cpu_us": 288196.1480000027
+    },
+    {
+      "name": "cpufast_ar_decode_qkv",
+      "calls": 2261,
+      "input_shapes": "",
+      "self_cpu_us": 98032.76200001384,
+      "total_cpu_us": 279908.80399999744
+    },
+    {
+      "name": "cpufast_ar_decode_ffn2",
+      "calls": 2261,
+      "input_shapes": "",
+      "self_cpu_us": 89305.01500001329,
+      "total_cpu_us": 272837.5700000152
+    },
+    {
+      "name": "aten::transpose",
+      "calls": 4854,
+      "input_shapes": "",
+      "self_cpu_us": 88380.36299999338,
+      "total_cpu_us": 92413.27299999802
+    },
+    {
+      "name": "aten::relu",
+      "calls": 4568,
+      "input_shapes": "",
+      "self_cpu_us": 86204.26000001328,
+      "total_cpu_us": 212362.90200001115
+    },
+    {
+      "name": "cpufast_ar_decode_attention_out",
+      "calls": 2261,
+      "input_shapes": "",
+      "self_cpu_us": 82398.71999998821,
+      "total_cpu_us": 179210.13599999505
+    },
+    {
+      "name": "aten::_scaled_dot_product_flash_attention_for_cpu",
+      "calls": 17,
+      "input_shapes": "",
+      "self_cpu_us": 80246.7150000007,
+      "total_cpu_us": 80830.9220000002
+    },
+    {
+      "name": "aten::chunk",
+      "calls": 2278,
+      "input_shapes": "",
+      "self_cpu_us": 78734.23699999953,
+      "total_cpu_us": 117158.56500000015
+    },
+    {
+      "name": "cpufast_cpp::winograd_input",
+      "calls": 18,
+      "input_shapes": "",
+      "self_cpu_us": 72354.36899999995,
+      "total_cpu_us": 72561.29000000004
+    },
+    {
+      "name": "cpufast_ar_decode_ffn_activation",
+      "calls": 2261,
+      "input_shapes": "",
+      "self_cpu_us": 70702.96499998844,
+      "total_cpu_us": 96986.11099999561
+    },
+    {
+      "name": "aten::empty",
+      "calls": 28879,
+      "input_shapes": "",
+      "self_cpu_us": 62563.61099998544,
+      "total_cpu_us": 62563.61099998544
+    },
+    {
+      "name": "aten::native_layer_norm",
+      "calls": 4580,
+      "input_shapes": "",
+      "self_cpu_us": 48617.574000014276,
+      "total_cpu_us": 73563.93399998415
+    },
+    {
+      "name": "aten::leaky_relu",
+      "calls": 54,
+      "input_shapes": "",
+      "self_cpu_us": 47245.75800000038,
+      "total_cpu_us": 47245.75800000038
+    },
+    {
+      "name": "aten::contiguous",
+      "calls": 2443,
+      "input_shapes": "",
+      "self_cpu_us": 43362.732999995744,
+      "total_cpu_us": 137572.23299999203
+    },
+    {
+      "name": "cpufast_cpp::fft_finish",
+      "calls": 30,
+      "input_shapes": "",
+      "self_cpu_us": 29683.774999995716,
+      "total_cpu_us": 30518.377999996766
+    },
+    {
+      "name": "aten::as_strided",
+      "calls": 31083,
+      "input_shapes": "",
+      "self_cpu_us": 27339.646999972287,
+      "total_cpu_us": 27339.646999972287
+    },
+    {
+      "name": "aten::clamp_min",
+      "calls": 2290,
+      "input_shapes": "",
+      "self_cpu_us": 25474.100000002174,
+      "total_cpu_us": 25474.100000002174
+    },
+    {
+      "name": "aten::fill_",
+      "calls": 193,
+      "input_shapes": "",
+      "self_cpu_us": 24998.292999996604,
+      "total_cpu_us": 24998.292999996604
+    },
+    {
+      "name": "cpufast_cpp::cook_output",
+      "calls": 3,
+      "input_shapes": "",
+      "self_cpu_us": 22485.989999999292,
+      "total_cpu_us": 22543.590999999084
+    },
+    {
+      "name": "cpufast_cpp::cook_input",
+      "calls": 3,
+      "input_shapes": "",
+      "self_cpu_us": 19680.126000000164,
+      "total_cpu_us": 19702.526000000536
+    },
+    {
+      "name": "aten::add_",
+      "calls": 25,
+      "input_shapes": "",
+      "self_cpu_us": 17531.027000000515,
+      "total_cpu_us": 17531.027000000515
+    },
+    {
+      "name": "cpufast_predictor_projection",
+      "calls": 134,
+      "input_shapes": "",
+      "self_cpu_us": 17089.82000000018,
+      "total_cpu_us": 33191.437999999616
+    },
+    {
+      "name": "aten::where",
+      "calls": 438,
+      "input_shapes": "",
+      "self_cpu_us": 16436.860999992336,
+      "total_cpu_us": 31677.034999997595
+    },
+    {
+      "name": "cpufast_cpp::lossless_linear",
+      "calls": 134,
+      "input_shapes": "",
+      "self_cpu_us": 15073.57000000053,
+      "total_cpu_us": 15549.893000000739
+    },
+    {
+      "name": "aten::mul",
+      "calls": 517,
+      "input_shapes": "",
+      "self_cpu_us": 13986.122000001047,
+      "total_cpu_us": 15795.340000004358
+    },
+    {
+      "name": "aten::narrow",
+      "calls": 7156,
+      "input_shapes": "",
+      "self_cpu_us": 13896.087000027881,
+      "total_cpu_us": 32181.038000010616
+    },
+    {
+      "name": "aten::_weight_norm_interface",
+      "calls": 36,
+      "input_shapes": "",
+      "self_cpu_us": 13027.029000005685,
+      "total_cpu_us": 13488.112999998033
+    },
+    {
+      "name": "aten::_slow_conv2d_forward",
+      "calls": 36,
+      "input_shapes": "",
+      "self_cpu_us": 11896.582000004128,
+      "total_cpu_us": 12555.385999998078
+    },
+    {
+      "name": "aten::tanh",
+      "calls": 17,
+      "input_shapes": "",
+      "self_cpu_us": 9571.760999997146,
+      "total_cpu_us": 9571.760999997146
+    },
+    {
+      "name": "aten::split",
+      "calls": 2279,
+      "input_shapes": "",
+      "self_cpu_us": 8478.707000000133,
+      "total_cpu_us": 38441.928000001186
+    },
+    {
+      "name": "aten::select",
+      "calls": 1752,
+      "input_shapes": "",
+      "self_cpu_us": 7103.406000035375,
+      "total_cpu_us": 9065.422999998686
+    },
+    {
+      "name": "cpufast_ar_prefill",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 6677.626999999979,
+      "total_cpu_us": 560776.034
+    },
+    {
+      "name": "aten::clone",
+      "calls": 2483,
+      "input_shapes": "",
+      "self_cpu_us": 6400.658000004296,
+      "total_cpu_us": 130992.64599999602
+    },
+    {
+      "name": "aten::empty_like",
+      "calls": 2664,
+      "input_shapes": "",
+      "self_cpu_us": 4950.432999984012,
+      "total_cpu_us": 16340.722999987476
+    },
+    {
+      "name": "aten::sigmoid",
+      "calls": 16,
+      "input_shapes": "",
+      "self_cpu_us": 4499.992999999784,
+      "total_cpu_us": 4499.992999999784
+    },
+    {
+      "name": "aten::exponential_",
+      "calls": 134,
+      "input_shapes": "",
+      "self_cpu_us": 4465.437999999034,
+      "total_cpu_us": 4465.437999999034
+    },
+    {
+      "name": "cpufast_decoder_tap_C48_K11_D1",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 4395.641999996267,
+      "total_cpu_us": 246344.90999999922
+    },
+    {
+      "name": "cpufast_decoder_tap_C24_K11_D1",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 3758.7149999979883,
+      "total_cpu_us": 165014.02600000054
+    },
+    {
+      "name": "aten::_softmax",
+      "calls": 147,
+      "input_shapes": "",
+      "self_cpu_us": 3543.032999995281,
+      "total_cpu_us": 3543.032999995281
+    },
+    {
+      "name": "aten::reshape",
+      "calls": 394,
+      "input_shapes": "",
+      "self_cpu_us": 3249.182000004108,
+      "total_cpu_us": 26333.25600000533
+    },
+    {
+      "name": "cpufast_decoder_tap_C24_K7_D1",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 3159.7840000046417,
+      "total_cpu_us": 114440.08200000133
+    },
+    {
+      "name": "cpufast_decoder_tap_C48_K7_D1",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 2950.3079999973997,
+      "total_cpu_us": 177277.64999999944
+    },
+    {
+      "name": "aten::argmax",
+      "calls": 268,
+      "input_shapes": "",
+      "self_cpu_us": 2850.508000002126,
+      "total_cpu_us": 2954.429000001168
+    },
+    {
+      "name": "aten::_to_copy",
+      "calls": 989,
+      "input_shapes": "",
+      "self_cpu_us": 2699.096999994941,
+      "total_cpu_us": 6283.613999997615
+    },
+    {
+      "name": "aten::div",
+      "calls": 427,
+      "input_shapes": "",
+      "self_cpu_us": 2543.257000003243,
+      "total_cpu_us": 4148.552999997744
+    },
+    {
+      "name": "aten::lt",
+      "calls": 272,
+      "input_shapes": "",
+      "self_cpu_us": 2286.4980000058567,
+      "total_cpu_us": 4262.0640000022395
+    },
+    {
+      "name": "aten::eq",
+      "calls": 285,
+      "input_shapes": "",
+      "self_cpu_us": 2122.3849999981467,
+      "total_cpu_us": 2983.0739999997895
+    },
+    {
+      "name": "aten::gather",
+      "calls": 134,
+      "input_shapes": "",
+      "self_cpu_us": 2039.382999995607,
+      "total_cpu_us": 2062.2629999980563
+    },
+    {
+      "name": "aten::constant_pad_nd",
+      "calls": 194,
+      "input_shapes": "",
+      "self_cpu_us": 1981.177999992702,
+      "total_cpu_us": 101676.85899999636
+    },
+    {
+      "name": "aten::_convolution",
+      "calls": 130,
+      "input_shapes": "",
+      "self_cpu_us": 1974.7330000111833,
+      "total_cpu_us": 282869.0980000086
+    },
+    {
+      "name": "aten::empty_strided",
+      "calls": 1208,
+      "input_shapes": "",
+      "self_cpu_us": 1949.9450000075049,
+      "total_cpu_us": 1949.9450000075049
+    },
+    {
+      "name": "cpufast_ar_prefill_attention",
+      "calls": 17,
+      "input_shapes": "",
+      "self_cpu_us": 1801.6539999998713,
+      "total_cpu_us": 96892.21599999984
+    },
+    {
+      "name": "aten::index_select",
+      "calls": 137,
+      "input_shapes": "",
+      "self_cpu_us": 1730.089999997832,
+      "total_cpu_us": 3126.3819999974403
+    },
+    {
+      "name": "aten::topk",
+      "calls": 134,
+      "input_shapes": "",
+      "self_cpu_us": 1713.6120000013616,
+      "total_cpu_us": 1713.6120000013616
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin120_Cout192_K7_D1_N256",
+      "calls": 3,
+      "input_shapes": "",
+      "self_cpu_us": 1637.8989999974146,
+      "total_cpu_us": 169774.78699999955
+    },
+    {
+      "name": "aten::bitwise_not",
+      "calls": 17,
+      "input_shapes": "",
+      "self_cpu_us": 1588.1739999999263,
+      "total_cpu_us": 1588.1739999999263
+    },
+    {
+      "name": "cpufast_ar_prefill_qkv",
+      "calls": 17,
+      "input_shapes": "",
+      "self_cpu_us": 1510.3300000000054,
+      "total_cpu_us": 102608.26100000006
+    },
+    {
+      "name": "aten::scaled_dot_product_attention",
+      "calls": 34,
+      "input_shapes": "",
+      "self_cpu_us": 1503.0509999996357,
+      "total_cpu_us": 193124.86599999983
+    },
+    {
+      "name": "cpufast_ar_prefill_ffn1",
+      "calls": 17,
+      "input_shapes": "",
+      "self_cpu_us": 1444.3730000000214,
+      "total_cpu_us": 128300.95800000007
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin60_Cout96_K11_D1_N256",
+      "calls": 3,
+      "input_shapes": "",
+      "self_cpu_us": 1437.1309999991208,
+      "total_cpu_us": 136015.02300000098
+    },
+    {
+      "name": "aten::to",
+      "calls": 1974,
+      "input_shapes": "",
+      "self_cpu_us": 1393.8900000079484,
+      "total_cpu_us": 7677.504000005563
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin240_Cout384_K11_D1_N256",
+      "calls": 3,
+      "input_shapes": "",
+      "self_cpu_us": 1382.9730000020936,
+      "total_cpu_us": 77922.05400000047
+    },
+    {
+      "name": "cpufast_ar_prefill_ffn2",
+      "calls": 17,
+      "input_shapes": "",
+      "self_cpu_us": 1371.494999999828,
+      "total_cpu_us": 130504.29999999984
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin240_Cout384_K7_D1_N256",
+      "calls": 3,
+      "input_shapes": "",
+      "self_cpu_us": 1356.7280000001192,
+      "total_cpu_us": 77067.527999999
+    },
+    {
+      "name": "cpufast_ar_prefill_attention_out",
+      "calls": 17,
+      "input_shapes": "",
+      "self_cpu_us": 1320.8099999998012,
+      "total_cpu_us": 38841.56499999987
+    },
+    {
+      "name": "cpufast_decoder_tap_C24_K7_D5",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 1290.6499999994412,
+      "total_cpu_us": 28778.28200000059
+    },
+    {
+      "name": "aten::any",
+      "calls": 268,
+      "input_shapes": "",
+      "self_cpu_us": 1232.4839999915566,
+      "total_cpu_us": 2197.888999993331
+    },
+    {
+      "name": "aten::masked_fill_",
+      "calls": 13,
+      "input_shapes": "",
+      "self_cpu_us": 1202.1710000010207,
+      "total_cpu_us": 1202.1710000010207
+    },
+    {
+      "name": "cpufast_decoder_tap_C24_K11_D3",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 1188.9289999976754,
+      "total_cpu_us": 42303.39499999955
+    },
+    {
+      "name": "aten::unsqueeze",
+      "calls": 491,
+      "input_shapes": "",
+      "self_cpu_us": 1187.8540000092798,
+      "total_cpu_us": 1620.8180000050052
+    },
+    {
+      "name": "aten::new_empty",
+      "calls": 34,
+      "input_shapes": "",
+      "self_cpu_us": 1155.8919999997743,
+      "total_cpu_us": 1419.7729999998992
+    },
+    {
+      "name": "cpufast_decoder_tap_C36_K11_D5",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 1090.0499999988824,
+      "total_cpu_us": 58481.41200000048
+    },
+    {
+      "name": "aten::exp",
+      "calls": 5,
+      "input_shapes": "",
+      "self_cpu_us": 1076.6499999994412,
+      "total_cpu_us": 1076.6499999994412
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin96_Cout192_K11_D1_N256",
+      "calls": 2,
+      "input_shapes": "",
+      "self_cpu_us": 1031.0110000027344,
+      "total_cpu_us": 98360.42700000107
+    },
+    {
+      "name": "aten::scatter_",
+      "calls": 134,
+      "input_shapes": "",
+      "self_cpu_us": 1020.5249999971129,
+      "total_cpu_us": 1045.3649999968475
+    },
+    {
+      "name": "cpufast_decoder_tap_C36_K11_D3",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 971.7719999980181,
+      "total_cpu_us": 57178.76099999994
+    },
+    {
+      "name": "cpufast_decoder_tap_C24_K11_D5",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 926.1689999997616,
+      "total_cpu_us": 41639.70999999996
+    },
+    {
+      "name": "cpufast_ar_prefill_ffn_activation",
+      "calls": 17,
+      "input_shapes": "",
+      "self_cpu_us": 924.248000000116,
+      "total_cpu_us": 3698.431000000084
+    },
+    {
+      "name": "aten::normal_",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 860.527999999933,
+      "total_cpu_us": 860.527999999933
+    },
+    {
+      "name": "aten::embedding",
+      "calls": 137,
+      "input_shapes": "",
+      "self_cpu_us": 860.4089999991265,
+      "total_cpu_us": 4456.636000000548
+    },
+    {
+      "name": "cpufast_decoder_tap_C24_K7_D3",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 790.36699999962,
+      "total_cpu_us": 28336.117999999784
+    },
+    {
+      "name": "cpufast_decoder_tap_C48_K7_D3",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 776.6059999996796,
+      "total_cpu_us": 43768.96800000034
+    },
+    {
+      "name": "cpufast_decoder_tap_C48_K7_D5",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 758.5659999949858,
+      "total_cpu_us": 43386.683999999426
+    },
+    {
+      "name": "aten::flip",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 620.8459999980405,
+      "total_cpu_us": 644.2459999993443
+    },
+    {
+      "name": "aten::cat",
+      "calls": 12,
+      "input_shapes": "",
+      "self_cpu_us": 605.5269999973134,
+      "total_cpu_us": 735.0879999979588
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin96_Cout60_K11_D5_N256",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 594.4470000015572,
+      "total_cpu_us": 54186.376000000164
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin120_Cout192_K11_D1_N256",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 571.0440000006929,
+      "total_cpu_us": 57199.001000000164
+    },
+    {
+      "name": "aten::pad",
+      "calls": 194,
+      "input_shapes": "",
+      "self_cpu_us": 565.7269999925447,
+      "total_cpu_us": 102242.58599998889
+    },
+    {
+      "name": "aten::squeeze",
+      "calls": 156,
+      "input_shapes": "",
+      "self_cpu_us": 564.0059999974801,
+      "total_cpu_us": 807.2469999996574
+    },
+    {
+      "name": "aten::scalar_tensor",
+      "calls": 168,
+      "input_shapes": "",
+      "self_cpu_us": 545.3639999985753,
+      "total_cpu_us": 545.3639999985753
+    },
+    {
+      "name": "aten::matmul",
+      "calls": 51,
+      "input_shapes": "",
+      "self_cpu_us": 540.5630000018355,
+      "total_cpu_us": 26689.29900000061
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin192_Cout120_K7_D3_N256",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 531.2839999971911,
+      "total_cpu_us": 60612.98999999929
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin96_Cout60_K11_D3_N256",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 529.2040000008419,
+      "total_cpu_us": 50373.9040000001
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin192_Cout120_K7_D5_N256",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 527.6459999997169,
+      "total_cpu_us": 61744.998999999836
+    },
+    {
+      "name": "aten::item",
+      "calls": 291,
+      "input_shapes": "",
+      "self_cpu_us": 519.401999996735,
+      "total_cpu_us": 719.4839999960568
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin96_Cout60_K11_D1_N256",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 517.6450000014156,
+      "total_cpu_us": 48071.04399999976
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin384_Cout240_K11_D5_N128",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 511.96299999859184,
+      "total_cpu_us": 35886.221000000834
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin192_Cout96_K11_D5_N256",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 507.4439999992028,
+      "total_cpu_us": 59111.65599999949
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin384_Cout240_K11_D1_N128",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 506.00400000065565,
+      "total_cpu_us": 22830.311999999918
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin192_Cout120_K7_D1_N256",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 503.48499999847263,
+      "total_cpu_us": 56176.832999999635
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin192_Cout120_K11_D3_N256",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 500.92499999981374,
+      "total_cpu_us": 61393.23599999957
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin192_Cout96_K11_D1_N256",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 496.324000001885,
+      "total_cpu_us": 49726.13800000027
+    },
+    {
+      "name": "aten::as_strided_",
+      "calls": 92,
+      "input_shapes": "",
+      "self_cpu_us": 494.31999999377877,
+      "total_cpu_us": 494.31999999377877
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin384_Cout240_K7_D5_N128",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 485.32399999909103,
+      "total_cpu_us": 29165.845999999903
+    },
+    {
+      "name": "aten::conv1d",
+      "calls": 125,
+      "input_shapes": "",
+      "self_cpu_us": 484.40200000070035,
+      "total_cpu_us": 247561.56099999975
+    },
+    {
+      "name": "aten::softmax",
+      "calls": 147,
+      "input_shapes": "",
+      "self_cpu_us": 481.68399999744724,
+      "total_cpu_us": 4024.7169999927282
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin384_Cout240_K7_D1_N128",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 471.0849999990314,
+      "total_cpu_us": 22049.34499999974
+    },
+    {
+      "name": "aten::fft_irfft",
+      "calls": 30,
+      "input_shapes": "",
+      "self_cpu_us": 467.60300000198185,
+      "total_cpu_us": 261441.7960000001
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin384_Cout240_K7_D3_N128",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 462.08400000073016,
+      "total_cpu_us": 27480.39100000076
+    },
+    {
+      "name": "cpufast_decoder_fft_Cin384_Cout240_K11_D3_N128",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 449.081999999471,
+      "total_cpu_us": 28154.036999999546
+    },
+    {
+      "name": "aten::expand",
+      "calls": 224,
+      "input_shapes": "",
+      "self_cpu_us": 417.7620000001625,
+      "total_cpu_us": 657.7239999985868
+    },
+    {
+      "name": "aten::resolve_conj",
+      "calls": 1595,
+      "input_shapes": "",
+      "self_cpu_us": 397.20499997619845,
+      "total_cpu_us": 397.20499997619845
+    },
+    {
+      "name": "aten::convolution",
+      "calls": 130,
+      "input_shapes": "",
+      "self_cpu_us": 391.96599998977035,
+      "total_cpu_us": 283261.0639999984
+    },
+    {
+      "name": "fused_add_tanh_sigmoid_multiply",
+      "calls": 16,
+      "input_shapes": "",
+      "self_cpu_us": 388.6829999992624,
+      "total_cpu_us": 19754.846999998204
+    },
+    {
+      "name": "aten::view_as",
+      "calls": 268,
+      "input_shapes": "",
+      "self_cpu_us": 318.56299999705516,
+      "total_cpu_us": 533.5229999994626
+    },
+    {
+      "name": "aten::abs",
+      "calls": 2,
+      "input_shapes": "",
+      "self_cpu_us": 311.3619999997318,
+      "total_cpu_us": 618.7639999995008
+    },
+    {
+      "name": "aten::fft_rfft",
+      "calls": 30,
+      "input_shapes": "",
+      "self_cpu_us": 268.7220000019297,
+      "total_cpu_us": 270915.43400000315
+    },
+    {
+      "name": "aten::resize_",
+      "calls": 134,
+      "input_shapes": "",
+      "self_cpu_us": 226.96099999673606,
+      "total_cpu_us": 226.96099999673606
+    },
+    {
+      "name": "aten::_local_scalar_dense",
+      "calls": 291,
+      "input_shapes": "",
+      "self_cpu_us": 200.08199999932185,
+      "total_cpu_us": 200.08199999932185
+    },
+    {
+      "name": "aten::_weight_norm",
+      "calls": 36,
+      "input_shapes": "",
+      "self_cpu_us": 165.84200000297278,
+      "total_cpu_us": 13653.955000001006
+    },
+    {
+      "name": "aten::upsample_nearest1d",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 147.28099999856204,
+      "total_cpu_us": 157.12099999934435
+    },
+    {
+      "name": "aten::unfold",
+      "calls": 40,
+      "input_shapes": "",
+      "self_cpu_us": 143.32100000318314,
+      "total_cpu_us": 276.2410000013915
+    },
+    {
+      "name": "aten::_unsafe_view",
+      "calls": 56,
+      "input_shapes": "",
+      "self_cpu_us": 126.3219999970861,
+      "total_cpu_us": 126.3219999970861
+    },
+    {
+      "name": "aten::dropout",
+      "calls": 202,
+      "input_shapes": "",
+      "self_cpu_us": 122.11999999561885,
+      "total_cpu_us": 122.11999999561885
+    },
+    {
+      "name": "aten::masked_fill",
+      "calls": 13,
+      "input_shapes": "",
+      "self_cpu_us": 98.08100000303239,
+      "total_cpu_us": 1686.5730000007898
+    },
+    {
+      "name": "aten::thnn_conv2d",
+      "calls": 36,
+      "input_shapes": "",
+      "self_cpu_us": 85.88099999912083,
+      "total_cpu_us": 12641.266999997199
+    },
+    {
+      "name": "aten::permute",
+      "calls": 27,
+      "input_shapes": "",
+      "self_cpu_us": 82.48000000137836,
+      "total_cpu_us": 119.44099999964237
+    },
+    {
+      "name": "aten::sub",
+      "calls": 6,
+      "input_shapes": "",
+      "self_cpu_us": 78.2000000001899,
+      "total_cpu_us": 78.2000000001899
+    },
+    {
+      "name": "aten::_reshape_alias",
+      "calls": 83,
+      "input_shapes": "",
+      "self_cpu_us": 71.51999999835971,
+      "total_cpu_us": 71.51999999835971
+    },
+    {
+      "name": "aten::max",
+      "calls": 6,
+      "input_shapes": "",
+      "self_cpu_us": 49.360000000193395,
+      "total_cpu_us": 63.07999999992899
+    },
+    {
+      "name": "aten::detach",
+      "calls": 36,
+      "input_shapes": "",
+      "self_cpu_us": 48.32100000139326,
+      "total_cpu_us": 48.32100000139326
+    },
+    {
+      "name": "aten::arange",
+      "calls": 8,
+      "input_shapes": "",
+      "self_cpu_us": 42.88000000033935,
+      "total_cpu_us": 84.39999999988868
+    },
+    {
+      "name": "aten::repeat_interleave",
+      "calls": 3,
+      "input_shapes": "",
+      "self_cpu_us": 40.24000000022352,
+      "total_cpu_us": 268.24300000071526
+    },
+    {
+      "name": "aten::neg",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 37.43999999947846,
+      "total_cpu_us": 37.43999999947846
+    },
+    {
+      "name": "aten::flatten",
+      "calls": 6,
+      "input_shapes": "",
+      "self_cpu_us": 36.92000000178814,
+      "total_cpu_us": 45.760000000707805
+    },
+    {
+      "name": "aten::zeros_like",
+      "calls": 9,
+      "input_shapes": "",
+      "self_cpu_us": 32.88000000268221,
+      "total_cpu_us": 712.5270000007004
+    },
+    {
+      "name": "aten::zero_",
+      "calls": 14,
+      "input_shapes": "",
+      "self_cpu_us": 31.960000001858134,
+      "total_cpu_us": 639.2870000005096
+    },
+    {
+      "name": "aten::repeat",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 29.599999999998545,
+      "total_cpu_us": 114.08000000000175
+    },
+    {
+      "name": "aten::sum",
+      "calls": 2,
+      "input_shapes": "",
+      "self_cpu_us": 24.160000001080334,
+      "total_cpu_us": 33.40000000037253
+    },
+    {
+      "name": "aten::gt",
+      "calls": 3,
+      "input_shapes": "",
+      "self_cpu_us": 24.0399999995534,
+      "total_cpu_us": 42.80000000026121
+    },
+    {
+      "name": "aten::logical_or",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 23.64000000044325,
+      "total_cpu_us": 41.400000000594446
+    },
+    {
+      "name": "aten::mul_",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 23.43999999947846,
+      "total_cpu_us": 23.43999999947846
+    },
+    {
+      "name": "aten::conv2d",
+      "calls": 5,
+      "input_shapes": "",
+      "self_cpu_us": 21.520000000484288,
+      "total_cpu_us": 36205.424999999814
+    },
+    {
+      "name": "aten::_nnpack_available",
+      "calls": 36,
+      "input_shapes": "",
+      "self_cpu_us": 18.56000000052154,
+      "total_cpu_us": 18.56000000052154
+    },
+    {
+      "name": "aten::zeros",
+      "calls": 5,
+      "input_shapes": "",
+      "self_cpu_us": 18.080000001533335,
+      "total_cpu_us": 34.640000000708824
+    },
+    {
+      "name": "aten::split_with_sizes",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 16.96000000089407,
+      "total_cpu_us": 23.6800000006333
+    },
+    {
+      "name": "aten::triu",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 14.719999999997526,
+      "total_cpu_us": 14.719999999997526
+    },
+    {
+      "name": "aten::ones",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 12.200000001295848,
+      "total_cpu_us": 25.000000000705768
+    },
+    {
+      "name": "aten::nonzero",
+      "calls": 2,
+      "input_shapes": "",
+      "self_cpu_us": 10.75999999884516,
+      "total_cpu_us": 17.199999999254942
+    },
+    {
+      "name": "aten::logical_and",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 10.599999999627471,
+      "total_cpu_us": 17.679999998770654
+    },
+    {
+      "name": "aten::linear",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 10.319999999999709,
+      "total_cpu_us": 2170.3379999999997
+    },
+    {
+      "name": "aten::alias",
+      "calls": 6,
+      "input_shapes": "",
+      "self_cpu_us": 8.51999999985128,
+      "total_cpu_us": 8.51999999985128
+    },
+    {
+      "name": "aten::randn",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 6.75999999884516,
+      "total_cpu_us": 870.0479999994859
+    },
+    {
+      "name": "aten::rsub",
+      "calls": 2,
+      "input_shapes": "",
+      "self_cpu_us": 6.63999999999578,
+      "total_cpu_us": 13.639999999999418
+    },
+    {
+      "name": "aten::is_nonzero",
+      "calls": 3,
+      "input_shapes": "",
+      "self_cpu_us": 5.120000000748405,
+      "total_cpu_us": 12.560000000186847
+    },
+    {
+      "name": "aten::stack",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 5.120000000002619,
+      "total_cpu_us": 47.04000000000087
+    },
+    {
+      "name": "aten::sub_",
+      "calls": 2,
+      "input_shapes": "",
+      "self_cpu_us": 5.120000000002619,
+      "total_cpu_us": 5.120000000002619
+    },
+    {
+      "name": "aten::nonzero_numpy",
+      "calls": 2,
+      "input_shapes": "",
+      "self_cpu_us": 4.800000000745058,
+      "total_cpu_us": 28.56000000052154
+    },
+    {
+      "name": "aten::lift_fresh",
+      "calls": 12,
+      "input_shapes": "",
+      "self_cpu_us": 4.560000000041327,
+      "total_cpu_us": 4.560000000041327
+    },
+    {
+      "name": "aten::round",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 4.001000000163913,
+      "total_cpu_us": 4.001000000163913
+    },
+    {
+      "name": "aten::concat",
+      "calls": 3,
+      "input_shapes": "",
+      "self_cpu_us": 3.999999999996362,
+      "total_cpu_us": 83.08100000000195
+    },
+    {
+      "name": "aten::unbind",
+      "calls": 3,
+      "input_shapes": "",
+      "self_cpu_us": 3.639999999664724,
+      "total_cpu_us": 10.520000000484288
+    },
+    {
+      "name": "aten::expand_as",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 3.4400000000059663,
+      "total_cpu_us": 9.960000000002765
+    },
+    {
+      "name": "aten::t",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 3.280000000002474,
+      "total_cpu_us": 5.0
+    },
+    {
+      "name": "aten::resolve_neg",
+      "calls": 5,
+      "input_shapes": "",
+      "self_cpu_us": 1.2399999992921948,
+      "total_cpu_us": 1.2399999992921948
+    },
+    {
+      "name": "aten::detach_",
+      "calls": 3,
+      "input_shapes": "",
+      "self_cpu_us": 0.5200000004842877,
+      "total_cpu_us": 0.5200000004842877
+    }
+  ]
+}

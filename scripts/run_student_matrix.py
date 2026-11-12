@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import os
 import statistics
 import subprocess
 import sys
@@ -20,6 +21,9 @@ def main():
     parser.add_argument("--prefetch", type=int, choices=[0, 64, 128, 256], default=0)
     parser.add_argument("--baseline-manifest", type=Path)
     parser.add_argument("--baseline-manifest-sha256")
+    parser.add_argument("--head-integrated-confirm", action="store_true")
+    parser.add_argument("--head-v32-comparison", action="store_true")
+    parser.add_argument("--ar-depth-comparison", action="store_true")
     parser.add_argument("--decoder-only", action="store_true")
     parser.add_argument("--decoder-ar-int8", action="store_true")
     parser.add_argument("--ar-int8-comparison", action="store_true")
@@ -33,8 +37,34 @@ def main():
     parser.add_argument("--fft-output-tiles-comparison", action="store_true")
     parser.add_argument("--decoder-candidate-label", choices=["R", "U", "V"], default="R")
     args = parser.parse_args()
+    if args.head_integrated_confirm and (
+        args.baseline_manifest or args.warmups != 3 or args.samples != 5
+        or any((args.decoder_only, args.decoder_ar_int8, args.ar_int8_comparison,
+                args.ar_int8_confirm_only, args.fft_half_comparison,
+                args.fft_half_stream_comparison, args.alternating_decoder_comparison,
+                args.packed_prefill_comparison, args.int8_prefill_comparison,
+                args.diagnostic_profile_only, args.fft_output_tiles_comparison,
+                args.head_v32_comparison, args.ar_depth_comparison))
+        or args.decoder_candidate_label != "R"
+    ):
+        parser.error("Integrated head confirmation requires one approved model, isolated3warm5sample")
+    if args.ar_depth_comparison and (
+        not args.baseline_manifest or args.warmups != 3 or args.samples != 5
+        or any((args.decoder_only, args.decoder_ar_int8, args.ar_int8_comparison,
+                args.ar_int8_confirm_only, args.fft_half_comparison,
+                args.fft_half_stream_comparison, args.alternating_decoder_comparison,
+                args.packed_prefill_comparison, args.int8_prefill_comparison,
+                args.diagnostic_profile_only, args.fft_output_tiles_comparison, args.head_v32_comparison))
+        or args.decoder_candidate_label != "R"
+    ):
+        parser.error("AR depth comparison requires isolated two approved bundles, 3warm5sample")
     prefill_comparison = args.packed_prefill_comparison or args.int8_prefill_comparison
-    runtime_comparison = prefill_comparison or args.fft_output_tiles_comparison
+    runtime_comparison = prefill_comparison or args.fft_output_tiles_comparison or args.head_v32_comparison
+    if args.head_v32_comparison and (
+        prefill_comparison or args.fft_output_tiles_comparison or args.diagnostic_profile_only
+        or args.warmups != 3 or args.samples != 5
+    ):
+        parser.error("Head scheduling requires isolated3warm5sample comparison")
     if args.fft_output_tiles_comparison and (
         prefill_comparison or args.warmups != 3 or args.samples != 5
     ):
@@ -145,6 +175,18 @@ def main():
             parser.error(
                 "First bottleneck comparison must preserve original outer channels and branches"
             )
+    if args.ar_depth_comparison:
+        for key in ("decoder.pt",):
+            if baseline["files"][key] != manifest["files"][key]:
+                parser.error("AR depth comparison must preserve decoder bytes")
+        for key in ("decoder_branches", "decoder_bottlenecks", "decoder_channel_keep",
+                    "ar_runtime", "ar_cache_storage", "original_s1_sha256"):
+            if baseline.get(key) != manifest.get(key):
+                parser.error("AR depth comparison changed shared decoder/runtime/original: " + key)
+        if (baseline.get("ar_layers") != 18 or manifest.get("ar_layers") != 17
+            or manifest.get("ar_runtime") != "int8_native"
+            or manifest.get("ar_cache_storage") != "exact_fp16"):
+            parser.error("This approved depth comparison requires native AR18 versus AR17")
     args.output.mkdir(parents=True, exist_ok=True)
     summary_file = args.output / "student_summary.json"
     if summary_file.exists():
@@ -152,10 +194,14 @@ def main():
     summary = {
         "scope": "Actual N1 original/student performance; user approval covers Korean listening only",
         "manifest_sha256": args.manifest_sha256,
-        "ar_selected_additional_step": manifest["ar_selected_additional_step"],
+        "ar_selected_additional_step": manifest.get("ar_selected_additional_step"),
         "decoder_selected_additional_step": manifest[
             "decoder_selected_additional_step"
         ],
+        "ar_training": manifest.get("ar_training"),
+        "ar_selected_step": manifest.get("ar_selected_step"),
+        "ar_recovery_updates": manifest.get("ar_recovery_updates"),
+        "ar_control_parent_updates": manifest.get("ar_control_parent_updates"),
         "prefetch_selection": "KO median RTF; retain 0 unless best hint improves at least 1%; provisional until independent verification",
         "cases": [],
     }
@@ -183,6 +229,7 @@ def main():
         packed_prefill=False,
         int8_prefill=False,
         fft_output_tiles=False,
+        head_v32=False,
     ):
         run_manifest = baseline if baseline_bundle else manifest
         run_path = args.baseline_manifest if baseline_bundle else args.manifest
@@ -232,6 +279,9 @@ def main():
             if profile
             and not (
                 args.diagnostic_profile_only
+                or args.ar_depth_comparison
+                or args.head_v32_comparison
+                or args.head_integrated_confirm
                 or args.decoder_candidate_label in ("U", "V")
                 or args.int8_prefill_comparison
                 or args.fft_output_tiles_comparison
@@ -253,6 +303,9 @@ def main():
             command += [
                 "--fft-output-tile-library", "/repo/libcpufast_fft_output_tiles.so"
             ]
+        if head_v32:
+            command[1] = "/repo/scripts/benchmark_head_v32.py"
+            command += ["--head-v32-library", "/repo/libcpufast_head_v32_runtime.so"]
         if not original:
             command += [
                 "--student-manifest",
@@ -335,6 +388,8 @@ def main():
             raise RuntimeError("Packed FP32 prefill candidate scope audit failed")
         if fft_output_tiles and not data.get("fft_output_tiles", {}).get("calls"):
             raise RuntimeError("Output-tiling candidate did not use the native probe")
+        if head_v32 and not data.get("head_v32", {}).get("calls"):
+            raise RuntimeError("Head scheduling candidate did not use the native probe")
         if int8_prefill and (
             not data.get("int8_prefill_ffn")
             or not data.get("int8_prefill_audit")
@@ -444,6 +499,28 @@ def main():
                 for r in data["runs"]
             ),
         }
+        if (args.head_v32_comparison or args.head_integrated_confirm) and not (
+            row["local_approved_pcm_match"] and row["local_approved_generated_tokens_match"]
+            and all(r["audio_seconds"] == run_cases[language]["audio_seconds"] for r in data["runs"])
+        ):
+            raise RuntimeError("Head scheduling comparison did not reproduce approved model PCM/tokens")
+        if args.ar_depth_comparison:
+            tokens = sum(int(r["index"]) for r in data["runs"][0]["semantic"])
+            audit = data["ar_coefficient_audit"]["matrices"]
+            blocks = sorted({int(r["block"]) for r in audit})
+            if blocks != list(range(run_manifest["ar_layers"])):
+                raise RuntimeError("Actual AR block audit does not match approved depth")
+            if not (row["local_approved_pcm_match"] and row["local_approved_generated_tokens_match"]
+                    and all(r["audio_seconds"] == run_cases[language]["audio_seconds"] for r in data["runs"])):
+                raise RuntimeError("AR comparison did not reproduce its own approved voice")
+            row.update({
+                "runtime_variant": "unchanged_native_W8A8_FP32_acoustics",
+                "generated_tokens": tokens,
+                "actual_ar_blocks": blocks,
+                "median_ar_seconds_per_generated_token": statistics.median(
+                    r["stages"]["ar_seconds"] / sum(int(x["index"]) for x in r["semantic"])
+                    for r in data["runs"]),
+            })
         if profile:
             summary["profile_run"] = row
         else:
@@ -475,9 +552,128 @@ def main():
         if not summary["student_assets_unchanged"]:
             raise RuntimeError("Private diagnostic assets changed")
         return
+    if args.head_integrated_confirm:
+        summary["scope"] = (
+            "Actual N1 canonical integrated dim32 head-value scheduling confirmation; "
+            "five fresh processes, each3excluded warmups+1sample; separate excluded profile. "
+            "Independent confirmation, not a new causal paired speed estimate."
+        )
+        summary["prefetch_selection"] = "No tuning; one unchanged owner-approved AR/decoder bundle"
+        paths = [Path(os.environ.get(key, str(Path(__file__).resolve().parents[1] / name)))
+                 for key, name in (("CPUFAST_AR_LIBRARY", "libcpufast_ar_torch.so"),
+                                   ("CPUFAST_FAST_LIBRARY", "libcpufast_fast.so"))]
+        paths += [p.with_suffix(p.suffix + ".json") for p in paths]
+        summary["native_files_before"] = {p.name: sha256(p) for p in paths}
+        records = []
+        for index in range(5):
+            data, row = run("ko", f"integrated_head_{index}", distance=256,
+                            combined=True, ar_int8_only=True, measured_samples=1)
+            geometry = data["ar_coefficient_audit"].get("head_geometry", [])
+            schedule = data["ar_runtime_library_manifest"].get("head_value_schedule", {})
+            if (len(geometry) != manifest["ar_layers"]
+                or [r["block"] for r in geometry] != list(range(manifest["ar_layers"]))
+                or any(r["dim"] != 32 or r["heads"] != 16 for r in geometry)
+                or schedule.get("dim32") != "eight_independent_vectors_preserve_token_FMA_order"
+                or data.get("head_v32")):
+                raise RuntimeError("Integrated canonical schedule/geometry/library audit failed")
+            records.append((data["runs"][0], row))
+        summary["aggregate"] = {
+            "samples": 5, "rtfs": [r[0]["rtf"] for r in records],
+            "median_rtf": statistics.median(r[0]["rtf"] for r in records),
+            "rtf_range": [min(r[0]["rtf"] for r in records), max(r[0]["rtf"] for r in records)],
+            "median_seconds": statistics.median(r[1]["median_seconds"] for r in records),
+            "median_cpu_seconds": statistics.median(r[0]["cpu_seconds"] for r in records),
+            "median_stages": {k: statistics.median(r[0]["stages"][k] for r in records)
+                              for k in records[0][0]["stages"]},
+            "audio_seconds": records[0][0]["audio_seconds"],
+            "semantic": records[0][0]["semantic"], "pcm_sha256": records[0][0]["pcm_sha256"],
+            "peak_sampled_tree_rss_bytes": max(r[1]["peak_sampled_tree_rss_bytes"] for r in records),
+        }
+        _, row = run("ko", "integrated_head_profile_run", distance=256,
+                     combined=True, ar_int8_only=True, profile=True,
+                     compare=args.output / "ko_integrated_head_4.wav")
+        ops = json.loads((args.output / "ko_student_profile_ops.json").read_text())["operators"]
+        summary["profile_head_attn_operator"] = [r for r in ops if r["name"] == "cpufast_cpp::head_attn"]
+        if not (row["candidate_pcm_exact_to_n1_student"] and summary["profile_head_attn_operator"]
+                and all(r["calls"] > 0 for r in summary["profile_head_attn_operator"])):
+            raise RuntimeError("Integrated head canonical operator did not execute or PCM changed")
+        summary["native_files_after"] = {p.name: sha256(p) for p in paths}
+        summary["native_files_unchanged"] = summary["native_files_before"] == summary["native_files_after"]
+        summary["student_assets_unchanged"] = before == snapshot(args.manifest)
+        summary["complete"] = True
+        save()
+        if not (summary["native_files_unchanged"] and summary["student_assets_unchanged"]):
+            raise RuntimeError("Integrated head confirmation changed models/libraries")
+        return
+    if args.ar_depth_comparison:
+        summary["scope"] = (
+            "Actual N1 owner-approved AR18 V400 versus AR17 QAT200 same V400; "
+            "fresh processes, 3 warmups excluded per process, 5 AB/BA pairs. "
+            "Different approved token counts/audio lengths; RTF is not isolated layer compute gain."
+        )
+        summary["prefetch_selection"] = "No search; same native W8A8 AR and normal FP32 acoustics"
+        summary["comparison_order"] = []
+        samples = {"AR18_V400": [], "AR17_QAT200_V400": []}
+        for index in range(5):
+            order = list(samples) if index % 2 == 0 else list(reversed(samples))
+            for label in order:
+                data, row = run("ko", f"paired_{index}_{label}", distance=256,
+                    combined=True, ar_int8_only=True, measured_samples=1,
+                    baseline_bundle=label == "AR18_V400")
+                observed = data["runs"][0]
+                if samples[label] and any(
+                    observed[k] != samples[label][0][0][k]
+                    for k in ("semantic", "audio_seconds", "pcm_sha256")
+                ):
+                    raise RuntimeError("Same-model process changed approved tokens/duration/PCM")
+                samples[label].append((observed, row))
+                summary["comparison_order"].append({"round": index, "runtime": label, "name": row["name"]})
+                save()
+        summary["paired_aggregate"] = []
+        for label, records in samples.items():
+            summary["paired_aggregate"].append({
+                "runtime": label, "samples": 5,
+                "rtfs": [r[0]["rtf"] for r in records],
+                "median_rtf": statistics.median(r[0]["rtf"] for r in records),
+                "median_seconds": statistics.median(r[1]["median_seconds"] for r in records),
+                "median_cpu_seconds": statistics.median(r[0]["cpu_seconds"] for r in records),
+                "median_stages": {k: statistics.median(r[0]["stages"][k] for r in records)
+                                  for k in records[0][0]["stages"]},
+                "audio_seconds": records[0][0]["audio_seconds"],
+                "generated_tokens": records[0][1]["generated_tokens"],
+                "semantic": records[0][0]["semantic"],
+                "pcm_sha256": records[0][0]["pcm_sha256"],
+                "actual_ar_blocks": records[0][1]["actual_ar_blocks"],
+                "median_ar_seconds_per_generated_token": statistics.median(
+                    r[1]["median_ar_seconds_per_generated_token"] for r in records),
+                "median_decoder_seconds_per_audio_second": statistics.median(
+                    r[1]["median_decoder_seconds_per_audio_second"] for r in records),
+                "peak_sampled_tree_rss_bytes": max(r[1]["peak_sampled_tree_rss_bytes"] for r in records),
+            })
+        summary["excluded_profiles"] = []
+        for label in samples:
+            _, row = run("ko", f"{label}_profile_run", distance=256,
+                combined=True, ar_int8_only=True, profile=True,
+                baseline_bundle=label == "AR18_V400",
+                compare=args.output / f"ko_paired_4_{label}.wav")
+            if not row["candidate_pcm_exact_to_n1_student"]:
+                raise RuntimeError("Profile process changed approved same-model PCM")
+            # Each model keeps a distinct operator profile file.
+            (args.output / "ko_student_profile_ops.json").rename(
+                args.output / f"ko_{label}_profile_ops.json")
+            summary["excluded_profiles"].append(row)
+        summary["student_assets_unchanged"] = (
+            before == snapshot(args.manifest) and baseline_before == snapshot(args.baseline_manifest))
+        summary["complete"] = True
+        save()
+        if not summary["student_assets_unchanged"]:
+            raise RuntimeError("AR depth comparison changed private assets")
+        return
     if args.alternating_decoder_comparison or runtime_comparison:
         candidate_label = (
-            "tile4"
+            "head_v32"
+            if args.head_v32_comparison
+            else "tile4"
             if args.fft_output_tiles_comparison
             else "W"
             if args.int8_prefill_comparison
@@ -506,6 +702,14 @@ def main():
                 "counterbalanced fresh processes, no model/prefill/precision changes"
             )
             summary["prefetch_selection"] = "No tuning; unchanged approved L AR/runtime"
+        if args.head_v32_comparison:
+            summary["scope"] = (
+                "Actual N1 unchanged approved model versus exact token-order head value "
+                "scheduling; fresh counterbalanced processes, unchanged weights/AR arithmetic/FP32 acoustics"
+            )
+            summary["prefetch_selection"] = "No tuning; only dim32 weighted-value accumulation schedule changes"
+            summary["baseline_model_variant"] = manifest["model_variant"]
+            summary["runtime_label_note"] = "L denotes unchanged runtime here, not the earlier L decoder model"
         samples = {"L": [], candidate_label: []}
         last_candidate = None
         reference = None
@@ -524,6 +728,7 @@ def main():
                     packed_prefill=label == "packed",
                     int8_prefill=label == "W",
                     fft_output_tiles=label == "tile4",
+                    head_v32=label == "head_v32",
                 )
                 observed = data["runs"][0]
                 if reference is None:
@@ -578,7 +783,9 @@ def main():
         try:
             _, row = run(
                 "ko",
-                "fft_output_tile4_profile_run"
+                "head_v32_profile_run"
+                if args.head_v32_comparison
+                else "fft_output_tile4_profile_run"
                 if args.fft_output_tiles_comparison
                 else "int8_prefill_profile_run"
                 if args.int8_prefill_comparison
@@ -593,6 +800,7 @@ def main():
                 packed_prefill=args.packed_prefill_comparison,
                 int8_prefill=args.int8_prefill_comparison,
                 fft_output_tiles=args.fft_output_tiles_comparison,
+                head_v32=args.head_v32_comparison,
             )
             if not row["candidate_pcm_exact_to_n1_student"]:
                 raise RuntimeError("Profile process changed approved candidate PCM")
