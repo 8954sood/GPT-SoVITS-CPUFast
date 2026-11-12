@@ -3,7 +3,7 @@
   "quality_approved": false,
   "actual_n1_measured": false,
   "adopted": false,
-  "decision": "Hold as unapproved diagnostic. Validation KL remains approximately35% above approved AR17; no quality equivalence or speed result is inferred.",
+  "decision": "Owner rejected the actual AR16 QAT200 + original V400 listening. Do not measure or promote this checkpoint; preserve approved AR17 baseline.",
   "selection": {
     "scope": "Select one redundant layer on training contexts for a separate QAT pilot.\n\nThis creates an unapproved initialization, not a speed or listening result.\nProtected original teacher feature anchors are retained. Decoder files are not\nread or changed. Quantization-aware scoring is a training surrogate only.\n",
     "quality_approved": false,
@@ -3139,5 +3139,7 @@
   },
   "initialization_source_commit": "947101a",
   "best_checkpoint_sha256": "ba2385f83bfa4f3c1d0416c0112f32dcc743b71cd14fc9812f4feb1d1ceac99d",
-  "decoder_not_changed": true
+  "decoder_not_changed": true,
+  "owner_feedback": "기존보다 나쁨, AR16 보류",
+  "listening_record": "results/student_pilot/ar16_v400_listening_20261112.json"
 }

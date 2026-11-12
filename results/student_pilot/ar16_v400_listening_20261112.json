@@ -472,8 +472,10 @@
     }
   ],
   "raw_private_listening_report_sha256": "d2c0e44fd4991a850a294ec9b66ebba58388d01fc65c91f3bb8c88eaff8c3d3e",
-  "quality_feedback_pending": true,
+  "quality_feedback_pending": false,
   "raw_generator_scope": "Actual N1 quality synthesis only; not an RTF benchmark",
   "generated_on_actual_n1": true,
-  "actual_n1_performance_measured": false
+  "actual_n1_performance_measured": false,
+  "owner_feedback": "기존보다 나쁨, AR16 보류",
+  "decision": "Owner rejected AR16 listening quality. No performance measurement, approved bundle or promotion; keep AR17+original V400."
 }

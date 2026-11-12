@@ -1001,3 +1001,10 @@ comparison from source75779d2 (latest canonical already includes its value
 loop), and use `studentheadconfirm` for current canonical path verification.
 Private model bundles must be available in the caller's pinned approved private
 asset revision/cache; no model upload or workflow dispatch was performed here.
+
+
+The actual AR16 QAT200 + original V400 audio was subsequently generated on N1
+with canonical head scheduling and verified16blocks/unchanged checkpoints.
+The owner rejected it: “기존보다 나쁨, AR16 보류”. No AR16 performance measurement
+or approved execution manifest was made. Keep approved AR17+V400 fixed for
+continued independent QK runtime scheduling work.
