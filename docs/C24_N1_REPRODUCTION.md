@@ -21,8 +21,8 @@ Both produce133semantic tokens and5.62seconds on this request.
 Use the existing private assets, image and verified immutable student cache
 layout established by the environment handoff. These commands run inside a disposable
 source checkout on the ARM host. They require the approved four-file bundles
-under `$BENCH_ROOT/student-assets/<manifestSHA>/`; source Git contains no model
-weights, SSH key or private reference audio.
+under `$BENCH_ROOT/student-assets/<manifestSHA>/`. No new C24/AR17 model weights, SSH key or private reference audio are added
+to source Git.
 
 ```bash
 bash scripts/run_arm_benchmark.sh /home/ubuntu/gpt-sovits-benchmark \
@@ -39,7 +39,9 @@ Use a fresh checkout/output directory for each invocation. The comparison is
 exactly five fresh process pairs in alternating AB/BA order; each process has
 three excluded warmups and one timed sample. Confirmation is a separate fixed
 five-process experiment on the approved C24 bundle. An additional operator
-profile is retained separately and excluded from performance aggregates.
+profile is retained separately and excluded from performance aggregates. The
+RTF measures warm nonstreaming utterance inference, with load, warmups and WAV
+disk writing excluded. It does not measure streaming TTFA.
 
 Both modes preserve canonical value scheduling, original Tap epilogues,
 Cin240 FFT256 and normal FP32 acoustics. They do not enable the rejected

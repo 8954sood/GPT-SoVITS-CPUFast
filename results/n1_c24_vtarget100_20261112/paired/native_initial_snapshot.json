@@ -1,0 +1,10 @@
+{
+  "observed_unix_time": 1794493965.921788,
+  "progress_at_native_snapshot": [],
+  "native_files_sha256": {
+    "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0"
+  }
+}

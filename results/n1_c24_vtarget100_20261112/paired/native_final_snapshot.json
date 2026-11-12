@@ -1,0 +1,62 @@
+{
+  "observed_unix_time": 1794494534.3915143,
+  "native_files_sha256": {
+    "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0"
+  },
+  "canonical_runtime_sources": {
+    "cpufast_tap.py": {
+      "current": "18197fb1ec9c29a1e85104489da36f1acc4c3a30455deb70ea6dd6a1c4babd8c",
+      "canonical": "18197fb1ec9c29a1e85104489da36f1acc4c3a30455deb70ea6dd6a1c4babd8c"
+    },
+    "cpufast_fft.py": {
+      "current": "639e0e2da460a1a90748cb54c3c163d1b6cef4c89761ece591571ba72736e562",
+      "canonical": "639e0e2da460a1a90748cb54c3c163d1b6cef4c89761ece591571ba72736e562"
+    },
+    "cpufast_engine.py": {
+      "current": "a93b4f99962feef43a4ff41b3cfa6f42978c8ba313bcd7cdb34642a60af030b6",
+      "canonical": "a93b4f99962feef43a4ff41b3cfa6f42978c8ba313bcd7cdb34642a60af030b6"
+    },
+    "cpufast_fast_ar.py": {
+      "current": "005d87d88cbb14bde1a5d6ffbf1b6e5b64ed9fc5b379ee2230cc21641cf03c85",
+      "canonical": "005d87d88cbb14bde1a5d6ffbf1b6e5b64ed9fc5b379ee2230cc21641cf03c85"
+    },
+    "native/cpufast_fast_attention.cpp": {
+      "current": "a4fd3cc395daf5e3049e6ec4b92c37977cdee75019bfbc41303f667675ed8b31",
+      "canonical": "a4fd3cc395daf5e3049e6ec4b92c37977cdee75019bfbc41303f667675ed8b31"
+    },
+    "native/cpufast_fast_int8.cpp": {
+      "current": "1e6b496c6547e7f4e27a382de9b52cc5882afd46cb38c5f3040af4fb532e4838",
+      "canonical": "1e6b496c6547e7f4e27a382de9b52cc5882afd46cb38c5f3040af4fb532e4838"
+    }
+  },
+  "hardware": [
+    {
+      "field": "Architecture:",
+      "data": "aarch64"
+    },
+    {
+      "field": "CPU(s):",
+      "data": "2"
+    },
+    {
+      "field": "Vendor ID:",
+      "data": "ARM"
+    },
+    {
+      "field": "Model name:",
+      "data": "Neoverse-N1"
+    },
+    {
+      "field": "Model:",
+      "data": "1"
+    },
+    {
+      "field": "Thread(s) per core:",
+      "data": "1"
+    }
+  ],
+  "image_id": "sha256:23eb9b78c3c75319c99172766f94bba4faa8cffe05f8765ce4b33a3c34bb989b"
+}
