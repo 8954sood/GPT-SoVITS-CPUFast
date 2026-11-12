@@ -1,0 +1,66 @@
+{
+  "repo_id": "babihoba/gpt-sovits-v2proplus-arm-students",
+  "private": true,
+  "revision": "d213cf026d492364950de5077b4c2631fc48e910",
+  "source_commit": "17d6e2bbc75b99219dfe5a701d2d8969bdb79e63",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 2476,
+      "sha256": "4fbb71f213464d3ebf2c83c07b532dbe1315d98f9b97eac77cde450619560c07"
+    },
+    {
+      "path": "approved-r-20261112/ar.pt",
+      "bytes": 231975560,
+      "sha256": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335"
+    },
+    {
+      "path": "approved-r-20261112/decoder.pt",
+      "bytes": 122888321,
+      "sha256": "7187fabe5a86913dcb5b88de782e02838c94a052e9ebb0785dc0b234c076a487"
+    },
+    {
+      "path": "approved-r-20261112/decoder_boundaries.py",
+      "bytes": 1822,
+      "sha256": "c8f6c05635e16231fde4604a43bce4a7ad64c520370f254483abed7850e74472"
+    },
+    {
+      "path": "approved-r-20261112/listen_ar_int8.py",
+      "bytes": 2974,
+      "sha256": "170a6532158d27262ba8d2aeb0ed1c6b0f9c11ab95946a2a3c8273768f3e4587"
+    },
+    {
+      "path": "approved-r-20261112/listen_bottleneck_decoder.py",
+      "bytes": 1216,
+      "sha256": "9a81fe25348393619e92a49f377e9bceffdb47e0db383ae235dcb17391051652"
+    },
+    {
+      "path": "approved-r-20261112/manifest.json",
+      "bytes": 16578,
+      "sha256": "dbb4a69d2b92120fce7bbb685c8c2f78590d5ca46abd5753b26088b93626c635"
+    },
+    {
+      "path": "approved-r-20261112/quality-approval.json",
+      "bytes": 1060,
+      "sha256": "dca4009ab339b4374b20e3c70bd8a221debf1a941ae7acf9405d92aa27e2d2e2"
+    },
+    {
+      "path": "approved-r-20261112/student_runtime.py",
+      "bytes": 12068,
+      "sha256": "86fe2ef274af3b5ca346e6b75bcaa1be219cbe522146045d65720751d990de9d"
+    },
+    {
+      "path": "approved-r-20261112/student_spec.json",
+      "bytes": 2117,
+      "sha256": "96bc102a89a9106ade348b73c7992ecdf85134721f0a4613cfc72258da2be08b"
+    },
+    {
+      "path": "approved-r-20261112/training-report.json",
+      "bytes": 8377,
+      "sha256": "15d745b2d1de543b916c3a9e833e5c1c31d227e69293404de6071523885a26d8"
+    }
+  ],
+  "remote_lfs_and_fresh_download_sha256_verified": true,
+  "token_persisted_locally": false,
+  "scope": "Important Korean-approved R only; original/older approved releases preserved; actual N1 RTF not yet measured"
+}
