@@ -1,0 +1,90 @@
+{
+  "scope": "Analytical operation counts and diagnostic scope envelope only; not measured U latency, not a prediction or proof of speedup",
+  "sources": {
+    "fft_geometry_run": 43184533534,
+    "source_sha": "0abf0c28847e92afe1b3620f004240ae7046fd07",
+    "counterbalanced_baseline_run": 43180107755,
+    "geometry_scope_includes_profiler_effects": true
+  },
+  "request": {
+    "audio_seconds": 5.02,
+    "L_median_wall_seconds": 5.751407605,
+    "R_median_wall_seconds": 5.729087166,
+    "sub1_L_gap_seconds": 0.731407605,
+    "sub1_R_gap_seconds": 0.709087166,
+    "RTF_0_7_target_wall_seconds": 3.514,
+    "RTF_0_7_L_gap_seconds": 2.237407605
+  },
+  "new_U_pairs": {
+    "stage": 1,
+    "original_branch": 2,
+    "kernel": 11,
+    "pairs": [
+      0,
+      2
+    ],
+    "convs1_dilation": [
+      1,
+      5
+    ],
+    "convs2_dilation": [
+      1,
+      1
+    ],
+    "outer_channels": 192,
+    "inner_channels": 144,
+    "native_output_alignment": 12,
+    "actual_n1_profile_input_time": 18880
+  },
+  "exact_shape_operation_counts": {
+    "direct_conv_MAC_before_four_convs": 30623662080,
+    "direct_conv_MAC_after_four_convs": 22967746560,
+    "direct_conv_MAC_saved": 7655915520,
+    "direct_conv_count_warning": "The production path is FFT, so direct-convolution MAC removal is not a runtime reduction estimate.",
+    "fft_size": 256,
+    "positive_frequency_bins": 129,
+    "FFT_blocks_convs1pair0_convs2pair0_convs1pair2_convs2pair2": [
+      77,
+      77,
+      92,
+      77
+    ],
+    "three_real_spectral_products_MAC_before": 4608036864,
+    "three_real_spectral_products_MAC_after": 3456027648,
+    "three_real_spectral_products_MAC_saved": 1152009216,
+    "spectral_product_reduction_fraction": 0.25,
+    "not_quadratic_width_scaling": "Each convolution has only one axis reduced, 192x192 to192x144 or144x192. Saving is25%, not43.75%.",
+    "derived_FP32_spectral_cache_bytes_before_four_convs": 228261888,
+    "derived_FP32_spectral_cache_bytes_saved_four_convs": 57065472,
+    "unchanged_components": "Outer residual and some FFT/packing/finishing work remain at192. Two of four forward FFT inputs and two of four inverse FFT outputs shrink25%; not all execution work shrinks25%."
+  },
+  "diagnostic_envelope": {
+    "K11_C192_all_four_d1_scope_seconds": 0.273422,
+    "K11_C192_d5_scope_seconds": 0.08029,
+    "selected_three_of_four_d1_plus_d5_no_more_than_scope_seconds": 0.353712,
+    "equal_cost_d1_proxy_selected_scope_seconds": 0.2853565,
+    "linear_25percent_proxy_saving_seconds": 0.071339125,
+    "linear_25percent_proxy_RTF_change": 0.0142109811,
+    "equal_cost_assumption": "The diagnostic groups four identical-shape d1 modules and does not identify each separately. The selected pairs contain three of those four d1 convolutions plus d5. Assuming equal d1 cost gives the proxy, not a measured selected-pair latency.",
+    "upper_envelope_warning": "Even deleting the entire selected diagnostic work would be below about.354s in this profile, below the roughly.7s sub1 gap. This is a profiler CPU-scope envelope, not a wall-time bound. Shape/cache/backend effects can invalidate linear scaling.",
+    "no_sum_with_R_or_P": "Do not add R/P/prefill median differences from separate runs to this analytical estimate."
+  },
+  "one_next_hypothesis": {
+    "name": "Profile-budgeted internal-pair distillation across FFT stages, with immutable outer widths and unchanged approved L AR",
+    "why": "Two small25% pair reductions have too little scope to close the target. Allocate one bounded student around enough measured decoder work instead of continuing isolated kernel variants or deleting arbitrary layers.",
+    "candidate_scope": "Use real approved-decoder activations to rank internal pair ranks in C192 K7/K11, C96 K11 and C384 K7/K11. Keep outer stage widths, upsamplers, branch count, residual interfaces and AR unchanged. Native-output ranks must respect12 alignment.",
+    "gate_before_training": "After U listening, select one rank budget whose conservative analytical cost covers a substantial fraction of the.7s gap while meeting an activation/heldout-output error budget. If no such rank budget exists, report that constraint rather than training more tiny students.",
+    "distillation_and_acceptance": "One bounded recovery to immutable decoder teacher, groupwise heldout checks, full voice listening approval, then one independent actual N1 L/candidate comparison. Lower rank is not adopted from MAC counts or mel loss alone.",
+    "risks": "Broad internal bottlenecks can still damage voice quality; rejected global width N/O and AR S show the risk. This is a hypothesis, not a claim of feasible quality or sub1 speed.",
+    "no_current_experiment": true
+  },
+  "prior_failure_constraints": [
+    "Tap temporal tiling and im2col were slower on N1; do not repeat without new evidence.",
+    "Packed FP32 prefill did not improve measured AR stage.",
+    "P and half-stream have small/noisy complete-synthesis differences, not a demonstrated large decoder gain.",
+    "Global outer widths640/672 and trained AR FFN S were rejected by listening.",
+    "Untrained parent-grid T did not restore original output and is not accepted.",
+    "R had accepted voice but only.39% overall median difference; operational baseline remains L."
+  ],
+  "execution": "No new large local experiment, native variant, N1 queue or model change was made for this analysis."
+}

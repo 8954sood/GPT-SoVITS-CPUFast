@@ -23,9 +23,15 @@ def main():
     for key in ("approved", "s2", "manifest", "output"):
         parser.add_argument("--" + key, type=Path, required=True)
     parser.add_argument("--pairs", type=int, default=2)
+    parser.add_argument("--stage", type=int, default=3)
+    parser.add_argument("--branches", type=int, nargs="+", default=[1, 2])
+    parser.add_argument("--inner", type=int, default=36)
+    parser.add_argument("--contexts-per-language", type=int, default=1)
     args = parser.parse_args()
     if args.output.exists() or not 1 <= args.pairs <= 3:
         parser.error("Fresh output and conservative 1..3 pair budget required")
+    if args.contexts_per_language < 1 or args.inner < 1:
+        parser.error("Positive context count and inner width required")
     torch.set_num_threads(4)
     torch.set_num_interop_threads(1)
     release = json.loads((args.approved / "manifest.json").read_text())
@@ -39,46 +45,72 @@ def main():
         raise ValueError("Immutable completed corpus required")
     teacher = decoder_from_teacher(args.s2, args.manifest.parent / "teacher_decoder.pt")
     spec = json.loads((args.approved / "student_spec.json").read_text())
-    if spec.get("decoder_channel_keep") or spec.get("decoder_bottlenecks"):
-        raise ValueError(
-            "First pair candidate starts from the approved full-width parent"
-        )
-    parent = StudentGenerator(copy.deepcopy(teacher), spec["decoder_branches"])
+    if spec.get("decoder_channel_keep"):
+        raise ValueError("Internal pairs require unchanged approved outer widths")
+    parent = StudentGenerator(
+        copy.deepcopy(teacher),
+        spec["decoder_branches"],
+        bottlenecks=spec.get("decoder_bottlenecks"),
+    )
+    if not 0 <= args.stage < parent.num_upsamples - 1:
+        raise ValueError("Keep the final C24 stage unchanged")
+    if len(set(args.branches)) != len(args.branches) or any(
+        b not in parent.stage_branches[args.stage] for b in args.branches
+    ):
+        raise ValueError("Unique retained branch IDs required")
     parent.load_state_dict(
         torch.load(args.approved / "decoder.pt", weights_only=True)["state_dict"]
     )
     parent.eval().requires_grad_(False)
     before = parameter_digest(parent)
-    records = [
-        next(
+    records = []
+    for lang in ("ja", "ko", "en"):
+        available = [
             r
             for r in corpus["records"]
             if r["split"] == "train" and r["language"] == lang
-        )
-        for lang in ("ja", "ko", "en")
-    ]
+        ]
+        if len(available) < args.contexts_per_language:
+            raise ValueError("Insufficient existing training contexts")
+        records.extend(available[: args.contexts_per_language])
+    existing_locations = {
+        (r["stage"], r["original_branch"], r["pair"])
+        for r in (parent.bottlenecks or ())
+    }
     candidates, hooks = [], []
-    for branch in (1, 2):
+    for branch in args.branches:
         block = parent.resblocks[
-            parent.stage_offsets[3] + parent.stage_branches[3].index(branch)
+            parent.stage_offsets[args.stage]
+            + parent.stage_branches[args.stage].index(branch)
         ]
         for pair, (c1, c2) in enumerate(zip(block.convs1, block.convs2)):
-            if c1.in_channels != 48 or c1.out_channels != 48 or c2.in_channels != 48:
-                raise ValueError("First candidate must use actual C48 pairs")
+            if (args.stage, branch, pair) in existing_locations:
+                continue
+            width = c1.out_channels
+            if (
+                c1.in_channels != width
+                or c2.in_channels != width
+                or not args.inner < width
+            ):
+                raise ValueError(
+                    "New internal pair must reduce a full-width residual pair"
+                )
             row = {
-                "stage": 3,
+                "stage": args.stage,
+                "outer_width": width,
+                "inner_width": args.inner,
                 "original_branch": branch,
                 "pair": pair,
                 "kernel": c1.kernel_size[0],
                 "dilation": c1.dilation[0],
-                "covariance": torch.zeros(48, 48),
-                "activity": torch.zeros(48),
+                "covariance": torch.zeros(width, width),
+                "activity": torch.zeros(width),
                 "consumer": c2.weight.square().sum((0, 2)).sqrt(),
             }
             candidates.append(row)
 
-            def capture(_, inputs, row=row):
-                value = inputs[0].detach().transpose(0, 1).reshape(48, -1)
+            def capture(_, inputs, row=row, width=width):
+                value = inputs[0].detach().transpose(0, 1).reshape(width, -1)
                 row["activity"].add_(value.square().mean(1).sqrt() / len(records))
                 positions = torch.linspace(
                     0, value.shape[1] - 1, min(512, value.shape[1])
@@ -99,12 +131,14 @@ def main():
         hook.remove()
     for row in candidates:
         scores = row["activity"] * row["consumer"]
-        row["keep"] = sorted(torch.topk(scores, 36).indices.tolist())
+        row["keep"] = sorted(torch.topk(scores, args.inner).indices.tolist())
         retained = scores[row["keep"]].sum()
         row["removed_score_fraction"] = float(
             1 - retained / scores.sum().clamp_min(1e-12)
         )
         row["selection_priority"] = row["removed_score_fraction"] / row["kernel"]
+    if len(candidates) < args.pairs:
+        raise ValueError("Insufficient unmodified candidate pairs")
     chosen = sorted(candidates, key=lambda r: r["selection_priority"])[: args.pairs]
     selections = [
         {
@@ -116,6 +150,8 @@ def main():
                 "keep",
                 "kernel",
                 "dilation",
+                "outer_width",
+                "inner_width",
                 "removed_score_fraction",
             )
         }
@@ -127,21 +163,21 @@ def main():
     # This changes initialization only: no projection exists at inference.
     with torch.no_grad():
         for row in chosen:
-            index = parent.stage_offsets[3] + parent.stage_branches[3].index(
-                row["original_branch"]
-            )
+            index = parent.stage_offsets[args.stage] + parent.stage_branches[
+                args.stage
+            ].index(row["original_branch"])
             original = parent.resblocks[index].convs2[row["pair"]]
             target = candidate.resblocks[index].convs2[row["pair"]]
             mapping = projection(row["covariance"], row["keep"])
             target.weight.copy_(torch.einsum("oik,ij->ojk", original.weight, mapping))
     assert parameter_digest(parent) == before
     spec.update(
-        decoder_bottlenecks=selections,
+        decoder_bottlenecks=list(candidate.bottlenecks),
         quality_approved=False,
-        training="Selected C48 internal pairs48→36→48; original outer widths/branches; CPU recovery required",
+        training=f"Selected stage{args.stage} internal pairs to{args.inner}; approved outer widths/branches/pairs preserved; CPU recovery required",
     )
     metadata = {
-        "scope": "First conservative pair-only candidate; no listening approval or N1 speed claim",
+        "scope": "Conservative pair-only candidate; no listening approval or N1 speed claim",
         "parent_manifest_sha256": sha(args.approved / "manifest.json"),
         "parent_decoder_sha256": sha(args.approved / "decoder.pt"),
         "teacher_s2_sha256": sha(args.s2),
@@ -153,8 +189,11 @@ def main():
             }
             for r in records
         ],
-        "initialization": "postactivation RMS × Conv2 consumer norm; select2 by removed score fraction/kernel cost proxy; ridge1e-3 omitted-input reconstruction into Conv2 weights",
+        "initialization": "postactivation RMS × Conv2 consumer norm; rank requested new pairs by removed score fraction/kernel cost proxy; ridge1e-3 omitted-input reconstruction into Conv2 weights",
         "selected_pairs": selections,
+        "preserved_parent_pairs": list(parent.bottlenecks or ()),
+        "selection_stage": args.stage,
+        "selection_inner_width": args.inner,
         "all_ranked_pairs": [
             {
                 k: r[k]

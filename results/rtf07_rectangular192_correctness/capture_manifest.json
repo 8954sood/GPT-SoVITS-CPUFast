@@ -1,0 +1,41 @@
+{
+  "scope": "Host read-only real approved decoder activations; no speed or quality claim",
+  "decoder_sha256": "7187fabe5a86913dcb5b88de782e02838c94a052e9ebb0785dc0b234c076a487",
+  "corpus_manifest_sha256": "93fb5d1150656150e615b208d0b23383eaa31aae4065cb43bfd7dc772e28b0dd",
+  "captures": [
+    {
+      "file": "ja_stage1_branch2.pt",
+      "sha256": "1fe0b7e2b82f88de7d48cd6fc2603c6e8fedf8f29f395e51d4b5553626b9a3b0",
+      "shape": [
+        1,
+        192,
+        13760
+      ],
+      "kernel": 11,
+      "context_sha256": "3f6f6e289205fcd9e0e4af0eb9dcdfccad034000ae833afa545ef6461d09b119"
+    },
+    {
+      "file": "ko_stage1_branch2.pt",
+      "sha256": "b2c00e587becfb49b5c6f2de254d5dd0cd0a1f7ef1c3e3c9ba00b5d1143711ec",
+      "shape": [
+        1,
+        192,
+        13440
+      ],
+      "kernel": 11,
+      "context_sha256": "25024fd2a94ac7a264c9df49bd20a5eb7305bb598a6fcd801af1544e5fa96ae9"
+    },
+    {
+      "file": "en_stage1_branch2.pt",
+      "sha256": "14a50ca7434a2f92755712b104533a44d331c6adffe141656a01c749e30d22e4",
+      "shape": [
+        1,
+        192,
+        13600
+      ],
+      "kernel": 11,
+      "context_sha256": "d49b44db673b66901655b02cafb0fd7252d1987ca8ceee3047d5546b04265fcf"
+    }
+  ],
+  "parent_parameters_unchanged": true
+}

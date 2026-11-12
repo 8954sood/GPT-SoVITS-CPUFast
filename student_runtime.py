@@ -80,9 +80,13 @@ class StudentGenerator(torch.nn.Module):
 
     def select_bottlenecks(self, selections):
         """Reduce only paired internal channels; every residual boundary stays C."""
-        if self.bottlenecks is not None or self.channel_keep is not None:
-            raise ValueError("Bottleneck selection requires a fresh full-width decoder")
-        checked, seen = [], set()
+        if self.channel_keep is not None:
+            raise ValueError("Bottleneck selection requires full outer decoder widths")
+        existing = self.bottlenecks or ()
+        checked = []
+        seen = {
+            (item["stage"], item["original_branch"], item["pair"]) for item in existing
+        }
         for item in selections:
             stage, branch, pair = (
                 int(item[k]) for k in ("stage", "original_branch", "pair")
@@ -155,7 +159,7 @@ class StudentGenerator(torch.nn.Module):
             c1.out_channels = c2.in_channels = len(keep)
         for index, block in blocks.items():
             self.resblocks[index] = block
-        self.bottlenecks = tuple(item for _, _, _, item in checked)
+        self.bottlenecks = existing + tuple(item for _, _, _, item in checked)
 
     def select_channels(self, keep):
         """Slice a fresh decoder copy; widths include stem and every upsample stage."""

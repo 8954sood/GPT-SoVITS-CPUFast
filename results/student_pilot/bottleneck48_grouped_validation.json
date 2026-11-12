@@ -1,0 +1,188 @@
+{
+  "scope": "Report decoder errors separately by existing language and latent origin.\n\nThis is fixed-input CPU evaluation, not perceptual approval or an RTF benchmark.\nNo weights are trained, selected or rewritten here.\n",
+  "checkpoint_sha256": "7187fabe5a86913dcb5b88de782e02838c94a052e9ebb0785dc0b234c076a487",
+  "spec_sha256": "96bc102a89a9106ade348b73c7992ecdf85134721f0a4613cfc72258da2be08b",
+  "manifest_sha256": "93fb5d1150656150e615b208d0b23383eaa31aae4065cb43bfd7dc772e28b0dd",
+  "teacher_s2_sha256": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+  "teacher_and_student_unchanged": true,
+  "quality_approved": false,
+  "actual_n1_measured": false,
+  "groups": [
+    {
+      "language": "ja",
+      "latent_origin": "original_AR_teacher",
+      "count": 2,
+      "log_mel": 0.10192524269223213,
+      "log_stft": 0.2838013768196106
+    },
+    {
+      "language": "ko",
+      "latent_origin": "original_AR_teacher",
+      "count": 2,
+      "log_mel": 0.1005103774368763,
+      "log_stft": 0.2882920503616333
+    },
+    {
+      "language": "en",
+      "latent_origin": "original_AR_teacher",
+      "count": 2,
+      "log_mel": 0.10868941619992256,
+      "log_stft": 0.3045376241207123
+    },
+    {
+      "language": "ja",
+      "latent_origin": "approved_L_free_generation",
+      "count": 2,
+      "log_mel": 0.10209482908248901,
+      "log_stft": 0.2873173952102661
+    },
+    {
+      "language": "ko",
+      "latent_origin": "approved_L_free_generation",
+      "count": 2,
+      "log_mel": 0.10240483283996582,
+      "log_stft": 0.29176707565784454
+    },
+    {
+      "language": "en",
+      "latent_origin": "approved_L_free_generation",
+      "count": 2,
+      "log_mel": 0.10501180589199066,
+      "log_stft": 0.30374182760715485
+    }
+  ],
+  "cases": [
+    {
+      "id": "A_voice0_ja_10",
+      "language": "ja",
+      "latent_origin": "original_AR_teacher",
+      "log_mel": 0.0983365848660469,
+      "log_stft": 0.2733197510242462,
+      "pair_normalized_l1": {
+        "(3, 2, 1)": 0.23181302845478058,
+        "(3, 2, 2)": 0.20223329961299896
+      }
+    },
+    {
+      "id": "A_voice0_ja_11",
+      "language": "ja",
+      "latent_origin": "original_AR_teacher",
+      "log_mel": 0.10551390051841736,
+      "log_stft": 0.294283002614975,
+      "pair_normalized_l1": {
+        "(3, 2, 1)": 0.2396017163991928,
+        "(3, 2, 2)": 0.2082136869430542
+      }
+    },
+    {
+      "id": "A_voice0_ko_10",
+      "language": "ko",
+      "latent_origin": "original_AR_teacher",
+      "log_mel": 0.10049974918365479,
+      "log_stft": 0.288979709148407,
+      "pair_normalized_l1": {
+        "(3, 2, 1)": 0.2400081604719162,
+        "(3, 2, 2)": 0.20868809521198273
+      }
+    },
+    {
+      "id": "A_voice0_ko_11",
+      "language": "ko",
+      "latent_origin": "original_AR_teacher",
+      "log_mel": 0.10052100569009781,
+      "log_stft": 0.2876043915748596,
+      "pair_normalized_l1": {
+        "(3, 2, 1)": 0.2372732311487198,
+        "(3, 2, 2)": 0.2058650702238083
+      }
+    },
+    {
+      "id": "A_voice0_en_10",
+      "language": "en",
+      "latent_origin": "original_AR_teacher",
+      "log_mel": 0.11475668102502823,
+      "log_stft": 0.3109893798828125,
+      "pair_normalized_l1": {
+        "(3, 2, 1)": 0.2442442774772644,
+        "(3, 2, 2)": 0.2113775610923767
+      }
+    },
+    {
+      "id": "A_voice0_en_11",
+      "language": "en",
+      "latent_origin": "original_AR_teacher",
+      "log_mel": 0.1026221513748169,
+      "log_stft": 0.29808586835861206,
+      "pair_normalized_l1": {
+        "(3, 2, 1)": 0.23470935225486755,
+        "(3, 2, 2)": 0.20419606566429138
+      }
+    },
+    {
+      "id": "B_voice0_ja_10",
+      "language": "ja",
+      "latent_origin": "approved_L_free_generation",
+      "log_mel": 0.0954059585928917,
+      "log_stft": 0.27443936467170715,
+      "pair_normalized_l1": {
+        "(3, 2, 1)": 0.2326282262802124,
+        "(3, 2, 2)": 0.2031654566526413
+      }
+    },
+    {
+      "id": "B_voice0_ja_11",
+      "language": "ja",
+      "latent_origin": "approved_L_free_generation",
+      "log_mel": 0.10878369957208633,
+      "log_stft": 0.3001954257488251,
+      "pair_normalized_l1": {
+        "(3, 2, 1)": 0.24165356159210205,
+        "(3, 2, 2)": 0.2096138447523117
+      }
+    },
+    {
+      "id": "B_voice0_ko_10",
+      "language": "ko",
+      "latent_origin": "approved_L_free_generation",
+      "log_mel": 0.10270750522613525,
+      "log_stft": 0.2961677312850952,
+      "pair_normalized_l1": {
+        "(3, 2, 1)": 0.23913264274597168,
+        "(3, 2, 2)": 0.2078440636396408
+      }
+    },
+    {
+      "id": "B_voice0_ko_11",
+      "language": "ko",
+      "latent_origin": "approved_L_free_generation",
+      "log_mel": 0.10210216045379639,
+      "log_stft": 0.28736642003059387,
+      "pair_normalized_l1": {
+        "(3, 2, 1)": 0.23787544667720795,
+        "(3, 2, 2)": 0.20698979496955872
+      }
+    },
+    {
+      "id": "B_voice0_en_10",
+      "language": "en",
+      "latent_origin": "approved_L_free_generation",
+      "log_mel": 0.11259964853525162,
+      "log_stft": 0.3136313259601593,
+      "pair_normalized_l1": {
+        "(3, 2, 1)": 0.23661084473133087,
+        "(3, 2, 2)": 0.20575441420078278
+      }
+    },
+    {
+      "id": "B_voice0_en_11",
+      "language": "en",
+      "latent_origin": "approved_L_free_generation",
+      "log_mel": 0.0974239632487297,
+      "log_stft": 0.2938523292541504,
+      "pair_normalized_l1": {
+        "(3, 2, 1)": 0.23504018783569336,
+        "(3, 2, 2)": 0.20544561743736267
+      }
+    }
+  ]
+}

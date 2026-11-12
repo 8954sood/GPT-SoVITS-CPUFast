@@ -1,0 +1,33 @@
+{
+  "quality_approved": true,
+  "model_variant": "U",
+  "feedback": "U 사용 가능, push·N1 진행",
+  "scope": "Owner-approved Korean L/U same reference/text/seed, push and actual N1 comparison. JA/EN synthesis only, not broad listening approval.",
+  "parent_manifest_sha256": "dbb4a69d2b92120fce7bbb685c8c2f78590d5ca46abd5753b26088b93626c635",
+  "runtime_implementation": {
+    "path": "experiments/student/listen_bottleneck_decoder.py",
+    "sha256": "1c232283c860f9304d31646639e14f89a75fdb75c9800aac1d16d6c768a4c9cc"
+  },
+  "files": {
+    "ar.pt": {
+      "sha256": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+      "bytes": 231975560
+    },
+    "decoder.pt": {
+      "sha256": "a707f3e2b01c9c1217af0ea758a02dd1d76329c1950f9b39129532b788016d33",
+      "bytes": 121267585
+    },
+    "student_spec.json": {
+      "sha256": "3bf43aac692f3b14d3a280b1571fdad30adb644feb53529395c38d39b08c0a45",
+      "bytes": 6319
+    }
+  },
+  "deployment_export": {
+    "original_training_checkpoint_sha256": "755a7ffe2c26fbf715862659ff90254797301a6143226a0f26d6d6120941deab",
+    "metadata_only_normalization": true,
+    "all_tensors_exact_to_training_best": true
+  },
+  "manifest_sha256": "8d0329df24fa14eaf36e07b265c3111a592dec962870ec392fe0c58896832751",
+  "manifest_private_path": ".experiments/student/approved_u_20261112/manifest.json",
+  "actual_n1_measured": false
+}

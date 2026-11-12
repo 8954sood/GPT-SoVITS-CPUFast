@@ -55,7 +55,13 @@ def main():
     parser.add_argument("--replay", type=Path, required=True)
     parser.add_argument("--candidate", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--backend", choices=["tap", "fft"], default="tap")
+    parser.add_argument("--n-fft", type=int, default=256)
     args = parser.parse_args()
+    torch.set_num_threads(1)
+    torch.set_num_interop_threads(1)
+    if args.backend == "fft":
+        import cpufast_cpp_ops  # noqa: F401
     if args.output.exists():
         parser.error("Fresh output required")
     manifest = json.loads((args.replay / "manifest.json").read_text())
@@ -65,6 +71,7 @@ def main():
     spec = trained["student_spec"]
     report = {
         "scope": "Local real-activation correctness only; no timing/performance/voice-quality claim",
+        "native_backend": args.backend,
         "approved_model_sha256": manifest["decoder_sha256"],
         "capture_manifest_sha256": sha(args.replay / "manifest.json"),
         "candidate_checkpoint_sha256": sha(args.candidate),
@@ -106,14 +113,22 @@ def main():
                 if not changed and not torch.equal(tensor, candidate[name]):
                     raise RuntimeError("Unselected K coefficient changed")
             for kind, state in (
-                ("approved_K", capture["state_dict"]),
+                ("approved_parent", capture["state_dict"]),
                 ("unapproved_pair_init", candidate),
             ):
                 raw = make_layers(state, capture["kernel"], capture["dilation"])
-                native = [
-                    [TapConv1d(FFTConv1d(c, backend="packed")) for c in pair]
-                    for pair in raw
-                ]
+                native = []
+                for pair in raw:
+                    native_pair = []
+                    for conv in pair:
+                        layer = FFTConv1d(conv, backend="packed", n_fft=args.n_fft)
+                        if args.backend == "tap":
+                            layer = TapConv1d(layer)
+                        else:
+                            layer.output_layout = layer.fused_finish = True
+                            layer.stream_products = layer.parallel_transforms = True
+                        native_pair.append(layer)
+                    native.append(native_pair)
                 parameters = [p for pair in raw for c in pair for p in c.parameters()]
                 snapshots = [p.clone() for p in parameters]
                 expected = execute(raw, value, False)

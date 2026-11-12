@@ -1,0 +1,46 @@
+{
+  "scope": "Local correctness only under concurrent Main host training; not N1, no timing/RSS/performance/voice-quality claim",
+  "model": "Approved R stage1/originalbranch2 input and raw checkpoint vs separate unapproved U initialization",
+  "fft": {
+    "n_fft": 256,
+    "backend": "packed",
+    "output_layout": true,
+    "fused_finish": true,
+    "parallel_transforms": true,
+    "stream_products": true,
+    "fast_half": false
+  },
+  "tests": {
+    "real_languages": [
+      "ja",
+      "ko",
+      "en"
+    ],
+    "models": [
+      "approved_R",
+      "unapproved_U_init"
+    ],
+    "threads": [
+      1,
+      2
+    ],
+    "checks": 12,
+    "maximum_absolute_error_to_raw_conv": 8.0108642578125e-05,
+    "u_maximum_absolute_error_to_raw_conv": 5.7220458984375e-05,
+    "tolerance": {
+      "rtol": 0.0002,
+      "atol": 0.0002
+    },
+    "inputs_parameters_and_source_files_unchanged": true,
+    "nonselected_pair_parameters_exact": true,
+    "guard_exit_code": 0
+  },
+  "initial_harness_failure": "Explicit cpufast_cpp_ops import was missing in newly selected FFT replay; fft_pack unregistered. Fixed standalone replay only, no production/native changes. Failure and retry logs retained privately.",
+  "private_assets": "Activation/state_dict PT files remain ignored/private; only shapes and SHA metadata are preserved here",
+  "source_sha256": {
+    "experiments/rtf07/capture_block_input.py": "33977484613c684af21cbff286ec5358c46087f5b25c85875554bb9d5398d715",
+    "experiments/rtf07/replay_rectangular_block.py": "3b30e8f1a1209b0ae39d450c6e8c8ce8f0619e036ad8524ce1cc5f418d018dd4",
+    "cpufast_fft.py": "639e0e2da460a1a90748cb54c3c163d1b6cef4c89761ece591571ba72736e562",
+    "native/cpufast_fft_packed.cpp": "14701b9b17b9a498ceee4c76a88fbd0d131b6396aa8d37cf6449c239c181dc6a"
+  }
+}
