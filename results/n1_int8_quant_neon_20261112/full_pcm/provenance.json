@@ -1,0 +1,50 @@
+{
+  "scope": "One fresh L and one fresh NEON-quantization process,3excluded warmups+1sample each; full model PCM correctness only, no end-to-end speed adoption",
+  "source_sha": "dc8af1654bf5d7fbe229fdecf5eafe6a6d473eb0",
+  "source_archive_sha256": "9dfe123a3cedfbbc5a5835fb7b5fe27ea70c09281a8023f4b49b055b3c4f4118",
+  "transport": "Direct SSH under exclusive host mutex; no GitHub Actions dispatch",
+  "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+  "native_calls": 33984,
+  "expected_calls": "4inferences\u00d7118decode steps\u00d718blocks\u00d74linears",
+  "all_checkpoint_student_parameter_resource_guards_pass": true,
+  "pcm_semantic_duration_exact": true,
+  "pcm_sha256": "0269c2ff38ef266552fb60743ff958a0376018280afa2197ef8bf01363069907",
+  "semantic_generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9",
+  "token_count": 118,
+  "audio_seconds": 5.02,
+  "cgroup": {
+    "cpu.max": "200000 100000",
+    "cpuset.cpus.effective": "0-1",
+    "memory.max": "8000000000",
+    "memory.swap.max": "0"
+  },
+  "baseline_and_runtime_compiler_flags_match_except_explicit_registration_macro": true,
+  "baseline_library_hash_evidence": "baseline_libraries_startup_snapshot.json and baseline_libraries_after.json; independent file snapshot captured during candidate startup after baseline guard, before synthesis samples, not at wrapper entry",
+  "legacy_wrapper_caveat": "This measured source emitted a literal baseline_library_files_unchanged flag. Do not treat that flag as evidence by itself; use the external actual four-file SHA snapshots and baseline loader library SHA guards. Follow-up source1a6bd18 measures actual DSO/manifest hashes inside the wrapper before import and after inference. No running source/DSO was changed.",
+  "rtf_values_archival_only_not_speed_evidence": {
+    "baseline": 1.1395873123431113,
+    "quant_neon": 1.1326942284892043
+  },
+  "adopted": false,
+  "extra_paired_runs": false,
+  "audio_files_saved": false,
+  "initial_cli_failure": {
+    "file": "initial_missing_prompt_language_guard.json",
+    "reason": "Standalone invocation omitted explicit --prompt-lang ja; immutable request guard rejected it before inference. Explicit approved language supplied without changing guard or source; failure not treated as an RTF observation."
+  },
+  "queue_at_completion": {
+    "benchmark_lock_available": true,
+    "benchmark_containers_remaining": [],
+    "unrelated_existing_containers_unchanged": true
+  },
+  "files": {
+    "baseline.json": "9a9ca7d45b12240cc450a91a9f2489901f02ea4e4c4f2d1b7fc124071428bd8c",
+    "baseline_guard.json": "62269661dee7732e0d01638555d37760293b5b403586b81be61c30b9fca08417",
+    "baseline_libraries_after.json": "915321f362a68aad0cabb8e10b3ad5d130156411c2b67394b8a523b9f863a500",
+    "baseline_libraries_startup_snapshot.json": "e6582440370f644917ce23e46daeaf0e376240dd7383056d67edcecf609a7369",
+    "initial_missing_prompt_language_guard.json": "49a0fe4b32fd8e2bed26b52e17fe563e237a45937da72c7c24fd11e351889689",
+    "quant_neon.json": "048c0274af8fc455cb0e47a938a8610e9ce25a656b6c43971f542784ed99697f",
+    "quant_neon_guard.json": "c5721bef803e91aed97203d7bb5def2ba9974d8b6ab2fa38b83bb7d339a07379"
+  },
+  "invocation_sha256": "da2815908cf780be1553ff3ea3e04abfeebe9713d66c920415470a064f79f92b"
+}
