@@ -1,0 +1,41 @@
+{
+  "scope": "Three training contexts, no validation selection or N1 performance claim",
+  "parent_decoder_sha256": "a2fe6478aae00a8a481209f32aba85eab97198cd30aca0ce1ff63d9ec31c3c1d",
+  "parent_manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+  "teacher_s2_sha256": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+  "corpus_manifest_sha256": "54c87e32dbba8277350b82279c8c9e872460fb55b8e4d6abe135c0096d60f98c",
+  "training_contexts": [
+    {
+      "path": "voice0_ja_0_decoder.pt",
+      "sha256": "3f6f6e289205fcd9e0e4af0eb9dcdfccad034000ae833afa545ef6461d09b119"
+    },
+    {
+      "path": "voice0_ko_0_decoder.pt",
+      "sha256": "25024fd2a94ac7a264c9df49bd20a5eb7305bb598a6fcd801af1544e5fa96ae9"
+    },
+    {
+      "path": "voice0_en_0_decoder.pt",
+      "sha256": "d49b44db673b66901655b02cafb0fd7252d1987ca8ceee3047d5546b04265fcf"
+    }
+  ],
+  "original_widths": [
+    768,
+    384,
+    192,
+    96,
+    48,
+    24
+  ],
+  "candidate_widths": [
+    640,
+    320,
+    160,
+    80,
+    40,
+    20
+  ],
+  "original_parameters": 30733824,
+  "candidate_parameters": 21597280,
+  "rough_dense_width_squared_ratio": 0.6944444444444445,
+  "quality_approved": false
+}

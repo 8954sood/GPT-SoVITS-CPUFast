@@ -137,7 +137,11 @@ def main():
     teacher = decoder_from_teacher(args.s2, root / "teacher_decoder.pt")
     spec = json.loads(args.spec.read_text())
     student = (
-        StudentGenerator(copy.deepcopy(teacher), spec["decoder_branches"])
+        StudentGenerator(
+            copy.deepcopy(teacher),
+            spec["decoder_branches"],
+            channel_keep=spec.get("decoder_channel_keep"),
+        )
         .eval()
         .requires_grad_(True)
     )
@@ -145,6 +149,10 @@ def main():
         resumed = torch.load(args.resume, map_location="cpu", weights_only=True)
         if resumed["student_spec"]["decoder_branches"] != spec["decoder_branches"]:
             raise ValueError("Resume branch selection mismatch")
+        if resumed["student_spec"].get("decoder_channel_keep") != spec.get(
+            "decoder_channel_keep"
+        ):
+            raise ValueError("Resume decoder channel selection mismatch")
         student.load_state_dict(resumed["state_dict"], strict=True)
     if any(
         p.device.type != "cpu" or p.dtype != torch.float32 for p in student.parameters()
@@ -219,6 +227,11 @@ def main():
                     train[((step - 1) * args.grad_accum + micro) % len(train)], True
                 )
                 audio, features = generate_with_features(student, z, g)
+                if student.channel_keep is not None:
+                    teacher_features = [
+                        feature[:, list(student.channel_keep[i + 1]), :]
+                        for i, feature in enumerate(teacher_features)
+                    ]
                 feature_loss = torch.stack(
                     [
                         (a - b).abs().mean() / b.abs().mean().clamp_min(1e-5)

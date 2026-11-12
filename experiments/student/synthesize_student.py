@@ -73,7 +73,9 @@ def main():
     spec = json.loads(args.spec.read_text())
     if args.variant in ("C", "D"):
         pipeline.vits_model.dec = StudentGenerator(
-            pipeline.vits_model.dec, spec["decoder_branches"]
+            pipeline.vits_model.dec,
+            spec["decoder_branches"],
+            channel_keep=spec.get("decoder_channel_keep"),
         )
         if args.decoder_student is not None:
             trained = torch.load(
@@ -144,6 +146,9 @@ def main():
         "decoder_branches": spec["decoder_branches"]
         if args.variant in ("C", "D")
         else [[0, 1, 2]] * 5,
+        "decoder_channel_widths": [len(k) for k in spec["decoder_channel_keep"]]
+        if spec.get("decoder_channel_keep") is not None
+        else None,
         "cases": [],
     }
     for lang in args.languages:

@@ -30,7 +30,7 @@ def ar_subset(transformer, keep):
 class StudentGenerator(torch.nn.Module):
     """Preserve stage widths/rates; independently select branches at each stage."""
 
-    def __init__(self, teacher, branches, pairs=None):
+    def __init__(self, teacher, branches, pairs=None, channel_keep=None):
         super().__init__()
         if len(branches) != teacher.num_upsamples:
             raise ValueError("One branch selection is required per upsampling stage")
@@ -64,7 +64,81 @@ class StudentGenerator(torch.nn.Module):
                         [block.convs2[i] for i in indices]
                     )
                 self.resblocks.append(block)
+        self.channel_keep = None
+        if channel_keep is not None:
+            self.select_channels(channel_keep)
         self.train(teacher.training)
+
+    def select_channels(self, keep):
+        """Slice a fresh decoder copy; widths include stem and every upsample stage."""
+        if self.channel_keep is not None:
+            raise ValueError("Channel selection may be applied only once")
+        widths = [self.conv_pre.out_channels] + [m.out_channels for m in self.ups]
+        if len(keep) != len(widths):
+            raise ValueError("Channel IDs required for stem and every stage")
+        selected = tuple(
+            checked_keep(ids, width, "decoder channel keep")
+            for ids, width in zip(keep, widths)
+        )
+
+        def sliced(module, inputs, outputs):
+            if not isinstance(module, (torch.nn.Conv1d, torch.nn.ConvTranspose1d)) or (
+                module.groups != 1
+            ):
+                raise ValueError("Raw ungrouped decoder convolutions required")
+            if hasattr(module, "weight_g") or hasattr(module, "weight_v"):
+                raise ValueError("Remove weight normalization before slicing")
+            clone = copy.deepcopy(module)
+            source = module.weight.detach()
+            ix = torch.tensor(inputs, device=source.device)
+            ox = torch.tensor(outputs, device=source.device)
+            if isinstance(module, torch.nn.ConvTranspose1d):
+                weight = source.index_select(0, ix).index_select(1, ox)
+            else:
+                weight = source.index_select(0, ox).index_select(1, ix)
+            clone.weight = torch.nn.Parameter(
+                weight.clone(), requires_grad=module.weight.requires_grad
+            )
+            if module.bias is not None:
+                clone.bias = torch.nn.Parameter(
+                    module.bias.detach().index_select(0, ox).clone(),
+                    requires_grad=module.bias.requires_grad,
+                )
+            clone.in_channels, clone.out_channels = len(inputs), len(outputs)
+            return clone
+
+        self.conv_pre = sliced(
+            self.conv_pre, tuple(range(self.conv_pre.in_channels)), selected[0]
+        )
+        if hasattr(self, "cond"):
+            self.cond = sliced(
+                self.cond, tuple(range(self.cond.in_channels)), selected[0]
+            )
+        self.ups = torch.nn.ModuleList(
+            [sliced(up, selected[i], selected[i + 1]) for i, up in enumerate(self.ups)]
+        )
+        blocks = []
+        for stage, branches in enumerate(self.stage_branches):
+            indices = selected[stage + 1]
+            for j in range(len(branches)):
+                block = copy.deepcopy(self.resblocks[self.stage_offsets[stage] + j])
+                for group in ("convs1", "convs2"):
+                    setattr(
+                        block,
+                        group,
+                        torch.nn.ModuleList(
+                            [
+                                sliced(conv, indices, indices)
+                                for conv in getattr(block, group)
+                            ]
+                        ),
+                    )
+                blocks.append(block)
+        self.resblocks = torch.nn.ModuleList(blocks)
+        self.conv_post = sliced(
+            self.conv_post, selected[-1], tuple(range(self.conv_post.out_channels))
+        )
+        self.channel_keep = selected
 
     def forward(self, x, g=None):
         x = self.conv_pre(x)
