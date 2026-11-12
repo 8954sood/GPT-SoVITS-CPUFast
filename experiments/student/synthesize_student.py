@@ -71,6 +71,16 @@ def main():
         )
     )
     spec = json.loads(args.spec.read_text())
+    decoder = pipeline.t2s_model.model
+    loaded_ar_layers = len(decoder.t2s_transformer.blocks)
+    if args.variant in ("B", "D") and (
+        loaded_ar_layers != len(spec["ar_keep"])
+        or decoder.num_layers != loaded_ar_layers
+    ):
+        raise ValueError(
+            "Student listening AR checkpoint does not match spec ar_keep; "
+            f"loaded {loaded_ar_layers} blocks, expected {len(spec['ar_keep'])}"
+        )
     if args.variant in ("C", "D"):
         pipeline.vits_model.dec = StudentGenerator(
             pipeline.vits_model.dec,
@@ -101,7 +111,6 @@ def main():
                     },
                     source,
                 )
-    decoder = pipeline.t2s_model.model
     before = {
         "ar": ar_digest(decoder.t2s_transformer),
         "vits": parameter_digest(pipeline.vits_model),
@@ -148,6 +157,15 @@ def main():
         "ar_cache_storage": "FP32" if args.ar_fp32_cache else "exact FP16",
         "quality_approved": False,
         "ar_layers": decoder.num_layers,
+        "loaded_ar_transformer_blocks": loaded_ar_layers,
+        "input_sha256": {
+            "s1": digest(args.s1),
+            "s2": digest(args.s2),
+            "reference": digest(args.reference),
+            "student_spec": digest(args.spec),
+            "decoder_student": digest(args.decoder_student)
+            if args.decoder_student is not None else None,
+        },
         "decoder_branches": spec["decoder_branches"]
         if args.variant in ("C", "D")
         else [[0, 1, 2]] * 5,
