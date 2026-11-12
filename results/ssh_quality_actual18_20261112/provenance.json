@@ -1,0 +1,39 @@
+{
+  "source_sha": "d0fc7fbdd7a6e41d19abf778e7410ef6118ef1c6",
+  "source_gzip_sha256": "b93daf39fd6ef26e1b2335e7f8e19cc512c6d20d3d2e37a16292c4a5970943c9",
+  "host": "Neoverse-N1 Linux ARM64",
+  "docker_image_id": "sha256:23eb9b78c3c75319c99172766f94bba4faa8cffe05f8765ce4b33a3c34bb989b",
+  "scope": "Quality synthesis only; smoke elapsed time is not a benchmark or performance claim",
+  "resource_settings": {
+    "cpus": 2,
+    "memory_bytes": 8000000000,
+    "memory_swap_bytes": 8000000000
+  },
+  "models_read_only": true,
+  "file_parameter_guards_all_pass": true,
+  "V_approval_pending": true,
+  "cases": [
+    {
+      "variant": "A_original24",
+      "ar_layers": 24,
+      "actual_ar_blocks": 24,
+      "report_sha256": "0b3cd78c8672564bb503c5f0bea86d6af7a187b5710a50921f537e125307efaa",
+      "quality_approved": "previous approval applies only to L Korean; original A is reference"
+    },
+    {
+      "variant": "L_actual18",
+      "ar_layers": 18,
+      "actual_ar_blocks": 18,
+      "report_sha256": "0121302d217d7cd9f08570b059d3f9285dc834e3918097383aaee948c8dcbee2",
+      "quality_approved": "previous approval applies only to L Korean; original A is reference"
+    },
+    {
+      "variant": "V_actual18",
+      "ar_layers": 18,
+      "actual_ar_blocks": 18,
+      "report_sha256": "2a3be93747313a2141920a5c9f95a9920a4db538f341826d796b4c87d2f5b2e6",
+      "quality_approved": false
+    }
+  ],
+  "audio_location": "Private .experiments/ssh_quality_actual18_20261112; not in Git"
+}
