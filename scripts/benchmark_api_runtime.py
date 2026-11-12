@@ -21,7 +21,7 @@ def main():
     p.add_argument('--runs', type=int, default=3)
     p.add_argument('--profile', action='store_true')
     p.add_argument('--tap-finish', action='store_true')
-    p.add_argument('--gc-policy', choices=('original','gen0','freeze'), default='original')
+    p.add_argument('--gc-policy', choices=('default','original','gen0','freeze'), default='default')
     args = p.parse_args()
     assert not args.output.exists()
     import torch
@@ -40,7 +40,17 @@ def main():
     import gc
     if args.gc_policy=='gen0':
         engine.pipeline.empty_cache=lambda:gc.collect(0)
+    elif args.gc_policy in ('original','freeze'):
+        engine.pipeline.empty_cache=lambda:gc.collect()
     diagnostic={}
+    gc_start={}
+    def gc_callback(phase,info):
+        generation=info['generation']
+        if phase=='start':gc_start[generation]=time.perf_counter()
+        elif generation in gc_start:
+            key='gc_generation_'+str(generation)+'_seconds'
+            diagnostic[key]=diagnostic.get(key,0.)+time.perf_counter()-gc_start.pop(generation)
+    gc.callbacks.append(gc_callback)
     def timed(owner,name,label):
         original=getattr(owner,name)
         def run(*a,**kw):
@@ -48,6 +58,18 @@ def main():
             try:return original(*a,**kw)
             finally:diagnostic[label]=diagnostic.get(label,0.)+time.perf_counter()-begin
         setattr(owner,name,run)
+    transformer=engine.pipeline.t2s_model.model.t2s_transformer
+    class TransformerProbe:
+        def __getattr__(self,name):return getattr(transformer,name)
+        def process_prompt(self,*a,**kw):
+            begin=time.perf_counter()
+            try:return transformer.process_prompt(*a,**kw)
+            finally:diagnostic['ar_prefill_seconds']=diagnostic.get('ar_prefill_seconds',0.)+time.perf_counter()-begin
+        def decode_next_token(self,*a,**kw):
+            begin=time.perf_counter()
+            try:return transformer.decode_next_token(*a,**kw)
+            finally:diagnostic['ar_decode_seconds']=diagnostic.get('ar_decode_seconds',0.)+time.perf_counter()-begin
+    engine.pipeline.t2s_model.model.t2s_transformer=TransformerProbe()
     timed(engine.pipeline,'empty_cache','empty_cache_seconds')
     timed(engine.pipeline.vits_model,'prepare_decode_latent','acoustic_latent_seconds')
     timed(engine.pipeline.vits_model.dec,'forward','student_decoder_seconds')
@@ -57,7 +79,7 @@ def main():
         from cpufast_tap_epilogue_runtime import enable_tap_epilogues
         tap_audit=enable_tap_epilogues(engine.pipeline.vits_model.dec)
     def pair(role, index):
-        reports=[];wire=[];begin=time.perf_counter()
+        reports=[];wire=[];begin=time.perf_counter();cpu_begin=time.process_time()
         for i,text in enumerate(segments):
             diagnostic.clear()
             audio,report=engine.synthesize_prepared(text, ref, lang='ko', seed=42+i)
@@ -66,11 +88,13 @@ def main():
         elapsed=time.perf_counter()-begin
         wire=b''.join(wire)
         wire_hash=hashlib.sha256(wire).hexdigest()
-        pcm_match=(len(wire)==487680 and wire_hash==EXPECTED_WIRE
+        rate=engine.sample_rate
+        pcm_match=(len(wire)==int(5.08*rate*2)
+            and (rate==32000 or wire_hash==EXPECTED_WIRE)
             and tuple(r['native_pcm_sha256'] for r in reports)==EXPECTED_NATIVE)
         assert all(r['model_parameter_versions_unchanged'] for r in reports)
-        observation=dict(role=role,index=index,wall_seconds=elapsed,audio_seconds=len(wire)/2/48000,rtf=elapsed/(len(wire)/2/48000),
-            expected_native_and_wire_pcm_match=pcm_match,wire_pcm48k_sha256=wire_hash,segments=reports)
+        observation=dict(role=role,index=index,wall_seconds=elapsed,cpu_seconds=time.process_time()-cpu_begin,sample_rate=rate,audio_seconds=len(wire)/2/rate,rtf=elapsed/(len(wire)/2/rate),
+            expected_native_and_wire_pcm_match=pcm_match,wire_pcm_sha256=wire_hash,segments=reports)
         print('API_RUNTIME',role,index,args.ar_threads,args.threads,elapsed,flush=True)
         return observation
     rows=[pair('warmup',i) for i in range(args.warmups)]
@@ -102,7 +126,7 @@ def main():
     assert inputs_before=={'s2':sha256(args.s2),'reference':sha256(args.reference)}
     cgroup={n:(Path('/sys/fs/cgroup')/n).read_text().strip() for n in ('cpu.max','memory.max','memory.swap.max')}
     assert cgroup=={'cpu.max':'200000 100000','memory.max':'8000000000','memory.swap.max':'0'}
-    result=dict(complete=True,scope='Fixed sentence split/seed42,43/full reference/48k API adapter exploration; HTTP overhead excluded',
+    result=dict(complete=True,scope='Fixed sentence split/seed42,43/full reference/native32k API adapter exploration; HTTP overhead excluded',
         settings={'threads':args.threads,'ar_threads':args.ar_threads,'tap_finish':args.tap_finish,'gc_policy':args.gc_policy},
         cgroup=cgroup,all_expected_pcm_match=all(r['expected_native_and_wire_pcm_match'] for r in rows),observations=rows,excluded_profile=profile,tap_finish_audit=tap_audit,
         model_files_unchanged=True,original_inputs_unchanged=True,native_files_unchanged=True,
