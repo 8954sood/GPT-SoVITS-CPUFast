@@ -1,0 +1,148 @@
+{
+  "scope": "Actual N1 quality synthesis only; no inference-speed claim; original A vs matched L18/V18. Owner listening decision pending for actual18 V.",
+  "source_sha": "d0fc7fbdd7a6e41d19abf778e7410ef6118ef1c6",
+  "owner_actual18_v_quality_approved": false,
+  "prior_v_listening_used_ar24": true,
+  "models": {
+    "A": {
+      "report_sha256": "0b3cd78c8672564bb503c5f0bea86d6af7a187b5710a50921f537e125307efaa",
+      "ar_layers": 24,
+      "loaded_ar_transformer_blocks": 24,
+      "inputs_sha256": {
+        "s1": "87133414860ea14ff6620c483a3db5ed07b44be42e2c3fcdad65523a729a745a",
+        "s2": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+        "reference": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+        "student_spec": "6b4b12ecdf6f4716b4089f1590c0833c98f8397e6a8ea90c79e1180abf4c0002",
+        "decoder_student": null
+      },
+      "student_parameters_unchanged": true,
+      "checkpoint_files_unchanged": true,
+      "cases": [
+        {
+          "language": "ko",
+          "text": "오늘은 날씨가 참 좋네요. 잠깐 쉬었다가 함께 이야기를 이어 가요.",
+          "sample_rate": 32000,
+          "audio_seconds": 5.78,
+          "semantic": [
+            {
+              "tokens": 137,
+              "sha256": "59ff652e1c26d13a0b359b12db4e48e069650d369ce30c4ad8c90d0560f7be28"
+            }
+          ],
+          "pcm_sha256": "21da04adda5e2ce93160eb2ef6561edd514ce546fafdba045ee7860db0b2bc88"
+        }
+      ]
+    },
+    "L": {
+      "report_sha256": "0121302d217d7cd9f08570b059d3f9285dc834e3918097383aaee948c8dcbee2",
+      "ar_layers": 18,
+      "loaded_ar_transformer_blocks": 18,
+      "inputs_sha256": {
+        "s1": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+        "s2": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+        "reference": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+        "student_spec": "6b4b12ecdf6f4716b4089f1590c0833c98f8397e6a8ea90c79e1180abf4c0002",
+        "decoder_student": "a2fe6478aae00a8a481209f32aba85eab97198cd30aca0ce1ff63d9ec31c3c1d"
+      },
+      "student_parameters_unchanged": true,
+      "checkpoint_files_unchanged": true,
+      "cases": [
+        {
+          "language": "ko",
+          "text": "오늘은 날씨가 참 좋네요. 잠깐 쉬었다가 함께 이야기를 이어 가요.",
+          "sample_rate": 32000,
+          "audio_seconds": 5.02,
+          "semantic": [
+            {
+              "tokens": 118,
+              "sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+            }
+          ],
+          "pcm_sha256": "0269c2ff38ef266552fb60743ff958a0376018280afa2197ef8bf01363069907"
+        },
+        {
+          "language": "ja",
+          "text": "今日は穏やかな天気ですね。少し休んでから、また一緒に続きを進めましょう。",
+          "sample_rate": 32000,
+          "audio_seconds": 6.58,
+          "semantic": [
+            {
+              "tokens": 157,
+              "sha256": "fd335ef4be4d02dafff92dddcac3e3f8069d9b6d02600dcb7a094a59015abc5a"
+            }
+          ],
+          "pcm_sha256": "ae8877f29acac1f95a4e01d4928b53ce7bb84ea7ada24e67cb984cd30f8c670b"
+        },
+        {
+          "language": "en",
+          "text": "The weather is pleasant today. Let us take a short break and continue together.",
+          "sample_rate": 32000,
+          "audio_seconds": 4.62,
+          "semantic": [
+            {
+              "tokens": 108,
+              "sha256": "16d8b7b3e23360c80796b3e5386d672f19c029b8f5170225d59e0688877c79c8"
+            }
+          ],
+          "pcm_sha256": "0abdd1ee53e4f6783822f35993636006513dcf6954b38e6e8a1dbd0cba797894"
+        }
+      ]
+    },
+    "V": {
+      "report_sha256": "2a3be93747313a2141920a5c9f95a9920a4db538f341826d796b4c87d2f5b2e6",
+      "ar_layers": 18,
+      "loaded_ar_transformer_blocks": 18,
+      "inputs_sha256": {
+        "s1": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+        "s2": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+        "reference": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+        "student_spec": "cb411065f3e69c2725791fc00272940589c309a67bd5122abcd26499cfde6a16",
+        "decoder_student": "7d4c184c638b09880a7e61b088b999542598644d22166e84e32137c5649b9524"
+      },
+      "student_parameters_unchanged": true,
+      "checkpoint_files_unchanged": true,
+      "cases": [
+        {
+          "language": "ko",
+          "text": "오늘은 날씨가 참 좋네요. 잠깐 쉬었다가 함께 이야기를 이어 가요.",
+          "sample_rate": 32000,
+          "audio_seconds": 5.02,
+          "semantic": [
+            {
+              "tokens": 118,
+              "sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+            }
+          ],
+          "pcm_sha256": "a22718077e84fb8d44874f9792503283d132734df5bc3b5fbfb57d145164f1f5"
+        },
+        {
+          "language": "ja",
+          "text": "今日は穏やかな天気ですね。少し休んでから、また一緒に続きを進めましょう。",
+          "sample_rate": 32000,
+          "audio_seconds": 6.58,
+          "semantic": [
+            {
+              "tokens": 157,
+              "sha256": "fd335ef4be4d02dafff92dddcac3e3f8069d9b6d02600dcb7a094a59015abc5a"
+            }
+          ],
+          "pcm_sha256": "2d0978674aab780e88470f692c4ea100becf7a3fd9b577ae72b0e75e4ec60ac9"
+        },
+        {
+          "language": "en",
+          "text": "The weather is pleasant today. Let us take a short break and continue together.",
+          "sample_rate": 32000,
+          "audio_seconds": 4.62,
+          "semantic": [
+            {
+              "tokens": 108,
+              "sha256": "16d8b7b3e23360c80796b3e5386d672f19c029b8f5170225d59e0688877c79c8"
+            }
+          ],
+          "pcm_sha256": "8094f1beca591b8c5dfec05a991d3e320bce3710eb95a44403242fbcf6dceaf8"
+        }
+      ]
+    }
+  },
+  "v_n1_performance_executed": false
+}
