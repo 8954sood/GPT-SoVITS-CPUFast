@@ -13,7 +13,8 @@ def enable_fft128_cin240(decoder):
     if {name for name, _ in selected} != expected_names:
         raise ValueError("Expected exactly the six original V stage0 Cin240/Cout384 conv2 modules")
     for name, layer in selected:
-        if (layer.n_fft != 256 or layer._key is not None or layer._packed is not None
+        if (layer.training or layer.weight.device.type != "cpu"
+            or layer.n_fft != 256 or layer._key is not None or layer._packed is not None
             or layer.dilation != 1 or layer.weight.shape[-1] not in (7, 11)
             or layer.backend != "packed" or not layer.output_layout
             or not layer.stream_products or layer.fast_half or layer.half_stream_products

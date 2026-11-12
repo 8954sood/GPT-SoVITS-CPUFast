@@ -13,7 +13,7 @@ def decoder():
         branch = torch.nn.Module()
         branch.convs2 = torch.nn.ModuleList()
         for _ in range(3):
-            layer = FFTConv1d(torch.nn.Conv1d(240, 384, kernel, padding=kernel//2), backend="packed")
+            layer = FFTConv1d(torch.nn.Conv1d(240, 384, kernel, padding=kernel//2).eval(), backend="packed")
             layer.output_layout = layer.stream_products = True
             branch.convs2.append(layer)
         root.resblocks.append(branch)
