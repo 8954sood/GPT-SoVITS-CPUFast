@@ -1151,3 +1151,31 @@ savings. Own-profile PCM exactly matches approved133tokens5.62s, all guards pass
 Raw per-module/tap matrix identity/shape/cost and source hashes are in
 `results/n1_addmm_attribution_20261112/`. FFT128-on-Cin240 is the next separate
 fixed-weights quality/numeric candidate; no approval or performance claim yet.
+
+### Fixed-weight FFT128-on-Cin240 rejected (2026-11-12)
+
+The owner approved the Korean FFT128 voice (`ko_D ㄱㅊ네`); this approval is
+limited to the same AR17+originalV400 request/reference/seed. The six stage0
+conv2 transforms changed from256to128 with all model tensors, AR runtime,
+canonical value schedule and other FP32 acoustic policies fixed. KO/JA/EN
+quality-only comparisons retained semantics/duration and differed by at most
+one int16 LSB (SNR92.41/92.76/92.63dB). Only KO was listening approved. The
+pre-approval numerical record remains unchanged beside the later approval.
+
+Source `24eb931` then ran exactly five fresh counterbalanced pairs, each three
+warmups plus one timed sample, on actual Neoverse N1 under2vCPU/8e9bytes/no swap.
+Baseline RTFs were1.006766,1.009013,.995561,.980669,.997117; FFT128 RTFs were
+1.017267,.992521,.996277,1.012851,1.050644. Baseline/candidate median was
+.997117/1.012851 and worst1.009013/1.050644: neither met the slowest<1 goal.
+Decoder median3.33432→3.31369s was small and inconsistent, AR1.86036→1.97631s
+and totalCPU9.57830→9.63183s did not improve. The derived cache shrank424.7MB
+and peak sampled RSS fell, without a reliable whole-inference win.
+
+Do not adopt this FFT-size change or run extra confirmation to chase1. Every
+warmup/sample reproduced its own fixed PCM hash,133tokens/5.62s and approved
+semantic; candidate versus baseline max1LSB/SNR92.4066. Actual six-module calls,
+model/parameter/cgroup checks and baseline DSO/manifest before/after hashes
+passed. A separate profile is excluded. All10 observations, guards, native
+hashes and provenance are under `results/n1_fft128_cin240_20261112/full_pcm`.
+Canonical Cin240 FFT256 remains unchanged; Tap epilogue fusion is the next
+independent fixed-model runtime hypothesis.

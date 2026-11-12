@@ -1,0 +1,128 @@
+{
+  "scope": "Actual N1 unchanged approved AR17+originalV400: canonical FFT256 baseline vs six Cin240 FFT128 modules only",
+  "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+  "protocol": "Exactly5freshpairs AB/BA, each3warm1sample; one separate excluded candidate profile; all raw/outliers retained",
+  "numeric_policy": "Same semantic/duration and fixed separate PCM hashes; candidate versus baseline max1int16LSB and SNR>=92dB. Owner approved KO output: ko_D ㄱㅊ네; approval limited to this Korean same-reference/seed output, not JA/EN or C24.",
+  "quality_approval": {
+    "owner_reply": "ko_D ㄱㅊ네",
+    "scope": "FFT128-on-Cin240 AR17+originalV400 Korean same reference/seed only; no JA/EN or C24 model approval"
+  },
+  "order": [
+    {
+      "round": 0,
+      "runtime": "baseline",
+      "name": "ko_paired_0_baseline",
+      "rtf": 1.006765970197967,
+      "peak_sampled_tree_rss_bytes": 4910333952
+    },
+    {
+      "round": 0,
+      "runtime": "fft128",
+      "name": "ko_paired_0_fft128",
+      "rtf": 1.0172665705804935,
+      "peak_sampled_tree_rss_bytes": 4274606080
+    },
+    {
+      "round": 1,
+      "runtime": "fft128",
+      "name": "ko_paired_1_fft128",
+      "rtf": 0.9925214325167319,
+      "peak_sampled_tree_rss_bytes": 4260036608
+    },
+    {
+      "round": 1,
+      "runtime": "baseline",
+      "name": "ko_paired_1_baseline",
+      "rtf": 1.0090134719724757,
+      "peak_sampled_tree_rss_bytes": 4872314880
+    },
+    {
+      "round": 2,
+      "runtime": "baseline",
+      "name": "ko_paired_2_baseline",
+      "rtf": 0.9955606154858854,
+      "peak_sampled_tree_rss_bytes": 4898877440
+    },
+    {
+      "round": 2,
+      "runtime": "fft128",
+      "name": "ko_paired_2_fft128",
+      "rtf": 0.9962771618175337,
+      "peak_sampled_tree_rss_bytes": 4300419072
+    },
+    {
+      "round": 3,
+      "runtime": "fft128",
+      "name": "ko_paired_3_fft128",
+      "rtf": 1.0128512584150262,
+      "peak_sampled_tree_rss_bytes": 4295147520
+    },
+    {
+      "round": 3,
+      "runtime": "baseline",
+      "name": "ko_paired_3_baseline",
+      "rtf": 0.9806690548689128,
+      "peak_sampled_tree_rss_bytes": 4875280384
+    },
+    {
+      "round": 4,
+      "runtime": "baseline",
+      "name": "ko_paired_4_baseline",
+      "rtf": 0.9971169801263198,
+      "peak_sampled_tree_rss_bytes": 4883140608
+    },
+    {
+      "round": 4,
+      "runtime": "fft128",
+      "name": "ko_paired_4_fft128",
+      "rtf": 1.0506444534426058,
+      "peak_sampled_tree_rss_bytes": 4298317824
+    }
+  ],
+  "complete": true,
+  "aggregate": {
+    "baseline": {
+      "rtfs": [
+        1.006765970197967,
+        1.0090134719724757,
+        0.9955606154858854,
+        0.9806690548689128,
+        0.9971169801263198
+      ],
+      "median_rtf": 0.9971169801263198,
+      "min_rtf": 0.9806690548689128,
+      "max_rtf": 1.0090134719724757,
+      "all_measured_rtf_below_one": false,
+      "median_wall_seconds": 5.6037974283099174,
+      "median_cpu_seconds": 9.578303559999995,
+      "median_stages": {
+        "ar_seconds": 1.8603607341647148,
+        "enc_p_seconds": 0.13615752197802067,
+        "flow_seconds": 0.08390707522630692,
+        "dec_seconds": 3.3343219719827175
+      }
+    },
+    "fft128": {
+      "rtfs": [
+        1.0172665705804935,
+        0.9925214325167319,
+        0.9962771618175337,
+        1.0128512584150262,
+        1.0506444534426058
+      ],
+      "median_rtf": 1.0128512584150262,
+      "min_rtf": 0.9925214325167319,
+      "max_rtf": 1.0506444534426058,
+      "all_measured_rtf_below_one": false,
+      "median_wall_seconds": 5.692224072292447,
+      "median_cpu_seconds": 9.631829920000001,
+      "median_stages": {
+        "ar_seconds": 1.9763097241520882,
+        "enc_p_seconds": 0.1352879535406828,
+        "flow_seconds": 0.08574145287275314,
+        "dec_seconds": 3.3136932477355003
+      }
+    }
+  },
+  "student_assets_unchanged": true
+}

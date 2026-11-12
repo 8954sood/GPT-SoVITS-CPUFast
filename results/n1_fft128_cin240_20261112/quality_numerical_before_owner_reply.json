@@ -1,0 +1,177 @@
+{
+  "scope": "Actual N1 fixed approved AR17+originalV400 runtime quality comparison only, no RTF claim; owner listening approval still required",
+  "source_sha": "5af1f0f355168c3d14e7a2ee163403262c3f40dc",
+  "source_archive_sha256": "6a375915102c466095f2cf5151e3760c47e95123beaaa20f4651996ce8dc2f00",
+  "candidate_quality_approved": false,
+  "model_manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+  "model_inputs_sha256": {
+    "s1": "a25ae9826d4d608ca41adca04075ff75a5ac66ababa0e823da60b7990f354352",
+    "s2": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+    "reference": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+    "student_spec": "9348c090eff2f00f82eceada445ed6e090d375c55ee77a091d18ff19e4f2a7a2",
+    "decoder_student": "7d4c184c638b09880a7e61b088b999542598644d22166e84e32137c5649b9524"
+  },
+  "only_runtime_change": "Six cold FP32 FFT conv2 modules Cin240Cout384 use128 instead256; all other model parameters/runtime policies fixed",
+  "original_raw_report_note": "The shared synthesize helper left ar_cache_storage=exactFP16 (coefficient representability), while actual ar_runtime audit records W8A8; actual cache is INT8 per-output-channel. Future wrapper label fixed in c0c254d, original measured source/report retained.",
+  "raw_report_sha256": "f39eea34ceed579c405eb6a1ec731e5301cd955e07219c5c86f266e98ccf608b",
+  "cases": [
+    {
+      "language": "ko",
+      "audio_seconds": 5.62,
+      "semantic": [
+        {
+          "tokens": 133,
+          "sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "baseline_pcm_sha256": "2d7691a829c0f793796be37c9a1287a88497ea41dcd1328729333c6b0ec0e83e",
+      "candidate_pcm_sha256": "c0a60fd5c7fd67d8f03170bc224e9e127b6384d142d3100557d90756a454b45f",
+      "max_abs_int16_delta": 1,
+      "rms_int16_delta": 0.024843818194695902,
+      "signal_rms_int16": 1036.4469415481783,
+      "snr_db": 92.40657463740844,
+      "changed_samples": 111,
+      "sample_count": 179840,
+      "changed_fraction": 0.0006172153024911032
+    },
+    {
+      "language": "ja",
+      "audio_seconds": 6.22,
+      "semantic": [
+        {
+          "tokens": 148,
+          "sha256": "c03c4a540a3b1c691a5493cd8cc43d5868625d1b67ef8e0e6155e80c85f3fad5"
+        }
+      ],
+      "baseline_pcm_sha256": "c1a9bd3b7fcdde50d0ec0a59b407002868205c344b3592e5a46ecf3ca6045e17",
+      "candidate_pcm_sha256": "fa84c927d7aeb0bb7ea16bc68311c29b0650767133f97b81b796c0915f6b4c82",
+      "max_abs_int16_delta": 1,
+      "rms_int16_delta": 0.023932179093042887,
+      "signal_rms_int16": 1039.4845489892668,
+      "snr_db": 92.75671588304904,
+      "changed_samples": 114,
+      "sample_count": 199040,
+      "changed_fraction": 0.0005727491961414791
+    },
+    {
+      "language": "en",
+      "audio_seconds": 4.38,
+      "semantic": [
+        {
+          "tokens": 102,
+          "sha256": "30bb0e88282e108c28c47600dcd61a80a26f2c386e1a2b150a3781a142db35cc"
+        }
+      ],
+      "baseline_pcm_sha256": "76486a484872fc568eab68c1020a7b8b9b753cdb95f83f5803fa5f989984b242",
+      "candidate_pcm_sha256": "34c10305af27f0d45a3240277b1527d90465bf1271fb70466aa6a7bf24176a6c",
+      "max_abs_int16_delta": 1,
+      "rms_int16_delta": 0.02359039739629387,
+      "signal_rms_int16": 1010.3337180517098,
+      "snr_db": 92.63459180173825,
+      "changed_samples": 78,
+      "sample_count": 140160,
+      "changed_fraction": 0.0005565068493150685
+    }
+  ],
+  "fft_modules": [
+    {
+      "module": "resblocks.0.convs2.0",
+      "weight_shape": [
+        384,
+        240,
+        7
+      ],
+      "n_fft_before": 256,
+      "n_fft_after": 128,
+      "hop_before": 250,
+      "hop_after": 122,
+      "derived_spectral_bytes_before": 142663680,
+      "derived_spectral_bytes_after": 71884800,
+      "parameter_identity_version_unchanged": true,
+      "arithmetic": "FP32 FFT, spectral products, and inverse FFT; transform length changes rounding"
+    },
+    {
+      "module": "resblocks.0.convs2.1",
+      "weight_shape": [
+        384,
+        240,
+        7
+      ],
+      "n_fft_before": 256,
+      "n_fft_after": 128,
+      "hop_before": 250,
+      "hop_after": 122,
+      "derived_spectral_bytes_before": 142663680,
+      "derived_spectral_bytes_after": 71884800,
+      "parameter_identity_version_unchanged": true,
+      "arithmetic": "FP32 FFT, spectral products, and inverse FFT; transform length changes rounding"
+    },
+    {
+      "module": "resblocks.0.convs2.2",
+      "weight_shape": [
+        384,
+        240,
+        7
+      ],
+      "n_fft_before": 256,
+      "n_fft_after": 128,
+      "hop_before": 250,
+      "hop_after": 122,
+      "derived_spectral_bytes_before": 142663680,
+      "derived_spectral_bytes_after": 71884800,
+      "parameter_identity_version_unchanged": true,
+      "arithmetic": "FP32 FFT, spectral products, and inverse FFT; transform length changes rounding"
+    },
+    {
+      "module": "resblocks.1.convs2.0",
+      "weight_shape": [
+        384,
+        240,
+        11
+      ],
+      "n_fft_before": 256,
+      "n_fft_after": 128,
+      "hop_before": 246,
+      "hop_after": 118,
+      "derived_spectral_bytes_before": 142663680,
+      "derived_spectral_bytes_after": 71884800,
+      "parameter_identity_version_unchanged": true,
+      "arithmetic": "FP32 FFT, spectral products, and inverse FFT; transform length changes rounding"
+    },
+    {
+      "module": "resblocks.1.convs2.1",
+      "weight_shape": [
+        384,
+        240,
+        11
+      ],
+      "n_fft_before": 256,
+      "n_fft_after": 128,
+      "hop_before": 246,
+      "hop_after": 118,
+      "derived_spectral_bytes_before": 142663680,
+      "derived_spectral_bytes_after": 71884800,
+      "parameter_identity_version_unchanged": true,
+      "arithmetic": "FP32 FFT, spectral products, and inverse FFT; transform length changes rounding"
+    },
+    {
+      "module": "resblocks.1.convs2.2",
+      "weight_shape": [
+        384,
+        240,
+        11
+      ],
+      "n_fft_before": 256,
+      "n_fft_after": 128,
+      "hop_before": 246,
+      "hop_after": 118,
+      "derived_spectral_bytes_before": 142663680,
+      "derived_spectral_bytes_after": 71884800,
+      "parameter_identity_version_unchanged": true,
+      "arithmetic": "FP32 FFT, spectral products, and inverse FFT; transform length changes rounding"
+    }
+  ],
+  "spectral_cache_saved_bytes": 424673280,
+  "guards": "All3language semantics/durations unchanged, actual17blocks, sourceV400/ar/spec/reference hashes identical, checkpoint/parameter identity/versions unchanged,2vCPU8e9no-swap quality guardexit0",
+  "metric_definition": "Read both32kHz WAV asint16, compare same-length samples; SNR=20log10(RMSbaseline/RMSdifference); output audio quantization included. NoneSNRmeans PCMexact."
+}
