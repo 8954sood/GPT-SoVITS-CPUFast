@@ -1,0 +1,82 @@
+INFO:     Started server process [25]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:18735 (Press CTRL+C to quit)
+Loading Text2Semantic weights from /student/ar.pt
+Loading VITS weights from /repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth. <All keys matched successfully>
+Removing weight norm...
+Loading CNHuBERT weights from /project/models/chinese-hubert-base
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['。テスト。']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.062	0.536	3.308
+INFO:     127.0.0.1:37000 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37012 - "GET /v1/styles/c6077985d4b742cbb663ed814c7aa90d HTTP/1.1" 200 OK
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+mecab installed
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.053	0.915	1.184
+INFO:     127.0.0.1:37012 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+INFO:     {"request_id": "fa310f3db78d41939c870cedb7c2ff6a", "style_id": "c6077985d4b742cbb663ed814c7aa90d", "first_audio_seconds": 2.326548019424081, "latency_mode": "quality", "first_segment_timing": {"sample_rate": 48000, "native_sample_rate": 32000, "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897", "native_samples": 65920, "wire_samples": 98880, "audio_seconds": 2.06, "native_inference_seconds": 2.3182237930595875, "total_seconds": 2.3258211743086576, "rtf": 1.1290394050042027, "semantic": [{"tokens": 44, "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"}], "semantic_tokens": 44, "ar_seconds": 0.9152363985776901, "seed": 42, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "c58a1982700f882b112c789f4a8c849f618d6c773e14516fa9982876951d68e4", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24"}, "segment_timings": [{"sample_rate": 48000, "native_sample_rate": 32000, "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897", "native_samples": 65920, "wire_samples": 98880, "audio_seconds": 2.06, "native_inference_seconds": 2.3182237930595875, "total_seconds": 2.3258211743086576, "rtf": 1.1290394050042027, "semantic": [{"tokens": 44, "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"}], "semantic_tokens": 44, "ar_seconds": 0.9152363985776901, "seed": 42, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "c58a1982700f882b112c789f4a8c849f618d6c773e14516fa9982876951d68e4", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24"}, {"sample_rate": 48000, "native_sample_rate": 32000, "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a", "native_samples": 96640, "wire_samples": 144960, "audio_seconds": 3.02, "native_inference_seconds": 3.2496748864650726, "total_seconds": 3.25773711130023, "rtf": 1.078720897781533, "semantic": [{"tokens": 68, "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"}], "semantic_tokens": 68, "ar_seconds": 1.178190054371953, "seed": 43, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "c58a1982700f882b112c789f4a8c849f618d6c773e14516fa9982876951d68e4", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24"}], "completed_segments": 2, "total_seconds": 5.599514104425907}
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.178	1.880
+INFO:     127.0.0.1:37012 - "GET /health HTTP/1.1" 200 OK
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	0.864	1.166
+INFO:     127.0.0.1:37012 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+INFO:     {"request_id": "52e8464c60ea481ea5e6ea3c05ee135c", "style_id": "c6077985d4b742cbb663ed814c7aa90d", "first_audio_seconds": 2.2281893510371447, "latency_mode": "balanced", "first_segment_timing": {"sample_rate": 48000, "native_sample_rate": 32000, "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897", "native_samples": 65920, "wire_samples": 98880, "audio_seconds": 2.06, "native_inference_seconds": 2.219464996829629, "total_seconds": 2.227142620831728, "rtf": 1.0811371945785087, "semantic": [{"tokens": 44, "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"}], "semantic_tokens": 44, "ar_seconds": 0.8639994487166405, "seed": 42, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "c58a1982700f882b112c789f4a8c849f618d6c773e14516fa9982876951d68e4", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24"}, "segment_timings": [{"sample_rate": 48000, "native_sample_rate": 32000, "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897", "native_samples": 65920, "wire_samples": 98880, "audio_seconds": 2.06, "native_inference_seconds": 2.219464996829629, "total_seconds": 2.227142620831728, "rtf": 1.0811371945785087, "semantic": [{"tokens": 44, "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"}], "semantic_tokens": 44, "ar_seconds": 0.8639994487166405, "seed": 42, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "c58a1982700f882b112c789f4a8c849f618d6c773e14516fa9982876951d68e4", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24"}, {"sample_rate": 48000, "native_sample_rate": 32000, "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a", "native_samples": 96640, "wire_samples": 144960, "audio_seconds": 3.02, "native_inference_seconds": 3.1877579633146524, "total_seconds": 3.1957223135977983, "rtf": 1.0581861965555623, "semantic": [{"tokens": 68, "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"}], "semantic_tokens": 68, "ar_seconds": 1.1510871071368456, "seed": 43, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "c58a1982700f882b112c789f4a8c849f618d6c773e14516fa9982876951d68e4", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24"}], "completed_segments": 2, "total_seconds": 5.426993407309055}
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	1.151	1.846
+INFO:     127.0.0.1:37012 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37012 - "POST /v1/tts/stream HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:37012 - "POST /v1/tts/stream HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:37012 - "DELETE /v1/styles/c6077985d4b742cbb663ed814c7aa90d HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:37012 - "GET /v1/styles/c6077985d4b742cbb663ed814c7aa90d HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37012 - "GET /v1/styles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37012 - "GET /health HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [25]

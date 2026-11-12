@@ -1,0 +1,67 @@
+{
+  "scope": "Actual Neoverse N1 adapter correctness and temporary loopback HTTP integration; not a new paired performance benchmark",
+  "sources": {
+    "backend_commit": "5439d6d",
+    "backend_archive_sha256": "6f42db9178d46cd35e17a87a250642ce5c9d35d4670663f26b1c1a0bd922719c",
+    "http_commit": "b1e183872f98ba99cb29b9f281bc26f1e5bfb407",
+    "http_archive_sha256": "cb8142fb2fefd385457f62a56a985738f43c442774d3a7677740aca56bd74185",
+    "parent_API_commit": "46e5e8c"
+  },
+  "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+  "backend_native_32k_approved_pcm_exact_all_five": true,
+  "backend_reference_processing_forbidden_after_prepare": true,
+  "backend_prompt_cache_released": true,
+  "backend_whole_utterance_wire_pcm48k_sha256": "8bd4123c9958a2d702a770d88534950c4e961229a14461836e3c11c42e5b886f",
+  "http_observations": [
+    {
+      "latency_mode": "fast",
+      "output_audio_seconds": 5.08,
+      "server_first_pcm_ready_seconds": 2.3957535661756992,
+      "server_complete_response_seconds": 5.720711566507816,
+      "observed_server_response_rtf": 1.126124324115712,
+      "pcm48k_sha256": "23fb33fc18e04d63d9eab28910d32c3369a65bcd8c1922df2e4f65fede707706"
+    },
+    {
+      "latency_mode": "quality",
+      "output_audio_seconds": 5.08,
+      "server_first_pcm_ready_seconds": 2.326548019424081,
+      "server_complete_response_seconds": 5.599514104425907,
+      "observed_server_response_rtf": 1.1022665559893519,
+      "pcm48k_sha256": "23fb33fc18e04d63d9eab28910d32c3369a65bcd8c1922df2e4f65fede707706"
+    },
+    {
+      "latency_mode": "balanced",
+      "output_audio_seconds": 5.08,
+      "server_first_pcm_ready_seconds": 2.2281893510371447,
+      "server_complete_response_seconds": 5.426993407309055,
+      "observed_server_response_rtf": 1.0683057888403653,
+      "pcm48k_sha256": "23fb33fc18e04d63d9eab28910d32c3369a65bcd8c1922df2e4f65fede707706"
+    }
+  ],
+  "timing_limitations": [
+    "first_audio_seconds is server-internal first PCM ready time, not measured client wire TTFA. The driver used buffered HTTP post.",
+    "HTTP splits the Korean text into two sentences (seeds42 and43), yielding5.08s of PCM, while the approved whole-utterance backend output is5.62s.",
+    "Observed HTTP RTF is greater than1; previous whole-file warm benchmark results do not establish API RTF below1.",
+    "Only correctness/integration observations were collected here; no additional timed samples were selected or substituted."
+  ],
+  "http_registration_restart_delete_passed": true,
+  "final_cleanup_and_asset_proof": "http/validation_final.json",
+  "final_no_benchmark_containers": true,
+  "final_host_lock_available": true,
+  "model_processes_sequential_and_stopped": true,
+  "public_host_port_opened": false,
+  "deployed": false,
+  "artifact_sha256": {
+    "backend/adapter.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "backend/adapter.sh": "d08ae373bdfd606cf3d64e301716faa282940b5e32f87a62fa5912201c37bfeb",
+    "backend/adapter_guard.json": "29d0eedb3d02ebc24bea618c9c206201decd6c23e6e49f1fbcb3e488e9a80977",
+    "backend/adapter_validation.json": "e8cc975129b45145637762be6d7713848b4f3707f94a900420d5ed5f6fb78182",
+    "http/http-server-1.log": "a3729211fdf32e880f386e8eb9989bd7b4bcc43e0d4eea8bef5a02480144f59e",
+    "http/http-server-2.log": "d016b1131c4e4e365bc0d3de303edde7e3e2286b8df8fa1568402e0f221c35f5",
+    "http/http.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "http/http.sh": "97e9f223808caeb951af0f23b8b9bc7e159a020b3c0826f867333d489de15e2d",
+    "http/http_guard.json": "de7aa9e4750c6fd4961749dbaaa9edb45bf082b33e2c6e336459cc0b9b556464",
+    "http/http_validation.json": "8f3c2f02717222e4572c373f25a08351e8e11e6b1126f3e05df2e9b2fc939cda",
+    "http/validation_final.json": "04c1d9e75deeb18302c5f27eab42f079ab749775a7f8559ba20bfb6b8a8e93d2"
+  }
+}
