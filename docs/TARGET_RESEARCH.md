@@ -1068,3 +1068,29 @@ loop. Next isolated hypothesis is row8 only forFFN2 shape512×2048, preserving
 row4 everywhere else; do not mix QK4. Its earlier64MBrotating ratio .9026 is
 promising for thatshape, but FFN2 accounts for roughly one-third of four-GEMV
 MACs, so only a small aggregate gain is plausible and must be measured.
+
+### Final-C24 two-branch recovery (model candidate, unapproved)
+
+The excluded Tap-module audit motivates removing only the final C24 K11 branch.
+Initializer `5914d4c` retains approved AR17, all prefix/upsampler coefficients,
+outer channel widths and existing15 bottlenecks exactly. Final branches change
+from `[0,1,2]` to `[0,1]`; only the retained final two residual blocks and
+`conv_post` (35,016 parameters,25 tensors) receive CPU FP32 recovery updates.
+This is separate from rejected AR16 and from same-geometry V recovery200.
+
+The200-step pilot uses60 train/12 validation records, full context/logmel,
+gradient accumulation3 and cosine LR2e-5→2e-6. Validation logmel falls from
+.403049 to .186033, but remains worse than approved originalV400 .162211 in
+all six language/latent-origin groups. Validation is reused for checkpoint
+selection, so this is a proxy, not an independent quality result. Selected
+checkpoint SHA `6228c51d28a3e881fdba57ff170bbd23a038da68a2a96c3299c4d30aabcfc8ed`.
+All retained state shapes and finite values pass; every prefix parameter is
+bit-exact to initialization, and the parent bundle is reverified unchanged.
+The duplicate latest checkpoint was removed only after tensor/spec/step equality.
+See `results/student_pilot/c24_two_branch_recovery200_cpu_20261112.json`.
+
+`listen_c24_two_branch.py` verifies the approved AR17 file and original S2,
+checks the isolated branch change, preserves candidate hashes before/after
+generation, and labels the candidate without the older L/AR18 assumptions.
+No N1 RTF, listening approval, release bundle or promotion exists yet. The
+inference worker continues using approved original V400 for its FFT experiment.
