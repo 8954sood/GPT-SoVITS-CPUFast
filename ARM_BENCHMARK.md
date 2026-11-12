@@ -243,3 +243,14 @@ semantic tokens and duration. Compare latency, CPU and RTF together. Native
 library manifests and configured threads are recorded; the legacy
 `native_workers=1` audit constant does not cap ATen's global intra-op pool.
 Excluded profile ranges record the observed global Torch thread count.
+
+L's actual N1 run 43168034387 measured K/L RTF **1.2276/1.1414**, wall time
+6.261/5.730s with different 5.10/5.02s outputs. This remains above real time.
+The follow-up explicit im2col probe, run 43169070226, was slower in every
+geometry and was rejected without production changes. See raw data in
+`results/n1_student_l_20261112` and `results/n1_im2col_tap_20261112`.
+`studentarint8confirm` is prepared for an independent five-sample L check
+followed by an actual-profile-shaped im2col diagnostic; it was not dispatched
+because the first result did not meet the below-1 condition. `im2col` is the
+historical standalone synthetic mode using the preserved L profile. Repeating
+the rejected tiles/im2col without a new computational hypothesis is unwarranted.
