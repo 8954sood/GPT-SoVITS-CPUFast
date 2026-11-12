@@ -76,7 +76,12 @@ def main():
         def __getattr__(self,name):return getattr(transformer,name)
         def process_prompt(self,*a,**kw):
             begin=time.perf_counter()
-            try:return transformer.process_prompt(*a,**kw)
+            try:
+                result=transformer.process_prompt(*a,**kw)
+                diagnostic['ar_prefill_calls']=diagnostic.get('ar_prefill_calls',0)+1
+                diagnostic['ar_cache_audit']={'input_shape':list(a[0].shape),'requested_decode_capacity':a[2],
+                    'keys_shapes':[list(k.shape) for k in result[1]],'values_shapes':[list(v.shape) for v in result[2]],'valid_prefix_length':result[3]}
+                return result
             finally:diagnostic['ar_prefill_seconds']=diagnostic.get('ar_prefill_seconds',0.)+time.perf_counter()-begin
         def decode_next_token(self,*a,**kw):
             begin=time.perf_counter()
@@ -140,9 +145,11 @@ def main():
     cgroup={n:(Path('/sys/fs/cgroup')/n).read_text().strip() for n in ('cpu.max','memory.max','memory.swap.max')}
     assert cgroup=={'cpu.max':'200000 100000','memory.max':'8000000000','memory.swap.max':'0'}
     result=dict(complete=True,scope='Fixed sentence split/seed42,43/full reference/native32k API adapter exploration; HTTP overhead excluded',
-        environment={k:os.environ.get(k) for k in ('OMP_WAIT_POLICY','GOMP_SPINCOUNT','OPENBLAS_NUM_THREADS','OPENBLAS_CORETYPE')},
+        environment={k:os.environ.get(k) for k in ('OMP_WAIT_POLICY','GOMP_SPINCOUNT','OPENBLAS_NUM_THREADS','OPENBLAS_CORETYPE','LD_PRELOAD')},
         settings={'threads':args.threads,'ar_threads':args.ar_threads,'tap_finish':args.tap_finish,'gc_policy':args.gc_policy},
         cgroup=cgroup,all_expected_pcm_match=all(r['expected_native_and_wire_pcm_match'] for r in rows),observations=rows,excluded_profile=profile,tap_finish_audit=tap_audit,
+        loaded_openmp_libraries=sorted({line.split()[-1] for line in Path('/proc/self/maps').read_text().splitlines() if 'libgomp' in line}),
+        process_threads=len(list(Path('/proc/self/task').iterdir())),torch_parallel_info=torch.__config__.parallel_info(),
         model_files_unchanged=True,original_inputs_unchanged=True,native_files_unchanged=True,
         native_files_sha256=native_after,model_input_sha256=engine.input_sha256,
         runtime_source_sha256=engine.source_sha256,manifest_sha256=APPROVED_MANIFEST_SHA256)
