@@ -72,3 +72,29 @@ a small numerical improvement, not a listening or speed approval. Details are
 in `results/student_pilot/v_recovery100_cpu_20261112.json`. The redundant latest
 checkpoint was removed only after confirming its step/spec/tensors exactly
 matched the retained best checkpoint.
+
+## Bounded native runtime experiments
+
+One worker ran three independent hypotheses serially over direct SSH. The
+default engine, FFT implementation, AR implementation and baseline native
+builders were unchanged. No candidate was adopted and no RTF below 1 was
+achieved.
+
+| Candidate | Actual N1 evidence | Decision |
+| --- | --- | --- |
+| FP32 FFT output groups of four | Five fresh-process observations each: L 1.149869, candidate 1.143409 median RTF. All PCM/semantic hashes match. Decoder improves in only three of five pairs; unchanged AR also becomes faster. | Improvement too small and variable to attribute; retain L. |
+| Eight-row SDOT | Forty bit-pattern checks pass with the baseline compiler policy. Some large rotating-weight shapes regress. | No full paired run or adoption. |
+| NEON input quantization only | Seventy native cases plus rounding/subnormal checks pass. Full same-source synthesis calls the new kernel 33,984 times and preserves all PCM/semantic hashes. | Correctness proof only; no performance adoption. |
+
+The final NEON full-synthesis check uses one fresh baseline and one fresh
+candidate process, each with three warmups and one sample. Their archived
+RTFs, 1.139587 and 1.132694, are not a repeated performance comparison and
+must not be cited as an attributable speedup. Raw results, including the
+initial request-guard failure and honest SHA snapshot timing, are under
+`results/n1_int8_quant_neon_20261112/full_pcm/`. Subsequent wrappers compute
+actual baseline library/manifest hashes before and after execution.
+
+The integrated host suite passes 41 tests with 19 ARM-only skips; target-native
+checks were executed separately on N1. The host mutex is released and no
+benchmark container remains. Original service containers were preserved.
+V performance remains pending the owner's corrected AR18+V listening decision.
