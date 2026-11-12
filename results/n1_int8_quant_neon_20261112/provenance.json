@@ -1,0 +1,48 @@
+{
+  "source_sha": "d5f6437",
+  "source_archive_sha256": "c15453d6c68da76cfab07cff230df672545dfbba8e6d52da1ac60e118b79b35b",
+  "transport": "Direct SSH under host mutex; actual N1 primitive only",
+  "baseline_fast_library_manifest": {
+    "abi": 1,
+    "torch_version": "2.8.0+cpu",
+    "system": "Linux",
+    "architecture": "aarch64",
+    "flags": [
+      "-O3",
+      "-std=c++17",
+      "-march=armv8.2-a+fp16+dotprod",
+      "-mtune=neoverse-n1",
+      "-fopenmp",
+      "-fPIC",
+      "-shared",
+      "-D_GLIBCXX_USE_CXX11_ABI=1"
+    ],
+    "sources": {
+      "native/cpufast_fast_int8.cpp": "1e6b496c6547e7f4e27a382de9b52cc5882afd46cb38c5f3040af4fb532e4838",
+      "native/cpufast_fast_attention.cpp": "cd8d4ff9549b2012e425e8dac7992e1d66f60a63fb1379d42fb8627c4f3a7c29",
+      "native/cpufast_fast_half.cpp": "e4f2569cf7aff34f6eac62502b9a9ef2bc1d7de4bd81026faa20ab00cb1b0ecb"
+    },
+    "library_sha256": "54d89f5397ddf906e9e0e269d66df6f139b93f5851a43e62636060a7f6969143"
+  },
+  "compiler_flags_exactly_match_baseline": true,
+  "sdot_row_tile_unchanged": 4,
+  "dequantization_expression_and_compiler_policy_unchanged": true,
+  "correctness_bit_pattern_cases": 70,
+  "ties_signed_zero_identity_exact": true,
+  "finite_range_test_scales": [
+    0.0,
+    1e-40,
+    1e-38,
+    1e-10,
+    1.0,
+    10000000000.0,
+    1e+37
+  ],
+  "quant_rounding": "vrndiq follows current FPCR; vcvt truncates the already-integral value; exceptional nonfinite reciprocal uses original scalar expression",
+  "input_mutation": false,
+  "nonfinite_input_rejection": true,
+  "full_synthesis_or_rtf_measured": false,
+  "adopted": false,
+  "decision": "Primitive directions are consistent but gains on most weight-traffic dominated real shapes are small. No end-to-end RTF improvement is claimed; keep prototype opt-in and baseline unchanged.",
+  "raw_sha256": "445e7fbf8736dea655a198bb12393e7cfb953653730ed3e4b4243f76921dde70"
+}

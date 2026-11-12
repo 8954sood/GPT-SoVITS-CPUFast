@@ -722,3 +722,31 @@ so the all-matrix row8 candidate is not adopted and does not justify a full
 paired synthesis run. The FFN2-only observation is retained without combining
 it with other changes. Raw values, manifests, initial failed-gate provenance
 and exact source hashes are in `results/n1_int8_rows8_20261112`.
+
+
+## Input quantization NEON only: bounded exact primitive screening
+
+Source `d5f6437` keeps the original4row SDOT, scalar scale computation,
+dequantization and complete approved fast compiler flags. Only finite amax
+and input rounding/clamp/narrow use NEON. FRINTI follows current FPCR;
+exceptional nonfinite reciprocal inputs fall back to the original scalar
+expression. Baseline files and model tensors remain unchanged.
+
+On actual fixed N1 resources,70bit-pattern conditions cover5dimensions,
+1/2threads, zero/subnormal/ordinary/extreme finite scales from1e-40to1e37.
+An identity-weight probe also checks signed zero and exact half-way ties.
+Inputs are immutable and NaN/Inf is rejected.
+
+| Matrix | Hot NEON/scalar | Rotating64MB NEON/scalar |
+| --- | ---: | ---: |
+| QKV1536×512 | .9813 | .9817 |
+| Output512×512 | .9884 | .9930 |
+| FFN1 2048×512 | .9669 | .9987 |
+| FFN2 512×2048 | .8954 | .9528 |
+
+Directions are consistent, but most weight-traffic dominated shapes improve
+only slightly. This is neither model inference nor an RTF result, and does
+not establish a useful full synthesis speedup. Keep the candidate isolated
+and the default L path unchanged; no model/FFT/row8 candidate is combined.
+Raw observations, exact flags/library/source hashes and finite-range scope
+are in `results/n1_int8_quant_neon_20261112`.
