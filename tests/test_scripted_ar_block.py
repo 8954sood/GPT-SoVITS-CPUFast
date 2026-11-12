@@ -31,7 +31,7 @@ def test_compiled_real_block_matches_python_prompt_and_appended_decode(monkeypat
         mask[:,:,:,-2:] = True
         if padding_kind == "float":
             padding = (~padding).float()
-    with torch.no_grad():
+    with torch.no_grad(), torch.jit.optimized_execution(False):
         a, ak, av, length = plain.process_prompt(x,mask,4,padding,True)
         b, bk, bv, other_length = compiled.process_prompt(x,mask,4,padding,True)
         assert length == other_length == 7
@@ -44,3 +44,41 @@ def test_compiled_real_block_matches_python_prompt_and_appended_decode(monkeypat
             b, bk, bv = compiled.decode_next_token(token,bk,bv,length,None,True)
             assert torch.equal(a.view(torch.int32),b.view(torch.int32))
             length += 1
+
+
+def test_compiled_transformer_preserves_real_geometry_and_restores_jit_policy(monkeypatch):
+    monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[1] / "GPT_SoVITS"))
+    from AR.models.t2s_model import T2SBlock, T2SMLP, T2STransformer
+    from cpufast_script_ar import ExactScriptAR
+
+    generator = torch.Generator().manual_seed(22)
+    def rand(*shape):
+        return torch.randn(*shape,generator=generator) * .03
+    blocks = []
+    for _ in range(2):
+        mlp = T2SMLP(rand(2048,512),rand(2048),rand(512,2048),rand(512))
+        blocks.append(T2SBlock(16,512,mlp,rand(1536,512),rand(1536),rand(512,512),rand(512),
+                      torch.ones(512),torch.zeros(512),1e-5,torch.ones(512),torch.zeros(512),1e-5))
+    plain = T2STransformer(2,blocks)
+    scripted = ExactScriptAR(plain)
+    assert len(scripted.blocks) == 2
+    for a,b in zip(plain.blocks,scripted.blocks):
+        assert a.qkv_w_t.data_ptr() == b.qkv_w_t.data_ptr()
+    x = rand(1,209,512)
+    mask = torch.zeros(1,16,209,209,dtype=torch.bool)
+    with torch.no_grad(), torch.jit.optimized_execution(True):
+        a,ak,av,length = plain.process_prompt(x,mask,4,None,True)
+        b,bk,bv,other_length = scripted.process_prompt(x,mask,4,None,True)
+        assert torch._C._get_graph_executor_optimize()
+        assert length == other_length == 209
+        assert torch.equal(a.view(torch.int32),b.view(torch.int32))
+        for _ in range(3):
+            for old,new in zip(ak+av,bk+bv):
+                assert torch.equal(old[:,:length].view(torch.int32),new[:,:length].view(torch.int32))
+            token = rand(1,1,512)
+            a,ak,av,length_a = plain.decode_next_token(token,ak,av,length,None,True)
+            b,bk,bv,length_b = scripted.decode_next_token(token,bk,bv,length,None,True)
+            assert torch.equal(a.view(torch.int32),b.view(torch.int32))
+            assert length_a == length_b == length+1
+            assert torch._C._get_graph_executor_optimize()
+            length = length_a
