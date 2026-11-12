@@ -19,6 +19,8 @@ def module_range(module, label):
     }
 
     def forward(x, *args, **kwargs):
+        if "torch_num_threads_observed" not in metadata:
+            metadata["torch_num_threads_observed"] = torch.get_num_threads()
         shape = tuple(x.shape)
         shapes[shape] = shapes.get(shape, 0) + 1
         with torch.profiler.record_function(metadata["range"]):

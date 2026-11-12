@@ -1,0 +1,1653 @@
+{
+  "note": "Extra profiled inference, excluded from RTF; CPU totals may overlap across threads and include profiler overhead",
+  "record_shapes": false,
+  "predictor": {
+    "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+    "range": "cpufast_predictor_projection",
+    "weight_shape": [
+      1025,
+      512
+    ],
+    "weight_dtype": "torch.float32",
+    "negative_eligibility_cache": false,
+    "input_shapes": [
+      {
+        "shape": [
+          1,
+          512
+        ],
+        "calls": 121
+      }
+    ],
+    "packed_half_classifier": true
+  },
+  "decoder_taps": [
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K7_D1",
+      "weight_shape": [
+        48,
+        48,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.7.convs1.0",
+      "dilation": 1,
+      "padding": 3,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            76800
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K7_D3",
+      "weight_shape": [
+        48,
+        48,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.7.convs1.1",
+      "dilation": 3,
+      "padding": 9,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            76800
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K7_D5",
+      "weight_shape": [
+        48,
+        48,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.7.convs1.2",
+      "dilation": 5,
+      "padding": 15,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            76800
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K7_D1",
+      "weight_shape": [
+        48,
+        48,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.7.convs2.0",
+      "dilation": 1,
+      "padding": 3,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            76800
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K7_D1",
+      "weight_shape": [
+        48,
+        48,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.7.convs2.1",
+      "dilation": 1,
+      "padding": 3,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            76800
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K7_D1",
+      "weight_shape": [
+        48,
+        48,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.7.convs2.2",
+      "dilation": 1,
+      "padding": 3,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            76800
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K11_D1",
+      "weight_shape": [
+        48,
+        48,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.8.convs1.0",
+      "dilation": 1,
+      "padding": 5,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            76800
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K11_D3",
+      "weight_shape": [
+        48,
+        48,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.8.convs1.1",
+      "dilation": 3,
+      "padding": 15,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            76800
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K11_D5",
+      "weight_shape": [
+        48,
+        48,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.8.convs1.2",
+      "dilation": 5,
+      "padding": 25,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            76800
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K11_D1",
+      "weight_shape": [
+        48,
+        48,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.8.convs2.0",
+      "dilation": 1,
+      "padding": 5,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            76800
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K11_D1",
+      "weight_shape": [
+        48,
+        48,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.8.convs2.1",
+      "dilation": 1,
+      "padding": 5,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            76800
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C48_K11_D1",
+      "weight_shape": [
+        48,
+        48,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.8.convs2.2",
+      "dilation": 1,
+      "padding": 5,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            48,
+            76800
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K7_D1",
+      "weight_shape": [
+        24,
+        24,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.10.convs1.0",
+      "dilation": 1,
+      "padding": 3,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            153600
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K7_D3",
+      "weight_shape": [
+        24,
+        24,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.10.convs1.1",
+      "dilation": 3,
+      "padding": 9,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            153600
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K7_D5",
+      "weight_shape": [
+        24,
+        24,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.10.convs1.2",
+      "dilation": 5,
+      "padding": 15,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            153600
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K7_D1",
+      "weight_shape": [
+        24,
+        24,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.10.convs2.0",
+      "dilation": 1,
+      "padding": 3,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            153600
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K7_D1",
+      "weight_shape": [
+        24,
+        24,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.10.convs2.1",
+      "dilation": 1,
+      "padding": 3,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            153600
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K7_D1",
+      "weight_shape": [
+        24,
+        24,
+        7
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.10.convs2.2",
+      "dilation": 1,
+      "padding": 3,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            153600
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K11_D1",
+      "weight_shape": [
+        24,
+        24,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.11.convs1.0",
+      "dilation": 1,
+      "padding": 5,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            153600
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K11_D3",
+      "weight_shape": [
+        24,
+        24,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.11.convs1.1",
+      "dilation": 3,
+      "padding": 15,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            153600
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K11_D5",
+      "weight_shape": [
+        24,
+        24,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.11.convs1.2",
+      "dilation": 5,
+      "padding": 25,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            153600
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K11_D1",
+      "weight_shape": [
+        24,
+        24,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.11.convs2.0",
+      "dilation": 1,
+      "padding": 5,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            153600
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K11_D1",
+      "weight_shape": [
+        24,
+        24,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.11.convs2.1",
+      "dilation": 1,
+      "padding": 5,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            153600
+          ],
+          "calls": 1
+        }
+      ]
+    },
+    {
+      "scope": "Extra profiled synthesis only; no instrumentation in timed samples",
+      "range": "cpufast_decoder_tap_C24_K11_D1",
+      "weight_shape": [
+        24,
+        24,
+        11
+      ],
+      "weight_dtype": "torch.float32",
+      "negative_eligibility_cache": false,
+      "module": "resblocks.11.convs2.2",
+      "dilation": 1,
+      "padding": 5,
+      "input_shapes": [
+        {
+          "shape": [
+            1,
+            24,
+            153600
+          ],
+          "calls": 1
+        }
+      ]
+    }
+  ],
+  "profile_output_checks": {
+    "sample_rate": 32000,
+    "pcm_sha256": "4136c6ba51d7551cb50650704d1fc1e3236b996c6ff914c466edec73f81e0fd8",
+    "semantic": [
+      {
+        "sha256": "62343dfea79dc0785fb8824b0048a8020649eaa89e553b7fde621b1ef733c6fa",
+        "index": 120,
+        "generated_sha256": "fee8ae9803f48a1f6b9754dfa4d3f45ecf0a459a819602f1f4a44acb67f18546"
+      }
+    ],
+    "audio_seconds": 5.1,
+    "exact_to_unprofiled_same_process": true
+  },
+  "operators": [
+    {
+      "name": "aten::addmm",
+      "calls": 264,
+      "input_shapes": "",
+      "self_cpu_us": 1726118.5239999916,
+      "total_cpu_us": 1740915.8429999994
+    },
+    {
+      "name": "cpufast_cpp::lossless_linear_prefetch",
+      "calls": 8640,
+      "input_shapes": "",
+      "self_cpu_us": 880900.8810000108,
+      "total_cpu_us": 895028.2490000003
+    },
+    {
+      "name": "cpufast_cpp::fft_packed_stream",
+      "calls": 30,
+      "input_shapes": "",
+      "self_cpu_us": 861083.4029999981,
+      "total_cpu_us": 862179.0919999979
+    },
+    {
+      "name": "aten::bmm",
+      "calls": 71,
+      "input_shapes": "",
+      "self_cpu_us": 562380.1429999936,
+      "total_cpu_us": 565850.6569999987
+    },
+    {
+      "name": "aten::_scaled_dot_product_flash_attention_for_cpu",
+      "calls": 2178,
+      "input_shapes": "",
+      "self_cpu_us": 483036.9930000316,
+      "total_cpu_us": 526581.8730000006
+    },
+    {
+      "name": "aten::_fft_c2r",
+      "calls": 30,
+      "input_shapes": "",
+      "self_cpu_us": 318868.2280000029,
+      "total_cpu_us": 320867.0460000029
+    },
+    {
+      "name": "aten::_fft_r2c",
+      "calls": 30,
+      "input_shapes": "",
+      "self_cpu_us": 312841.17699999874,
+      "total_cpu_us": 313303.74099999946
+    },
+    {
+      "name": "aten::copy_",
+      "calls": 6133,
+      "input_shapes": "",
+      "self_cpu_us": 230773.36200001655,
+      "total_cpu_us": 230773.36200001655
+    },
+    {
+      "name": "cpufast_cpp::fft_pack",
+      "calls": 30,
+      "input_shapes": "",
+      "self_cpu_us": 165226.4210000001,
+      "total_cpu_us": 165962.348999999
+    },
+    {
+      "name": "aten::mkldnn_convolution",
+      "calls": 94,
+      "input_shapes": "",
+      "self_cpu_us": 153576.03800000018,
+      "total_cpu_us": 161998.06599999825
+    },
+    {
+      "name": "cpufast_cpp::winograd_output",
+      "calls": 18,
+      "input_shapes": "",
+      "self_cpu_us": 128651.79700000165,
+      "total_cpu_us": 129038.56000000145
+    },
+    {
+      "name": "aten::mm",
+      "calls": 25,
+      "input_shapes": "",
+      "self_cpu_us": 108344.94699999806,
+      "total_cpu_us": 108366.26700000145
+    },
+    {
+      "name": "cpufast_cpp::winograd_input",
+      "calls": 18,
+      "input_shapes": "",
+      "self_cpu_us": 74792.94800000219,
+      "total_cpu_us": 75015.90800000029
+    },
+    {
+      "name": "aten::add",
+      "calls": 4598,
+      "input_shapes": "",
+      "self_cpu_us": 70133.63899999764,
+      "total_cpu_us": 70133.63899999764
+    },
+    {
+      "name": "aten::where",
+      "calls": 4721,
+      "input_shapes": "",
+      "self_cpu_us": 66836.94699998233,
+      "total_cpu_us": 128742.08500001374
+    },
+    {
+      "name": "aten::native_layer_norm",
+      "calls": 4380,
+      "input_shapes": "",
+      "self_cpu_us": 48547.07099997939,
+      "total_cpu_us": 67391.86499999664
+    },
+    {
+      "name": "aten::leaky_relu",
+      "calls": 54,
+      "input_shapes": "",
+      "self_cpu_us": 47177.0719999983,
+      "total_cpu_us": 47177.0719999983
+    },
+    {
+      "name": "aten::slice",
+      "calls": 35278,
+      "input_shapes": "",
+      "self_cpu_us": 45150.31699996117,
+      "total_cpu_us": 68435.11599995528
+    },
+    {
+      "name": "aten::empty",
+      "calls": 31946,
+      "input_shapes": "",
+      "self_cpu_us": 43073.8469999928,
+      "total_cpu_us": 43073.8469999928
+    },
+    {
+      "name": "aten::as_strided",
+      "calls": 62122,
+      "input_shapes": "",
+      "self_cpu_us": 42119.95199999682,
+      "total_cpu_us": 42119.95199999682
+    },
+    {
+      "name": "cpufast_cpp::fft_finish",
+      "calls": 30,
+      "input_shapes": "",
+      "self_cpu_us": 36111.70099999709,
+      "total_cpu_us": 36836.98499999847
+    },
+    {
+      "name": "aten::transpose",
+      "calls": 21944,
+      "input_shapes": "",
+      "self_cpu_us": 26668.24800000003,
+      "total_cpu_us": 41163.28300001376
+    },
+    {
+      "name": "aten::fill_",
+      "calls": 190,
+      "input_shapes": "",
+      "self_cpu_us": 23777.12399999813,
+      "total_cpu_us": 23777.12399999813
+    },
+    {
+      "name": "cpufast_cpp::cook_output",
+      "calls": 3,
+      "input_shapes": "",
+      "self_cpu_us": 22025.30400000047,
+      "total_cpu_us": 22098.26500000013
+    },
+    {
+      "name": "aten::clamp_min",
+      "calls": 2190,
+      "input_shapes": "",
+      "self_cpu_us": 21422.006000003348,
+      "total_cpu_us": 21422.006000003348
+    },
+    {
+      "name": "cpufast_predictor_projection",
+      "calls": 121,
+      "input_shapes": "",
+      "self_cpu_us": 21197.178000000073,
+      "total_cpu_us": 35367.70199999958
+    },
+    {
+      "name": "aten::bitwise_not",
+      "calls": 2178,
+      "input_shapes": "",
+      "self_cpu_us": 20219.527999982856,
+      "total_cpu_us": 20219.527999982856
+    },
+    {
+      "name": "aten::scaled_dot_product_attention",
+      "calls": 2178,
+      "input_shapes": "",
+      "self_cpu_us": 19503.489999983,
+      "total_cpu_us": 621488.7230000017
+    },
+    {
+      "name": "aten::view",
+      "calls": 20556,
+      "input_shapes": "",
+      "self_cpu_us": 19042.074999958928,
+      "total_cpu_us": 19042.074999958928
+    },
+    {
+      "name": "cpufast_cpp::cook_input",
+      "calls": 3,
+      "input_shapes": "",
+      "self_cpu_us": 17615.428000001237,
+      "total_cpu_us": 17665.069000001065
+    },
+    {
+      "name": "aten::add_",
+      "calls": 25,
+      "input_shapes": "",
+      "self_cpu_us": 16350.976999999828,
+      "total_cpu_us": 16350.976999999828
+    },
+    {
+      "name": "aten::narrow",
+      "calls": 6853,
+      "input_shapes": "",
+      "self_cpu_us": 13695.508000052982,
+      "total_cpu_us": 30147.97300002292
+    },
+    {
+      "name": "cpufast_cpp::lossless_linear",
+      "calls": 121,
+      "input_shapes": "",
+      "self_cpu_us": 13255.353999997722,
+      "total_cpu_us": 13662.99899999937
+    },
+    {
+      "name": "aten::_slow_conv2d_forward",
+      "calls": 36,
+      "input_shapes": "",
+      "self_cpu_us": 10844.292000000365,
+      "total_cpu_us": 11501.374999999069
+    },
+    {
+      "name": "aten::split",
+      "calls": 2179,
+      "input_shapes": "",
+      "self_cpu_us": 8678.562999984031,
+      "total_cpu_us": 36556.47900001127
+    },
+    {
+      "name": "aten::scalar_tensor",
+      "calls": 4477,
+      "input_shapes": "",
+      "self_cpu_us": 8447.655000025501,
+      "total_cpu_us": 8447.655000025501
+    },
+    {
+      "name": "aten::layer_norm",
+      "calls": 4380,
+      "input_shapes": "",
+      "self_cpu_us": 8019.412999995533,
+      "total_cpu_us": 75411.27799999218
+    },
+    {
+      "name": "aten::mul",
+      "calls": 478,
+      "input_shapes": "",
+      "self_cpu_us": 7743.824000000739,
+      "total_cpu_us": 10069.803000002772
+    },
+    {
+      "name": "aten::select",
+      "calls": 1674,
+      "input_shapes": "",
+      "self_cpu_us": 6732.018000000822,
+      "total_cpu_us": 8908.878999987777
+    },
+    {
+      "name": "aten::chunk",
+      "calls": 2178,
+      "input_shapes": "",
+      "self_cpu_us": 6558.483999987286,
+      "total_cpu_us": 43103.322999998425
+    },
+    {
+      "name": "aten::expand",
+      "calls": 2389,
+      "input_shapes": "",
+      "self_cpu_us": 6424.77399999907,
+      "total_cpu_us": 7631.304999991564
+    },
+    {
+      "name": "aten::empty_strided",
+      "calls": 3268,
+      "input_shapes": "",
+      "self_cpu_us": 6385.216999998775,
+      "total_cpu_us": 6385.216999998775
+    },
+    {
+      "name": "aten::reshape",
+      "calls": 2545,
+      "input_shapes": "",
+      "self_cpu_us": 5746.293999999591,
+      "total_cpu_us": 29805.85199999125
+    },
+    {
+      "name": "cpufast_decoder_tap_C48_K11_D1",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 4953.401999996044,
+      "total_cpu_us": 311584.20800000057
+    },
+    {
+      "name": "aten::empty_like",
+      "calls": 2553,
+      "input_shapes": "",
+      "self_cpu_us": 4457.3550000030955,
+      "total_cpu_us": 10706.648999997895
+    },
+    {
+      "name": "cpufast_decoder_tap_C24_K11_D1",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 4396.5560000017285,
+      "total_cpu_us": 156347.98699999973
+    },
+    {
+      "name": "aten::_weight_norm_interface",
+      "calls": 36,
+      "input_shapes": "",
+      "self_cpu_us": 4374.234000001103,
+      "total_cpu_us": 4761.120000001043
+    },
+    {
+      "name": "aten::exponential_",
+      "calls": 121,
+      "input_shapes": "",
+      "self_cpu_us": 4316.75799999875,
+      "total_cpu_us": 4316.75799999875
+    },
+    {
+      "name": "aten::relu",
+      "calls": 2190,
+      "input_shapes": "",
+      "self_cpu_us": 4209.996000006497,
+      "total_cpu_us": 25632.002000009845
+    },
+    {
+      "name": "aten::tanh",
+      "calls": 17,
+      "input_shapes": "",
+      "self_cpu_us": 4137.95200000098,
+      "total_cpu_us": 4137.95200000098
+    },
+    {
+      "name": "cpufast_decoder_tap_C48_K7_D1",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 3714.5920000085607,
+      "total_cpu_us": 164567.61799999885
+    },
+    {
+      "name": "aten::_to_copy",
+      "calls": 898,
+      "input_shapes": "",
+      "self_cpu_us": 3131.341000000677,
+      "total_cpu_us": 7059.944000005544
+    },
+    {
+      "name": "aten::_softmax",
+      "calls": 134,
+      "input_shapes": "",
+      "self_cpu_us": 3065.6579999991227,
+      "total_cpu_us": 3065.6579999991227
+    },
+    {
+      "name": "aten::clone",
+      "calls": 227,
+      "input_shapes": "",
+      "self_cpu_us": 3047.3459999987826,
+      "total_cpu_us": 129596.16100000431
+    },
+    {
+      "name": "cpufast_decoder_tap_C24_K7_D1",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 2807.7439999962226,
+      "total_cpu_us": 101800.09200000018
+    },
+    {
+      "name": "aten::argmax",
+      "calls": 242,
+      "input_shapes": "",
+      "self_cpu_us": 2588.425999996951,
+      "total_cpu_us": 2683.9869999976363
+    },
+    {
+      "name": "aten::div",
+      "calls": 388,
+      "input_shapes": "",
+      "self_cpu_us": 2369.9820000014734,
+      "total_cpu_us": 4459.040000003064
+    },
+    {
+      "name": "aten::to",
+      "calls": 3952,
+      "input_shapes": "",
+      "self_cpu_us": 2269.4170000207305,
+      "total_cpu_us": 9329.361000026274
+    },
+    {
+      "name": "aten::pad",
+      "calls": 194,
+      "input_shapes": "",
+      "self_cpu_us": 2248.8170000013524,
+      "total_cpu_us": 111132.33200000497
+    },
+    {
+      "name": "aten::constant_pad_nd",
+      "calls": 194,
+      "input_shapes": "",
+      "self_cpu_us": 2025.1780000079634,
+      "total_cpu_us": 108883.51500000362
+    },
+    {
+      "name": "aten::lt",
+      "calls": 246,
+      "input_shapes": "",
+      "self_cpu_us": 2014.822000003198,
+      "total_cpu_us": 3604.9520000040175
+    },
+    {
+      "name": "aten::gather",
+      "calls": 121,
+      "input_shapes": "",
+      "self_cpu_us": 1947.8089999994263,
+      "total_cpu_us": 1969.4100000003818
+    },
+    {
+      "name": "aten::eq",
+      "calls": 258,
+      "input_shapes": "",
+      "self_cpu_us": 1940.538000000175,
+      "total_cpu_us": 2797.385999999242
+    },
+    {
+      "name": "aten::index_select",
+      "calls": 124,
+      "input_shapes": "",
+      "self_cpu_us": 1736.4960000007159,
+      "total_cpu_us": 3012.672000000377
+    },
+    {
+      "name": "aten::_convolution",
+      "calls": 130,
+      "input_shapes": "",
+      "self_cpu_us": 1666.4630000013858,
+      "total_cpu_us": 177733.49000000162
+    },
+    {
+      "name": "aten::topk",
+      "calls": 121,
+      "input_shapes": "",
+      "self_cpu_us": 1535.212000002386,
+      "total_cpu_us": 1535.212000002386
+    },
+    {
+      "name": "cpufast_decoder_tap_C48_K11_D5",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 1278.6129999933764,
+      "total_cpu_us": 61811.916999999434
+    },
+    {
+      "name": "cpufast_decoder_tap_C48_K7_D3",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 1262.5320000043139,
+      "total_cpu_us": 40848.5019999994
+    },
+    {
+      "name": "aten::sigmoid",
+      "calls": 16,
+      "input_shapes": "",
+      "self_cpu_us": 1262.2100000004284,
+      "total_cpu_us": 1262.2100000004284
+    },
+    {
+      "name": "cpufast_decoder_tap_C48_K11_D3",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 1246.9709999999031,
+      "total_cpu_us": 61166.43200000003
+    },
+    {
+      "name": "aten::unsqueeze",
+      "calls": 478,
+      "input_shapes": "",
+      "self_cpu_us": 1191.732999997832,
+      "total_cpu_us": 1608.7359999989094
+    },
+    {
+      "name": "aten::any",
+      "calls": 241,
+      "input_shapes": "",
+      "self_cpu_us": 1119.534000003012,
+      "total_cpu_us": 1983.5360000007786
+    },
+    {
+      "name": "cpufast_decoder_tap_C24_K11_D3",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 1101.409000002779,
+      "total_cpu_us": 37748.5549999997
+    },
+    {
+      "name": "cpufast_decoder_tap_C24_K11_D5",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 1000.0889999978244,
+      "total_cpu_us": 37540.35399999935
+    },
+    {
+      "name": "aten::scatter_",
+      "calls": 121,
+      "input_shapes": "",
+      "self_cpu_us": 971.7680000022519,
+      "total_cpu_us": 995.4080000009853
+    },
+    {
+      "name": "cpufast_decoder_tap_C48_K7_D5",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 901.2459999965504,
+      "total_cpu_us": 42524.63599999994
+    },
+    {
+      "name": "cpufast_decoder_tap_C24_K7_D3",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 861.7690000003204,
+      "total_cpu_us": 25565.933999999426
+    },
+    {
+      "name": "aten::normal_",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 789.6069999998435,
+      "total_cpu_us": 789.6069999998435
+    },
+    {
+      "name": "aten::embedding",
+      "calls": 124,
+      "input_shapes": "",
+      "self_cpu_us": 730.5649999989255,
+      "total_cpu_us": 4125.15899999929
+    },
+    {
+      "name": "cpufast_decoder_tap_C24_K7_D5",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 698.6059999987483,
+      "total_cpu_us": 24515.325000000186
+    },
+    {
+      "name": "aten::cat",
+      "calls": 12,
+      "input_shapes": "",
+      "self_cpu_us": 603.1659999989643,
+      "total_cpu_us": 738.0859999998174
+    },
+    {
+      "name": "aten::masked_fill_",
+      "calls": 13,
+      "input_shapes": "",
+      "self_cpu_us": 565.4449999998324,
+      "total_cpu_us": 565.4449999998324
+    },
+    {
+      "name": "aten::fft_irfft",
+      "calls": 30,
+      "input_shapes": "",
+      "self_cpu_us": 516.3619999992661,
+      "total_cpu_us": 321383.40800000215
+    },
+    {
+      "name": "aten::item",
+      "calls": 264,
+      "input_shapes": "",
+      "self_cpu_us": 503.3650000025191,
+      "total_cpu_us": 681.2470000025205
+    },
+    {
+      "name": "aten::matmul",
+      "calls": 51,
+      "input_shapes": "",
+      "self_cpu_us": 502.48200000248835,
+      "total_cpu_us": 23086.0320000013
+    },
+    {
+      "name": "aten::squeeze",
+      "calls": 156,
+      "input_shapes": "",
+      "self_cpu_us": 499.9249999985259,
+      "total_cpu_us": 765.9659999997348
+    },
+    {
+      "name": "aten::resolve_conj",
+      "calls": 1607,
+      "input_shapes": "",
+      "self_cpu_us": 468.0430000193046,
+      "total_cpu_us": 468.0430000193046
+    },
+    {
+      "name": "aten::as_strided_",
+      "calls": 92,
+      "input_shapes": "",
+      "self_cpu_us": 435.56400000071153,
+      "total_cpu_us": 435.56400000071153
+    },
+    {
+      "name": "fused_add_tanh_sigmoid_multiply",
+      "calls": 16,
+      "input_shapes": "",
+      "self_cpu_us": 413.16599999926984,
+      "total_cpu_us": 7440.33999999892
+    },
+    {
+      "name": "aten::contiguous",
+      "calls": 184,
+      "input_shapes": "",
+      "self_cpu_us": 354.16299999185867,
+      "total_cpu_us": 89069.18099999696
+    },
+    {
+      "name": "aten::softmax",
+      "calls": 134,
+      "input_shapes": "",
+      "self_cpu_us": 345.9620000026189,
+      "total_cpu_us": 3411.6200000017416
+    },
+    {
+      "name": "aten::convolution",
+      "calls": 130,
+      "input_shapes": "",
+      "self_cpu_us": 344.08000000054017,
+      "total_cpu_us": 178077.57000000216
+    },
+    {
+      "name": "aten::fft_rfft",
+      "calls": 30,
+      "input_shapes": "",
+      "self_cpu_us": 337.2860000031069,
+      "total_cpu_us": 313641.02700000256
+    },
+    {
+      "name": "aten::exp",
+      "calls": 5,
+      "input_shapes": "",
+      "self_cpu_us": 331.4020000002347,
+      "total_cpu_us": 331.4020000002347
+    },
+    {
+      "name": "aten::conv1d",
+      "calls": 125,
+      "input_shapes": "",
+      "self_cpu_us": 314.964999997057,
+      "total_cpu_us": 145539.73899999913
+    },
+    {
+      "name": "aten::view_as",
+      "calls": 241,
+      "input_shapes": "",
+      "self_cpu_us": 258.84099999512546,
+      "total_cpu_us": 459.32199999829754
+    },
+    {
+      "name": "aten::resize_",
+      "calls": 134,
+      "input_shapes": "",
+      "self_cpu_us": 198.4019999983575,
+      "total_cpu_us": 198.4019999983575
+    },
+    {
+      "name": "aten::_local_scalar_dense",
+      "calls": 264,
+      "input_shapes": "",
+      "self_cpu_us": 177.88200000000143,
+      "total_cpu_us": 177.88200000000143
+    },
+    {
+      "name": "aten::unfold",
+      "calls": 40,
+      "input_shapes": "",
+      "self_cpu_us": 171.68299999572264,
+      "total_cpu_us": 291.04399999831367
+    },
+    {
+      "name": "aten::upsample_nearest1d",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 156.08099999977276,
+      "total_cpu_us": 165.24099999992177
+    },
+    {
+      "name": "aten::_unsafe_view",
+      "calls": 56,
+      "input_shapes": "",
+      "self_cpu_us": 127.52099999854181,
+      "total_cpu_us": 127.52099999854181
+    },
+    {
+      "name": "aten::flip",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 127.16300000017509,
+      "total_cpu_us": 149.20300000021234
+    },
+    {
+      "name": "aten::dropout",
+      "calls": 189,
+      "input_shapes": "",
+      "self_cpu_us": 114.52099999821075,
+      "total_cpu_us": 114.52099999821075
+    },
+    {
+      "name": "aten::_weight_norm",
+      "calls": 36,
+      "input_shapes": "",
+      "self_cpu_us": 107.27999999979511,
+      "total_cpu_us": 4868.400000000838
+    },
+    {
+      "name": "aten::masked_fill",
+      "calls": 13,
+      "input_shapes": "",
+      "self_cpu_us": 92.92000000132248,
+      "total_cpu_us": 944.807999999728
+    },
+    {
+      "name": "aten::permute",
+      "calls": 27,
+      "input_shapes": "",
+      "self_cpu_us": 92.03999999631196,
+      "total_cpu_us": 136.99999999860302
+    },
+    {
+      "name": "aten::thnn_conv2d",
+      "calls": 36,
+      "input_shapes": "",
+      "self_cpu_us": 78.32000000076368,
+      "total_cpu_us": 11579.694999999832
+    },
+    {
+      "name": "aten::_reshape_alias",
+      "calls": 83,
+      "input_shapes": "",
+      "self_cpu_us": 70.59999999478532,
+      "total_cpu_us": 70.59999999478532
+    },
+    {
+      "name": "aten::sub",
+      "calls": 6,
+      "input_shapes": "",
+      "self_cpu_us": 68.5200000002078,
+      "total_cpu_us": 68.5200000002078
+    },
+    {
+      "name": "aten::new_empty",
+      "calls": 36,
+      "input_shapes": "",
+      "self_cpu_us": 56.67999999962194,
+      "total_cpu_us": 325.60199999988254
+    },
+    {
+      "name": "aten::abs",
+      "calls": 2,
+      "input_shapes": "",
+      "self_cpu_us": 48.75999999977648,
+      "total_cpu_us": 94.3999999994412
+    },
+    {
+      "name": "aten::detach",
+      "calls": 36,
+      "input_shapes": "",
+      "self_cpu_us": 48.319999997504056,
+      "total_cpu_us": 48.319999997504056
+    },
+    {
+      "name": "aten::max",
+      "calls": 6,
+      "input_shapes": "",
+      "self_cpu_us": 46.36000000002605,
+      "total_cpu_us": 61.04000000119413
+    },
+    {
+      "name": "aten::arange",
+      "calls": 8,
+      "input_shapes": "",
+      "self_cpu_us": 45.48000000059619,
+      "total_cpu_us": 93.52199999986988
+    },
+    {
+      "name": "aten::repeat_interleave",
+      "calls": 3,
+      "input_shapes": "",
+      "self_cpu_us": 45.119999999180436,
+      "total_cpu_us": 275.3220000001602
+    },
+    {
+      "name": "aten::zeros_like",
+      "calls": 9,
+      "input_shapes": "",
+      "self_cpu_us": 30.76099999807775,
+      "total_cpu_us": 152.4829999995418
+    },
+    {
+      "name": "aten::repeat",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 30.360000000000582,
+      "total_cpu_us": 102.64100000000326
+    },
+    {
+      "name": "aten::neg",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 30.280999999959022,
+      "total_cpu_us": 30.280999999959022
+    },
+    {
+      "name": "aten::mul_",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 25.640999999828637,
+      "total_cpu_us": 25.640999999828637
+    },
+    {
+      "name": "aten::sum",
+      "calls": 2,
+      "input_shapes": "",
+      "self_cpu_us": 24.959999999962747,
+      "total_cpu_us": 33.15999999968335
+    },
+    {
+      "name": "aten::gt",
+      "calls": 3,
+      "input_shapes": "",
+      "self_cpu_us": 24.799999999180727,
+      "total_cpu_us": 42.280999999791675
+    },
+    {
+      "name": "aten::zero_",
+      "calls": 14,
+      "input_shapes": "",
+      "self_cpu_us": 24.16100000053848,
+      "total_cpu_us": 87.6010000004826
+    },
+    {
+      "name": "aten::flatten",
+      "calls": 6,
+      "input_shapes": "",
+      "self_cpu_us": 23.320000000298023,
+      "total_cpu_us": 33.47999999998137
+    },
+    {
+      "name": "aten::conv2d",
+      "calls": 5,
+      "input_shapes": "",
+      "self_cpu_us": 22.28000000026077,
+      "total_cpu_us": 32875.07600000035
+    },
+    {
+      "name": "aten::logical_or",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 19.999999999774445,
+      "total_cpu_us": 34.68000000027678
+    },
+    {
+      "name": "aten::zeros",
+      "calls": 5,
+      "input_shapes": "",
+      "self_cpu_us": 18.759999999158026,
+      "total_cpu_us": 35.48099999930491
+    },
+    {
+      "name": "aten::_nnpack_available",
+      "calls": 36,
+      "input_shapes": "",
+      "self_cpu_us": 17.240000000223517,
+      "total_cpu_us": 17.240000000223517
+    },
+    {
+      "name": "aten::triu",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 14.87999999999738,
+      "total_cpu_us": 14.87999999999738
+    },
+    {
+      "name": "aten::split_with_sizes",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 14.599999997764826,
+      "total_cpu_us": 19.919999999459833
+    },
+    {
+      "name": "aten::ones",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 13.040000001117733,
+      "total_cpu_us": 26.16000000026179
+    },
+    {
+      "name": "aten::nonzero",
+      "calls": 2,
+      "input_shapes": "",
+      "self_cpu_us": 12.160999999847263,
+      "total_cpu_us": 18.640999999828637
+    },
+    {
+      "name": "aten::linear",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 10.16000000000713,
+      "total_cpu_us": 2682.903000000002
+    },
+    {
+      "name": "aten::logical_and",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 9.759999999776483,
+      "total_cpu_us": 16.0
+    },
+    {
+      "name": "aten::alias",
+      "calls": 6,
+      "input_shapes": "",
+      "self_cpu_us": 9.559999999404681,
+      "total_cpu_us": 9.559999999404681
+    },
+    {
+      "name": "aten::rsub",
+      "calls": 2,
+      "input_shapes": "",
+      "self_cpu_us": 6.239999999994325,
+      "total_cpu_us": 14.039999999997235
+    },
+    {
+      "name": "aten::stack",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 5.8400000000001455,
+      "total_cpu_us": 47.60099999999875
+    },
+    {
+      "name": "aten::randn",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 5.440000000409782,
+      "total_cpu_us": 796.9670000001788
+    },
+    {
+      "name": "aten::is_nonzero",
+      "calls": 3,
+      "input_shapes": "",
+      "self_cpu_us": 5.160000000705622,
+      "total_cpu_us": 13.240000000299915
+    },
+    {
+      "name": "aten::sub_",
+      "calls": 2,
+      "input_shapes": "",
+      "self_cpu_us": 5.079999999998108,
+      "total_cpu_us": 5.079999999998108
+    },
+    {
+      "name": "aten::lift_fresh",
+      "calls": 12,
+      "input_shapes": "",
+      "self_cpu_us": 5.0000000004365575,
+      "total_cpu_us": 5.0000000004365575
+    },
+    {
+      "name": "aten::concat",
+      "calls": 3,
+      "input_shapes": "",
+      "self_cpu_us": 4.999999999996362,
+      "total_cpu_us": 105.40099999999802
+    },
+    {
+      "name": "aten::nonzero_numpy",
+      "calls": 2,
+      "input_shapes": "",
+      "self_cpu_us": 4.879999999888241,
+      "total_cpu_us": 30.160999999847263
+    },
+    {
+      "name": "aten::round",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 4.399999999906868,
+      "total_cpu_us": 4.399999999906868
+    },
+    {
+      "name": "aten::unbind",
+      "calls": 3,
+      "input_shapes": "",
+      "self_cpu_us": 3.919999999925494,
+      "total_cpu_us": 10.520000000018626
+    },
+    {
+      "name": "aten::expand_as",
+      "calls": 4,
+      "input_shapes": "",
+      "self_cpu_us": 3.1199999999989814,
+      "total_cpu_us": 9.7599999999984
+    },
+    {
+      "name": "aten::t",
+      "calls": 1,
+      "input_shapes": "",
+      "self_cpu_us": 3.1199999999953434,
+      "total_cpu_us": 5.399999999997817
+    },
+    {
+      "name": "aten::resolve_neg",
+      "calls": 5,
+      "input_shapes": "",
+      "self_cpu_us": 1.12000000057742,
+      "total_cpu_us": 1.12000000057742
+    },
+    {
+      "name": "aten::detach_",
+      "calls": 3,
+      "input_shapes": "",
+      "self_cpu_us": 0.6799999997019768,
+      "total_cpu_us": 0.6799999997019768
+    }
+  ]
+}

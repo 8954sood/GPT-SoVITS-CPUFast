@@ -225,3 +225,21 @@ change PCM; this mode does not require cross-model waveform identity. It runs
 the separate candidate profile, then the guarded `taptiles` synthetic probe
 serially in the same job to reuse setup. These timings remain separate and
 are never combined with the full-model RTF measurements.
+
+The H3/K job and tap probe completed in run 43166415026. H3/K medians were
+1.2461/1.2265 (a small, unreplicated 1.57% improvement); all temporal tiles
+were slower than the full sequence. No production tap tiling was introduced.
+Raw reports are in `results/n1_student_k_20261112`.
+
+`mode=studentarint8` is the separate Korean listening-approved L AR runtime
+comparison, using the unchanged private K bundle. It runs K half-cache256
+against approximate per-channel W8A8 AR with native FP32 attention, three
+warmups and five samples each, plus an excluded L profile. The acoustic engine
+stays FP32: `fast_half` modules and the mixed global fast mode must both be
+zero/false. L requires a separate source-pinned listening approval matching
+the underlying bundle/reference. Checkpoint/model tensors remain unchanged;
+derived INT8 inference arithmetic is explicitly approximate and can change
+semantic tokens and duration. Compare latency, CPU and RTF together. Native
+library manifests and configured threads are recorded; the legacy
+`native_workers=1` audit constant does not cap ATen's global intra-op pool.
+Excluded profile ranges record the observed global Torch thread count.

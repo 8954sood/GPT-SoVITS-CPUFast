@@ -21,11 +21,17 @@ def main():
     parser.add_argument("--baseline-manifest", type=Path)
     parser.add_argument("--baseline-manifest-sha256")
     parser.add_argument("--decoder-only", action="store_true")
+    parser.add_argument("--ar-int8-comparison", action="store_true")
+    parser.add_argument("--ar-int8-confirm-only", action="store_true")
     args = parser.parse_args()
     if bool(args.baseline_manifest) != bool(args.baseline_manifest_sha256):
         parser.error("Comparison baseline manifest and SHA required together")
     if args.decoder_only and not args.baseline_manifest:
         parser.error("Decoder comparison requires an approved baseline bundle")
+    if args.ar_int8_comparison and args.baseline_manifest:
+        parser.error("AR runtime comparison uses one unchanged approved bundle")
+    if args.ar_int8_confirm_only and not args.ar_int8_comparison:
+        parser.error("Runtime confirmation requires AR-only runtime comparison mode")
     manifest = load_manifest(args.manifest, args.manifest_sha256)
     before = snapshot(args.manifest)
     cases = {r["language"]: r for r in manifest["listening_report"]["cases"]}
@@ -92,6 +98,7 @@ def main():
         compare=None,
         baseline_bundle=False,
         fp32_control=False,
+        ar_int8_only=False,
     ):
         run_manifest = baseline if baseline_bundle else manifest
         run_path = args.baseline_manifest if baseline_bundle else args.manifest
@@ -156,6 +163,8 @@ def main():
                 command += ["--ar-fp32-cache"]
             if fp32_control:
                 command += ["--student-fp32-control"]
+        if ar_int8_only:
+            command += ["--ar-int8-only"]
         if combined:
             command += ["--fft-stream", "--parallel-transforms", "--inference-mode"]
         if compare is not None:
@@ -186,6 +195,12 @@ def main():
             required.append("student_files_unchanged")
         if not all(data.get(k) for k in required) or guard["exit_code"] != 0:
             raise RuntimeError("Model/resource integrity failure")
+        if ar_int8_only and (
+            not data["approximate_ar_int8_only"]
+            or data["fp16_acoustic_modules"] != 0
+            or data["experimental_options"]["fast_experimental"]
+        ):
+            raise RuntimeError("Approximate AR runtime contaminated FP32 acoustics")
         if (
             data["cgroup"]["cpu.max"] != "200000 100000"
             or data["cgroup"]["memory.max"] != "8000000000"
@@ -204,12 +219,29 @@ def main():
         row = {
             "language": language,
             "name": name,
-            "prefetch": 256 if original else distance,
+            "prefetch": None if ar_int8_only else (256 if original else distance),
+            "approximate_ar_int8_only": ar_int8_only,
+            "runtime_variant": "L_ar_int8_only"
+            if ar_int8_only
+            else data["model_variant"],
+            "runtime_local_generated_tokens_match": all(
+                r.get("runtime_local_generated_tokens_match", False)
+                for r in data["runs"]
+            )
+            if ar_int8_only
+            else None,
+            "runtime_local_pcm_match": all(
+                r.get("runtime_local_pcm_match", False) for r in data["runs"]
+            )
+            if ar_int8_only
+            else None,
             "original": original,
             "combined": combined,
             "model_variant": data["model_variant"],
             "manifest_sha256": None if original else sha256(run_path),
-            "ar_cache_storage": "fp32"
+            "ar_cache_storage": "int8_approximate"
+            if ar_int8_only
+            else "fp32"
             if fp32_control
             else (
                 "exact_fp16"
@@ -265,6 +297,49 @@ def main():
         )
         return data, row
 
+    if args.ar_int8_comparison:
+        if manifest.get("ar_cache_storage", "fp32") != "exact_fp16":
+            parser.error(
+                "Approximate AR runtime requires an approved half-exact bundle"
+            )
+        summary["scope"] = (
+            "Actual N1 separately listening-approved approximate AR-only runtime; unchanged approved checkpoint bytes and normal FP32 acoustics"
+        )
+        summary["prefetch_selection"] = (
+            "Baseline verified half-cache256; candidate INT8 runtime has no half-cache prefetch"
+        )
+        if not args.ar_int8_confirm_only:
+            run("ko", "ar_runtime_baseline", distance=256, combined=True, confirm=True)
+        else:
+            summary["scope"] = (
+                "Independent actual N1 five-sample confirmation of separately approved L AR-only runtime"
+            )
+        run(
+            "ko",
+            "ar_runtime_candidate",
+            distance=256,
+            combined=True,
+            confirm=True,
+            ar_int8_only=True,
+        )
+        try:
+            run(
+                "ko",
+                "ar_runtime_profile_run",
+                distance=256,
+                combined=True,
+                profile=True,
+                ar_int8_only=True,
+                compare=args.output / "ko_ar_runtime_candidate.wav",
+            )
+        except subprocess.CalledProcessError as error:
+            summary["profile_error"] = {"exit_code": error.returncode}
+        summary["student_assets_unchanged"] = before == snapshot(args.manifest)
+        summary["complete"] = True
+        save()
+        if not summary["student_assets_unchanged"]:
+            raise RuntimeError("Private runtime comparison execution assets changed")
+        return
     if baseline is not None:
         summary["scope"] = (
             "Actual N1 separately approved Korean student model comparison"
