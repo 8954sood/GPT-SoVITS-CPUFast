@@ -601,7 +601,22 @@ def main():
                 ) as predictor_metadata,
                 torch.inference_mode(args.inference_mode),
             ):
-                list(runtime.run(inputs))
+                profile_chunks = list(runtime.run(inputs))
+        if len(profile_chunks) != 1:
+            raise RuntimeError("Profile did not return one complete audio result")
+        profile_rate, profile_audio = profile_chunks[0]
+        profile_checks = {
+            "sample_rate": profile_rate,
+            "pcm_sha256": hashlib.sha256(profile_audio.tobytes()).hexdigest(),
+            "semantic": state["semantic"],
+            "audio_seconds": len(profile_audio) / profile_rate,
+        }
+        profile_checks["exact_to_unprofiled_same_process"] = all(
+            profile_checks[key] == report["runs"][-1][key]
+            for key in ("sample_rate", "pcm_sha256", "semantic", "audio_seconds")
+        )
+        if not profile_checks["exact_to_unprofiled_same_process"]:
+            raise RuntimeError("Profiling instrumentation changed PCM/tokens/duration")
         rows = [
             {
                 "name": event.key,
@@ -620,6 +635,7 @@ def main():
                     "note": "Extra profiled inference, excluded from RTF; CPU totals may overlap across threads and include profiler overhead",
                     "record_shapes": not args.profile_no_shapes,
                     "predictor": predictor_metadata,
+                    "profile_output_checks": profile_checks,
                     "operators": sorted(
                         rows, key=lambda row: row["self_cpu_us"], reverse=True
                     ),
