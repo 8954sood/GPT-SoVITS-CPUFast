@@ -215,6 +215,7 @@ def create_app(settings=None, *, engine_factory=None, fingerprint=None):
             "cfg": None,
             "acoustic_threads": settings.threads,
             "ar_threads": settings.ar_threads,
+            "ar_dispatch": getattr(app.state.engine, "ar_dispatch", None),
             "streaming": "sentence_fragments",
             "default_latency_mode": "fast",
             "cfm_backend": None,

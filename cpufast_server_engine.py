@@ -107,6 +107,7 @@ class Engine:
         from cpufast_engine import optimize
         import cpufast_fast_ops
         from cpufast_fast_ar import build
+        from cpufast_script_ar import ExactScriptAR
         import cpufast_cpp_ops
 
         class NonChineseTTS(TTS):
@@ -147,6 +148,8 @@ class Engine:
             fused_finish=True, tap_small=True, ar_threads=self.ar_threads,
             acoustic_threads=self.threads, ar_fp32_cache=False, ar_prefetch=256)
         approximate, audit = build(original_ar, head_major=True)
+        approximate = ExactScriptAR(approximate)
+        self.ar_dispatch = approximate.dispatch_profile
         self.pipeline.t2s_model.model.t2s_transformer = approximate
         self.runtime.audit['ar_coefficients'] = audit
         self.runtime_audit = audit
@@ -186,6 +189,7 @@ class Engine:
                   'native': self.native_files_sha256, 'libraries': versions,
                   'threads': {'ar': self.ar_threads, 'acoustic': self.threads, 'interop': 1},
                   'cpu_cleanup': 'generation0_per_utterance_automatic_gc_retained',
+                  'ar_dispatch': self.ar_dispatch,
                   'profile': 'approvedAR17_C24Vtarget100_W8A8_canonicalTap_FFT256_value_schedule'}
         self.fingerprint = hashlib.sha256(json.dumps(recipe, sort_keys=True).encode()).hexdigest()
         self._capture_semantics()
@@ -202,7 +206,7 @@ class Engine:
 
     @staticmethod
     def _source_hashes():
-        names = ('cpufast_server_engine.py', 'cpufast_engine.py', 'cpufast_fast_ar.py', 'cpufast_kv_cache.py',
+        names = ('cpufast_server_engine.py', 'cpufast_engine.py', 'cpufast_fast_ar.py', 'cpufast_kv_cache.py', 'cpufast_script_ar.py',
             'cpufast_ar_cpp.py', 'cpufast_fft.py', 'cpufast_tap.py', 'cpufast_fused_blocks.py',
             'cpufast_cooktoom.py', 'cpufast_optimizations.py', 'cpufast_predictor.py',
             'cpufast_winograd.py', 'student_runtime.py', 'GPT_SoVITS/TTS_infer_pack/TTS.py',
@@ -390,6 +394,7 @@ class Engine:
                     'reference_preprocessing_on_request': False, 'approved_request_pcm_match': True if approved_match else None,
                     'streaming': 'sentence_fragments', 'cfm': False, 'latency_profile': 'fixed_approved_C24'}
                 report['cpu_cleanup'] = 'generation0_per_utterance_automatic_gc_retained'
+                report['ar_dispatch'] = getattr(self.pipeline.t2s_model.model.t2s_transformer, 'dispatch_profile', None)
                 return wire, report
             finally:
                 self.clear_reference()

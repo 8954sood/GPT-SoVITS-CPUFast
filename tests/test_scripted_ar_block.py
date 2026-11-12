@@ -82,3 +82,6 @@ def test_compiled_transformer_preserves_real_geometry_and_restores_jit_policy(mo
             assert length_a == length_b == length+1
             assert torch._C._get_graph_executor_optimize()
             length = length_a
+        with pytest.raises(RuntimeError):
+            scripted.process_prompt(x,mask[:,:,:,:208],4,None,True)
+        assert torch._C._get_graph_executor_optimize()
