@@ -1,7 +1,7 @@
 {
-  "scope": "Actual N1 quality synthesis only; no inference-speed claim; original A vs matched L18/V18. Owner listening decision pending for actual18 V.",
+  "scope": "Actual N1 quality synthesis only; no inference-speed claim. Owner now approved corrected AR18+original V Korean combination; JA/EN synthesis only.",
   "source_sha": "d0fc7fbdd7a6e41d19abf778e7410ef6118ef1c6",
-  "owner_actual18_v_quality_approved": false,
+  "owner_actual18_v_quality_approved": true,
   "prior_v_listening_used_ar24": true,
   "models": {
     "A": {
@@ -144,5 +144,6 @@
       ]
     }
   },
-  "v_n1_performance_executed": false
+  "v_n1_performance_executed": false,
+  "owner_feedback": "V 품질 괜찮음, RTF 측정 진행"
 }

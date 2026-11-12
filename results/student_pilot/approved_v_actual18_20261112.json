@@ -1,0 +1,49 @@
+{
+  "model_variant": "V",
+  "quality_approved": true,
+  "feedback": "V 품질 괜찮음, RTF 측정 진행",
+  "scope": "Owner-approved Korean same-reference/text/seed actual AR18+V400 combination. JA/EN synthesis checks only; no broad voice/language approval.",
+  "manifest_sha256": "def34d8555ea01c87091547fccbd27aa8a3bd33e8b6bbebb0df62095004c5d7c",
+  "parent_manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+  "files": {
+    "ar.pt": {
+      "bytes": 231975560,
+      "sha256": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335"
+    },
+    "decoder.pt": {
+      "bytes": 91304833,
+      "sha256": "7d4c184c638b09880a7e61b088b999542598644d22166e84e32137c5649b9524"
+    },
+    "student_spec.json": {
+      "bytes": 33911,
+      "sha256": "cb411065f3e69c2725791fc00272940589c309a67bd5122abcd26499cfde6a16"
+    }
+  },
+  "ar_layers": 18,
+  "ar_runtime": "int8_native",
+  "ar_cache_storage": "exact_fp16",
+  "runtime_implementation": {
+    "path": "experiments/student/listen_bottleneck_decoder.py",
+    "sha256": "1c232283c860f9304d31646639e14f89a75fdb75c9800aac1d16d6c768a4c9cc"
+  },
+  "reference_sha256": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+  "original_s2_sha256": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+  "listening_source_sha": "d0fc7fbdd7a6e41d19abf778e7410ef6118ef1c6",
+  "korean_case": {
+    "language": "ko",
+    "text": "오늘은 날씨가 참 좋네요. 잠깐 쉬었다가 함께 이야기를 이어 가요.",
+    "sample_rate": 32000,
+    "audio_seconds": 5.02,
+    "smoke_elapsed_seconds": 12.155987972393632,
+    "semantic": [
+      {
+        "tokens": 118,
+        "sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+      }
+    ],
+    "pcm_sha256": "a22718077e84fb8d44874f9792503283d132734df5bc3b5fbfb57d145164f1f5"
+  },
+  "approved_runtime_report": "results/student_pilot/ssh_actual18_listening_verification_20261112.json",
+  "recovery100_approved": false,
+  "actual_n1_measured": false
+}
