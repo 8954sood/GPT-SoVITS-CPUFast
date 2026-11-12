@@ -74,3 +74,44 @@ For a separately approved model requiring FP32 AR storage, the experimental
 prefetch with FP32 cache defaults to zero. This option passed local ARM64
 bit-exact operator checks only and has no target-server speed claim; do not
 infer a benefit from the original model's exact-half-cache prefetch results.
+
+## Verified original-model runtime profile
+
+Actual-server five-sample `mode=runtime` verification measured the combined
+original FP32 configuration at median RTF **1.4732 / 1.4464**, compared with
+**1.5340 / 1.5501** for its baseline on the two fixed Japanese sentences.
+All candidate PCM outputs were exact. The target RTF below 1 remains open.
+Raw reports/provenance are in `results/n1_runtime_20261112`; see
+`docs/TARGET_RESEARCH.md` for the independent comparisons.
+
+Build the current native library first. For an already initialized, evaluation
+FP32 V2ProPlus CPU pipeline, keep model loading and installation outside
+inference mode so original parameter version checks remain available:
+
+```python
+import torch
+from cpufast_engine import optimize
+
+engine = optimize(
+    pipeline,
+    head_major=True,
+    cook_phase=True,
+    fft_layout=True,
+    packed_fft=True,
+    fused_finish=True,
+    tap_small=True,
+    fft_stream=True,
+    parallel_transforms=True,
+    ar_prefetch=256,
+    ar_threads=2,
+    acoustic_threads=2,
+)
+with torch.inference_mode():
+    chunks = list(engine.run(request))
+```
+
+The benchmark equivalent adds `--fft-stream --parallel-transforms
+--inference-mode` to the existing approved tap/prefetch profile. These options
+remain explicit and preserve original-model coefficients. The combined score
+has not been measured with trained students. A fresh pipeline is required when
+changing weights/settings; rebuild the extension after native source changes.

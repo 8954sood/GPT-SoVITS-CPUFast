@@ -132,3 +132,32 @@ TorchScript classes imported/compiled successfully. These are tiny correctness
 checks, not performance evidence. No student or full-model N1 run has validated
 this option. Keep original and trained student checkpoints separate and obtain
 quality approval before measuring a student on the actual server.
+
+
+## Independent runtime and combined original-model validation
+
+[Run 43156673437](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43156673437)
+used the unchanged original model on the real N1 with 2 CPU, 8,000,000,000 bytes
+and no swap. Each of eight fresh processes excluded three warmups and retained
+five samples. Non-baseline variant order was reversed for sentence 2.
+
+| Original FP32 configuration | Sentence 1 median RTF | Sentence 2 median RTF |
+| --- | ---: | ---: |
+| Approved tap/prefetch256 baseline | 1.5340 | 1.5501 |
+| Channel-parallel transforms only | 1.4967 | 1.4956 |
+| Inference context only | 1.5107 | 1.5171 |
+| FFT streaming + parallel transforms + inference context | **1.4732** | **1.4464** |
+
+The combined improvement of 3.97%/6.69% is directly measured, not a sum of
+isolated gains. Decoder medians fell 5.053 to 4.786s and 4.492 to 4.188s.
+Every one of the 30 measured candidate outputs was PCM-exact to its baseline;
+semantic tokens, duration, sample rate, reference, request/seed and resource
+settings matched. All checkpoint/parameter checks and guards passed, with
+peak sampled tree RSS below 5.4GB. Every warmup and measured run, including
+slower observations, is in `results/n1_runtime_20261112` with provenance.
+
+Keep these original-model paths as opt-in improvements. The default engine
+configuration and original weights remain unchanged. This does not reach RTF
+1, does not establish an optimum or coverage of other voices/languages, and
+does not predict the performance/quality of separately trained students.
+See `ARM_BENCHMARK.md` for the exact original-model settings.

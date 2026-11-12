@@ -1,0 +1,143 @@
+{
+  "run_id": 43156673437,
+  "url": "https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43156673437",
+  "head_sha": "7e829db9f36a8890abe136601d049d49ed077590",
+  "baseline": "Original FP32 tap/prefetch256 profile, 2 threads per stage",
+  "warmups": 3,
+  "samples": 5,
+  "variant_order": {
+    "1": [
+      "baseline",
+      "parallel",
+      "inference",
+      "combined"
+    ],
+    "2": [
+      "baseline",
+      "combined",
+      "inference",
+      "parallel"
+    ]
+  },
+  "variants": {
+    "parallel": "Channel-parallel Winograd transforms and FFT finish",
+    "inference": "Existing torch.inference_mode benchmark context only",
+    "combined": "FFT stream + parallel transforms + inference_mode"
+  },
+  "pcm": "All 30 measured candidate outputs exact to respective baseline",
+  "decision": "Retain opt-in implementations/context; original defaults unchanged; real-time goal not reached",
+  "summary": [
+    {
+      "sentence": 1,
+      "variant": "baseline",
+      "median_rtf": 1.53402608280447,
+      "improvement_percent": 0.0,
+      "median_seconds": 9.173475975170732,
+      "median_cpu_seconds": 15.112445559999998,
+      "median_stages": {
+        "ar_seconds": 3.7210669834166765,
+        "enc_p_seconds": 0.1481158472597599,
+        "flow_seconds": 0.08937659300863743,
+        "dec_seconds": 5.052754586562514
+      }
+    },
+    {
+      "sentence": 1,
+      "variant": "parallel",
+      "median_rtf": 1.4967321773311963,
+      "improvement_percent": 2.4311128664184056,
+      "median_seconds": 8.950458420440555,
+      "median_cpu_seconds": 15.146995000000004,
+      "median_stages": {
+        "ar_seconds": 3.7381869312375784,
+        "enc_p_seconds": 0.14968946017324924,
+        "flow_seconds": 0.09005099721252918,
+        "dec_seconds": 4.826404165476561
+      }
+    },
+    {
+      "sentence": 1,
+      "variant": "inference",
+      "median_rtf": 1.5106924429510946,
+      "improvement_percent": 1.5210719110275828,
+      "median_seconds": 9.033940808847547,
+      "median_cpu_seconds": 14.889929079999987,
+      "median_stages": {
+        "ar_seconds": 3.5702343098819256,
+        "enc_p_seconds": 0.14711477607488632,
+        "flow_seconds": 0.08899355866014957,
+        "dec_seconds": 5.054292535409331
+      }
+    },
+    {
+      "sentence": 1,
+      "variant": "combined",
+      "median_rtf": 1.473192485940197,
+      "improvement_percent": 3.9656168526847058,
+      "median_seconds": 8.80969106592238,
+      "median_cpu_seconds": 14.897282040000007,
+      "median_stages": {
+        "ar_seconds": 3.6240341663360596,
+        "enc_p_seconds": 0.14884047023952007,
+        "flow_seconds": 0.0897718034684658,
+        "dec_seconds": 4.785819666460156
+      }
+    },
+    {
+      "sentence": 2,
+      "variant": "baseline",
+      "median_rtf": 1.550126551172595,
+      "improvement_percent": 0.0,
+      "median_seconds": 8.277675783261657,
+      "median_cpu_seconds": 13.633645120000011,
+      "median_stages": {
+        "ar_seconds": 3.446349736303091,
+        "enc_p_seconds": 0.13374845683574677,
+        "flow_seconds": 0.08024252392351627,
+        "dec_seconds": 4.491775665432215
+      }
+    },
+    {
+      "sentence": 2,
+      "variant": "parallel",
+      "median_rtf": 1.4956460805254037,
+      "improvement_percent": 3.5145821227292373,
+      "median_seconds": 7.986750070005655,
+      "median_cpu_seconds": 13.6257844,
+      "median_stages": {
+        "ar_seconds": 3.375686675310135,
+        "enc_p_seconds": 0.1366466786712408,
+        "flow_seconds": 0.08205189555883408,
+        "dec_seconds": 4.237092385068536
+      }
+    },
+    {
+      "sentence": 2,
+      "variant": "inference",
+      "median_rtf": 1.5170677484811916,
+      "improvement_percent": 2.132651857772261,
+      "median_seconds": 8.101141776889563,
+      "median_cpu_seconds": 13.433829240000009,
+      "median_stages": {
+        "ar_seconds": 3.1633699368685484,
+        "enc_p_seconds": 0.13281800784170628,
+        "flow_seconds": 0.08268450200557709,
+        "dec_seconds": 4.548653941601515
+      }
+    },
+    {
+      "sentence": 2,
+      "variant": "combined",
+      "median_rtf": 1.4463721505934826,
+      "improvement_percent": 6.693285815963046,
+      "median_seconds": 7.723627284169197,
+      "median_cpu_seconds": 13.308786119999994,
+      "median_stages": {
+        "ar_seconds": 3.1542566027492285,
+        "enc_p_seconds": 0.13548939116299152,
+        "flow_seconds": 0.07986375875771046,
+        "dec_seconds": 4.187623916193843
+      }
+    }
+  ]
+}
