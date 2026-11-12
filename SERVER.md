@@ -130,3 +130,7 @@ API에서도 달성했다고 표현하지 않는다. 고정된 한 입력의 세
 부하 시험이나 최악 지연 보장은 아니다. HTTP는 문장 분할과 문장별 seed 때문에
 전체 문장을 한 번에 생성한 엔진 검증과 출력 SHA가 다르다.
 검증용 서버는 모두 종료했다.
+실측 소스·실행 스크립트·요청별 원시 기록은
+[검증 출처](results/n1_api_20261113/provenance.json),
+[엔진 검증](results/n1_api_20261113/backend/adapter_validation.json),
+[HTTP 검증](results/n1_api_20261113/http/http_validation.json)에 보존했다.
