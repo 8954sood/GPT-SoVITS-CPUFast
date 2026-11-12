@@ -1,0 +1,589 @@
+{
+  "scope": "Three training contexts, no validation selection or N1 performance claim",
+  "parent_decoder_sha256": "a2fe6478aae00a8a481209f32aba85eab97198cd30aca0ce1ff63d9ec31c3c1d",
+  "parent_manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+  "teacher_s2_sha256": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+  "corpus_manifest_sha256": "54c87e32dbba8277350b82279c8c9e872460fb55b8e4d6abe135c0096d60f98c",
+  "training_contexts": [
+    {
+      "path": "voice0_ja_0_decoder.pt",
+      "sha256": "3f6f6e289205fcd9e0e4af0eb9dcdfccad034000ae833afa545ef6461d09b119"
+    },
+    {
+      "path": "voice0_ko_0_decoder.pt",
+      "sha256": "25024fd2a94ac7a264c9df49bd20a5eb7305bb598a6fcd801af1544e5fa96ae9"
+    },
+    {
+      "path": "voice0_en_0_decoder.pt",
+      "sha256": "d49b44db673b66901655b02cafb0fd7252d1987ca8ceee3047d5546b04265fcf"
+    }
+  ],
+  "original_widths": [
+    768,
+    384,
+    192,
+    96,
+    48,
+    24
+  ],
+  "candidate_widths": [
+    672,
+    336,
+    168,
+    84,
+    42,
+    21
+  ],
+  "original_parameters": 30733824,
+  "candidate_parameters": 23730882,
+  "rough_dense_width_squared_ratio": 0.765625,
+  "quality_approved": false,
+  "input_weight_reconstruction": [
+    {
+      "module": "ups.0",
+      "input_channels": 768,
+      "retained_inputs": 672,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.03889071196317673
+    },
+    {
+      "module": "ups.1",
+      "input_channels": 384,
+      "retained_inputs": 336,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.05519691854715347
+    },
+    {
+      "module": "ups.2",
+      "input_channels": 192,
+      "retained_inputs": 168,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.09009891003370285
+    },
+    {
+      "module": "ups.3",
+      "input_channels": 96,
+      "retained_inputs": 84,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.11200559139251709
+    },
+    {
+      "module": "ups.4",
+      "input_channels": 48,
+      "retained_inputs": 42,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.16752640902996063
+    },
+    {
+      "module": "conv_post",
+      "input_channels": 24,
+      "retained_inputs": 21,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.20949460566043854
+    },
+    {
+      "module": "resblocks.0.convs1.0",
+      "input_channels": 384,
+      "retained_inputs": 336,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.05330440774559975
+    },
+    {
+      "module": "resblocks.0.convs1.1",
+      "input_channels": 384,
+      "retained_inputs": 336,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.05568950995802879
+    },
+    {
+      "module": "resblocks.0.convs1.2",
+      "input_channels": 384,
+      "retained_inputs": 336,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.05533072352409363
+    },
+    {
+      "module": "resblocks.0.convs2.0",
+      "input_channels": 384,
+      "retained_inputs": 336,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.060307588428258896
+    },
+    {
+      "module": "resblocks.0.convs2.1",
+      "input_channels": 384,
+      "retained_inputs": 336,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.06063969433307648
+    },
+    {
+      "module": "resblocks.0.convs2.2",
+      "input_channels": 384,
+      "retained_inputs": 336,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.05664364621043205
+    },
+    {
+      "module": "resblocks.1.convs1.0",
+      "input_channels": 384,
+      "retained_inputs": 336,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.05330440774559975
+    },
+    {
+      "module": "resblocks.1.convs1.1",
+      "input_channels": 384,
+      "retained_inputs": 336,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.053519077599048615
+    },
+    {
+      "module": "resblocks.1.convs1.2",
+      "input_channels": 384,
+      "retained_inputs": 336,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.05434263497591019
+    },
+    {
+      "module": "resblocks.1.convs2.0",
+      "input_channels": 384,
+      "retained_inputs": 336,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.06826869398355484
+    },
+    {
+      "module": "resblocks.1.convs2.1",
+      "input_channels": 384,
+      "retained_inputs": 336,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.05887512117624283
+    },
+    {
+      "module": "resblocks.1.convs2.2",
+      "input_channels": 384,
+      "retained_inputs": 336,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.05724447965621948
+    },
+    {
+      "module": "resblocks.2.convs1.0",
+      "input_channels": 192,
+      "retained_inputs": 168,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.0749359205365181
+    },
+    {
+      "module": "resblocks.2.convs1.1",
+      "input_channels": 192,
+      "retained_inputs": 168,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.0763150230050087
+    },
+    {
+      "module": "resblocks.2.convs1.2",
+      "input_channels": 192,
+      "retained_inputs": 168,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.07623841613531113
+    },
+    {
+      "module": "resblocks.2.convs2.0",
+      "input_channels": 192,
+      "retained_inputs": 168,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.0931670218706131
+    },
+    {
+      "module": "resblocks.2.convs2.1",
+      "input_channels": 192,
+      "retained_inputs": 168,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.08118236809968948
+    },
+    {
+      "module": "resblocks.2.convs2.2",
+      "input_channels": 192,
+      "retained_inputs": 168,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.08172373473644257
+    },
+    {
+      "module": "resblocks.3.convs1.0",
+      "input_channels": 192,
+      "retained_inputs": 168,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.0749359205365181
+    },
+    {
+      "module": "resblocks.3.convs1.1",
+      "input_channels": 192,
+      "retained_inputs": 168,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.07611510902643204
+    },
+    {
+      "module": "resblocks.3.convs1.2",
+      "input_channels": 192,
+      "retained_inputs": 168,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.07737298309803009
+    },
+    {
+      "module": "resblocks.3.convs2.0",
+      "input_channels": 192,
+      "retained_inputs": 168,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.07775279879570007
+    },
+    {
+      "module": "resblocks.3.convs2.1",
+      "input_channels": 192,
+      "retained_inputs": 168,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.0767664983868599
+    },
+    {
+      "module": "resblocks.3.convs2.2",
+      "input_channels": 192,
+      "retained_inputs": 168,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.07743620127439499
+    },
+    {
+      "module": "resblocks.4.convs1.0",
+      "input_channels": 192,
+      "retained_inputs": 168,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.0749359205365181
+    },
+    {
+      "module": "resblocks.4.convs1.1",
+      "input_channels": 192,
+      "retained_inputs": 168,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.07652316242456436
+    },
+    {
+      "module": "resblocks.4.convs1.2",
+      "input_channels": 192,
+      "retained_inputs": 168,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.07670015096664429
+    },
+    {
+      "module": "resblocks.4.convs2.0",
+      "input_channels": 192,
+      "retained_inputs": 168,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.07868293672800064
+    },
+    {
+      "module": "resblocks.4.convs2.1",
+      "input_channels": 192,
+      "retained_inputs": 168,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.07755359262228012
+    },
+    {
+      "module": "resblocks.4.convs2.2",
+      "input_channels": 192,
+      "retained_inputs": 168,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.08265260607004166
+    },
+    {
+      "module": "resblocks.5.convs1.0",
+      "input_channels": 96,
+      "retained_inputs": 84,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.11179964989423752
+    },
+    {
+      "module": "resblocks.5.convs1.1",
+      "input_channels": 96,
+      "retained_inputs": 84,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.11365890502929688
+    },
+    {
+      "module": "resblocks.5.convs1.2",
+      "input_channels": 96,
+      "retained_inputs": 84,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.11130154132843018
+    },
+    {
+      "module": "resblocks.5.convs2.0",
+      "input_channels": 96,
+      "retained_inputs": 84,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.14453092217445374
+    },
+    {
+      "module": "resblocks.5.convs2.1",
+      "input_channels": 96,
+      "retained_inputs": 84,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.11832091957330704
+    },
+    {
+      "module": "resblocks.5.convs2.2",
+      "input_channels": 96,
+      "retained_inputs": 84,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.1341870278120041
+    },
+    {
+      "module": "resblocks.6.convs1.0",
+      "input_channels": 96,
+      "retained_inputs": 84,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.11179964989423752
+    },
+    {
+      "module": "resblocks.6.convs1.1",
+      "input_channels": 96,
+      "retained_inputs": 84,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.11035265773534775
+    },
+    {
+      "module": "resblocks.6.convs1.2",
+      "input_channels": 96,
+      "retained_inputs": 84,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.10792148858308792
+    },
+    {
+      "module": "resblocks.6.convs2.0",
+      "input_channels": 96,
+      "retained_inputs": 84,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.12987373769283295
+    },
+    {
+      "module": "resblocks.6.convs2.1",
+      "input_channels": 96,
+      "retained_inputs": 84,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.11225581169128418
+    },
+    {
+      "module": "resblocks.6.convs2.2",
+      "input_channels": 96,
+      "retained_inputs": 84,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.1218951940536499
+    },
+    {
+      "module": "resblocks.7.convs1.0",
+      "input_channels": 48,
+      "retained_inputs": 42,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.18384219706058502
+    },
+    {
+      "module": "resblocks.7.convs1.1",
+      "input_channels": 48,
+      "retained_inputs": 42,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.19174271821975708
+    },
+    {
+      "module": "resblocks.7.convs1.2",
+      "input_channels": 48,
+      "retained_inputs": 42,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.1859510838985443
+    },
+    {
+      "module": "resblocks.7.convs2.0",
+      "input_channels": 48,
+      "retained_inputs": 42,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.2764841914176941
+    },
+    {
+      "module": "resblocks.7.convs2.1",
+      "input_channels": 48,
+      "retained_inputs": 42,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.2457631528377533
+    },
+    {
+      "module": "resblocks.7.convs2.2",
+      "input_channels": 48,
+      "retained_inputs": 42,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.19291594624519348
+    },
+    {
+      "module": "resblocks.8.convs1.0",
+      "input_channels": 48,
+      "retained_inputs": 42,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.18384219706058502
+    },
+    {
+      "module": "resblocks.8.convs1.1",
+      "input_channels": 48,
+      "retained_inputs": 42,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.15725035965442657
+    },
+    {
+      "module": "resblocks.8.convs1.2",
+      "input_channels": 48,
+      "retained_inputs": 42,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.16678960621356964
+    },
+    {
+      "module": "resblocks.8.convs2.0",
+      "input_channels": 48,
+      "retained_inputs": 42,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.15458713471889496
+    },
+    {
+      "module": "resblocks.8.convs2.1",
+      "input_channels": 48,
+      "retained_inputs": 42,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.16455817222595215
+    },
+    {
+      "module": "resblocks.8.convs2.2",
+      "input_channels": 48,
+      "retained_inputs": 42,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.16342094540596008
+    },
+    {
+      "module": "resblocks.9.convs1.0",
+      "input_channels": 24,
+      "retained_inputs": 21,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.24148331582546234
+    },
+    {
+      "module": "resblocks.9.convs1.1",
+      "input_channels": 24,
+      "retained_inputs": 21,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.21978576481342316
+    },
+    {
+      "module": "resblocks.9.convs1.2",
+      "input_channels": 24,
+      "retained_inputs": 21,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.22331619262695312
+    },
+    {
+      "module": "resblocks.9.convs2.0",
+      "input_channels": 24,
+      "retained_inputs": 21,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.20644637942314148
+    },
+    {
+      "module": "resblocks.9.convs2.1",
+      "input_channels": 24,
+      "retained_inputs": 21,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.20493808388710022
+    },
+    {
+      "module": "resblocks.9.convs2.2",
+      "input_channels": 24,
+      "retained_inputs": 21,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.2075505554676056
+    },
+    {
+      "module": "resblocks.10.convs1.0",
+      "input_channels": 24,
+      "retained_inputs": 21,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.24148331582546234
+    },
+    {
+      "module": "resblocks.10.convs1.1",
+      "input_channels": 24,
+      "retained_inputs": 21,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.2173624187707901
+    },
+    {
+      "module": "resblocks.10.convs1.2",
+      "input_channels": 24,
+      "retained_inputs": 21,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.2078869640827179
+    },
+    {
+      "module": "resblocks.10.convs2.0",
+      "input_channels": 24,
+      "retained_inputs": 21,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.22403007745742798
+    },
+    {
+      "module": "resblocks.10.convs2.1",
+      "input_channels": 24,
+      "retained_inputs": 21,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.23597170412540436
+    },
+    {
+      "module": "resblocks.10.convs2.2",
+      "input_channels": 24,
+      "retained_inputs": 21,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.22299465537071228
+    },
+    {
+      "module": "resblocks.11.convs1.0",
+      "input_channels": 24,
+      "retained_inputs": 21,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.24148331582546234
+    },
+    {
+      "module": "resblocks.11.convs1.1",
+      "input_channels": 24,
+      "retained_inputs": 21,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.21616755425930023
+    },
+    {
+      "module": "resblocks.11.convs1.2",
+      "input_channels": 24,
+      "retained_inputs": 21,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.24402379989624023
+    },
+    {
+      "module": "resblocks.11.convs2.0",
+      "input_channels": 24,
+      "retained_inputs": 21,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.2112673670053482
+    },
+    {
+      "module": "resblocks.11.convs2.1",
+      "input_channels": 24,
+      "retained_inputs": 21,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.24727889895439148
+    },
+    {
+      "module": "resblocks.11.convs2.2",
+      "input_channels": 24,
+      "retained_inputs": 21,
+      "ridge_ratio": 0.001,
+      "mapping_rms": 0.2179325968027115
+    }
+  ]
+}

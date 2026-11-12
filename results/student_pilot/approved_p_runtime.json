@@ -1,0 +1,25 @@
+{
+  "model_variant": "P",
+  "quality_approved": true,
+  "feedback": "P 사용 가능",
+  "scope": "Korean same reference/text/seed versus approved L. Not broad zero-shot or JA/EN listening approval.",
+  "model_weights_changed": false,
+  "underlying_hf_repo": "babihoba/gpt-sovits-v2proplus-arm-students",
+  "underlying_hf_revision": "475ac97f4a503ea9c6581333c8b936fd5c9f6dcd",
+  "underlying_manifest_path": "approved-k-20261112/manifest.json",
+  "underlying_manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+  "arithmetic": {
+    "ar": "W8A8 per-output-channel weights, dynamically quantized input; FP32 dequantization",
+    "attention": "Native FP32 head-major attention",
+    "acoustic": "Only large FFT spectral inputs/derived coefficients and products/accumulation FP16; FFT transforms and other acoustic operations FP32"
+  },
+  "implementation": "experiments/student/listen_fft_half.py",
+  "implementation_sha256": "fb070fa4985d09bbbc42c664b2167286b7215dba315a25cff4969733b720b7a5",
+  "reference_sha256": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+  "seed": 42,
+  "listening_report": "results/student_pilot/fft_half_listening.json",
+  "actual_n1_rtf_measured": false,
+  "primary_objective": "Reduce actual target N1 latency/RTF with accepted quality; size alone is not success",
+  "common_helper": "cpufast_fft_half_runtime.py",
+  "common_helper_sha256": "512a95960e64fd440a8147b44262c1017ddf2e8e5b1eacdccf8687362fa5687d"
+}
