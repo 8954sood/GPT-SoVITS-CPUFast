@@ -1,0 +1,181 @@
+{
+  "scope": "Untrained AR17 inactive-FFN slice, separate model candidate only. No native inference, listening or RTF result.",
+  "quality_approved": false,
+  "actual_n1_measured": false,
+  "adopted": false,
+  "initialization": {
+    "scope": "Export a separate, unapproved AR17 FFN slice from verified training analysis.\n\nDecoder, depth, attention and all retained coefficients are preserved. FFN2\nper-row INT8 grids are verified; native PCM equality and RTF are not inferred.\n",
+    "quality_approved": false,
+    "actual_n1_measured": false,
+    "parent_manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+    "analysis_sha256": "c8d76ff46085bb6f6d4d57b1cb53be31b75496b6e8360a51d743c3a7532344b7",
+    "initial_sha256": "82624d8a18e2bd191ad2d2bc58ae04e0f2ce6504f4d9cf9546564d373526d95f",
+    "spec_sha256": "7a93e74caf8fe5f7bb24cbc66c0cb681194e601e1cde4e7014762c5d0999384d",
+    "original_layer_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      13,
+      15,
+      19,
+      22,
+      23
+    ],
+    "ffn_widths": [
+      1984,
+      1984,
+      2048,
+      2048,
+      2048,
+      1920,
+      1920,
+      1920,
+      1984,
+      1920,
+      2048,
+      2048,
+      2048,
+      2048,
+      2048,
+      2048,
+      2048
+    ],
+    "selected_tensor_roundtrip_exact": true,
+    "ffn2_quantization_grids_exact": true,
+    "parent_bundle_verified_unchanged": true,
+    "decoder_unchanged_sha256": "7d4c184c638b09880a7e61b088b999542598644d22166e84e32137c5649b9524"
+  },
+  "evaluation": {
+    "scope": "Evaluate immutable AR checkpoints on original-teacher heldout contexts.\n\nQAT is a training surrogate, not native bitwise inference or a voice-quality\nrating. This script never selects layers, trains parameters or measures RTF.\n",
+    "runtime_surrogate": "qat",
+    "ar_layers": 17,
+    "ar_keep": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      13,
+      15,
+      19,
+      22,
+      23
+    ],
+    "inputs_sha256": {
+      "teacher": "87133414860ea14ff6620c483a3db5ed07b44be42e2c3fcdad65523a729a745a",
+      "checkpoint": "82624d8a18e2bd191ad2d2bc58ae04e0f2ce6504f4d9cf9546564d373526d95f",
+      "spec": "7a93e74caf8fe5f7bb24cbc66c0cb681194e601e1cde4e7014762c5d0999384d",
+      "manifest": "54c87e32dbba8277350b82279c8c9e872460fb55b8e4d6abe135c0096d60f98c"
+    },
+    "feature_manifest_sha256": "7442b9326722bdeb0d9d3fd2a21504a8f445c76a0002219255b3bd452ee3eacd",
+    "parameters_unchanged": true,
+    "input_files_unchanged": true,
+    "quality_approved": false,
+    "actual_n1_measured": false,
+    "mean_kl": 0.06235233508050442,
+    "mean_feature_error": 0.019611104701956112,
+    "groups": [
+      {
+        "language": "ja",
+        "count": 2,
+        "kl": 0.05934382788836956,
+        "feature_error": 0.019966342486441135,
+        "top1_agreement": 0.7914691943127962
+      },
+      {
+        "language": "ko",
+        "count": 2,
+        "kl": 0.05845143646001816,
+        "feature_error": 0.018937423825263977,
+        "top1_agreement": 0.7309644670050761
+      },
+      {
+        "language": "en",
+        "count": 2,
+        "kl": 0.06926174089312553,
+        "feature_error": 0.019929547794163227,
+        "top1_agreement": 0.668918918918919
+      }
+    ],
+    "cases": [
+      {
+        "context": "voice0_ja_10_ar.pt",
+        "language": "ja",
+        "tokens": 98,
+        "top1_matches": 74,
+        "top1_agreement": 0.7551020408163265,
+        "kl": 0.05478021875023842,
+        "feature_error": 0.02031584270298481
+      },
+      {
+        "context": "voice0_ja_11_ar.pt",
+        "language": "ja",
+        "tokens": 113,
+        "top1_matches": 93,
+        "top1_agreement": 0.8230088495575221,
+        "kl": 0.0639074370265007,
+        "feature_error": 0.01961684226989746
+      },
+      {
+        "context": "voice0_ko_10_ar.pt",
+        "language": "ko",
+        "tokens": 106,
+        "top1_matches": 77,
+        "top1_agreement": 0.7264150943396226,
+        "kl": 0.0507926419377327,
+        "feature_error": 0.018535209819674492
+      },
+      {
+        "context": "voice0_ko_11_ar.pt",
+        "language": "ko",
+        "tokens": 91,
+        "top1_matches": 67,
+        "top1_agreement": 0.7362637362637363,
+        "kl": 0.06611023098230362,
+        "feature_error": 0.019339637830853462
+      },
+      {
+        "context": "voice0_en_10_ar.pt",
+        "language": "en",
+        "tokens": 80,
+        "top1_matches": 51,
+        "top1_agreement": 0.6375,
+        "kl": 0.07004864513874054,
+        "feature_error": 0.019854428246617317
+      },
+      {
+        "context": "voice0_en_11_ar.pt",
+        "language": "en",
+        "tokens": 68,
+        "top1_matches": 48,
+        "top1_agreement": 0.7058823529411765,
+        "kl": 0.06847483664751053,
+        "feature_error": 0.020004667341709137
+      }
+    ]
+  },
+  "half_representable_linear_matrices_exact": 69,
+  "source_sha256": {
+    "experiments/student/analyze_inactive_ffn.py": "93dc5167b9f66dc5e0b850324e3d1bd011de78cbb5654f179c873f0aa30a473c",
+    "experiments/student/prepare_inactive_ffn.py": "eba1a5b83295735c3c1b80e04d620e6dd0459ad8ae782d90707ada035b561565"
+  },
+  "training_updates": 0,
+  "validation_reused_for_checkpoint_selection_in_prior_pilots": true,
+  "decision": "Hold pending actual free-generation/native checks only if needed. Do not replace approved AR17 during runtime measurement. Similar teacher-forcing validation is not voice equivalence."
+}

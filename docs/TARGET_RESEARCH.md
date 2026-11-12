@@ -900,3 +900,30 @@ profiles reproduce their own model's PCM. AR17 is the next fixed realtime
 baseline for the independent exact-output head scheduling trial. Complete raw
 observations, guards, profiles, hashes and paired ratios are under
 `results/n1_ar17_v400_20261112/`; no private model/audio files are committed.
+
+
+## Further model pilots remain separate from the approved runtime baseline
+
+AR16 QAT200 removes original layer7 from approved AR17, selected using all30
+training contexts. It executes200 CPU updates and selects step150, validation
+KL0.0841321 versus AR17 0.0623864. This candidate is not listened to, not approved
+and not measured on N1. Its separate65-matrix half-representable export and
+diagnostics are recorded in `results/student_pilot/ar16_qat200_20261112.json`.
+
+The archived rejected S1536 experiment changed FFN2 scales in284..370 of512
+output rows. A narrower AR17 analysis instead protects one original maximum
+column per output row and proposes removing only neurons whose pre-ReLU output
+stays below-.05 across all30 original training contexts. At most128 neurons per
+layer are removed, in64-neuron units: widths1984 at original0/1/8 and1920 at
+5/6/7/9. This removes704 of34816 intermediates while preserving all17 AR blocks.
+Each retained FFN2 scale and integer coefficient matches its approved parent
+exactly; all69 remaining linear matrices remain FP16-representable. This does
+not establish native inference equivalence: prefill reduction order and unseen
+activation patterns can differ. No original checkpoints are overwritten.
+
+The untrained slice has validation KL0.0623523 versus parent's0.0623864, with
+slightly lower English top1 agreement. It remains unapproved and is not
+transferred during server timing. Native free generation/listening is needed
+before any performance adoption; current head trials stay on approved AR17.
+Analysis and initialization diagnostics are in
+`results/student_pilot/ar17_inactive_ffn_*_20261112.json`.
