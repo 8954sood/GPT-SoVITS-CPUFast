@@ -78,10 +78,13 @@ def main():
                 response.raise_for_status()
                 if response.headers.get("x-audio-format") != "s16le":
                     raise ValueError("Unexpected stream encoding")
+                sample_rate = int(response.headers["x-audio-sample-rate"])
+                if not 8000 <= sample_rate <= 192000 or response.headers.get("x-audio-channels") != "1":
+                    raise ValueError("Unexpected stream sample rate or channels")
                 with wave.open(str(args.output), "wb") as out:
                     out.setnchannels(1)
                     out.setsampwidth(2)
-                    out.setframerate(48000)
+                    out.setframerate(sample_rate)
                     pending = b""
                     for chunk in response.iter_bytes():
                         if chunk and first is None:
@@ -99,7 +102,8 @@ def main():
                         "output": str(args.output),
                         "first_audio_seconds": first,
                         "total_seconds": time.perf_counter() - started,
-                        "audio_seconds": count / 96000,
+                        "sample_rate": sample_rate,
+                        "audio_seconds": count / (sample_rate * 2),
                     },
                     indent=2,
                 )

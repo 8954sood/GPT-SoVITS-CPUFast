@@ -19,6 +19,7 @@ from streaming_audio import pcm16, split_text
 
 
 class FakeEngine:
+    sample_rate = 32000
     reference_keys = frozenset({"tokens", "phones", "spec", "features", "ge", "mel"})
     def __init__(self):
         self.reference_segment = None
@@ -291,6 +292,8 @@ def test_disconnect_after_headers_releases_owner(tmp_path):
 
 
 def test_segmentation_pcm_and_seed_boundaries():
+    native = np.array([-32768, -1, 0, 1, 32767], dtype=np.int16)
+    assert pcm16(native) == native.astype("<i2").tobytes()
     assert split_text("こんにちは。テストです！\nHello. World!") == [
         "こんにちは。",
         "テストです！",
@@ -422,7 +425,7 @@ def test_latency_aliases_preserve_full_approved_reference(tmp_path):
             assert response.status_code == 200
             assert response.headers["x-latency-mode"] == mode
             assert response.headers["x-latency-mode-effective"] == "fixed_approved_model"
-            assert response.headers["x-audio-sample-rate"] == "48000"
+            assert response.headers["x-audio-sample-rate"] == "32000"
             bodies.append(response.content)
         assert bodies[0] == bodies[1] == bodies[2]
         assert len(seen) == 6 and all(ref is original for ref in seen)

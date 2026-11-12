@@ -1,7 +1,7 @@
 """Single-owner approved CPUFast inference adapter with durable tensor references.
 
-Native synthesis stays32kHz PCM16. Only the API wire representation is resampled
-to48kHz float mono; this is sentence-fragment inference, not token streaming.
+Native32kHz PCM16 is sent directly; this is sentence-fragment inference,
+not token streaming. No resampling or second quantization is applied.
 """
 from __future__ import annotations
 
@@ -68,7 +68,7 @@ def _ar_tensors(transformer):
 
 class Engine:
     reference_keys = REFERENCE_KEYS
-    sample_rate = 48000
+    sample_rate = 32000
     native_sample_rate = 32000
 
     def __init__(self, settings):
@@ -373,17 +373,15 @@ class Engine:
                 if approved_match and (native_hash != approved_case['pcm_sha256'] or self._semantic != approved_case['semantic']):
                     self._failed = True
                     raise RuntimeError('Same approved request did not reproduce native PCM/semantic')
-                from torchaudio.functional import resample
-                wire = resample(torch.from_numpy(native.astype(np.float32)/32768.), 32000, 48000).numpy()
-                wire = np.ascontiguousarray(wire, dtype=np.float32)
-                if wire.ndim != 1 or not wire.size or not np.isfinite(wire).all():
+                wire = native
+                if wire.ndim != 1 or not wire.size:
                     raise RuntimeError('Invalid API wire audio')
                 total = time.perf_counter()-started
-                report = {'sample_rate': 48000, 'native_sample_rate': 32000,
+                report = {'sample_rate': 32000, 'native_sample_rate': 32000,
                     'native_pcm_sha256': native_hash, 'native_samples': len(native),
-                    'wire_samples': len(wire), 'audio_seconds': len(wire)/48000,
+                    'wire_samples': len(wire), 'audio_seconds': len(wire)/32000,
                     'native_inference_seconds': infer_seconds, 'total_seconds': total,
-                    'rtf': total/(len(wire)/48000), 'semantic': list(self._semantic),
+                    'rtf': total/(len(wire)/32000), 'semantic': list(self._semantic),
                     'semantic_tokens': sum(r['tokens'] for r in self._semantic),
                     'ar_seconds': self._stages.get('ar_seconds'), 'seed': seed,
                     'manifest_sha256': self.manifest_sha256, 'engine_fingerprint': self.fingerprint,

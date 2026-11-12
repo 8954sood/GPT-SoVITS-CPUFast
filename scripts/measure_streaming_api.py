@@ -10,11 +10,13 @@ import httpx
 
 
 class PCMReceipt:
-    """Track wire arrival and playback starvation for48k mono PCM16."""
+    """Track wire arrival and playback starvation for native mono PCM16."""
 
-    bytes_per_second = 96000
-
-    def __init__(self):
+    def __init__(self, sample_rate=32000):
+        if not 8000 <= sample_rate <= 192000:
+            raise ValueError("Invalid PCM sample rate")
+        self.sample_rate = sample_rate
+        self.bytes_per_second = sample_rate * 2
         self.bytes = 0
         self.first_seconds = None
         self.last_seconds = None
@@ -34,7 +36,7 @@ class PCMReceipt:
         if self.first_seconds is None and self.bytes >= 2:
             self.first_seconds = seconds
         if self.first_seconds is not None:
-            late = seconds - self.first_seconds - previous_samples / 48000
+            late = seconds - self.first_seconds - previous_samples / self.sample_rate
             self.initial_buffer_seconds = max(self.initial_buffer_seconds, late)
         self.arrivals.append({"seconds": seconds, "received_bytes": self.bytes})
 
@@ -50,7 +52,8 @@ class PCMReceipt:
             "client_response_complete_seconds": complete_seconds,
             "audio_seconds": duration,
             "pcm_bytes": self.bytes,
-            "pcm48k_sha256": self.hash.hexdigest(),
+            "sample_rate": self.sample_rate,
+            "pcm_sha256": self.hash.hexdigest(),
             "client_response_rtf": complete_seconds / duration,
             "required_extra_initial_buffer_seconds": self.initial_buffer_seconds,
             "immediate_playback_underrun_seconds": self.initial_buffer_seconds,
@@ -59,13 +62,13 @@ class PCMReceipt:
 
 
 def measure(client, request):
-    receipt = PCMReceipt()
     started = time.perf_counter()
     with client.stream("POST", "/v1/tts/stream", json=request) as response:
         response.raise_for_status()
-        expected = {"x-audio-sample-rate": "48000", "x-audio-channels": "1", "x-audio-format": "s16le"}
+        expected = {"x-audio-channels": "1", "x-audio-format": "s16le"}
         if any(response.headers.get(k) != v for k, v in expected.items()):
-            raise ValueError("Expected48kHz mono PCM16 wire format")
+            raise ValueError("Expected native mono PCM16 wire format")
+        receipt = PCMReceipt(int(response.headers["x-audio-sample-rate"]))
         headers = {k: v for k, v in response.headers.items() if k.startswith("x-")}
         for chunk in response.iter_bytes():
             receipt.receive(chunk, time.perf_counter() - started)

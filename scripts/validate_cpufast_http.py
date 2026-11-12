@@ -74,14 +74,14 @@ def main():
     def speech(client, style_id, mode):
         response=client.post('/v1/tts/stream', json=dict(style_id=style_id,text=case['text'],lang='ko',seed=42,latency_mode=mode))
         assert response.status_code==200, response.text
-        assert response.headers['x-audio-sample-rate']=='48000'
+        assert response.headers['x-audio-sample-rate']=='32000'
         assert response.headers['x-audio-channels']=='1'
         assert response.headers['x-audio-format']=='s16le'
         assert response.headers['x-latency-mode-effective']=='fixed_approved_model'
         assert response.headers['x-stream-segments']=='2'
         assert len(response.content)>0 and len(response.content)%2==0 and not response.content.startswith(b'RIFF')
         return dict(latency_mode=mode,status=response.status_code,bytes=len(response.content),
-            pcm48k_sha256=hashlib.sha256(response.content).hexdigest(),
+            pcm_native_sha256=hashlib.sha256(response.content).hexdigest(),
             headers={k:v for k,v in response.headers.items() if k.startswith('x-')})
     result={'scope':'Temporary loopback-only actual N1 HTTP contract and persistent prepared-reference restart, not a deployment or new paired RTF experiment',
             'server_processes_sequential':True,'bind':'127.0.0.1','docker_host_port_published':False,'streams':[]}
@@ -131,7 +131,7 @@ def main():
             idle(client)
             result['streams'].append(speech(client,style_id,'balanced'))
             idle(client)
-            assert len({r['pcm48k_sha256'] for r in result['streams']})==1
+            assert len({r['pcm_native_sha256'] for r in result['streams']})==1
             assert len({r['bytes'] for r in result['streams']})==1
             for unsupported in ({'streaming_mode':'tokens'},{'reference_frames':128}):
                 response=client.post('/v1/tts/stream',json=dict(style_id=style_id,text=case['text'],lang='ko',**unsupported))

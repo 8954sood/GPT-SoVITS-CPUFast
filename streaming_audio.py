@@ -28,9 +28,12 @@ def split_text(text, max_chars=120):
 
 
 def pcm16(audio):
+    if audio.dtype == np.int16:
+        # Preserve the model's native quantized samples, including -32768.
+        return audio.astype("<i2", copy=False).tobytes()
     if not np.isfinite(audio).all():
         raise RuntimeError("Non-finite generated audio")
-    # Explicit little endian, mono signed PCM16 at 48kHz (not RFC audio/L16 big endian).
+    # Explicit little endian mono signed PCM16, at the engine's sample rate.
     return np.clip(np.rint(audio * 32768), -32768, 32767).astype("<i2").tobytes()
 
 

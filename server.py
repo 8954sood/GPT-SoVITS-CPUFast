@@ -174,12 +174,21 @@ def create_app(settings=None, *, engine_factory=None, fingerprint=None):
         def __init__(self, iterator=None):
             self.iterator = iterator
             self.closed = False
+            self.pending = None
             self.loop = asyncio.get_running_loop()
+
+        def submit(self, function, *args, **kwargs):
+            self.pending = submit(function, *args, **kwargs)
+            return self.pending
 
         async def close(self):
             if self.closed:
                 return
             self.closed = True
+            work_done = self.pending is None or self.pending.done()
+            if self.iterator is None and work_done:
+                app.state.busy.release()
+                return
             # FIFO: an in-flight next()/registration completes before cleanup.
             # Keep admission closed until the real worker is finished.
             future = submit(
@@ -188,6 +197,10 @@ def create_app(settings=None, *, engine_factory=None, fingerprint=None):
             future.add_done_callback(
                 lambda _future: self.loop.call_soon_threadsafe(app.state.busy.release)
             )
+            if work_done:
+                # Publish an idle worker before a successful response completes.
+                # Cancellation during native work still returns immediately above.
+                await wait(future)
 
     @app.get("/health")
     async def health():
@@ -213,7 +226,7 @@ def create_app(settings=None, *, engine_factory=None, fingerprint=None):
             "model_variant": "AR17_QAT200_C24_TWO_BRANCH_VTARGET100",
             "model_manifest_sha256": settings.manifest_sha256,
             "native_sample_rate": 32000,
-            "output_sample_rate": 48000,
+            "output_sample_rate": app.state.engine.sample_rate,
             "latency_mode_effect": "fixed_approved_model",
         }
 
@@ -237,7 +250,7 @@ def create_app(settings=None, *, engine_factory=None, fingerprint=None):
         await acquire()
         lease = Lease()
         try:
-            await wait(submit(app.state.store.delete, style_id))
+            await wait(lease.submit(app.state.store.delete, style_id))
             return Response(status_code=204)
         except KeyError as error:
             raise HTTPException(404, "Unknown style_id") from error
@@ -292,7 +305,7 @@ def create_app(settings=None, *, engine_factory=None, fingerprint=None):
                 finally:
                     path.unlink(missing_ok=True)
 
-            return await wait(submit(work))
+            return await wait(lease.submit(work))
         except CapacityError as error:
             raise HTTPException(507, str(error)) from error
         except (ValueError, RuntimeError) as error:
@@ -309,7 +322,7 @@ def create_app(settings=None, *, engine_factory=None, fingerprint=None):
         responses={
             200: {
                 "content": {"application/octet-stream": {}},
-                "description": "48kHz mono PCM s16le",
+                "description": "Native32kHz mono PCM s16le",
             }
         },
     )
@@ -346,7 +359,7 @@ def create_app(settings=None, *, engine_factory=None, fingerprint=None):
 
         try:
             # A real first PCM segment is prepared before committing HTTP 200.
-            first = await wait(submit(next_chunk))
+            first = await wait(lease.submit(next_chunk))
             if first is END:
                 raise ValueError("No audio produced")
         except BaseException as error:
@@ -369,7 +382,7 @@ def create_app(settings=None, *, engine_factory=None, fingerprint=None):
                         yield pcm[offset : offset + 9600]
                         await asyncio.sleep(0)
                     completed += 1
-                    item = await wait(submit(next_chunk))
+                    item = await wait(lease.submit(next_chunk))
             except Exception:
                 LOG.exception(
                     "Streaming inference failed after HTTP headers: %s", request_id
@@ -403,7 +416,7 @@ def create_app(settings=None, *, engine_factory=None, fingerprint=None):
             body(),
             media_type="application/octet-stream",
             headers={
-                "X-Audio-Sample-Rate": "48000",
+                "X-Audio-Sample-Rate": str(app.state.engine.sample_rate),
                 "X-Audio-Channels": "1",
                 "X-Audio-Format": "s16le",
                 "X-Style-ID": request.style_id,

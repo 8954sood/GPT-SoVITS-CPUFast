@@ -50,15 +50,15 @@ def main():
         audio, report = engine.synthesize_prepared(case['text'], ref, lang='ko', seed=42)
         assert report['native_pcm_sha256'] == case['pcm_sha256']
         assert report['semantic'] == case['semantic'] and report['approved_request_pcm_match']
-        assert audio.dtype == np.float32 and audio.ndim == 1 and len(audio) == 269760
+        assert audio.dtype == np.int16 and audio.ndim == 1 and len(audio) == 179840
         assert engine.pipeline.prompt_cache['prompt_semantic'] is None
         assert engine.pipeline.prompt_cache['runtime']['decode_ge'] is None
         assert prepared_hashes == {k: hashlib.sha256(v.numpy().tobytes()).hexdigest() for k,v in ref.items()}
         reports.append(dict(index=index, role='warmup' if index<3 else 'same_process' if index==3 else 'disk_cache_reload',
-                            wire_float_sha256=hashlib.sha256(audio.tobytes()).hexdigest(),
+                            wire_native_sha256=hashlib.sha256(audio.tobytes()).hexdigest(),
                             wire_pcm16_sha256=hashlib.sha256(pcm16(audio)).hexdigest(), **report))
         print('ADAPTER_VALIDATION', index, report['native_pcm_sha256'], report['approved_request_pcm_match'], flush=True)
-    assert len({r['wire_float_sha256'] for r in reports}) == 1
+    assert len({r['wire_native_sha256'] for r in reports}) == 1
     assert len({r['wire_pcm16_sha256'] for r in reports}) == 1
     native_after = {name: sha256(Path(__file__).resolve().parents[1]/name) for name in engine.native_files_sha256}
     assert native_after == engine.native_files_sha256
