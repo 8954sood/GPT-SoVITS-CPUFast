@@ -1,0 +1,18 @@
+{
+  "run_id": 43174364747,
+  "url": "https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43174364747",
+  "head_sha": "6c4ec57d9325ac86b725fe68d1afdeaa325fd00f",
+  "status": "completed",
+  "conclusion": "success",
+  "scope": "Actual N1 2vCPU / 8000000000 bytes / no swap; Korean same approved K weights and L AR runtime, P spectral product-only FP16 candidate",
+  "artifact_json_sha256": {
+    "ko_fft_product_baseline.json": "37e359a5bbd0c890a3008d3fdf1bb550ed954910632cbac08faf937f368556d9",
+    "ko_fft_product_baseline_guard.json": "c4ed9f0bdd909ba1e67da56da57c7dc2a727d7de7c443577345721e5d94e6ab5",
+    "ko_fft_product_candidate.json": "12bd33bb8be2d2db70f9145d11a311f25b1c4aa06449a95b505f5d4d7a1bcbf0",
+    "ko_fft_product_candidate_guard.json": "6e4baaa41db4703f9f5b9d1e8e24121a85ba631bff67866873859c551fc6c0d2",
+    "ko_fft_product_profile_run.json": "5c74726962a268e41b08d93acfe15628ca77fc1e8bf4559444fdf49e8f38dccb",
+    "ko_fft_product_profile_run_guard.json": "efee3d201c150e1c2d0877beb2219001da21caa0cb45bd03112bf6d68e355baa",
+    "ko_student_profile_ops.json": "5473e820a3591f5b420ba12c0c5fd98174a971e5e1753bf41e4e5e169f038477",
+    "student_summary.json": "8ab3a676c889de6419d69acccb153e434066d30719421fc081bea162113df6dc"
+  }
+}

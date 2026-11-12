@@ -7,7 +7,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from cpufast_student_assets import load_manifest, snapshot, sha256
+from cpufast_student_assets import load_manifest, sha256, snapshot
 
 
 def main():
@@ -400,7 +400,7 @@ def main():
             summary["scope"] = (
                 "Independent actual N1 five-sample confirmation of separately approved L AR-only runtime"
             )
-        _, candidate_row = run(
+        run(
             "ko",
             "ar_runtime_candidate",
             distance=256,
@@ -506,7 +506,7 @@ def main():
     _, zero = run("ko", "student_p0")
     hints = [zero]
     for distance in (64, 128, 256):
-        data, row = run(
+        _, row = run(
             "ko",
             f"student_p{distance}",
             distance=distance,

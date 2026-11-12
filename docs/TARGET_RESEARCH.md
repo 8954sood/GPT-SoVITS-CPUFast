@@ -429,3 +429,40 @@ dilation1/3/5, ragged time137, noncontiguous residual, batch1/2, direct-convolut
 FP32 tolerance and bit-exact serial/parallel comparisons. Its spatial SIMD does
 not impose a four-channel count requirement. These are compatibility checks,
 not speech-quality or actual-N1 speed claims.
+
+## P: approved FFT FP16 products, first actual N1 pair
+
+Run `43174364747`, source `6c4ec57d9325ac86b725fe68d1afdeaa325fd00f`,
+completed on the fixed N1 2-vCPU / 8,000,000,000-byte / no-swap target.
+Both cases used three excluded warmups and five measured samples, identical K
+checkpoint bytes, L's W8A8/native FP32 AR, reference, Korean text and seed42.
+P had separate explicit Korean listening approval. JA/EN are not approved.
+
+| Runtime | Median RTF | Wall s | CPU s | AR s | Decoder s | Peak sampled tree RSS GB |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| L, FP32 streaming FFT products | 1.161729 | 5.831880 | 9.916521 | 2.075922 | 3.400078 | 5.059 |
+| P, materialized FP16 FFT products | 1.133439 | 5.689864 | 9.629696 | 1.922116 | 3.371940 | 6.371 |
+
+P converts packed spectral inputs and derived spectral coefficient caches to
+FP16 and accumulates products in FP16, returning materialized FP32 products.
+Forward/inverse transforms, Tap, Winograd and finishing remain FP32. Only the
+30 large FFT modules change; global mixed fast mode is disabled. Learned
+parameters/checkpoint bytes remain unchanged. Streaming is disabled, so the
+comparison includes its additional products allocation and unpack cost.
+
+Overall RTF decreases 2.44%, but the unchanged AR stage also decreases 7.4%;
+the changed decoder decreases only .83%. This is not yet convincing isolated
+decoder gain or a sub-1 result. Keep L as the operational baseline pending
+further evidence. All five outputs retain the same 118 semantic tokens and
+5.02s duration. The candidate's separate profile matches its same-process
+unprofiled PCM/token/duration exactly. All resource and file/parameter guards
+pass; all warmups and slow samples remain in `results/n1_student_p_20261112`.
+
+The excluded P profile records self times of .5012s `fft_hgemm`, .1856s
+`fft_unpack_layout`, .1687s `fft_pack` and .2173s `copy_`. These overlapping
+profile CPU observations are not added to wall time or compared across runs
+as an isolated speed estimate. They motivate a separate, unlinked four-bin
+half-stream prototype: retain the same FP16 FMA sequence and FP32 complex
+reconstruction order while avoiding the full-frequency products buffer.
+Require native bitwise equivalence and full approved-P PCM/hash regression
+before any actual N1 measurement of that prototype.

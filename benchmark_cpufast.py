@@ -764,7 +764,7 @@ def main():
         assert report["student_files_unchanged"]
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     if args.profile_output is not None:
-        from cpufast_profiling import predictor_range, decoder_tap_ranges
+        from cpufast_profiling import decoder_tap_ranges, predictor_range
 
         # The additional profiled synthesis is explicitly excluded from the RTF runs.
         with torch.profiler.profile(
