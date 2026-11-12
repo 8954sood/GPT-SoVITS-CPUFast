@@ -22,8 +22,13 @@
   `e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb`.
   승인 범위는 같은 참조음/한국어 문장/seed뿐이다. JA/EN 전체 품질이나 원본
   교사와의 동등성을 주장하지 않는다. 원래 V400과 recovery100은 다른 모델이다.
-- 현재 worker는 승인 AR17을 고정하고 출력 동일 attention value scheduling을
-  별도 full 비교 중이다. 단일0.99 관측을 목표 달성으로 기록하지 않는다.
+- 출력 동일 attention value scheduling의5쌍 비교는 중앙RTF1.016054/0.992652,
+  후보 범위0.990021~1.008962(4/5가1미만)다. 기본native경로에 동일루프를 채택한
+  독립5fresh 재확인은 중앙1.010217, 범위0.991603~1.017123이다. 승인PCM은
+  모두 같지만 안정적인1미만 재현은 아직 미달이다. 원자료는
+  `results/n1_head_v32_20261112/{full_pcm,integrated}/`에 보존한다.
+- worker는 다음 독립 QK scheduling 후보를 준비하고, Main은 AR16 비교청취를
+  준비한다. 각 모델과 native 변경은 따로 검증하고 승인된 입력을 고정한다.
 - Main의 AR16, history 보강, inactive-FFN slice는 별도 미승인 연구 후보다.
   승인 모델 파일을 덮어쓰거나 이들 후보를 현재 서버 비교에 섞지 않는다.
 

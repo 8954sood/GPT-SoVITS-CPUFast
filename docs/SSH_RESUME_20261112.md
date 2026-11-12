@@ -137,4 +137,26 @@ PCM/token/model/resource guards pass. See `results/n1_ar17_v400_20261112/`.
 Runtime work now fixes approved AR17+V400 and tests only native attention
 value scheduling. Model work keeps AR16, extra-recovery and inactive-FFN
 candidates separate and unapproved. No model candidate silently replaces
-the one being timed. Target head results and final adoption are pending.
+the one being timed. Head value scheduling was adopted after exact full-model checks; see the update below.
+
+
+## Exact head scheduling adopted; independent RTF remains above1
+
+Five fixed-AR17 pairs give baseline/candidate medianRTF1.016054/0.992652,
+with all five paired AR and overall ratios improved and unchanged decoder.
+Candidate range0.990021..1.008962 crosses1(4/5 below). The same dim32 value
+loop is adopted in canonical native source `e9e6442` without a counter.
+Independent source `c356245` rebuilds the normal DSO and verifies five fresh
+processes: median1.010217, range0.991603..1.017123. Therefore stable
+canonical RTF<1 is not established. Every PCM/token/model/resource/library
+guard passes; geometry is17blocks×16heads×dim32 and separate profile records
+actual canonical head operator calls. No extra same-setting samples are added.
+Raw paired/integrated evidence is `results/n1_head_v32_20261112/`.
+
+Existing ARM workflow now exposes `studentardepth`, `studentheadv32` and
+`studentheadconfirm`, all requiring warmups3/samples5. Latest canonical checks
+use `studentheadconfirm` and the approved AR17 manifest. Historical causal
+head comparisons must use source `75779d2`; latest native already contains
+that candidate loop. The existing remote verified private-asset cache is
+required; no private weights/audio/SSH material are added to Git. Workflow
+options were parsed and checked without dispatching a redundant Actions run.
