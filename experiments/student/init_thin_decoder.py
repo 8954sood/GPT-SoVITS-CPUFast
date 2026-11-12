@@ -13,6 +13,7 @@ from pathlib import Path
 
 import torch
 
+from experiments.student.channel_reconstruction import reconstruct
 from experiments.student.distill_decoder import (
     decoder_from_teacher,
     generate_with_features,
@@ -29,6 +30,7 @@ def main():
     for key in ("approved", "s2", "manifest", "output"):
         parser.add_argument("--" + key, type=Path, required=True)
     parser.add_argument("--width", type=int, default=640)
+    parser.add_argument("--reconstruct-inputs", action="store_true")
     args = parser.parse_args()
     if args.output.exists() or args.width <= 0 or args.width % 32:
         parser.error("Fresh output and positive width divisible by32 required")
@@ -67,6 +69,28 @@ def main():
     ]
     activity = [torch.zeros(width) for width in widths]
     context_hashes = []
+    covariances, hooks = {}, []
+    if args.reconstruct_inputs:
+        for name, module in parent.named_modules():
+            if not isinstance(
+                module, (torch.nn.Conv1d, torch.nn.ConvTranspose1d)
+            ) or name in ("conv_pre", "cond"):
+                continue
+            covariances[name] = torch.zeros(module.in_channels, module.in_channels)
+
+            def collect(_, inputs, name=name):
+                value = (
+                    inputs[0].detach().transpose(0, 1).reshape(inputs[0].shape[1], -1)
+                )
+                positions = torch.linspace(
+                    0, value.shape[1] - 1, min(512, value.shape[1])
+                ).long()
+                sample = value[:, positions]
+                covariances[name].add_(
+                    (sample @ sample.t()) / (sample.shape[1] * len(records))
+                )
+
+            hooks.append(module.register_forward_pre_hook(collect))
     with torch.no_grad():
         for record in records:
             path = root / record["decoder_context"]
@@ -85,8 +109,13 @@ def main():
             sorted(torch.topk(a * w, n).indices.tolist())
             for a, w, n in zip(activity, consumers, targets)
         ]
+    for hook in hooks:
+        hook.remove()
     candidate = copy.deepcopy(parent)
     candidate.select_channels(indices)
+    reconstruction = (
+        reconstruct(parent, candidate, covariances) if args.reconstruct_inputs else []
+    )
     spec.update(
         decoder_channel_keep=indices,
         quality_approved=False,
@@ -105,6 +134,7 @@ def main():
         "candidate_parameters": sum(p.numel() for p in candidate.parameters()),
         "rough_dense_width_squared_ratio": (args.width / widths[0]) ** 2,
         "quality_approved": False,
+        "input_weight_reconstruction": reconstruction,
     }
     args.output.mkdir(parents=True)
     torch.save(

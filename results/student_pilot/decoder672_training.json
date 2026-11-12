@@ -1,0 +1,153 @@
+{
+  "scope": "O: CPU FP32 decoder672 200-update candidate; not listening approved, not actual N1 performance",
+  "history": {
+    "scope": "CPU recovery research; not listening approved or N1 performance",
+    "train_records": 30,
+    "validation_records": 6,
+    "history": [
+      {
+        "step": 0,
+        "validation_objective": 1.0056146383285522,
+        "validation_log_mel": 0.3534492254257202,
+        "validation_log_stft": 0.6894800662994385,
+        "validation_spectral": 0.9595906734466553,
+        "elapsed_seconds": 3.4787445410038345
+      },
+      {
+        "step": 25,
+        "validation_objective": 0.7670538425445557,
+        "validation_log_mel": 0.2322031706571579,
+        "validation_log_stft": 0.5579686760902405,
+        "validation_spectral": 0.7907170653343201,
+        "elapsed_seconds": 82.14344029099448
+      },
+      {
+        "step": 50,
+        "validation_objective": 0.7258644700050354,
+        "validation_log_mel": 0.21775232255458832,
+        "validation_log_stft": 0.532248318195343,
+        "validation_spectral": 0.7501001954078674,
+        "elapsed_seconds": 155.60378516599303
+      },
+      {
+        "step": 75,
+        "validation_objective": 0.7235908508300781,
+        "validation_log_mel": 0.21730555593967438,
+        "validation_log_stft": 0.5309327244758606,
+        "validation_spectral": 0.7471042275428772,
+        "elapsed_seconds": 239.8269840410212
+      },
+      {
+        "step": 100,
+        "validation_objective": 0.6999620795249939,
+        "validation_log_mel": 0.20842035114765167,
+        "validation_log_stft": 0.51650470495224,
+        "validation_spectral": 0.7248311638832092,
+        "elapsed_seconds": 317.786860082997
+      },
+      {
+        "step": 125,
+        "validation_objective": 0.6826249957084656,
+        "validation_log_mel": 0.20239794254302979,
+        "validation_log_stft": 0.5064979791641235,
+        "validation_spectral": 0.707205057144165,
+        "elapsed_seconds": 398.5648127499735
+      },
+      {
+        "step": 150,
+        "validation_objective": 0.6744057536125183,
+        "validation_log_mel": 0.1985592395067215,
+        "validation_log_stft": 0.504250705242157,
+        "validation_spectral": 0.6995675563812256,
+        "elapsed_seconds": 483.09597095800564
+      },
+      {
+        "step": 175,
+        "validation_objective": 0.6692862510681152,
+        "validation_log_mel": 0.19708828628063202,
+        "validation_log_stft": 0.5006310343742371,
+        "validation_spectral": 0.6940805315971375,
+        "elapsed_seconds": 564.5081551250187
+      },
+      {
+        "step": 200,
+        "validation_objective": 0.6606026291847229,
+        "validation_log_mel": 0.194747194647789,
+        "validation_log_stft": 0.495158314704895,
+        "validation_spectral": 0.6841318011283875,
+        "elapsed_seconds": 643.013838874991
+      }
+    ],
+    "provenance": {
+      "teacher_s2_sha256": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+      "manifest_sha256": "54c87e32dbba8277350b82279c8c9e872460fb55b8e4d6abe135c0096d60f98c",
+      "resume_sha256": "3664df874fe7d677800605d612cce53f8a048574e8fecad367a28738ea224004",
+      "full_context": true,
+      "log_mel": true,
+      "sample_rate": 32000,
+      "lr": 2e-05,
+      "device": "cpu",
+      "dtype": "float32",
+      "grad_accum": 3,
+      "lr_final_ratio": 0.1
+    }
+  },
+  "host_observation": {
+    "command": [
+      "/Users/byungjun/Desktop/python/gpt-sovits-v5-optimization/.venv/bin/python",
+      "-u",
+      "experiments/student/distill_decoder.py",
+      "--s2",
+      "/Users/byungjun/Desktop/python/gpt-sovits-v5-optimization/data/cpufast-v2proplus/assets/v2Pro/s2Gv2ProPlus.pth",
+      "--spec",
+      ".experiments/student/decoder672_reconstructed_init/student_spec.json",
+      "--manifest",
+      ".experiments/student/recovery_corpus36_retry/manifest.json",
+      "--resume",
+      ".experiments/student/decoder672_reconstructed_init/initial.pt",
+      "--output",
+      ".experiments/student/decoder672",
+      "--steps",
+      "200",
+      "--threads",
+      "8",
+      "--lr",
+      "0.00002",
+      "--grad-accum",
+      "3",
+      "--lr-final-ratio",
+      "0.1",
+      "--validate-every",
+      "25",
+      "--full-context",
+      "--log-mel"
+    ],
+    "platform": "Darwin",
+    "machine": "arm64",
+    "device_policy": "CPU only; train script rejects GPU/MPS parameters",
+    "cpu_quota_cores": null,
+    "memory_limit_bytes": null,
+    "scope": "unrestricted host training observation; not an inference RTF benchmark",
+    "logical_cpus": 14,
+    "physical_ram_bytes": 38654705664,
+    "peak_sampled_tree_rss_bytes": 4710055936,
+    "cpu_seconds": 1822.173986816,
+    "elapsed_seconds": 646.9594933749759,
+    "average_cpu_cores": 2.81651943510453,
+    "exit_code": 0,
+    "status": "complete"
+  },
+  "selected_validation": {
+    "step": 200,
+    "validation_objective": 0.6606026291847229,
+    "validation_log_mel": 0.194747194647789,
+    "validation_log_stft": 0.495158314704895,
+    "validation_spectral": 0.6841318011283875,
+    "elapsed_seconds": 643.013838874991
+  },
+  "checkpoint_sha256": "af710a8f2e0d8e52b0a0d9085e56fe3ebbf5f2267c38470d8939953013de7296",
+  "checkpoint_bytes": 94978177,
+  "quality_approved": false,
+  "original_teacher_unchanged": true,
+  "initialization_report": "results/student_pilot/decoder672_initialization.json"
+}

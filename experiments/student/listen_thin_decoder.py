@@ -39,7 +39,7 @@ def main():
         if path.exists():
             report = json.loads(path.read_text())
             report.update(
-                candidate="N: approved L AR execution with decoder640 channel candidate",
+                candidate="Approved L AR execution with a separate channel-pruned decoder candidate",
                 quality_approved=False,
                 fft_output_padding_audit=audit,
             )
