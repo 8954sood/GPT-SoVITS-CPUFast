@@ -268,3 +268,46 @@ approved H3 cache256 profile for subsequent isolated decoder comparisons.
 RTF remains above 1; no real-time or 0.7 result is claimed. Full raw data,
 all slow samples, guards, profile and provenance:
 `results/n1_student_h2_h3_20261112`.
+
+## Approved K decoder and rejected temporal tiling
+
+[Run 43166415026](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43166415026)
+fixed source `b5f45da8613d796edc9ae8e8acde311000edd920`. H3 and separately
+approved K share identical AR checkpoint bytes and half-cache256 execution;
+K removes the first decoder stage's original 3-tap branch and has 100 CPU
+recovery updates. Each excludes three warmups and retains five Korean samples.
+Both produce the same 120 generated tokens and 5.10s output.
+
+| Configuration | Median RTF | Wall s | CPU s | AR s | Decoder s |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| H3 decoder13 | 1.2461 | 6.355 | 10.769 | 2.287 | 3.598 |
+| K decoder12 | 1.2265 | 6.255 | 10.636 | 2.341 | 3.547 |
+
+This measured total improvement is only 1.57%; decoder time fell 1.42% while
+AR rose. Treat it as a small, unreplicated observation, not a confirmed large
+gain or a generic model-size speed rule. Different decoder coefficients change
+waveforms and had separate Korean listening approval; cross-model PCM equality
+is not required. Model/resource guards passed with timed RSS below 5.03GB.
+
+The excluded K profile verified its instrumented PCM/token/duration exactly
+against the same process's unprofiled result. Actual tap input lengths were
+76800 at 48 channels and 153600 at 24 channels. Those four selected geometries
+then ran synthetic full-sequence versus temporal tile 1024/4096/8192, each
+three warmups and five retained samples. All sixteen outputs were FP32 exact.
+
+| Tap geometry | Full sequence s | Tile1024 s | Tile4096 s | Tile8192 s |
+| --- | ---: | ---: | ---: | ---: |
+| C48 K7 D1 | **.03836** | .04877 | .04200 | .04027 |
+| C48 K11 D5 | **.05925** | .07718 | .06360 | .06122 |
+| C24 K7 D1 | **.02250** | .04206 | .02797 | .02532 |
+| C24 K11 D5 | **.03656** | .06556 | .04298 | .03941 |
+
+Reject temporal tiling: every candidate was slower, including CPU time.
+No production TapConv change or full-TTS tiling job is justified. New probes
+must change the actual computation strategy rather than repeat these tiles.
+The separate profile's complete tap ranges total 1.0660 CPU seconds; the four
+most costly categories are C48/C24 × K7/K11, dilation1, at .7343s combined.
+These inclusive diagnostic ranges contain overhead and are not added to wall
+time or other operator totals. Raw timings, all slow samples, numerical errors,
+actual shapes, guards, profile and provenance:
+`results/n1_student_k_20261112`.
