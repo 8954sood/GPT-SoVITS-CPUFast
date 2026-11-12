@@ -24,7 +24,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("checkpoint", "spec", "s2", "manifest", "output"):
         parser.add_argument("--" + name, type=Path, required=True)
+    parser.add_argument("--teacher-student-manifest", type=Path)
+    parser.add_argument("--teacher-student-sha256")
     args = parser.parse_args()
+    if bool(args.teacher_student_manifest) != bool(args.teacher_student_sha256):
+        parser.error("Approved student teacher manifest and expected SHA must be paired")
     if args.output.exists():
         parser.error("Fresh report path required")
     torch.set_num_threads(4)
@@ -50,6 +54,12 @@ def main():
         if checkpoint["student_spec"].get(key) != spec.get(key):
             raise ValueError("Deployment checkpoint/spec channel identity mismatch")
     model.load_state_dict(checkpoint["state_dict"])
+    teacher_release = None
+    if args.teacher_student_manifest:
+        from experiments.student.approved_decoder_teacher import approved_decoder_teacher
+
+        teacher, teacher_release = approved_decoder_teacher(
+            teacher, args.s2, args.teacher_student_manifest, args.teacher_student_sha256)
     before = parameter_digest(teacher), parameter_digest(model)
     criterion, rows, grouped = VoiceLoss(), [], defaultdict(list)
     locations = spec.get("decoder_bottlenecks", [])
@@ -86,6 +96,10 @@ def main():
             grouped[(row["language"], row["latent_origin"])].append(row)
     if not rows or before != (parameter_digest(teacher), parameter_digest(model)):
         raise RuntimeError("Nonempty evaluation and unchanged parameters required")
+    if teacher_release:
+        from cpufast_student_assets import load_manifest
+
+        load_manifest(args.teacher_student_manifest, args.teacher_student_sha256)
     report = {
         "scope": __doc__,
         "checkpoint_sha256": sha(args.checkpoint),
@@ -95,6 +109,9 @@ def main():
         "teacher_and_student_unchanged": True,
         "quality_approved": False,
         "actual_n1_measured": False,
+        "teacher_target": "approved_student" if teacher_release else "original_decoder",
+        "teacher_student_manifest_sha256": args.teacher_student_sha256,
+        "teacher_student_decoder_sha256": teacher_release["files"]["decoder.pt"]["sha256"] if teacher_release else None,
         "groups": [
             {
                 "language": key[0],

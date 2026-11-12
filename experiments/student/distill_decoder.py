@@ -98,7 +98,11 @@ def main():
     parser.add_argument("--grad-accum", type=int, default=1)
     parser.add_argument("--lr-final-ratio", type=float, default=1.0)
     parser.add_argument("--train-scope", choices=("all", "last_stage"), default="all")
+    parser.add_argument("--teacher-student-manifest", type=Path)
+    parser.add_argument("--teacher-student-sha256")
     args = parser.parse_args()
+    if bool(args.teacher_student_manifest) != bool(args.teacher_student_sha256):
+        parser.error("Approved student teacher manifest and expected SHA must be paired")
     if (
         args.output.exists()
         or not 1 <= args.steps <= 1000
@@ -161,6 +165,12 @@ def main():
         ):
             raise ValueError("Resume decoder bottleneck selection mismatch")
         student.load_state_dict(resumed["state_dict"], strict=True)
+    teacher_release = None
+    if args.teacher_student_manifest:
+        from experiments.student.approved_decoder_teacher import approved_decoder_teacher
+
+        teacher, teacher_release = approved_decoder_teacher(
+            teacher, args.s2, args.teacher_student_manifest, args.teacher_student_sha256)
     if any(
         p.device.type != "cpu" or p.dtype != torch.float32 for p in student.parameters()
     ):
@@ -168,7 +178,9 @@ def main():
     if any(p.requires_grad or p.device.type != "cpu" for p in teacher.parameters()):
         raise RuntimeError("Teacher must be frozen on CPU")
     from experiments.student.decoder_training_scope import configure_trainable
+    from cpufast_optimizations import parameter_digest
 
+    teacher_digest_before = parameter_digest(teacher)
     trainable_names = configure_trainable(student, args.train_scope)
     frozen_before = {name: value.detach().clone() for name, value in student.named_parameters()
                      if not value.requires_grad}
@@ -197,6 +209,10 @@ def main():
         "train_scope": args.train_scope,
         "trainable_parameter_names": trainable_names,
         "trainable_parameters": sum(p.numel() for p in student.parameters() if p.requires_grad),
+        "teacher_target": "approved_student" if teacher_release else "original_decoder",
+        "teacher_student_manifest_sha256": args.teacher_student_sha256,
+        "teacher_student_decoder_sha256": teacher_release["files"]["decoder.pt"]["sha256"] if teacher_release else None,
+        "teacher_parameter_digest": teacher_digest_before,
     }
     cache = {}
 
@@ -361,6 +377,12 @@ def main():
         != provenance["teacher_s2_sha256"]
     ):
         raise RuntimeError("Original S2 teacher file changed")
+    if teacher_release:
+        from cpufast_student_assets import load_manifest
+
+        load_manifest(args.teacher_student_manifest, args.teacher_student_sha256)
+    if parameter_digest(teacher) != teacher_digest_before:
+        raise RuntimeError("Frozen decoder teacher parameters changed")
 
 
 if __name__ == "__main__":
