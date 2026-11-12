@@ -2,11 +2,10 @@
 
 import copy
 import json
-from pathlib import Path
 
 import pytest
 
-from cpufast_student_assets import load_manifest, sha256, inline_runtime_approval
+from cpufast_student_assets import inline_runtime_approval, load_manifest, sha256
 
 
 def bundle(tmp_path):
@@ -124,4 +123,37 @@ def test_optional_channel_selections_are_original_unique_sorted_ids(tmp_path):
     selected[-1].append(19)
     manifest.write_text(json.dumps(data))
     with pytest.raises(ValueError, match="channel selection"):
+        load_manifest(manifest, sha256(manifest))
+
+
+def test_bottleneck_metadata_preserves_outer_geometry_and_unique_original_ids(tmp_path):
+    manifest, data = bundle(tmp_path)
+    data["decoder_branches"] = [[0, 1, 2]] * 5
+    entry = {
+        "stage": 3,
+        "original_branch": 2,
+        "pair": 1,
+        "keep": list(range(36)),
+        "inner_channels": 36,
+        "outer_channels": 48,
+        "kernel": 11,
+        "dilation": 3,
+    }
+    data["decoder_bottlenecks"] = [entry]
+    manifest.write_text(json.dumps(data))
+    assert load_manifest(manifest, sha256(manifest))["decoder_bottlenecks"] == [entry]
+    for changed in (
+        {**entry, "outer_channels": 36},
+        {**entry, "inner_channels": 35},
+        {**entry, "kernel": 7},
+        {**entry, "dilation": 5},
+        {**entry, "keep": [0] * 36},
+    ):
+        data["decoder_bottlenecks"] = [changed]
+        manifest.write_text(json.dumps(data))
+        with pytest.raises(ValueError, match="mismatch"):
+            load_manifest(manifest, sha256(manifest))
+    data["decoder_bottlenecks"] = [entry, entry]
+    manifest.write_text(json.dumps(data))
+    with pytest.raises(ValueError, match="unique"):
         load_manifest(manifest, sha256(manifest))

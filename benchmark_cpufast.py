@@ -370,6 +370,10 @@ def main():
             != student_manifest.get("decoder_channel_keep")
             or trained["student_spec"].get("decoder_channel_keep")
             != spec.get("decoder_channel_keep")
+            or spec.get("decoder_bottlenecks")
+            != student_manifest.get("decoder_bottlenecks")
+            or trained["student_spec"].get("decoder_bottlenecks")
+            != spec.get("decoder_bottlenecks")
             or len(spec["ar_keep"]) != student_manifest["ar_layers"]
             or len(set(spec["ar_keep"])) != len(spec["ar_keep"])
             or any(type(i) is not int or not 0 <= i < 24 for i in spec["ar_keep"])
@@ -385,6 +389,8 @@ def main():
             if spec.get("decoder_channel_keep") is not None
             else {}
         )
+        if spec.get("decoder_bottlenecks") is not None:
+            channel_options["bottlenecks"] = spec["decoder_bottlenecks"]
         pipeline.vits_model.dec = StudentGenerator(
             pipeline.vits_model.dec, spec["decoder_branches"], **channel_options
         ).eval()
@@ -621,6 +627,9 @@ def main():
         else None,
         "student_files_before": student_files_before,
         "student_fp32_control": args.student_fp32_control,
+        "decoder_bottlenecks": student_manifest.get("decoder_bottlenecks")
+        if student_manifest
+        else None,
         "approximate_ar_int8_only": args.ar_int8_only,
         "ar_runtime_approval": ar_runtime_approval,
         "approximate_fft_half_products": args.fft_half_products,

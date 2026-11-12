@@ -5,7 +5,6 @@ import json
 import re
 from pathlib import Path, PurePosixPath
 
-
 FILES = {"ar.pt", "decoder.pt", "student_spec.json"}
 
 
@@ -53,6 +52,44 @@ def load_manifest(path, expected_sha256, *, check_files=True):
                 or sorted(set(selected)) != selected
             ):
                 raise ValueError("Invalid original decoder channel selection")
+    bottlenecks = data.get("decoder_bottlenecks")
+    if bottlenecks is not None:
+        if not isinstance(bottlenecks, list) or not bottlenecks or channels is not None:
+            raise ValueError(
+                "Internal pair bottlenecks must preserve original outer channels"
+            )
+        seen = set()
+        for entry in bottlenecks:
+            if not isinstance(entry, dict):
+                raise TypeError("Bottleneck entries must be mappings")
+            stage, branch, pair = (
+                entry.get(k) for k in ("stage", "original_branch", "pair")
+            )
+            if (
+                any(type(i) is not int for i in (stage, branch, pair))
+                or not 0 <= stage < 5
+                or not 0 <= branch < 3
+                or not 0 <= pair < 3
+                or branch not in data["decoder_branches"][stage]
+                or (stage, branch, pair) in seen
+            ):
+                raise ValueError("Invalid unique original bottleneck pair location")
+            seen.add((stage, branch, pair))
+            outer = [384, 192, 96, 48, 24][stage]
+            selected = entry.get("keep")
+            if (
+                not isinstance(selected, list)
+                or not 0 < len(selected) < outer
+                or any(type(i) is not int or not 0 <= i < outer for i in selected)
+                or sorted(set(selected)) != selected
+                or entry.get("outer_channels") != outer
+                or entry.get("inner_channels") != len(selected)
+                or entry.get("kernel") != (3, 7, 11)[branch]
+                or entry.get("dilation") != (1, 3, 5)[pair]
+            ):
+                raise ValueError(
+                    "Bottleneck original IDs/inner/outer/kernel/dilation mismatch"
+                )
     if data.get("seed") != 42 or data.get("prompt_language") not in ("ja", "ko", "en"):
         raise ValueError("Unsupported approved synthesis request")
     for key in ("reference_sha256", "original_s2_sha256"):

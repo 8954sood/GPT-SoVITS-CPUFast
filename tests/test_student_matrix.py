@@ -29,6 +29,7 @@ def synthetic_bundle(root, variant, storage):
         "reference_sha256": "a" * 64,
         "original_s2_sha256": "b" * 64,
         "files": files,
+        "decoder_branches": [[1, 2], [0, 1, 2], [0, 2], [1, 2], [0, 1, 2]],
         "listening_report": {
             "cases": [
                 {
@@ -59,6 +60,7 @@ def synthetic_bundle(root, variant, storage):
         ("exact_fp16", "exact_fp16", False, "confirm"),
         ("exact_fp16", "exact_fp16", False, "fft"),
         ("exact_fp16", "exact_fp16", False, "stream"),
+        ("exact_fp16", "exact_fp16", True, "bottleneck"),
     ],
 )
 def test_comparison_uses_each_approved_bundle_and_matching_cache(
@@ -81,6 +83,19 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
                 "path": "experiments/student/synthetic.py",
                 "sha256": "a" * 64,
             }
+        if ar_only == "bottleneck":
+            data["decoder_bottlenecks"] = [
+                {
+                    "stage": 3,
+                    "original_branch": 2,
+                    "pair": 1,
+                    "keep": list(range(36)),
+                    "inner_channels": 36,
+                    "outer_channels": 48,
+                    "kernel": 11,
+                    "dilation": 3,
+                }
+            ]
         candidate.write_text(json.dumps(data))
     output = tmp_path / "output"
     argv = [
@@ -98,7 +113,7 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
         "--prefetch",
         "0",
     ]
-    if ar_only and ar_only != "decoder":
+    if ar_only and ar_only not in ("decoder", "bottleneck"):
         for key in ("--baseline-manifest", "--baseline-manifest-sha256"):
             index = argv.index(key)
             del argv[index : index + 2]
@@ -113,8 +128,10 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             argv.append("--ar-int8-confirm-only")
     if decoder_only:
         argv.append("--decoder-only")
-    if ar_only == "decoder":
+    if ar_only in ("decoder", "bottleneck"):
         argv.append("--decoder-ar-int8")
+    if ar_only == "bottleneck":
+        argv.append("--alternating-decoder-comparison")
     monkeypatch.setattr(sys, "argv", argv)
     calls = []
 
@@ -172,6 +189,23 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
 
     monkeypatch.setattr(run_student_matrix.subprocess, "run", execute)
     run_student_matrix.main()
+    if ar_only == "bottleneck":
+        assert len(calls) == 11
+        order = ["L", "R", "R", "L", "L", "R", "R", "L", "L", "R"]
+        for label, command in zip(order, calls):
+            path = baseline if label == "L" else candidate
+            assert command[command.index("--s1") + 1] == str(path.parent / "ar.pt")
+            assert command[command.index("--samples") + 1] == "1"
+            assert (
+                "--ar-int8-only" in command
+                and "--fft-half-products" not in command
+                and "--fft-pad-channels" not in command
+            )
+        summary = json.loads((output / "student_summary.json").read_text())
+        assert [r["runtime"] for r in summary["comparison_order"]] == order
+        assert [r["samples"] for r in summary["paired_aggregate"]] == [5, 5]
+        assert summary["complete"] and summary["student_assets_unchanged"]
+        return
     one_bundle_runtime = bool(ar_only) and ar_only != "decoder"
     has_control = candidate_storage == "exact_fp16" and not decoder_only and not ar_only
     confirm_only = ar_only == "confirm"

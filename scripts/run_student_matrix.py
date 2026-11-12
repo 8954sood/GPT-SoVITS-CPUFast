@@ -26,6 +26,7 @@ def main():
     parser.add_argument("--ar-int8-confirm-only", action="store_true")
     parser.add_argument("--fft-half-comparison", action="store_true")
     parser.add_argument("--fft-half-stream-comparison", action="store_true")
+    parser.add_argument("--alternating-decoder-comparison", action="store_true")
     args = parser.parse_args()
     if bool(args.baseline_manifest) != bool(args.baseline_manifest_sha256):
         parser.error("Comparison baseline manifest and SHA required together")
@@ -37,6 +38,12 @@ def main():
         parser.error("Runtime confirmation requires AR-only runtime comparison mode")
     if args.decoder_ar_int8 and not args.decoder_only:
         parser.error("Decoder AR INT8 mode requires a same-AR decoder-only comparison")
+    if args.alternating_decoder_comparison and not (
+        args.decoder_only and args.decoder_ar_int8 and args.baseline_manifest
+    ):
+        parser.error(
+            "Alternating decoder comparison requires two same-AR approved INT8 bundles"
+        )
     if (args.fft_half_comparison or args.fft_half_stream_comparison) and (
         args.baseline_manifest or args.ar_int8_comparison or args.decoder_only
     ):
@@ -78,6 +85,15 @@ def main():
             parser.error(
                 "Decoder comparison requires identical approved AR weights/cache"
             )
+        if args.alternating_decoder_comparison and (
+            baseline["decoder_branches"] != manifest["decoder_branches"]
+            or baseline.get("decoder_channel_keep") is not None
+            or manifest.get("decoder_channel_keep") is not None
+            or not manifest.get("decoder_bottlenecks")
+        ):
+            parser.error(
+                "First bottleneck comparison must preserve original outer channels and branches"
+            )
     args.output.mkdir(parents=True, exist_ok=True)
     summary_file = args.output / "student_summary.json"
     if summary_file.exists():
@@ -112,6 +128,7 @@ def main():
         ar_int8_only=False,
         fft_half_products=False,
         fft_half_stream=False,
+        measured_samples=None,
     ):
         run_manifest = baseline if baseline_bundle else manifest
         run_path = args.baseline_manifest if baseline_bundle else args.manifest
@@ -159,7 +176,11 @@ def main():
             "--warmups",
             "1" if profile else str(args.warmups),
             "--samples",
-            "1" if profile else ("5" if confirm else str(args.samples)),
+            "1"
+            if profile
+            else str(measured_samples)
+            if measured_samples is not None
+            else ("5" if confirm else str(args.samples)),
             "--ar-prefetch",
             "256" if original else str(distance),
             "--output",
@@ -295,6 +316,8 @@ def main():
             "fft_pad_channels": not original
             and run_manifest.get("decoder_channel_keep") is not None,
             "fft_padded_output_cache": data.get("fft_padded_output_cache", []),
+            "cold_load_seconds": data.get("load_seconds"),
+            "installation_seconds": data.get("installation_seconds"),
             "median_rtf": data["median_rtf"],
             "rtfs": [r["rtf"] for r in data["runs"]],
             "median_seconds": data["median_seconds"],
@@ -343,6 +366,88 @@ def main():
         )
         return data, row
 
+    if args.alternating_decoder_comparison:
+        summary["scope"] = (
+            "Actual N1 approved L versus approved R pair bottlenecks only; counterbalanced AB/BA rounds; no new prefill/half-products"
+        )
+        summary["comparison_order"] = []
+        samples = {"L": [], "R": []}
+        last_candidate = None
+        reference = None
+        for index in range(5):
+            for label in ("L", "R") if index % 2 == 0 else ("R", "L"):
+                data, row = run(
+                    "ko",
+                    f"paired_{index}_{label}",
+                    distance=256,
+                    combined=True,
+                    baseline_bundle=label == "L",
+                    ar_int8_only=True,
+                    measured_samples=1,
+                )
+                observed = data["runs"][0]
+                if reference is None:
+                    reference = observed
+                if (
+                    observed["semantic"] != reference["semantic"]
+                    or observed["audio_seconds"] != reference["audio_seconds"]
+                ):
+                    raise RuntimeError(
+                        "Bottleneck comparison changed identical-AR tokens/duration"
+                    )
+                samples[label].append((observed, row))
+                summary["comparison_order"].append(
+                    {"round": index, "runtime": label, "name": row["name"]}
+                )
+                if label == "R":
+                    last_candidate = args.output / f"ko_paired_{index}_R.wav"
+                save()
+        summary["paired_aggregate"] = []
+        for label, records in samples.items():
+            summary["paired_aggregate"].append(
+                {
+                    "runtime": label,
+                    "samples": 5,
+                    "rtfs": [r[0]["rtf"] for r in records],
+                    "median_rtf": statistics.median(r[0]["rtf"] for r in records),
+                    "median_seconds": statistics.median(
+                        r[1]["median_seconds"] for r in records
+                    ),
+                    "median_cpu_seconds": statistics.median(
+                        r[0]["cpu_seconds"] for r in records
+                    ),
+                    "median_stages": {
+                        key: statistics.median(r[0]["stages"][key] for r in records)
+                        for key in records[0][0]["stages"]
+                    },
+                    "audio_seconds": reference["audio_seconds"],
+                    "peak_sampled_tree_rss_bytes": max(
+                        r[1]["peak_sampled_tree_rss_bytes"] for r in records
+                    ),
+                }
+            )
+        try:
+            _, row = run(
+                "ko",
+                "bottleneck_profile_run",
+                distance=256,
+                combined=True,
+                ar_int8_only=True,
+                profile=True,
+                compare=last_candidate,
+            )
+            if not row["candidate_pcm_exact_to_n1_student"]:
+                raise RuntimeError("Profile process changed approved R PCM")
+        except subprocess.CalledProcessError as error:
+            summary["profile_error"] = {"exit_code": error.returncode}
+        summary["student_assets_unchanged"] = before == snapshot(
+            args.manifest
+        ) and baseline_before == snapshot(args.baseline_manifest)
+        summary["complete"] = True
+        save()
+        if not summary["student_assets_unchanged"]:
+            raise RuntimeError("Private bottleneck comparison assets changed")
+        return
     if args.fft_half_comparison or args.fft_half_stream_comparison:
         summary["scope"] = (
             "Actual N1 L versus separately KO listening-approved P; identical K weights and W8A8/native FP32 AR; only large FFT spectral products approximate"
