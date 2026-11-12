@@ -22,6 +22,7 @@ def main():
     parser.add_argument("--baseline-manifest-sha256")
     parser.add_argument("--decoder-only", action="store_true")
     parser.add_argument("--ar-int8-comparison", action="store_true")
+    parser.add_argument("--ar-int8-confirm-only", action="store_true")
     args = parser.parse_args()
     if bool(args.baseline_manifest) != bool(args.baseline_manifest_sha256):
         parser.error("Comparison baseline manifest and SHA required together")
@@ -29,6 +30,8 @@ def main():
         parser.error("Decoder comparison requires an approved baseline bundle")
     if args.ar_int8_comparison and args.baseline_manifest:
         parser.error("AR runtime comparison uses one unchanged approved bundle")
+    if args.ar_int8_confirm_only and not args.ar_int8_comparison:
+        parser.error("Runtime confirmation requires AR-only runtime comparison mode")
     manifest = load_manifest(args.manifest, args.manifest_sha256)
     before = snapshot(args.manifest)
     cases = {r["language"]: r for r in manifest["listening_report"]["cases"]}
@@ -305,7 +308,12 @@ def main():
         summary["prefetch_selection"] = (
             "Baseline verified half-cache256; candidate INT8 runtime has no half-cache prefetch"
         )
-        run("ko", "ar_runtime_baseline", distance=256, combined=True, confirm=True)
+        if not args.ar_int8_confirm_only:
+            run("ko", "ar_runtime_baseline", distance=256, combined=True, confirm=True)
+        else:
+            summary["scope"] = (
+                "Independent actual N1 five-sample confirmation of separately approved L AR-only runtime"
+            )
         run(
             "ko",
             "ar_runtime_candidate",

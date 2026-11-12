@@ -55,6 +55,7 @@ def synthetic_bundle(root, variant, storage):
         ("fp32", "exact_fp16", False, False),
         ("exact_fp16", "exact_fp16", True, False),
         ("exact_fp16", "exact_fp16", False, True),
+        ("exact_fp16", "exact_fp16", False, "confirm"),
     ],
 )
 def test_comparison_uses_each_approved_bundle_and_matching_cache(
@@ -90,6 +91,8 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             index = argv.index(key)
             del argv[index : index + 2]
         argv.append("--ar-int8-comparison")
+        if ar_only == "confirm":
+            argv.append("--ar-int8-confirm-only")
     if decoder_only:
         argv.append("--decoder-only")
     monkeypatch.setattr(sys, "argv", argv)
@@ -140,7 +143,8 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
     monkeypatch.setattr(run_student_matrix.subprocess, "run", execute)
     run_student_matrix.main()
     has_control = candidate_storage == "exact_fp16" and not decoder_only and not ar_only
-    assert len(calls) == (4 if has_control else 3)
+    confirm_only = ar_only == "confirm"
+    assert len(calls) == (2 if confirm_only else 4 if has_control else 3)
     for index, command in enumerate(calls):
         bundle = baseline if index == 0 and not ar_only else candidate
         storage = baseline_storage if index == 0 and not ar_only else candidate_storage
@@ -155,22 +159,34 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             "1" if index == len(calls) - 1 else "5"
         )
         assert ("--student-fp32-control" in command) == (has_control and index == 1)
-        assert ("--compare-pcm" in command) == (index >= 2)
-        assert ("--ar-int8-only" in command) == (ar_only and index > 0)
+        assert ("--compare-pcm" in command) == (
+            index >= 2 or (confirm_only and index == 1)
+        )
+        assert ("--ar-int8-only" in command) == bool(
+            ar_only and (index > 0 or confirm_only)
+        )
     assert calls[-1][calls[-1].index("--compare-pcm") + 1] == str(
         output
         / ("ko_ar_runtime_candidate.wav" if ar_only else "ko_comparison_candidate.wav")
     )
     summary = json.loads((output / "student_summary.json").read_text())
     assert summary["complete"] and summary["student_assets_unchanged"]
-    assert [r["manifest_sha256"] for r in summary["cases"]] == [
-        sha256(candidate if ar_only else baseline),
-        *([sha256(candidate)] * (2 if has_control else 1)),
-    ]
-    assert [r["model_variant"] for r in summary["cases"]] == [
-        "H3" if ar_only else "H2",
-        *(["H3"] * (2 if has_control else 1)),
-    ]
+    assert [r["manifest_sha256"] for r in summary["cases"]] == (
+        [sha256(candidate)]
+        if confirm_only
+        else [
+            sha256(candidate if ar_only else baseline),
+            *([sha256(candidate)] * (2 if has_control else 1)),
+        ]
+    )
+    assert [r["model_variant"] for r in summary["cases"]] == (
+        ["H3"]
+        if confirm_only
+        else [
+            "H3" if ar_only else "H2",
+            *(["H3"] * (2 if has_control else 1)),
+        ]
+    )
 
 
 def test_decoder_comparison_rejects_different_ar_before_inference(
