@@ -21,6 +21,8 @@ mkdir -p "$repo_dir/ci-results"
 docker_args=(run --rm --user "$(id -u):$(id -g)" --platform linux/arm64 --cpus "$cpus" --memory "$memory" --memory-swap "$memory"
   --mount "type=bind,src=$repo_dir,dst=/repo"
   --mount "type=bind,src=$assets,dst=/repo/GPT_SoVITS/pretrained_models"
+  --mount "type=bind,src=$assets/v2Pro/s2Gv2ProPlus.pth,dst=/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth,readonly"
+  --mount "type=bind,src=$assets/sv/pretrained_eres2netv2w24s4ep4.ckpt,dst=/repo/GPT_SoVITS/pretrained_models/sv/pretrained_eres2netv2w24s4ep4.ckpt,readonly"
   --mount "type=bind,src=$project,dst=/project,readonly"
   --mount "type=bind,src=$reference,dst=/reference.wav,readonly"
   -e PYTHONPATH=/repo:/repo/GPT_SoVITS
@@ -29,12 +31,29 @@ docker_args=(run --rm --user "$(id -u):$(id -g)" --platform linux/arm64 --cpus "
   -e CPUFAST_AR_LIBRARY=/repo/libcpufast_ar_torch.so -e CPUFAST_FAST_LIBRARY=/repo/libcpufast_fast.so
   "$image")
 run_container() { "${docker_cmd[@]}" "${docker_args[@]}" "$@"; }
+# One serial, weight-preserving FP32 comparison on the target ARM host.
+# Generated audio is produced for listening; the input reference stays on the host.
+mkdir -p "$repo_dir/.experiments"
 run_container python build_cpufast_ar.py --output /repo/libcpufast_ar_torch.so
-run_container python build_cpufast_fast.py --output /repo/libcpufast_fast.so
-run_container python -m unittest discover -s tests -p test_fast_operators.py -v
-run_container python benchmark_cpufast.py --engine --fast-experimental --ar-threads 2 --threads 2 \
-  --s1 /project/models/s1v3.ckpt --s2 /repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth \
-  --hubert /project/models/chinese-hubert-base --reference /reference.wav \
-  --prompt-text 'スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。' \
-  --text '今日は穏やかな天気ですね。少し休んでから、また一緒に続きを進めましょう。' \
-  --output /repo/ci-results/benchmark.json --warmups "$warmups" --samples "$samples" --no-save-audio
+run_container python -m unittest discover -s tests -p test_cpufast_tap.py -v
+run_container python experiments/rtf07/test_fusion_layout.py
+common=(--engine --head-major --cook-phase --fft-layout --packed-fft --fused-finish
+  --ar-threads 2 --threads 2
+  --s1 /project/models/s1v3.ckpt --s2 /repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth
+  --hubert /project/models/chinese-hubert-base --reference /reference.wav
+  --prompt-text 'スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。'
+  --warmups "$warmups" --samples "$samples")
+texts=('今日は穏やかな天気ですね。少し休んでから、また一緒に続きを進めましょう。'
+       '今日は新しい音声合成モデルを使って、声の雰囲気を確かめています。')
+for index in 0 1; do
+  number=$((index + 1))
+  echo "Benchmarking sentence $number: FP32 baseline"
+  run_container python resource_guard.py --report "/repo/ci-results/baseline_${number}_guard.json" -- \
+    python benchmark_cpufast.py "${common[@]}" --text "${texts[$index]}" \
+    --output "/repo/ci-results/baseline_${number}.json"
+  echo "Benchmarking sentence $number: FP32 tap candidate"
+  run_container python resource_guard.py --report "/repo/ci-results/tap_${number}_guard.json" -- \
+    python benchmark_cpufast.py "${common[@]}" --tap-small --text "${texts[$index]}" \
+    --compare-pcm "/repo/ci-results/baseline_${number}.wav" \
+    --output "/repo/ci-results/tap_${number}.json"
+done

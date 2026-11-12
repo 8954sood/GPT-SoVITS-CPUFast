@@ -64,25 +64,36 @@ jobs:
           ssh "${ssh_args[@]}" "$target" "mkdir -p \"\$HOME/$remote_rel\""
           git archive "$GITHUB_SHA" | ssh "${ssh_args[@]}" "$target" "tar -x -C \"\$HOME/$remote_rel\""
           printf -v benchmark_args ' %q' "${ARM_BENCH_ROOT:-}" "${ARM_BENCH_IMAGE:-}" "${ARM_BENCH_MEMORY:-}" "${ARM_BENCH_CPUS:-}" "$WARMUPS" "$SAMPLES"
-          ssh "${ssh_args[@]}" "$target" "bash \"\$HOME/$remote_rel/scripts/run_arm_benchmark.sh\"$benchmark_args"
+          benchmark_status=0
+          ssh "${ssh_args[@]}" "$target" "bash \"\$HOME/$remote_rel/scripts/run_arm_benchmark.sh\"$benchmark_args" || benchmark_status=$?
           mkdir -p ci-artifact
-          scp "${ssh_args[@]}" "$target:$remote_rel/ci-results/benchmark.json" ci-artifact/benchmark.json
+          scp "${ssh_args[@]}" "$target:$remote_rel/ci-results/*.json" ci-artifact/ || true
+          scp "${ssh_args[@]}" "$target:$remote_rel/ci-results/*.wav" ci-artifact/ || true
+          if (( benchmark_status != 0 )); then
+            echo "ARM benchmark failed with exit code $benchmark_status; retaining available reports."
+            exit "$benchmark_status"
+          fi
           python3 - <<'PY' | tee -a "$GITHUB_STEP_SUMMARY"
           import json
           from pathlib import Path
-          d = json.loads(Path('ci-artifact/benchmark.json').read_text())
-          print('### ARM fast experimental RTF')
-          print(f"Median RTF: **{d['median_rtf']:.4f}**; median generation time: **{d['median_seconds']:.3f} s**")
-          print('Individual RTFs:', ', '.join(f"{row['rtf']:.4f}" for row in d['runs']))
-          print('Output duration includes 0.3 seconds of appended silence. Model loading is excluded.')
-          print('Experimental W8A8/FP16 path; compare audio quality on more than one sentence.')
+          print('### ARM 2-vCPU FP32 comparison')
+          print('RTF is synthesis wall time divided by audio duration; warmups and all measured runs are recorded.')
+          for n in (1, 2):
+              for name in ('baseline', 'tap'):
+                  d = json.loads(Path(f'ci-artifact/{name}_{n}.json').read_text())
+                  print(f"- Sentence {n}, {name}: median **{d['median_rtf']:.4f}**, "
+                        + 'runs ' + ', '.join(f"{r['rtf']:.4f}" for r in d['runs']))
+                  if not all(d.get(k) for k in ('checkpoint_files_unchanged', 'parameters_unchanged', 'ar_parameters_unchanged')):
+                      raise SystemExit('Parameter integrity verification failed')
+          print('Generated WAV files are included for listening; the input reference is not uploaded.')
           PY
-      - name: Upload measurement JSON
+      - name: Upload measurements and generated audio
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: arm-rtf-${{ github.run_id }}-${{ github.run_attempt }}
-          path: ci-artifact/benchmark.json
-          if-no-files-found: error
+          path: ci-artifact/
+          if-no-files-found: warn
           retention-days: 14
       - name: Remove local SSH credentials
         if: always()
