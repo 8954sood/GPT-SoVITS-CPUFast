@@ -344,7 +344,7 @@ class T2SBlock:
         k_cache: torch.Tensor,
         v_cache: torch.Tensor,
         cache_len: int,
-        attn_mask: torch.Tensor = None,
+        attn_mask: Optional[torch.Tensor] = None,
         torch_sdpa: bool = True,
     ):
         batch_size = x.shape[0]
@@ -432,7 +432,7 @@ class T2STransformer:
         k_cache: List[torch.Tensor],
         v_cache: List[torch.Tensor],
         cache_len: int,
-        attn_mask: torch.Tensor = None,
+        attn_mask: Optional[torch.Tensor] = None,
         torch_sdpa: bool = True,
     ):
         for i in range(self.num_blocks):
