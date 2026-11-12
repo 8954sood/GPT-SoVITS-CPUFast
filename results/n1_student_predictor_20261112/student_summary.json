@@ -1,0 +1,119 @@
+{
+  "scope": "Actual N1 approved Korean G predictor eligibility cache comparison",
+  "manifest_sha256": "684e5c5f093af572ff1a77a70facd83e86808908e696330e0d5bcc42f3d98654",
+  "ar_selected_additional_step": 25,
+  "decoder_selected_additional_step": 175,
+  "prefetch_selection": "Fixed from prior N1 sweep; no new selection",
+  "cases": [
+    {
+      "language": "ko",
+      "name": "predictor_baseline",
+      "prefetch": 0,
+      "original": false,
+      "combined": true,
+      "predictor_eligibility_cache": false,
+      "median_rtf": 1.4002294955238446,
+      "rtfs": [
+        1.4427264609326749,
+        1.3933730573724892,
+        1.418058539472394,
+        1.4002294955238446,
+        1.399801098504814
+      ],
+      "median_seconds": 8.261354023590684,
+      "median_cpu_seconds": 14.260147399999994,
+      "median_stages": {
+        "ar_seconds": 3.767123082652688,
+        "enc_p_seconds": 0.14439489133656025,
+        "flow_seconds": 0.08814269863069057,
+        "dec_seconds": 4.141881383955479
+      },
+      "audio_seconds": 5.9,
+      "peak_sampled_tree_rss_bytes": 5313036288,
+      "semantic": [
+        {
+          "sha256": "b1a4d4b501ffe2b1ae7bec241fcaae5dad29596f4de533232801cd39bb28da3d",
+          "index": 140,
+          "generated_sha256": "cd739167078c20de37f0aa23cc7237d722d392da1a83088aac1ad9936bb144f5"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "predictor_cached",
+      "prefetch": 0,
+      "original": false,
+      "combined": true,
+      "predictor_eligibility_cache": true,
+      "median_rtf": 1.4046972904796318,
+      "rtfs": [
+        1.3844634317871878,
+        1.4097311224599005,
+        1.3838334612043226,
+        1.4046972904796318,
+        1.4149742990227068
+      ],
+      "median_seconds": 8.287714013829827,
+      "median_cpu_seconds": 14.15860712,
+      "median_stages": {
+        "ar_seconds": 3.7450810614973307,
+        "enc_p_seconds": 0.14338200353085995,
+        "flow_seconds": 0.08741793408989906,
+        "dec_seconds": 4.1175513453781605
+      },
+      "audio_seconds": 5.9,
+      "peak_sampled_tree_rss_bytes": 5258698752,
+      "semantic": [
+        {
+          "sha256": "b1a4d4b501ffe2b1ae7bec241fcaae5dad29596f4de533232801cd39bb28da3d",
+          "index": 140,
+          "generated_sha256": "cd739167078c20de37f0aa23cc7237d722d392da1a83088aac1ad9936bb144f5"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": true,
+      "candidate_pcm_exact_to_n1_student": true,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": true
+    }
+  ],
+  "selected_prefetch": 0,
+  "profile_run": {
+    "language": "ko",
+    "name": "predictor_profile_run",
+    "prefetch": 0,
+    "original": false,
+    "combined": true,
+    "predictor_eligibility_cache": true,
+    "median_rtf": 1.4072413398426467,
+    "rtfs": [
+      1.4072413398426467
+    ],
+    "median_seconds": 8.302723905071616,
+    "median_cpu_seconds": 14.157072280000001,
+    "median_stages": {
+      "ar_seconds": 3.717376671731472,
+      "enc_p_seconds": 0.14040601812303066,
+      "flow_seconds": 0.088149419054389,
+      "dec_seconds": 4.177812535315752
+    },
+    "audio_seconds": 5.9,
+    "peak_sampled_tree_rss_bytes": 6375084032,
+    "semantic": [
+      {
+        "sha256": "b1a4d4b501ffe2b1ae7bec241fcaae5dad29596f4de533232801cd39bb28da3d",
+        "index": 140,
+        "generated_sha256": "cd739167078c20de37f0aa23cc7237d722d392da1a83088aac1ad9936bb144f5"
+      }
+    ],
+    "candidate_tokens_exact_to_n1_student": true,
+    "candidate_pcm_exact_to_n1_student": true,
+    "local_approved_pcm_match": false,
+    "local_approved_generated_tokens_match": true
+  },
+  "student_assets_unchanged": true,
+  "complete": true
+}

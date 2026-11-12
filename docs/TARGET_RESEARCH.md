@@ -204,3 +204,22 @@ unshaped addmm totals cannot all be attributed to the classifier. A concrete
 next candidate caches a failed predictor half-storage eligibility check, while
 retaining the same FP32 F.linear arithmetic. It requires its own N1 comparison.
 Raw JSON, guards, profile and provenance: `results/n1_student_g_20261112`.
+
+### Failed G predictor eligibility-cache speed hypothesis
+
+[Run 43163928379](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43163928379)
+fixed source `2c94b384a6b5f55cfdf2709221c620374c24d631`. The approved G
+combined runtime, FP32 cache0, compared the existing failed-eligibility check
+against an opt-in negative cache. Three excluded warmups and five retained
+samples per configuration measured **RTF 1.400229/1.404697** (+0.319%, slower).
+Wall medians were 8.261/8.288s; CPU 14.260/14.159s; AR 3.767/3.745s; decoder
+4.142/4.118s, same 5.90s output. Small stage/CPU reductions do not establish
+an overall latency gain. Do not enable the negative cache in the next model
+comparison or describe it as a successful optimization.
+
+All five measured candidate PCM/token/duration outputs matched the baseline
+exactly. Original/model parameter, checkpoint, student asset and resource checks
+passed. Peak tree RSS was 5.32GB (6.38GB in the separate profile). Every slow
+sample, guard, profiler output and provenance is retained in
+`results/n1_student_predictor_20261112`. This chronological A/B run does not
+establish a sub-percent effect or a server-wide optimum.

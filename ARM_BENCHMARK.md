@@ -176,7 +176,11 @@ Japanese/English are performance smoke checks only, outside listening approval.
 
 `mode=studentcompare` compares two separately listening-approved bundles in one
 serial N1 job: baseline and candidate each have three warmups and five Korean
-measurements, followed by a separate candidate profile. Supply the candidate's
+measurements, followed by a separate candidate profile. For an exact-half
+candidate, a third case runs those same approved coefficients in a full FP32
+cache with `--student-fp32-control`; both storage paths must produce identical
+PCM/tokens/duration. This separates the effect of cache storage/runtime from
+the separately approved coefficient rounding. Supply the candidate's
 usual manifest inputs plus `comparison_manifest_path` and
 `comparison_manifest_sha256` for the baseline in the same immutable private HF
 revision. Both verified bundles are mounted read-only. There is no cross-model
@@ -195,3 +199,12 @@ explicit `student_prefetch` from its prior N1 sweep; exact-half cache uses the
 verified original profile's distance 256. Each row records the actual setting.
 `studentcomparecached` additionally enables the same opt-in predictor negative
 eligibility cache for both models; use only after its independent N1 comparison.
+
+The independent predictor negative-cache comparison
+[run 43163928379](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43163928379)
+did **not** improve G: baseline/candidate medians were **1.4002/1.4047** over
+five samples each, despite a small AR/CPU reduction. All candidate waveforms and
+tokens were exact. This is a failed speed hypothesis; keep the option off.
+Raw reports/provenance are in `results/n1_student_predictor_20261112`.
+The classifier range and its input/weight shapes are now recorded only during
+the additional excluded profile synthesis, with no wrappers in timed samples.
