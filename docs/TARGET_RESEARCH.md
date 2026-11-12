@@ -697,3 +697,28 @@ full measurement. Retain L; do not add the primitive gain or combine this
 candidate with W/V/another runtime. Raw JSON, every observation, DSO/source
 hashes and direct-SSH provenance are in `results/n1_fft_output_tile4_20261112`.
 Generated audio and complete remote console logs remain private locally.
+
+
+## Eight-row SDOT: exact compiler policy, hot versus rotating weights
+
+Source `04bce68` screens an independent row8 operator on actual N1, keeping
+scalar input quantization and per-output integer/dequantization order unchanged.
+An earlier probe copied prefill's `-ffp-contract=off` policy and failed the
+float-bit gate before any model inference. Matching the approved fast DSO's
+complete flags/order/ABI restores exact values:40cases across5dimensions,
+4finite scales and1/2threads pass int32-bit comparisons, immutable inputs,
+and nonfinite-input rejection. The baseline DSO/weights are untouched.
+
+| Matrix | Hot row8/base | Rotating64MB row8/base |
+| --- | ---: | ---: |
+| QKV1536×512 | .9939 | 1.0191 |
+| Output512×512 | .9870 | .9995 |
+| FFN1 2048×512 | .9718 | 1.0225 |
+| FFN2 512×2048 | .9954 | .9026 |
+
+The synthetic rotating pool better exposes weight traffic but remains a
+primitive experiment, not full AR inference or RTF. QKV andFFN1 regress,
+so the all-matrix row8 candidate is not adopted and does not justify a full
+paired synthesis run. The FFN2-only observation is retained without combining
+it with other changes. Raw values, manifests, initial failed-gate provenance
+and exact source hashes are in `results/n1_int8_rows8_20261112`.
