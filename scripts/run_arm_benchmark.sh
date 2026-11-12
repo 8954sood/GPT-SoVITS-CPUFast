@@ -42,6 +42,7 @@ run_container python experiments/rtf07/test_fusion_layout.py
 run_container python -m unittest discover -s tests -p test_fp32_head_attention.py -v
 run_container python -m unittest discover -s tests -p test_fft_stream.py -v
 run_container python -m unittest discover -s tests -p test_parallel_transforms.py -v
+run_container python -m unittest discover -s tests -p test_fp32_cache_prefetch.py -v
 common=(--engine --head-major --cook-phase --fft-layout --packed-fft --fused-finish
   --ar-threads 2 --threads 2
   --s1 /project/models/s1v3.ckpt --s2 /repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth
