@@ -131,6 +131,8 @@
     "elapsed_seconds": 376.17583770799683
   },
   "selected_sha256": "a2fe6478aae00a8a481209f32aba85eab97198cd30aca0ce1ff63d9ec31c3c1d",
-  "quality_approved": false,
-  "decision": "Numerical gap remains versus G; preserve research candidate, do not adopt or extend training absent deployment speed evidence."
+  "quality_approved": true,
+  "decision": "Preserve approved K; actual N1 H3/K decoder latency comparison pending. Do not replace default or extend training without speed evidence.",
+  "approval_scope": "User K versus H3 Korean same reference/text/seed only",
+  "feedback": "K 사용 가능"
 }
