@@ -1,0 +1,58 @@
+{
+  "scope": "Synthetic 24-layer weight traversal; not end-to-end RTF",
+  "weight_bytes": 150994944,
+  "cases": [
+    {
+      "locality": 0,
+      "warmup_seconds_per_token": 0.008729372546076775,
+      "seconds_per_token": [
+        0.012055156193673611,
+        0.02103915512561798,
+        0.009287793189287186,
+        0.00888585802167654,
+        0.008920370042324067
+      ],
+      "median_seconds_per_token": 0.009287793189287186,
+      "bit_exact_all_layers": true
+    },
+    {
+      "locality": 1,
+      "warmup_seconds_per_token": 0.00935114584863186,
+      "seconds_per_token": [
+        0.009168636053800583,
+        0.009033947251737118,
+        0.008989010751247407,
+        0.009005863033235074,
+        0.00895688235759735
+      ],
+      "median_seconds_per_token": 0.009005863033235074,
+      "bit_exact_all_layers": true
+    },
+    {
+      "locality": 2,
+      "warmup_seconds_per_token": 0.0091294439509511,
+      "seconds_per_token": [
+        0.008979418873786926,
+        0.00902833491563797,
+        0.008996710740029812,
+        0.008955110609531403,
+        0.008981658518314362
+      ],
+      "median_seconds_per_token": 0.008981658518314362,
+      "bit_exact_all_layers": true
+    },
+    {
+      "locality": 3,
+      "warmup_seconds_per_token": 0.009203780628740787,
+      "seconds_per_token": [
+        0.00898579079657793,
+        0.00894887037575245,
+        0.00893160216510296,
+        0.008950058557093143,
+        0.008894854038953782
+      ],
+      "median_seconds_per_token": 0.00894887037575245,
+      "bit_exact_all_layers": true
+    }
+  ]
+}
