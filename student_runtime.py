@@ -30,7 +30,9 @@ def ar_subset(transformer, keep):
 class StudentGenerator(torch.nn.Module):
     """Preserve stage widths/rates; independently select branches at each stage."""
 
-    def __init__(self, teacher, branches, pairs=None, channel_keep=None):
+    def __init__(
+        self, teacher, branches, pairs=None, channel_keep=None, bottlenecks=None
+    ):
         super().__init__()
         if len(branches) != teacher.num_upsamples:
             raise ValueError("One branch selection is required per upsampling stage")
@@ -65,14 +67,102 @@ class StudentGenerator(torch.nn.Module):
                     )
                 self.resblocks.append(block)
         self.channel_keep = None
+        self.bottlenecks = None
         if channel_keep is not None:
             self.select_channels(channel_keep)
+        if bottlenecks:
+            if pairs is not None:
+                raise ValueError(
+                    "Pair removal and internal bottlenecks must be separate"
+                )
+            self.select_bottlenecks(bottlenecks)
         self.train(teacher.training)
+
+    def select_bottlenecks(self, selections):
+        """Reduce only paired internal channels; every residual boundary stays C."""
+        if self.bottlenecks is not None or self.channel_keep is not None:
+            raise ValueError("Bottleneck selection requires a fresh full-width decoder")
+        checked, seen = [], set()
+        for item in selections:
+            stage, branch, pair = (
+                int(item[k]) for k in ("stage", "original_branch", "pair")
+            )
+            key = stage, branch, pair
+            if key in seen or not 0 <= stage < self.num_upsamples:
+                raise ValueError("Unique valid bottleneck locations required")
+            if branch not in self.stage_branches[stage]:
+                raise ValueError("Bottleneck branch is not retained")
+            index = self.stage_offsets[stage] + self.stage_branches[stage].index(branch)
+            block = self.resblocks[index]
+            if not 0 <= pair < len(block.convs1) or len(block.convs1) != len(
+                block.convs2
+            ):
+                raise ValueError("Valid Conv pair required")
+            c1, c2 = block.convs1[pair], block.convs2[pair]
+            for conv in (c1, c2):
+                if not isinstance(conv, torch.nn.Conv1d) or conv.groups != 1:
+                    raise ValueError("Raw ungrouped Conv1d pair required")
+                if any(
+                    hasattr(conv, k)
+                    for k in ("weight_g", "weight_v", "parametrizations")
+                ):
+                    raise ValueError(
+                        "Remove weight normalization before bottleneck selection"
+                    )
+            if c1.in_channels != c2.out_channels or c1.out_channels != c2.in_channels:
+                raise ValueError(
+                    "Conv pair must preserve its residual channel boundary"
+                )
+            keep = checked_keep(
+                item["keep"], c1.out_channels, "pair internal channel keep"
+            )
+            checked.append(
+                (
+                    index,
+                    pair,
+                    keep,
+                    dict(
+                        item,
+                        stage=stage,
+                        original_branch=branch,
+                        pair=pair,
+                        keep=list(keep),
+                    ),
+                )
+            )
+            seen.add(key)
+        # Validate every request before changing the independent selected blocks.
+        blocks = {
+            index: copy.deepcopy(self.resblocks[index]) for index, _, _, _ in checked
+        }
+        for index, pair, keep, _ in checked:
+            block = blocks[index]
+            c1, c2 = block.convs1[pair], block.convs2[pair]
+            ix = torch.tensor(keep, device=c1.weight.device)
+            c1.weight = torch.nn.Parameter(
+                c1.weight.detach().index_select(0, ix).clone(),
+                requires_grad=c1.weight.requires_grad,
+            )
+            if c1.bias is not None:
+                c1.bias = torch.nn.Parameter(
+                    c1.bias.detach().index_select(0, ix).clone(),
+                    requires_grad=c1.bias.requires_grad,
+                )
+            c2.weight = torch.nn.Parameter(
+                c2.weight.detach().index_select(1, ix).clone(),
+                requires_grad=c2.weight.requires_grad,
+            )
+            c1.out_channels = c2.in_channels = len(keep)
+        for index, block in blocks.items():
+            self.resblocks[index] = block
+        self.bottlenecks = tuple(item for _, _, _, item in checked)
 
     def select_channels(self, keep):
         """Slice a fresh decoder copy; widths include stem and every upsample stage."""
         if self.channel_keep is not None:
             raise ValueError("Channel selection may be applied only once")
+        if self.bottlenecks is not None:
+            raise ValueError("Global width and bottleneck selection must be separate")
         widths = [self.conv_pre.out_channels] + [m.out_channels for m in self.ups]
         if len(keep) != len(widths):
             raise ValueError("Channel IDs required for stem and every stage")

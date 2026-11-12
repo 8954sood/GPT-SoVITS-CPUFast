@@ -13,6 +13,7 @@ from pathlib import Path
 import torch
 import torch.nn.functional as F
 
+from experiments.student.decoder_boundaries import generate_with_boundaries
 from experiments.student.voice_loss import VoiceLoss
 from student_runtime import StudentGenerator
 
@@ -53,7 +54,7 @@ def generate_with_features(model, x, g):
             count = model.num_kernels
         values = [model.resblocks[offset + j](x) for j in range(count)]
         x = sum(values) * (1.0 / count)
-        features.append(x)
+        features.append(x.clone())
     return torch.tanh(model.conv_post(F.leaky_relu(x))), features
 
 
@@ -141,6 +142,7 @@ def main():
             copy.deepcopy(teacher),
             spec["decoder_branches"],
             channel_keep=spec.get("decoder_channel_keep"),
+            bottlenecks=spec.get("decoder_bottlenecks"),
         )
         .eval()
         .requires_grad_(True)
@@ -153,6 +155,10 @@ def main():
             "decoder_channel_keep"
         ):
             raise ValueError("Resume decoder channel selection mismatch")
+        if resumed["student_spec"].get("decoder_bottlenecks") != spec.get(
+            "decoder_bottlenecks"
+        ):
+            raise ValueError("Resume decoder bottleneck selection mismatch")
         student.load_state_dict(resumed["state_dict"], strict=True)
     if any(
         p.device.type != "cpu" or p.dtype != torch.float32 for p in student.parameters()
@@ -166,6 +172,8 @@ def main():
     started = time.perf_counter()
     criterion = VoiceLoss() if args.log_mel else None
     provenance = {
+        "decoder_bottlenecks": spec.get("decoder_bottlenecks"),
+        "pair_boundary_loss_weight": 0.25 if spec.get("decoder_bottlenecks") else 0.0,
         "teacher_s2_sha256": hashlib.sha256(args.s2.read_bytes()).hexdigest(),
         "manifest_sha256": hashlib.sha256(args.manifest.read_bytes()).hexdigest(),
         "resume_sha256": hashlib.sha256(args.resume.read_bytes()).hexdigest()
@@ -183,6 +191,14 @@ def main():
     cache = {}
 
     def batch(record, random_crop):
+        if (
+            record.get("decoder_context_sha256")
+            and hashlib.sha256(
+                (root / record["decoder_context"]).read_bytes()
+            ).hexdigest()
+            != record["decoder_context_sha256"]
+        ):
+            raise ValueError("Decoder training context changed")
         ctx = torch.load(
             root / record["decoder_context"], map_location="cpu", weights_only=True
         )
@@ -198,8 +214,14 @@ def main():
             return cache[key]
         z, g = batch(record, random_crop)
         with torch.no_grad():
-            target, features = generate_with_features(teacher, z, g)
-        result = z, g, target, features
+            if spec.get("decoder_bottlenecks"):
+                target, features, pairs = generate_with_boundaries(
+                    teacher, z, g, spec["decoder_bottlenecks"]
+                )
+            else:
+                target, features = generate_with_features(teacher, z, g)
+                pairs = {}
+        result = z, g, target, features, pairs
         if args.full_context:
             cache[key] = result
         return result
@@ -223,10 +245,23 @@ def main():
             for group in optimizer.param_groups:
                 group["lr"] = lr
             for micro in range(args.grad_accum):
-                z, g, target, teacher_features = target_batch(
+                z, g, target, teacher_features, teacher_pairs = target_batch(
                     train[((step - 1) * args.grad_accum + micro) % len(train)], True
                 )
-                audio, features = generate_with_features(student, z, g)
+                if teacher_pairs:
+                    audio, features, student_pairs = generate_with_boundaries(
+                        student, z, g, spec["decoder_bottlenecks"]
+                    )
+                    pair_loss = torch.stack(
+                        [
+                            (student_pairs[k] - v).abs().mean()
+                            / v.abs().mean().clamp_min(1e-5)
+                            for k, v in teacher_pairs.items()
+                        ]
+                    ).mean()
+                else:
+                    audio, features = generate_with_features(student, z, g)
+                    pair_loss = audio.new_zeros(())
                 if student.channel_keep is not None:
                     teacher_features = [
                         feature[:, list(student.channel_keep[i + 1]), :]
@@ -239,7 +274,9 @@ def main():
                     ]
                 ).mean()
                 loss = (
-                    reconstruction(audio, target)[0] + 0.5 * feature_loss
+                    reconstruction(audio, target)[0]
+                    + 0.5 * feature_loss
+                    + 0.25 * pair_loss
                 ) / args.grad_accum
                 if not torch.isfinite(loss):
                     raise RuntimeError("Nonfinite decoder loss")
@@ -250,7 +287,7 @@ def main():
             values = []
             with torch.no_grad():
                 for record in validation:
-                    z, g, target, _ = target_batch(record, False)
+                    z, g, target, _, _ = target_batch(record, False)
                     audio, _ = generate_with_features(student, z, g)
                     values.append([float(v) for v in reconstruction(audio, target)])
             metric, mel, stft, spectral = torch.tensor(values).mean(0).tolist()

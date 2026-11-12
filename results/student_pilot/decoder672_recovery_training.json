@@ -1,0 +1,149 @@
+{
+  "scope": "Preserved ongoing O recovery completed; global-width path suspended in favor of pair-only bottlenecks",
+  "history": {
+    "scope": "CPU recovery research; not listening approved or N1 performance",
+    "train_records": 30,
+    "validation_records": 6,
+    "history": [
+      {
+        "step": 0,
+        "validation_objective": 0.6606026291847229,
+        "validation_log_mel": 0.194747194647789,
+        "validation_log_stft": 0.495158314704895,
+        "validation_spectral": 0.6841318011283875,
+        "elapsed_seconds": 3.4518022920237854
+      },
+      {
+        "step": 25,
+        "validation_objective": 0.6705803871154785,
+        "validation_log_mel": 0.1975039690732956,
+        "validation_log_stft": 0.5008540749549866,
+        "validation_spectral": 0.6957257390022278,
+        "elapsed_seconds": 85.43004862504313
+      },
+      {
+        "step": 50,
+        "validation_objective": 0.669795572757721,
+        "validation_log_mel": 0.19698290526866913,
+        "validation_log_stft": 0.5000038146972656,
+        "validation_spectral": 0.6956233978271484,
+        "elapsed_seconds": 160.51352874998702
+      },
+      {
+        "step": 75,
+        "validation_objective": 0.6638081669807434,
+        "validation_log_mel": 0.19537796080112457,
+        "validation_log_stft": 0.49468207359313965,
+        "validation_spectral": 0.6895195841789246,
+        "elapsed_seconds": 232.24945375003153
+      },
+      {
+        "step": 100,
+        "validation_objective": 0.6545549035072327,
+        "validation_log_mel": 0.19247214496135712,
+        "validation_log_stft": 0.4903780221939087,
+        "validation_spectral": 0.6789765357971191,
+        "elapsed_seconds": 308.3311920000124
+      },
+      {
+        "step": 125,
+        "validation_objective": 0.6472019553184509,
+        "validation_log_mel": 0.1894821971654892,
+        "validation_log_stft": 0.48619893193244934,
+        "validation_spectral": 0.6723401546478271,
+        "elapsed_seconds": 385.77195875003235
+      },
+      {
+        "step": 150,
+        "validation_objective": 0.6412495970726013,
+        "validation_log_mel": 0.18783234059810638,
+        "validation_log_stft": 0.48255452513694763,
+        "validation_spectral": 0.6655572652816772,
+        "elapsed_seconds": 458.92584108299343
+      },
+      {
+        "step": 175,
+        "validation_objective": 0.6389976143836975,
+        "validation_log_mel": 0.18733404576778412,
+        "validation_log_stft": 0.481315940618515,
+        "validation_spectral": 0.66266930103302,
+        "elapsed_seconds": 533.7254605829949
+      },
+      {
+        "step": 200,
+        "validation_objective": 0.6381928324699402,
+        "validation_log_mel": 0.18684355914592743,
+        "validation_log_stft": 0.48064306378364563,
+        "validation_spectral": 0.662377119064331,
+        "elapsed_seconds": 611.8989770830376
+      }
+    ],
+    "provenance": {
+      "teacher_s2_sha256": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+      "manifest_sha256": "54c87e32dbba8277350b82279c8c9e872460fb55b8e4d6abe135c0096d60f98c",
+      "resume_sha256": "af710a8f2e0d8e52b0a0d9085e56fe3ebbf5f2267c38470d8939953013de7296",
+      "full_context": true,
+      "log_mel": true,
+      "sample_rate": 32000,
+      "lr": 1e-05,
+      "device": "cpu",
+      "dtype": "float32",
+      "grad_accum": 3,
+      "lr_final_ratio": 0.1
+    }
+  },
+  "host_observation": {
+    "command": [
+      "/Users/byungjun/Desktop/python/gpt-sovits-v5-optimization/.venv/bin/python",
+      "-u",
+      "experiments/student/distill_decoder.py",
+      "--s2",
+      "/Users/byungjun/Desktop/python/gpt-sovits-v5-optimization/data/cpufast-v2proplus/assets/v2Pro/s2Gv2ProPlus.pth",
+      "--spec",
+      ".experiments/student/decoder672_reconstructed_init/student_spec.json",
+      "--manifest",
+      ".experiments/student/recovery_corpus36_retry/manifest.json",
+      "--resume",
+      ".experiments/student/decoder672_best_snapshot.pt",
+      "--output",
+      ".experiments/student/decoder672_recovery",
+      "--steps",
+      "200",
+      "--threads",
+      "8",
+      "--lr",
+      "0.00001",
+      "--grad-accum",
+      "3",
+      "--lr-final-ratio",
+      "0.1",
+      "--validate-every",
+      "25",
+      "--full-context",
+      "--log-mel"
+    ],
+    "platform": "Darwin",
+    "machine": "arm64",
+    "device_policy": "CPU only; train script rejects GPU/MPS parameters",
+    "cpu_quota_cores": null,
+    "memory_limit_bytes": null,
+    "scope": "unrestricted host training observation; not an inference RTF benchmark",
+    "logical_cpus": 14,
+    "physical_ram_bytes": 38654705664,
+    "peak_sampled_tree_rss_bytes": 4320247808,
+    "cpu_seconds": 1763.8421626880001,
+    "elapsed_seconds": 615.5122197919991,
+    "average_cpu_cores": 2.8656493014615663,
+    "exit_code": 0,
+    "status": "complete"
+  },
+  "quality_approved": false,
+  "selected_validation": {
+    "step": 200,
+    "validation_objective": 0.6381928324699402,
+    "validation_log_mel": 0.18684355914592743,
+    "validation_log_stft": 0.48064306378364563,
+    "validation_spectral": 0.662377119064331,
+    "elapsed_seconds": 611.8989770830376
+  }
+}

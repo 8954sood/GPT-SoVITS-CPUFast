@@ -76,6 +76,7 @@ def main():
             pipeline.vits_model.dec,
             spec["decoder_branches"],
             channel_keep=spec.get("decoder_channel_keep"),
+            bottlenecks=spec.get("decoder_bottlenecks"),
         )
         if args.decoder_student is not None:
             trained = torch.load(
@@ -83,6 +84,10 @@ def main():
             )
             if trained["student_spec"]["decoder_branches"] != spec["decoder_branches"]:
                 raise ValueError("Decoder checkpoint/spec mismatch")
+            if trained["student_spec"].get("decoder_bottlenecks") != spec.get(
+                "decoder_bottlenecks"
+            ):
+                raise ValueError("Decoder bottleneck checkpoint/spec mismatch")
             pipeline.vits_model.dec.load_state_dict(trained["state_dict"], strict=True)
         # Export only when explicitly requested; the authoritative input is kept.
         if args.export_decoder:
