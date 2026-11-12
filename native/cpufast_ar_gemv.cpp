@@ -28,7 +28,7 @@ static void gemv(const float* x, const void* data, const float* bias, float* y, 
 }
 extern "C" int cpufast_ar_abi(){return 1;}
 extern "C" void cpufast_ar_gemv(const float* x,const void* w,const float* b,float* y,int64_t n,int64_t k,int64_t half,int64_t prefetch) {
-#define CALL(H) switch(prefetch){case 64:gemv<H,64>(x,w,b,y,n,k);break;case 128:gemv<H,128>(x,w,b,y,n,k);break;case 256:gemv<H,256>(x,w,b,y,n,k);break;default:gemv<H,0>(x,w,b,y,n,k);}
+#define CALL(H) switch(prefetch){case 64:gemv<H,64>(x,w,b,y,n,k);break;case 128:gemv<H,128>(x,w,b,y,n,k);break;case 192:gemv<H,192>(x,w,b,y,n,k);break;case 320:gemv<H,320>(x,w,b,y,n,k);break;case 384:gemv<H,384>(x,w,b,y,n,k);break;case 256:gemv<H,256>(x,w,b,y,n,k);break;default:gemv<H,0>(x,w,b,y,n,k);}
  if(half){CALL(true)}else{CALL(false)}
 #undef CALL
 }

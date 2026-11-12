@@ -42,11 +42,11 @@ def main():
     with torch.no_grad():
         for x, w, b in weights:
             baseline = op(x, w, b, 0)
-            for distance in (64, 128, 256):
+            for distance in (64, 128, 192, 256, 320, 384):
                 if not torch.equal(baseline, op(x, w, b, distance)):
                     raise RuntimeError("Prefetch altered the output")
         rows = []
-        for distance in (0, 64, 128, 256):
+        for distance in (0, 64, 128, 192, 256, 320, 384):
             timings = []
             for _ in range(args.samples + 1):
                 start = time.perf_counter()

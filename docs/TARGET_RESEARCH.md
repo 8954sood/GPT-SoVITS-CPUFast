@@ -50,3 +50,7 @@ On [run 43131935673](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs
 ## Model-sized AR prefetch probe
 
 [Run 43135138734](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43135138734) traversed 151MB of synthetic 24-layer AR weights. Prefetch distances 0/64/128/256 gave medians 11.05/10.37/9.71/9.02ms per synthetic token, with bit-exact output across all 96 matrices. Distance 256 warrants end-to-end testing; the traversal does not model attention, layer computation or full inference. Data and guard: `results/n1_prefetch_20261112`. Initial run 43134968081 selected the previous commit due to dispatch immediately after push and failed input validation before server access; rerun used the intended commit.
+
+## Full synthesis with AR prefetch
+
+[Run 43135656821](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43135656821) compared the approved tap path to prefetch distance 256. Median RTF improved 1.5717 to 1.5274 and 1.5879 to 1.5529 on the two sentences (three samples each). AR median fell 4.044 to 3.742s and 3.679 to 3.484s. Both outputs were PCM-exact and weights unchanged. This is provisional pending independent five-sample confirmation; reports and guards are in `results/n1_prefetchcandidate_20261112`.

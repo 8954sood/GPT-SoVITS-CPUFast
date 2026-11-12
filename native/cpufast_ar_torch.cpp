@@ -44,7 +44,7 @@ TORCH_LIBRARY_IMPL(cpufast_cpp,CPU,m){m.impl("lossless_linear_f32",TORCH_FN(loss
 static at::Tensor lossless_linear_prefetch(const at::Tensor& x,const at::Tensor& w,const at::Tensor& b,int64_t prefetch){
  TORCH_CHECK(x.device().is_cpu() && w.device().is_cpu() && b.device().is_cpu() && x.scalar_type()==at::kFloat && w.scalar_type()==at::kHalf && b.scalar_type()==at::kFloat,"CPU FP32 input and exact half cache required");
  TORCH_CHECK(w.dim()==3 && w.size(2)==8 && w.size(1)%4==0 && x.dim()>0 && x.numel()==w.size(1) && x.size(-1)==w.size(1) && b.numel()==w.size(0)*8 && x.is_contiguous() && w.is_contiguous() && b.is_contiguous(),"Invalid GEMV geometry");
- TORCH_CHECK(prefetch==0 || prefetch==64 || prefetch==128 || prefetch==256,"Invalid prefetch distance");
+ TORCH_CHECK(prefetch==0 || prefetch==64 || prefetch==128 || prefetch==192 || prefetch==256 || prefetch==320 || prefetch==384,"Invalid prefetch distance");
  auto shape=x.sizes().vec();shape.back()=w.size(0)*8;auto y=at::empty(shape,x.options());
  auto xp=x.const_data_ptr<float>(); auto wp=w.const_data_ptr<at::Half>(); auto bp=b.const_data_ptr<float>(); auto yp=y.mutable_data_ptr<float>(); auto blocks=w.size(0),k=w.size(1);
  at::parallel_for(0,blocks,8,[&](int64_t start,int64_t end){cpufast_ar_gemv(xp,wp+start*k*8,bp+start*8,yp+start*8,(end-start)*8,k,1,prefetch);});return y;
