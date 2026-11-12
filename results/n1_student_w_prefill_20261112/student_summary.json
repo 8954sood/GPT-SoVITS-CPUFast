@@ -1,0 +1,659 @@
+{
+  "scope": "Actual N1 Korean L versus source-pinned PCM-equivalent W; genuine multirow W8A8 FFN prefill only, counterbalanced AB/BA; unchanged K weights/decode/FP32 acoustics",
+  "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+  "ar_selected_additional_step": 400,
+  "decoder_selected_additional_step": 100,
+  "prefetch_selection": "No tuning; fixed L decode/runtime, only prefill FFN arithmetic differs",
+  "cases": [
+    {
+      "language": "ko",
+      "name": "paired_0_L",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": false,
+      "original": false,
+      "combined": true,
+      "model_variant": "K",
+      "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.2076851055026054,
+      "installation_seconds": 2.1743689496070147,
+      "median_rtf": 1.1540400940346054,
+      "rtfs": [
+        1.1540400940346054
+      ],
+      "median_seconds": 5.793281272053719,
+      "median_cpu_seconds": 9.863123479999992,
+      "median_stages": {
+        "ar_seconds": 1.9339021369814873,
+        "enc_p_seconds": 0.1248150821775198,
+        "flow_seconds": 0.07658981531858444,
+        "dec_seconds": 3.4790784399956465
+      },
+      "audio_seconds": 5.02,
+      "median_decoder_seconds_per_audio_second": 0.693043513943356,
+      "peak_sampled_tree_rss_bytes": 5078274048,
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": false
+    },
+    {
+      "language": "ko",
+      "name": "paired_0_W",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": true,
+      "runtime_variant": "W_L_with_multitoken_W8A8_prefill",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": false,
+      "original": false,
+      "combined": true,
+      "model_variant": "K",
+      "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.158791968598962,
+      "installation_seconds": 2.1469684317708015,
+      "median_rtf": 1.1249858592878064,
+      "rtfs": [
+        1.1249858592878064
+      ],
+      "median_seconds": 5.647429013624787,
+      "median_cpu_seconds": 9.589528279999996,
+      "median_stages": {
+        "ar_seconds": 1.9701377619057894,
+        "enc_p_seconds": 0.12695206329226494,
+        "flow_seconds": 0.07915923744440079,
+        "dec_seconds": 3.29216374643147
+      },
+      "audio_seconds": 5.02,
+      "median_decoder_seconds_per_audio_second": 0.6558095112413287,
+      "peak_sampled_tree_rss_bytes": 5214224384,
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": false
+    },
+    {
+      "language": "ko",
+      "name": "paired_1_W",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": true,
+      "runtime_variant": "W_L_with_multitoken_W8A8_prefill",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": false,
+      "original": false,
+      "combined": true,
+      "model_variant": "K",
+      "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.115588743239641,
+      "installation_seconds": 2.244657715782523,
+      "median_rtf": 1.1276575899961223,
+      "rtfs": [
+        1.1276575899961223
+      ],
+      "median_seconds": 5.660841101780534,
+      "median_cpu_seconds": 9.59029976,
+      "median_stages": {
+        "ar_seconds": 1.8101307153701782,
+        "enc_p_seconds": 0.12398500367999077,
+        "flow_seconds": 0.0772272627800703,
+        "dec_seconds": 3.47094271145761
+      },
+      "audio_seconds": 5.02,
+      "median_decoder_seconds_per_audio_second": 0.6914228508879702,
+      "peak_sampled_tree_rss_bytes": 5129138176,
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": false
+    },
+    {
+      "language": "ko",
+      "name": "paired_1_L",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": false,
+      "original": false,
+      "combined": true,
+      "model_variant": "K",
+      "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.1621959526091814,
+      "installation_seconds": 2.1605888102203608,
+      "median_rtf": 1.137540412628912,
+      "rtfs": [
+        1.137540412628912
+      ],
+      "median_seconds": 5.710452871397138,
+      "median_cpu_seconds": 9.702789600000003,
+      "median_stages": {
+        "ar_seconds": 1.8946304824203253,
+        "enc_p_seconds": 0.12807391583919525,
+        "flow_seconds": 0.07682962343096733,
+        "dec_seconds": 3.433418007567525
+      },
+      "audio_seconds": 5.02,
+      "median_decoder_seconds_per_audio_second": 0.6839478102724154,
+      "peak_sampled_tree_rss_bytes": 5080125440,
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": false
+    },
+    {
+      "language": "ko",
+      "name": "paired_2_L",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": false,
+      "original": false,
+      "combined": true,
+      "model_variant": "K",
+      "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.1878341510891914,
+      "installation_seconds": 2.2860781960189342,
+      "median_rtf": 1.184300338456118,
+      "rtfs": [
+        1.184300338456118
+      ],
+      "median_seconds": 5.945187699049711,
+      "median_cpu_seconds": 9.932873160000007,
+      "median_stages": {
+        "ar_seconds": 2.108948824927211,
+        "enc_p_seconds": 0.1278822384774685,
+        "flow_seconds": 0.07762339152395725,
+        "dec_seconds": 3.4441934060305357
+      },
+      "audio_seconds": 5.02,
+      "median_decoder_seconds_per_audio_second": 0.6860943039901466,
+      "peak_sampled_tree_rss_bytes": 5085675520,
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": false
+    },
+    {
+      "language": "ko",
+      "name": "paired_2_W",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": true,
+      "runtime_variant": "W_L_with_multitoken_W8A8_prefill",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": false,
+      "original": false,
+      "combined": true,
+      "model_variant": "K",
+      "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.1742724291980267,
+      "installation_seconds": 2.1702465005218983,
+      "median_rtf": 1.1100087440999382,
+      "rtfs": [
+        1.1100087440999382
+      ],
+      "median_seconds": 5.572243895381689,
+      "median_cpu_seconds": 9.517344119999997,
+      "median_stages": {
+        "ar_seconds": 1.8026283327490091,
+        "enc_p_seconds": 0.1305695455521345,
+        "flow_seconds": 0.07589621841907501,
+        "dec_seconds": 3.3867715634405613
+      },
+      "audio_seconds": 5.02,
+      "median_decoder_seconds_per_audio_second": 0.6746556899283987,
+      "peak_sampled_tree_rss_bytes": 5217030144,
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": false
+    },
+    {
+      "language": "ko",
+      "name": "paired_3_W",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": true,
+      "runtime_variant": "W_L_with_multitoken_W8A8_prefill",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": false,
+      "original": false,
+      "combined": true,
+      "model_variant": "K",
+      "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.094433793798089,
+      "installation_seconds": 2.1308226976543665,
+      "median_rtf": 1.1173186552862961,
+      "rtfs": [
+        1.1173186552862961
+      ],
+      "median_seconds": 5.608939649537206,
+      "median_cpu_seconds": 9.553102759999994,
+      "median_stages": {
+        "ar_seconds": 1.914802998304367,
+        "enc_p_seconds": 0.12764587998390198,
+        "flow_seconds": 0.07582641951739788,
+        "dec_seconds": 3.3145722709596157
+      },
+      "audio_seconds": 5.02,
+      "median_decoder_seconds_per_audio_second": 0.6602733607489275,
+      "peak_sampled_tree_rss_bytes": 5201612800,
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": false
+    },
+    {
+      "language": "ko",
+      "name": "paired_3_L",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": false,
+      "original": false,
+      "combined": true,
+      "model_variant": "K",
+      "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.1114177890121937,
+      "installation_seconds": 2.2462058365345,
+      "median_rtf": 1.1455758686262774,
+      "rtfs": [
+        1.1455758686262774
+      ],
+      "median_seconds": 5.750790860503912,
+      "median_cpu_seconds": 9.768903799999997,
+      "median_stages": {
+        "ar_seconds": 1.9066282846033573,
+        "enc_p_seconds": 0.12232683971524239,
+        "flow_seconds": 0.07716251164674759,
+        "dec_seconds": 3.46777606010437
+      },
+      "audio_seconds": 5.02,
+      "median_decoder_seconds_per_audio_second": 0.6907920438454921,
+      "peak_sampled_tree_rss_bytes": 5109497856,
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": false
+    },
+    {
+      "language": "ko",
+      "name": "paired_4_L",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": false,
+      "original": false,
+      "combined": true,
+      "model_variant": "K",
+      "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.181298565119505,
+      "installation_seconds": 2.16446640342474,
+      "median_rtf": 1.1455829140258975,
+      "rtfs": [
+        1.1455829140258975
+      ],
+      "median_seconds": 5.750826228410006,
+      "median_cpu_seconds": 9.802616880000002,
+      "median_stages": {
+        "ar_seconds": 1.9114028289914131,
+        "enc_p_seconds": 0.12628211453557014,
+        "flow_seconds": 0.0781153216958046,
+        "dec_seconds": 3.4594579227268696
+      },
+      "audio_seconds": 5.02,
+      "median_decoder_seconds_per_audio_second": 0.6891350443679024,
+      "peak_sampled_tree_rss_bytes": 5095186432,
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": false
+    },
+    {
+      "language": "ko",
+      "name": "paired_4_W",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": true,
+      "runtime_variant": "W_L_with_multitoken_W8A8_prefill",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": false,
+      "original": false,
+      "combined": true,
+      "model_variant": "K",
+      "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.11976427026093,
+      "installation_seconds": 2.2274774312973022,
+      "median_rtf": 1.1257786389098938,
+      "rtfs": [
+        1.1257786389098938
+      ],
+      "median_seconds": 5.651408767327666,
+      "median_cpu_seconds": 9.567138800000002,
+      "median_stages": {
+        "ar_seconds": 1.910003401339054,
+        "enc_p_seconds": 0.1282963715493679,
+        "flow_seconds": 0.07813628390431404,
+        "dec_seconds": 3.357111766934395
+      },
+      "audio_seconds": 5.02,
+      "median_decoder_seconds_per_audio_second": 0.6687473639311544,
+      "peak_sampled_tree_rss_bytes": 5187665920,
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": false
+    }
+  ],
+  "comparison_order": [
+    {
+      "round": 0,
+      "runtime": "L",
+      "name": "paired_0_L"
+    },
+    {
+      "round": 0,
+      "runtime": "W",
+      "name": "paired_0_W"
+    },
+    {
+      "round": 1,
+      "runtime": "W",
+      "name": "paired_1_W"
+    },
+    {
+      "round": 1,
+      "runtime": "L",
+      "name": "paired_1_L"
+    },
+    {
+      "round": 2,
+      "runtime": "L",
+      "name": "paired_2_L"
+    },
+    {
+      "round": 2,
+      "runtime": "W",
+      "name": "paired_2_W"
+    },
+    {
+      "round": 3,
+      "runtime": "W",
+      "name": "paired_3_W"
+    },
+    {
+      "round": 3,
+      "runtime": "L",
+      "name": "paired_3_L"
+    },
+    {
+      "round": 4,
+      "runtime": "L",
+      "name": "paired_4_L"
+    },
+    {
+      "round": 4,
+      "runtime": "W",
+      "name": "paired_4_W"
+    }
+  ],
+  "paired_aggregate": [
+    {
+      "runtime": "L",
+      "samples": 5,
+      "rtfs": [
+        1.1540400940346054,
+        1.137540412628912,
+        1.184300338456118,
+        1.1455758686262774,
+        1.1455829140258975
+      ],
+      "median_rtf": 1.1455829140258975,
+      "median_seconds": 5.750826228410006,
+      "median_cpu_seconds": 9.802616880000002,
+      "median_stages": {
+        "ar_seconds": 1.9114028289914131,
+        "enc_p_seconds": 0.12628211453557014,
+        "flow_seconds": 0.07716251164674759,
+        "dec_seconds": 3.4594579227268696
+      },
+      "audio_seconds": 5.02,
+      "peak_sampled_tree_rss_bytes": 5109497856
+    },
+    {
+      "runtime": "W",
+      "samples": 5,
+      "rtfs": [
+        1.1249858592878064,
+        1.1276575899961223,
+        1.1100087440999382,
+        1.1173186552862961,
+        1.1257786389098938
+      ],
+      "median_rtf": 1.1249858592878064,
+      "median_seconds": 5.647429013624787,
+      "median_cpu_seconds": 9.567138800000002,
+      "median_stages": {
+        "ar_seconds": 1.910003401339054,
+        "enc_p_seconds": 0.12764587998390198,
+        "flow_seconds": 0.0772272627800703,
+        "dec_seconds": 3.357111766934395
+      },
+      "audio_seconds": 5.02,
+      "peak_sampled_tree_rss_bytes": 5217030144
+    }
+  ],
+  "profile_run": {
+    "language": "ko",
+    "name": "int8_prefill_profile_run",
+    "prefetch": null,
+    "approximate_ar_int8_only": true,
+    "approximate_fft_half_products": false,
+    "approximate_fft_half_stream": false,
+    "fft_half_product_modules": [],
+    "packed_prefill_ffn": false,
+    "int8_prefill_ffn": true,
+    "runtime_variant": "W_L_with_multitoken_W8A8_prefill",
+    "runtime_local_generated_tokens_match": true,
+    "runtime_local_pcm_match": false,
+    "original": false,
+    "combined": true,
+    "model_variant": "K",
+    "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+    "ar_cache_storage": "int8_approximate",
+    "student_fp32_control": false,
+    "fft_pad_channels": false,
+    "fft_padded_output_cache": [],
+    "cold_load_seconds": 3.1512330882251263,
+    "installation_seconds": 2.1669451240450144,
+    "median_rtf": 1.115105338246224,
+    "rtfs": [
+      1.115105338246224
+    ],
+    "median_seconds": 5.597828797996044,
+    "median_cpu_seconds": 9.5232174,
+    "median_stages": {
+      "ar_seconds": 1.7814728487282991,
+      "enc_p_seconds": 0.125194588676095,
+      "flow_seconds": 0.07707971334457397,
+      "dec_seconds": 3.4331500362604856
+    },
+    "audio_seconds": 5.02,
+    "median_decoder_seconds_per_audio_second": 0.6838944295339613,
+    "peak_sampled_tree_rss_bytes": 5882458112,
+    "semantic": [
+      {
+        "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+        "index": 118,
+        "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+      }
+    ],
+    "candidate_tokens_exact_to_n1_student": true,
+    "candidate_pcm_exact_to_n1_student": true,
+    "local_approved_pcm_match": false,
+    "local_approved_generated_tokens_match": false
+  },
+  "student_assets_unchanged": true,
+  "complete": true
+}

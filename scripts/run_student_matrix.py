@@ -30,20 +30,20 @@ def main():
     parser.add_argument("--packed-prefill-comparison", action="store_true")
     parser.add_argument("--int8-prefill-comparison", action="store_true")
     parser.add_argument("--diagnostic-profile-only", action="store_true")
-    parser.add_argument("--decoder-candidate-label", choices=["R", "U"], default="R")
+    parser.add_argument("--decoder-candidate-label", choices=["R", "U", "V"], default="R")
     args = parser.parse_args()
     prefill_comparison = args.packed_prefill_comparison or args.int8_prefill_comparison
     if args.int8_prefill_comparison and (
         args.packed_prefill_comparison or args.warmups != 3 or args.samples != 5
     ):
         parser.error("W requires one counterbalanced3warm5sample prefill comparison")
-    if args.decoder_candidate_label == "U" and (
+    if args.decoder_candidate_label in ("U", "V") and (
         not args.alternating_decoder_comparison
         or args.warmups != 3
         or args.samples != 5
     ):
         parser.error(
-            "U requires counterbalanced decoder comparison with exactly3warm5samples"
+            "U/V requires counterbalanced decoder comparison with exactly3warm5samples"
         )
     if args.diagnostic_profile_only and args.warmups != 3:
         parser.error("Diagnostic profile uses exactly three warmups")
@@ -91,8 +91,10 @@ def main():
     ):
         parser.error("Packed prefill comparison uses one unchanged approved L bundle")
     manifest = load_manifest(args.manifest, args.manifest_sha256)
-    if args.decoder_candidate_label == "U" and manifest.get("model_variant") != "U":
-        parser.error("U mode requires the explicitly approved U manifest")
+    if args.decoder_candidate_label in ("U", "V") and (
+        manifest.get("model_variant") != args.decoder_candidate_label
+    ):
+        parser.error("Decoder label must match the explicitly approved manifest")
     before = snapshot(args.manifest)
     cases = {r["language"]: r for r in manifest["listening_report"]["cases"]}
     baseline = None
@@ -222,7 +224,7 @@ def main():
             if profile
             and not (
                 args.diagnostic_profile_only
-                or args.decoder_candidate_label == "U"
+                or args.decoder_candidate_label in ("U", "V")
                 or args.int8_prefill_comparison
             )
             else str(args.warmups),
