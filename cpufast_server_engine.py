@@ -202,7 +202,7 @@ class Engine:
 
     @staticmethod
     def _source_hashes():
-        names = ('cpufast_server_engine.py', 'cpufast_engine.py', 'cpufast_fast_ar.py',
+        names = ('cpufast_server_engine.py', 'cpufast_engine.py', 'cpufast_fast_ar.py', 'cpufast_kv_cache.py',
             'cpufast_ar_cpp.py', 'cpufast_fft.py', 'cpufast_tap.py', 'cpufast_fused_blocks.py',
             'cpufast_cooktoom.py', 'cpufast_optimizations.py', 'cpufast_predictor.py',
             'cpufast_winograd.py', 'student_runtime.py', 'GPT_SoVITS/TTS_infer_pack/TTS.py',
