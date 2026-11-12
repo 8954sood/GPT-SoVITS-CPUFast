@@ -1,0 +1,342 @@
+{
+  "scope": "Analyze inactive FFN neurons while protecting every FFN2 INT8 scale maximum.\n\nTraining-only QAT-surrogate observations are not a global sparsity guarantee,\nnative exactness, listening approval or target-server performance. No model is\nexported. This tests a narrower hypothesis than the previously rejected S1536.\n",
+  "approved_manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+  "parent_ar_sha256": "a25ae9826d4d608ca41adca04075ff75a5ac66ababa0e823da60b7990f354352",
+  "parent_bundle_verified_unchanged": true,
+  "quality_approved": false,
+  "actual_n1_measured": false,
+  "model_exported": false,
+  "training_contexts": [
+    {
+      "name": "voice0_ja_0_ar.pt",
+      "sha256": "3453f793b80a03024c38f36e2ca69acfd4c113a709813f2e3086669939a8a169",
+      "language": "ja"
+    },
+    {
+      "name": "voice0_ja_1_ar.pt",
+      "sha256": "3c219a07ec403caa9fb2a03f4dfcfa3b9fb82a087d41897fdd089eecec02b1d6",
+      "language": "ja"
+    },
+    {
+      "name": "voice0_ja_2_ar.pt",
+      "sha256": "edb5e8e071927e0bab466dd4489eb868c5301222601cb720ff74632b0ec75104",
+      "language": "ja"
+    },
+    {
+      "name": "voice0_ja_3_ar.pt",
+      "sha256": "97f663af66f0acb945eda187523238dfebf818e7f32dbc73a8ac463ca59cbb4e",
+      "language": "ja"
+    },
+    {
+      "name": "voice0_ja_4_ar.pt",
+      "sha256": "93594ec4c3c11f00c74fc65242069f20a914ae316ea6c9927a6c9d87bae5da73",
+      "language": "ja"
+    },
+    {
+      "name": "voice0_ja_5_ar.pt",
+      "sha256": "22cfa8aea2906eae7b3a785d786e7f65b8ce15c0ae9a97152b405991fcb30756",
+      "language": "ja"
+    },
+    {
+      "name": "voice0_ja_6_ar.pt",
+      "sha256": "677d4a848fcf72bff39d67efccf669129e890e75db957617944b4022375c6a8b",
+      "language": "ja"
+    },
+    {
+      "name": "voice0_ja_7_ar.pt",
+      "sha256": "ef713c93b98dfd34f7c6085d6a749541b65a6ca143f8b80e4d7b141ef99359ff",
+      "language": "ja"
+    },
+    {
+      "name": "voice0_ja_8_ar.pt",
+      "sha256": "0a8cd028a8d70fd090625c95afab2a60e635ed44a4270d37439f740b910004e9",
+      "language": "ja"
+    },
+    {
+      "name": "voice0_ja_9_ar.pt",
+      "sha256": "26554389753216321badb1b6a00c9125a267d57138f141423bac6eec4630643b",
+      "language": "ja"
+    },
+    {
+      "name": "voice0_ko_0_ar.pt",
+      "sha256": "81b08f6d0abd2ed3caa5799d0b0c75f794f641872b13676b291fb2045b839d07",
+      "language": "ko"
+    },
+    {
+      "name": "voice0_ko_1_ar.pt",
+      "sha256": "b4491f741e8c6768066ce0507ac4492004c7ce3f265723d1aadbb513a91d9324",
+      "language": "ko"
+    },
+    {
+      "name": "voice0_ko_2_ar.pt",
+      "sha256": "62b1294ca0eefa2f9f0c333bf93b9e7c7e99635a1ba3a55fe943c6701aca3d19",
+      "language": "ko"
+    },
+    {
+      "name": "voice0_ko_3_ar.pt",
+      "sha256": "0c4019c238a45c38a52da32d5ffe687d7d8af2917684e8f95e72e3d3a5327d05",
+      "language": "ko"
+    },
+    {
+      "name": "voice0_ko_4_ar.pt",
+      "sha256": "5dd89984125dea3d194cf049e926b4bad34c5753327b1358ff96318a8ab906b0",
+      "language": "ko"
+    },
+    {
+      "name": "voice0_ko_5_ar.pt",
+      "sha256": "12a384788694d1d56c47a5f36bcbcfa0ccce7d316ceb89705ca6533d35f787c6",
+      "language": "ko"
+    },
+    {
+      "name": "voice0_ko_6_ar.pt",
+      "sha256": "2726a2fc2057bca7311a663f8694a4c00d8ebe41572b8e59ac4288a1122de842",
+      "language": "ko"
+    },
+    {
+      "name": "voice0_ko_7_ar.pt",
+      "sha256": "5c5f1eee5674268812f522a4fb8cc26b08c1287073c79f23e219a02b7a3f9c12",
+      "language": "ko"
+    },
+    {
+      "name": "voice0_ko_8_ar.pt",
+      "sha256": "f1442a39fadbde095c92004c3640b11ee4ce2fab5f5dc389f609cdd5bfef4611",
+      "language": "ko"
+    },
+    {
+      "name": "voice0_ko_9_ar.pt",
+      "sha256": "d3b0bd2ac25f47bb61b77baec6e396082f1dd05159c9521f1f081480dbab4b63",
+      "language": "ko"
+    },
+    {
+      "name": "voice0_en_0_ar.pt",
+      "sha256": "191eda7af75aad15e4bdf8b7043e7df6f6d74a55b9a35ff2438ed4e541d19f77",
+      "language": "en"
+    },
+    {
+      "name": "voice0_en_1_ar.pt",
+      "sha256": "09f011004567e225b6641909cba1696471fa73085828be013c092f8cbf2eec8d",
+      "language": "en"
+    },
+    {
+      "name": "voice0_en_2_ar.pt",
+      "sha256": "2836f4435ce9318f5a7e9459e2d2dd27a7df0ec80428f8ca5846f521c3ee135a",
+      "language": "en"
+    },
+    {
+      "name": "voice0_en_3_ar.pt",
+      "sha256": "96fcebdafe0d75c63edda42b84dcaa81a3d4ea9eb85cdbc8696c7c138320950b",
+      "language": "en"
+    },
+    {
+      "name": "voice0_en_4_ar.pt",
+      "sha256": "8f856ed0ff5c3e1ee18f5cdadecd64805166f054e3df1dc9185180588f3b9207",
+      "language": "en"
+    },
+    {
+      "name": "voice0_en_5_ar.pt",
+      "sha256": "f1182e95e2c0345ab26b30dbec549c0a9d52d47d4e0c1e395b1aaa81aba59d81",
+      "language": "en"
+    },
+    {
+      "name": "voice0_en_6_ar.pt",
+      "sha256": "9b1211b08e725cee9a243a8bbb39a613a23e5cb3da6287bc696f3b9256a07603",
+      "language": "en"
+    },
+    {
+      "name": "voice0_en_7_ar.pt",
+      "sha256": "2c0e1d3a371ac4e2f23ce5546252900f66f1af09721e6800dac08feb4f6f95c0",
+      "language": "en"
+    },
+    {
+      "name": "voice0_en_8_ar.pt",
+      "sha256": "7b1588ace9963aaab4cf8a5f41fac3dd812dad1b89ca51a4745c31a0f987372f",
+      "language": "en"
+    },
+    {
+      "name": "voice0_en_9_ar.pt",
+      "sha256": "96fff6b7795bc0f3d8320a64948c558bc267522a70caae8d87d527d64bc9b2af",
+      "language": "en"
+    }
+  ],
+  "validation_used_for_selection": false,
+  "context_manifest_sha256": "54c87e32dbba8277350b82279c8c9e872460fb55b8e4d6abe135c0096d60f98c",
+  "source_sha256": "93dc5167b9f66dc5e0b850324e3d1bd011de78cbb5654f179c873f0aa30a473c",
+  "layers": [
+    {
+      "original_layer_id": 0,
+      "ffn_width": 2048,
+      "all_training_rows_inactive": 183,
+      "margin_inactive_not_scale_maximum": 118,
+      "protected_maximum_columns": 252,
+      "proposed_remove": 64,
+      "removed_max_preactivation": -0.5391296148300171,
+      "ffn2_scale_and_retained_int8_coefficients_exact": true
+    },
+    {
+      "original_layer_id": 1,
+      "ffn_width": 2048,
+      "all_training_rows_inactive": 115,
+      "margin_inactive_not_scale_maximum": 71,
+      "protected_maximum_columns": 342,
+      "proposed_remove": 64,
+      "removed_max_preactivation": -0.07646846771240234,
+      "ffn2_scale_and_retained_int8_coefficients_exact": true
+    },
+    {
+      "original_layer_id": 2,
+      "ffn_width": 2048,
+      "all_training_rows_inactive": 27,
+      "margin_inactive_not_scale_maximum": 21,
+      "protected_maximum_columns": 321,
+      "proposed_remove": 0,
+      "removed_max_preactivation": null,
+      "ffn2_scale_and_retained_int8_coefficients_exact": true
+    },
+    {
+      "original_layer_id": 3,
+      "ffn_width": 2048,
+      "all_training_rows_inactive": 19,
+      "margin_inactive_not_scale_maximum": 7,
+      "protected_maximum_columns": 280,
+      "proposed_remove": 0,
+      "removed_max_preactivation": null,
+      "ffn2_scale_and_retained_int8_coefficients_exact": true
+    },
+    {
+      "original_layer_id": 4,
+      "ffn_width": 2048,
+      "all_training_rows_inactive": 35,
+      "margin_inactive_not_scale_maximum": 17,
+      "protected_maximum_columns": 265,
+      "proposed_remove": 0,
+      "removed_max_preactivation": null,
+      "ffn2_scale_and_retained_int8_coefficients_exact": true
+    },
+    {
+      "original_layer_id": 5,
+      "ffn_width": 2048,
+      "all_training_rows_inactive": 239,
+      "margin_inactive_not_scale_maximum": 172,
+      "protected_maximum_columns": 199,
+      "proposed_remove": 128,
+      "removed_max_preactivation": -0.20069240033626556,
+      "ffn2_scale_and_retained_int8_coefficients_exact": true
+    },
+    {
+      "original_layer_id": 6,
+      "ffn_width": 2048,
+      "all_training_rows_inactive": 341,
+      "margin_inactive_not_scale_maximum": 226,
+      "protected_maximum_columns": 214,
+      "proposed_remove": 128,
+      "removed_max_preactivation": -1.0946738719940186,
+      "ffn2_scale_and_retained_int8_coefficients_exact": true
+    },
+    {
+      "original_layer_id": 7,
+      "ffn_width": 2048,
+      "all_training_rows_inactive": 306,
+      "margin_inactive_not_scale_maximum": 193,
+      "protected_maximum_columns": 212,
+      "proposed_remove": 128,
+      "removed_max_preactivation": -0.3424561023712158,
+      "ffn2_scale_and_retained_int8_coefficients_exact": true
+    },
+    {
+      "original_layer_id": 8,
+      "ffn_width": 2048,
+      "all_training_rows_inactive": 179,
+      "margin_inactive_not_scale_maximum": 99,
+      "protected_maximum_columns": 282,
+      "proposed_remove": 64,
+      "removed_max_preactivation": -0.4380068778991699,
+      "ffn2_scale_and_retained_int8_coefficients_exact": true
+    },
+    {
+      "original_layer_id": 9,
+      "ffn_width": 2048,
+      "all_training_rows_inactive": 265,
+      "margin_inactive_not_scale_maximum": 146,
+      "protected_maximum_columns": 254,
+      "proposed_remove": 128,
+      "removed_max_preactivation": -0.13538813591003418,
+      "ffn2_scale_and_retained_int8_coefficients_exact": true
+    },
+    {
+      "original_layer_id": 10,
+      "ffn_width": 2048,
+      "all_training_rows_inactive": 81,
+      "margin_inactive_not_scale_maximum": 49,
+      "protected_maximum_columns": 312,
+      "proposed_remove": 0,
+      "removed_max_preactivation": null,
+      "ffn2_scale_and_retained_int8_coefficients_exact": true
+    },
+    {
+      "original_layer_id": 11,
+      "ffn_width": 2048,
+      "all_training_rows_inactive": 47,
+      "margin_inactive_not_scale_maximum": 44,
+      "protected_maximum_columns": 338,
+      "proposed_remove": 0,
+      "removed_max_preactivation": null,
+      "ffn2_scale_and_retained_int8_coefficients_exact": true
+    },
+    {
+      "original_layer_id": 13,
+      "ffn_width": 2048,
+      "all_training_rows_inactive": 0,
+      "margin_inactive_not_scale_maximum": 0,
+      "protected_maximum_columns": 412,
+      "proposed_remove": 0,
+      "removed_max_preactivation": null,
+      "ffn2_scale_and_retained_int8_coefficients_exact": true
+    },
+    {
+      "original_layer_id": 15,
+      "ffn_width": 2048,
+      "all_training_rows_inactive": 1,
+      "margin_inactive_not_scale_maximum": 1,
+      "protected_maximum_columns": 420,
+      "proposed_remove": 0,
+      "removed_max_preactivation": null,
+      "ffn2_scale_and_retained_int8_coefficients_exact": true
+    },
+    {
+      "original_layer_id": 19,
+      "ffn_width": 2048,
+      "all_training_rows_inactive": 0,
+      "margin_inactive_not_scale_maximum": 0,
+      "protected_maximum_columns": 421,
+      "proposed_remove": 0,
+      "removed_max_preactivation": null,
+      "ffn2_scale_and_retained_int8_coefficients_exact": true
+    },
+    {
+      "original_layer_id": 22,
+      "ffn_width": 2048,
+      "all_training_rows_inactive": 0,
+      "margin_inactive_not_scale_maximum": 0,
+      "protected_maximum_columns": 430,
+      "proposed_remove": 0,
+      "removed_max_preactivation": null,
+      "ffn2_scale_and_retained_int8_coefficients_exact": true
+    },
+    {
+      "original_layer_id": 23,
+      "ffn_width": 2048,
+      "all_training_rows_inactive": 0,
+      "margin_inactive_not_scale_maximum": 0,
+      "protected_maximum_columns": 438,
+      "proposed_remove": 0,
+      "removed_max_preactivation": null,
+      "ffn2_scale_and_retained_int8_coefficients_exact": true
+    }
+  ],
+  "full_private_analysis_sha256": "c8d76ff46085bb6f6d4d57b1cb53be31b75496b6e8360a51d743c3a7532344b7",
+  "old_failure_reference": {
+    "archive_ref": "handoff-archive/ar-ffn-optimization",
+    "path": "results/student_pilot/ar_ffn1536_quantization_diagnostic.json",
+    "reason": "Previously rejected S1536 changed FFN2 per-row scales in284..370 of512 output rows. This analysis protects one original maximum per row before proposing any removal."
+  }
+}
