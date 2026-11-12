@@ -38,6 +38,7 @@ def main():
     parser.add_argument("--baseline-manifest", type=Path)
     parser.add_argument("--baseline-manifest-sha256")
     parser.add_argument("--head-integrated-confirm", action="store_true")
+    parser.add_argument("--c24-integrated-confirm", action="store_true")
     parser.add_argument("--head-v32-comparison", action="store_true")
     parser.add_argument("--head-qk4-comparison", action="store_true")
     parser.add_argument("--ar-depth-comparison", action="store_true")
@@ -55,6 +56,8 @@ def main():
     parser.add_argument("--fft-output-tiles-comparison", action="store_true")
     parser.add_argument("--decoder-candidate-label", choices=["R", "U", "V"], default="R")
     args = parser.parse_args()
+    if args.c24_integrated_confirm:
+        args.head_integrated_confirm = True
     if args.c24_model_comparison and (
         not (args.decoder_only and args.decoder_ar_int8 and args.alternating_decoder_comparison and args.baseline_manifest)
         or args.warmups != 3 or args.samples != 5
@@ -162,6 +165,12 @@ def main():
         manifest.get("model_variant") != args.decoder_candidate_label
     ):
         parser.error("Decoder label must match the explicitly approved manifest")
+    if args.c24_integrated_confirm and (
+        args.manifest_sha256 != '696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865'
+        or manifest['ar_layers'] != 17 or sum(len(b) for b in manifest['decoder_branches']) != 11
+        or manifest['decoder_branches'][-1] != [0, 1]
+    ):
+        parser.error('C24 confirmation requires the exact owner-approved AR17/C24Vtarget100 model')
     before = snapshot(args.manifest)
     cases = {r["language"]: r for r in manifest["listening_report"]["cases"]}
     baseline = None
@@ -445,7 +454,7 @@ def main():
             or data["cgroup"]["memory.swap.max"] != "0"
         ):
             raise RuntimeError("Actual N1 resource profile changed")
-        if args.c24_model_comparison:
+        if args.c24_model_comparison or args.c24_integrated_confirm:
             actual_blocks = sorted({int(r['block']) for r in data['ar_coefficient_audit']['matrices']})
             if actual_blocks != list(range(17)) or data['decoder_residual_block_count'] != sum(len(b) for b in run_manifest['decoder_branches']):
                 raise RuntimeError('C24 actual AR17/decoder branch count audit failed')
@@ -609,6 +618,8 @@ def main():
             "five fresh processes, each3excluded warmups+1sample; separate excluded profile. "
             "Independent confirmation, not a new causal paired speed estimate."
         )
+        if args.c24_integrated_confirm:
+            summary['scope'] = 'Independent actual N1 approved AR17+C24Vtarget100 canonical confirmation: exactly5freshprocesses each3warm1sample, max emphasized; no Tap-finish/FFT128/QK/FFN2 candidates'
         summary["prefetch_selection"] = "No tuning; one unchanged owner-approved AR/decoder bundle"
         paths = [Path(os.environ.get(key, str(Path(__file__).resolve().parents[1] / name)))
                  for key, name in (("CPUFAST_AR_LIBRARY", "libcpufast_ar_torch.so"),
@@ -632,6 +643,8 @@ def main():
             "samples": 5, "rtfs": [r[0]["rtf"] for r in records],
             "median_rtf": statistics.median(r[0]["rtf"] for r in records),
             "rtf_range": [min(r[0]["rtf"] for r in records), max(r[0]["rtf"] for r in records)],
+            "max_rtf": max(r[0]["rtf"] for r in records),
+            "all_measured_rtf_below_one": max(r[0]["rtf"] for r in records) < 1,
             "median_seconds": statistics.median(r[1]["median_seconds"] for r in records),
             "median_cpu_seconds": statistics.median(r[0]["cpu_seconds"] for r in records),
             "median_stages": {k: statistics.median(r[0]["stages"][k] for r in records)

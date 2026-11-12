@@ -15,7 +15,7 @@ comparison_manifest_sha=${10:-}
 decoder_candidate_label=${11:-R}
 [[ "$decoder_candidate_label" == R || "$decoder_candidate_label" == U || "$decoder_candidate_label" == V ]] || { echo 'Invalid decoder label' >&2; exit 1; }
 if [[ "$decoder_candidate_label" == V && "$mode" != studentbottleneck ]]; then echo 'V requires isolated studentbottleneck mode' >&2; exit 1; fi
-[[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention || "$mode" == small || "$mode" == scheduling || "$mode" == packed48 || "$mode" == fft || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference || "$mode" == runtime || "$mode" == student || "$mode" == studentcompare || "$mode" == studentdecoder || "$mode" == studentheadconfirm || "$mode" == studentheadqk4 || "$mode" == studentheadv32 || "$mode" == studentprofile || "$mode" == studentprefillint8 || "$mode" == studentprefill || "$mode" == studentu || "$mode" == studentbottleneck || "$mode" == studentardepth || "$mode" == studentdecoderint8 || "$mode" == studentarint8 || "$mode" == studentarint8confirm || "$mode" == studenthalfstream || "$mode" == studentffthalf || "$mode" == taptiles || "$mode" == im2col ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
+[[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention || "$mode" == small || "$mode" == scheduling || "$mode" == packed48 || "$mode" == fft || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference || "$mode" == runtime || "$mode" == student || "$mode" == studentcompare || "$mode" == studentdecoder || "$mode" == studentheadconfirm || "$mode" == studentc24confirm || "$mode" == studentheadqk4 || "$mode" == studentheadv32 || "$mode" == studentprofile || "$mode" == studentprefillint8 || "$mode" == studentprefill || "$mode" == studentu || "$mode" == studentbottleneck || "$mode" == studentardepth || "$mode" == studentc24 || "$mode" == studentdecoderint8 || "$mode" == studentarint8 || "$mode" == studentarint8confirm || "$mode" == studenthalfstream || "$mode" == studentffthalf || "$mode" == taptiles || "$mode" == im2col ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
 project="$bench_root/project"
 assets="$bench_root/cpufast-cefae22/assets/pretrained_models"
 reference="$bench_root/reference_ja_4s.wav"
@@ -30,10 +30,10 @@ if docker info >/dev/null 2>&1; then docker_cmd=(docker); else docker_cmd=(sudo 
 "${docker_cmd[@]}" image inspect "$image" >/dev/null
 mkdir -p "$repo_dir/ci-results"
 student_mount=()
-if [[ "$mode" == student || "$mode" == studentcompare || "$mode" == studentdecoder || "$mode" == studentheadconfirm || "$mode" == studentheadqk4 || "$mode" == studentheadv32 || "$mode" == studentprofile || "$mode" == studentprefillint8 || "$mode" == studentprefill || "$mode" == studentu || "$mode" == studentbottleneck || "$mode" == studentardepth || "$mode" == studentdecoderint8 || "$mode" == studentarint8 || "$mode" == studentarint8confirm || "$mode" == studenthalfstream || "$mode" == studentffthalf ]]; then
+if [[ "$mode" == student || "$mode" == studentcompare || "$mode" == studentdecoder || "$mode" == studentheadconfirm || "$mode" == studentc24confirm || "$mode" == studentheadqk4 || "$mode" == studentheadv32 || "$mode" == studentprofile || "$mode" == studentprefillint8 || "$mode" == studentprefill || "$mode" == studentu || "$mode" == studentbottleneck || "$mode" == studentardepth || "$mode" == studentc24 || "$mode" == studentdecoderint8 || "$mode" == studentarint8 || "$mode" == studentarint8confirm || "$mode" == studenthalfstream || "$mode" == studentffthalf ]]; then
   [[ "$student_manifest_sha" =~ ^[0-9a-f]{64}$ ]] || { echo 'Approved student manifest SHA required' >&2; exit 1; }
   student_mount=(--mount "type=bind,src=$bench_root/student-assets/$student_manifest_sha,dst=/student,readonly" -e NLTK_DATA=/repo/.experiments/nltk_data)
-  if [[ "$mode" == studentcompare || "$mode" == studentdecoder || "$mode" == studentu || "$mode" == studentbottleneck || "$mode" == studentardepth || "$mode" == studentdecoderint8 ]]; then
+  if [[ "$mode" == studentcompare || "$mode" == studentdecoder || "$mode" == studentu || "$mode" == studentbottleneck || "$mode" == studentardepth || "$mode" == studentc24 || "$mode" == studentdecoderint8 ]]; then
     [[ "$comparison_manifest_sha" =~ ^[0-9a-f]{64}$ ]] || { echo 'Approved comparison manifest SHA required' >&2; exit 1; }
     student_mount+=(--mount "type=bind,src=$bench_root/student-assets/$comparison_manifest_sha,dst=/student-baseline,readonly")
   fi
@@ -74,11 +74,11 @@ run_container python -m unittest discover -s tests -p test_parallel_transforms.p
 run_container python -m unittest discover -s tests -p test_fp32_cache_prefetch.py -v
 run_container python -m unittest discover -s tests -p test_fft_channel_padding.py -v
 run_container python -m unittest discover -s tests -p test_winograd_odd_channels.py -v
-if [[ "$mode" == student || "$mode" == studentcompare || "$mode" == studentdecoder || "$mode" == studentheadconfirm || "$mode" == studentheadqk4 || "$mode" == studentheadv32 || "$mode" == studentprofile || "$mode" == studentprefillint8 || "$mode" == studentprefill || "$mode" == studentu || "$mode" == studentbottleneck || "$mode" == studentardepth || "$mode" == studentdecoderint8 || "$mode" == studentarint8 || "$mode" == studentarint8confirm || "$mode" == studenthalfstream || "$mode" == studentffthalf ]]; then
+if [[ "$mode" == student || "$mode" == studentcompare || "$mode" == studentdecoder || "$mode" == studentheadconfirm || "$mode" == studentc24confirm || "$mode" == studentheadqk4 || "$mode" == studentheadv32 || "$mode" == studentprofile || "$mode" == studentprefillint8 || "$mode" == studentprefill || "$mode" == studentu || "$mode" == studentbottleneck || "$mode" == studentardepth || "$mode" == studentc24 || "$mode" == studentdecoderint8 || "$mode" == studentarint8 || "$mode" == studentarint8confirm || "$mode" == studenthalfstream || "$mode" == studentffthalf ]]; then
   run_container python scripts/verify_student_assets.py /student "$student_manifest_sha"
   run_container python -m nltk.downloader -q -d /repo/.experiments/nltk_data cmudict averaged_perceptron_tagger averaged_perceptron_tagger_eng
   student_args=()
-  if [[ "$mode" == studentarint8 || "$mode" == studentarint8confirm || "$mode" == studentheadconfirm || "$mode" == studentheadqk4 || "$mode" == studentheadv32 || "$mode" == studentprofile || "$mode" == studentprefillint8 || "$mode" == studentprefill || "$mode" == studentu || "$mode" == studentbottleneck || "$mode" == studentardepth || "$mode" == studentdecoderint8 || "$mode" == studenthalfstream || "$mode" == studentffthalf ]]; then
+  if [[ "$mode" == studentarint8 || "$mode" == studentarint8confirm || "$mode" == studentheadconfirm || "$mode" == studentc24confirm || "$mode" == studentheadqk4 || "$mode" == studentheadv32 || "$mode" == studentprofile || "$mode" == studentprefillint8 || "$mode" == studentprefill || "$mode" == studentu || "$mode" == studentbottleneck || "$mode" == studentardepth || "$mode" == studentc24 || "$mode" == studentdecoderint8 || "$mode" == studenthalfstream || "$mode" == studentffthalf ]]; then
     if [[ "$mode" == studenthalfstream ]]; then
       run_container python experiments/rtf07/build_half_stream_probe.py --output /repo/libcpufast_fast.so
       run_container python experiments/rtf07/test_half_stream_probe.py
@@ -103,6 +103,7 @@ if [[ "$mode" == student || "$mode" == studentcompare || "$mode" == studentdecod
       student_args=(--int8-prefill-comparison)
     fi
     if [[ "$mode" == studentheadconfirm ]]; then student_args=(--head-integrated-confirm); fi
+    if [[ "$mode" == studentc24confirm ]]; then student_args=(--c24-integrated-confirm); fi
     if [[ "$mode" == studentheadqk4 ]]; then
       run_container python experiments/rtf07/build_head_qk4_probe.py --output /repo/libcpufast_head_qk4_runtime.so --replace-runtime
       student_args=(--head-qk4-comparison)
@@ -115,7 +116,7 @@ if [[ "$mode" == student || "$mode" == studentcompare || "$mode" == studentdecod
     if [[ "$mode" == studentarint8confirm ]]; then student_args+=(--ar-int8-confirm-only); fi
   fi
 
-  if [[ "$mode" == studentcompare || "$mode" == studentdecoder || "$mode" == studentu || "$mode" == studentbottleneck || "$mode" == studentardepth || "$mode" == studentdecoderint8 ]]; then
+  if [[ "$mode" == studentcompare || "$mode" == studentdecoder || "$mode" == studentu || "$mode" == studentbottleneck || "$mode" == studentardepth || "$mode" == studentc24 || "$mode" == studentdecoderint8 ]]; then
     run_container python scripts/verify_student_assets.py /student-baseline "$comparison_manifest_sha"
     student_args=(--baseline-manifest /student-baseline/manifest.json --baseline-manifest-sha256 "$comparison_manifest_sha" --prefetch "$student_prefetch")
     if [[ "$mode" == studentardepth ]]; then student_args+=(--ar-depth-comparison); fi
@@ -127,6 +128,9 @@ if [[ "$mode" == student || "$mode" == studentcompare || "$mode" == studentdecod
       if [[ "$mode" == studentu ]]; then student_args+=(--decoder-candidate-label U); fi
       if [[ "$mode" == studentbottleneck ]]; then student_args+=(--decoder-candidate-label "$decoder_candidate_label"); fi
     fi
+  fi
+  if [[ "$mode" == studentc24 ]]; then
+    student_args+=(--decoder-only --decoder-ar-int8 --alternating-decoder-comparison --c24-model-comparison)
   fi
   run_container python scripts/run_student_matrix.py --manifest /student/manifest.json \
     --manifest-sha256 "$student_manifest_sha" --output /repo/ci-results --warmups "$warmups" --samples "$samples" "${student_args[@]}"
@@ -221,7 +225,7 @@ if [[ "$mode" == runtime ]]; then
 fi
 for index in 0 1; do
   number=$((index + 1))
-  if [[ "$mode" == attention || "$mode" == packed48 || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference || "$mode" == runtime || "$mode" == student || "$mode" == studentcompare || "$mode" == studentdecoder || "$mode" == studentheadconfirm || "$mode" == studentheadqk4 || "$mode" == studentheadv32 || "$mode" == studentprofile || "$mode" == studentprefillint8 || "$mode" == studentprefill || "$mode" == studentu || "$mode" == studentbottleneck || "$mode" == studentardepth || "$mode" == studentdecoderint8 || "$mode" == studentarint8 || "$mode" == studentarint8confirm || "$mode" == studenthalfstream || "$mode" == studentffthalf ]]; then
+  if [[ "$mode" == attention || "$mode" == packed48 || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference || "$mode" == runtime || "$mode" == student || "$mode" == studentcompare || "$mode" == studentdecoder || "$mode" == studentheadconfirm || "$mode" == studentc24confirm || "$mode" == studentheadqk4 || "$mode" == studentheadv32 || "$mode" == studentprofile || "$mode" == studentprefillint8 || "$mode" == studentprefill || "$mode" == studentu || "$mode" == studentbottleneck || "$mode" == studentardepth || "$mode" == studentc24 || "$mode" == studentdecoderint8 || "$mode" == studentarint8 || "$mode" == studentarint8confirm || "$mode" == studenthalfstream || "$mode" == studentffthalf ]]; then
     candidate_args=(--native-attention)
     if [[ "$mode" == packed48 ]]; then candidate_args=(--packed-small-48); fi
     if [[ "$mode" == fftcandidate ]]; then candidate_args=(--n1-fft-sizes); fi
