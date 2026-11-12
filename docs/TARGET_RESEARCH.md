@@ -508,3 +508,36 @@ These are not authoritative learned weights. A future opt-in lifecycle could
 release unused FP32 derived caches while retaining parameters, but must rebuild
 on mode changes/version mutations and needs separate correctness/memory/RTF
 validation; no such release is implemented here.
+
+## R: accepted pair bottlenecks, counterbalanced N1 comparison
+
+Run `43180107755`, source `15bd6ae6a3c531472bb12d307fd708ec50f77cfb`,
+uses the fixed N1 2-vCPU / 8,000,000,000-byte / no-swap profile. Five fresh
+process pairs alternate L/R then R/L. Each process loads its own approved model,
+records cold initialization, excludes three warmups, then measures one sample;
+there are five measured observations per model. No P or new prefill arithmetic
+is included. Every source/request/asset/parameter/resource guard passes.
+
+| Runtime | Median RTF | Wall s | CPU s | AR s | Decoder s | Peak sampled tree RSS GB |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| L | 1.145699 | 5.751408 | 9.823378 | 1.915749 | 3.461919 | 5.107 |
+| R, accepted K11 pairs48→36→48 | 1.141252 | 5.729087 | 9.728562 | 1.936707 | 3.353971 | 5.108 |
+
+R has Korean listening approval, but the .39% overall RTF difference does not
+establish meaningful complete-synthesis gain. Decoder decreases 3.12%; unchanged
+AR varies in the other direction. Keep L as the operational baseline. Both
+models retain the same 118 semantic tokens and 5.02s duration. The profile is
+separate and exactly matches R's own unprofiled waveform. Raw cold/warm/slow
+observations and source/hash provenance are in `results/n1_student_r_20261112`.
+
+Actual profile tensors confirm `resblocks.8.convs1.1/.2` as `[36,48,11]`
+on `[1,48,75520]` input and `convs2.1/.2` as `[48,36,11]` on
+`[1,36,75520]` input. Their outer residual remains C48. Disjoint diagnostic
+Tap scopes total about .710s for C48/C36 and .388s for C24. FFT streaming
+records .776s self, with forward/inverse transforms .296/.286s and packing
+.134s. Do not add these observations to measured wall time.
+
+TorchDispatch labeling may produce both an outer dispatch and redispatched
+operator entry in the profiler, so raw `operators[].calls` is not a kernel-call
+count for instrumented AR. Read `ar_phases` for actual role/shape/invocation
+counts. This diagnostic issue does not instrument the timed observations.

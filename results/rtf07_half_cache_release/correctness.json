@@ -1,0 +1,38 @@
+{
+  "scope": "Local Linux ARM correctness and logical tensor accounting only; no N1 RSS/headroom/RTF claim. Default engine and FFT implementation unchanged.",
+  "full_p_pcm_token_duration_exact": true,
+  "native_lifecycle_tests_passed": 2,
+  "lifecycle": [
+    "FP16 materialized and half-stream outputs bitwise identical, 1/2threads",
+    "Half-off reconstructs original FP32 derived cache",
+    "Memory option off reconstructs original FP32 derived cache",
+    "Weight and bias version invalidation; restore both modes",
+    "Original authoritative FP32 parameter identity and values retained"
+  ],
+  "modules": 30,
+  "live_derived_cache_bytes": {
+    "fp32_derived_bytes": 0,
+    "fp16_derived_bytes": 1075286016
+  },
+  "estimated_unused_fp32_derived_bytes_released": 2150572032,
+  "authoritative_fp32_parameters_released": false,
+  "guards": {
+    "checkpoint_files_unchanged": true,
+    "parameters_unchanged": true,
+    "ar_parameters_unchanged": true,
+    "student_files_unchanged": true
+  },
+  "pcm_sha256": "1ffc652021fd410dc59cd6e2f7e60d3dddd756d9a0e3cf59d6fcd63ff026fe6b",
+  "semantic": [
+    {
+      "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+      "index": 118,
+      "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+    }
+  ],
+  "audio_seconds": 5.02,
+  "sources": {
+    "cpufast_fft_cache_release.py": "9b47db854893fc5b78e6a18aea253f1fbdf3c3b05bf14310fd8962894783288b",
+    "tests/test_fft_cache_release.py": "93c10dbd6a2e31b4b5d0bb5ee5bfb311055e77b57fc043c68c2a5f2449584ec2"
+  }
+}
