@@ -208,3 +208,13 @@ tokens were exact. This is a failed speed hypothesis; keep the option off.
 Raw reports/provenance are in `results/n1_student_predictor_20261112`.
 The classifier range and its input/weight shapes are now recorded only during
 the additional excluded profile synthesis, with no wrappers in timed samples.
+
+`mode=taptiles` is a separate synthetic N1 diagnostic prepared from previously
+observed 48×48×90880 and 24×24×181760 tap GEMMs. It compares the current full
+sequence with temporal tiles 1024/4096/8192, kernels 7/11 and dilation 1/5,
+using fixed coefficients and tap accumulation order. It records every warmup,
+wall/CPU sample, exactness, changed values, maximum error, RMSE and guard data.
+Changing BLAS shapes can change rounding; tiny host tests verify ragged tile
+coverage and convolution equivalence within FP32 tolerance, not PCM identity.
+The production tap path is unchanged. Only a promising target-server probe
+justifies a separate five-sample full-TTS candidate and waveform checks.

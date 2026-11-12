@@ -12,7 +12,7 @@ mode=${7:-compare}
 student_manifest_sha=${8:-}
 student_prefetch=${9:-0}
 comparison_manifest_sha=${10:-}
-[[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention || "$mode" == small || "$mode" == scheduling || "$mode" == packed48 || "$mode" == fft || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference || "$mode" == runtime || "$mode" == student || "$mode" == studentpredictor || "$mode" == studentcompare || "$mode" == studentcomparecached ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
+[[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention || "$mode" == small || "$mode" == scheduling || "$mode" == packed48 || "$mode" == fft || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference || "$mode" == runtime || "$mode" == student || "$mode" == studentpredictor || "$mode" == studentcompare || "$mode" == studentcomparecached || "$mode" == taptiles ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
 project="$bench_root/project"
 assets="$bench_root/cpufast-cefae22/assets/pretrained_models"
 reference="$bench_root/reference_ja_4s.wav"
@@ -49,6 +49,11 @@ run_container() { "${docker_cmd[@]}" "${docker_args[@]}" "$@"; }
 # One serial, weight-preserving FP32 comparison on the target ARM host.
 # Generated audio is produced for listening; the input reference stays on the host.
 mkdir -p "$repo_dir/.experiments"
+if [[ "$mode" == taptiles ]]; then
+  run_container python resource_guard.py --report /repo/ci-results/tap_tiles_guard.json -- \
+    python experiments/rtf07/bench_tap_tiles.py --output /repo/ci-results/tap_tiles.json --warmups "$warmups" --samples "$samples"
+  exit 0
+fi
 run_container python build_cpufast_ar.py --output /repo/libcpufast_ar_torch.so
 run_container python -m unittest discover -s tests -p test_cpufast_tap.py -v
 run_container python experiments/rtf07/test_fusion_layout.py
