@@ -73,6 +73,8 @@ class Engine:
     def __init__(self, settings):
         if platform.system() != 'Linux' or platform.machine() != 'aarch64':
             raise RuntimeError('Approved native CPUFast engine requires Linux ARM64')
+        if os.environ.get('HUBERT_FRONTEND', '').strip().lower() in ('student', 'distilled'):
+            raise ValueError('Approved CPUFast API requires original full HuBERT frontend')
         self.reference_segment = None
         self._initialized = False
         self._lock = threading.RLock()
@@ -148,7 +150,7 @@ class Engine:
             or len(self.pipeline.vits_model.dec.resblocks) != 11
             or any(m.n_fft != (128 if m.weight.shape[1] >= 256 else 256)
                    or m.fast_half or m.half_stream_products for m in ffts)
-            or any(type(m).forward is not TapConv1d.forward for m in self.pipeline.vits_model.dec.modules() if type(m) is TapConv1d)):
+            or any(getattr(m.forward, '__func__', None) is not TapConv1d.forward for m in self.pipeline.vits_model.dec.modules() if isinstance(m, TapConv1d))):
             raise RuntimeError('Canonical FP32 acoustic/AR runtime geometry changed')
         head_geometry = audit.get('head_geometry', [])
         if (len(head_geometry) != 17 or any(r['heads'] != 16 or r['dim'] != 32 for r in head_geometry)
@@ -175,6 +177,7 @@ class Engine:
         self.input_sha256 = inputs
         recipe = {'schema': REFERENCE_SCHEMA, 'inputs': inputs, 'source': self.source_sha256,
                   'native': self.native_files_sha256, 'libraries': versions,
+                  'threads': {'ar': self.ar_threads, 'acoustic': self.threads, 'interop': 1},
                   'profile': 'approvedAR17_C24Vtarget100_W8A8_canonicalTap_FFT256_value_schedule'}
         self.fingerprint = hashlib.sha256(json.dumps(recipe, sort_keys=True).encode()).hexdigest()
         self._capture_semantics()
