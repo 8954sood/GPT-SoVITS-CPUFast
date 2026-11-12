@@ -106,6 +106,7 @@ def main():
     )
     parser.add_argument("--native-predictor", action="store_true")
     parser.add_argument("--student-fp32-control", action="store_true")
+    parser.add_argument("--ar-int8-only", action="store_true")
     parser.add_argument("--inference-mode", action="store_true")
     parser.add_argument("--fused-fft", action="store_true")
     parser.add_argument(
@@ -120,10 +121,21 @@ def main():
         parser.error("Student manifest and its trusted SHA256 are required together")
     if args.student_fp32_control and not args.student_manifest:
         parser.error("--student-fp32-control requires an approved exact-half bundle")
+    if args.ar_int8_only and (
+        not args.engine
+        or not args.student_manifest
+        or args.fast_experimental
+        or args.ar_fp32_cache
+    ):
+        parser.error(
+            "AR-only INT8 requires a separately approved half-exact student and normal FP32 acoustic engine"
+        )
     if args.student_manifest and (not args.engine or args.fast_experimental):
         parser.error("Approved student requires the FP32 arithmetic engine")
     student_manifest = None
     student_files_before = None
+    ar_runtime_approval = None
+    ar_runtime_listening_case = None
     if args.student_manifest:
         from cpufast_student_assets import load_manifest, snapshot
 
@@ -159,6 +171,30 @@ def main():
                 "Student teacher/reference/request differs from approved manifest"
             )
         student_files_before = snapshot(args.student_manifest)
+        if args.ar_int8_only:
+            root = Path(__file__).resolve().parent
+            ar_runtime_approval = json.loads(
+                (root / "results/student_pilot/approved_l_runtime.json").read_text()
+            )
+            if (
+                ar_runtime_approval.get("quality_approved") is not True
+                or ar_runtime_approval["underlying_manifest_sha256"]
+                != args.student_manifest_sha256
+                or ar_runtime_approval["reference_sha256"]
+                != student_manifest["reference_sha256"]
+                or ar_runtime_approval["implementation_sha256"]
+                != file_digest(root / ar_runtime_approval["implementation"])
+            ):
+                parser.error(
+                    "AR-only runtime does not match its separate listening approval"
+                )
+            ar_runtime_listening_case = next(
+                row
+                for row in json.loads(
+                    (root / ar_runtime_approval["listening_report"]).read_text()
+                )["comparison"]["cases"]
+                if row["language"] == args.lang
+            )
     if args.threads is None:
         args.threads = 1 if args.engine else 2
     if args.ar_prefetch is None:
@@ -257,6 +293,7 @@ def main():
     if args.engine:
         from cpufast_engine import optimize
 
+        original_ar = pipeline.t2s_model.model.t2s_transformer
         start_install = time.perf_counter()
         runtime = optimize(
             pipeline,
@@ -279,6 +316,23 @@ def main():
             acoustic_threads=args.threads,
             fast_experimental=args.fast_experimental,
         )
+        if args.ar_int8_only:
+            import cpufast_fast_ops
+            from cpufast_fast_ar import build as build_int8_ar
+
+            approximate_ar, details = build_int8_ar(original_ar, head_major=True)
+            pipeline.t2s_model.model.t2s_transformer = approximate_ar
+            half_acoustics = sum(
+                bool(getattr(module, "fast_half", False))
+                for module in pipeline.vits_model.modules()
+            )
+            if half_acoustics or runtime.audit["fast_experimental"]:
+                raise RuntimeError("AR-only approximate runtime changed FP32 acoustics")
+            runtime.audit.update(
+                ar_coefficients=details,
+                arithmetic="Approximate W8A8 AR/native FP32 attention; unchanged normal FP32 acoustic runtime",
+                fp16_acoustic_modules=half_acoustics,
+            )
         ar_install_seconds = 0.0
         packing_seconds = time.perf_counter() - start_install
         ar_audit = runtime.audit["ar_coefficients"]
@@ -431,6 +485,18 @@ def main():
         else None,
         "student_files_before": student_files_before,
         "student_fp32_control": args.student_fp32_control,
+        "approximate_ar_int8_only": args.ar_int8_only,
+        "ar_runtime_approval": ar_runtime_approval,
+        "ar_runtime_library_manifest": json.loads(
+            cpufast_fast_ops.path.with_suffix(
+                cpufast_fast_ops.path.suffix + ".json"
+            ).read_text()
+        )
+        if args.ar_int8_only
+        else None,
+        "fp16_acoustic_modules": runtime.audit.get("fp16_acoustic_modules", 0)
+        if args.engine
+        else None,
         "student_load_seconds": student_load_seconds,
         "experimental_options": {
             k: getattr(args, k)
@@ -467,7 +533,15 @@ def main():
         "inputs": inputs,
         "backend": args.backend,
         "ar_threads": args.ar_threads,
-        "ar_layout": "cpp_int8_experimental"
+        "native_threading": {
+            "configured_ar_threads": args.ar_threads,
+            "configured_acoustic_threads": args.threads,
+            "torch_interop_threads": torch.get_num_interop_threads(),
+            "native_operator_pool": "ATen parallel_for uses the global Torch intra-op pool; legacy native_workers=1 audit field is not the actual thread cap",
+        },
+        "ar_layout": "cpp_int8_ar_only"
+        if args.ar_int8_only
+        else "cpp_int8_experimental"
         if args.fast_experimental
         else args.ar_layout,
         "ar_coefficient_audit": ar_audit,
@@ -527,6 +601,14 @@ def main():
             "stages": state["stages"].copy(),
             "semantic": state["semantic"],
         }
+        if ar_runtime_listening_case is not None:
+            row["runtime_local_pcm_match"] = (
+                row["pcm_sha256"] == ar_runtime_listening_case["pcm_sha256"]
+            )
+            row["runtime_local_generated_tokens_match"] = [
+                {"tokens": item["index"], "sha256": item["generated_sha256"]}
+                for item in row["semantic"]
+            ] == ar_runtime_listening_case["semantic"]
         if reference_pcm is not None:
             row["comparison"] = {
                 "same_shape": audio.shape == reference_pcm.shape,

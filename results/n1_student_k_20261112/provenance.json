@@ -1,0 +1,17 @@
+{
+  "run_id": 43166415026,
+  "url": "https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43166415026",
+  "head_sha": "b5f45da8613d796edc9ae8e8acde311000edd920",
+  "target": "Actual ARM Neoverse N1, 2 vCPU / 8000000000 bytes / no swap",
+  "warmups": 3,
+  "samples": 5,
+  "baseline": "Approved H3, AR exacthalf256, decoder13, combined FP32 runtime",
+  "candidate": "Approved K, identical AR bytes/exacthalf256, decoder12 conservatively removing first-stage 3tap branch and 100CPU recovery updates",
+  "private_hf_revision": "475ac97f4a503ea9c6581333c8b936fd5c9f6dcd",
+  "full_rtf_improvement_percent": 1.5740220903519342,
+  "candidate_scope": "Korean same reference/text/seed approval only, 5.10s/120 generated tokens identical to H3; decoder coefficients differ so no cross-model PCM equality claim",
+  "profile": "Extra K synthesis excluded from RTF; classifier/tap wrappers produce PCM/tokens/duration exactly equal to unprofiled same process",
+  "tap_probe": "Four actual profiled K geometries, 48ch length76800 and24ch153600. Each full sequence andtile1024/4096/8192 has3warm5samples. All16 numerical outputs FP32 exact; no tiled geometry outperforms baseline",
+  "decision": "K full TTS gain is small1.57%, decoder1.42%; preserve approved model as candidate with replication uncertainty. Reject temporal tiling: no production tap changes and no full TTS tiling job. Prioritize separately approved L AR runtime next.",
+  "limitations": "One chronological5sample A/B, not independent replication. Synthetic tile timing is never added to TTS RTF. Every slow sample retained."
+}
