@@ -27,7 +27,7 @@ Optional repository variables: `ARM_BENCH_ROOT` (absolute path to the layout abo
 
 ## Run
 
-Select `compare` for the two-sentence audio comparison , `diagnostics` for a separate operator profile and synthetic FP32 kernel probes, `attention` to compare the approved tap path with short-context native attention on two sentences, `small` for synthetic small-channel convolution probes, or `scheduling` for an active/passive OpenMP wait comparison. Profiling runs after the measured synthesis and is excluded from RTF; synthetic timings are not end-to-end performance results.
+Select `compare` for the two-sentence audio comparison , `diagnostics` for a separate operator profile and synthetic FP32 kernel probes, `attention` to compare the approved tap path with short-context native attention on two sentences, `small` for synthetic small-channel convolution probes, `scheduling` for an active/passive OpenMP wait comparison, or `packed48` to compare the selected 48-channel convolution candidate against tap on two sentences. Profiling runs after the measured synthesis and is excluded from RTF; synthetic timings are not end-to-end performance results.
 
 Open **Actions → ARM RTF benchmark → Run workflow**, choose the trusted branch and warmup/sample counts. The summary reports median and individual RTF; download the JSON and WAV artifacts from the run for details and listening. A temporary checkout is removed from the server after the run. The default workload uses the Japanese reference and text specified in `scripts/run_arm_benchmark.sh`, with seed 42. Hardware load, CPU quota, memory, runtime image and thermal conditions can affect the result.
 

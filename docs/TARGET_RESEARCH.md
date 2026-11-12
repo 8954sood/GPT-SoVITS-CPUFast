@@ -22,3 +22,7 @@ The probes and separate profiling invocation completed on the target in [run 431
 ## Short-context attention result
 
 [Run 43129998418](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43129998418) compared the tap baseline with native attention only at cache lengths up to 128. Tap/attention median RTF was 1.5546/1.5734 for sentence 1 and 1.5737/1.5819 for sentence 2. The semantic and PCM outputs were exactly equal. Shape-aware profiling shows prefill already has length 272, so this threshold never activates on this workload; the timing differences do not measure the candidate. The longer-context microbenchmark showed the native path slower, so do not adopt it for the target. Full JSON and guards are in `results/n1_attention_20261112`.
+
+## Small-channel decoder probe
+
+[Run 43130554325](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43130554325) compared tap, FFT and channels-last FP32 convolution on synthetic 24/48-channel geometries. At 48 channels, kernel 7, dilation 1, medians were 0.0462s tap and 0.0392s channels-last; other tested geometries did not show a compelling improvement. A geometry-specific opt-in full synthesis candidate is necessary before any adoption. Raw values and guard are in `results/n1_small_20261112`.

@@ -9,7 +9,7 @@ cpus=${4:-2}
 warmups=${5:-2}
 samples=${6:-3}
 mode=${7:-compare}
-[[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention || "$mode" == small || "$mode" == scheduling ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
+[[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention || "$mode" == small || "$mode" == scheduling || "$mode" == packed48 ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
 project="$bench_root/project"
 assets="$bench_root/cpufast-cefae22/assets/pretrained_models"
 reference="$bench_root/reference_ja_4s.wav"
@@ -78,15 +78,17 @@ if [[ "$mode" == diagnostics ]]; then
 fi
 for index in 0 1; do
   number=$((index + 1))
-  if [[ "$mode" == attention ]]; then
-    echo "Benchmarking sentence $number: approved tap and hybrid attention"
+  if [[ "$mode" == attention || "$mode" == packed48 ]]; then
+    candidate_flag=--native-attention
+    if [[ "$mode" == packed48 ]]; then candidate_flag=--packed-small-48; fi
+    echo "Benchmarking sentence $number: approved tap and $mode candidate"
     run_container python resource_guard.py --report "/repo/ci-results/tap_${number}_guard.json" -- \
       python benchmark_cpufast.py "${common[@]}" --tap-small --text "${texts[$index]}" \
       --output "/repo/ci-results/tap_${number}.json"
     profile_args=()
-    if [[ "$number" == 1 ]]; then profile_args=(--profile-output /repo/ci-results/attention_profile_ops.json); fi
+    if [[ "$mode" == attention && "$number" == 1 ]]; then profile_args=(--profile-output /repo/ci-results/attention_profile_ops.json); fi
     run_container python resource_guard.py --report "/repo/ci-results/attention_${number}_guard.json" -- \
-      python benchmark_cpufast.py "${common[@]}" --tap-small --native-attention --text "${texts[$index]}" \
+      python benchmark_cpufast.py "${common[@]}" --tap-small "$candidate_flag" --text "${texts[$index]}" \
       --compare-pcm "/repo/ci-results/tap_${number}.wav" "${profile_args[@]}" \
       --output "/repo/ci-results/attention_${number}.json"
     continue

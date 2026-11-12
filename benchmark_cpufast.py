@@ -76,6 +76,7 @@ def main():
     parser.add_argument("--packed-fft", action="store_true")
     parser.add_argument("--fused-finish", action="store_true")
     parser.add_argument("--tap-small", action="store_true")
+    parser.add_argument("--packed-small-48", action="store_true")
     parser.add_argument("--fast-experimental", action="store_true")
     parser.add_argument("--no-save-audio", action="store_true")
     parser.add_argument(
@@ -102,6 +103,8 @@ def main():
     args = parser.parse_args()
     if args.threads is None:
         args.threads = 1 if args.engine else 2
+    if args.packed_small_48 and not args.tap_small:
+        parser.error("--packed-small-48 requires --tap-small")
     if args.tap_small and not args.engine:
         parser.error("--tap-small requires --engine")
     if args.fast_experimental and not args.engine:
@@ -163,6 +166,7 @@ def main():
             packed_fft=args.packed_fft,
             fused_finish=args.fused_finish,
             tap_small=args.tap_small,
+            packed_small_48=args.packed_small_48,
             ar_threads=args.ar_threads,
             acoustic_threads=args.threads,
             fast_experimental=args.fast_experimental,
@@ -318,6 +322,7 @@ def main():
                 "packed_fft",
                 "fused_finish",
                 "tap_small",
+                "packed_small_48",
                 "fast_experimental",
             )
         },
@@ -339,6 +344,9 @@ def main():
         if args.fast_experimental
         else args.ar_layout,
         "ar_coefficient_audit": ar_audit,
+        "packed_small_48_count": runtime.audit.get("packed_small_48_count", 0)
+        if args.engine
+        else 0,
         "native_predictor": args.native_predictor,
         "inference_mode": args.inference_mode,
         "fused_fft": args.fused_fft,

@@ -1,0 +1,22 @@
+{
+  "command": [
+    "python",
+    "experiments/rtf07/bench_decoder_small.py",
+    "--output",
+    "/repo/ci-results/decoder_small.json"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 1109860352,
+  "kernel_child_peak_rss_bytes": 1109659648,
+  "cpu_seconds": 11.304012,
+  "elapsed_seconds": 8.323954571038485,
+  "average_cpu_cores": 1.358009814148917,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 778,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}

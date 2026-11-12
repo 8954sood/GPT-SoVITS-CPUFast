@@ -62,7 +62,15 @@ def main():
             for method in ("fft", "tap", "packed"):
                 fft = FFTConv1d(conv, backend="packed").eval()
                 fft.output_layout = fft.fused_finish = True
-                module = fft if method == "fft" else (TapConv1d(fft).eval() if method == "tap" else PackedConv1d(conv).eval())
+                module = (
+                    fft
+                    if method == "fft"
+                    else (
+                        TapConv1d(fft).eval()
+                        if method == "tap"
+                        else PackedConv1d(conv).eval()
+                    )
+                )
                 times, cpu_times = [], []
                 for _ in range(args.warmups + args.samples):
                     start, cpu_start = time.perf_counter(), time.process_time()

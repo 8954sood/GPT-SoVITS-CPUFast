@@ -15,6 +15,7 @@ def optimize(
     packed_fft=False,
     fused_finish=False,
     tap_small=False,
+    packed_small_48=False,
     ar_threads=1,
     acoustic_threads=1,
     fast_experimental=False,
@@ -28,14 +29,25 @@ def optimize(
     """
     if ar_threads not in (1, 2) or acoustic_threads not in (1, 2):
         raise ValueError("Expected one or two CPU threads per stage")
+    if packed_small_48 and not tap_small:
+        raise ValueError("packed_small_48 requires tap_small")
     if fast_experimental and (tap_small or cook_resblock):
-        raise ValueError("The fast profile cannot be combined with tap_small or cook_resblock")
+        raise ValueError(
+            "The fast profile cannot be combined with tap_small or cook_resblock"
+        )
     existing = getattr(pipeline, "_cpufast_engine", None)
     if existing is not None:
-        if (existing.ar_threads, existing.acoustic_threads) != (ar_threads, acoustic_threads):
+        if (existing.ar_threads, existing.acoustic_threads) != (
+            ar_threads,
+            acoustic_threads,
+        ):
             raise ValueError("Recreate the pipeline before changing thread settings")
         if existing.audit.get("tap_small", False) != tap_small:
             raise ValueError("Recreate the pipeline before changing tap settings")
+        if existing.audit.get("packed_small_48", False) != packed_small_48:
+            raise ValueError(
+                "Recreate the pipeline before changing packed small-channel settings"
+            )
         if existing.audit.get("fast_experimental", False) != fast_experimental:
             raise ValueError("Recreate the pipeline before changing fast settings")
         return existing
@@ -113,7 +125,16 @@ def optimize(
     if tap_small:
         from cpufast_tap import install_small_taps
 
-        taps = install_small_taps(pipeline.vits_model.dec.resblocks)
+        taps = install_small_taps(
+            pipeline.vits_model.dec.resblocks, packed_48=packed_small_48
+        )
+    from cpufast_tap import PackedSmallTap
+
+    packed_small_count = sum(
+        isinstance(m, PackedSmallTap) for m in pipeline.vits_model.dec.modules()
+    )
+    if packed_small_48 and not packed_small_count:
+        raise ValueError("No 48-channel packed convolution matched the model")
     after = {
         "ar_tensors": ar_digest(decoder.t2s_transformer),
         "ar_parameters": parameter_digest(decoder),
@@ -135,8 +156,12 @@ def optimize(
         "winograd_convolutions": winograd,
         "tap_convolutions": taps,
         "tap_small": tap_small,
+        "packed_small_48": packed_small_48,
+        "packed_small_48_count": packed_small_count,
         "fast_experimental": fast_experimental,
-        "arithmetic": "W8A8 AR and FP16 FFT accumulation" if fast_experimental else "FP32; exact FP16 AR storage cache only",
+        "arithmetic": "W8A8 AR and FP16 FFT accumulation"
+        if fast_experimental
+        else "FP32; exact FP16 AR storage cache only",
     }
     pipeline._cpufast_engine = runtime
     return runtime
