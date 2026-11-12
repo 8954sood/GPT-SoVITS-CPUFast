@@ -1196,3 +1196,36 @@ passed. A separate profile is excluded. All10 observations, guards, native
 hashes and provenance are under `results/n1_fft128_cin240_20261112/full_pcm`.
 Canonical Cin240 FFT256 remains unchanged; Tap epilogue fusion is the next
 independent fixed-model runtime hypothesis.
+
+### Approved final-C24 two-branch model paired measurement (2026-11-12)
+
+With approved AR17 bytes unchanged, the owner approved the Vtarget100 decoder
+that removes only the final C24 original K11 branch. Source `24e562a` compared
+approved V400 manifest `e30cdb...85bbb` against C24 manifest `696966...7a865` on
+the same canonical N1 runtime. No FFT128, QK4, FFN2 row8 or Tap-finish candidate
+was enabled. The actual model audits retained17AR blocks and12/11 decoder
+residual blocks; every warmup/sample reproduced its own approved PCM and the
+same133semantic tokens/5.62seconds.
+
+Exactly five fresh AB/BA pairs, each3warm+1sample, produced:
+
+| Model | All5 RTF observations | Median | Worst |
+| --- | --- | --- | --- |
+| AR17+V400 | 1.002127,1.000592,.993338,1.004573,1.324285 | 1.002127 | 1.324285 |
+| AR17+C24 Vtarget100 | .934545,.943176,.950342,.955126,.945436 | .945436 | .955126 |
+
+C24 was faster in every pair, including every decoder-stage comparison.
+Decoder median3.38199→3.05878s and processCPU9.59890→9.04251s support the
+model compute reduction; unchanged AR median1.84751→1.86498s did not improve.
+The last V400 outlier remains intact: wall7.44248s, processCPU10.47130s,
+AR2.45090s and decoder4.50160s, with all stages slower. Resource limits stayed
+2vCPU0-1/8e9bytes/swap0; RSS4.962GB, guardexit0, no memory violation and no
+watchdog quota-stop delay. Per-sample cpu.stat/throttle/context-switch/host
+steal data were not collected, so its cause is undetermined; no extra timing
+was used to replace it. All raw reports, model guards, before/after native
+hashes and the excluded candidate profile are preserved under
+`results/n1_c24_vtarget100_20261112/paired`.
+
+The fixed5fresh independent confirmation on portable source `61d1b5a` follows
+before final slowest-RTF goal judgment. See `docs/C24_N1_REPRODUCTION.md` for
+`studentc24` and `studentc24confirm` modes and the exact approved asset hashes.
