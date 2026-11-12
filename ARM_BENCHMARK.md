@@ -38,3 +38,12 @@ bash scripts/run_arm_benchmark.sh "$HOME/gpt-sovits-benchmark" cpufast-n1:cefae2
 ```
 
 The outputs are `ci-results/{baseline,tap}_{1,2}.json`, their guard reports and corresponding WAV files. The script rebuilds the FP32 native extension in that checkout.
+
+`mode=fftstream` compares the independently verified FP32 tap/prefetch-256
+baseline against an opt-in four-frequency streaming spectral GEMM. It retains
+the same ACL FP32 kernel and complex reconstruction order, but writes the
+complex inverse-FFT layout from bounded scratch storage rather than retaining
+all three frequency-product planes. The job first checks bit-exact synthetic
+products and convolution epilogues, then reports a synthetic probe and full
+synthesis of both fixed sentences. This is a candidate, with no N1 performance
+claim until the action completes; the default engine remains unchanged.

@@ -32,6 +32,7 @@ class FFTConv1d(torch.nn.Module):
         self._packed = None
         self._packed_half = None
         self.fast_half = False
+        self.stream_products = False
         self._native = None
         self.output_layout = False
         self.fused_finish = False
@@ -105,7 +106,13 @@ class FFTConv1d(torch.nn.Module):
         transformed_raw = torch.fft.rfft(windows, n=self.n_fft)
         if self.backend == "packed":
             packed_input = torch.ops.cpufast_cpp.fft_pack(transformed_raw.contiguous())
-            if self.fast_half:
+            if self.stream_products:
+                if not self.output_layout or self.fast_half:
+                    raise ValueError("Streaming products require FP32 output layout")
+                product = torch.ops.cpufast_cpp.fft_packed_stream(
+                    packed_input, self._packed, x.shape[0], blocks
+                )
+            elif self.fast_half:
                 if self._packed_half is None:
                     self._packed_half = self._packed.half()
                 products = torch.ops.cpufast_cpp.fft_hgemm(
@@ -115,11 +122,12 @@ class FFTConv1d(torch.nn.Module):
                 products = torch.ops.cpufast_cpp.fft_packed_gemm(
                     packed_input, self._packed
                 )
-            product = (
-                torch.ops.cpufast_cpp.fft_unpack_layout(products, x.shape[0], blocks)
-                if self.output_layout
-                else torch.ops.cpufast_cpp.fft_unpack(products, x.shape[0] * blocks)
-            )
+            if not self.stream_products:
+                product = (
+                    torch.ops.cpufast_cpp.fft_unpack_layout(products, x.shape[0], blocks)
+                    if self.output_layout
+                    else torch.ops.cpufast_cpp.fft_unpack(products, x.shape[0] * blocks)
+                )
         elif self.backend == "fused":
             packed_input = torch.ops.cpufast_cpp.fft_split(transformed_raw.contiguous())
             products = torch.bmm(self._packed, packed_input)

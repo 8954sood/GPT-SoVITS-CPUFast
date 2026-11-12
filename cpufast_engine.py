@@ -13,6 +13,7 @@ def optimize(
     cook_resblock=0,
     fft_layout=False,
     packed_fft=False,
+    fft_stream=False,
     fused_finish=False,
     tap_small=False,
     packed_small_48=False,
@@ -41,6 +42,8 @@ def optimize(
         raise ValueError("Prefetch cannot be combined with fast experimental mode")
     if fast_experimental and ar_fp32_cache:
         raise ValueError("FP32 cache cannot be combined with fast experimental mode")
+    if fft_stream and (not packed_fft or not fft_layout or fast_experimental):
+        raise ValueError("fft_stream requires packed_fft, fft_layout and FP32")
     if packed_small_48 and not tap_small:
         raise ValueError("packed_small_48 requires tap_small")
     if fast_experimental and (tap_small or cook_resblock):
@@ -54,6 +57,8 @@ def optimize(
             acoustic_threads,
         ):
             raise ValueError("Recreate the pipeline before changing thread settings")
+        if existing.audit.get("fft_stream", False) != fft_stream:
+            raise ValueError("Recreate the pipeline before changing FFT streaming")
         if existing.audit.get("tap_small", False) != tap_small:
             raise ValueError("Recreate the pipeline before changing tap settings")
         if existing.audit.get("packed_small_48", False) != packed_small_48:
@@ -124,6 +129,7 @@ def optimize(
         for module in pipeline.vits_model.dec.modules():
             if isinstance(module, FFTConv1d):
                 module.output_layout = True
+                module.stream_products = fft_stream
     if cook_resblock:
         from cpufast_cooktoom import CookToomConv1d
         from cpufast_winograd import WinogradConv1d
@@ -205,6 +211,7 @@ def optimize(
         "winograd_convolutions": winograd,
         "tap_convolutions": taps,
         "tap_small": tap_small,
+        "fft_stream": fft_stream,
         "packed_small_48": packed_small_48,
         "n1_fft_sizes": n1_fft_sizes,
         "n1_small_direct": n1_small_direct,

@@ -74,6 +74,7 @@ def main():
     )
     parser.add_argument("--compare-pcm", type=Path)
     parser.add_argument("--packed-fft", action="store_true")
+    parser.add_argument("--fft-stream", action="store_true")
     parser.add_argument("--fused-finish", action="store_true")
     parser.add_argument("--tap-small", action="store_true")
     parser.add_argument("--packed-small-48", action="store_true")
@@ -180,6 +181,7 @@ def main():
             cook_resblock=args.cook_resblock,
             fft_layout=args.fft_layout,
             packed_fft=args.packed_fft,
+            fft_stream=args.fft_stream,
             fused_finish=args.fused_finish,
             tap_small=args.tap_small,
             packed_small_48=args.packed_small_48,
@@ -340,6 +342,7 @@ def main():
                 "fft_layout",
                 "native_attention",
                 "packed_fft",
+                "fft_stream",
                 "fused_finish",
                 "tap_small",
                 "packed_small_48",

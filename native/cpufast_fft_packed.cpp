@@ -55,3 +55,29 @@ static at::Tensor fft_unpack_layout(const at::Tensor& x,int64_t batch,int64_t bl
 }
 TORCH_LIBRARY_FRAGMENT(cpufast_cpp,m){m.def("fft_unpack_layout(Tensor products, int batch, int blocks) -> Tensor");}
 TORCH_LIBRARY_IMPL(cpufast_cpp,CPU,m){m.impl("fft_unpack_layout",TORCH_FN(fft_unpack_layout));}
+
+// Fuse each four-frequency GEMM group with complex/layout reconstruction.
+// The existing kernel and (c-a)-b combination order are retained verbatim.
+static at::Tensor fft_packed_stream(const at::Tensor& x,const at::Tensor& w,int64_t batch,int64_t blocks){
+ TORCH_CHECK(x.device().is_cpu() && w.device().is_cpu() && x.scalar_type()==at::kFloat && w.scalar_type()==at::kFloat && x.dim()==4 && w.dim()==4 && x.is_contiguous() && w.is_contiguous() && x.size(0)==w.size(0) && x.size(0)%3==0 && x.size(2)==w.size(2) && x.size(3)==8 && w.size(3)==12 && batch>0 && blocks>0 && batch*blocks<=x.size(1)*8,"Invalid streaming spectral matrices");
+ const auto freq=x.size(0)/3,tiles=x.size(1),groups=w.size(1),k=x.size(2),channels=groups*12,rows=batch*blocks,product=tiles*groups*96;
+ auto y=at::empty({batch,channels,blocks,freq},x.options().dtype(at::kComplexFloat));
+ auto a=x.const_data_ptr<float>(),b=w.const_data_ptr<float>();auto out=reinterpret_cast<float*>(y.mutable_data_ptr<c10::complex<float>>());
+ at::parallel_for(0,(freq+3)/4,1,[&](int64_t begin,int64_t end){
+  auto scratch=at::empty({3,4,product},x.options());auto work=scratch.mutable_data_ptr<float>();
+  for(int64_t fi=begin;fi<end;++fi){const auto f0=fi*4,count=std::min<int64_t>(4,freq-f0);
+   for(int part=0;part<3;++part)for(int64_t f=0;f<count;++f){auto plane=part*freq+f0+f;
+    arm_gemm::a64_sgemm_asimd_8x12(a+plane*tiles*k*8,b+plane*groups*k*12,work+(part*4+f)*product,int(tiles),int(groups),int(k));
+   }
+   for(int64_t t=0;t<tiles;++t)for(int64_t g=0;g<groups;++g)for(int64_t r=0;r<8 && t*8+r<rows;++r)for(int64_t z=0;z<12;z+=4){
+    const auto row=t*8+r,index=(t*groups+g)*96+r*12+z;
+    float32x4_t real[4],imag[4];
+    for(int64_t f=0;f<count;++f){auto va=vld1q_f32(work+f*product+index),vb=vld1q_f32(work+(4+f)*product+index),vc=vld1q_f32(work+(8+f)*product+index);real[f]=vsubq_f32(va,vb);imag[f]=vsubq_f32(vsubq_f32(vc,va),vb);}
+    if(count==4){transpose4(real);transpose4(imag);for(int j=0;j<4;++j){auto dest=(((row/blocks)*channels+g*12+z+j)*blocks+row%blocks)*freq+f0;float32x4x2_t v;v.val[0]=real[j];v.val[1]=imag[j];vst2q_f32(out+2*dest,v);}}
+    else for(int64_t f=0;f<count;++f){float re[4],im[4];vst1q_f32(re,real[f]);vst1q_f32(im,imag[f]);for(int j=0;j<4;++j){auto dest=(((row/blocks)*channels+g*12+z+j)*blocks+row%blocks)*freq+f0+f;out[2*dest]=re[j];out[2*dest+1]=im[j];}}
+   }
+  }
+ });return y;
+}
+TORCH_LIBRARY_FRAGMENT(cpufast_cpp,m){m.def("fft_packed_stream(Tensor input, Tensor weight, int batch, int blocks) -> Tensor");}
+TORCH_LIBRARY_IMPL(cpufast_cpp,CPU,m){m.impl("fft_packed_stream",TORCH_FN(fft_packed_stream));}
