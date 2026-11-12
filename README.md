@@ -1,4 +1,4 @@
-> **현재 상태 / 2026-11-13:** 승인 AR17+C24의 실제 N1 warm 파일 RTF 10회 최댓값은 0.962389입니다. [실측·재현](docs/C24_N1_REPRODUCTION.md), [인수인계](docs/ENVIRONMENT_HANDOFF.md). 영구 스타일·PCM 스트리밍 API는 [SERVER.md](SERVER.md)를 참고하세요.
+> **현재 상태 / 2026-11-13:** 승인 AR17+C24의 실제 N1 **32kHz 문장 스트리밍 HTTP RTF는 10회 모두 1 미만, 범위 0.936370–0.987373**입니다. 요청 시작부터 PCM 수신 완료까지 측정했으며 첫 음성 대기를 포함합니다. 문장 사이 무중단 재생에는 별도 초기 버퍼가 필요합니다. [스트리밍 실측·시작 방법](SERVER.md), [이전 warm 파일 생성 실측·재현](docs/C24_N1_REPRODUCTION.md), [인수인계](docs/ENVIRONMENT_HANDOFF.md).
 
 # ARM64 V2ProPlus optimized fork
 
