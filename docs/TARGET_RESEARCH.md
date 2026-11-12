@@ -603,3 +603,35 @@ native12 output alignment, but needs actual activation-based model selection,
 recovery, listening and separate full-synthesis N1 comparison. The diagnostic
 CPU ranges include profiler effects and must not be added to measured wall
 time or treated as the speedup that a new model will deliver.
+
+## U: approved C192 pair bottlenecks, isolated counterbalanced N1 comparison
+
+Run `43189203151`, source `2915db55e6fc8baba7d87d1e9f11d3c109b979f4`,
+compares unchanged approved L with owner-approved U on fixed N1 2-vCPU /
+8,000,000,000-byte / no-swap resources. An isolated published branch contains
+only approved U sources and the benchmark; unapproved T sources are absent.
+HF revision `9287f847c7272ba2f45d0bd2a18512abec93a6e1` pins both bundles.
+Five fresh-process rounds alternate L/U then U/L, each3warm1sample. The separate
+U profile is excluded. No P, new prefill or combined candidate is measured.
+
+| Runtime | Median RTF | Wall s | CPU s | AR s | Decoder s | Peak sampled tree RSS GB |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| L | 1.138691 | 5.716227 | 9.757876 | 2.021979 | 3.346141 | 5.100 |
+| U, accepted additional C192→144→192 pairs | 1.137780 | 5.711656 | 9.668327 | 1.942282 | 3.392239 | 5.100 |
+
+Both models retain identical118 semantic tokens and5.02s lengths. Every
+checkpoint/parameter/reference/resource guard passes. U's profiled waveform
+exactly matches its own unprofiled waveform and the preceding U process.
+The overall median difference is only-.080%, while changed decoder grows1.38%
+and unchanged AR varies in the other direction. Listening approval therefore
+does not establish performance improvement. Keep L as operational baseline;
+no retuned/repeated job is justified by this result alone. All24raw JSON
+measurements and exact-source/HF/hash provenance are preserved in
+`results/n1_student_u_20261112`.
+
+Actual U profile shapes confirm selected `resblocks.4.convs1.0/.2` as
+`[144,192,11]`, d1/d5, and `convs2.0/.2` as`[192,144,11]`, d1. The four
+selected FFT scopes total approximately.2361s in this diagnostic; unchanged
+K11 pair1 remains192→192. This verifies rectangular execution, not isolated
+speedup: L's geometry profile was a separate run and scope labels add overhead.
+Do not add analytical MAC savings or R/P/prefill differences to these timings.
