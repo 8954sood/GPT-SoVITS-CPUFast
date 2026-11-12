@@ -160,3 +160,31 @@ head comparisons must use source `75779d2`; latest native already contains
 that candidate loop. The existing remote verified private-asset cache is
 required; no private weights/audio/SSH material are added to Git. Workflow
 options were parsed and checked without dispatching a redundant Actions run.
+
+## Selected AR17+C24 path: fixed ten observations below1
+
+The owner rejected AR16 and later approved the new final-C24 two-branch
+Vtarget100 Korean voice with "괜찮음, C24도 RTF 측정". Its immutable manifest
+SHA is `696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865`.
+AR17 bytes and decoder prefix remain fixed; only the final K11 branch is removed,
+with the retained final blocks/conv_post recovered against original S2 and then
+the approved V400 output. This is the selected benchmark path.
+
+Five model-comparison observations give C24 median.945436/max.955126, and
+five independent fresh-process observations at canonical source `61d1b5a` give
+median.945154/max.962389. All ten C24 observations are below1, with every
+warmup/sample reproducing approved133semantic tokens,5.62seconds and PCM
+`ab9179ec076b5b3e1bd7f90879486c4e4447d183936f9ae698bc714260a6b279`.
+This is warm nonstreaming file-generation RTF on actual2vCPU/8GB/swap0 N1;
+loading, three predeclared warmups and WAV disk writes are excluded. It is
+not streaming TTFA or an all-input latency guarantee.
+
+Model/native/cgroup guards pass and the canonical runtime keeps FP32 acoustics,
+original Tap epilogues, Cin240 FFT256 and the adopted exact value schedule.
+FFT128 has approved Korean quality but failed speed comparison; QK4/FFT128,
+FFN2-only and Tap-finish probes are not enabled here. The originalV400 baseline's
+1.324285 outlier is retained, with observed stage/CPU data and no claimed cause.
+Raw evidence: `results/n1_c24_vtarget100_20261112/{paired,independent}/`.
+Reproduce with workflow modes `studentc24`/`studentc24confirm` and the exact
+manifests in `C24_N1_REPRODUCTION.md`. Direct SSH executed the actual tests;
+the updated Actions path was statically checked without another dispatch.
