@@ -27,6 +27,7 @@ def main():
     parser.add_argument("--fft-half-comparison", action="store_true")
     parser.add_argument("--fft-half-stream-comparison", action="store_true")
     parser.add_argument("--alternating-decoder-comparison", action="store_true")
+    parser.add_argument("--packed-prefill-comparison", action="store_true")
     args = parser.parse_args()
     if bool(args.baseline_manifest) != bool(args.baseline_manifest_sha256):
         parser.error("Comparison baseline manifest and SHA required together")
@@ -50,6 +51,14 @@ def main():
         parser.error("FFT-product comparison uses one unchanged approved L bundle")
     if args.fft_half_comparison and args.fft_half_stream_comparison:
         parser.error("Select one FFT-product comparison")
+    if args.packed_prefill_comparison and (
+        args.baseline_manifest
+        or args.decoder_only
+        or args.ar_int8_comparison
+        or args.fft_half_comparison
+        or args.fft_half_stream_comparison
+    ):
+        parser.error("Packed prefill comparison uses one unchanged approved L bundle")
     manifest = load_manifest(args.manifest, args.manifest_sha256)
     before = snapshot(args.manifest)
     cases = {r["language"]: r for r in manifest["listening_report"]["cases"]}
@@ -129,6 +138,7 @@ def main():
         fft_half_products=False,
         fft_half_stream=False,
         measured_samples=None,
+        packed_prefill=False,
     ):
         run_manifest = baseline if baseline_bundle else manifest
         run_path = args.baseline_manifest if baseline_bundle else args.manifest
@@ -205,6 +215,8 @@ def main():
             command += ["--fft-half-products"]
         if fft_half_stream:
             command += ["--fft-half-stream"]
+        if packed_prefill:
+            command += ["--packed-prefill-ffn"]
         if combined:
             command += ["--fft-stream", "--parallel-transforms", "--inference-mode"]
         if compare is not None:
@@ -258,6 +270,10 @@ def main():
             )
         ):
             raise RuntimeError("Half-stream candidate scope audit failed")
+        if packed_prefill and (
+            not data.get("packed_prefill_ffn") or not data.get("packed_prefill_audit")
+        ):
+            raise RuntimeError("Packed FP32 prefill candidate scope audit failed")
         if (
             data["cgroup"]["cpu.max"] != "200000 100000"
             or data["cgroup"]["memory.max"] != "8000000000"
@@ -281,7 +297,10 @@ def main():
             "approximate_fft_half_products": fft_half_products,
             "approximate_fft_half_stream": fft_half_stream,
             "fft_half_product_modules": data.get("fft_half_product_modules", []),
-            "runtime_variant": "P_equivalent_half_stream"
+            "packed_prefill_ffn": packed_prefill,
+            "runtime_variant": "L_with_packed_FP32_prefill"
+            if packed_prefill
+            else "P_equivalent_half_stream"
             if fft_half_stream
             else "P_fft_half_products"
             if fft_half_products
@@ -366,24 +385,32 @@ def main():
         )
         return data, row
 
-    if args.alternating_decoder_comparison:
+    if args.alternating_decoder_comparison or args.packed_prefill_comparison:
+        candidate_label = "packed" if args.packed_prefill_comparison else "R"
         summary["scope"] = (
             "Actual N1 approved L versus approved R pair bottlenecks only; counterbalanced AB/BA rounds; no new prefill/half-products"
         )
         summary["comparison_order"] = []
-        samples = {"L": [], "R": []}
+        if args.packed_prefill_comparison:
+            summary["scope"] = (
+                "Actual N1 Korean L versus source-pinned PCM-equivalent packed FP32 FFN prefill only, counterbalanced AB/BA; identical checkpoints and normal FP32 acoustics"
+            )
+        samples = {"L": [], candidate_label: []}
         last_candidate = None
         reference = None
         for index in range(5):
-            for label in ("L", "R") if index % 2 == 0 else ("R", "L"):
+            for label in (
+                ("L", candidate_label) if index % 2 == 0 else (candidate_label, "L")
+            ):
                 data, row = run(
                     "ko",
                     f"paired_{index}_{label}",
                     distance=256,
                     combined=True,
-                    baseline_bundle=label == "L",
+                    baseline_bundle=label == "L" and not args.packed_prefill_comparison,
                     ar_int8_only=True,
                     measured_samples=1,
+                    packed_prefill=label == "packed",
                 )
                 observed = data["runs"][0]
                 if reference is None:
@@ -396,11 +423,20 @@ def main():
                         "Bottleneck comparison changed identical-AR tokens/duration"
                     )
                 samples[label].append((observed, row))
+                if (
+                    args.packed_prefill_comparison
+                    and observed["pcm_sha256"] != reference["pcm_sha256"]
+                ):
+                    raise RuntimeError(
+                        "Packed prefill changed approved L PCM on actual N1; listening gate required"
+                    )
                 summary["comparison_order"].append(
                     {"round": index, "runtime": label, "name": row["name"]}
                 )
-                if label == "R":
-                    last_candidate = args.output / f"ko_paired_{index}_R.wav"
+                if label == candidate_label:
+                    last_candidate = (
+                        args.output / f"ko_paired_{index}_{candidate_label}.wav"
+                    )
                 save()
         summary["paired_aggregate"] = []
         for label, records in samples.items():
@@ -429,20 +465,23 @@ def main():
         try:
             _, row = run(
                 "ko",
-                "bottleneck_profile_run",
+                "packed_prefill_profile_run"
+                if args.packed_prefill_comparison
+                else "bottleneck_profile_run",
                 distance=256,
                 combined=True,
                 ar_int8_only=True,
                 profile=True,
                 compare=last_candidate,
+                packed_prefill=args.packed_prefill_comparison,
             )
             if not row["candidate_pcm_exact_to_n1_student"]:
-                raise RuntimeError("Profile process changed approved R PCM")
+                raise RuntimeError("Profile process changed approved candidate PCM")
         except subprocess.CalledProcessError as error:
             summary["profile_error"] = {"exit_code": error.returncode}
-        summary["student_assets_unchanged"] = before == snapshot(
-            args.manifest
-        ) and baseline_before == snapshot(args.baseline_manifest)
+        summary["student_assets_unchanged"] = before == snapshot(args.manifest) and (
+            baseline is None or baseline_before == snapshot(args.baseline_manifest)
+        )
         summary["complete"] = True
         save()
         if not summary["student_assets_unchanged"]:

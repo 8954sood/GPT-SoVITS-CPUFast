@@ -110,6 +110,7 @@ def main():
     parser.add_argument("--ar-int8-only", action="store_true")
     parser.add_argument("--fft-half-products", action="store_true")
     parser.add_argument("--fft-half-stream", action="store_true")
+    parser.add_argument("--packed-prefill-ffn", action="store_true")
     parser.add_argument("--inference-mode", action="store_true")
     parser.add_argument("--fused-fft", action="store_true")
     parser.add_argument(
@@ -137,6 +138,12 @@ def main():
         parser.error("Approved student requires the FP32 arithmetic engine")
     if args.fft_half_stream and not args.fft_half_products:
         parser.error("Half streaming requires approved P FFT products")
+    if args.packed_prefill_ffn and (
+        not args.ar_int8_only or args.lang != "ko" or args.fft_half_products
+    ):
+        parser.error(
+            "Packed FP32 prefill currently inherits only the separate Korean L waveform approval; no combined decoder changes"
+        )
     if args.fft_half_products and (
         not args.ar_int8_only
         or not args.packed_fft
@@ -152,6 +159,7 @@ def main():
     ar_runtime_listening_case = None
     fft_half_runtime_approval = None
     fft_half_stream_equivalence = None
+    packed_prefill_equivalence = None
     if args.student_manifest:
         from cpufast_student_assets import load_manifest, snapshot
 
@@ -224,6 +232,40 @@ def main():
             )
         elif student_manifest.get("ar_runtime") == "int8_native":
             parser.error("Use the declared approved INT8 runtime for this model bundle")
+        if args.packed_prefill_ffn:
+            root = Path(__file__).resolve().parent
+            packed_prefill_equivalence = json.loads(
+                (
+                    root / "results/rtf07_prefill_fp32/korean_equivalence.json"
+                ).read_text()
+            )
+            proof = packed_prefill_equivalence
+            required_sources = {
+                "cpufast_prefill_probe.py",
+                "native/cpufast_prefill_packed.cpp",
+                "native/acl_sgemm_8x12.cpp",
+                "native/acl_asmlib.hpp",
+                "experiments/rtf07/build_prefill_probe.py",
+                "experiments/rtf07/listen_prefill_ffn.py",
+                "experiments/rtf07/test_prefill_probe.py",
+            }
+            if (
+                proof.get("quality_inherited_ko_only") is not True
+                or proof.get("full_pcm_exact_to_approved_l") is not True
+                or proof.get("underlying_manifest_sha256")
+                != args.student_manifest_sha256
+                or proof.get("reference_sha256") != student_manifest["reference_sha256"]
+                or proof.get("baseline_runtime_approval_sha256")
+                != file_digest(root / "results/student_pilot/approved_l_runtime.json")
+                or set(proof["sources"]) != required_sources
+                or any(
+                    file_digest(root / name) != expected
+                    for name, expected in proof["sources"].items()
+                )
+            ):
+                parser.error(
+                    "Packed prefill differs from source-pinned Korean L waveform equivalence"
+                )
         if args.fft_half_products:
             root = Path(__file__).resolve().parent
             fft_half_runtime_approval = json.loads(
@@ -449,6 +491,26 @@ def main():
                 arithmetic="Approximate W8A8 AR/native FP32 attention; unchanged normal FP32 acoustic runtime",
                 fp16_acoustic_modules=half_acoustics,
             )
+            if args.packed_prefill_ffn:
+                from cpufast_prefill_probe import build_prefill_ffn_proxy, load_library
+
+                load_library(
+                    Path(
+                        os.environ.get(
+                            "CPUFAST_PREFILL_LIBRARY",
+                            str(
+                                Path(__file__).resolve().parent
+                                / "libcpufast_prefill_probe.so"
+                            ),
+                        )
+                    )
+                )
+                proxy = build_prefill_ffn_proxy(approximate_ar)
+                pipeline.t2s_model.model.t2s_transformer = proxy
+                runtime.audit["packed_prefill_ffn"] = proxy.audit
+                runtime.audit["arithmetic"] = (
+                    "L W8A8 decode/native FP32 attention; source-pinned Korean-equivalent FP32 packed FFN prefill only; normal FP32 acoustics"
+                )
         if args.fft_half_products:
             from cpufast_fft_half_runtime import enable_fft_half_products
 
@@ -632,6 +694,11 @@ def main():
         else None,
         "approximate_ar_int8_only": args.ar_int8_only,
         "ar_runtime_approval": ar_runtime_approval,
+        "packed_prefill_ffn": args.packed_prefill_ffn,
+        "packed_prefill_equivalence": packed_prefill_equivalence,
+        "packed_prefill_audit": runtime.audit.get("packed_prefill_ffn", [])
+        if args.engine
+        else [],
         "approximate_fft_half_products": args.fft_half_products,
         "fft_half_runtime_approval": fft_half_runtime_approval,
         "approximate_fft_half_stream": args.fft_half_stream,

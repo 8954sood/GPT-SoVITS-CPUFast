@@ -99,6 +99,10 @@ def ar_phase_ranges(model):
             matrix = getattr(cached, name, None)
             if matrix is not None:
                 roles[matrix.data_ptr()] = role
+    for first, second in getattr(original, "prefill_linears", []):
+        for linear, role in ((first, "ffn1"), (second, "ffn2")):
+            if linear._packed is not None:
+                roles[linear._packed.data_ptr()] = role
 
     class Observe(TorchDispatchMode):
         def __init__(self, phase):
@@ -112,6 +116,7 @@ def ar_phase_ranges(model):
                 "aten.addmm.default",
                 "aten.mm.default",
                 "cpufast_cpp.int8_linear.default",
+                "cpufast_cpp.prefill_packed_linear.default",
             ):
                 matrix_index = 2 if name == "aten.addmm.default" else 1
                 role = roles.get(args[matrix_index].data_ptr(), "unattributed_matrix")

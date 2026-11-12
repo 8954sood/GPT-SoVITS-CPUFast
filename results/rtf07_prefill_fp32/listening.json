@@ -1,0 +1,393 @@
+{
+  "scope": "Local free-generation listening smoke; not N1 performance",
+  "variant": "D",
+  "ar_cache_storage": "exact FP16",
+  "quality_approved": false,
+  "ar_layers": 18,
+  "decoder_branches": [
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ]
+  ],
+  "decoder_channel_widths": null,
+  "cases": [
+    {
+      "language": "ko",
+      "text": "\uc624\ub298\uc740 \ub0a0\uc528\uac00 \ucc38 \uc88b\ub124\uc694. \uc7a0\uae50 \uc26c\uc5c8\ub2e4\uac00 \ud568\uaed8 \uc774\uc57c\uae30\ub97c \uc774\uc5b4 \uac00\uc694.",
+      "sample_rate": 32000,
+      "audio_seconds": 5.02,
+      "smoke_elapsed_seconds": 13.07133650500009,
+      "semantic": [
+        {
+          "tokens": 118,
+          "sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "pcm_sha256": "92a135e36f8a0a0fd111cfbc42b1075e0ae3a421401fcc823d509e67be7edd9f"
+    },
+    {
+      "language": "ja",
+      "text": "\u4eca\u65e5\u306f\u7a4f\u3084\u304b\u306a\u5929\u6c17\u3067\u3059\u306d\u3002\u5c11\u3057\u4f11\u3093\u3067\u304b\u3089\u3001\u307e\u305f\u4e00\u7dd2\u306b\u7d9a\u304d\u3092\u9032\u3081\u307e\u3057\u3087\u3046\u3002",
+      "sample_rate": 32000,
+      "audio_seconds": 6.94,
+      "smoke_elapsed_seconds": 8.03254300399999,
+      "semantic": [
+        {
+          "tokens": 166,
+          "sha256": "56c64c183aef31489da5b02eeb0bec15e92a8a18e437dedaf0d8cc2af758397b"
+        }
+      ],
+      "pcm_sha256": "6c0832fb5560bc20e2815e3d9259f1b0a312af5e4f51c9cfa4e6c028b0d40a23"
+    },
+    {
+      "language": "en",
+      "text": "The weather is pleasant today. Let us take a short break and continue together.",
+      "sample_rate": 32000,
+      "audio_seconds": 4.54,
+      "smoke_elapsed_seconds": 5.429862668999931,
+      "semantic": [
+        {
+          "tokens": 106,
+          "sha256": "ec7156f38f48cc418ea0982d37a618b683f72808d34d8de7d1dcc54d51b59ba2"
+        }
+      ],
+      "pcm_sha256": "bf7ce4ce1cff47f95f9d8f5b7f37db236954dddb36adf02b87c6ebf584ee8822"
+    }
+  ],
+  "student_parameters_unchanged_during_inference": true,
+  "checkpoint_files_unchanged": true,
+  "candidate": "Unapproved FP32 packed FFN prefill on approved L weights",
+  "approximate_inference": true,
+  "precision_audit": {
+    "prefill_ffn": [
+      {
+        "block": 0,
+        "ffn1_weight_shape": [
+          512,
+          2048
+        ],
+        "ffn2_weight_shape": [
+          2048,
+          512
+        ],
+        "calls": 3,
+        "input_shape": [
+          1,
+          235,
+          512
+        ]
+      },
+      {
+        "block": 1,
+        "ffn1_weight_shape": [
+          512,
+          2048
+        ],
+        "ffn2_weight_shape": [
+          2048,
+          512
+        ],
+        "calls": 3,
+        "input_shape": [
+          1,
+          235,
+          512
+        ]
+      },
+      {
+        "block": 2,
+        "ffn1_weight_shape": [
+          512,
+          2048
+        ],
+        "ffn2_weight_shape": [
+          2048,
+          512
+        ],
+        "calls": 3,
+        "input_shape": [
+          1,
+          235,
+          512
+        ]
+      },
+      {
+        "block": 3,
+        "ffn1_weight_shape": [
+          512,
+          2048
+        ],
+        "ffn2_weight_shape": [
+          2048,
+          512
+        ],
+        "calls": 3,
+        "input_shape": [
+          1,
+          235,
+          512
+        ]
+      },
+      {
+        "block": 4,
+        "ffn1_weight_shape": [
+          512,
+          2048
+        ],
+        "ffn2_weight_shape": [
+          2048,
+          512
+        ],
+        "calls": 3,
+        "input_shape": [
+          1,
+          235,
+          512
+        ]
+      },
+      {
+        "block": 5,
+        "ffn1_weight_shape": [
+          512,
+          2048
+        ],
+        "ffn2_weight_shape": [
+          2048,
+          512
+        ],
+        "calls": 3,
+        "input_shape": [
+          1,
+          235,
+          512
+        ]
+      },
+      {
+        "block": 6,
+        "ffn1_weight_shape": [
+          512,
+          2048
+        ],
+        "ffn2_weight_shape": [
+          2048,
+          512
+        ],
+        "calls": 3,
+        "input_shape": [
+          1,
+          235,
+          512
+        ]
+      },
+      {
+        "block": 7,
+        "ffn1_weight_shape": [
+          512,
+          2048
+        ],
+        "ffn2_weight_shape": [
+          2048,
+          512
+        ],
+        "calls": 3,
+        "input_shape": [
+          1,
+          235,
+          512
+        ]
+      },
+      {
+        "block": 8,
+        "ffn1_weight_shape": [
+          512,
+          2048
+        ],
+        "ffn2_weight_shape": [
+          2048,
+          512
+        ],
+        "calls": 3,
+        "input_shape": [
+          1,
+          235,
+          512
+        ]
+      },
+      {
+        "block": 9,
+        "ffn1_weight_shape": [
+          512,
+          2048
+        ],
+        "ffn2_weight_shape": [
+          2048,
+          512
+        ],
+        "calls": 3,
+        "input_shape": [
+          1,
+          235,
+          512
+        ]
+      },
+      {
+        "block": 10,
+        "ffn1_weight_shape": [
+          512,
+          2048
+        ],
+        "ffn2_weight_shape": [
+          2048,
+          512
+        ],
+        "calls": 3,
+        "input_shape": [
+          1,
+          235,
+          512
+        ]
+      },
+      {
+        "block": 11,
+        "ffn1_weight_shape": [
+          512,
+          2048
+        ],
+        "ffn2_weight_shape": [
+          2048,
+          512
+        ],
+        "calls": 3,
+        "input_shape": [
+          1,
+          235,
+          512
+        ]
+      },
+      {
+        "block": 12,
+        "ffn1_weight_shape": [
+          512,
+          2048
+        ],
+        "ffn2_weight_shape": [
+          2048,
+          512
+        ],
+        "calls": 3,
+        "input_shape": [
+          1,
+          235,
+          512
+        ]
+      },
+      {
+        "block": 13,
+        "ffn1_weight_shape": [
+          512,
+          2048
+        ],
+        "ffn2_weight_shape": [
+          2048,
+          512
+        ],
+        "calls": 3,
+        "input_shape": [
+          1,
+          235,
+          512
+        ]
+      },
+      {
+        "block": 14,
+        "ffn1_weight_shape": [
+          512,
+          2048
+        ],
+        "ffn2_weight_shape": [
+          2048,
+          512
+        ],
+        "calls": 3,
+        "input_shape": [
+          1,
+          235,
+          512
+        ]
+      },
+      {
+        "block": 15,
+        "ffn1_weight_shape": [
+          512,
+          2048
+        ],
+        "ffn2_weight_shape": [
+          2048,
+          512
+        ],
+        "calls": 3,
+        "input_shape": [
+          1,
+          235,
+          512
+        ]
+      },
+      {
+        "block": 16,
+        "ffn1_weight_shape": [
+          512,
+          2048
+        ],
+        "ffn2_weight_shape": [
+          2048,
+          512
+        ],
+        "calls": 3,
+        "input_shape": [
+          1,
+          235,
+          512
+        ]
+      },
+      {
+        "block": 17,
+        "ffn1_weight_shape": [
+          512,
+          2048
+        ],
+        "ffn2_weight_shape": [
+          2048,
+          512
+        ],
+        "calls": 3,
+        "input_shape": [
+          1,
+          235,
+          512
+        ]
+      }
+    ],
+    "fp16_acoustic_modules": 0,
+    "decode": "Unchanged L W8A8/native FP32 attention",
+    "prefill": "FP32 packed FFN1-bias-ReLU/FFN2 only"
+  }
+}

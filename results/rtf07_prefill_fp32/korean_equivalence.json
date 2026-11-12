@@ -1,0 +1,62 @@
+{
+  "scope": "Korean same reference/text/seed PCM+semantic+duration exactly equal to explicitly approved L. JA/EN changed and remain unapproved. Local correctness only; no local speed claim.",
+  "quality_approval_basis": "Inherited solely from exact approved L Korean waveform, authorized by Main; no new user listening answer claimed",
+  "quality_inherited_ko_only": true,
+  "full_pcm_exact_to_approved_l": true,
+  "underlying_manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+  "baseline_runtime_approval_sha256": "5ddde36edec32eec8f720c6c1517e7ebd26dca8d9dda26cd432095f18730b355",
+  "reference_sha256": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+  "seed": 42,
+  "case": {
+    "language": "ko",
+    "text": "\uc624\ub298\uc740 \ub0a0\uc528\uac00 \ucc38 \uc88b\ub124\uc694. \uc7a0\uae50 \uc26c\uc5c8\ub2e4\uac00 \ud568\uaed8 \uc774\uc57c\uae30\ub97c \uc774\uc5b4 \uac00\uc694.",
+    "sample_rate": 32000,
+    "audio_seconds": 5.02,
+    "smoke_elapsed_seconds": 13.07133650500009,
+    "semantic": [
+      {
+        "tokens": 118,
+        "sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+      }
+    ],
+    "pcm_sha256": "92a135e36f8a0a0fd111cfbc42b1075e0ae3a421401fcc823d509e67be7edd9f"
+  },
+  "native_fp32_tests_passed": 2,
+  "native_tolerance": {
+    "rtol": 0.0001,
+    "atol": 0.0001
+  },
+  "source_parameters_and_files_unchanged": true,
+  "sources": {
+    "cpufast_prefill_probe.py": "030ba4469e059064241b861f5794b7eb421ad1d32308ce3344e33c20d5c43768",
+    "native/cpufast_prefill_packed.cpp": "2065634c8d25f05f92ced39cb0344610b29714a4655a281598174bd901f5bae2",
+    "native/acl_sgemm_8x12.cpp": "5be9c92b0bee523b1f54f9b65cf4d85445b8fb3c42d331ae35438ae9e05992c5",
+    "native/acl_asmlib.hpp": "9ce1af08a2a6708ed36406a9a61ae8ce2ab220cb9a627d394f619842e7584048",
+    "experiments/rtf07/build_prefill_probe.py": "6125d353ce8bf72147b6cb487b947de30d46c6b3401bdd2fc0a4c2e70272ef46",
+    "experiments/rtf07/listen_prefill_ffn.py": "365640f4fd27acdccc525d7f2389684be63b8b7306b7e98e99f5de6c05e5fc19",
+    "experiments/rtf07/test_prefill_probe.py": "039d7de0f24e9710b56119595dbb7ca5647132c0f43097bcd7e17b2580954856"
+  },
+  "native_library_manifest": {
+    "abi": 1,
+    "torch_version": "2.8.0+cpu",
+    "architecture": "aarch64",
+    "flags": [
+      "-O3",
+      "-fopenmp",
+      "-std=c++17",
+      "-march=armv8-a",
+      "-mtune=neoverse-n1",
+      "-ffp-contract=off",
+      "-fno-fast-math",
+      "-fPIC",
+      "-shared",
+      "-D_GLIBCXX_USE_CXX11_ABI=1"
+    ],
+    "sources": {
+      "native/cpufast_prefill_packed.cpp": "2065634c8d25f05f92ced39cb0344610b29714a4655a281598174bd901f5bae2",
+      "native/acl_sgemm_8x12.cpp": "5be9c92b0bee523b1f54f9b65cf4d85445b8fb3c42d331ae35438ae9e05992c5",
+      "native/acl_asmlib.hpp": "9ce1af08a2a6708ed36406a9a61ae8ce2ab220cb9a627d394f619842e7584048"
+    },
+    "library_sha256": "d206ee7cfd57b1ab496ab2a3e38e6b937bab16d87e4859226d656baf56a919e8"
+  }
+}

@@ -61,6 +61,7 @@ def synthetic_bundle(root, variant, storage):
         ("exact_fp16", "exact_fp16", False, "fft"),
         ("exact_fp16", "exact_fp16", False, "stream"),
         ("exact_fp16", "exact_fp16", True, "bottleneck"),
+        ("exact_fp16", "exact_fp16", False, "packed"),
     ],
 )
 def test_comparison_uses_each_approved_bundle_and_matching_cache(
@@ -118,7 +119,9 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             index = argv.index(key)
             del argv[index : index + 2]
         argv.append(
-            "--fft-half-stream-comparison"
+            "--packed-prefill-comparison"
+            if ar_only == "packed"
+            else "--fft-half-stream-comparison"
             if ar_only == "stream"
             else "--fft-half-comparison"
             if ar_only == "fft"
@@ -150,6 +153,10 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             "ar_parameters_unchanged": True,
             "student_files_unchanged": True,
             "approximate_ar_int8_only": "--ar-int8-only" in command,
+            "packed_prefill_ffn": "--packed-prefill-ffn" in command,
+            "packed_prefill_audit": [{"block": 0}]
+            if "--packed-prefill-ffn" in command
+            else [],
             "approximate_fft_half_products": "--fft-half-products" in command,
             "approximate_fft_half_stream": "--fft-half-stream" in command,
             "fft_half_product_modules": [
@@ -189,11 +196,23 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
 
     monkeypatch.setattr(run_student_matrix.subprocess, "run", execute)
     run_student_matrix.main()
-    if ar_only == "bottleneck":
+    if ar_only in ("bottleneck", "packed"):
         assert len(calls) == 11
-        order = ["L", "R", "R", "L", "L", "R", "R", "L", "L", "R"]
+        candidate_label = "packed" if ar_only == "packed" else "R"
+        order = [
+            "L",
+            candidate_label,
+            candidate_label,
+            "L",
+            "L",
+            candidate_label,
+            candidate_label,
+            "L",
+            "L",
+            candidate_label,
+        ]
         for label, command in zip(order, calls):
-            path = baseline if label == "L" else candidate
+            path = baseline if label == "L" and ar_only == "bottleneck" else candidate
             assert command[command.index("--s1") + 1] == str(path.parent / "ar.pt")
             assert command[command.index("--samples") + 1] == "1"
             assert (
@@ -201,6 +220,7 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
                 and "--fft-half-products" not in command
                 and "--fft-pad-channels" not in command
             )
+            assert ("--packed-prefill-ffn" in command) == (label == "packed")
         summary = json.loads((output / "student_summary.json").read_text())
         assert [r["runtime"] for r in summary["comparison_order"]] == order
         assert [r["samples"] for r in summary["paired_aggregate"]] == [5, 5]
