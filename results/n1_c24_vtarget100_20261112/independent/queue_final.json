@@ -1,0 +1,13 @@
+{
+  "checked_unix_time": 1794494894.8200407,
+  "active_cpufast_benchmark_containers": [],
+  "host_benchmark_lock_available": true,
+  "owned_detached_launcher_states": {
+    "978793": "not_present",
+    "975297": "not_present",
+    "973902": "not_present",
+    "972566": "not_present",
+    "971777": "not_present"
+  },
+  "new_experiments_started_after_confirmation": false
+}

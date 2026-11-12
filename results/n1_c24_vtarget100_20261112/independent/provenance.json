@@ -1,0 +1,268 @@
+{
+  "scope": "Independent predeclared five fresh actual-N1 confirmations of the owner-approved AR17+C24 Vtarget100 bundle on unchanged canonical runtime",
+  "source_commit": "61d1b5a",
+  "source_archive_sha256": "9ea9aad2be510008b6d40d0f38815b273d4355d377521253c58570223cd986ba",
+  "raw_archive_sha256": "cf668a235762eb5a7adbc2100c13f673735331abb6377f904cfc961494a11dca",
+  "image_id": "sha256:23eb9b78c3c75319c99172766f94bba4faa8cffe05f8765ce4b33a3c34bb989b",
+  "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+  "protocol": "Exactly5freshprocesses each3warm1sample; one separate excluded profile; all observations retained; no extra resampling or runtime candidate mixed",
+  "performance_definition": "Warm nonstreaming utterance inference wall/audio duration; excludes load,warmups,WAV disk writing; not streaming TTFA",
+  "observations": [
+    {
+      "index": 0,
+      "rtf": 0.9623892406445805,
+      "wall_seconds": 5.408627532422543,
+      "cpu_seconds": 9.18732936,
+      "stages": {
+        "ar_seconds": 1.890780569985509,
+        "enc_p_seconds": 0.13627268373966217,
+        "flow_seconds": 0.08517006225883961,
+        "dec_seconds": 3.1189891528338194
+      },
+      "pcm_sha256": "ab9179ec076b5b3e1bd7f90879486c4e4447d183936f9ae698bc714260a6b279",
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "audio_seconds": 5.62,
+      "actual_AR_blocks": 17,
+      "actual_decoder_residual_blocks": 11,
+      "all_warmups_and_sample_approved_PCM_semantic": true,
+      "all_model_guards": true,
+      "resource_guard_exit": 0,
+      "cgroup": {
+        "cpu.max": "200000 100000",
+        "cpuset.cpus.effective": "0-1",
+        "memory.max": "8000000000",
+        "memory.swap.max": "0"
+      },
+      "peak_sampled_tree_rss_bytes": 4947599360
+    },
+    {
+      "index": 1,
+      "rtf": 0.9451539000476382,
+      "wall_seconds": 5.311764918267727,
+      "cpu_seconds": 9.06077388,
+      "stages": {
+        "ar_seconds": 1.8786544110625982,
+        "enc_p_seconds": 0.13752209581434727,
+        "flow_seconds": 0.08415549620985985,
+        "dec_seconds": 3.0343130882829428
+      },
+      "pcm_sha256": "ab9179ec076b5b3e1bd7f90879486c4e4447d183936f9ae698bc714260a6b279",
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "audio_seconds": 5.62,
+      "actual_AR_blocks": 17,
+      "actual_decoder_residual_blocks": 11,
+      "all_warmups_and_sample_approved_PCM_semantic": true,
+      "all_model_guards": true,
+      "resource_guard_exit": 0,
+      "cgroup": {
+        "cpu.max": "200000 100000",
+        "cpuset.cpus.effective": "0-1",
+        "memory.max": "8000000000",
+        "memory.swap.max": "0"
+      },
+      "peak_sampled_tree_rss_bytes": 4860874752
+    },
+    {
+      "index": 2,
+      "rtf": 0.9402472220918038,
+      "wall_seconds": 5.284189388155937,
+      "cpu_seconds": 9.038639959999998,
+      "stages": {
+        "ar_seconds": 1.877142259851098,
+        "enc_p_seconds": 0.13431999273598194,
+        "flow_seconds": 0.08393017575144768,
+        "dec_seconds": 3.0052230022847652
+      },
+      "pcm_sha256": "ab9179ec076b5b3e1bd7f90879486c4e4447d183936f9ae698bc714260a6b279",
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "audio_seconds": 5.62,
+      "actual_AR_blocks": 17,
+      "actual_decoder_residual_blocks": 11,
+      "all_warmups_and_sample_approved_PCM_semantic": true,
+      "all_model_guards": true,
+      "resource_guard_exit": 0,
+      "cgroup": {
+        "cpu.max": "200000 100000",
+        "cpuset.cpus.effective": "0-1",
+        "memory.max": "8000000000",
+        "memory.swap.max": "0"
+      },
+      "peak_sampled_tree_rss_bytes": 4884492288
+    },
+    {
+      "index": 3,
+      "rtf": 0.9487737722535786,
+      "wall_seconds": 5.332108600065112,
+      "cpu_seconds": 9.07598892,
+      "stages": {
+        "ar_seconds": 1.8935859743505716,
+        "enc_p_seconds": 0.13577764481306076,
+        "flow_seconds": 0.08540890738368034,
+        "dec_seconds": 3.0413664504885674
+      },
+      "pcm_sha256": "ab9179ec076b5b3e1bd7f90879486c4e4447d183936f9ae698bc714260a6b279",
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "audio_seconds": 5.62,
+      "actual_AR_blocks": 17,
+      "actual_decoder_residual_blocks": 11,
+      "all_warmups_and_sample_approved_PCM_semantic": true,
+      "all_model_guards": true,
+      "resource_guard_exit": 0,
+      "cgroup": {
+        "cpu.max": "200000 100000",
+        "cpuset.cpus.effective": "0-1",
+        "memory.max": "8000000000",
+        "memory.swap.max": "0"
+      },
+      "peak_sampled_tree_rss_bytes": 4908949504
+    },
+    {
+      "index": 4,
+      "rtf": 0.9450792808920887,
+      "wall_seconds": 5.311345558613539,
+      "cpu_seconds": 9.116744480000001,
+      "stages": {
+        "ar_seconds": 1.9000690467655659,
+        "enc_p_seconds": 0.13769862055778503,
+        "flow_seconds": 0.08421286009252071,
+        "dec_seconds": 3.0053112599998713
+      },
+      "pcm_sha256": "ab9179ec076b5b3e1bd7f90879486c4e4447d183936f9ae698bc714260a6b279",
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "audio_seconds": 5.62,
+      "actual_AR_blocks": 17,
+      "actual_decoder_residual_blocks": 11,
+      "all_warmups_and_sample_approved_PCM_semantic": true,
+      "all_model_guards": true,
+      "resource_guard_exit": 0,
+      "cgroup": {
+        "cpu.max": "200000 100000",
+        "cpuset.cpus.effective": "0-1",
+        "memory.max": "8000000000",
+        "memory.swap.max": "0"
+      },
+      "peak_sampled_tree_rss_bytes": 4833636352
+    }
+  ],
+  "aggregate": {
+    "samples": 5,
+    "rtfs": [
+      0.9623892406445805,
+      0.9451539000476382,
+      0.9402472220918038,
+      0.9487737722535786,
+      0.9450792808920887
+    ],
+    "median_rtf": 0.9451539000476382,
+    "rtf_range": [
+      0.9402472220918038,
+      0.9623892406445805
+    ],
+    "max_rtf": 0.9623892406445805,
+    "all_measured_rtf_below_one": true,
+    "median_seconds": 5.311764918267727,
+    "median_cpu_seconds": 9.07598892,
+    "median_stages": {
+      "ar_seconds": 1.890780569985509,
+      "enc_p_seconds": 0.13627268373966217,
+      "flow_seconds": 0.08421286009252071,
+      "dec_seconds": 3.0343130882829428
+    },
+    "audio_seconds": 5.62,
+    "semantic": [
+      {
+        "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+        "index": 133,
+        "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+      }
+    ],
+    "pcm_sha256": "ab9179ec076b5b3e1bd7f90879486c4e4447d183936f9ae698bc714260a6b279",
+    "peak_sampled_tree_rss_bytes": 4947599360
+  },
+  "native_before": {
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+  },
+  "native_after": {
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+  },
+  "native_files_unchanged": true,
+  "student_assets_unchanged": true,
+  "actual_canonical_head_operator_profile": [
+    {
+      "name": "cpufast_cpp::head_attn",
+      "calls": 4522,
+      "input_shapes": "",
+      "self_cpu_us": 446892.2320000209,
+      "total_cpu_us": 924803.9250000125
+    }
+  ],
+  "profile_excluded": "ko_integrated_head_profile_run.json + ko_student_profile_ops.json",
+  "queue_final": {
+    "checked_unix_time": 1794494894.8200407,
+    "active_cpufast_benchmark_containers": [],
+    "host_benchmark_lock_available": true,
+    "owned_detached_launcher_states": {
+      "978793": "not_present",
+      "975297": "not_present",
+      "973902": "not_present",
+      "972566": "not_present",
+      "971777": "not_present"
+    },
+    "new_experiments_started_after_confirmation": false
+  },
+  "raw_sha256": {
+    "full.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "full.sh": "921a8597797617bf155e78ea0108cce957fa7cefcce167bf4705806d92861717",
+    "ko_integrated_head_0.json": "8b566fba1167e632153be79756fb77b835f6d1a798456bb22b13ca7a4271e7e5",
+    "ko_integrated_head_0_guard.json": "8eac5c63bf8f92db387b484eb55b38525a748fe6007dd4ffd9c305901b1d5e75",
+    "ko_integrated_head_1.json": "e3c4ea2a71c1d9e0dd5c135e8d09a83541e6c78dc16024bf9f9954a3f922b7df",
+    "ko_integrated_head_1_guard.json": "cb4d12f02cd3ec7752f58ba171abc8adddea621735ea697c07bcd026975f11a0",
+    "ko_integrated_head_2.json": "95b3824d18997b2069ae0f2f0aaf1fe08b7ccc6a09b55b85fc8e8c7c7b1bd015",
+    "ko_integrated_head_2_guard.json": "57955ea906db05eff13e969cafc350b3fb2cf708b0d8c1e87e8aa997d93fe6ef",
+    "ko_integrated_head_3.json": "fae3a7a2e949b75909d90d6200cad2f4239f92cd9acb6a2b039ebe7eef36425e",
+    "ko_integrated_head_3_guard.json": "7b4cc4aa6b7106194b3e76856bd969faf014b957eec9174e0702257517ce3fd7",
+    "ko_integrated_head_4.json": "5fed3ba0d66c992ec52d04c1f6655260837c38b24b0deaa447398f2728c8116a",
+    "ko_integrated_head_4_guard.json": "2a782ea83b770f1aaeb910c636c042dc303cd3287a00aca10a1d13fc42035f77",
+    "ko_integrated_head_profile_run.json": "b6359c0e1702bf9988e749cefd8398228627a3e1cf986f666b6209452881bd99",
+    "ko_integrated_head_profile_run_guard.json": "bdcda8ebbf131a0a59360e407bc781ece719386b7814146c141e55f7206de35b",
+    "ko_student_profile_ops.json": "c656237c73dd0733753a285adae78d3ba2b8d5b365661b055fcc7a5c9038ed71",
+    "queue_final.json": "f63a13a56a3bed63273cb55a09d3ec0eed0868497341be6c26b94b8e7075a780",
+    "student_summary.json": "329e7ce624ed27ddcabc35d04b7a6c888ed9d0a8676f66c3a495c15bc2e9a8fa"
+  }
+}

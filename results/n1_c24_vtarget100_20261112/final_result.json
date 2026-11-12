@@ -1,0 +1,51 @@
+{
+  "scope": "Final selected approved AR17+C24 Vtarget100 model, Korean same-reference/text/seed, actual Neoverse-N1 2vCPU8e9bytes/no swap; not a claim for arbitrary texts/hosts/streaming",
+  "candidate_manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+  "paired_source_commit": "24e562a",
+  "independent_source_commit": "61d1b5a",
+  "official_candidate_measurements": 10,
+  "paired_candidate_5_rtfs": [
+    0.9345446590639094,
+    0.9431760363758034,
+    0.9503420929547094,
+    0.9551264981994425,
+    0.9454355827032247
+  ],
+  "independent_5_rtfs": [
+    0.9623892406445805,
+    0.9451539000476382,
+    0.9402472220918038,
+    0.9487737722535786,
+    0.9450792808920887
+  ],
+  "all10_rtfs": [
+    0.9345446590639094,
+    0.9431760363758034,
+    0.9503420929547094,
+    0.9551264981994425,
+    0.9454355827032247,
+    0.9623892406445805,
+    0.9451539000476382,
+    0.9402472220918038,
+    0.9487737722535786,
+    0.9450792808920887
+  ],
+  "combined_min_rtf": 0.9345446590639094,
+  "combined_median_rtf": 0.9452947413754315,
+  "combined_max_rtf": 0.9623892406445805,
+  "goal_all_measured_selected_model_rtf_below_one": true,
+  "preferred_max_at_most_point95": false,
+  "each_process_warmups_excluded": 3,
+  "timed_samples_each_process": 1,
+  "separate_profiles_excluded_from_performance": true,
+  "all_outliers_preserved": true,
+  "old_V_baseline_outlier_retained": 1.3242846043296557,
+  "approved_PCM_sha256": "ab9179ec076b5b3e1bd7f90879486c4e4447d183936f9ae698bc714260a6b279",
+  "tokens": 133,
+  "audio_seconds": 5.62,
+  "AR17_V400_to_C24_geometry": "12to11 residual blocks, only final C24 original K11 branch removed; same AR17 bytes, canonical Tap/FFT256/value schedule",
+  "native_runtime_candidates_adopted_for_this_model_change": [],
+  "model_original_student_native_resource_guards": "All timed/warmup/profile processes passed, before/after native4files exact and loader validates source SHA",
+  "queue_idle": true,
+  "reproduction": "docs/C24_N1_REPRODUCTION.md; Actions/directSSH studentc24 and studentc24confirm modes; no new Actions dispatched"
+}

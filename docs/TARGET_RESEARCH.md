@@ -1226,6 +1226,32 @@ was used to replace it. All raw reports, model guards, before/after native
 hashes and the excluded candidate profile are preserved under
 `results/n1_c24_vtarget100_20261112/paired`.
 
-The fixed5fresh independent confirmation on portable source `61d1b5a` follows
-before final slowest-RTF goal judgment. See `docs/C24_N1_REPRODUCTION.md` for
-`studentc24` and `studentc24confirm` modes and the exact approved asset hashes.
+The predeclared independent confirmation on portable source `61d1b5a` completed
+five fresh processes, each3warm+1sample: .962389,.945154,.940247,.948774,.945079.
+Median was.945154 and worst.962389, with every observation below1. Across the
+paired and independent selected-C24 experiments all10 RTFs were below1:
+range.934545–.962389, combined median.945295. This meets the requested measured
+slowest<1 criterion for the fixed Korean warm nonstreaming N1 request. The
+preferred extra margin max≤.95 was not reached; no additional samples were
+added. Load, warmups, WAV disk writing and separate operator profiles are not
+performance samples, and this does not measure streaming TTFA.
+
+Every process retained approved C24 PCM `ab9179...a6b279`,133tokens/5.62s,
+actualAR17+11residual blocks, model/parameter/resource guards and unchanged
+source-checked canonical native DSOs. A separate profile confirmed the actual
+canonical dim32 head operator. No additional runtime candidate was adopted.
+The host mutex is free, owned jobs have exited and no benchmark container
+remains. Independent raw reports/guards/native hashes/queue proof are under
+`results/n1_c24_vtarget100_20261112/independent`; `final_result.json` combines
+all10 selected-model observations. See `docs/C24_N1_REPRODUCTION.md` for
+`studentc24`/`studentc24confirm` modes and exact approved asset hashes.
+
+The separate Tap epilogue hypothesis remains unadopted. Existing native
+`fft_finish` with effective1 fused the same FP32 bias/activation/residual order:
+72IEEE edge conditions were bit-exact (including signedzero/NaNpayload/Inf and
+subnormals), with actual-shape synthetic epilogue ratios.606–.710. One original
+V400 full-model correctness gate at source `b3bdb91` retained all3warm+1sample
+PCM/semantic,24Tap modules/96fused calls, fallback0 and native/model guards;
+its singleRTF1.005272 is not paired speed evidence. C24 measurements did not
+include this candidate. All primitive and single-gate evidence remains under
+`results/n1_tap_finish_20261112` for future work if requested.
