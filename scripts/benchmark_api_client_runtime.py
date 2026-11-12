@@ -66,6 +66,9 @@ def main():
                 row['server_rss_bytes_before']=int(rss_before)*1024
                 row['server_rss_bytes_after']=int(next(line.split()[1] for line in Path(f'/proc/{process.pid}/status').read_text().splitlines() if line.startswith('VmRSS:')))*1024
                 row.update(index=i,role='warmup' if i<args.warmups else 'sample')
+                row['sentence_receipt']={'first_sentence_pcm_samples':65920,'second_sentence_pcm_samples':96640,
+                    'first_sentence_complete_seconds':next(a['seconds'] for a in row['arrivals'] if a['received_bytes']>=131840),
+                    'second_sentence_first_pcm_seconds':next(a['seconds'] for a in row['arrivals'] if a['received_bytes']>131840)}
                 assert row['audio_seconds']==5.08 and row['pcm_bytes']==325120
                 assert row['response_headers']['x-audio-sample-rate']=='32000'
                 expected_hash='a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d'
