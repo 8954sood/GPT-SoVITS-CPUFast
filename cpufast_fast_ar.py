@@ -8,6 +8,7 @@ import torch.nn.functional as F
 from AR.models.t2s_model import T2SBlock
 
 import cpufast_cpp_ops
+from cpufast_kv_cache import head_major_prefix_cache
 
 
 @torch.jit.script
@@ -65,13 +66,18 @@ class CppLosslessBlock:
         padding: torch.Tensor | None,
         torch_sdpa: bool,
     ):
-        x, k, v, length = self.block.process_prompt(
-            x, mask, max_decode_steps, padding, torch_sdpa
-        )
         if self.head_major and x.shape[0] == 1:
-            b, l, width = k.shape
-            k = k.view(b, l, self.block.num_heads, -1).transpose(1, 2).contiguous()
-            v = v.view(b, l, self.block.num_heads, -1).transpose(1, 2).contiguous()
+            # The original block's math is independent of decode capacity.
+            # Avoid transposing/copying its uninitialized1500-token cache tail.
+            x, k, v, length = self.block.process_prompt(
+                x, mask, 0, padding, torch_sdpa
+            )
+            k = head_major_prefix_cache(k, self.block.num_heads, max_decode_steps)
+            v = head_major_prefix_cache(v, self.block.num_heads, max_decode_steps)
+        else:
+            x, k, v, length = self.block.process_prompt(
+                x, mask, max_decode_steps, padding, torch_sdpa
+            )
         return x, k, v, length
 
     def decode_next_token(
