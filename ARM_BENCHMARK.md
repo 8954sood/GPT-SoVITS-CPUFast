@@ -113,7 +113,7 @@ with torch.inference_mode():
 The benchmark equivalent adds `--fft-stream --parallel-transforms
 --inference-mode` to the existing approved tap/prefetch profile. These options
 remain explicit and preserve original-model coefficients. The combined score
-has not been measured with trained students. A fresh pipeline is required when
+is measured separately for approved G below. A fresh pipeline is required when
 changing weights/settings; rebuild the extension after native source changes.
 
 ## Approved private student benchmark
@@ -159,3 +159,17 @@ check; the predictor continues to execute its original authoritative FP32
 `F.linear`. Parameter ID/version/storage/dtype/device changes invalidate the
 negative cache. This mode must pass bit-exact PCM/token/duration checks before
 any adoption; preparing its code is not a performance claim.
+
+The first approved G actual-N1 sweep completed in
+[run 43161518437](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43161518437).
+Korean FP32-cache prefetch 0/64/128/256 medians were
+**1.4709 / 1.4779 / 1.4786 / 1.5155**; retain **0**. The independent five-sample
+G combined result was **1.4414**, while the three-sample original combined
+baseline was **1.4440**. Original/G wall times were 8.346/8.504s for different
+output lengths, 5.78/5.90s. Layer reduction therefore did not deliver a meaningful
+Korean synthesis speed improvement on this server. Trained FP32 AR storage
+increased AR time while the decoder became faster. Full data, every slow sample,
+guards, and the separate profile are in `results/n1_student_g_20261112`.
+Within-N1 Korean variants were PCM/token exact. All three generated semantic
+hashes matched approved local synthesis; cross-platform PCM hashes differed.
+Japanese/English are performance smoke checks only, outside listening approval.

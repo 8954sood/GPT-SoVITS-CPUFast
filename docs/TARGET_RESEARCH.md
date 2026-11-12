@@ -161,3 +161,46 @@ configuration and original weights remain unchanged. This does not reach RTF
 1, does not establish an optimum or coverage of other voices/languages, and
 does not predict the performance/quality of separately trained students.
 See `ARM_BENCHMARK.md` for the exact original-model settings.
+
+## Approved G: trained FP32-cache actual N1 validation
+
+[Run 43161518437](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43161518437)
+fixed source `e32a7096a3221d3a7682b700e949d33d0b9dec81` and the private,
+SHA-verified approved G bundle. Model bytes are excluded from Git and artifacts.
+The user approved Korean listening only. Three warmups preceded each case;
+the sweep and JA/EN had three samples, selected Korean combined had five.
+
+| Korean configuration | Median RTF | Wall seconds | AR seconds | Decoder seconds |
+| --- | ---: | ---: | ---: | ---: |
+| Original combined, exact-half coefficient cache | 1.4440 | 8.346 | 3.409 | 4.542 |
+| G, full FP32 cache, prefetch 0 | 1.4709 | 8.678 | 3.901 | 4.383 |
+| G, prefetch 64 | 1.4779 | 8.719 | 3.942 | 4.364 |
+| G, prefetch 128 | 1.4786 | 8.724 | 3.870 | 4.437 |
+| G, prefetch 256 | 1.5155 | 8.941 | 4.073 | 4.470 |
+| G combined, prefetch 0, independent five samples | 1.4414 | 8.504 | 3.821 | 4.237 |
+
+Retain prefetch 0. Positive hints did not improve this workload. Model changes
+altered generated duration from 5.78 to 5.90s: the nearly equal Korean RTF does
+not mean lower latency. The trained AR's FP32 coefficient cache plausibly offsets
+the reduced layer count: AR became slower despite fewer layers, while decoder
+time fell. This is evidence about this complete model, not a proof of a pure
+memory bottleneck. No individual optimization gains are added together.
+
+JA original/G combined measured RTF 1.4688/1.4033, but wall time increased
+8.784/9.233s with 5.98/6.58s outputs. EN measured 1.4884/1.4300 and wall time
+7.293/6.550s, output 4.90/4.58s. These are one-text performance smoke checks,
+not listening approval or a language-wide speed claim.
+
+Every within-N1 Korean prefetch/combined PCM and token sequence was exact to
+G0. All three generated semantic hashes matched the local approved render;
+cross-platform PCM hashes differed and are reported explicitly. Asset,
+parameter, checkpoint, resource checks passed. Peak tree RSS was below 5.48GB
+for timed jobs and 6.41GB for the separate profile.
+
+The extra unshaped CPU profile, excluded from RTF, recorded self operator times
+of 1.772s FP32 GEMV, 1.498s addmm, .959s FFT stream, .650s bmm, and .529s
+CPU flash attention. Threaded CPU totals overlap and include profiling overhead;
+unshaped addmm totals cannot all be attributed to the classifier. A concrete
+next candidate caches a failed predictor half-storage eligibility check, while
+retaining the same FP32 F.linear arithmetic. It requires its own N1 comparison.
+Raw JSON, guards, profile and provenance: `results/n1_student_g_20261112`.
