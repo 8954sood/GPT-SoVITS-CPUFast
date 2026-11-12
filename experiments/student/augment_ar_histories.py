@@ -26,12 +26,17 @@ def substitute_history(ctx, embedding, alpha, generator, probability=0.1, top_k=
     width = x.shape[-1]
     if width % 2 or embedding.shape[1] != width or not 2 <= top_k < embedding.shape[0]:
         raise ValueError("Compatible even-width embedding and top-k required")
+    if any(value.device.type != "cpu" or value.dtype != torch.float32 or not torch.isfinite(value).all()
+           for value in (x, embedding, alpha, ctx["teacher_logits"])):
+        raise ValueError("Finite CPU FP32 teacher inputs required")
+    if mask.ndim != 4 or mask.dtype != torch.bool or mask.shape[0] != 1 or mask.shape[-2:] != x.shape[1:2] * 2:
+        raise ValueError("Original multihead Boolean attention mask required")
     text = int((~mask[0, 0, 0]).sum())
     prefix = start + 1
     if not 0 < text <= start < x.shape[1] - 1:
         raise ValueError("Text/prompt prefix and generated history required")
     expected = torch.arange(x.shape[1])[None, :] > torch.arange(prefix, x.shape[1])[:, None]
-    if not torch.equal(mask[0, 0, prefix:], expected):
+    if not torch.equal(mask[0, :, prefix:], expected.expand(mask.shape[1], -1, -1)):
         raise ValueError("Generated suffix must have the original causal mask")
     positions = torch.arange(prefix - text, x.shape[1] - text).float()[:, None]
     frequencies = torch.exp(torch.arange(0, width, 2).float() * -(math.log(10000) / width))

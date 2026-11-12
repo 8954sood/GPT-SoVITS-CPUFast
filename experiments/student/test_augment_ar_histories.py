@@ -44,6 +44,6 @@ def test_rejects_wrong_teacher_embedding_or_noncausal_history():
     ctx, embedding, alpha = context()
     with pytest.raises(ValueError, match="reconstruction"):
         substitute_history(ctx, embedding + 0.01, alpha, torch.Generator())
-    ctx["mask"][0, 0, 5, 8] = False
+    ctx["mask"][0, 1, 5, 8] = False
     with pytest.raises(ValueError, match="causal"):
         substitute_history(ctx, embedding, alpha, torch.Generator())
