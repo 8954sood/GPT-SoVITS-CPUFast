@@ -49,8 +49,9 @@ def main():
             finally:diagnostic[label]=diagnostic.get(label,0.)+time.perf_counter()-begin
         setattr(owner,name,run)
     timed(engine.pipeline,'empty_cache','empty_cache_seconds')
-    timed(engine.pipeline.vits_model,'decode','acoustic_decode_seconds')
-    timed(engine.pipeline.text_preprocessor,'segment_and_extract_feature_for_text','target_frontend_seconds')
+    timed(engine.pipeline.vits_model,'prepare_decode_latent','acoustic_latent_seconds')
+    timed(engine.pipeline.vits_model.dec,'forward','student_decoder_seconds')
+    timed(engine.pipeline.text_preprocessor,'preprocess','target_frontend_seconds')
     tap_audit=[]
     if args.tap_finish:
         from cpufast_tap_epilogue_runtime import enable_tap_epilogues
