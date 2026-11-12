@@ -1,0 +1,28 @@
+{
+  "command": [
+    "python",
+    "experiments/rtf07/bench_im2col_tap.py",
+    "--output",
+    "/repo/ci-results/im2col_tap.json",
+    "--profile-shapes",
+    "/repo/results/n1_student_l_20261112/ko_student_profile_ops.json",
+    "--warmups",
+    "3",
+    "--samples",
+    "5"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 577585152,
+  "kernel_child_peak_rss_bytes": 578437120,
+  "cpu_seconds": 27.48683,
+  "elapsed_seconds": 16.47596137970686,
+  "average_cpu_cores": 1.6682990064455374,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 1516,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}

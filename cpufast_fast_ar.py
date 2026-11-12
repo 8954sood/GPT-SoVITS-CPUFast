@@ -23,19 +23,30 @@ def pack(weight_t: torch.Tensor):
 
 @torch.jit.script
 def packq(packed: torch.Tensor):
-    weight = packed.transpose(1, 2).reshape(packed.shape[0] * 8, packed.shape[1]).float()
+    weight = (
+        packed.transpose(1, 2).reshape(packed.shape[0] * 8, packed.shape[1]).float()
+    )
     scale = torch.clamp(weight.abs().amax(dim=1) / 127.0, min=1e-12)
-    q = torch.clamp(torch.round(weight / scale.unsqueeze(1)), -127, 127).to(torch.int8).contiguous()
+    q = (
+        torch.clamp(torch.round(weight / scale.unsqueeze(1)), -127, 127)
+        .to(torch.int8)
+        .contiguous()
+    )
     return q, scale.contiguous()
 
 
 @torch.jit.script
 class CppLosslessBlock:
     def __init__(
-        self, block: T2SBlock, native_attention: bool = False, head_major: bool = False
+        self,
+        block: T2SBlock,
+        native_attention: bool = False,
+        head_major: bool = False,
+        torch_head_attention: bool = False,
     ):
         self.head_major = head_major
         self.native_attention = native_attention
+        self.torch_head_attention = torch_head_attention
         self.block = block
         self.qkv = pack(block.qkv_w_t)
         self.out = pack(block.out_w_t)
@@ -88,7 +99,26 @@ class CppLosslessBlock:
             values[:, :, cache_len:next_len] = v.view(1, 1, b.num_heads, -1).transpose(
                 1, 2
             )
-            a = torch.ops.cpufast_cpp.head_attn(q.contiguous(), keys, values, next_len, b.num_heads, mask.contiguous() if mask is not None else None)
+            if self.torch_head_attention:
+                a = (
+                    F.scaled_dot_product_attention(
+                        q.view(1, 1, b.num_heads, -1).transpose(1, 2),
+                        keys[:, :, :next_len],
+                        values[:, :, :next_len],
+                        ~mask if mask is not None else None,
+                    )
+                    .transpose(1, 2)
+                    .reshape(1, 1, -1)
+                )
+            else:
+                a = torch.ops.cpufast_cpp.head_attn(
+                    q.contiguous(),
+                    keys,
+                    values,
+                    next_len,
+                    b.num_heads,
+                    mask.contiguous() if mask is not None else None,
+                )
         else:
             keys[:, cache_len:next_len] = k
             values[:, cache_len:next_len] = v
@@ -114,14 +144,18 @@ class CppLosslessBlock:
                 a = a.transpose(1, 2).reshape(1, 1, -1)
         x = F.layer_norm(
             x
-            + torch.ops.cpufast_cpp.int8_linear(a.contiguous(), self.out_q, self.out_s, b.out_b),
+            + torch.ops.cpufast_cpp.int8_linear(
+                a.contiguous(), self.out_q, self.out_s, b.out_b
+            ),
             [b.hidden_dim],
             b.norm_w1,
             b.norm_b1,
             b.norm_eps1,
         )
         hidden = F.relu(
-            torch.ops.cpufast_cpp.int8_linear(x.contiguous(), self.ff1_q, self.ff1_s, b.mlp.b1)
+            torch.ops.cpufast_cpp.int8_linear(
+                x.contiguous(), self.ff1_q, self.ff1_s, b.mlp.b1
+            )
         )
         x = F.layer_norm(
             x
@@ -176,9 +210,13 @@ class CppLosslessTransformer:
         return x, k_cache, v_cache, cache_len + 1
 
 
-def build(original, native_attention=False, head_major=False):
+def build(
+    original, native_attention=False, head_major=False, *, torch_head_attention=False
+):
     import hashlib
 
+    if torch_head_attention and not head_major:
+        raise ValueError("Torch head attention requires head-major KV cache")
     audit = []
     before = hashlib.sha256()
     for index, block in enumerate(original.blocks):
@@ -199,7 +237,7 @@ def build(original, native_attention=False, head_major=False):
             )
     runtime = CppLosslessTransformer(
         [
-            CppLosslessBlock(block, native_attention, head_major)
+            CppLosslessBlock(block, native_attention, head_major, torch_head_attention)
             for block in original.blocks
         ]
     )
@@ -228,5 +266,7 @@ def build(original, native_attention=False, head_major=False):
         "authoritative_coefficients_unchanged": True,
         "int8_cache_lossless": False,
         "arithmetic": "experimental W8A8 multiplication with per-channel weights",
+        "head_major": head_major,
+        "torch_head_attention": torch_head_attention,
         "native_workers": cpufast_cpp_ops.WORKERS,
     }

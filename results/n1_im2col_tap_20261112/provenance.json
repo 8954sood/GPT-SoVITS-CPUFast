@@ -1,0 +1,13 @@
+{
+  "run_id": 43169070226,
+  "url": "https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43169070226",
+  "head_sha": "faa35c07a7135b88267223d3b89ae2f764c00820",
+  "target": "Actual ARM Neoverse N1, 2 vCPU / 8000000000 bytes / no swap",
+  "warmups": 3,
+  "samples": 5,
+  "scope": "Synthetic explicit im2col materialization plus one SGEMM versus existing per-tap GEMMs. Not full TTS and no quality approval.",
+  "actual_shapes": "Approved L additional excluded profile: C48 length75520 / C24 length151040, kernels7/11, dilation1",
+  "decision": "Reject all full/tiled im2col variants: every geometry slower than existing taps. No production change or full TTS follow-up. Preserve failed-experiment report and source only.",
+  "numerical": "Nonexact accumulation order, maximum errors8.6e-6 through1.9e-5; all finite, coefficient integrity and guard passed. Actual materialization is included in timing.",
+  "limitations": "Synthetic cache/data does not model complete TTS. Every warmup and slow measured sample retained; no isolated gain is added to synthesis RTF."
+}
