@@ -750,3 +750,31 @@ not establish a useful full synthesis speedup. Keep the candidate isolated
 and the default L path unchanged; no model/FFT/row8 candidate is combined.
 Raw observations, exact flags/library/source hashes and finite-range scope
 are in `results/n1_int8_quant_neon_20261112`.
+
+
+## NEON quantization full-model PCM check, not speed adoption
+
+Source `dc8af1654bf5d7fbe229fdecf5eafe6a6d473eb0` runs one fresh L process
+and one fresh NEON-quantization-only process, each3excluded warmups+1sample,
+on actual N1 2vCPU/8GB/no-swap. Runtime substitution is restricted to the
+single disposable candidate process. Native call counter33984confirms
+4inferences×118steps×18blocks×4linears reached the new quantizer.
+
+Both processes retain identical118semantic tokens,5.02s duration and PCM
+`0269c2ff38ef266552fb60743ff958a0376018280afa2197ef8bf01363069907`.
+All original/student/checkpoint/parameter/resource guards pass; no audio
+files are saved. The two single-sample RTF values1.139587/1.132694are
+archival correctness-run timings, not evidence to adopt a speedup.
+No additional paired measurement or new candidate is started.
+
+Four actual baseline DSO/manifest SHA values captured during candidate
+startup match the post-exit values. The measured wrapper's literal
+immutability flag is not independent evidence; external raw snapshots and
+loader hashes supply the check. Follow-up wrapper source `1a6bd18`
+now computes its own actual before/after SHA comparison and fails on a
+mismatch; running benchmark sources were not changed mid-process.
+The initial standalone CLI lacked explicit prompt language and was rejected
+before inference; this failed invocation remains in the raw evidence.
+Raw JSON and full provenance are in
+`results/n1_int8_quant_neon_20261112/full_pcm`. The host mutex is free and
+no benchmark containers remain; pre-existing unrelated services are untouched.

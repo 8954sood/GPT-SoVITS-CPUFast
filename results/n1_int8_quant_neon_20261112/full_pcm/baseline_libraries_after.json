@@ -1,0 +1,13 @@
+{
+  "scope": "Independent snapshot after the full candidate process exited",
+  "files": {
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so": "54d89f5397ddf906e9e0e269d66df6f139b93f5851a43e62636060a7f6969143",
+    "libcpufast_fast.so.json": "838f25e27b77fc7c2028f8c21c6c5d9f5821fedd48618cc206aa511cc75fe43b"
+  },
+  "equal_to_external_startup_snapshot": true,
+  "startup_snapshot_mtime_ns": 1794485103253053121,
+  "baseline_guard_mtime_ns": 1794485102039042979,
+  "candidate_guard_mtime_ns": 1794485146452414026
+}
