@@ -97,6 +97,7 @@ def main():
     parser.add_argument("--validate-every", type=int, default=10)
     parser.add_argument("--grad-accum", type=int, default=1)
     parser.add_argument("--lr-final-ratio", type=float, default=1.0)
+    parser.add_argument("--train-scope", choices=("all", "last_stage"), default="all")
     args = parser.parse_args()
     if (
         args.output.exists()
@@ -166,7 +167,13 @@ def main():
         raise RuntimeError("Student training requires CPU FP32 parameters")
     if any(p.requires_grad or p.device.type != "cpu" for p in teacher.parameters()):
         raise RuntimeError("Teacher must be frozen on CPU")
-    optimizer = torch.optim.AdamW(student.parameters(), lr=args.lr, weight_decay=0.0)
+    from experiments.student.decoder_training_scope import configure_trainable
+
+    trainable_names = configure_trainable(student, args.train_scope)
+    frozen_before = {name: value.detach().clone() for name, value in student.named_parameters()
+                     if not value.requires_grad}
+    optimizer = torch.optim.AdamW((p for p in student.parameters() if p.requires_grad),
+                                  lr=args.lr, weight_decay=0.0)
     best = float("inf")
     history = []
     started = time.perf_counter()
@@ -187,6 +194,9 @@ def main():
         "dtype": "float32",
         "grad_accum": args.grad_accum,
         "lr_final_ratio": args.lr_final_ratio,
+        "train_scope": args.train_scope,
+        "trainable_parameter_names": trainable_names,
+        "trainable_parameters": sum(p.numel() for p in student.parameters() if p.requires_grad),
     }
     cache = {}
 
@@ -343,6 +353,9 @@ def main():
         },
         args.output / "latest.pt",
     )
+    if any(not torch.equal(value, dict(student.named_parameters())[name])
+           for name, value in frozen_before.items()):
+        raise RuntimeError("Frozen decoder prefix parameters changed")
     if (
         hashlib.sha256(args.s2.read_bytes()).hexdigest()
         != provenance["teacher_s2_sha256"]

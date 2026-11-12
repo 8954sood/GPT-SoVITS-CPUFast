@@ -1,0 +1,76 @@
+{
+  "scope": "Prepare an unapproved final-C24 two-branch decoder from an approved V parent.\n\nThe excluded module audit identified K11 Tap GEMMs in the final stage as a\nlarge cost. Only that final branch is removed; AR files, upsamplers, outer\nwidths and all retained decoder coefficients remain unchanged at initialization.\nThis is neither listening approval nor target-server performance evidence.\n",
+  "quality_approved": false,
+  "actual_n1_measured": false,
+  "approved_parent_manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+  "parent_decoder_sha256": "7d4c184c638b09880a7e61b088b999542598644d22166e84e32137c5649b9524",
+  "initial_sha256": "4b8eb21962723429ab5742d0385a8d3ed1a3e2856e6a54e7cf4fae277e360faa",
+  "spec_sha256": "3a6550930e73dafadd07a9fdbe79a4e00fe7a55e1bfcd370ff237d0da074dc69",
+  "corpus_manifest_sha256": "93fb5d1150656150e615b208d0b23383eaa31aae4065cb43bfd7dc772e28b0dd",
+  "teacher_decoder_sha256": "c7a82874cb08729641612e73354a82b77a671c67d6fbae4a664e83869dbededf",
+  "ar_file_not_modified": true,
+  "parent_bundle_verified_unchanged": true,
+  "retained_coefficients_exact": true,
+  "removed_state_keys": [
+    "resblocks.11.convs1.0.bias",
+    "resblocks.11.convs1.0.weight",
+    "resblocks.11.convs1.1.bias",
+    "resblocks.11.convs1.1.weight",
+    "resblocks.11.convs1.2.bias",
+    "resblocks.11.convs1.2.weight",
+    "resblocks.11.convs2.0.bias",
+    "resblocks.11.convs2.0.weight",
+    "resblocks.11.convs2.1.bias",
+    "resblocks.11.convs2.1.weight",
+    "resblocks.11.convs2.2.bias",
+    "resblocks.11.convs2.2.weight"
+  ],
+  "parent_branches": [
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ]
+  ],
+  "candidate_branches": [
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      1
+    ]
+  ],
+  "initial_parameters": 22773036
+}
