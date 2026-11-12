@@ -61,6 +61,7 @@ def synthetic_bundle(root, variant, storage):
         ("exact_fp16", "exact_fp16", False, "fft"),
         ("exact_fp16", "exact_fp16", False, "stream"),
         ("exact_fp16", "exact_fp16", True, "bottleneck"),
+        ("exact_fp16", "exact_fp16", True, "bottleneckU"),
         ("exact_fp16", "exact_fp16", False, "packed"),
         ("exact_fp16", "exact_fp16", False, "profile"),
     ],
@@ -85,7 +86,7 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
                 "path": "experiments/student/synthetic.py",
                 "sha256": "a" * 64,
             }
-        if ar_only == "bottleneck":
+        if ar_only in ("bottleneck", "bottleneckU"):
             data["decoder_bottlenecks"] = [
                 {
                     "stage": 3,
@@ -98,6 +99,8 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
                     "dilation": 3,
                 }
             ]
+        if ar_only == "bottleneckU":
+            data["model_variant"] = "U"
         candidate.write_text(json.dumps(data))
     output = tmp_path / "output"
     argv = [
@@ -115,7 +118,7 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
         "--prefetch",
         "0",
     ]
-    if ar_only and ar_only not in ("decoder", "bottleneck"):
+    if ar_only and ar_only not in ("decoder", "bottleneck", "bottleneckU"):
         for key in ("--baseline-manifest", "--baseline-manifest-sha256"):
             index = argv.index(key)
             del argv[index : index + 2]
@@ -134,10 +137,12 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             argv.append("--ar-int8-confirm-only")
     if decoder_only:
         argv.append("--decoder-only")
-    if ar_only in ("decoder", "bottleneck"):
+    if ar_only in ("decoder", "bottleneck", "bottleneckU"):
         argv.append("--decoder-ar-int8")
-    if ar_only == "bottleneck":
+    if ar_only in ("bottleneck", "bottleneckU"):
         argv.append("--alternating-decoder-comparison")
+        if ar_only == "bottleneckU":
+            argv += ["--decoder-candidate-label", "U", "--samples", "5"]
     monkeypatch.setattr(sys, "argv", argv)
     calls = []
 
@@ -211,9 +216,15 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
         assert summary["cases"] == [] and "profile_run" in summary
         assert summary["complete"] and summary["student_assets_unchanged"]
         return
-    if ar_only in ("bottleneck", "packed"):
+    if ar_only in ("bottleneck", "bottleneckU", "packed"):
         assert len(calls) == 11
-        candidate_label = "packed" if ar_only == "packed" else "R"
+        candidate_label = (
+            "packed"
+            if ar_only == "packed"
+            else "U"
+            if ar_only == "bottleneckU"
+            else "R"
+        )
         order = [
             "L",
             candidate_label,
@@ -227,7 +238,11 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             candidate_label,
         ]
         for label, command in zip(order, calls):
-            path = baseline if label == "L" and ar_only == "bottleneck" else candidate
+            path = (
+                baseline
+                if label == "L" and ar_only in ("bottleneck", "bottleneckU")
+                else candidate
+            )
             assert command[command.index("--s1") + 1] == str(path.parent / "ar.pt")
             assert command[command.index("--samples") + 1] == "1"
             assert (
@@ -236,6 +251,8 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
                 and "--fft-pad-channels" not in command
             )
             assert ("--packed-prefill-ffn" in command) == (label == "packed")
+        if ar_only == "bottleneckU":
+            assert calls[-1][calls[-1].index("--warmups") + 1] == "3"
         summary = json.loads((output / "student_summary.json").read_text())
         assert [r["runtime"] for r in summary["comparison_order"]] == order
         assert [r["samples"] for r in summary["paired_aggregate"]] == [5, 5]

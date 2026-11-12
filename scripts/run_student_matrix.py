@@ -29,7 +29,16 @@ def main():
     parser.add_argument("--alternating-decoder-comparison", action="store_true")
     parser.add_argument("--packed-prefill-comparison", action="store_true")
     parser.add_argument("--diagnostic-profile-only", action="store_true")
+    parser.add_argument("--decoder-candidate-label", choices=["R", "U"], default="R")
     args = parser.parse_args()
+    if args.decoder_candidate_label == "U" and (
+        not args.alternating_decoder_comparison
+        or args.warmups != 3
+        or args.samples != 5
+    ):
+        parser.error(
+            "U requires counterbalanced decoder comparison with exactly3warm5samples"
+        )
     if args.diagnostic_profile_only and args.warmups != 3:
         parser.error("Diagnostic profile uses exactly three warmups")
     if args.diagnostic_profile_only and (
@@ -75,6 +84,8 @@ def main():
     ):
         parser.error("Packed prefill comparison uses one unchanged approved L bundle")
     manifest = load_manifest(args.manifest, args.manifest_sha256)
+    if args.decoder_candidate_label == "U" and manifest.get("model_variant") != "U":
+        parser.error("U mode requires the explicitly approved U manifest")
     before = snapshot(args.manifest)
     cases = {r["language"]: r for r in manifest["listening_report"]["cases"]}
     baseline = None
@@ -199,7 +210,12 @@ def main():
             "--text",
             run_cases[language]["text"],
             "--warmups",
-            "1" if profile and not args.diagnostic_profile_only else str(args.warmups),
+            "1"
+            if profile
+            and not (
+                args.diagnostic_profile_only or args.decoder_candidate_label == "U"
+            )
+            else str(args.warmups),
             "--samples",
             "1"
             if profile
@@ -421,9 +437,11 @@ def main():
             raise RuntimeError("Private diagnostic assets changed")
         return
     if args.alternating_decoder_comparison or args.packed_prefill_comparison:
-        candidate_label = "packed" if args.packed_prefill_comparison else "R"
+        candidate_label = (
+            "packed" if args.packed_prefill_comparison else args.decoder_candidate_label
+        )
         summary["scope"] = (
-            "Actual N1 approved L versus approved R pair bottlenecks only; counterbalanced AB/BA rounds; no new prefill/half-products"
+            f"Actual N1 approved L versus approved {candidate_label} pair bottlenecks only; counterbalanced AB/BA rounds; no new prefill/half-products"
         )
         summary["comparison_order"] = []
         if args.packed_prefill_comparison:
