@@ -83,7 +83,6 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
         str(output),
         "--prefetch",
         "0",
-        "--predictor-cache",
     ]
     if decoder_only:
         argv.append("--decoder-only")
@@ -143,7 +142,6 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
         assert command[command.index("--ar-prefetch") + 1] == (
             "0" if storage == "fp32" else "256"
         )
-        assert "--predictor-eligibility-cache" in command
         assert command[command.index("--samples") + 1] == (
             "1" if index == len(calls) - 1 else "5"
         )

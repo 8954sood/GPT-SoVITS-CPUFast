@@ -17,17 +17,13 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--warmups", type=int, default=3)
     parser.add_argument("--samples", type=int, default=3)
-    parser.add_argument("--predictor-only", action="store_true")
     parser.add_argument("--prefetch", type=int, choices=[0, 64, 128, 256], default=0)
     parser.add_argument("--baseline-manifest", type=Path)
     parser.add_argument("--baseline-manifest-sha256")
-    parser.add_argument("--predictor-cache", action="store_true")
     parser.add_argument("--decoder-only", action="store_true")
     args = parser.parse_args()
     if bool(args.baseline_manifest) != bool(args.baseline_manifest_sha256):
         parser.error("Comparison baseline manifest and SHA required together")
-    if args.baseline_manifest and args.predictor_only:
-        parser.error("Choose model comparison or predictor-only comparison")
     if args.decoder_only and not args.baseline_manifest:
         parser.error("Decoder comparison requires an approved baseline bundle")
     manifest = load_manifest(args.manifest, args.manifest_sha256)
@@ -94,7 +90,6 @@ def main():
         confirm=False,
         profile=False,
         compare=None,
-        predictor_cache=False,
         baseline_bundle=False,
         fp32_control=False,
     ):
@@ -150,8 +145,6 @@ def main():
             "--output",
             str(file),
         ]
-        if predictor_cache:
-            command += ["--predictor-eligibility-cache"]
         if not original:
             command += [
                 "--student-manifest",
@@ -214,7 +207,6 @@ def main():
             "prefetch": 256 if original else distance,
             "original": original,
             "combined": combined,
-            "predictor_eligibility_cache": predictor_cache,
             "model_variant": data["model_variant"],
             "manifest_sha256": None if original else sha256(run_path),
             "ar_cache_storage": "fp32"
@@ -288,7 +280,6 @@ def main():
             distance=args.prefetch,
             combined=True,
             confirm=True,
-            predictor_cache=args.predictor_cache,
             baseline_bundle=True,
         )
         candidate_compare = None
@@ -302,7 +293,6 @@ def main():
                 distance=args.prefetch,
                 combined=True,
                 confirm=True,
-                predictor_cache=args.predictor_cache,
                 fp32_control=True,
             )
             candidate_compare = args.output / "ko_comparison_candidate_fp32.wav"
@@ -312,7 +302,6 @@ def main():
             distance=args.prefetch,
             combined=True,
             confirm=True,
-            predictor_cache=args.predictor_cache,
             compare=candidate_compare,
         )
         if candidate_compare is not None and (
@@ -337,7 +326,6 @@ def main():
                 distance=args.prefetch,
                 combined=True,
                 profile=True,
-                predictor_cache=args.predictor_cache,
                 compare=args.output / "ko_comparison_candidate.wav",
             )
         except subprocess.CalledProcessError as error:
@@ -349,52 +337,6 @@ def main():
         save()
         if not summary["student_assets_unchanged"]:
             raise RuntimeError("Private comparison execution assets changed")
-        return
-    if args.predictor_only:
-        summary["scope"] = (
-            "Actual N1 approved Korean G predictor eligibility cache comparison"
-        )
-        summary["prefetch_selection"] = "Fixed from prior N1 sweep; no new selection"
-        summary["selected_prefetch"] = args.prefetch
-        run(
-            "ko",
-            "predictor_baseline",
-            distance=args.prefetch,
-            combined=True,
-            confirm=True,
-        )
-        baseline_wave = args.output / "ko_predictor_baseline.wav"
-        _, cached = run(
-            "ko",
-            "predictor_cached",
-            distance=args.prefetch,
-            combined=True,
-            confirm=True,
-            compare=baseline_wave,
-            predictor_cache=True,
-        )
-        if (
-            not cached["candidate_pcm_exact_to_n1_student"]
-            or not cached["candidate_tokens_exact_to_n1_student"]
-        ):
-            raise RuntimeError("Predictor eligibility cache changed PCM/tokens")
-        try:
-            run(
-                "ko",
-                "predictor_profile_run",
-                distance=args.prefetch,
-                combined=True,
-                profile=True,
-                compare=baseline_wave,
-                predictor_cache=True,
-            )
-        except subprocess.CalledProcessError as error:
-            summary["profile_error"] = {"exit_code": error.returncode}
-        summary["student_assets_unchanged"] = before == snapshot(args.manifest)
-        summary["complete"] = True
-        save()
-        if not summary["student_assets_unchanged"]:
-            raise RuntimeError("Private student execution assets changed")
         return
     run("ko", "original", original=True, combined=True)
     _, zero = run("ko", "student_p0")

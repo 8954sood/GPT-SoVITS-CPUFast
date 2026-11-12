@@ -150,15 +150,11 @@ seed match. Original checkpoint files remain unchanged. Within-student prefetch
 and combined candidates must produce the same PCM/tokens/duration as N1 G0.
 Local approved-waveform matches are reported separately from the N1 comparisons.
 
-`mode=studentpredictor` is a separate, opt-in follow-up for the same immutable
-approved G bundle. Supply `student_prefetch` from the preceding N1 sweep. It
-compares the combined G baseline against `--predictor-eligibility-cache` with
-five retained measurements each on Korean, then records a separate candidate
-operator profile. The optimization caches only a failed FP16-storage eligibility
-check; the predictor continues to execute its original authoritative FP32
-`F.linear`. Parameter ID/version/storage/dtype/device changes invalidate the
-negative cache. This mode must pass bit-exact PCM/token/duration checks before
-any adoption; preparing its code is not a performance claim.
+The historical `mode=studentpredictor` experiment cached a failed predictor
+FP16-storage eligibility check while preserving FP32 `F.linear`. It failed to
+improve full synthesis and its runtime flag/engine path were removed. Reproduce
+that experiment only from source `2c94b384a6b5f55cfdf2709221c620374c24d631`;
+complete target measurements remain in `results/n1_student_predictor_20261112`.
 
 The first approved G actual-N1 sweep completed in
 [run 43161518437](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43161518437).
@@ -197,20 +193,22 @@ and match the manifest/loaded AR layer count. Decoder branch identities and
 original teacher/reference hashes also remain checked. FP32 cache uses the
 explicit `student_prefetch` from its prior N1 sweep; exact-half cache uses the
 verified original profile's distance 256. Each row records the actual setting.
-`studentcomparecached` additionally enables the same opt-in predictor negative
-eligibility cache for both models; use only after its independent N1 comparison.
+The rejected predictor negative-cache flag is not available in the current
+engine or comparison workflow.
 
 The independent predictor negative-cache comparison
 [run 43163928379](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43163928379)
 did **not** improve G: baseline/candidate medians were **1.4002/1.4047** over
 five samples each, despite a small AR/CPU reduction. All candidate waveforms and
-tokens were exact. This is a failed speed hypothesis; keep the option off.
+tokens were exact. This is a failed speed hypothesis; the experimental runtime option was removed.
 Raw reports/provenance are in `results/n1_student_predictor_20261112`.
 The classifier range and its input/weight shapes are now recorded only during
 the additional excluded profile synthesis, with no wrappers in timed samples.
 
 `mode=taptiles` is a separate synthetic N1 diagnostic prepared from previously
-observed 48×48×90880 and 24×24×181760 tap GEMMs. It compares the current full
+observed long-sequence 48×48 and 24×24 tap GEMMs. In `studentdecoder`,
+target lengths are read from the actual candidate profile; standalone defaults
+are the approved H3/K Korean lengths 76800 and 153600. It compares the current full
 sequence with temporal tiles 1024/4096/8192, kernels 7/11 and dilation 1/5,
 using fixed coefficients and tap accumulation order. It records every warmup,
 wall/CPU sample, exactness, changed values, maximum error, RMSE and guard data.

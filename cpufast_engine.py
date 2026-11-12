@@ -15,7 +15,6 @@ def optimize(
     packed_fft=False,
     fft_stream=False,
     parallel_transforms=False,
-    predictor_eligibility_cache=False,
     fused_finish=False,
     tap_small=False,
     packed_small_48=False,
@@ -44,8 +43,6 @@ def optimize(
         raise ValueError("Prefetch cannot be combined with fast experimental mode")
     if fast_experimental and ar_fp32_cache:
         raise ValueError("FP32 cache cannot be combined with fast experimental mode")
-    if predictor_eligibility_cache and fast_experimental:
-        raise ValueError("predictor_eligibility_cache requires the FP32 profile")
     if parallel_transforms and fast_experimental:
         raise ValueError("parallel_transforms requires FP32")
     if fft_stream and (not packed_fft or not fft_layout or fast_experimental):
@@ -63,13 +60,6 @@ def optimize(
             acoustic_threads,
         ):
             raise ValueError("Recreate the pipeline before changing thread settings")
-        if (
-            existing.audit.get("predictor_eligibility_cache", False)
-            != predictor_eligibility_cache
-        ):
-            raise ValueError(
-                "Recreate the pipeline before changing predictor eligibility cache"
-            )
         if existing.audit.get("parallel_transforms", False) != parallel_transforms:
             raise ValueError(
                 "Recreate the pipeline before changing transform scheduling"
@@ -122,9 +112,7 @@ def optimize(
         build_options["fp32_cache"] = ar_fp32_cache
         build_options["prefetch"] = ar_prefetch
     decoder.t2s_transformer, audit = build(decoder.t2s_transformer, **build_options)
-    decoder.ar_predict_layer = NativePredictor(
-        decoder.ar_predict_layer, cache_ineligible=predictor_eligibility_cache
-    )
+    decoder.ar_predict_layer = NativePredictor(decoder.ar_predict_layer)
     if cook_phase:
         from cpufast_cooktoom import CookToomPhase
 
@@ -239,7 +227,6 @@ def optimize(
         "tap_small": tap_small,
         "fft_stream": fft_stream,
         "parallel_transforms": parallel_transforms,
-        "predictor_eligibility_cache": predictor_eligibility_cache,
         "packed_small_48": packed_small_48,
         "n1_fft_sizes": n1_fft_sizes,
         "n1_small_direct": n1_small_direct,
