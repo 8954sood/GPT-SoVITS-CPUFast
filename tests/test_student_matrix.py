@@ -66,6 +66,7 @@ def synthetic_bundle(root, variant, storage):
         ("exact_fp16", "exact_fp16", False, "packed"),
         ("exact_fp16", "exact_fp16", False, "int8packed"),
         ("exact_fp16", "exact_fp16", False, "outputtile4"),
+        ("exact_fp16", "exact_fp16", False, "headv32"),
         ("exact_fp16", "exact_fp16", False, "profile"),
     ],
 )
@@ -126,7 +127,9 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             index = argv.index(key)
             del argv[index : index + 2]
         argv.append(
-            "--fft-output-tiles-comparison"
+            "--head-v32-comparison"
+            if ar_only == "headv32"
+            else "--fft-output-tiles-comparison"
             if ar_only == "outputtile4"
             else "--int8-prefill-comparison"
             if ar_only == "int8packed"
@@ -142,7 +145,7 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
         )
         if ar_only == "confirm":
             argv.append("--ar-int8-confirm-only")
-        if ar_only in ("int8packed", "outputtile4"):
+        if ar_only in ("int8packed", "outputtile4", "headv32"):
             argv += ["--samples", "5"]
     if decoder_only:
         argv.append("--decoder-only")
@@ -193,6 +196,7 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             else [],
             "fp16_acoustic_modules": 1 if "--fft-half-products" in command else 0,
             "experimental_options": {"fast_experimental": False},
+            "head_v32": {"calls": 120} if "/repo/scripts/benchmark_head_v32.py" in command else {},
             "fft_output_tiles": {"calls": 120} if "/repo/scripts/benchmark_fft_output_tiles.py" in command else {},
             "model_variant": manifest["model_variant"],
             "median_rtf": 1.2,
@@ -233,10 +237,12 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
         assert summary["cases"] == [] and "profile_run" in summary
         assert summary["complete"] and summary["student_assets_unchanged"]
         return
-    if ar_only in ("bottleneck", "bottleneckU", "bottleneckV", "packed", "int8packed", "outputtile4"):
+    if ar_only in ("bottleneck", "bottleneckU", "bottleneckV", "packed", "int8packed", "outputtile4", "headv32"):
         assert len(calls) == 11
         candidate_label = (
-            "tile4"
+            "head_v32"
+            if ar_only == "headv32"
+            else "tile4"
             if ar_only == "outputtile4"
             else "W"
             if ar_only == "int8packed"
@@ -274,7 +280,8 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             assert ("--packed-prefill-ffn" in command) == (label == "packed")
             assert ("--int8-prefill-ffn" in command) == (label == "W")
             assert ("/repo/scripts/benchmark_fft_output_tiles.py" in command) == (label == "tile4")
-        if ar_only in ("bottleneckU", "bottleneckV", "int8packed", "outputtile4"):
+            assert ("/repo/scripts/benchmark_head_v32.py" in command) == (label == "head_v32")
+        if ar_only in ("bottleneckU", "bottleneckV", "int8packed", "outputtile4", "headv32"):
             assert calls[-1][calls[-1].index("--warmups") + 1] == "3"
         summary = json.loads((output / "student_summary.json").read_text())
         assert [r["runtime"] for r in summary["comparison_order"]] == order

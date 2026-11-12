@@ -20,6 +20,7 @@ def main():
     parser.add_argument("--prefetch", type=int, choices=[0, 64, 128, 256], default=0)
     parser.add_argument("--baseline-manifest", type=Path)
     parser.add_argument("--baseline-manifest-sha256")
+    parser.add_argument("--head-v32-comparison", action="store_true")
     parser.add_argument("--ar-depth-comparison", action="store_true")
     parser.add_argument("--decoder-only", action="store_true")
     parser.add_argument("--decoder-ar-int8", action="store_true")
@@ -40,12 +41,17 @@ def main():
                 args.ar_int8_confirm_only, args.fft_half_comparison,
                 args.fft_half_stream_comparison, args.alternating_decoder_comparison,
                 args.packed_prefill_comparison, args.int8_prefill_comparison,
-                args.diagnostic_profile_only, args.fft_output_tiles_comparison))
+                args.diagnostic_profile_only, args.fft_output_tiles_comparison, args.head_v32_comparison))
         or args.decoder_candidate_label != "R"
     ):
         parser.error("AR depth comparison requires isolated two approved bundles, 3warm5sample")
     prefill_comparison = args.packed_prefill_comparison or args.int8_prefill_comparison
-    runtime_comparison = prefill_comparison or args.fft_output_tiles_comparison
+    runtime_comparison = prefill_comparison or args.fft_output_tiles_comparison or args.head_v32_comparison
+    if args.head_v32_comparison and (
+        prefill_comparison or args.fft_output_tiles_comparison or args.diagnostic_profile_only
+        or args.warmups != 3 or args.samples != 5
+    ):
+        parser.error("Head scheduling requires isolated3warm5sample comparison")
     if args.fft_output_tiles_comparison and (
         prefill_comparison or args.warmups != 3 or args.samples != 5
     ):
@@ -210,6 +216,7 @@ def main():
         packed_prefill=False,
         int8_prefill=False,
         fft_output_tiles=False,
+        head_v32=False,
     ):
         run_manifest = baseline if baseline_bundle else manifest
         run_path = args.baseline_manifest if baseline_bundle else args.manifest
@@ -260,6 +267,7 @@ def main():
             and not (
                 args.diagnostic_profile_only
                 or args.ar_depth_comparison
+                or args.head_v32_comparison
                 or args.decoder_candidate_label in ("U", "V")
                 or args.int8_prefill_comparison
                 or args.fft_output_tiles_comparison
@@ -281,6 +289,9 @@ def main():
             command += [
                 "--fft-output-tile-library", "/repo/libcpufast_fft_output_tiles.so"
             ]
+        if head_v32:
+            command[1] = "/repo/scripts/benchmark_head_v32.py"
+            command += ["--head-v32-library", "/repo/libcpufast_head_v32_runtime.so"]
         if not original:
             command += [
                 "--student-manifest",
@@ -363,6 +374,8 @@ def main():
             raise RuntimeError("Packed FP32 prefill candidate scope audit failed")
         if fft_output_tiles and not data.get("fft_output_tiles", {}).get("calls"):
             raise RuntimeError("Output-tiling candidate did not use the native probe")
+        if head_v32 and not data.get("head_v32", {}).get("calls"):
+            raise RuntimeError("Head scheduling candidate did not use the native probe")
         if int8_prefill and (
             not data.get("int8_prefill_ffn")
             or not data.get("int8_prefill_audit")
@@ -472,6 +485,11 @@ def main():
                 for r in data["runs"]
             ),
         }
+        if args.head_v32_comparison and not (
+            row["local_approved_pcm_match"] and row["local_approved_generated_tokens_match"]
+            and all(r["audio_seconds"] == run_cases[language]["audio_seconds"] for r in data["runs"])
+        ):
+            raise RuntimeError("Head scheduling comparison did not reproduce approved model PCM/tokens")
         if args.ar_depth_comparison:
             tokens = sum(int(r["index"]) for r in data["runs"][0]["semantic"])
             audit = data["ar_coefficient_audit"]["matrices"]
@@ -586,7 +604,9 @@ def main():
         return
     if args.alternating_decoder_comparison or runtime_comparison:
         candidate_label = (
-            "tile4"
+            "head_v32"
+            if args.head_v32_comparison
+            else "tile4"
             if args.fft_output_tiles_comparison
             else "W"
             if args.int8_prefill_comparison
@@ -615,6 +635,12 @@ def main():
                 "counterbalanced fresh processes, no model/prefill/precision changes"
             )
             summary["prefetch_selection"] = "No tuning; unchanged approved L AR/runtime"
+        if args.head_v32_comparison:
+            summary["scope"] = (
+                "Actual N1 unchanged approved model versus exact token-order head value "
+                "scheduling; fresh counterbalanced processes, unchanged weights/AR arithmetic/FP32 acoustics"
+            )
+            summary["prefetch_selection"] = "No tuning; only dim32 weighted-value accumulation schedule changes"
         samples = {"L": [], candidate_label: []}
         last_candidate = None
         reference = None
@@ -633,6 +659,7 @@ def main():
                     packed_prefill=label == "packed",
                     int8_prefill=label == "W",
                     fft_output_tiles=label == "tile4",
+                    head_v32=label == "head_v32",
                 )
                 observed = data["runs"][0]
                 if reference is None:
@@ -687,7 +714,9 @@ def main():
         try:
             _, row = run(
                 "ko",
-                "fft_output_tile4_profile_run"
+                "head_v32_profile_run"
+                if args.head_v32_comparison
+                else "fft_output_tile4_profile_run"
                 if args.fft_output_tiles_comparison
                 else "int8_prefill_profile_run"
                 if args.int8_prefill_comparison
@@ -702,6 +731,7 @@ def main():
                 packed_prefill=args.packed_prefill_comparison,
                 int8_prefill=args.int8_prefill_comparison,
                 fft_output_tiles=args.fft_output_tiles_comparison,
+                head_v32=args.head_v32_comparison,
             )
             if not row["candidate_pcm_exact_to_n1_student"]:
                 raise RuntimeError("Profile process changed approved candidate PCM")
