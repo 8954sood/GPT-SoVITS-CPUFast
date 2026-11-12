@@ -1,0 +1,492 @@
+{
+  "scope": "Actual N1 quality-only C24 Vtarget100 generation and subsequent owner Korean approval. No RTF result yet.",
+  "quality_approved": true,
+  "approved_scope": "Korean same reference/text/seed only",
+  "owner_reply": "괜찮음, C24도 RTF 측정",
+  "source_commit": "7ef1b304054e96521a66d2e564c796b2ddee7290",
+  "raw_report_sha256": "f7bb391faa73a9728e650c0e8e1a3485e17d28c21cae50b8f0d7474d5468b708",
+  "approved_manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+  "parent_manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+  "candidate_decoder_sha256": "afac9da039331cb1a8511d709998396a28ffc29469ba092fda3c7fc823d0ab11",
+  "candidate_spec_sha256": "3a6550930e73dafadd07a9fdbe79a4e00fe7a55e1bfcd370ff237d0da074dc69",
+  "approved_ar_file_sha256": "a25ae9826d4d608ca41adca04075ff75a5ac66ababa0e823da60b7990f354352",
+  "ar_original_layer_ids": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    13,
+    15,
+    19,
+    22,
+    23
+  ],
+  "parent_decoder_branches": [
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ]
+  ],
+  "candidate_decoder_branches": [
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      1
+    ]
+  ],
+  "runtime_audit": {
+    "fft_stream": true,
+    "parallel_transforms": true,
+    "fft_geometry": [
+      {
+        "module": "resblocks.0.convs1.0",
+        "weight_shape": [
+          240,
+          384,
+          7
+        ],
+        "n_fft": 128,
+        "dilation": 1,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.0.convs1.1",
+        "weight_shape": [
+          240,
+          384,
+          7
+        ],
+        "n_fft": 128,
+        "dilation": 3,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.0.convs1.2",
+        "weight_shape": [
+          240,
+          384,
+          7
+        ],
+        "n_fft": 128,
+        "dilation": 5,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.0.convs2.0",
+        "weight_shape": [
+          384,
+          240,
+          7
+        ],
+        "n_fft": 256,
+        "dilation": 1,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.0.convs2.1",
+        "weight_shape": [
+          384,
+          240,
+          7
+        ],
+        "n_fft": 256,
+        "dilation": 1,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.0.convs2.2",
+        "weight_shape": [
+          384,
+          240,
+          7
+        ],
+        "n_fft": 256,
+        "dilation": 1,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.1.convs1.0",
+        "weight_shape": [
+          240,
+          384,
+          11
+        ],
+        "n_fft": 128,
+        "dilation": 1,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.1.convs1.1",
+        "weight_shape": [
+          240,
+          384,
+          11
+        ],
+        "n_fft": 128,
+        "dilation": 3,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.1.convs1.2",
+        "weight_shape": [
+          240,
+          384,
+          11
+        ],
+        "n_fft": 128,
+        "dilation": 5,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.1.convs2.0",
+        "weight_shape": [
+          384,
+          240,
+          11
+        ],
+        "n_fft": 256,
+        "dilation": 1,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.1.convs2.1",
+        "weight_shape": [
+          384,
+          240,
+          11
+        ],
+        "n_fft": 256,
+        "dilation": 1,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.1.convs2.2",
+        "weight_shape": [
+          384,
+          240,
+          11
+        ],
+        "n_fft": 256,
+        "dilation": 1,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.3.convs1.0",
+        "weight_shape": [
+          120,
+          192,
+          7
+        ],
+        "n_fft": 256,
+        "dilation": 1,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.3.convs1.1",
+        "weight_shape": [
+          120,
+          192,
+          7
+        ],
+        "n_fft": 256,
+        "dilation": 3,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.3.convs1.2",
+        "weight_shape": [
+          120,
+          192,
+          7
+        ],
+        "n_fft": 256,
+        "dilation": 5,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.3.convs2.0",
+        "weight_shape": [
+          192,
+          120,
+          7
+        ],
+        "n_fft": 256,
+        "dilation": 1,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.3.convs2.1",
+        "weight_shape": [
+          192,
+          120,
+          7
+        ],
+        "n_fft": 256,
+        "dilation": 1,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.3.convs2.2",
+        "weight_shape": [
+          192,
+          120,
+          7
+        ],
+        "n_fft": 256,
+        "dilation": 1,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.4.convs1.0",
+        "weight_shape": [
+          96,
+          192,
+          11
+        ],
+        "n_fft": 256,
+        "dilation": 1,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.4.convs1.1",
+        "weight_shape": [
+          120,
+          192,
+          11
+        ],
+        "n_fft": 256,
+        "dilation": 3,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.4.convs1.2",
+        "weight_shape": [
+          96,
+          192,
+          11
+        ],
+        "n_fft": 256,
+        "dilation": 5,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.4.convs2.0",
+        "weight_shape": [
+          192,
+          96,
+          11
+        ],
+        "n_fft": 256,
+        "dilation": 1,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.4.convs2.1",
+        "weight_shape": [
+          192,
+          120,
+          11
+        ],
+        "n_fft": 256,
+        "dilation": 1,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.4.convs2.2",
+        "weight_shape": [
+          192,
+          96,
+          11
+        ],
+        "n_fft": 256,
+        "dilation": 1,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.6.convs1.0",
+        "weight_shape": [
+          60,
+          96,
+          11
+        ],
+        "n_fft": 256,
+        "dilation": 1,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.6.convs1.1",
+        "weight_shape": [
+          60,
+          96,
+          11
+        ],
+        "n_fft": 256,
+        "dilation": 3,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.6.convs1.2",
+        "weight_shape": [
+          60,
+          96,
+          11
+        ],
+        "n_fft": 256,
+        "dilation": 5,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.6.convs2.0",
+        "weight_shape": [
+          96,
+          60,
+          11
+        ],
+        "n_fft": 256,
+        "dilation": 1,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.6.convs2.1",
+        "weight_shape": [
+          96,
+          60,
+          11
+        ],
+        "n_fft": 256,
+        "dilation": 1,
+        "stream_products": true,
+        "parallel_transforms": true
+      },
+      {
+        "module": "resblocks.6.convs2.2",
+        "weight_shape": [
+          96,
+          60,
+          11
+        ],
+        "n_fft": 256,
+        "dilation": 1,
+        "stream_products": true,
+        "parallel_transforms": true
+      }
+    ],
+    "fft128_cin240_substitution": false
+  },
+  "cases": [
+    {
+      "language": "ko",
+      "text": "오늘은 날씨가 참 좋네요. 잠깐 쉬었다가 함께 이야기를 이어 가요.",
+      "sample_rate": 32000,
+      "audio_seconds": 5.62,
+      "semantic": [
+        {
+          "tokens": 133,
+          "sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "pcm_sha256": "ab9179ec076b5b3e1bd7f90879486c4e4447d183936f9ae698bc714260a6b279"
+    },
+    {
+      "language": "ja",
+      "text": "今日は穏やかな天気ですね。少し休んでから、また一緒に続きを進めましょう。",
+      "sample_rate": 32000,
+      "audio_seconds": 6.22,
+      "semantic": [
+        {
+          "tokens": 148,
+          "sha256": "c03c4a540a3b1c691a5493cd8cc43d5868625d1b67ef8e0e6155e80c85f3fad5"
+        }
+      ],
+      "pcm_sha256": "592ec05e5eb1f663322f0ea8bcf3f9802431282933f1170f9d071ad951457b17"
+    },
+    {
+      "language": "en",
+      "text": "The weather is pleasant today. Let us take a short break and continue together.",
+      "sample_rate": 32000,
+      "audio_seconds": 4.38,
+      "semantic": [
+        {
+          "tokens": 102,
+          "sha256": "30bb0e88282e108c28c47600dcd61a80a26f2c386e1a2b150a3781a142db35cc"
+        }
+      ],
+      "pcm_sha256": "9f4bcc8aff695c61edf901941e444dd05e7f5d88a1733147ea11a324300ee507"
+    }
+  ],
+  "actual_n1_rtf_measured": false,
+  "raw_quality_report_preserved": true,
+  "original_AR17_V400_bundle_verified_unchanged": true,
+  "immutable_bundle_verified": true,
+  "quality_audio_files_remain_private": true
+}

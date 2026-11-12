@@ -44,7 +44,10 @@
   두 residual block+conv_post만 회복했다. 원래교사로300회 학습 후 승인V
   출력을 직접target으로100회 추가학습했다. 최종SHA afac9da...의 승인V기준
   logmel .069813→.052186, 원래S2기준 .174778이며 서로 다른 target을 구분한다.
-  이 후보 하나만 canonical FFT256 경로에서 청취용 생성하며 아직 미승인이다.
+  이 후보 하나를 canonical FFT256 경로에서 생성했고 사용자가 "괜찮음, C24도
+  RTF 측정"으로 KO 음질을 승인했다. 새 immutable manifest SHA는
+  `696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865`.
+  기존 e30과 같은AR17을 고정한 별도5쌍 비교를 준비하며, 성능 채택 전이다.
 - Main의 AR16, history 보강, inactive-FFN slice는 별도 미승인 연구 후보다.
   승인 모델 파일을 덮어쓰거나 이들 후보를 현재 서버 비교에 섞지 않는다.
 

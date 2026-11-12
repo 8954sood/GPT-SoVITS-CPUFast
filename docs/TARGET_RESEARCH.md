@@ -1127,6 +1127,23 @@ FFT256 policy. Prior C24 candidates stay private/untransferred, and no C24 RTF,
 quality approval or promotion is claimed. Detailed history and both-target
 group reports: `results/student_pilot/c24_two_branch_vtarget100_cpu_20261112.json`.
 
+Owner subsequently heard both the approved AR17+V reference and the actual
+C24 candidate and replied **"괜찮음, C24도 RTF 측정"**. Approval applies only to
+the presented Korean same-reference/text/seed output. Actual quality generation
+source `7ef1b30` forces canonical stream/parallel FP32 FFT and records executed
+FFT geometry, with no FFT128 substitution. Korean semantic133tokens/5.62s is
+unchanged; C24 PCM is
+`ab9179ec076b5b3e1bd7f90879486c4e4447d183936f9ae698bc714260a6b279`.
+Raw quality report SHA
+`f7bb391faa73a9728e650c0e8e1a3485e17d28c21cae50b8f0d7474d5468b708`
+is preserved. The newly verified immutable release manifest SHA is
+`696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865`.
+AR bytes remain identical to approved parent e30; decoder/spec remain byte
+identical to the listened candidate. Research checkpoint/spec flags are left
+unchanged, with listening approval recorded by the immutable release manifest.
+See `results/student_pilot/c24_vtarget100_listening_20261112.json`. No C24 RTF
+claim exists yet; the worker prepares a separate five-pair model comparison.
+
 ### FFN2-only row8 and excluded addmm attribution (2026-11-12)
 
 FFN2 sourcee269bd5 routes only512×2048 to row8, all other shapes to original
