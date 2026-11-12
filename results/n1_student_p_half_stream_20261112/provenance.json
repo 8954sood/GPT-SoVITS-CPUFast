@@ -1,0 +1,18 @@
+{
+  "run_id": 43177219205,
+  "url": "https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43177219205",
+  "head_sha": "5a886e17e744996dbc38031c66333f5bb33ed180",
+  "status": "completed",
+  "conclusion": "success",
+  "scope": "Actual N1 2vCPU / 8000000000 bytes / no swap. Independent same-P baseline repeat versus PCM-equivalent half-stream. All slow samples retained.",
+  "artifact_json_sha256": {
+    "ko_fft_product_baseline.json": "00bc44e07697a1e68db13d5e847207812eafed9bd0fc956ff0a34928f3d34878",
+    "ko_fft_product_baseline_guard.json": "85c7c7f5488f1fc89f3d915919fc300ac4b3a1d6e8facee657fcdf4fc75b0cbc",
+    "ko_fft_product_candidate.json": "b5ad90506f713d2143e5452e8a98f9ff12ae46b5bcd1bc126aae7b2067f4fd52",
+    "ko_fft_product_candidate_guard.json": "38e4b5f754b2ecc518a6c16a44561daacf118dc1b0c2dfb6d9263c3cbda46026",
+    "ko_fft_product_profile_run.json": "f787005749ec36f301be7906e02dfcded1ca825dbf2b09bc4dd6b943ddfc511f",
+    "ko_fft_product_profile_run_guard.json": "92ce0d4cbbf468d48eff752b7101e556113a266b8d2c8fc5ab55ba9336b2d852",
+    "ko_student_profile_ops.json": "759d36b0ed6b7b0758111308f8371f648dde51e7c0fde661360591b38299f8f3",
+    "student_summary.json": "4c08910bb7546e66448be6b59e6cc650b0f377021d64f8f955ef58eb99bc5ef4"
+  }
+}

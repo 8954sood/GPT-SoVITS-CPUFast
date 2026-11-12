@@ -1,0 +1,75 @@
+{
+  "scope": "Local Linux ARM correctness/equivalence only. No local RTF/performance claim. Native materialized-P versus four-frequency scratch bitwise tests plus full Korean voice regression.",
+  "quality_inherited_from": "Explicitly listening-approved P, same Korean reference/text/seed only",
+  "new_user_approval_claimed": false,
+  "full_pcm_exact_to_approved_p": true,
+  "native_bitwise_tests_passed": true,
+  "native_tests": {
+    "tests": 2,
+    "frequency_bins": [
+      1,
+      4,
+      5,
+      65,
+      129
+    ],
+    "threads": [
+      1,
+      2
+    ],
+    "cases": 6,
+    "input_output_immutable": true
+  },
+  "underlying_manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+  "approved_p_implementation_sha256": "fb070fa4985d09bbbc42c664b2167286b7215dba315a25cff4969733b720b7a5",
+  "reference_sha256": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+  "seed": 42,
+  "text": "오늘은 날씨가 참 좋네요. 잠깐 쉬었다가 함께 이야기를 이어 가요.",
+  "language": "ko",
+  "pcm_sha256": "1ffc652021fd410dc59cd6e2f7e60d3dddd756d9a0e3cf59d6fcd63ff026fe6b",
+  "audio_seconds": 5.02,
+  "semantic": [
+    {
+      "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+      "index": 118,
+      "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+    }
+  ],
+  "warmup_and_sample_exact": true,
+  "guards": {
+    "checkpoint_files_unchanged": true,
+    "parameters_unchanged": true,
+    "ar_parameters_unchanged": true,
+    "student_files_unchanged": true
+  },
+  "sources": {
+    "cpufast_fft.py": "639e0e2da460a1a90748cb54c3c163d1b6cef4c89761ece591571ba72736e562",
+    "cpufast_fft_half_stream_runtime.py": "1fa4808c6eb0ec277420d2a65ed2678701e504170a2d9f53f5238c29b473eeaa",
+    "native/cpufast_fft_half_stream.cpp": "49a42e6aabe38ba42486539aeed25918331edc95f6835954832c479673606397",
+    "experiments/rtf07/build_half_stream_probe.py": "2d950eeb6ad9f6b97ddb4d4fb3f2d0b18ace45d3ff47b1147201cfb7f7d042d5",
+    "experiments/rtf07/test_half_stream_probe.py": "9f6b8458bebd073236f45e23631702114142d42e5997d8e9045841294164e8af"
+  },
+  "local_native_library_manifest": {
+    "abi": 1,
+    "torch_version": "2.8.0+cpu",
+    "system": "Linux",
+    "architecture": "aarch64",
+    "flags": [
+      "-O3",
+      "-std=c++17",
+      "-march=armv8.2-a+fp16+dotprod",
+      "-mtune=neoverse-n1",
+      "-fopenmp",
+      "-fPIC",
+      "-shared",
+      "-D_GLIBCXX_USE_CXX11_ABI=1"
+    ],
+    "sources": {
+      "native/cpufast_fast_int8.cpp": "1e6b496c6547e7f4e27a382de9b52cc5882afd46cb38c5f3040af4fb532e4838",
+      "native/cpufast_fast_attention.cpp": "cd8d4ff9549b2012e425e8dac7992e1d66f60a63fb1379d42fb8627c4f3a7c29",
+      "native/cpufast_fast_half.cpp": "e4f2569cf7aff34f6eac62502b9a9ef2bc1d7de4bd81026faa20ab00cb1b0ecb",
+      "native/cpufast_fft_half_stream.cpp": "49a42e6aabe38ba42486539aeed25918331edc95f6835954832c479673606397"
+    },
+    "library_sha256": "dc0fe7aaaf185311ba9198a0dbf566a28c5e01130e5f27966bc401f26296bc6f"
+  }
+}

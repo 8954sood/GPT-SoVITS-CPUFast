@@ -466,3 +466,45 @@ half-stream prototype: retain the same FP16 FMA sequence and FP32 complex
 reconstruction order while avoiding the full-frequency products buffer.
 Require native bitwise equivalence and full approved-P PCM/hash regression
 before any actual N1 measurement of that prototype.
+
+## P half-stream pair and AR prefill attribution
+
+Run `43177219205`, source `5a886e17e744996dbc38031c66333f5bb33ed180`,
+completed on the same N1 2-vCPU / 8,000,000,000-byte / no-swap target. Three
+excluded warmups and five measurements per case retained every slow sample.
+The P baseline is an independent frozen-profile repeat; the candidate only
+replaces full-frequency products/unpack with four-frequency scratch, preserving
+the FP16 FMA sequence and FP32 complex reconstruction order.
+
+| Runtime | Median RTF | Wall s | CPU s | AR s | Decoder s | Peak sampled tree RSS GB |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| P materialized products, independent repeat | 1.131582 | 5.680542 | 9.617176 | 2.044009 | 3.245276 | 6.370 |
+| P-equivalent half-stream | 1.115283 | 5.598720 | 9.510815 | 1.919282 | 3.219002 | 6.306 |
+
+All five candidate waveforms, tokens and 5.02s durations match N1 P exactly.
+Model/checkpoint/reference/resource guards and the candidate's profile-to-own-
+unprofiled PCM equality pass. Overall RTF decreases 1.44%, but decoder only
+.81% and unchanged AR varies substantially again. This does not establish
+sub-1 synthesis or a decisive decoder speedup. The raw pair and source/hash
+provenance are in `results/n1_student_p_half_stream_20261112`.
+
+The excluded profile now labels the actual `process_prompt` and decode paths
+by matrix-storage identity, without retaining global operator input tensors.
+Prefill is one `[1,256,512]` prompt over 18 blocks. QKV, output projection,
+FFN1 and FFN2 each execute 18 FP32 addmm calls. FFN1 is `256x512 @ 512x2048`;
+FFN2 is `256x2048 @ 2048x512`. Decode executes 118 steps, with 2,124 native
+INT8 calls for each projection role, and classifier has its separate range.
+No observed AR matrix is unattributed; acoustic addmm is outside these scopes.
+
+Diagnostic prefill range totals are .1268s QKV, .1200s attention, .0484s output,
+.1669s FFN1, .0063s activation and .1753s FFN2. Python dispatch labels add
+overhead, so these totals are diagnostic attribution, not measured RTF stages
+or values to add to wall time. The .3422s FFN pair motivates a separate FP32
+packed-RHS/bias-ReLU prototype, not a claim that prefill alone closes the target.
+
+Read-only cache analysis finds 2,150,572,032 bytes of original FP32 derived
+spectral caches plus 1,075,286,016 bytes of additional FP16 derived caches.
+These are not authoritative learned weights. A future opt-in lifecycle could
+release unused FP32 derived caches while retaining parameters, but must rebuild
+on mode changes/version mutations and needs separate correctness/memory/RTF
+validation; no such release is implemented here.

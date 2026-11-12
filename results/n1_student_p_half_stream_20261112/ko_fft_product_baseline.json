@@ -1,0 +1,1176 @@
+{
+  "model_variant": "K",
+  "student_manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+  "student_quality_scope": "User accepts K versus H3 in Korean same reference/text/seed; not broad zero-shot or JA/EN listening approval",
+  "student_files_before": {
+    "manifest.json": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+    "ar.pt": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+    "decoder.pt": "a2fe6478aae00a8a481209f32aba85eab97198cd30aca0ce1ff63d9ec31c3c1d",
+    "student_spec.json": "6b4b12ecdf6f4716b4089f1590c0833c98f8397e6a8ea90c79e1180abf4c0002"
+  },
+  "student_fp32_control": false,
+  "approximate_ar_int8_only": true,
+  "ar_runtime_approval": {
+    "model_variant": "L",
+    "quality_approved": true,
+    "feedback": "L 사용 가능",
+    "scope": "Korean same reference/text/seed versus approved K. Not broad zero-shot or JA/EN listening approval.",
+    "model_weights_changed": false,
+    "underlying_hf_repo": "babihoba/gpt-sovits-v2proplus-arm-students",
+    "underlying_hf_revision": "475ac97f4a503ea9c6581333c8b936fd5c9f6dcd",
+    "underlying_manifest_path": "approved-k-20261112/manifest.json",
+    "underlying_manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+    "arithmetic": {
+      "ar": "W8A8 per-output-channel weights, dynamically quantized input; FP32 dequantization",
+      "attention": "Native FP32 head-major attention",
+      "acoustic": "Normal FP32 engine, fast_half0, no mixed global fast mode"
+    },
+    "implementation": "experiments/student/listen_ar_int8.py",
+    "implementation_sha256": "170a6532158d27262ba8d2aeb0ed1c6b0f9c11ab95946a2a3c8273768f3e4587",
+    "reference_sha256": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+    "seed": 42,
+    "listening_report": "results/student_pilot/ar_int8_listening.json",
+    "actual_n1_rtf_measured": false,
+    "primary_objective": "Reduce actual target N1 latency/RTF with accepted quality; size alone is not success"
+  },
+  "approximate_fft_half_products": true,
+  "fft_half_runtime_approval": {
+    "model_variant": "P",
+    "quality_approved": true,
+    "feedback": "P 사용 가능",
+    "scope": "Korean same reference/text/seed versus approved L. Not broad zero-shot or JA/EN listening approval.",
+    "model_weights_changed": false,
+    "underlying_hf_repo": "babihoba/gpt-sovits-v2proplus-arm-students",
+    "underlying_hf_revision": "475ac97f4a503ea9c6581333c8b936fd5c9f6dcd",
+    "underlying_manifest_path": "approved-k-20261112/manifest.json",
+    "underlying_manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+    "arithmetic": {
+      "ar": "W8A8 per-output-channel weights, dynamically quantized input; FP32 dequantization",
+      "attention": "Native FP32 head-major attention",
+      "acoustic": "Only large FFT spectral inputs/derived coefficients and products/accumulation FP16; FFT transforms and other acoustic operations FP32"
+    },
+    "implementation": "experiments/student/listen_fft_half.py",
+    "implementation_sha256": "fb070fa4985d09bbbc42c664b2167286b7215dba315a25cff4969733b720b7a5",
+    "reference_sha256": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+    "seed": 42,
+    "listening_report": "results/student_pilot/fft_half_listening.json",
+    "actual_n1_rtf_measured": false,
+    "primary_objective": "Reduce actual target N1 latency/RTF with accepted quality; size alone is not success",
+    "common_helper": "cpufast_fft_half_runtime.py",
+    "common_helper_sha256": "512a95960e64fd440a8147b44262c1017ddf2e8e5b1eacdccf8687362fa5687d"
+  },
+  "approximate_fft_half_stream": false,
+  "fft_half_stream_equivalence": null,
+  "fft_half_product_modules": [
+    {
+      "module": "resblocks.0.convs1.0",
+      "input_channels": 384,
+      "output_channels": 384,
+      "kernel": 7,
+      "dilation": 1,
+      "n_fft": 128,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.0.convs1.1",
+      "input_channels": 384,
+      "output_channels": 384,
+      "kernel": 7,
+      "dilation": 3,
+      "n_fft": 128,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.0.convs1.2",
+      "input_channels": 384,
+      "output_channels": 384,
+      "kernel": 7,
+      "dilation": 5,
+      "n_fft": 128,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.0.convs2.0",
+      "input_channels": 384,
+      "output_channels": 384,
+      "kernel": 7,
+      "dilation": 1,
+      "n_fft": 128,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.0.convs2.1",
+      "input_channels": 384,
+      "output_channels": 384,
+      "kernel": 7,
+      "dilation": 1,
+      "n_fft": 128,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.0.convs2.2",
+      "input_channels": 384,
+      "output_channels": 384,
+      "kernel": 7,
+      "dilation": 1,
+      "n_fft": 128,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.1.convs1.0",
+      "input_channels": 384,
+      "output_channels": 384,
+      "kernel": 11,
+      "dilation": 1,
+      "n_fft": 128,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.1.convs1.1",
+      "input_channels": 384,
+      "output_channels": 384,
+      "kernel": 11,
+      "dilation": 3,
+      "n_fft": 128,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.1.convs1.2",
+      "input_channels": 384,
+      "output_channels": 384,
+      "kernel": 11,
+      "dilation": 5,
+      "n_fft": 128,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.1.convs2.0",
+      "input_channels": 384,
+      "output_channels": 384,
+      "kernel": 11,
+      "dilation": 1,
+      "n_fft": 128,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.1.convs2.1",
+      "input_channels": 384,
+      "output_channels": 384,
+      "kernel": 11,
+      "dilation": 1,
+      "n_fft": 128,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.1.convs2.2",
+      "input_channels": 384,
+      "output_channels": 384,
+      "kernel": 11,
+      "dilation": 1,
+      "n_fft": 128,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.3.convs1.0",
+      "input_channels": 192,
+      "output_channels": 192,
+      "kernel": 7,
+      "dilation": 1,
+      "n_fft": 256,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.3.convs1.1",
+      "input_channels": 192,
+      "output_channels": 192,
+      "kernel": 7,
+      "dilation": 3,
+      "n_fft": 256,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.3.convs1.2",
+      "input_channels": 192,
+      "output_channels": 192,
+      "kernel": 7,
+      "dilation": 5,
+      "n_fft": 256,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.3.convs2.0",
+      "input_channels": 192,
+      "output_channels": 192,
+      "kernel": 7,
+      "dilation": 1,
+      "n_fft": 256,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.3.convs2.1",
+      "input_channels": 192,
+      "output_channels": 192,
+      "kernel": 7,
+      "dilation": 1,
+      "n_fft": 256,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.3.convs2.2",
+      "input_channels": 192,
+      "output_channels": 192,
+      "kernel": 7,
+      "dilation": 1,
+      "n_fft": 256,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.4.convs1.0",
+      "input_channels": 192,
+      "output_channels": 192,
+      "kernel": 11,
+      "dilation": 1,
+      "n_fft": 256,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.4.convs1.1",
+      "input_channels": 192,
+      "output_channels": 192,
+      "kernel": 11,
+      "dilation": 3,
+      "n_fft": 256,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.4.convs1.2",
+      "input_channels": 192,
+      "output_channels": 192,
+      "kernel": 11,
+      "dilation": 5,
+      "n_fft": 256,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.4.convs2.0",
+      "input_channels": 192,
+      "output_channels": 192,
+      "kernel": 11,
+      "dilation": 1,
+      "n_fft": 256,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.4.convs2.1",
+      "input_channels": 192,
+      "output_channels": 192,
+      "kernel": 11,
+      "dilation": 1,
+      "n_fft": 256,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.4.convs2.2",
+      "input_channels": 192,
+      "output_channels": 192,
+      "kernel": 11,
+      "dilation": 1,
+      "n_fft": 256,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.6.convs1.0",
+      "input_channels": 96,
+      "output_channels": 96,
+      "kernel": 11,
+      "dilation": 1,
+      "n_fft": 256,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.6.convs1.1",
+      "input_channels": 96,
+      "output_channels": 96,
+      "kernel": 11,
+      "dilation": 3,
+      "n_fft": 256,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.6.convs1.2",
+      "input_channels": 96,
+      "output_channels": 96,
+      "kernel": 11,
+      "dilation": 5,
+      "n_fft": 256,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.6.convs2.0",
+      "input_channels": 96,
+      "output_channels": 96,
+      "kernel": 11,
+      "dilation": 1,
+      "n_fft": 256,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.6.convs2.1",
+      "input_channels": 96,
+      "output_channels": 96,
+      "kernel": 11,
+      "dilation": 1,
+      "n_fft": 256,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    },
+    {
+      "module": "resblocks.6.convs2.2",
+      "input_channels": 96,
+      "output_channels": 96,
+      "kernel": 11,
+      "dilation": 1,
+      "n_fft": 256,
+      "previous_stream_products": true,
+      "stream_products": false,
+      "spectral_inputs_and_coefficients": "FP16 derived buffers",
+      "product_accumulation": "FP16",
+      "materialized_product_dtype": "FP32",
+      "forward_inverse_fft_dtype": "FP32 / complex64"
+    }
+  ],
+  "ar_runtime_library_manifest": {
+    "abi": 1,
+    "torch_version": "2.8.0+cpu",
+    "system": "Linux",
+    "architecture": "aarch64",
+    "flags": [
+      "-O3",
+      "-std=c++17",
+      "-march=armv8.2-a+fp16+dotprod",
+      "-mtune=neoverse-n1",
+      "-fopenmp",
+      "-fPIC",
+      "-shared",
+      "-D_GLIBCXX_USE_CXX11_ABI=1"
+    ],
+    "sources": {
+      "native/cpufast_fast_int8.cpp": "1e6b496c6547e7f4e27a382de9b52cc5882afd46cb38c5f3040af4fb532e4838",
+      "native/cpufast_fast_attention.cpp": "cd8d4ff9549b2012e425e8dac7992e1d66f60a63fb1379d42fb8627c4f3a7c29",
+      "native/cpufast_fast_half.cpp": "e4f2569cf7aff34f6eac62502b9a9ef2bc1d7de4bd81026faa20ab00cb1b0ecb",
+      "native/cpufast_fft_half_stream.cpp": "49a42e6aabe38ba42486539aeed25918331edc95f6835954832c479673606397"
+    },
+    "library_sha256": "dc0fe7aaaf185311ba9198a0dbf566a28c5e01130e5f27966bc401f26296bc6f"
+  },
+  "fp16_acoustic_modules": 30,
+  "fft_padded_output_cache": [],
+  "student_load_seconds": 0.06582127138972282,
+  "experimental_options": {
+    "head_major": true,
+    "cook_phase": true,
+    "cook_resblock": 0,
+    "fft_layout": true,
+    "native_attention": false,
+    "packed_fft": true,
+    "fft_stream": true,
+    "fft_pad_channels": false,
+    "fft_half_products": true,
+    "fft_half_stream": false,
+    "parallel_transforms": true,
+    "fused_finish": true,
+    "tap_small": true,
+    "packed_small_48": false,
+    "n1_fft_sizes": false,
+    "n1_small_direct": false,
+    "ar_fp32_cache": false,
+    "ar_prefetch": 256,
+    "fast_experimental": false
+  },
+  "scope": "nonstreaming synthesis on the executing host; see cgroup and hardware",
+  "cgroup": {
+    "cpu.max": "200000 100000",
+    "cpuset.cpus.effective": "0-1",
+    "memory.max": "8000000000",
+    "memory.swap.max": "0"
+  },
+  "hardware": {
+    "machine": "aarch64",
+    "platform": "Linux-6.8.0-1054-oracle-aarch64-with-glibc2.36",
+    "python": "3.12.16",
+    "torch": "2.8.0+cpu",
+    "cpu_affinity": [
+      0,
+      1
+    ]
+  },
+  "inputs": {
+    "text": "오늘은 날씨가 참 좋네요. 잠깐 쉬었다가 함께 이야기를 이어 가요.",
+    "text_lang": "ko",
+    "ref_audio_path": "/reference.wav",
+    "prompt_text": "スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。",
+    "prompt_lang": "ja",
+    "top_k": 15,
+    "top_p": 1.0,
+    "temperature": 1.0,
+    "text_split_method": "cut0",
+    "batch_size": 1,
+    "seed": 42,
+    "parallel_infer": true,
+    "vits_parallel_infer": false,
+    "fragment_interval": 0.3
+  },
+  "backend": "phase_fft_winograd",
+  "ar_threads": 2,
+  "native_threading": {
+    "configured_ar_threads": 2,
+    "configured_acoustic_threads": 2,
+    "torch_interop_threads": 1,
+    "native_operator_pool": "ATen parallel_for uses the global Torch intra-op pool; legacy native_workers=1 audit field is not the actual thread cap"
+  },
+  "ar_layout": "cpp_int8_ar_only",
+  "ar_coefficient_audit": {
+    "matrices": [
+      {
+        "block": 0,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 0,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 0,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 0,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 1,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 1,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 1,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 1,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 2,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 2,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 2,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 2,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 3,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 3,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 3,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 3,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 4,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 4,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 4,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 4,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 5,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 5,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 5,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 5,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 6,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 6,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 6,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 6,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 7,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 7,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 7,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 7,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 8,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 8,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 8,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 8,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 9,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 9,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 9,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 9,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 10,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 10,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 10,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 10,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 11,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 11,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 11,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 11,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 12,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 12,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 12,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 12,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 13,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 13,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 13,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 13,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 14,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 14,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 14,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 14,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 15,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 15,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 15,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 15,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 16,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 16,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 16,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 16,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 17,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 17,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 17,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 17,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      }
+    ],
+    "original_digest_before": "3eec4aa909625f4c9f0b1f6e2b5c8e0db9d8fd520eb3a1e7ae03d9ab46bafc9f",
+    "original_digest_after": "3eec4aa909625f4c9f0b1f6e2b5c8e0db9d8fd520eb3a1e7ae03d9ab46bafc9f",
+    "authoritative_coefficients_unchanged": true,
+    "int8_cache_lossless": false,
+    "arithmetic": "experimental W8A8 multiplication with per-channel weights",
+    "head_major": true,
+    "torch_head_attention": false,
+    "native_workers": 1
+  },
+  "n1_small_direct_count": 0,
+  "n1_fft_size_count": 0,
+  "packed_small_48_count": 0,
+  "native_predictor": true,
+  "inference_mode": true,
+  "fused_fft": true,
+  "acoustic_threads": 2,
+  "load_seconds": 3.3926243372261524,
+  "installation_seconds": 2.1735775116831064,
+  "ar_installation_seconds": 0.0,
+  "convolutions_replaced": 77,
+  "fft_convolutions": 54,
+  "winograd_convolutions": 18,
+  "reference_sha256": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+  "checkpoints_before": {
+    "/student/ar.pt": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+    "/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b"
+  },
+  "vits_parameters_before": "44bc7f14845d88310c09124f5c2abd86cad4cb78d7b9507c91b27a94a9a1529b",
+  "ar_parameters_before": "b03366c2e726a0f5cdf1373a26b10174c38b4e80799f2a5bdea0b0077f099bc1",
+  "ar_module_before": "0c0b6040bfe359ca0e249a2222894577dc537f791fbef9c15b3aced56a9caf48",
+  "warmups": [
+    {
+      "seconds": 14.537632029503584,
+      "cpu_seconds": 23.81083952,
+      "rtf": 2.89594263535928,
+      "audio_seconds": 5.02,
+      "sample_rate": 32000,
+      "pcm_sha256": "31699d959383d1dabe44787c1d0a6ba561e858ecef1c7bc159fcd9894f2c622c",
+      "stages": {
+        "ar_seconds": 1.9083752073347569,
+        "enc_p_seconds": 0.1397046521306038,
+        "flow_seconds": 0.08473139069974422,
+        "dec_seconds": 7.6569946724921465
+      },
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "runtime_local_pcm_match": false,
+      "runtime_local_generated_tokens_match": true
+    },
+    {
+      "seconds": 5.790152655914426,
+      "cpu_seconds": 9.772184799999998,
+      "rtf": 1.1534168637279734,
+      "audio_seconds": 5.02,
+      "sample_rate": 32000,
+      "pcm_sha256": "31699d959383d1dabe44787c1d0a6ba561e858ecef1c7bc159fcd9894f2c622c",
+      "stages": {
+        "ar_seconds": 1.9183018542826176,
+        "enc_p_seconds": 0.12826899625360966,
+        "flow_seconds": 0.07771061174571514,
+        "dec_seconds": 3.480148795992136
+      },
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "runtime_local_pcm_match": false,
+      "runtime_local_generated_tokens_match": true
+    },
+    {
+      "seconds": 5.742752660065889,
+      "cpu_seconds": 9.721414959999997,
+      "rtf": 1.1439746334792609,
+      "audio_seconds": 5.02,
+      "sample_rate": 32000,
+      "pcm_sha256": "31699d959383d1dabe44787c1d0a6ba561e858ecef1c7bc159fcd9894f2c622c",
+      "stages": {
+        "ar_seconds": 1.9432661030441523,
+        "enc_p_seconds": 0.1384844034910202,
+        "flow_seconds": 0.07959366776049137,
+        "dec_seconds": 3.394122714176774
+      },
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "runtime_local_pcm_match": false,
+      "runtime_local_generated_tokens_match": true
+    }
+  ],
+  "runs": [
+    {
+      "seconds": 5.805838232859969,
+      "cpu_seconds": 9.747369200000009,
+      "rtf": 1.1565414806493963,
+      "audio_seconds": 5.02,
+      "sample_rate": 32000,
+      "pcm_sha256": "31699d959383d1dabe44787c1d0a6ba561e858ecef1c7bc159fcd9894f2c622c",
+      "stages": {
+        "ar_seconds": 2.1397644709795713,
+        "enc_p_seconds": 0.12749047204852104,
+        "flow_seconds": 0.0781661756336689,
+        "dec_seconds": 3.2755758836865425
+      },
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "runtime_local_pcm_match": false,
+      "runtime_local_generated_tokens_match": true
+    },
+    {
+      "seconds": 5.671160226687789,
+      "cpu_seconds": 9.617175719999992,
+      "rtf": 1.1297131925672887,
+      "audio_seconds": 5.02,
+      "sample_rate": 32000,
+      "pcm_sha256": "31699d959383d1dabe44787c1d0a6ba561e858ecef1c7bc159fcd9894f2c622c",
+      "stages": {
+        "ar_seconds": 2.046042326837778,
+        "enc_p_seconds": 0.12459836713969707,
+        "flow_seconds": 0.07697532512247562,
+        "dec_seconds": 3.2452755887061357
+      },
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "runtime_local_pcm_match": false,
+      "runtime_local_generated_tokens_match": true
+    },
+    {
+      "seconds": 5.638542192056775,
+      "cpu_seconds": 9.571192519999997,
+      "rtf": 1.1232155761069273,
+      "audio_seconds": 5.02,
+      "sample_rate": 32000,
+      "pcm_sha256": "31699d959383d1dabe44787c1d0a6ba561e858ecef1c7bc159fcd9894f2c622c",
+      "stages": {
+        "ar_seconds": 2.0322554130107164,
+        "enc_p_seconds": 0.12359887547791004,
+        "flow_seconds": 0.07715104520320892,
+        "dec_seconds": 3.230508826673031
+      },
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "runtime_local_pcm_match": false,
+      "runtime_local_generated_tokens_match": true
+    },
+    {
+      "seconds": 5.680542068555951,
+      "cpu_seconds": 9.595332159999998,
+      "rtf": 1.1315820853697114,
+      "audio_seconds": 5.02,
+      "sample_rate": 32000,
+      "pcm_sha256": "31699d959383d1dabe44787c1d0a6ba561e858ecef1c7bc159fcd9894f2c622c",
+      "stages": {
+        "ar_seconds": 2.044009432196617,
+        "enc_p_seconds": 0.1229050699621439,
+        "flow_seconds": 0.07658560201525688,
+        "dec_seconds": 3.2338570952415466
+      },
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "runtime_local_pcm_match": false,
+      "runtime_local_generated_tokens_match": true
+    },
+    {
+      "seconds": 5.813141303136945,
+      "cpu_seconds": 9.702485119999992,
+      "rtf": 1.157996275525288,
+      "audio_seconds": 5.02,
+      "sample_rate": 32000,
+      "pcm_sha256": "31699d959383d1dabe44787c1d0a6ba561e858ecef1c7bc159fcd9894f2c622c",
+      "stages": {
+        "ar_seconds": 2.0071018040180206,
+        "enc_p_seconds": 0.12325519137084484,
+        "flow_seconds": 0.07657440192997456,
+        "dec_seconds": 3.4191499333828688
+      },
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "runtime_local_pcm_match": false,
+      "runtime_local_generated_tokens_match": true
+    }
+  ],
+  "frontend_note": "Chinese BERT not loaded; original full HuBERT used",
+  "median_rtf": 1.1315820853697114,
+  "median_seconds": 5.680542068555951,
+  "checkpoints_after": {
+    "/student/ar.pt": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+    "/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b"
+  },
+  "vits_parameters_after": "44bc7f14845d88310c09124f5c2abd86cad4cb78d7b9507c91b27a94a9a1529b",
+  "checkpoint_files_unchanged": true,
+  "parameters_unchanged": true,
+  "ar_parameters_after": "b03366c2e726a0f5cdf1373a26b10174c38b4e80799f2a5bdea0b0077f099bc1",
+  "ar_module_after": "0c0b6040bfe359ca0e249a2222894577dc537f791fbef9c15b3aced56a9caf48",
+  "ar_parameters_unchanged": true,
+  "student_files_after": {
+    "manifest.json": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+    "ar.pt": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+    "decoder.pt": "a2fe6478aae00a8a481209f32aba85eab97198cd30aca0ce1ff63d9ec31c3c1d",
+    "student_spec.json": "6b4b12ecdf6f4716b4089f1590c0833c98f8397e6a8ea90c79e1180abf4c0002"
+  },
+  "student_files_unchanged": true
+}
