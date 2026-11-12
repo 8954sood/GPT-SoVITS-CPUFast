@@ -1,0 +1,2653 @@
+{
+  "scope": "Select one AR18 layer on training contexts for a separate AR17 QAT pilot.\n\nThis creates an unapproved initialization, not a speed or listening result.\nProtected original teacher feature anchors are retained. Decoder files are not\nread or changed. Quantization-aware scoring is a training surrogate only.\n",
+  "quality_approved": false,
+  "actual_n1_measured": false,
+  "parent_sha256": "c391763629b1672f1d279006033a0b78285ea7679ff84c88f04e55a9594e61a6",
+  "parent_unchanged": true,
+  "context_manifest_sha256": "54c87e32dbba8277350b82279c8c9e872460fb55b8e4d6abe135c0096d60f98c",
+  "feature_manifest_sha256": "7442b9326722bdeb0d9d3fd2a21504a8f445c76a0002219255b3bd452ee3eacd",
+  "training_contexts": [
+    {
+      "name": "voice0_ja_0_ar.pt",
+      "sha256": "3453f793b80a03024c38f36e2ca69acfd4c113a709813f2e3086669939a8a169"
+    },
+    {
+      "name": "voice0_ja_1_ar.pt",
+      "sha256": "3c219a07ec403caa9fb2a03f4dfcfa3b9fb82a087d41897fdd089eecec02b1d6"
+    },
+    {
+      "name": "voice0_ja_2_ar.pt",
+      "sha256": "edb5e8e071927e0bab466dd4489eb868c5301222601cb720ff74632b0ec75104"
+    },
+    {
+      "name": "voice0_ja_3_ar.pt",
+      "sha256": "97f663af66f0acb945eda187523238dfebf818e7f32dbc73a8ac463ca59cbb4e"
+    },
+    {
+      "name": "voice0_ja_4_ar.pt",
+      "sha256": "93594ec4c3c11f00c74fc65242069f20a914ae316ea6c9927a6c9d87bae5da73"
+    },
+    {
+      "name": "voice0_ja_5_ar.pt",
+      "sha256": "22cfa8aea2906eae7b3a785d786e7f65b8ce15c0ae9a97152b405991fcb30756"
+    },
+    {
+      "name": "voice0_ja_6_ar.pt",
+      "sha256": "677d4a848fcf72bff39d67efccf669129e890e75db957617944b4022375c6a8b"
+    },
+    {
+      "name": "voice0_ja_7_ar.pt",
+      "sha256": "ef713c93b98dfd34f7c6085d6a749541b65a6ca143f8b80e4d7b141ef99359ff"
+    },
+    {
+      "name": "voice0_ja_8_ar.pt",
+      "sha256": "0a8cd028a8d70fd090625c95afab2a60e635ed44a4270d37439f740b910004e9"
+    },
+    {
+      "name": "voice0_ja_9_ar.pt",
+      "sha256": "26554389753216321badb1b6a00c9125a267d57138f141423bac6eec4630643b"
+    },
+    {
+      "name": "voice0_ko_0_ar.pt",
+      "sha256": "81b08f6d0abd2ed3caa5799d0b0c75f794f641872b13676b291fb2045b839d07"
+    },
+    {
+      "name": "voice0_ko_1_ar.pt",
+      "sha256": "b4491f741e8c6768066ce0507ac4492004c7ce3f265723d1aadbb513a91d9324"
+    },
+    {
+      "name": "voice0_ko_2_ar.pt",
+      "sha256": "62b1294ca0eefa2f9f0c333bf93b9e7c7e99635a1ba3a55fe943c6701aca3d19"
+    },
+    {
+      "name": "voice0_ko_3_ar.pt",
+      "sha256": "0c4019c238a45c38a52da32d5ffe687d7d8af2917684e8f95e72e3d3a5327d05"
+    },
+    {
+      "name": "voice0_ko_4_ar.pt",
+      "sha256": "5dd89984125dea3d194cf049e926b4bad34c5753327b1358ff96318a8ab906b0"
+    },
+    {
+      "name": "voice0_ko_5_ar.pt",
+      "sha256": "12a384788694d1d56c47a5f36bcbcfa0ccce7d316ceb89705ca6533d35f787c6"
+    },
+    {
+      "name": "voice0_ko_6_ar.pt",
+      "sha256": "2726a2fc2057bca7311a663f8694a4c00d8ebe41572b8e59ac4288a1122de842"
+    },
+    {
+      "name": "voice0_ko_7_ar.pt",
+      "sha256": "5c5f1eee5674268812f522a4fb8cc26b08c1287073c79f23e219a02b7a3f9c12"
+    },
+    {
+      "name": "voice0_ko_8_ar.pt",
+      "sha256": "f1442a39fadbde095c92004c3640b11ee4ce2fab5f5dc389f609cdd5bfef4611"
+    },
+    {
+      "name": "voice0_ko_9_ar.pt",
+      "sha256": "d3b0bd2ac25f47bb61b77baec6e396082f1dd05159c9521f1f081480dbab4b63"
+    },
+    {
+      "name": "voice0_en_0_ar.pt",
+      "sha256": "191eda7af75aad15e4bdf8b7043e7df6f6d74a55b9a35ff2438ed4e541d19f77"
+    },
+    {
+      "name": "voice0_en_1_ar.pt",
+      "sha256": "09f011004567e225b6641909cba1696471fa73085828be013c092f8cbf2eec8d"
+    },
+    {
+      "name": "voice0_en_2_ar.pt",
+      "sha256": "2836f4435ce9318f5a7e9459e2d2dd27a7df0ec80428f8ca5846f521c3ee135a"
+    },
+    {
+      "name": "voice0_en_3_ar.pt",
+      "sha256": "96fcebdafe0d75c63edda42b84dcaa81a3d4ea9eb85cdbc8696c7c138320950b"
+    },
+    {
+      "name": "voice0_en_4_ar.pt",
+      "sha256": "8f856ed0ff5c3e1ee18f5cdadecd64805166f054e3df1dc9185180588f3b9207"
+    },
+    {
+      "name": "voice0_en_5_ar.pt",
+      "sha256": "f1182e95e2c0345ab26b30dbec549c0a9d52d47d4e0c1e395b1aaa81aba59d81"
+    },
+    {
+      "name": "voice0_en_6_ar.pt",
+      "sha256": "9b1211b08e725cee9a243a8bbb39a613a23e5cb3da6287bc696f3b9256a07603"
+    },
+    {
+      "name": "voice0_en_7_ar.pt",
+      "sha256": "2c0e1d3a371ac4e2f23ce5546252900f66f1af09721e6800dac08feb4f6f95c0"
+    },
+    {
+      "name": "voice0_en_8_ar.pt",
+      "sha256": "7b1588ace9963aaab4cf8a5f41fac3dd812dad1b89ca51a4745c31a0f987372f"
+    },
+    {
+      "name": "voice0_en_9_ar.pt",
+      "sha256": "96fff6b7795bc0f3d8320a64948c558bc267522a70caae8d87d527d64bc9b2af"
+    }
+  ],
+  "protected_original_ids": [
+    0,
+    6,
+    13,
+    23
+  ],
+  "baseline": {
+    "mean_kl": 0.004130567998314897,
+    "cases": [
+      {
+        "context": "voice0_ja_0_ar.pt",
+        "language": "ja",
+        "kl": 0.002921858336776495
+      },
+      {
+        "context": "voice0_ja_1_ar.pt",
+        "language": "ja",
+        "kl": 0.004053936339914799
+      },
+      {
+        "context": "voice0_ja_2_ar.pt",
+        "language": "ja",
+        "kl": 0.003730825148522854
+      },
+      {
+        "context": "voice0_ja_3_ar.pt",
+        "language": "ja",
+        "kl": 0.003709776559844613
+      },
+      {
+        "context": "voice0_ja_4_ar.pt",
+        "language": "ja",
+        "kl": 0.004871286451816559
+      },
+      {
+        "context": "voice0_ja_5_ar.pt",
+        "language": "ja",
+        "kl": 0.004363617859780788
+      },
+      {
+        "context": "voice0_ja_6_ar.pt",
+        "language": "ja",
+        "kl": 0.004332014359533787
+      },
+      {
+        "context": "voice0_ja_7_ar.pt",
+        "language": "ja",
+        "kl": 0.00430908752605319
+      },
+      {
+        "context": "voice0_ja_8_ar.pt",
+        "language": "ja",
+        "kl": 0.004661313258111477
+      },
+      {
+        "context": "voice0_ja_9_ar.pt",
+        "language": "ja",
+        "kl": 0.0045371404848992825
+      },
+      {
+        "context": "voice0_ko_0_ar.pt",
+        "language": "ko",
+        "kl": 0.00301567604765296
+      },
+      {
+        "context": "voice0_ko_1_ar.pt",
+        "language": "ko",
+        "kl": 0.0036582588218152523
+      },
+      {
+        "context": "voice0_ko_2_ar.pt",
+        "language": "ko",
+        "kl": 0.003836053889244795
+      },
+      {
+        "context": "voice0_ko_3_ar.pt",
+        "language": "ko",
+        "kl": 0.0037744645960628986
+      },
+      {
+        "context": "voice0_ko_4_ar.pt",
+        "language": "ko",
+        "kl": 0.004585087765008211
+      },
+      {
+        "context": "voice0_ko_5_ar.pt",
+        "language": "ko",
+        "kl": 0.0042099859565496445
+      },
+      {
+        "context": "voice0_ko_6_ar.pt",
+        "language": "ko",
+        "kl": 0.004191356245428324
+      },
+      {
+        "context": "voice0_ko_7_ar.pt",
+        "language": "ko",
+        "kl": 0.004452890250831842
+      },
+      {
+        "context": "voice0_ko_8_ar.pt",
+        "language": "ko",
+        "kl": 0.004573409911245108
+      },
+      {
+        "context": "voice0_ko_9_ar.pt",
+        "language": "ko",
+        "kl": 0.004455619491636753
+      },
+      {
+        "context": "voice0_en_0_ar.pt",
+        "language": "en",
+        "kl": 0.00322313467040658
+      },
+      {
+        "context": "voice0_en_1_ar.pt",
+        "language": "en",
+        "kl": 0.0037068435922265053
+      },
+      {
+        "context": "voice0_en_2_ar.pt",
+        "language": "en",
+        "kl": 0.004215007647871971
+      },
+      {
+        "context": "voice0_en_3_ar.pt",
+        "language": "en",
+        "kl": 0.004055775236338377
+      },
+      {
+        "context": "voice0_en_4_ar.pt",
+        "language": "en",
+        "kl": 0.003899503266438842
+      },
+      {
+        "context": "voice0_en_5_ar.pt",
+        "language": "en",
+        "kl": 0.004929454065859318
+      },
+      {
+        "context": "voice0_en_6_ar.pt",
+        "language": "en",
+        "kl": 0.004567134194076061
+      },
+      {
+        "context": "voice0_en_7_ar.pt",
+        "language": "en",
+        "kl": 0.004198553506284952
+      },
+      {
+        "context": "voice0_en_8_ar.pt",
+        "language": "en",
+        "kl": 0.0045548961497843266
+      },
+      {
+        "context": "voice0_en_9_ar.pt",
+        "language": "en",
+        "kl": 0.004323078319430351
+      }
+    ]
+  },
+  "candidates": [
+    {
+      "local_index": 1,
+      "original_id": 1,
+      "mean_kl": 0.3795245935519536,
+      "cases": [
+        {
+          "context": "voice0_ja_0_ar.pt",
+          "language": "ja",
+          "kl": 0.3228582739830017
+        },
+        {
+          "context": "voice0_ja_1_ar.pt",
+          "language": "ja",
+          "kl": 0.19753524661064148
+        },
+        {
+          "context": "voice0_ja_2_ar.pt",
+          "language": "ja",
+          "kl": 0.3887459635734558
+        },
+        {
+          "context": "voice0_ja_3_ar.pt",
+          "language": "ja",
+          "kl": 0.2052040994167328
+        },
+        {
+          "context": "voice0_ja_4_ar.pt",
+          "language": "ja",
+          "kl": 0.3094451129436493
+        },
+        {
+          "context": "voice0_ja_5_ar.pt",
+          "language": "ja",
+          "kl": 0.27705642580986023
+        },
+        {
+          "context": "voice0_ja_6_ar.pt",
+          "language": "ja",
+          "kl": 0.24926137924194336
+        },
+        {
+          "context": "voice0_ja_7_ar.pt",
+          "language": "ja",
+          "kl": 0.24497586488723755
+        },
+        {
+          "context": "voice0_ja_8_ar.pt",
+          "language": "ja",
+          "kl": 0.2695426940917969
+        },
+        {
+          "context": "voice0_ja_9_ar.pt",
+          "language": "ja",
+          "kl": 0.22455942630767822
+        },
+        {
+          "context": "voice0_ko_0_ar.pt",
+          "language": "ko",
+          "kl": 0.347745418548584
+        },
+        {
+          "context": "voice0_ko_1_ar.pt",
+          "language": "ko",
+          "kl": 0.5270044803619385
+        },
+        {
+          "context": "voice0_ko_2_ar.pt",
+          "language": "ko",
+          "kl": 0.4456661641597748
+        },
+        {
+          "context": "voice0_ko_3_ar.pt",
+          "language": "ko",
+          "kl": 0.3723112642765045
+        },
+        {
+          "context": "voice0_ko_4_ar.pt",
+          "language": "ko",
+          "kl": 0.37441369891166687
+        },
+        {
+          "context": "voice0_ko_5_ar.pt",
+          "language": "ko",
+          "kl": 0.29957979917526245
+        },
+        {
+          "context": "voice0_ko_6_ar.pt",
+          "language": "ko",
+          "kl": 0.2902626395225525
+        },
+        {
+          "context": "voice0_ko_7_ar.pt",
+          "language": "ko",
+          "kl": 0.5475219488143921
+        },
+        {
+          "context": "voice0_ko_8_ar.pt",
+          "language": "ko",
+          "kl": 0.39041227102279663
+        },
+        {
+          "context": "voice0_ko_9_ar.pt",
+          "language": "ko",
+          "kl": 0.4087442457675934
+        },
+        {
+          "context": "voice0_en_0_ar.pt",
+          "language": "en",
+          "kl": 0.31735658645629883
+        },
+        {
+          "context": "voice0_en_1_ar.pt",
+          "language": "en",
+          "kl": 0.2985834777355194
+        },
+        {
+          "context": "voice0_en_2_ar.pt",
+          "language": "en",
+          "kl": 0.46427595615386963
+        },
+        {
+          "context": "voice0_en_3_ar.pt",
+          "language": "en",
+          "kl": 0.3489629626274109
+        },
+        {
+          "context": "voice0_en_4_ar.pt",
+          "language": "en",
+          "kl": 0.42662516236305237
+        },
+        {
+          "context": "voice0_en_5_ar.pt",
+          "language": "en",
+          "kl": 0.2860906720161438
+        },
+        {
+          "context": "voice0_en_6_ar.pt",
+          "language": "en",
+          "kl": 0.5807681083679199
+        },
+        {
+          "context": "voice0_en_7_ar.pt",
+          "language": "en",
+          "kl": 0.42691531777381897
+        },
+        {
+          "context": "voice0_en_8_ar.pt",
+          "language": "en",
+          "kl": 1.0550416707992554
+        },
+        {
+          "context": "voice0_en_9_ar.pt",
+          "language": "en",
+          "kl": 0.48827147483825684
+        }
+      ]
+    },
+    {
+      "local_index": 2,
+      "original_id": 2,
+      "mean_kl": 0.48767013599475223,
+      "cases": [
+        {
+          "context": "voice0_ja_0_ar.pt",
+          "language": "ja",
+          "kl": 0.6767591238021851
+        },
+        {
+          "context": "voice0_ja_1_ar.pt",
+          "language": "ja",
+          "kl": 0.3496741056442261
+        },
+        {
+          "context": "voice0_ja_2_ar.pt",
+          "language": "ja",
+          "kl": 0.3431491553783417
+        },
+        {
+          "context": "voice0_ja_3_ar.pt",
+          "language": "ja",
+          "kl": 0.16191847622394562
+        },
+        {
+          "context": "voice0_ja_4_ar.pt",
+          "language": "ja",
+          "kl": 0.2203928381204605
+        },
+        {
+          "context": "voice0_ja_5_ar.pt",
+          "language": "ja",
+          "kl": 0.13836117088794708
+        },
+        {
+          "context": "voice0_ja_6_ar.pt",
+          "language": "ja",
+          "kl": 0.11228524148464203
+        },
+        {
+          "context": "voice0_ja_7_ar.pt",
+          "language": "ja",
+          "kl": 0.20814140141010284
+        },
+        {
+          "context": "voice0_ja_8_ar.pt",
+          "language": "ja",
+          "kl": 0.37827742099761963
+        },
+        {
+          "context": "voice0_ja_9_ar.pt",
+          "language": "ja",
+          "kl": 0.5298986434936523
+        },
+        {
+          "context": "voice0_ko_0_ar.pt",
+          "language": "ko",
+          "kl": 0.7123516798019409
+        },
+        {
+          "context": "voice0_ko_1_ar.pt",
+          "language": "ko",
+          "kl": 0.960909366607666
+        },
+        {
+          "context": "voice0_ko_2_ar.pt",
+          "language": "ko",
+          "kl": 0.23794902861118317
+        },
+        {
+          "context": "voice0_ko_3_ar.pt",
+          "language": "ko",
+          "kl": 0.36122170090675354
+        },
+        {
+          "context": "voice0_ko_4_ar.pt",
+          "language": "ko",
+          "kl": 0.5933110117912292
+        },
+        {
+          "context": "voice0_ko_5_ar.pt",
+          "language": "ko",
+          "kl": 0.20357269048690796
+        },
+        {
+          "context": "voice0_ko_6_ar.pt",
+          "language": "ko",
+          "kl": 0.16668638586997986
+        },
+        {
+          "context": "voice0_ko_7_ar.pt",
+          "language": "ko",
+          "kl": 0.3022401034832001
+        },
+        {
+          "context": "voice0_ko_8_ar.pt",
+          "language": "ko",
+          "kl": 0.17029426991939545
+        },
+        {
+          "context": "voice0_ko_9_ar.pt",
+          "language": "ko",
+          "kl": 0.5063433647155762
+        },
+        {
+          "context": "voice0_en_0_ar.pt",
+          "language": "en",
+          "kl": 0.35165420174598694
+        },
+        {
+          "context": "voice0_en_1_ar.pt",
+          "language": "en",
+          "kl": 0.43554258346557617
+        },
+        {
+          "context": "voice0_en_2_ar.pt",
+          "language": "en",
+          "kl": 0.7551007270812988
+        },
+        {
+          "context": "voice0_en_3_ar.pt",
+          "language": "en",
+          "kl": 0.5829899907112122
+        },
+        {
+          "context": "voice0_en_4_ar.pt",
+          "language": "en",
+          "kl": 0.8910329937934875
+        },
+        {
+          "context": "voice0_en_5_ar.pt",
+          "language": "en",
+          "kl": 0.6483584046363831
+        },
+        {
+          "context": "voice0_en_6_ar.pt",
+          "language": "en",
+          "kl": 0.6760172247886658
+        },
+        {
+          "context": "voice0_en_7_ar.pt",
+          "language": "en",
+          "kl": 0.2912710905075073
+        },
+        {
+          "context": "voice0_en_8_ar.pt",
+          "language": "en",
+          "kl": 1.8114386796951294
+        },
+        {
+          "context": "voice0_en_9_ar.pt",
+          "language": "en",
+          "kl": 0.852961003780365
+        }
+      ]
+    },
+    {
+      "local_index": 3,
+      "original_id": 3,
+      "mean_kl": 0.4980064560969671,
+      "cases": [
+        {
+          "context": "voice0_ja_0_ar.pt",
+          "language": "ja",
+          "kl": 0.4590894281864166
+        },
+        {
+          "context": "voice0_ja_1_ar.pt",
+          "language": "ja",
+          "kl": 0.4181695580482483
+        },
+        {
+          "context": "voice0_ja_2_ar.pt",
+          "language": "ja",
+          "kl": 0.43085044622421265
+        },
+        {
+          "context": "voice0_ja_3_ar.pt",
+          "language": "ja",
+          "kl": 0.29635655879974365
+        },
+        {
+          "context": "voice0_ja_4_ar.pt",
+          "language": "ja",
+          "kl": 0.2932831943035126
+        },
+        {
+          "context": "voice0_ja_5_ar.pt",
+          "language": "ja",
+          "kl": 0.17863509058952332
+        },
+        {
+          "context": "voice0_ja_6_ar.pt",
+          "language": "ja",
+          "kl": 0.5801243185997009
+        },
+        {
+          "context": "voice0_ja_7_ar.pt",
+          "language": "ja",
+          "kl": 0.3556564748287201
+        },
+        {
+          "context": "voice0_ja_8_ar.pt",
+          "language": "ja",
+          "kl": 0.37712356448173523
+        },
+        {
+          "context": "voice0_ja_9_ar.pt",
+          "language": "ja",
+          "kl": 0.34459853172302246
+        },
+        {
+          "context": "voice0_ko_0_ar.pt",
+          "language": "ko",
+          "kl": 0.2835964560508728
+        },
+        {
+          "context": "voice0_ko_1_ar.pt",
+          "language": "ko",
+          "kl": 0.6553762555122375
+        },
+        {
+          "context": "voice0_ko_2_ar.pt",
+          "language": "ko",
+          "kl": 0.31859681010246277
+        },
+        {
+          "context": "voice0_ko_3_ar.pt",
+          "language": "ko",
+          "kl": 0.2488488405942917
+        },
+        {
+          "context": "voice0_ko_4_ar.pt",
+          "language": "ko",
+          "kl": 0.4775727689266205
+        },
+        {
+          "context": "voice0_ko_5_ar.pt",
+          "language": "ko",
+          "kl": 0.16098445653915405
+        },
+        {
+          "context": "voice0_ko_6_ar.pt",
+          "language": "ko",
+          "kl": 0.1310945600271225
+        },
+        {
+          "context": "voice0_ko_7_ar.pt",
+          "language": "ko",
+          "kl": 0.3314562141895294
+        },
+        {
+          "context": "voice0_ko_8_ar.pt",
+          "language": "ko",
+          "kl": 0.1802782118320465
+        },
+        {
+          "context": "voice0_ko_9_ar.pt",
+          "language": "ko",
+          "kl": 0.4183618426322937
+        },
+        {
+          "context": "voice0_en_0_ar.pt",
+          "language": "en",
+          "kl": 0.4546590745449066
+        },
+        {
+          "context": "voice0_en_1_ar.pt",
+          "language": "en",
+          "kl": 0.8301085233688354
+        },
+        {
+          "context": "voice0_en_2_ar.pt",
+          "language": "en",
+          "kl": 0.6515015959739685
+        },
+        {
+          "context": "voice0_en_3_ar.pt",
+          "language": "en",
+          "kl": 0.8465198874473572
+        },
+        {
+          "context": "voice0_en_4_ar.pt",
+          "language": "en",
+          "kl": 1.1315065622329712
+        },
+        {
+          "context": "voice0_en_5_ar.pt",
+          "language": "en",
+          "kl": 0.892706036567688
+        },
+        {
+          "context": "voice0_en_6_ar.pt",
+          "language": "en",
+          "kl": 0.5782542824745178
+        },
+        {
+          "context": "voice0_en_7_ar.pt",
+          "language": "en",
+          "kl": 0.5542502403259277
+        },
+        {
+          "context": "voice0_en_8_ar.pt",
+          "language": "en",
+          "kl": 1.116294503211975
+        },
+        {
+          "context": "voice0_en_9_ar.pt",
+          "language": "en",
+          "kl": 0.944339394569397
+        }
+      ]
+    },
+    {
+      "local_index": 4,
+      "original_id": 4,
+      "mean_kl": 0.20557417422533036,
+      "cases": [
+        {
+          "context": "voice0_ja_0_ar.pt",
+          "language": "ja",
+          "kl": 0.13284330070018768
+        },
+        {
+          "context": "voice0_ja_1_ar.pt",
+          "language": "ja",
+          "kl": 0.14233773946762085
+        },
+        {
+          "context": "voice0_ja_2_ar.pt",
+          "language": "ja",
+          "kl": 0.12732402980327606
+        },
+        {
+          "context": "voice0_ja_3_ar.pt",
+          "language": "ja",
+          "kl": 0.13689132034778595
+        },
+        {
+          "context": "voice0_ja_4_ar.pt",
+          "language": "ja",
+          "kl": 0.13051608204841614
+        },
+        {
+          "context": "voice0_ja_5_ar.pt",
+          "language": "ja",
+          "kl": 0.12426190078258514
+        },
+        {
+          "context": "voice0_ja_6_ar.pt",
+          "language": "ja",
+          "kl": 0.11613698303699493
+        },
+        {
+          "context": "voice0_ja_7_ar.pt",
+          "language": "ja",
+          "kl": 0.17160774767398834
+        },
+        {
+          "context": "voice0_ja_8_ar.pt",
+          "language": "ja",
+          "kl": 0.15206068754196167
+        },
+        {
+          "context": "voice0_ja_9_ar.pt",
+          "language": "ja",
+          "kl": 0.13358992338180542
+        },
+        {
+          "context": "voice0_ko_0_ar.pt",
+          "language": "ko",
+          "kl": 0.15773974359035492
+        },
+        {
+          "context": "voice0_ko_1_ar.pt",
+          "language": "ko",
+          "kl": 0.23180793225765228
+        },
+        {
+          "context": "voice0_ko_2_ar.pt",
+          "language": "ko",
+          "kl": 0.17637105286121368
+        },
+        {
+          "context": "voice0_ko_3_ar.pt",
+          "language": "ko",
+          "kl": 0.17383204400539398
+        },
+        {
+          "context": "voice0_ko_4_ar.pt",
+          "language": "ko",
+          "kl": 0.19390438497066498
+        },
+        {
+          "context": "voice0_ko_5_ar.pt",
+          "language": "ko",
+          "kl": 0.12601640820503235
+        },
+        {
+          "context": "voice0_ko_6_ar.pt",
+          "language": "ko",
+          "kl": 0.12852565944194794
+        },
+        {
+          "context": "voice0_ko_7_ar.pt",
+          "language": "ko",
+          "kl": 0.15421634912490845
+        },
+        {
+          "context": "voice0_ko_8_ar.pt",
+          "language": "ko",
+          "kl": 0.1414148360490799
+        },
+        {
+          "context": "voice0_ko_9_ar.pt",
+          "language": "ko",
+          "kl": 0.1467912644147873
+        },
+        {
+          "context": "voice0_en_0_ar.pt",
+          "language": "en",
+          "kl": 0.1984148621559143
+        },
+        {
+          "context": "voice0_en_1_ar.pt",
+          "language": "en",
+          "kl": 0.22102700173854828
+        },
+        {
+          "context": "voice0_en_2_ar.pt",
+          "language": "en",
+          "kl": 0.40908607840538025
+        },
+        {
+          "context": "voice0_en_3_ar.pt",
+          "language": "en",
+          "kl": 0.2661273181438446
+        },
+        {
+          "context": "voice0_en_4_ar.pt",
+          "language": "en",
+          "kl": 0.4509615898132324
+        },
+        {
+          "context": "voice0_en_5_ar.pt",
+          "language": "en",
+          "kl": 0.3137539327144623
+        },
+        {
+          "context": "voice0_en_6_ar.pt",
+          "language": "en",
+          "kl": 0.4349626302719116
+        },
+        {
+          "context": "voice0_en_7_ar.pt",
+          "language": "en",
+          "kl": 0.25940099358558655
+        },
+        {
+          "context": "voice0_en_8_ar.pt",
+          "language": "en",
+          "kl": 0.3289135992527008
+        },
+        {
+          "context": "voice0_en_9_ar.pt",
+          "language": "en",
+          "kl": 0.2863878309726715
+        }
+      ]
+    },
+    {
+      "local_index": 5,
+      "original_id": 5,
+      "mean_kl": 0.24745263357957203,
+      "cases": [
+        {
+          "context": "voice0_ja_0_ar.pt",
+          "language": "ja",
+          "kl": 0.22680781781673431
+        },
+        {
+          "context": "voice0_ja_1_ar.pt",
+          "language": "ja",
+          "kl": 0.26200541853904724
+        },
+        {
+          "context": "voice0_ja_2_ar.pt",
+          "language": "ja",
+          "kl": 0.2244209349155426
+        },
+        {
+          "context": "voice0_ja_3_ar.pt",
+          "language": "ja",
+          "kl": 0.23007231950759888
+        },
+        {
+          "context": "voice0_ja_4_ar.pt",
+          "language": "ja",
+          "kl": 0.22615930438041687
+        },
+        {
+          "context": "voice0_ja_5_ar.pt",
+          "language": "ja",
+          "kl": 0.27489981055259705
+        },
+        {
+          "context": "voice0_ja_6_ar.pt",
+          "language": "ja",
+          "kl": 0.23753613233566284
+        },
+        {
+          "context": "voice0_ja_7_ar.pt",
+          "language": "ja",
+          "kl": 0.22752664983272552
+        },
+        {
+          "context": "voice0_ja_8_ar.pt",
+          "language": "ja",
+          "kl": 0.2679906189441681
+        },
+        {
+          "context": "voice0_ja_9_ar.pt",
+          "language": "ja",
+          "kl": 0.2545689046382904
+        },
+        {
+          "context": "voice0_ko_0_ar.pt",
+          "language": "ko",
+          "kl": 0.1913684606552124
+        },
+        {
+          "context": "voice0_ko_1_ar.pt",
+          "language": "ko",
+          "kl": 0.3357349932193756
+        },
+        {
+          "context": "voice0_ko_2_ar.pt",
+          "language": "ko",
+          "kl": 0.2549833357334137
+        },
+        {
+          "context": "voice0_ko_3_ar.pt",
+          "language": "ko",
+          "kl": 0.26081010699272156
+        },
+        {
+          "context": "voice0_ko_4_ar.pt",
+          "language": "ko",
+          "kl": 0.22151635587215424
+        },
+        {
+          "context": "voice0_ko_5_ar.pt",
+          "language": "ko",
+          "kl": 0.2396746426820755
+        },
+        {
+          "context": "voice0_ko_6_ar.pt",
+          "language": "ko",
+          "kl": 0.23910574615001678
+        },
+        {
+          "context": "voice0_ko_7_ar.pt",
+          "language": "ko",
+          "kl": 0.2397468537092209
+        },
+        {
+          "context": "voice0_ko_8_ar.pt",
+          "language": "ko",
+          "kl": 0.21145358681678772
+        },
+        {
+          "context": "voice0_ko_9_ar.pt",
+          "language": "ko",
+          "kl": 0.2602348327636719
+        },
+        {
+          "context": "voice0_en_0_ar.pt",
+          "language": "en",
+          "kl": 0.23677963018417358
+        },
+        {
+          "context": "voice0_en_1_ar.pt",
+          "language": "en",
+          "kl": 0.22021639347076416
+        },
+        {
+          "context": "voice0_en_2_ar.pt",
+          "language": "en",
+          "kl": 0.24506565928459167
+        },
+        {
+          "context": "voice0_en_3_ar.pt",
+          "language": "en",
+          "kl": 0.28137293457984924
+        },
+        {
+          "context": "voice0_en_4_ar.pt",
+          "language": "en",
+          "kl": 0.2644599974155426
+        },
+        {
+          "context": "voice0_en_5_ar.pt",
+          "language": "en",
+          "kl": 0.2502606511116028
+        },
+        {
+          "context": "voice0_en_6_ar.pt",
+          "language": "en",
+          "kl": 0.2738393247127533
+        },
+        {
+          "context": "voice0_en_7_ar.pt",
+          "language": "en",
+          "kl": 0.22512561082839966
+        },
+        {
+          "context": "voice0_en_8_ar.pt",
+          "language": "en",
+          "kl": 0.28202521800994873
+        },
+        {
+          "context": "voice0_en_9_ar.pt",
+          "language": "en",
+          "kl": 0.25781676173210144
+        }
+      ]
+    },
+    {
+      "local_index": 7,
+      "original_id": 7,
+      "mean_kl": 0.049222914253671965,
+      "cases": [
+        {
+          "context": "voice0_ja_0_ar.pt",
+          "language": "ja",
+          "kl": 0.04457228630781174
+        },
+        {
+          "context": "voice0_ja_1_ar.pt",
+          "language": "ja",
+          "kl": 0.048288341611623764
+        },
+        {
+          "context": "voice0_ja_2_ar.pt",
+          "language": "ja",
+          "kl": 0.0543433353304863
+        },
+        {
+          "context": "voice0_ja_3_ar.pt",
+          "language": "ja",
+          "kl": 0.05426906794309616
+        },
+        {
+          "context": "voice0_ja_4_ar.pt",
+          "language": "ja",
+          "kl": 0.04858413711190224
+        },
+        {
+          "context": "voice0_ja_5_ar.pt",
+          "language": "ja",
+          "kl": 0.04959365352988243
+        },
+        {
+          "context": "voice0_ja_6_ar.pt",
+          "language": "ja",
+          "kl": 0.03842328116297722
+        },
+        {
+          "context": "voice0_ja_7_ar.pt",
+          "language": "ja",
+          "kl": 0.050683651119470596
+        },
+        {
+          "context": "voice0_ja_8_ar.pt",
+          "language": "ja",
+          "kl": 0.055881060659885406
+        },
+        {
+          "context": "voice0_ja_9_ar.pt",
+          "language": "ja",
+          "kl": 0.048372309654951096
+        },
+        {
+          "context": "voice0_ko_0_ar.pt",
+          "language": "ko",
+          "kl": 0.04254333674907684
+        },
+        {
+          "context": "voice0_ko_1_ar.pt",
+          "language": "ko",
+          "kl": 0.04691462591290474
+        },
+        {
+          "context": "voice0_ko_2_ar.pt",
+          "language": "ko",
+          "kl": 0.04753951355814934
+        },
+        {
+          "context": "voice0_ko_3_ar.pt",
+          "language": "ko",
+          "kl": 0.0454208068549633
+        },
+        {
+          "context": "voice0_ko_4_ar.pt",
+          "language": "ko",
+          "kl": 0.05002367123961449
+        },
+        {
+          "context": "voice0_ko_5_ar.pt",
+          "language": "ko",
+          "kl": 0.04568762704730034
+        },
+        {
+          "context": "voice0_ko_6_ar.pt",
+          "language": "ko",
+          "kl": 0.04318906366825104
+        },
+        {
+          "context": "voice0_ko_7_ar.pt",
+          "language": "ko",
+          "kl": 0.06026745215058327
+        },
+        {
+          "context": "voice0_ko_8_ar.pt",
+          "language": "ko",
+          "kl": 0.05428115278482437
+        },
+        {
+          "context": "voice0_ko_9_ar.pt",
+          "language": "ko",
+          "kl": 0.05046026036143303
+        },
+        {
+          "context": "voice0_en_0_ar.pt",
+          "language": "en",
+          "kl": 0.042980045080184937
+        },
+        {
+          "context": "voice0_en_1_ar.pt",
+          "language": "en",
+          "kl": 0.046500176191329956
+        },
+        {
+          "context": "voice0_en_2_ar.pt",
+          "language": "en",
+          "kl": 0.05177972465753555
+        },
+        {
+          "context": "voice0_en_3_ar.pt",
+          "language": "en",
+          "kl": 0.04597245901823044
+        },
+        {
+          "context": "voice0_en_4_ar.pt",
+          "language": "en",
+          "kl": 0.05878675729036331
+        },
+        {
+          "context": "voice0_en_5_ar.pt",
+          "language": "en",
+          "kl": 0.047032974660396576
+        },
+        {
+          "context": "voice0_en_6_ar.pt",
+          "language": "en",
+          "kl": 0.04423912614583969
+        },
+        {
+          "context": "voice0_en_7_ar.pt",
+          "language": "en",
+          "kl": 0.05365051329135895
+        },
+        {
+          "context": "voice0_en_8_ar.pt",
+          "language": "en",
+          "kl": 0.048925332725048065
+        },
+        {
+          "context": "voice0_en_9_ar.pt",
+          "language": "en",
+          "kl": 0.057481683790683746
+        }
+      ]
+    },
+    {
+      "local_index": 8,
+      "original_id": 8,
+      "mean_kl": 0.05562400395671527,
+      "cases": [
+        {
+          "context": "voice0_ja_0_ar.pt",
+          "language": "ja",
+          "kl": 0.04658928140997887
+        },
+        {
+          "context": "voice0_ja_1_ar.pt",
+          "language": "ja",
+          "kl": 0.0501377172768116
+        },
+        {
+          "context": "voice0_ja_2_ar.pt",
+          "language": "ja",
+          "kl": 0.05582592636346817
+        },
+        {
+          "context": "voice0_ja_3_ar.pt",
+          "language": "ja",
+          "kl": 0.051648277789354324
+        },
+        {
+          "context": "voice0_ja_4_ar.pt",
+          "language": "ja",
+          "kl": 0.06070491671562195
+        },
+        {
+          "context": "voice0_ja_5_ar.pt",
+          "language": "ja",
+          "kl": 0.05385102331638336
+        },
+        {
+          "context": "voice0_ja_6_ar.pt",
+          "language": "ja",
+          "kl": 0.047139972448349
+        },
+        {
+          "context": "voice0_ja_7_ar.pt",
+          "language": "ja",
+          "kl": 0.05526113510131836
+        },
+        {
+          "context": "voice0_ja_8_ar.pt",
+          "language": "ja",
+          "kl": 0.06131783500313759
+        },
+        {
+          "context": "voice0_ja_9_ar.pt",
+          "language": "ja",
+          "kl": 0.053490012884140015
+        },
+        {
+          "context": "voice0_ko_0_ar.pt",
+          "language": "ko",
+          "kl": 0.045314110815525055
+        },
+        {
+          "context": "voice0_ko_1_ar.pt",
+          "language": "ko",
+          "kl": 0.05843029171228409
+        },
+        {
+          "context": "voice0_ko_2_ar.pt",
+          "language": "ko",
+          "kl": 0.04854612424969673
+        },
+        {
+          "context": "voice0_ko_3_ar.pt",
+          "language": "ko",
+          "kl": 0.05242405831813812
+        },
+        {
+          "context": "voice0_ko_4_ar.pt",
+          "language": "ko",
+          "kl": 0.05530982092022896
+        },
+        {
+          "context": "voice0_ko_5_ar.pt",
+          "language": "ko",
+          "kl": 0.05382883548736572
+        },
+        {
+          "context": "voice0_ko_6_ar.pt",
+          "language": "ko",
+          "kl": 0.04926060512661934
+        },
+        {
+          "context": "voice0_ko_7_ar.pt",
+          "language": "ko",
+          "kl": 0.05935017764568329
+        },
+        {
+          "context": "voice0_ko_8_ar.pt",
+          "language": "ko",
+          "kl": 0.061898767948150635
+        },
+        {
+          "context": "voice0_ko_9_ar.pt",
+          "language": "ko",
+          "kl": 0.06157436966896057
+        },
+        {
+          "context": "voice0_en_0_ar.pt",
+          "language": "en",
+          "kl": 0.06683441996574402
+        },
+        {
+          "context": "voice0_en_1_ar.pt",
+          "language": "en",
+          "kl": 0.05808629095554352
+        },
+        {
+          "context": "voice0_en_2_ar.pt",
+          "language": "en",
+          "kl": 0.05242062732577324
+        },
+        {
+          "context": "voice0_en_3_ar.pt",
+          "language": "en",
+          "kl": 0.06261054426431656
+        },
+        {
+          "context": "voice0_en_4_ar.pt",
+          "language": "en",
+          "kl": 0.06240542232990265
+        },
+        {
+          "context": "voice0_en_5_ar.pt",
+          "language": "en",
+          "kl": 0.0578540563583374
+        },
+        {
+          "context": "voice0_en_6_ar.pt",
+          "language": "en",
+          "kl": 0.057375792413949966
+        },
+        {
+          "context": "voice0_en_7_ar.pt",
+          "language": "en",
+          "kl": 0.05584964528679848
+        },
+        {
+          "context": "voice0_en_8_ar.pt",
+          "language": "en",
+          "kl": 0.06135484203696251
+        },
+        {
+          "context": "voice0_en_9_ar.pt",
+          "language": "en",
+          "kl": 0.052025217562913895
+        }
+      ]
+    },
+    {
+      "local_index": 9,
+      "original_id": 9,
+      "mean_kl": 0.08621469686428705,
+      "cases": [
+        {
+          "context": "voice0_ja_0_ar.pt",
+          "language": "ja",
+          "kl": 0.08324355632066727
+        },
+        {
+          "context": "voice0_ja_1_ar.pt",
+          "language": "ja",
+          "kl": 0.09111592173576355
+        },
+        {
+          "context": "voice0_ja_2_ar.pt",
+          "language": "ja",
+          "kl": 0.09711900353431702
+        },
+        {
+          "context": "voice0_ja_3_ar.pt",
+          "language": "ja",
+          "kl": 0.07918626815080643
+        },
+        {
+          "context": "voice0_ja_4_ar.pt",
+          "language": "ja",
+          "kl": 0.08208156377077103
+        },
+        {
+          "context": "voice0_ja_5_ar.pt",
+          "language": "ja",
+          "kl": 0.08518867939710617
+        },
+        {
+          "context": "voice0_ja_6_ar.pt",
+          "language": "ja",
+          "kl": 0.08379630744457245
+        },
+        {
+          "context": "voice0_ja_7_ar.pt",
+          "language": "ja",
+          "kl": 0.07832682132720947
+        },
+        {
+          "context": "voice0_ja_8_ar.pt",
+          "language": "ja",
+          "kl": 0.08598167449235916
+        },
+        {
+          "context": "voice0_ja_9_ar.pt",
+          "language": "ja",
+          "kl": 0.09314766526222229
+        },
+        {
+          "context": "voice0_ko_0_ar.pt",
+          "language": "ko",
+          "kl": 0.07079430669546127
+        },
+        {
+          "context": "voice0_ko_1_ar.pt",
+          "language": "ko",
+          "kl": 0.08468828350305557
+        },
+        {
+          "context": "voice0_ko_2_ar.pt",
+          "language": "ko",
+          "kl": 0.08574707806110382
+        },
+        {
+          "context": "voice0_ko_3_ar.pt",
+          "language": "ko",
+          "kl": 0.08809496462345123
+        },
+        {
+          "context": "voice0_ko_4_ar.pt",
+          "language": "ko",
+          "kl": 0.08253546059131622
+        },
+        {
+          "context": "voice0_ko_5_ar.pt",
+          "language": "ko",
+          "kl": 0.09092914313077927
+        },
+        {
+          "context": "voice0_ko_6_ar.pt",
+          "language": "ko",
+          "kl": 0.08647957444190979
+        },
+        {
+          "context": "voice0_ko_7_ar.pt",
+          "language": "ko",
+          "kl": 0.08840247988700867
+        },
+        {
+          "context": "voice0_ko_8_ar.pt",
+          "language": "ko",
+          "kl": 0.09002988040447235
+        },
+        {
+          "context": "voice0_ko_9_ar.pt",
+          "language": "ko",
+          "kl": 0.08442814648151398
+        },
+        {
+          "context": "voice0_en_0_ar.pt",
+          "language": "en",
+          "kl": 0.08306460082530975
+        },
+        {
+          "context": "voice0_en_1_ar.pt",
+          "language": "en",
+          "kl": 0.08747205883264542
+        },
+        {
+          "context": "voice0_en_2_ar.pt",
+          "language": "en",
+          "kl": 0.09895636886358261
+        },
+        {
+          "context": "voice0_en_3_ar.pt",
+          "language": "en",
+          "kl": 0.08750493079423904
+        },
+        {
+          "context": "voice0_en_4_ar.pt",
+          "language": "en",
+          "kl": 0.09562406688928604
+        },
+        {
+          "context": "voice0_en_5_ar.pt",
+          "language": "en",
+          "kl": 0.08103063702583313
+        },
+        {
+          "context": "voice0_en_6_ar.pt",
+          "language": "en",
+          "kl": 0.08578751236200333
+        },
+        {
+          "context": "voice0_en_7_ar.pt",
+          "language": "en",
+          "kl": 0.0816996693611145
+        },
+        {
+          "context": "voice0_en_8_ar.pt",
+          "language": "en",
+          "kl": 0.08350449800491333
+        },
+        {
+          "context": "voice0_en_9_ar.pt",
+          "language": "en",
+          "kl": 0.0904797837138176
+        }
+      ]
+    },
+    {
+      "local_index": 10,
+      "original_id": 10,
+      "mean_kl": 0.09038190146287282,
+      "cases": [
+        {
+          "context": "voice0_ja_0_ar.pt",
+          "language": "ja",
+          "kl": 0.09971500188112259
+        },
+        {
+          "context": "voice0_ja_1_ar.pt",
+          "language": "ja",
+          "kl": 0.09231545776128769
+        },
+        {
+          "context": "voice0_ja_2_ar.pt",
+          "language": "ja",
+          "kl": 0.08375008404254913
+        },
+        {
+          "context": "voice0_ja_3_ar.pt",
+          "language": "ja",
+          "kl": 0.09034988284111023
+        },
+        {
+          "context": "voice0_ja_4_ar.pt",
+          "language": "ja",
+          "kl": 0.0871422067284584
+        },
+        {
+          "context": "voice0_ja_5_ar.pt",
+          "language": "ja",
+          "kl": 0.08343453705310822
+        },
+        {
+          "context": "voice0_ja_6_ar.pt",
+          "language": "ja",
+          "kl": 0.0800955668091774
+        },
+        {
+          "context": "voice0_ja_7_ar.pt",
+          "language": "ja",
+          "kl": 0.08613327145576477
+        },
+        {
+          "context": "voice0_ja_8_ar.pt",
+          "language": "ja",
+          "kl": 0.09930911660194397
+        },
+        {
+          "context": "voice0_ja_9_ar.pt",
+          "language": "ja",
+          "kl": 0.1013467088341713
+        },
+        {
+          "context": "voice0_ko_0_ar.pt",
+          "language": "ko",
+          "kl": 0.08364082872867584
+        },
+        {
+          "context": "voice0_ko_1_ar.pt",
+          "language": "ko",
+          "kl": 0.08169933408498764
+        },
+        {
+          "context": "voice0_ko_2_ar.pt",
+          "language": "ko",
+          "kl": 0.0825035572052002
+        },
+        {
+          "context": "voice0_ko_3_ar.pt",
+          "language": "ko",
+          "kl": 0.08536834269762039
+        },
+        {
+          "context": "voice0_ko_4_ar.pt",
+          "language": "ko",
+          "kl": 0.08360567688941956
+        },
+        {
+          "context": "voice0_ko_5_ar.pt",
+          "language": "ko",
+          "kl": 0.08940132707357407
+        },
+        {
+          "context": "voice0_ko_6_ar.pt",
+          "language": "ko",
+          "kl": 0.09716010838747025
+        },
+        {
+          "context": "voice0_ko_7_ar.pt",
+          "language": "ko",
+          "kl": 0.08696908503770828
+        },
+        {
+          "context": "voice0_ko_8_ar.pt",
+          "language": "ko",
+          "kl": 0.0870814323425293
+        },
+        {
+          "context": "voice0_ko_9_ar.pt",
+          "language": "ko",
+          "kl": 0.09320924431085587
+        },
+        {
+          "context": "voice0_en_0_ar.pt",
+          "language": "en",
+          "kl": 0.10097251087427139
+        },
+        {
+          "context": "voice0_en_1_ar.pt",
+          "language": "en",
+          "kl": 0.0951898917555809
+        },
+        {
+          "context": "voice0_en_2_ar.pt",
+          "language": "en",
+          "kl": 0.0888158455491066
+        },
+        {
+          "context": "voice0_en_3_ar.pt",
+          "language": "en",
+          "kl": 0.08055371791124344
+        },
+        {
+          "context": "voice0_en_4_ar.pt",
+          "language": "en",
+          "kl": 0.10029813647270203
+        },
+        {
+          "context": "voice0_en_5_ar.pt",
+          "language": "en",
+          "kl": 0.09269489347934723
+        },
+        {
+          "context": "voice0_en_6_ar.pt",
+          "language": "en",
+          "kl": 0.09512089192867279
+        },
+        {
+          "context": "voice0_en_7_ar.pt",
+          "language": "en",
+          "kl": 0.09190419316291809
+        },
+        {
+          "context": "voice0_en_8_ar.pt",
+          "language": "en",
+          "kl": 0.09753824770450592
+        },
+        {
+          "context": "voice0_en_9_ar.pt",
+          "language": "en",
+          "kl": 0.09413794428110123
+        }
+      ]
+    },
+    {
+      "local_index": 11,
+      "original_id": 11,
+      "mean_kl": 0.09669853498538335,
+      "cases": [
+        {
+          "context": "voice0_ja_0_ar.pt",
+          "language": "ja",
+          "kl": 0.1058339774608612
+        },
+        {
+          "context": "voice0_ja_1_ar.pt",
+          "language": "ja",
+          "kl": 0.09809380769729614
+        },
+        {
+          "context": "voice0_ja_2_ar.pt",
+          "language": "ja",
+          "kl": 0.10031251609325409
+        },
+        {
+          "context": "voice0_ja_3_ar.pt",
+          "language": "ja",
+          "kl": 0.10415807366371155
+        },
+        {
+          "context": "voice0_ja_4_ar.pt",
+          "language": "ja",
+          "kl": 0.09134320914745331
+        },
+        {
+          "context": "voice0_ja_5_ar.pt",
+          "language": "ja",
+          "kl": 0.09717988967895508
+        },
+        {
+          "context": "voice0_ja_6_ar.pt",
+          "language": "ja",
+          "kl": 0.10225075483322144
+        },
+        {
+          "context": "voice0_ja_7_ar.pt",
+          "language": "ja",
+          "kl": 0.09929736703634262
+        },
+        {
+          "context": "voice0_ja_8_ar.pt",
+          "language": "ja",
+          "kl": 0.10993416607379913
+        },
+        {
+          "context": "voice0_ja_9_ar.pt",
+          "language": "ja",
+          "kl": 0.11919901520013809
+        },
+        {
+          "context": "voice0_ko_0_ar.pt",
+          "language": "ko",
+          "kl": 0.07669637352228165
+        },
+        {
+          "context": "voice0_ko_1_ar.pt",
+          "language": "ko",
+          "kl": 0.09367793798446655
+        },
+        {
+          "context": "voice0_ko_2_ar.pt",
+          "language": "ko",
+          "kl": 0.0909937173128128
+        },
+        {
+          "context": "voice0_ko_3_ar.pt",
+          "language": "ko",
+          "kl": 0.08897051215171814
+        },
+        {
+          "context": "voice0_ko_4_ar.pt",
+          "language": "ko",
+          "kl": 0.08507773280143738
+        },
+        {
+          "context": "voice0_ko_5_ar.pt",
+          "language": "ko",
+          "kl": 0.10108233243227005
+        },
+        {
+          "context": "voice0_ko_6_ar.pt",
+          "language": "ko",
+          "kl": 0.08878618478775024
+        },
+        {
+          "context": "voice0_ko_7_ar.pt",
+          "language": "ko",
+          "kl": 0.09071945399045944
+        },
+        {
+          "context": "voice0_ko_8_ar.pt",
+          "language": "ko",
+          "kl": 0.08786838501691818
+        },
+        {
+          "context": "voice0_ko_9_ar.pt",
+          "language": "ko",
+          "kl": 0.09575400501489639
+        },
+        {
+          "context": "voice0_en_0_ar.pt",
+          "language": "en",
+          "kl": 0.08927875012159348
+        },
+        {
+          "context": "voice0_en_1_ar.pt",
+          "language": "en",
+          "kl": 0.09765078872442245
+        },
+        {
+          "context": "voice0_en_2_ar.pt",
+          "language": "en",
+          "kl": 0.1070038303732872
+        },
+        {
+          "context": "voice0_en_3_ar.pt",
+          "language": "en",
+          "kl": 0.09545266628265381
+        },
+        {
+          "context": "voice0_en_4_ar.pt",
+          "language": "en",
+          "kl": 0.09698499739170074
+        },
+        {
+          "context": "voice0_en_5_ar.pt",
+          "language": "en",
+          "kl": 0.10430526733398438
+        },
+        {
+          "context": "voice0_en_6_ar.pt",
+          "language": "en",
+          "kl": 0.09197475761175156
+        },
+        {
+          "context": "voice0_en_7_ar.pt",
+          "language": "en",
+          "kl": 0.09521497786045074
+        },
+        {
+          "context": "voice0_en_8_ar.pt",
+          "language": "en",
+          "kl": 0.09630405902862549
+        },
+        {
+          "context": "voice0_en_9_ar.pt",
+          "language": "en",
+          "kl": 0.09955654293298721
+        }
+      ]
+    },
+    {
+      "local_index": 13,
+      "original_id": 15,
+      "mean_kl": 0.0483874998986721,
+      "cases": [
+        {
+          "context": "voice0_ja_0_ar.pt",
+          "language": "ja",
+          "kl": 0.05124416574835777
+        },
+        {
+          "context": "voice0_ja_1_ar.pt",
+          "language": "ja",
+          "kl": 0.047595370560884476
+        },
+        {
+          "context": "voice0_ja_2_ar.pt",
+          "language": "ja",
+          "kl": 0.05032302439212799
+        },
+        {
+          "context": "voice0_ja_3_ar.pt",
+          "language": "ja",
+          "kl": 0.05225185304880142
+        },
+        {
+          "context": "voice0_ja_4_ar.pt",
+          "language": "ja",
+          "kl": 0.04934559017419815
+        },
+        {
+          "context": "voice0_ja_5_ar.pt",
+          "language": "ja",
+          "kl": 0.04906871169805527
+        },
+        {
+          "context": "voice0_ja_6_ar.pt",
+          "language": "ja",
+          "kl": 0.04899660125374794
+        },
+        {
+          "context": "voice0_ja_7_ar.pt",
+          "language": "ja",
+          "kl": 0.04946363344788551
+        },
+        {
+          "context": "voice0_ja_8_ar.pt",
+          "language": "ja",
+          "kl": 0.057265251874923706
+        },
+        {
+          "context": "voice0_ja_9_ar.pt",
+          "language": "ja",
+          "kl": 0.056915272027254105
+        },
+        {
+          "context": "voice0_ko_0_ar.pt",
+          "language": "ko",
+          "kl": 0.039001502096652985
+        },
+        {
+          "context": "voice0_ko_1_ar.pt",
+          "language": "ko",
+          "kl": 0.044898319989442825
+        },
+        {
+          "context": "voice0_ko_2_ar.pt",
+          "language": "ko",
+          "kl": 0.05092610418796539
+        },
+        {
+          "context": "voice0_ko_3_ar.pt",
+          "language": "ko",
+          "kl": 0.05039709806442261
+        },
+        {
+          "context": "voice0_ko_4_ar.pt",
+          "language": "ko",
+          "kl": 0.047944605350494385
+        },
+        {
+          "context": "voice0_ko_5_ar.pt",
+          "language": "ko",
+          "kl": 0.050074558705091476
+        },
+        {
+          "context": "voice0_ko_6_ar.pt",
+          "language": "ko",
+          "kl": 0.04720582813024521
+        },
+        {
+          "context": "voice0_ko_7_ar.pt",
+          "language": "ko",
+          "kl": 0.04451298341155052
+        },
+        {
+          "context": "voice0_ko_8_ar.pt",
+          "language": "ko",
+          "kl": 0.0495232455432415
+        },
+        {
+          "context": "voice0_ko_9_ar.pt",
+          "language": "ko",
+          "kl": 0.05139944329857826
+        },
+        {
+          "context": "voice0_en_0_ar.pt",
+          "language": "en",
+          "kl": 0.04452314227819443
+        },
+        {
+          "context": "voice0_en_1_ar.pt",
+          "language": "en",
+          "kl": 0.04791425168514252
+        },
+        {
+          "context": "voice0_en_2_ar.pt",
+          "language": "en",
+          "kl": 0.046018198132514954
+        },
+        {
+          "context": "voice0_en_3_ar.pt",
+          "language": "en",
+          "kl": 0.04580933228135109
+        },
+        {
+          "context": "voice0_en_4_ar.pt",
+          "language": "en",
+          "kl": 0.04538073018193245
+        },
+        {
+          "context": "voice0_en_5_ar.pt",
+          "language": "en",
+          "kl": 0.046379100531339645
+        },
+        {
+          "context": "voice0_en_6_ar.pt",
+          "language": "en",
+          "kl": 0.04367952048778534
+        },
+        {
+          "context": "voice0_en_7_ar.pt",
+          "language": "en",
+          "kl": 0.04998212307691574
+        },
+        {
+          "context": "voice0_en_8_ar.pt",
+          "language": "en",
+          "kl": 0.04361053928732872
+        },
+        {
+          "context": "voice0_en_9_ar.pt",
+          "language": "en",
+          "kl": 0.049974896013736725
+        }
+      ]
+    },
+    {
+      "local_index": 14,
+      "original_id": 19,
+      "mean_kl": 0.06082714907824993,
+      "cases": [
+        {
+          "context": "voice0_ja_0_ar.pt",
+          "language": "ja",
+          "kl": 0.06468288600444794
+        },
+        {
+          "context": "voice0_ja_1_ar.pt",
+          "language": "ja",
+          "kl": 0.06630215793848038
+        },
+        {
+          "context": "voice0_ja_2_ar.pt",
+          "language": "ja",
+          "kl": 0.06749942153692245
+        },
+        {
+          "context": "voice0_ja_3_ar.pt",
+          "language": "ja",
+          "kl": 0.06362641602754593
+        },
+        {
+          "context": "voice0_ja_4_ar.pt",
+          "language": "ja",
+          "kl": 0.06592124700546265
+        },
+        {
+          "context": "voice0_ja_5_ar.pt",
+          "language": "ja",
+          "kl": 0.06354998052120209
+        },
+        {
+          "context": "voice0_ja_6_ar.pt",
+          "language": "ja",
+          "kl": 0.06556465476751328
+        },
+        {
+          "context": "voice0_ja_7_ar.pt",
+          "language": "ja",
+          "kl": 0.06360279768705368
+        },
+        {
+          "context": "voice0_ja_8_ar.pt",
+          "language": "ja",
+          "kl": 0.07066641747951508
+        },
+        {
+          "context": "voice0_ja_9_ar.pt",
+          "language": "ja",
+          "kl": 0.06883116811513901
+        },
+        {
+          "context": "voice0_ko_0_ar.pt",
+          "language": "ko",
+          "kl": 0.054077304899692535
+        },
+        {
+          "context": "voice0_ko_1_ar.pt",
+          "language": "ko",
+          "kl": 0.05859407037496567
+        },
+        {
+          "context": "voice0_ko_2_ar.pt",
+          "language": "ko",
+          "kl": 0.06214016675949097
+        },
+        {
+          "context": "voice0_ko_3_ar.pt",
+          "language": "ko",
+          "kl": 0.063663050532341
+        },
+        {
+          "context": "voice0_ko_4_ar.pt",
+          "language": "ko",
+          "kl": 0.05307440832257271
+        },
+        {
+          "context": "voice0_ko_5_ar.pt",
+          "language": "ko",
+          "kl": 0.0639248713850975
+        },
+        {
+          "context": "voice0_ko_6_ar.pt",
+          "language": "ko",
+          "kl": 0.06615950167179108
+        },
+        {
+          "context": "voice0_ko_7_ar.pt",
+          "language": "ko",
+          "kl": 0.059830375015735626
+        },
+        {
+          "context": "voice0_ko_8_ar.pt",
+          "language": "ko",
+          "kl": 0.05755568668246269
+        },
+        {
+          "context": "voice0_ko_9_ar.pt",
+          "language": "ko",
+          "kl": 0.05978734418749809
+        },
+        {
+          "context": "voice0_en_0_ar.pt",
+          "language": "en",
+          "kl": 0.05113610997796059
+        },
+        {
+          "context": "voice0_en_1_ar.pt",
+          "language": "en",
+          "kl": 0.05329031124711037
+        },
+        {
+          "context": "voice0_en_2_ar.pt",
+          "language": "en",
+          "kl": 0.06399454921483994
+        },
+        {
+          "context": "voice0_en_3_ar.pt",
+          "language": "en",
+          "kl": 0.05850028246641159
+        },
+        {
+          "context": "voice0_en_4_ar.pt",
+          "language": "en",
+          "kl": 0.05994207412004471
+        },
+        {
+          "context": "voice0_en_5_ar.pt",
+          "language": "en",
+          "kl": 0.056135378777980804
+        },
+        {
+          "context": "voice0_en_6_ar.pt",
+          "language": "en",
+          "kl": 0.053409311920404434
+        },
+        {
+          "context": "voice0_en_7_ar.pt",
+          "language": "en",
+          "kl": 0.05707140639424324
+        },
+        {
+          "context": "voice0_en_8_ar.pt",
+          "language": "en",
+          "kl": 0.05379996821284294
+        },
+        {
+          "context": "voice0_en_9_ar.pt",
+          "language": "en",
+          "kl": 0.05848115310072899
+        }
+      ]
+    },
+    {
+      "local_index": 15,
+      "original_id": 21,
+      "mean_kl": 0.04242189675569534,
+      "cases": [
+        {
+          "context": "voice0_ja_0_ar.pt",
+          "language": "ja",
+          "kl": 0.047086890786886215
+        },
+        {
+          "context": "voice0_ja_1_ar.pt",
+          "language": "ja",
+          "kl": 0.04595737159252167
+        },
+        {
+          "context": "voice0_ja_2_ar.pt",
+          "language": "ja",
+          "kl": 0.04460291191935539
+        },
+        {
+          "context": "voice0_ja_3_ar.pt",
+          "language": "ja",
+          "kl": 0.04651078209280968
+        },
+        {
+          "context": "voice0_ja_4_ar.pt",
+          "language": "ja",
+          "kl": 0.048716261982917786
+        },
+        {
+          "context": "voice0_ja_5_ar.pt",
+          "language": "ja",
+          "kl": 0.04511122778058052
+        },
+        {
+          "context": "voice0_ja_6_ar.pt",
+          "language": "ja",
+          "kl": 0.04423509165644646
+        },
+        {
+          "context": "voice0_ja_7_ar.pt",
+          "language": "ja",
+          "kl": 0.04604458436369896
+        },
+        {
+          "context": "voice0_ja_8_ar.pt",
+          "language": "ja",
+          "kl": 0.049694549292325974
+        },
+        {
+          "context": "voice0_ja_9_ar.pt",
+          "language": "ja",
+          "kl": 0.04754723608493805
+        },
+        {
+          "context": "voice0_ko_0_ar.pt",
+          "language": "ko",
+          "kl": 0.03506230562925339
+        },
+        {
+          "context": "voice0_ko_1_ar.pt",
+          "language": "ko",
+          "kl": 0.04114723578095436
+        },
+        {
+          "context": "voice0_ko_2_ar.pt",
+          "language": "ko",
+          "kl": 0.0386684387922287
+        },
+        {
+          "context": "voice0_ko_3_ar.pt",
+          "language": "ko",
+          "kl": 0.03815803676843643
+        },
+        {
+          "context": "voice0_ko_4_ar.pt",
+          "language": "ko",
+          "kl": 0.03937433660030365
+        },
+        {
+          "context": "voice0_ko_5_ar.pt",
+          "language": "ko",
+          "kl": 0.04072808101773262
+        },
+        {
+          "context": "voice0_ko_6_ar.pt",
+          "language": "ko",
+          "kl": 0.0430205874145031
+        },
+        {
+          "context": "voice0_ko_7_ar.pt",
+          "language": "ko",
+          "kl": 0.04064100235700607
+        },
+        {
+          "context": "voice0_ko_8_ar.pt",
+          "language": "ko",
+          "kl": 0.04081190377473831
+        },
+        {
+          "context": "voice0_ko_9_ar.pt",
+          "language": "ko",
+          "kl": 0.0417034849524498
+        },
+        {
+          "context": "voice0_en_0_ar.pt",
+          "language": "en",
+          "kl": 0.03820060193538666
+        },
+        {
+          "context": "voice0_en_1_ar.pt",
+          "language": "en",
+          "kl": 0.038462553173303604
+        },
+        {
+          "context": "voice0_en_2_ar.pt",
+          "language": "en",
+          "kl": 0.040513843297958374
+        },
+        {
+          "context": "voice0_en_3_ar.pt",
+          "language": "en",
+          "kl": 0.04280069097876549
+        },
+        {
+          "context": "voice0_en_4_ar.pt",
+          "language": "en",
+          "kl": 0.04326006397604942
+        },
+        {
+          "context": "voice0_en_5_ar.pt",
+          "language": "en",
+          "kl": 0.04358363896608353
+        },
+        {
+          "context": "voice0_en_6_ar.pt",
+          "language": "en",
+          "kl": 0.0374622605741024
+        },
+        {
+          "context": "voice0_en_7_ar.pt",
+          "language": "en",
+          "kl": 0.04058825224637985
+        },
+        {
+          "context": "voice0_en_8_ar.pt",
+          "language": "en",
+          "kl": 0.04181303083896637
+        },
+        {
+          "context": "voice0_en_9_ar.pt",
+          "language": "en",
+          "kl": 0.041149646043777466
+        }
+      ]
+    },
+    {
+      "local_index": 16,
+      "original_id": 22,
+      "mean_kl": 0.17800100098053614,
+      "cases": [
+        {
+          "context": "voice0_ja_0_ar.pt",
+          "language": "ja",
+          "kl": 0.15495476126670837
+        },
+        {
+          "context": "voice0_ja_1_ar.pt",
+          "language": "ja",
+          "kl": 0.15662255883216858
+        },
+        {
+          "context": "voice0_ja_2_ar.pt",
+          "language": "ja",
+          "kl": 0.14309364557266235
+        },
+        {
+          "context": "voice0_ja_3_ar.pt",
+          "language": "ja",
+          "kl": 0.16551853716373444
+        },
+        {
+          "context": "voice0_ja_4_ar.pt",
+          "language": "ja",
+          "kl": 0.14751797914505005
+        },
+        {
+          "context": "voice0_ja_5_ar.pt",
+          "language": "ja",
+          "kl": 0.1654675006866455
+        },
+        {
+          "context": "voice0_ja_6_ar.pt",
+          "language": "ja",
+          "kl": 0.15768787264823914
+        },
+        {
+          "context": "voice0_ja_7_ar.pt",
+          "language": "ja",
+          "kl": 0.15173687040805817
+        },
+        {
+          "context": "voice0_ja_8_ar.pt",
+          "language": "ja",
+          "kl": 0.15229052305221558
+        },
+        {
+          "context": "voice0_ja_9_ar.pt",
+          "language": "ja",
+          "kl": 0.14960311353206635
+        },
+        {
+          "context": "voice0_ko_0_ar.pt",
+          "language": "ko",
+          "kl": 0.18616600334644318
+        },
+        {
+          "context": "voice0_ko_1_ar.pt",
+          "language": "ko",
+          "kl": 0.16994214057922363
+        },
+        {
+          "context": "voice0_ko_2_ar.pt",
+          "language": "ko",
+          "kl": 0.16780874133110046
+        },
+        {
+          "context": "voice0_ko_3_ar.pt",
+          "language": "ko",
+          "kl": 0.17560440301895142
+        },
+        {
+          "context": "voice0_ko_4_ar.pt",
+          "language": "ko",
+          "kl": 0.20132625102996826
+        },
+        {
+          "context": "voice0_ko_5_ar.pt",
+          "language": "ko",
+          "kl": 0.17918361723423004
+        },
+        {
+          "context": "voice0_ko_6_ar.pt",
+          "language": "ko",
+          "kl": 0.1850595921278
+        },
+        {
+          "context": "voice0_ko_7_ar.pt",
+          "language": "ko",
+          "kl": 0.17295554280281067
+        },
+        {
+          "context": "voice0_ko_8_ar.pt",
+          "language": "ko",
+          "kl": 0.17284953594207764
+        },
+        {
+          "context": "voice0_ko_9_ar.pt",
+          "language": "ko",
+          "kl": 0.1736581176519394
+        },
+        {
+          "context": "voice0_en_0_ar.pt",
+          "language": "en",
+          "kl": 0.18589110672473907
+        },
+        {
+          "context": "voice0_en_1_ar.pt",
+          "language": "en",
+          "kl": 0.19887804985046387
+        },
+        {
+          "context": "voice0_en_2_ar.pt",
+          "language": "en",
+          "kl": 0.2091742604970932
+        },
+        {
+          "context": "voice0_en_3_ar.pt",
+          "language": "en",
+          "kl": 0.22083081305027008
+        },
+        {
+          "context": "voice0_en_4_ar.pt",
+          "language": "en",
+          "kl": 0.19656318426132202
+        },
+        {
+          "context": "voice0_en_5_ar.pt",
+          "language": "en",
+          "kl": 0.18979604542255402
+        },
+        {
+          "context": "voice0_en_6_ar.pt",
+          "language": "en",
+          "kl": 0.1966339647769928
+        },
+        {
+          "context": "voice0_en_7_ar.pt",
+          "language": "en",
+          "kl": 0.20127779245376587
+        },
+        {
+          "context": "voice0_en_8_ar.pt",
+          "language": "en",
+          "kl": 0.21229292452335358
+        },
+        {
+          "context": "voice0_en_9_ar.pt",
+          "language": "en",
+          "kl": 0.19964458048343658
+        }
+      ]
+    }
+  ],
+  "selected": {
+    "local_index": 15,
+    "original_id": 21,
+    "mean_kl": 0.04242189675569534,
+    "cases": [
+      {
+        "context": "voice0_ja_0_ar.pt",
+        "language": "ja",
+        "kl": 0.047086890786886215
+      },
+      {
+        "context": "voice0_ja_1_ar.pt",
+        "language": "ja",
+        "kl": 0.04595737159252167
+      },
+      {
+        "context": "voice0_ja_2_ar.pt",
+        "language": "ja",
+        "kl": 0.04460291191935539
+      },
+      {
+        "context": "voice0_ja_3_ar.pt",
+        "language": "ja",
+        "kl": 0.04651078209280968
+      },
+      {
+        "context": "voice0_ja_4_ar.pt",
+        "language": "ja",
+        "kl": 0.048716261982917786
+      },
+      {
+        "context": "voice0_ja_5_ar.pt",
+        "language": "ja",
+        "kl": 0.04511122778058052
+      },
+      {
+        "context": "voice0_ja_6_ar.pt",
+        "language": "ja",
+        "kl": 0.04423509165644646
+      },
+      {
+        "context": "voice0_ja_7_ar.pt",
+        "language": "ja",
+        "kl": 0.04604458436369896
+      },
+      {
+        "context": "voice0_ja_8_ar.pt",
+        "language": "ja",
+        "kl": 0.049694549292325974
+      },
+      {
+        "context": "voice0_ja_9_ar.pt",
+        "language": "ja",
+        "kl": 0.04754723608493805
+      },
+      {
+        "context": "voice0_ko_0_ar.pt",
+        "language": "ko",
+        "kl": 0.03506230562925339
+      },
+      {
+        "context": "voice0_ko_1_ar.pt",
+        "language": "ko",
+        "kl": 0.04114723578095436
+      },
+      {
+        "context": "voice0_ko_2_ar.pt",
+        "language": "ko",
+        "kl": 0.0386684387922287
+      },
+      {
+        "context": "voice0_ko_3_ar.pt",
+        "language": "ko",
+        "kl": 0.03815803676843643
+      },
+      {
+        "context": "voice0_ko_4_ar.pt",
+        "language": "ko",
+        "kl": 0.03937433660030365
+      },
+      {
+        "context": "voice0_ko_5_ar.pt",
+        "language": "ko",
+        "kl": 0.04072808101773262
+      },
+      {
+        "context": "voice0_ko_6_ar.pt",
+        "language": "ko",
+        "kl": 0.0430205874145031
+      },
+      {
+        "context": "voice0_ko_7_ar.pt",
+        "language": "ko",
+        "kl": 0.04064100235700607
+      },
+      {
+        "context": "voice0_ko_8_ar.pt",
+        "language": "ko",
+        "kl": 0.04081190377473831
+      },
+      {
+        "context": "voice0_ko_9_ar.pt",
+        "language": "ko",
+        "kl": 0.0417034849524498
+      },
+      {
+        "context": "voice0_en_0_ar.pt",
+        "language": "en",
+        "kl": 0.03820060193538666
+      },
+      {
+        "context": "voice0_en_1_ar.pt",
+        "language": "en",
+        "kl": 0.038462553173303604
+      },
+      {
+        "context": "voice0_en_2_ar.pt",
+        "language": "en",
+        "kl": 0.040513843297958374
+      },
+      {
+        "context": "voice0_en_3_ar.pt",
+        "language": "en",
+        "kl": 0.04280069097876549
+      },
+      {
+        "context": "voice0_en_4_ar.pt",
+        "language": "en",
+        "kl": 0.04326006397604942
+      },
+      {
+        "context": "voice0_en_5_ar.pt",
+        "language": "en",
+        "kl": 0.04358363896608353
+      },
+      {
+        "context": "voice0_en_6_ar.pt",
+        "language": "en",
+        "kl": 0.0374622605741024
+      },
+      {
+        "context": "voice0_en_7_ar.pt",
+        "language": "en",
+        "kl": 0.04058825224637985
+      },
+      {
+        "context": "voice0_en_8_ar.pt",
+        "language": "en",
+        "kl": 0.04181303083896637
+      },
+      {
+        "context": "voice0_en_9_ar.pt",
+        "language": "en",
+        "kl": 0.041149646043777466
+      }
+    ]
+  },
+  "export_tensors_exact": true,
+  "initial_sha256": "6ecc75536ec10609c80aa3d531121b9ac436f37ec01cd19c59cb60b23070adf2",
+  "same_selected_original_layer_as_six_context_pilot": true,
+  "note": "Independent training-only stability check; all 30 training contexts. Existing AR17 QAT200 candidate remains unchanged; no new trained model or RTF result."
+}

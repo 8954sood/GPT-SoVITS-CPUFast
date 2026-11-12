@@ -818,3 +818,31 @@ isolated savings. Actual Cin240→Cout384 conv2 modules select FFT256;
 alternative. No alternative numerical/quality/speed result is claimed.
 All raw JSON, manifest/source/image hashes, per-pair ratios and shape costs
 are in `results/n1_student_v_20261112`. Audio/console logs remain private.
+
+
+## Model work and inference work continue separately
+
+The owner requested continuous runtime optimization in the SSH subagent,
+while the main agent works on models. The previous bounded-trial stopping
+condition is superseded. Runtime experiments keep fixed approved model weights;
+new model candidates are tested separately before changing a runtime baseline.
+
+AR18 QAT100 keeps the approved 18-layer geometry: heldout surrogate KL changes
+0.0437613 -> 0.0431893. AR17 QAT200 removes original teacher layer21, preserves
+all remaining FFN widths, and uses the same original V400 decoder. Its heldout
+surrogate KL recovers0.0939159 -> 0.0623864, which remains worse than AR18.
+These are CPU training/evaluation values, not voice ratings or native RTF.
+The training-only layer selection was repeated on all30 training contexts
+instead of the initial6; layer21 remains the lowest-KL deletion.
+
+The owner listened to actual17-block AR17 QAT200 + original V400 and approved
+the Korean case: “음질 괜찮음, AR17도 RTF 측정”.
+The immutable manifest is
+`e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb`;
+AR `a25ae982...4352`, decoder `7d4c184...b9524`, spec `9348c090...a7a2`.
+KO is133tokens/5.62s versus AR18/V118tokens/5.02s, so the next independent
+paired comparison must report wall time, stage times and AR time per token
+as well as RTF. No existing native trial is combined with this model change.
+JA/EN generation checks are available but have no new broad listening approval.
+Approval and model diagnostics are under `results/student_pilot/`; private
+checkpoints and WAVs remain ignored. Actual AR17 N1 performance is pending.
