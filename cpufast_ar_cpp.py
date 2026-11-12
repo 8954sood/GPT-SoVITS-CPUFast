@@ -71,7 +71,7 @@ class CppLosslessBlock:
         keys: torch.Tensor,
         values: torch.Tensor,
         cache_len: int,
-        mask: torch.Tensor = None,
+        mask: torch.Tensor | None = None,
         torch_sdpa: bool = True,
     ):
         if x.shape[0] * x.shape[1] != 1 or not torch_sdpa:
@@ -184,7 +184,7 @@ class CppLosslessTransformer:
         k_cache: list[torch.Tensor],
         v_cache: list[torch.Tensor],
         cache_len: int,
-        attn_mask: torch.Tensor = None,
+        attn_mask: torch.Tensor | None = None,
         torch_sdpa: bool = True,
     ):
         for i in range(len(self.blocks)):
