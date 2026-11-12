@@ -100,3 +100,15 @@ All measured candidate PCM/semantic outputs were exact, parameter/checkpoint
 hashes unchanged and guards passed. Independent five-sample verification is
 required before adopting this small overall gain. Raw reports and provenance:
 `results/n1_transforms_20261112`. The FFT streaming flag was off in both cases.
+
+
+Independent five-sample stream confirmation
+[run 43155674421](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43155674421)
+reproduced the small gain: baseline/stream medians **1.5411/1.5248** and
+**1.5598/1.5446**. Decoder medians were 5.083/4.942s and 4.549/4.427s, with
+slightly slower AR despite unchanged AR code. All ten measured candidate
+waveforms were PCM-exact, semantic tokens/durations unchanged, and integrity
+checks/guards passed. Keep the streaming implementation as an opt-in; this
+roughly one-percent total gain is specific to the two target workloads and
+does not reach real-time synthesis. Raw runs, including every warmup and slow
+sample, are in `results/n1_fftstream_repeat_20261112`.

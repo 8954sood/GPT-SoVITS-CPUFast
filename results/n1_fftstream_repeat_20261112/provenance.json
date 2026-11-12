@@ -1,0 +1,11 @@
+{
+  "run_id": 43155674421,
+  "url": "https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43155674421",
+  "head_sha": "fc40fd1a843581d78cbd17b7b5f3ea8ee8695ea1",
+  "baseline": "Original FP32 tap profile, ar_prefetch=256, 2 threads per stage",
+  "candidate": "Baseline plus fft_stream=True only; parallel_transforms=False",
+  "warmups": 3,
+  "samples": 5,
+  "decision": "Retain opt-in implementation; small gain reproduced in two independent action runs; default unchanged",
+  "pcm": "All ten measured candidate outputs bit-exact to respective baseline"
+}
