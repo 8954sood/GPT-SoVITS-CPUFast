@@ -35,6 +35,7 @@ def main():
     p.add_argument('--profile', action='store_true')
     p.add_argument('--tap-finish', action='store_true')
     p.add_argument('--script-ar',action='store_true')
+    p.add_argument('--script-no-opt',action='store_true')
     p.add_argument('--int8-probe',choices=('none','quant-neon','ffn2-rows8','packed4'),default='none')
     p.add_argument('--int8-probe-library',type=Path)
     p.add_argument('--expected-wait-policy')
@@ -137,7 +138,8 @@ def main():
         reports=[];wire=[];before=counters();begin=time.perf_counter();cpu_begin=time.process_time()
         for i,text in enumerate(segments):
             diagnostic.clear()
-            audio,report=engine.synthesize_prepared(text, ref, lang='ko', seed=42+i)
+            with torch.jit.optimized_execution(not args.script_no_opt):
+                audio,report=engine.synthesize_prepared(text, ref, lang='ko', seed=42+i)
             report['diagnostic_stage_seconds']=dict(diagnostic)
             wire.append(pcm16(audio));reports.append(report)
         elapsed=time.perf_counter()-begin
@@ -187,7 +189,7 @@ def main():
     assert cgroup=={'cpu.max':'200000 100000','memory.max':'8000000000','memory.swap.max':'0'}
     result=dict(complete=True,scope='Fixed sentence split/seed42,43/full reference/native32k API adapter exploration; HTTP overhead excluded',
         environment={k:os.environ.get(k) for k in ('OMP_WAIT_POLICY','GOMP_SPINCOUNT','OPENBLAS_NUM_THREADS','OPENBLAS_CORETYPE','LD_PRELOAD')},
-        settings={'threads':args.threads,'ar_threads':args.ar_threads,'tap_finish':args.tap_finish,'gc_policy':args.gc_policy},
+        settings={'threads':args.threads,'ar_threads':args.ar_threads,'tap_finish':args.tap_finish,'script_no_opt':args.script_no_opt,'gc_policy':args.gc_policy},
         cgroup=cgroup,all_expected_pcm_match=all(r['expected_native_and_wire_pcm_match'] for r in rows),observations=rows,excluded_profile=profile,tap_finish_audit=tap_audit,
         loaded_openmp_libraries=sorted({line.split()[-1] for line in Path('/proc/self/maps').read_text().splitlines() if 'libgomp' in line}),
         process_threads=len(list(Path('/proc/self/task').iterdir())),torch_parallel_info=torch.__config__.parallel_info(),
