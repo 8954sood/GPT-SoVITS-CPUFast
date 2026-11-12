@@ -1,0 +1,32 @@
+{
+  "scope": "Local correctness only. Isolated approved U loader and exact user-approved KO waveform/reference/text/seed; no local performance claim.",
+  "isolated_source_basis": "5a486bc",
+  "T_source_included": false,
+  "manifest_sha256": "8d0329df24fa14eaf36e07b265c3111a592dec962870ec392fe0c58896832751",
+  "ar_sha256": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+  "decoder_sha256": "a707f3e2b01c9c1217af0ea758a02dd1d76329c1950f9b39129532b788016d33",
+  "semantic": [
+    {
+      "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+      "index": 118,
+      "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+    }
+  ],
+  "audio_seconds": 5.02,
+  "sample_rate": 32000,
+  "pcm_sha256": "ccd41c8c6daff255f7dfc29b5e31884f0a8d6bc350a2ed3e40b43bcebbfff2d8",
+  "exact_to_approved_U_PCM": true,
+  "exact_to_approved_U_tokens": true,
+  "bottleneck_pair_count": 4,
+  "approximate_ar_int8_only": true,
+  "fp16_acoustic_modules": 0,
+  "original_and_student_parameters_files_unchanged": true,
+  "guard_exit_code": 0,
+  "sources": {
+    "benchmark_cpufast.py": "ea72d085b2ed0d5fdf68e49fd21c46299d47420a50396b5d1cf0902b1a1882b2",
+    "student_runtime.py": "c09dd983882a3cb26981ab4697a19ffd380308dca49617038ac19a2fba982968",
+    "cpufast_fast_ar.py": "7673a081ada4657ef3e408fce1d41dcfe566734aacd2e08448e539a9f2277f13",
+    "cpufast_student_assets.py": "1c0bd7bfed22211682ababf78ba9d51ee338f14a1e0b931317c37d70751369d0",
+    "experiments/student/listen_bottleneck_decoder.py": "1c232283c860f9304d31646639e14f89a75fdb75c9800aac1d16d6c768a4c9cc"
+  }
+}
