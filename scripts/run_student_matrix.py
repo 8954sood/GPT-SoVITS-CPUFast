@@ -11,6 +11,22 @@ from pathlib import Path
 from cpufast_student_assets import load_manifest, sha256, snapshot
 
 
+def validate_c24_geometry(baseline, candidate):
+    """Permit only the approved final-stage K11 branch removal, retaining AR bytes."""
+    branches = baseline['decoder_branches']
+    expected = [list(row) for row in branches]
+    if len(expected) != 5 or expected[-1] != [0, 1, 2]:
+        raise ValueError('Expected original V400 three-branch final stage')
+    expected[-1] = [0, 1]
+    if candidate['decoder_branches'] != expected:
+        raise ValueError('Only final-stage original K11 branch may differ')
+    for key in ('decoder_bottlenecks', 'decoder_channel_keep', 'ar_layers', 'ar_runtime', 'ar_cache_storage', 'original_s1_sha256'):
+        if baseline.get(key) != candidate.get(key):
+            raise ValueError('C24 comparison changed shared geometry/runtime: '+key)
+    if baseline['ar_layers'] != 17 or baseline['files']['ar.pt'] != candidate['files']['ar.pt']:
+        raise ValueError('C24 comparison requires exactly the same approved AR17 bytes')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", type=Path, required=True)
@@ -25,6 +41,7 @@ def main():
     parser.add_argument("--head-v32-comparison", action="store_true")
     parser.add_argument("--head-qk4-comparison", action="store_true")
     parser.add_argument("--ar-depth-comparison", action="store_true")
+    parser.add_argument("--c24-model-comparison", action="store_true")
     parser.add_argument("--decoder-only", action="store_true")
     parser.add_argument("--decoder-ar-int8", action="store_true")
     parser.add_argument("--ar-int8-comparison", action="store_true")
@@ -38,6 +55,16 @@ def main():
     parser.add_argument("--fft-output-tiles-comparison", action="store_true")
     parser.add_argument("--decoder-candidate-label", choices=["R", "U", "V"], default="R")
     args = parser.parse_args()
+    if args.c24_model_comparison and (
+        not (args.decoder_only and args.decoder_ar_int8 and args.alternating_decoder_comparison and args.baseline_manifest)
+        or args.warmups != 3 or args.samples != 5
+        or any((args.head_integrated_confirm, args.head_v32_comparison, args.head_qk4_comparison,
+                args.ar_depth_comparison, args.ar_int8_comparison, args.ar_int8_confirm_only,
+                args.fft_half_comparison, args.fft_half_stream_comparison, args.packed_prefill_comparison,
+                args.int8_prefill_comparison, args.diagnostic_profile_only, args.fft_output_tiles_comparison))
+        or args.decoder_candidate_label != 'R'
+    ):
+        parser.error('C24 comparison requires isolated same-AR two-model3warm5sample protocol')
     if args.head_integrated_confirm and (
         args.baseline_manifest or args.warmups != 3 or args.samples != 5
         or any((args.decoder_only, args.decoder_ar_int8, args.ar_int8_comparison,
@@ -169,7 +196,7 @@ def main():
             parser.error(
                 "Decoder comparison requires identical approved AR weights/cache"
             )
-        if args.alternating_decoder_comparison and (
+        if args.alternating_decoder_comparison and not args.c24_model_comparison and (
             baseline["decoder_branches"] != manifest["decoder_branches"]
             or baseline.get("decoder_channel_keep") is not None
             or manifest.get("decoder_channel_keep") is not None
@@ -178,6 +205,11 @@ def main():
             parser.error(
                 "First bottleneck comparison must preserve original outer channels and branches"
             )
+    if args.c24_model_comparison:
+        try:
+            validate_c24_geometry(baseline, manifest)
+        except ValueError as error:
+            parser.error(str(error))
     if args.ar_depth_comparison:
         for key in ("decoder.pt",):
             if baseline["files"][key] != manifest["files"][key]:
@@ -283,6 +315,7 @@ def main():
             if profile
             and not (
                 args.diagnostic_profile_only
+                or args.c24_model_comparison
                 or args.ar_depth_comparison
                 or args.head_v32_comparison
                 or args.head_qk4_comparison
@@ -412,6 +445,14 @@ def main():
             or data["cgroup"]["memory.swap.max"] != "0"
         ):
             raise RuntimeError("Actual N1 resource profile changed")
+        if args.c24_model_comparison:
+            actual_blocks = sorted({int(r['block']) for r in data['ar_coefficient_audit']['matrices']})
+            if actual_blocks != list(range(17)) or data['decoder_residual_block_count'] != sum(len(b) for b in run_manifest['decoder_branches']):
+                raise RuntimeError('C24 actual AR17/decoder branch count audit failed')
+            for observed in data['warmups'] + data['runs']:
+                semantic = [{'tokens': r['index'], 'sha256': r['generated_sha256']} for r in observed['semantic']]
+                if semantic != run_cases[language]['semantic'] or observed['pcm_sha256'] != run_cases[language]['pcm_sha256'] or observed['audio_seconds'] != run_cases[language]['audio_seconds']:
+                    raise RuntimeError('C24 model failed own approved warmup/sample voice guard')
         if compare is not None:
             reference = json.loads(compare.with_suffix(".json").read_text())
             tokens_exact = all(
@@ -509,11 +550,11 @@ def main():
                 for r in data["runs"]
             ),
         }
-        if (args.head_v32_comparison or args.head_qk4_comparison or args.head_integrated_confirm) and not (
+        if (args.head_v32_comparison or args.head_qk4_comparison or args.head_integrated_confirm or args.c24_model_comparison) and not (
             row["local_approved_pcm_match"] and row["local_approved_generated_tokens_match"]
             and all(r["audio_seconds"] == run_cases[language]["audio_seconds"] for r in data["runs"])
         ):
-            raise RuntimeError("Head scheduling comparison did not reproduce approved model PCM/tokens")
+            raise RuntimeError("Comparison did not reproduce its own approved model PCM/tokens")
         if args.ar_depth_comparison:
             tokens = sum(int(r["index"]) for r in data["runs"][0]["semantic"])
             audit = data["ar_coefficient_audit"]["matrices"]
@@ -681,7 +722,9 @@ def main():
         return
     if args.alternating_decoder_comparison or runtime_comparison:
         candidate_label = (
-            "head_qk4"
+            "C24"
+            if args.c24_model_comparison
+            else "head_qk4"
             if args.head_qk4_comparison
             else "head_v32"
             if args.head_v32_comparison
@@ -725,6 +768,11 @@ def main():
             if args.head_qk4_comparison:
                 summary["scope"] = "Actual N1 fixed approved AR17+V400 and canonical value scheduling versus four-token QK scheduling; same token dimension FMA order, softmax, masks, weights and normal FP32 acoustics"
                 summary["prefetch_selection"] = "No tuning; four-token QK scheduling is the only difference"
+        if args.c24_model_comparison:
+            summary['scope'] = 'Actual N1 approved AR17+V400 vs sameAR17+C24 two-branch model; canonical original FFT256/Tap/value runtime; no FFT128/FFN2/QK/Tap-finish candidate'
+            summary['runtime_label_note'] = 'L denotes approved original V400 decoder; C24 denotes owner-approved final-stage two-branch Vtarget100 decoder'
+            summary['prefetch_selection'] = 'Fixed256, no tuning; both models same approved AR17 file'
+            summary['baseline_manifest_sha256'] = args.baseline_manifest_sha256
         samples = {"L": [], candidate_label: []}
         last_candidate = None
         reference = None
@@ -780,6 +828,9 @@ def main():
                     "samples": 5,
                     "rtfs": [r[0]["rtf"] for r in records],
                     "median_rtf": statistics.median(r[0]["rtf"] for r in records),
+                    "min_rtf": min(r[0]["rtf"] for r in records),
+                    "max_rtf": max(r[0]["rtf"] for r in records),
+                    "all_measured_rtf_below_one": max(r[0]["rtf"] for r in records) < 1,
                     "median_seconds": statistics.median(
                         r[1]["median_seconds"] for r in records
                     ),
