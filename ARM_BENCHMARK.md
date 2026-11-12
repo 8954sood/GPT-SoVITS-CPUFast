@@ -54,3 +54,10 @@ FP32 arithmetic and output order; this is not branch-parallel synthesis.
 The default remains serial transforms until target full-TTS repeats justify a
 change. Native tests compare serial/parallel outputs exactly, including
 non-contiguous residual channel rows.
+
+`mode=inference` compares the same original FP32 profile under its existing
+`no_grad` path and the benchmark's explicit `torch.inference_mode()` context.
+Model loading and installation remain outside that context, preserving normal
+parameter version counters and the cache-validity checks. Both variants use
+fresh processes, with every warmup/sample recorded. Local checks establish
+correctness only; any performance claim must use the target action.
