@@ -1,0 +1,11 @@
+{
+  "scope": "Actual N1 primitive only; full inference validation and RTF not yet measured",
+  "source_sha": "c620b1acac814144761270a487aa9fc362a7f2ab",
+  "source_archive_sha256": "b79863a8d6feb862d4872c37d2af8ae8f9c402b87ea063b659957f009b1bec70",
+  "image_id": "sha256:23eb9b78c3c75319c99172766f94bba4faa8cffe05f8765ce4b33a3c34bb989b",
+  "native_source_sha256": "e6f571d728cc12496029f96e65c8bc078ce26d4eb75a7dff95e83c607e697ffc",
+  "primitive_raw_sha256": "af9bbafd245850356319a117e574033b5a082267bb55aa80b890698ed7b57742",
+  "change": "Dim32 weighted-value aggregation keeps eight independent NEON accumulators while preserving each output dimension token/FMA order. QK, softmax, masks unchanged.",
+  "adoption_status": "Pending full same-model semantic/PCM gate and fresh-process paired measurement",
+  "caveat": "Rotating KV streams 18 layers; actual AR additionally streams weights, so primitive ratios do not predict total RTF."
+}
