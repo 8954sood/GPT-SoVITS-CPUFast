@@ -1,0 +1,229 @@
+In file included from /usr/include/c++/12/bits/alloc_traits.h:33,
+                 from /usr/include/c++/12/ext/alloc_traits.h:34,
+                 from /usr/include/c++/12/unordered_map:41,
+                 from /usr/include/c++/12/functional:61,
+                 from /opt/venv/lib/python3.12/site-packages/torch/include/c10/core/DeviceType.h:12,
+                 from /opt/venv/lib/python3.12/site-packages/torch/include/c10/core/Device.h:3,
+                 from /opt/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:11,
+                 from /opt/venv/lib/python3.12/site-packages/torch/include/ATen/core/Tensor.h:3,
+                 from /repo/native/cpufast_int8_packed4_probe.cpp:2:
+In function ‘void std::_Construct(_Tp*, _Args&& ...) [with _Tp = signed char; _Args = {}]’,
+    inlined from ‘static _ForwardIterator std::__uninitialized_default_n_1<true>::__uninit_default_n(_ForwardIterator, _Size) [with _ForwardIterator = signed char*; _Size = long unsigned int]’ at /usr/include/c++/12/bits/stl_uninitialized.h:661:23,
+    inlined from ‘static _ForwardIterator std::__uninitialized_default_n_1<true>::__uninit_default_n(_ForwardIterator, _Size) [with _ForwardIterator = signed char*; _Size = long unsigned int]’ at /usr/include/c++/12/bits/stl_uninitialized.h:655:9,
+    inlined from ‘_ForwardIterator std::__uninitialized_default_n(_ForwardIterator, _Size) [with _ForwardIterator = signed char*; _Size = long unsigned int]’ at /usr/include/c++/12/bits/stl_uninitialized.h:701:20,
+    inlined from ‘_ForwardIterator std::__uninitialized_default_n_a(_ForwardIterator, _Size, allocator<_Tp>&) [with _ForwardIterator = signed char*; _Size = long unsigned int; _Tp = signed char]’ at /usr/include/c++/12/bits/stl_uninitialized.h:766:44,
+    inlined from ‘void std::vector<_Tp, _Alloc>::_M_default_initialize(size_type) [with _Tp = signed char; _Alloc = std::allocator<signed char>]’ at /usr/include/c++/12/bits/stl_vector.h:1713:36,
+    inlined from ‘std::vector<_Tp, _Alloc>::vector(size_type, const allocator_type&) [with _Tp = signed char; _Alloc = std::allocator<signed char>]’ at /usr/include/c++/12/bits/stl_vector.h:553:30,
+    inlined from ‘at::Tensor arq_packed4(const at::Tensor&, const at::Tensor&, const at::Tensor&, const at::Tensor&)’ at /repo/native/cpufast_int8_packed4_probe.cpp:40:25:
+/usr/include/c++/12/bits/stl_construct.h:119:7: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+  119 |       ::new((void*)__p) _Tp(std::forward<_Args>(__args)...);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/aarch64-linux-gnu/c++/12/bits/c++allocator.h:33,
+                 from /usr/include/c++/12/bits/allocator.h:46,
+                 from /usr/include/c++/12/unordered_map:40:
+In member function ‘_Tp* std::__new_allocator<_Tp>::allocate(size_type, const void*) [with _Tp = signed char]’,
+    inlined from ‘static _Tp* std::allocator_traits<std::allocator<_Tp1> >::allocate(allocator_type&, size_type) [with _Tp = signed char]’ at /usr/include/c++/12/bits/alloc_traits.h:464:28,
+    inlined from ‘std::_Vector_base<_Tp, _Alloc>::pointer std::_Vector_base<_Tp, _Alloc>::_M_allocate(std::size_t) [with _Tp = signed char; _Alloc = std::allocator<signed char>]’ at /usr/include/c++/12/bits/stl_vector.h:378:33,
+    inlined from ‘void std::_Vector_base<_Tp, _Alloc>::_M_create_storage(std::size_t) [with _Tp = signed char; _Alloc = std::allocator<signed char>]’ at /usr/include/c++/12/bits/stl_vector.h:395:44,
+    inlined from ‘std::_Vector_base<_Tp, _Alloc>::_Vector_base(std::size_t, const allocator_type&) [with _Tp = signed char; _Alloc = std::allocator<signed char>]’ at /usr/include/c++/12/bits/stl_vector.h:332:26,
+    inlined from ‘std::vector<_Tp, _Alloc>::vector(size_type, const allocator_type&) [with _Tp = signed char; _Alloc = std::allocator<signed char>]’ at /usr/include/c++/12/bits/stl_vector.h:552:47,
+    inlined from ‘at::Tensor arq_packed4(const at::Tensor&, const at::Tensor&, const at::Tensor&, const at::Tensor&)’ at /repo/native/cpufast_int8_packed4_probe.cpp:40:25:
+/usr/include/c++/12/bits/new_allocator.h:137:55: note: destination object of size 0 allocated by ‘operator new’
+  137 |         return static_cast<_Tp*>(_GLIBCXX_OPERATOR_NEW(__n * sizeof(_Tp)));
+      |                                                       ^
+[W1112 16:33:36.893075167 OperatorEntry.cpp:218] Warning: Warning only once for all operators,  other operators may also be overridden.
+  Overriding a previously registered kernel for the same operator and the same dispatch key
+  operator: cpufast_cpp::int8_linear(Tensor x, Tensor w, Tensor scales, Tensor bias) -> Tensor
+    registered at /repo/native/cpufast_fast_int8.cpp:19
+  dispatch key: CPU
+  previous kernel: registered at /repo/native/cpufast_fast_int8.cpp:20
+       new kernel: registered at /repo/native/cpufast_int8_packed4_probe.cpp:57 (function operator())
+Loading Text2Semantic weights from /student/ar.pt
+Loading VITS weights from /repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth. <All keys matched successfully>
+Removing weight norm...
+Loading CNHuBERT weights from /project/models/chinese-hubert-base
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+mecab installed
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.059	0.996	4.041
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	1.256	1.763
+API_RUNTIME warmup 0 2 2 8.152574868872762
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.024	0.961	1.252
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.024	1.417	1.940
+API_RUNTIME warmup 1 2 2 5.6318533513695
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.023	0.963	1.305
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.023	1.469	2.015
+API_RUNTIME warmup 2 2 2 5.809515081346035
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	0.961	1.330
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.083	1.665
+API_RUNTIME sample 0 2 2 5.0935774724930525
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	0.869	1.302
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	1.119	1.660
+API_RUNTIME sample 1 2 2 5.004481123760343
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	0.817	1.132
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	1.222	1.676
+API_RUNTIME sample 2 2 2 4.903379833325744
+{
+  "command": [
+    "python",
+    "scripts/benchmark_api_runtime.py",
+    "--manifest",
+    "/student/manifest.json",
+    "--s2",
+    "/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth",
+    "--hubert",
+    "/project/models/chinese-hubert-base",
+    "--reference",
+    "/reference.wav",
+    "--output",
+    "/repo/ci-results/packed4_full.json",
+    "--gc-policy",
+    "default",
+    "--warmups",
+    "3",
+    "--runs",
+    "3",
+    "--int8-probe",
+    "packed4",
+    "--int8-probe-library",
+    "/repo/libcpufast_int8_packed4_runtime.so",
+    "--expected-wait-policy",
+    "ACTIVE",
+    "--expected-spincount",
+    "100000",
+    "--expected-preload",
+    "/build/native/libgsv_mimalloc.so"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 4592975872,
+  "kernel_child_peak_rss_bytes": 4592869376,
+  "cpu_seconds": 77.43036000000001,
+  "elapsed_seconds": 50.851283544674516,
+  "average_cpu_cores": 1.5226825087310707,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 4682,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}

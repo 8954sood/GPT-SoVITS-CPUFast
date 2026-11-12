@@ -1,0 +1,262 @@
+reading /repo/GPT_SoVITS/text/ja_userdic/userdict.csv ... 134201
+emitting double-array:   1% |                                           | emitting double-array:   2% |                                           | emitting double-array:   3% |#                                          | emitting double-array:   4% |#                                          | emitting double-array:   5% |##                                         | emitting double-array:   6% |##                                         | emitting double-array:   7% |###                                        | emitting double-array:   8% |###                                        | emitting double-array:   9% |###                                        | emitting double-array:  10% |####                                       | emitting double-array:  11% |####                                       | emitting double-array:  12% |#####                                      | emitting double-array:  13% |#####                                      | emitting double-array:  14% |######                                     | emitting double-array:  15% |######                                     | emitting double-array:  16% |######                                     | emitting double-array:  17% |#######                                    | emitting double-array:  18% |#######                                    | emitting double-array:  19% |########                                   | emitting double-array:  20% |########                                   | emitting double-array:  21% |#########                                  | emitting double-array:  22% |#########                                  | emitting double-array:  23% |#########                                  | emitting double-array:  24% |##########                                 | emitting double-array:  25% |##########                                 | emitting double-array:  26% |###########                                | emitting double-array:  27% |###########                                | emitting double-array:  28% |############                               | emitting double-array:  29% |############                               | emitting double-array:  30% |############                               | emitting double-array:  31% |#############                              | emitting double-array:  32% |#############                              | emitting double-array:  33% |##############                             | emitting double-array:  34% |##############                             | emitting double-array:  35% |###############                            | emitting double-array:  36% |###############                            | emitting double-array:  37% |###############                            | emitting double-array:  38% |################                           | emitting double-array:  39% |################                           | emitting double-array:  40% |#################                          | emitting double-array:  41% |#################                          | emitting double-array:  42% |##################                         | emitting double-array:  43% |##################                         | emitting double-array:  44% |##################                         | emitting double-array:  45% |###################                        | emitting double-array:  46% |###################                        | emitting double-array:  47% |####################                       | emitting double-array:  48% |####################                       | emitting double-array:  49% |#####################                      | emitting double-array:  50% |#####################                      | emitting double-array:  51% |#####################                      | emitting double-array:  52% |######################                     | emitting double-array:  53% |######################                     | emitting double-array:  54% |#######################                    | emitting double-array:  55% |#######################                    | emitting double-array:  56% |########################                   | emitting double-array:  57% |########################                   | emitting double-array:  58% |########################                   | emitting double-array:  59% |#########################                  | emitting double-array:  60% |#########################                  | emitting double-array:  61% |##########################                 | emitting double-array:  62% |##########################                 | emitting double-array:  63% |###########################                | emitting double-array:  64% |###########################                | emitting double-array:  65% |###########################                | emitting double-array:  66% |############################               | emitting double-array:  67% |############################               | emitting double-array:  68% |#############################              | emitting double-array:  69% |#############################              | emitting double-array:  70% |##############################             | emitting double-array:  71% |##############################             | emitting double-array:  72% |##############################             | emitting double-array:  73% |###############################            | emitting double-array:  74% |###############################            | emitting double-array:  75% |################################           | emitting double-array:  76% |################################           | emitting double-array:  77% |#################################          | emitting double-array:  78% |#################################          | emitting double-array:  79% |#################################          | emitting double-array:  80% |##################################         | emitting double-array:  81% |##################################         | emitting double-array:  82% |###################################        | emitting double-array:  83% |###################################        | emitting double-array:  84% |####################################       | emitting double-array:  85% |####################################       | emitting double-array:  86% |####################################       | emitting double-array:  87% |#####################################      | emitting double-array:  88% |#####################################      | emitting double-array:  89% |######################################     | emitting double-array:  90% |######################################     | emitting double-array:  91% |#######################################    | emitting double-array:  92% |#######################################    | emitting double-array:  93% |#######################################    | emitting double-array:  94% |########################################   | emitting double-array:  95% |########################################   | emitting double-array:  96% |#########################################  | emitting double-array:  97% |#########################################  | emitting double-array:  98% |########################################## | emitting double-array:  99% |########################################## | emitting double-array: 100% |###########################################| 
+Loading Text2Semantic weights from /student/ar.pt
+Loading VITS weights from /repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth. <All keys matched successfully>
+Removing weight norm...
+Loading CNHuBERT weights from /project/models/chinese-hubert-base
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+mecab installed
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.062	0.867	4.268
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.140	1.726
+API_RUNTIME warmup 0 2 2 8.605777308344841
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	1.041	1.182
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.124	1.674
+API_RUNTIME warmup 1 2 2 5.393044531345367
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	1.080	1.136
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	1.117	1.656
+API_RUNTIME sample 0 2 2 5.352218439802527
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.017	1.145
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	1.128	2.088
+API_RUNTIME sample 1 2 2 5.7639865558594465
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	0.988	1.295
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.370	2.077
+API_RUNTIME sample 2 2 2 6.12153522670269
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	1.189	1.172
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	1.419	2.022
+API_RUNTIME excluded_profile 0 2 2 6.260921306908131
+
+done!
+{
+  "command": [
+    "python",
+    "scripts/benchmark_api_runtime.py",
+    "--manifest",
+    "/student/manifest.json",
+    "--s2",
+    "/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth",
+    "--hubert",
+    "/project/models/chinese-hubert-base",
+    "--reference",
+    "/reference.wav",
+    "--output",
+    "/repo/ci-results/threads_22.json",
+    "--ar-threads",
+    "2",
+    "--threads",
+    "2",
+    "--warmups",
+    "2",
+    "--runs",
+    "3",
+    "--profile"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 5768982528,
+  "kernel_child_peak_rss_bytes": 5768876032,
+  "cpu_seconds": 102.534457,
+  "elapsed_seconds": 75.95872863195837,
+  "average_cpu_cores": 1.3498706316795874,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 7075,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}
+Traceback (most recent call last):
+  File "/repo/scripts/benchmark_api_runtime.py", line 112, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/repo/scripts/benchmark_api_runtime.py", line 74, in main
+    rows=[pair('warmup',i) for i in range(args.warmups)]
+          ^^^^^^^^^^^^^^^^
+  File "/repo/scripts/benchmark_api_runtime.py", line 67, in pair
+    assert len(wire)==487680 and hashlib.sha256(wire).hexdigest()==EXPECTED_WIRE
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+Loading Text2Semantic weights from /student/ar.pt
+Loading VITS weights from /repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth. <All keys matched successfully>
+Removing weight norm...
+Loading CNHuBERT weights from /project/models/chinese-hubert-base
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+mecab installed
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.057	0.996	5.676
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.139	2.700
+{
+  "command": [
+    "python",
+    "scripts/benchmark_api_runtime.py",
+    "--manifest",
+    "/student/manifest.json",
+    "--s2",
+    "/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth",
+    "--hubert",
+    "/project/models/chinese-hubert-base",
+    "--reference",
+    "/reference.wav",
+    "--output",
+    "/repo/ci-results/threads_21.json",
+    "--ar-threads",
+    "2",
+    "--threads",
+    "1",
+    "--warmups",
+    "2",
+    "--runs",
+    "3"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 4676112384,
+  "kernel_child_peak_rss_bytes": 4675796992,
+  "cpu_seconds": 31.220318,
+  "elapsed_seconds": 28.220617536455393,
+  "average_cpu_cores": 1.106294642903175,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 2675,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 1
+}

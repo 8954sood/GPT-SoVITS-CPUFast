@@ -1,0 +1,577 @@
+Loading Text2Semantic weights from /student/ar.pt
+Loading VITS weights from /repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth. <All keys matched successfully>
+Removing weight norm...
+Loading CNHuBERT weights from /project/models/chinese-hubert-base
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+mecab installed
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.062	0.853	4.096
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.023	1.133	1.684
+API_RUNTIME warmup 0 2 2 7.863417092710733
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	0.979	1.152
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.121	1.651
+API_RUNTIME warmup 1 2 2 4.960320560261607
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	0.976	1.136
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.113	1.680
+API_RUNTIME warmup 2 2 2 4.961248805746436
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	0.839	1.232
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.129	1.663
+API_RUNTIME sample 0 2 2 4.91856244392693
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	0.834	1.228
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.128	1.682
+API_RUNTIME sample 1 2 2 4.92821048386395
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	0.845	1.247
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.024	1.159	1.689
+API_RUNTIME sample 2 2 2 4.99777802452445
+{
+  "command": [
+    "python",
+    "scripts/benchmark_api_runtime.py",
+    "--manifest",
+    "/student/manifest.json",
+    "--s2",
+    "/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth",
+    "--hubert",
+    "/project/models/chinese-hubert-base",
+    "--reference",
+    "/reference.wav",
+    "--output",
+    "/repo/ci-results/none.json",
+    "--gc-policy",
+    "default",
+    "--warmups",
+    "3",
+    "--runs",
+    "3",
+    "--expected-wait-policy",
+    "ACTIVE",
+    "--expected-spincount",
+    "100000",
+    "--expected-preload",
+    "/build/native/libgsv_mimalloc.so"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 4663431168,
+  "kernel_child_peak_rss_bytes": 4663226368,
+  "cpu_seconds": 75.86853900000001,
+  "elapsed_seconds": 49.019580816850066,
+  "average_cpu_cores": 1.54771904891363,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 4532,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}
+[W1112 16:22:13.752254241 OperatorEntry.cpp:218] Warning: Warning only once for all operators,  other operators may also be overridden.
+  Overriding a previously registered kernel for the same operator and the same dispatch key
+  operator: cpufast_cpp::int8_linear(Tensor x, Tensor w, Tensor scales, Tensor bias) -> Tensor
+    registered at /repo/native/cpufast_fast_int8.cpp:19
+  dispatch key: CPU
+  previous kernel: registered at /repo/native/cpufast_fast_int8.cpp:20
+       new kernel: registered at /repo/native/cpufast_int8_quant_neon.cpp:54 (function operator())
+Loading Text2Semantic weights from /student/ar.pt
+Loading VITS weights from /repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth. <All keys matched successfully>
+Removing weight norm...
+Loading CNHuBERT weights from /project/models/chinese-hubert-base
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+mecab installed
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.054	0.943	3.965
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.213	1.735
+API_RUNTIME warmup 0 2 2 7.945067182183266
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	0.827	1.124
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	1.106	1.784
+API_RUNTIME warmup 1 2 2 4.896418394520879
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	0.835	1.132
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.023	1.125	1.778
+API_RUNTIME warmup 2 2 2 4.926235884428024
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	0.839	1.138
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.126	1.823
+API_RUNTIME sample 0 2 2 4.982258355244994
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	0.823	1.120
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.098	1.803
+API_RUNTIME sample 1 2 2 4.901197429746389
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.023	0.827	1.149
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.110	1.842
+API_RUNTIME sample 2 2 2 4.984867211431265
+{
+  "command": [
+    "python",
+    "scripts/benchmark_api_runtime.py",
+    "--manifest",
+    "/student/manifest.json",
+    "--s2",
+    "/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth",
+    "--hubert",
+    "/project/models/chinese-hubert-base",
+    "--reference",
+    "/reference.wav",
+    "--output",
+    "/repo/ci-results/quant-neon.json",
+    "--gc-policy",
+    "default",
+    "--warmups",
+    "3",
+    "--runs",
+    "3",
+    "--expected-wait-policy",
+    "ACTIVE",
+    "--expected-spincount",
+    "100000",
+    "--expected-preload",
+    "/build/native/libgsv_mimalloc.so",
+    "--int8-probe",
+    "quant-neon",
+    "--int8-probe-library",
+    "/repo/libcpufast_int8_quant_neon_runtime.so"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 4678324224,
+  "kernel_child_peak_rss_bytes": 4678144000,
+  "cpu_seconds": 75.532717,
+  "elapsed_seconds": 48.70678009092808,
+  "average_cpu_cores": 1.5507639153931347,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 4503,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}
+[W1112 16:23:02.954600417 OperatorEntry.cpp:218] Warning: Warning only once for all operators,  other operators may also be overridden.
+  Overriding a previously registered kernel for the same operator and the same dispatch key
+  operator: cpufast_cpp::int8_linear(Tensor x, Tensor w, Tensor scales, Tensor bias) -> Tensor
+    registered at /repo/native/cpufast_fast_int8.cpp:19
+  dispatch key: CPU
+  previous kernel: registered at /repo/native/cpufast_fast_int8.cpp:20
+       new kernel: registered at /repo/native/cpufast_int8_ffn2_rows8.cpp:60 (function operator())
+Loading Text2Semantic weights from /student/ar.pt
+Loading VITS weights from /repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth. <All keys matched successfully>
+Removing weight norm...
+Loading CNHuBERT weights from /project/models/chinese-hubert-base
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+mecab installed
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.056	0.855	4.077
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.119	1.699
+API_RUNTIME warmup 0 2 2 7.8414601515978575
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	0.838	1.246
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	1.113	1.665
+API_RUNTIME warmup 1 2 2 4.916975708678365
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	0.836	1.249
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.122	1.672
+API_RUNTIME warmup 2 2 2 4.933570524677634
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	1.142	1.277
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.118	1.676
+API_RUNTIME sample 0 2 2 5.26843654550612
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	0.836	1.285
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	1.140	1.751
+API_RUNTIME sample 1 2 2 5.066126199439168
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	0.836	1.247
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.023	1.156	1.678
+API_RUNTIME sample 2 2 2 4.977065967395902
+{
+  "command": [
+    "python",
+    "scripts/benchmark_api_runtime.py",
+    "--manifest",
+    "/student/manifest.json",
+    "--s2",
+    "/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth",
+    "--hubert",
+    "/project/models/chinese-hubert-base",
+    "--reference",
+    "/reference.wav",
+    "--output",
+    "/repo/ci-results/ffn2-rows8.json",
+    "--gc-policy",
+    "default",
+    "--warmups",
+    "3",
+    "--runs",
+    "3",
+    "--expected-wait-policy",
+    "ACTIVE",
+    "--expected-spincount",
+    "100000",
+    "--expected-preload",
+    "/build/native/libgsv_mimalloc.so",
+    "--int8-probe",
+    "ffn2-rows8",
+    "--int8-probe-library",
+    "/repo/libcpufast_int8_ffn2_rows8_runtime.so"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 4663734272,
+  "kernel_child_peak_rss_bytes": 4663476224,
+  "cpu_seconds": 75.92557900000001,
+  "elapsed_seconds": 49.202073039487004,
+  "average_cpu_cores": 1.5431378051706506,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 4545,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}

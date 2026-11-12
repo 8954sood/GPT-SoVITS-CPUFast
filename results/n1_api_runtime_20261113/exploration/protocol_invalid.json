@@ -1,0 +1,13 @@
+{
+  "source": "e8e1225",
+  "invalid_cases": [
+    "active100000",
+    "active1000",
+    "active10000",
+    "passive",
+    "preload_system"
+  ],
+  "reason": "The launcher passed -e NAME through sudo; sudo removed exported values. Actual policy values were unset. The nominal preload run also removed image mimalloc preload. These are protocol-invalid labels, not valid policy comparisons.",
+  "preservation": "Raw observations and original launchers retained. Correct explicit_NAME=value repetitions have explicit_ prefix, actual environment JSON and preflight assertions.",
+  "prior_actual_HTTP_9699c38": "Used explicit OMP_WAIT_POLICY=ACTIVE and GOMP_SPINCOUNT=100000 in archived explore.sh; unaffected by this protocol failure."
+}

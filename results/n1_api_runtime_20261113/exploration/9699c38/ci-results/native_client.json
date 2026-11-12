@@ -1,0 +1,2504 @@
+{
+  "scope": "Actual loopback HTTP client request start through complete PCM; sentence boundaries/seeds42,43/full reference/model unchanged",
+  "tap_finish_probe": false,
+  "command": [
+    "/opt/venv/bin/python",
+    "/repo/server.py",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "18736",
+    "--data-dir",
+    "/repo/ci-results/native_client.private-styles",
+    "--manifest",
+    "/student/manifest.json",
+    "--manifest-sha256",
+    "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+    "--s2",
+    "/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth",
+    "--hubert",
+    "/project/models/chinese-hubert-base",
+    "--ar-threads",
+    "2",
+    "--threads",
+    "2"
+  ],
+  "trials": [
+    {
+      "client_first_pcm_seconds": 2.262323262169957,
+      "client_last_pcm_seconds": 5.125691125169396,
+      "client_response_complete_seconds": 5.126629691570997,
+      "audio_seconds": 5.08,
+      "pcm_bytes": 325120,
+      "sample_rate": 32000,
+      "pcm_sha256": "a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d",
+      "client_response_rtf": 1.009179073143897,
+      "required_extra_initial_buffer_seconds": 0.8027603389322757,
+      "immediate_playback_underrun_seconds": 0.8027603389322757,
+      "arrivals": [
+        {
+          "seconds": 2.262323262169957,
+          "received_bytes": 9600
+        },
+        {
+          "seconds": 2.262363301590085,
+          "received_bytes": 19200
+        },
+        {
+          "seconds": 2.2623879443854094,
+          "received_bytes": 28800
+        },
+        {
+          "seconds": 2.2624118234962225,
+          "received_bytes": 38400
+        },
+        {
+          "seconds": 2.2624315842986107,
+          "received_bytes": 48000
+        },
+        {
+          "seconds": 2.2624526638537645,
+          "received_bytes": 57600
+        },
+        {
+          "seconds": 2.262474024668336,
+          "received_bytes": 65482
+        },
+        {
+          "seconds": 2.2625496238470078,
+          "received_bytes": 67200
+        },
+        {
+          "seconds": 2.2625736240297556,
+          "received_bytes": 76800
+        },
+        {
+          "seconds": 2.262596383690834,
+          "received_bytes": 86400
+        },
+        {
+          "seconds": 2.2626157850027084,
+          "received_bytes": 96000
+        },
+        {
+          "seconds": 2.262635424733162,
+          "received_bytes": 105600
+        },
+        {
+          "seconds": 2.262678625062108,
+          "received_bytes": 115200
+        },
+        {
+          "seconds": 2.2626990638673306,
+          "received_bytes": 124800
+        },
+        {
+          "seconds": 2.262723784893751,
+          "received_bytes": 131840
+        },
+        {
+          "seconds": 5.125083601102233,
+          "received_bytes": 141440
+        },
+        {
+          "seconds": 5.125173639506102,
+          "received_bytes": 151040
+        },
+        {
+          "seconds": 5.125197879970074,
+          "received_bytes": 160640
+        },
+        {
+          "seconds": 5.125220559537411,
+          "received_bytes": 170240
+        },
+        {
+          "seconds": 5.125266920775175,
+          "received_bytes": 179840
+        },
+        {
+          "seconds": 5.125287599861622,
+          "received_bytes": 189440
+        },
+        {
+          "seconds": 5.125346360728145,
+          "received_bytes": 199040
+        },
+        {
+          "seconds": 5.125365959480405,
+          "received_bytes": 208640
+        },
+        {
+          "seconds": 5.125384321436286,
+          "received_bytes": 218240
+        },
+        {
+          "seconds": 5.125404521822929,
+          "received_bytes": 227840
+        },
+        {
+          "seconds": 5.125423401594162,
+          "received_bytes": 237440
+        },
+        {
+          "seconds": 5.125442361459136,
+          "received_bytes": 247040
+        },
+        {
+          "seconds": 5.125463841482997,
+          "received_bytes": 254922
+        },
+        {
+          "seconds": 5.12550968490541,
+          "received_bytes": 256640
+        },
+        {
+          "seconds": 5.125528885051608,
+          "received_bytes": 266240
+        },
+        {
+          "seconds": 5.125547643750906,
+          "received_bytes": 275840
+        },
+        {
+          "seconds": 5.12556560523808,
+          "received_bytes": 285440
+        },
+        {
+          "seconds": 5.125585405156016,
+          "received_bytes": 295040
+        },
+        {
+          "seconds": 5.125603884458542,
+          "received_bytes": 304640
+        },
+        {
+          "seconds": 5.125622844323516,
+          "received_bytes": 314240
+        },
+        {
+          "seconds": 5.12564324401319,
+          "received_bytes": 320402
+        },
+        {
+          "seconds": 5.125674603506923,
+          "received_bytes": 323840
+        },
+        {
+          "seconds": 5.125691125169396,
+          "received_bytes": 325120
+        }
+      ],
+      "response_headers": {
+        "x-audio-sample-rate": "32000",
+        "x-audio-channels": "1",
+        "x-audio-format": "s16le",
+        "x-style-id": "fb4fd06797ea4ccb8c375c6f486bfa42",
+        "x-latency-mode": "fast",
+        "x-latency-mode-effective": "fixed_approved_model",
+        "x-first-audio-samples": "65920",
+        "x-stream-segments": "2",
+        "x-request-id": "dbd9028f3f0c41d79ec465d8c799ce58",
+        "x-time-to-first-audio-ms": "2231.648",
+        "x-accel-buffering": "no"
+      },
+      "index": 0,
+      "role": "warmup"
+    },
+    {
+      "client_first_pcm_seconds": 2.178952168673277,
+      "client_last_pcm_seconds": 5.049959214404225,
+      "client_response_complete_seconds": 5.050478417426348,
+      "audio_seconds": 5.08,
+      "pcm_bytes": 325120,
+      "sample_rate": 32000,
+      "pcm_sha256": "a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d",
+      "client_response_rtf": 0.9941886648477062,
+      "required_extra_initial_buffer_seconds": 0.8104172000288963,
+      "immediate_playback_underrun_seconds": 0.8104172000288963,
+      "arrivals": [
+        {
+          "seconds": 2.178952168673277,
+          "received_bytes": 9600
+        },
+        {
+          "seconds": 2.178983688354492,
+          "received_bytes": 19200
+        },
+        {
+          "seconds": 2.1790052484720945,
+          "received_bytes": 28800
+        },
+        {
+          "seconds": 2.1790268886834383,
+          "received_bytes": 38400
+        },
+        {
+          "seconds": 2.179045608267188,
+          "received_bytes": 48000
+        },
+        {
+          "seconds": 2.179065328091383,
+          "received_bytes": 57600
+        },
+        {
+          "seconds": 2.179086407646537,
+          "received_bytes": 65482
+        },
+        {
+          "seconds": 2.1801251359283924,
+          "received_bytes": 67200
+        },
+        {
+          "seconds": 2.180172258988023,
+          "received_bytes": 76800
+        },
+        {
+          "seconds": 2.180194579064846,
+          "received_bytes": 86400
+        },
+        {
+          "seconds": 2.180214738473296,
+          "received_bytes": 96000
+        },
+        {
+          "seconds": 2.1802355777472258,
+          "received_bytes": 105600
+        },
+        {
+          "seconds": 2.1802534982562065,
+          "received_bytes": 115200
+        },
+        {
+          "seconds": 2.1802725791931152,
+          "received_bytes": 124800
+        },
+        {
+          "seconds": 2.180293459445238,
+          "received_bytes": 130962
+        },
+        {
+          "seconds": 2.1803384199738503,
+          "received_bytes": 131840
+        },
+        {
+          "seconds": 5.049369368702173,
+          "received_bytes": 141440
+        },
+        {
+          "seconds": 5.049453850835562,
+          "received_bytes": 151040
+        },
+        {
+          "seconds": 5.04947873018682,
+          "received_bytes": 160640
+        },
+        {
+          "seconds": 5.04950089007616,
+          "received_bytes": 170240
+        },
+        {
+          "seconds": 5.049521369859576,
+          "received_bytes": 179840
+        },
+        {
+          "seconds": 5.049567731097341,
+          "received_bytes": 189440
+        },
+        {
+          "seconds": 5.049586731940508,
+          "received_bytes": 199040
+        },
+        {
+          "seconds": 5.049605172127485,
+          "received_bytes": 208640
+        },
+        {
+          "seconds": 5.049625812098384,
+          "received_bytes": 218240
+        },
+        {
+          "seconds": 5.049644252285361,
+          "received_bytes": 227840
+        },
+        {
+          "seconds": 5.04966333322227,
+          "received_bytes": 237440
+        },
+        {
+          "seconds": 5.049684371799231,
+          "received_bytes": 245322
+        },
+        {
+          "seconds": 5.049720453098416,
+          "received_bytes": 247040
+        },
+        {
+          "seconds": 5.049738012254238,
+          "received_bytes": 256640
+        },
+        {
+          "seconds": 5.0497564524412155,
+          "received_bytes": 266240
+        },
+        {
+          "seconds": 5.049808012321591,
+          "received_bytes": 275840
+        },
+        {
+          "seconds": 5.0498280916363,
+          "received_bytes": 285440
+        },
+        {
+          "seconds": 5.049846652895212,
+          "received_bytes": 295040
+        },
+        {
+          "seconds": 5.049865651875734,
+          "received_bytes": 304640
+        },
+        {
+          "seconds": 5.049886731430888,
+          "received_bytes": 310802
+        },
+        {
+          "seconds": 5.049922691658139,
+          "received_bytes": 314240
+        },
+        {
+          "seconds": 5.0499407351017,
+          "received_bytes": 323840
+        },
+        {
+          "seconds": 5.049959214404225,
+          "received_bytes": 325120
+        }
+      ],
+      "response_headers": {
+        "x-audio-sample-rate": "32000",
+        "x-audio-channels": "1",
+        "x-audio-format": "s16le",
+        "x-style-id": "fb4fd06797ea4ccb8c375c6f486bfa42",
+        "x-latency-mode": "fast",
+        "x-latency-mode-effective": "fixed_approved_model",
+        "x-first-audio-samples": "65920",
+        "x-stream-segments": "2",
+        "x-request-id": "0dc5b5cfd74741318ed26eff92efc625",
+        "x-time-to-first-audio-ms": "2176.277",
+        "x-accel-buffering": "no"
+      },
+      "index": 1,
+      "role": "warmup"
+    },
+    {
+      "client_first_pcm_seconds": 2.1919089183211327,
+      "client_last_pcm_seconds": 5.04973173700273,
+      "client_response_complete_seconds": 5.049837615340948,
+      "audio_seconds": 5.08,
+      "pcm_bytes": 325120,
+      "sample_rate": 32000,
+      "pcm_sha256": "a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d",
+      "client_response_rtf": 0.994062522704911,
+      "required_extra_initial_buffer_seconds": 0.7966071651875972,
+      "immediate_playback_underrun_seconds": 0.7966071651875972,
+      "arrivals": [
+        {
+          "seconds": 2.1919089183211327,
+          "received_bytes": 9600
+        },
+        {
+          "seconds": 2.1919413581490517,
+          "received_bytes": 19200
+        },
+        {
+          "seconds": 2.191962957382202,
+          "received_bytes": 28800
+        },
+        {
+          "seconds": 2.191986359655857,
+          "received_bytes": 38400
+        },
+        {
+          "seconds": 2.1920055598020554,
+          "received_bytes": 48000
+        },
+        {
+          "seconds": 2.1920255199074745,
+          "received_bytes": 57600
+        },
+        {
+          "seconds": 2.1920456010848284,
+          "received_bytes": 65482
+        },
+        {
+          "seconds": 2.1920897606760263,
+          "received_bytes": 67200
+        },
+        {
+          "seconds": 2.1921085193753242,
+          "received_bytes": 76800
+        },
+        {
+          "seconds": 2.192128360271454,
+          "received_bytes": 86400
+        },
+        {
+          "seconds": 2.192146521061659,
+          "received_bytes": 96000
+        },
+        {
+          "seconds": 2.192165520042181,
+          "received_bytes": 105600
+        },
+        {
+          "seconds": 2.1921833604574203,
+          "received_bytes": 115200
+        },
+        {
+          "seconds": 2.1922021601349115,
+          "received_bytes": 124800
+        },
+        {
+          "seconds": 2.192223319783807,
+          "received_bytes": 130962
+        },
+        {
+          "seconds": 2.1922533605247736,
+          "received_bytes": 131840
+        },
+        {
+          "seconds": 5.04851608350873,
+          "received_bytes": 141440
+        },
+        {
+          "seconds": 5.04858872666955,
+          "received_bytes": 151040
+        },
+        {
+          "seconds": 5.048611165955663,
+          "received_bytes": 160640
+        },
+        {
+          "seconds": 5.048633126541972,
+          "received_bytes": 170240
+        },
+        {
+          "seconds": 5.049197692424059,
+          "received_bytes": 179840
+        },
+        {
+          "seconds": 5.0492406114935875,
+          "received_bytes": 189440
+        },
+        {
+          "seconds": 5.049319291487336,
+          "received_bytes": 199040
+        },
+        {
+          "seconds": 5.049340331926942,
+          "received_bytes": 208640
+        },
+        {
+          "seconds": 5.049359492957592,
+          "received_bytes": 218240
+        },
+        {
+          "seconds": 5.049379892647266,
+          "received_bytes": 227840
+        },
+        {
+          "seconds": 5.049397692084312,
+          "received_bytes": 237440
+        },
+        {
+          "seconds": 5.049417411908507,
+          "received_bytes": 247040
+        },
+        {
+          "seconds": 5.049441052600741,
+          "received_bytes": 254922
+        },
+        {
+          "seconds": 5.0495168548077345,
+          "received_bytes": 256640
+        },
+        {
+          "seconds": 5.049547214061022,
+          "received_bytes": 266240
+        },
+        {
+          "seconds": 5.0495662949979305,
+          "received_bytes": 275840
+        },
+        {
+          "seconds": 5.049584414809942,
+          "received_bytes": 285440
+        },
+        {
+          "seconds": 5.049604134634137,
+          "received_bytes": 295040
+        },
+        {
+          "seconds": 5.049621934071183,
+          "received_bytes": 304640
+        },
+        {
+          "seconds": 5.049640655517578,
+          "received_bytes": 314240
+        },
+        {
+          "seconds": 5.049661895260215,
+          "received_bytes": 320402
+        },
+        {
+          "seconds": 5.0497134160250425,
+          "received_bytes": 323840
+        },
+        {
+          "seconds": 5.04973173700273,
+          "received_bytes": 325120
+        }
+      ],
+      "response_headers": {
+        "x-audio-sample-rate": "32000",
+        "x-audio-channels": "1",
+        "x-audio-format": "s16le",
+        "x-style-id": "fb4fd06797ea4ccb8c375c6f486bfa42",
+        "x-latency-mode": "fast",
+        "x-latency-mode-effective": "fixed_approved_model",
+        "x-first-audio-samples": "65920",
+        "x-stream-segments": "2",
+        "x-request-id": "ad0c3b9906c0419dbb8d5212ea9fb01d",
+        "x-time-to-first-audio-ms": "2188.741",
+        "x-accel-buffering": "no"
+      },
+      "index": 2,
+      "role": "warmup"
+    },
+    {
+      "client_first_pcm_seconds": 2.155818337574601,
+      "client_last_pcm_seconds": 5.015178726986051,
+      "client_response_complete_seconds": 5.01594065502286,
+      "audio_seconds": 5.08,
+      "pcm_bytes": 325120,
+      "sample_rate": 32000,
+      "pcm_sha256": "a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d",
+      "client_response_rtf": 0.9873898927210354,
+      "required_extra_initial_buffer_seconds": 0.798784545212984,
+      "immediate_playback_underrun_seconds": 0.798784545212984,
+      "arrivals": [
+        {
+          "seconds": 2.155818337574601,
+          "received_bytes": 9600
+        },
+        {
+          "seconds": 2.1558518987149,
+          "received_bytes": 19200
+        },
+        {
+          "seconds": 2.155874179676175,
+          "received_bytes": 28800
+        },
+        {
+          "seconds": 2.1558959390968084,
+          "received_bytes": 38400
+        },
+        {
+          "seconds": 2.1559154596179724,
+          "received_bytes": 48000
+        },
+        {
+          "seconds": 2.1559360194951296,
+          "received_bytes": 57600
+        },
+        {
+          "seconds": 2.1559563390910625,
+          "received_bytes": 65482
+        },
+        {
+          "seconds": 2.1560001000761986,
+          "received_bytes": 67200
+        },
+        {
+          "seconds": 2.1560184992849827,
+          "received_bytes": 76800
+        },
+        {
+          "seconds": 2.1560374591499567,
+          "received_bytes": 86400
+        },
+        {
+          "seconds": 2.1560556199401617,
+          "received_bytes": 96000
+        },
+        {
+          "seconds": 2.156074859201908,
+          "received_bytes": 105600
+        },
+        {
+          "seconds": 2.1560929398983717,
+          "received_bytes": 115200
+        },
+        {
+          "seconds": 2.156111778691411,
+          "received_bytes": 124800
+        },
+        {
+          "seconds": 2.156132699921727,
+          "received_bytes": 130962
+        },
+        {
+          "seconds": 2.156163739040494,
+          "received_bytes": 131840
+        },
+        {
+          "seconds": 5.014602882787585,
+          "received_bytes": 141440
+        },
+        {
+          "seconds": 5.014690363779664,
+          "received_bytes": 151040
+        },
+        {
+          "seconds": 5.014715004712343,
+          "received_bytes": 160640
+        },
+        {
+          "seconds": 5.014734925702214,
+          "received_bytes": 170240
+        },
+        {
+          "seconds": 5.014781365171075,
+          "received_bytes": 179840
+        },
+        {
+          "seconds": 5.014800485223532,
+          "received_bytes": 189440
+        },
+        {
+          "seconds": 5.014819085597992,
+          "received_bytes": 199040
+        },
+        {
+          "seconds": 5.014839727431536,
+          "received_bytes": 208640
+        },
+        {
+          "seconds": 5.014858728274703,
+          "received_bytes": 218240
+        },
+        {
+          "seconds": 5.014877567067742,
+          "received_bytes": 227840
+        },
+        {
+          "seconds": 5.01491516828537,
+          "received_bytes": 237440
+        },
+        {
+          "seconds": 5.014934007078409,
+          "received_bytes": 247040
+        },
+        {
+          "seconds": 5.014954127371311,
+          "received_bytes": 256640
+        },
+        {
+          "seconds": 5.014973247423768,
+          "received_bytes": 266240
+        },
+        {
+          "seconds": 5.0150208082050085,
+          "received_bytes": 275840
+        },
+        {
+          "seconds": 5.015040447935462,
+          "received_bytes": 285440
+        },
+        {
+          "seconds": 5.015060568228364,
+          "received_bytes": 295040
+        },
+        {
+          "seconds": 5.015089888125658,
+          "received_bytes": 304640
+        },
+        {
+          "seconds": 5.015109008178115,
+          "received_bytes": 314240
+        },
+        {
+          "seconds": 5.015158288180828,
+          "received_bytes": 323840
+        },
+        {
+          "seconds": 5.015178726986051,
+          "received_bytes": 325120
+        }
+      ],
+      "response_headers": {
+        "x-audio-sample-rate": "32000",
+        "x-audio-channels": "1",
+        "x-audio-format": "s16le",
+        "x-style-id": "fb4fd06797ea4ccb8c375c6f486bfa42",
+        "x-latency-mode": "fast",
+        "x-latency-mode-effective": "fixed_approved_model",
+        "x-first-audio-samples": "65920",
+        "x-stream-segments": "2",
+        "x-request-id": "60b558c1f1a5473d9c925fbdcd4c6135",
+        "x-time-to-first-audio-ms": "2153.054",
+        "x-accel-buffering": "no"
+      },
+      "index": 3,
+      "role": "sample"
+    },
+    {
+      "client_first_pcm_seconds": 2.178902890533209,
+      "client_last_pcm_seconds": 5.028421521186829,
+      "client_response_complete_seconds": 5.029029363766313,
+      "audio_seconds": 5.08,
+      "pcm_bytes": 325120,
+      "sample_rate": 32000,
+      "pcm_sha256": "a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d",
+      "client_response_rtf": 0.989966410190219,
+      "required_extra_initial_buffer_seconds": 0.7889387854933738,
+      "immediate_playback_underrun_seconds": 0.7889387854933738,
+      "arrivals": [
+        {
+          "seconds": 2.178902890533209,
+          "received_bytes": 9600
+        },
+        {
+          "seconds": 2.1789358910173178,
+          "received_bytes": 19200
+        },
+        {
+          "seconds": 2.178958212956786,
+          "received_bytes": 28800
+        },
+        {
+          "seconds": 2.1789829321205616,
+          "received_bytes": 38400
+        },
+        {
+          "seconds": 2.1790024917572737,
+          "received_bytes": 48000
+        },
+        {
+          "seconds": 2.179022653028369,
+          "received_bytes": 57600
+        },
+        {
+          "seconds": 2.179042212665081,
+          "received_bytes": 65482
+        },
+        {
+          "seconds": 2.1791249718517065,
+          "received_bytes": 67200
+        },
+        {
+          "seconds": 2.1791532915085554,
+          "received_bytes": 76800
+        },
+        {
+          "seconds": 2.1791738532483578,
+          "received_bytes": 86400
+        },
+        {
+          "seconds": 2.1791925728321075,
+          "received_bytes": 96000
+        },
+        {
+          "seconds": 2.179211972281337,
+          "received_bytes": 105600
+        },
+        {
+          "seconds": 2.1792302522808313,
+          "received_bytes": 115200
+        },
+        {
+          "seconds": 2.179249132052064,
+          "received_bytes": 124800
+        },
+        {
+          "seconds": 2.1792703326791525,
+          "received_bytes": 130962
+        },
+        {
+          "seconds": 2.1793060526251793,
+          "received_bytes": 131840
+        },
+        {
+          "seconds": 5.027841676026583,
+          "received_bytes": 141440
+        },
+        {
+          "seconds": 5.027910675853491,
+          "received_bytes": 151040
+        },
+        {
+          "seconds": 5.027933515608311,
+          "received_bytes": 160640
+        },
+        {
+          "seconds": 5.027956515550613,
+          "received_bytes": 170240
+        },
+        {
+          "seconds": 5.027975955978036,
+          "received_bytes": 179840
+        },
+        {
+          "seconds": 5.02799603715539,
+          "received_bytes": 189440
+        },
+        {
+          "seconds": 5.028038077056408,
+          "received_bytes": 199040
+        },
+        {
+          "seconds": 5.028057197108865,
+          "received_bytes": 208640
+        },
+        {
+          "seconds": 5.028077116236091,
+          "received_bytes": 218240
+        },
+        {
+          "seconds": 5.028118075802922,
+          "received_bytes": 227840
+        },
+        {
+          "seconds": 5.028138117864728,
+          "received_bytes": 237440
+        },
+        {
+          "seconds": 5.028182078152895,
+          "received_bytes": 247040
+        },
+        {
+          "seconds": 5.028202079236507,
+          "received_bytes": 256640
+        },
+        {
+          "seconds": 5.028220359236002,
+          "received_bytes": 266240
+        },
+        {
+          "seconds": 5.028269920498133,
+          "received_bytes": 275840
+        },
+        {
+          "seconds": 5.028290079906583,
+          "received_bytes": 285440
+        },
+        {
+          "seconds": 5.028308439999819,
+          "received_bytes": 295040
+        },
+        {
+          "seconds": 5.0283498000353575,
+          "received_bytes": 304640
+        },
+        {
+          "seconds": 5.0283718798309565,
+          "received_bytes": 314240
+        },
+        {
+          "seconds": 5.028390800580382,
+          "received_bytes": 323840
+        },
+        {
+          "seconds": 5.028421521186829,
+          "received_bytes": 325120
+        }
+      ],
+      "response_headers": {
+        "x-audio-sample-rate": "32000",
+        "x-audio-channels": "1",
+        "x-audio-format": "s16le",
+        "x-style-id": "fb4fd06797ea4ccb8c375c6f486bfa42",
+        "x-latency-mode": "fast",
+        "x-latency-mode-effective": "fixed_approved_model",
+        "x-first-audio-samples": "65920",
+        "x-stream-segments": "2",
+        "x-request-id": "8b221d1e5ca548d293f8fce2453c6b8a",
+        "x-time-to-first-audio-ms": "2175.620",
+        "x-accel-buffering": "no"
+      },
+      "index": 4,
+      "role": "sample"
+    },
+    {
+      "client_first_pcm_seconds": 2.1307311300188303,
+      "client_last_pcm_seconds": 5.003895677626133,
+      "client_response_complete_seconds": 5.004627523943782,
+      "audio_seconds": 5.08,
+      "pcm_bytes": 325120,
+      "sample_rate": 32000,
+      "pcm_sha256": "a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d",
+      "client_response_rtf": 0.9851628984141303,
+      "required_extra_initial_buffer_seconds": 0.8124785018712282,
+      "immediate_playback_underrun_seconds": 0.8124785018712282,
+      "arrivals": [
+        {
+          "seconds": 2.1307311300188303,
+          "received_bytes": 9600
+        },
+        {
+          "seconds": 2.1307631321251392,
+          "received_bytes": 19200
+        },
+        {
+          "seconds": 2.1307874117046595,
+          "received_bytes": 28800
+        },
+        {
+          "seconds": 2.130807012319565,
+          "received_bytes": 38400
+        },
+        {
+          "seconds": 2.130827331915498,
+          "received_bytes": 48000
+        },
+        {
+          "seconds": 2.130845971405506,
+          "received_bytes": 57600
+        },
+        {
+          "seconds": 2.130942450836301,
+          "received_bytes": 67200
+        },
+        {
+          "seconds": 2.130962772294879,
+          "received_bytes": 76800
+        },
+        {
+          "seconds": 2.130980972200632,
+          "received_bytes": 86400
+        },
+        {
+          "seconds": 2.1310050524771214,
+          "received_bytes": 96000
+        },
+        {
+          "seconds": 2.131023932248354,
+          "received_bytes": 105600
+        },
+        {
+          "seconds": 2.1310428511351347,
+          "received_bytes": 115200
+        },
+        {
+          "seconds": 2.131062651053071,
+          "received_bytes": 123082
+        },
+        {
+          "seconds": 2.1310985311865807,
+          "received_bytes": 124800
+        },
+        {
+          "seconds": 2.131118493154645,
+          "received_bytes": 131840
+        },
+        {
+          "seconds": 5.0032096318900585,
+          "received_bytes": 141440
+        },
+        {
+          "seconds": 5.003327190876007,
+          "received_bytes": 151040
+        },
+        {
+          "seconds": 5.003354951739311,
+          "received_bytes": 160640
+        },
+        {
+          "seconds": 5.003375710919499,
+          "received_bytes": 170240
+        },
+        {
+          "seconds": 5.003427794203162,
+          "received_bytes": 179840
+        },
+        {
+          "seconds": 5.003449073061347,
+          "received_bytes": 189440
+        },
+        {
+          "seconds": 5.003476474434137,
+          "received_bytes": 199040
+        },
+        {
+          "seconds": 5.00353023596108,
+          "received_bytes": 208640
+        },
+        {
+          "seconds": 5.003549516201019,
+          "received_bytes": 218240
+        },
+        {
+          "seconds": 5.003569755703211,
+          "received_bytes": 227840
+        },
+        {
+          "seconds": 5.003588195890188,
+          "received_bytes": 237440
+        },
+        {
+          "seconds": 5.003607235848904,
+          "received_bytes": 247040
+        },
+        {
+          "seconds": 5.003658035770059,
+          "received_bytes": 256640
+        },
+        {
+          "seconds": 5.003676876425743,
+          "received_bytes": 266240
+        },
+        {
+          "seconds": 5.003694595769048,
+          "received_bytes": 275840
+        },
+        {
+          "seconds": 5.003716794773936,
+          "received_bytes": 285440
+        },
+        {
+          "seconds": 5.003735035657883,
+          "received_bytes": 295040
+        },
+        {
+          "seconds": 5.003754194825888,
+          "received_bytes": 304640
+        },
+        {
+          "seconds": 5.003805035725236,
+          "received_bytes": 312522
+        },
+        {
+          "seconds": 5.003856195136905,
+          "received_bytes": 314240
+        },
+        {
+          "seconds": 5.003876358270645,
+          "received_bytes": 323840
+        },
+        {
+          "seconds": 5.003895677626133,
+          "received_bytes": 325120
+        }
+      ],
+      "response_headers": {
+        "x-audio-sample-rate": "32000",
+        "x-audio-channels": "1",
+        "x-audio-format": "s16le",
+        "x-style-id": "fb4fd06797ea4ccb8c375c6f486bfa42",
+        "x-latency-mode": "fast",
+        "x-latency-mode-effective": "fixed_approved_model",
+        "x-first-audio-samples": "65920",
+        "x-stream-segments": "2",
+        "x-request-id": "1786e1a1aba8420fba1a15b41ca66ebe",
+        "x-time-to-first-audio-ms": "2127.338",
+        "x-accel-buffering": "no"
+      },
+      "index": 5,
+      "role": "sample"
+    },
+    {
+      "client_first_pcm_seconds": 2.1243035160005093,
+      "client_last_pcm_seconds": 4.9904675632715225,
+      "client_response_complete_seconds": 4.991227490827441,
+      "audio_seconds": 5.08,
+      "pcm_bytes": 325120,
+      "sample_rate": 32000,
+      "pcm_sha256": "a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d",
+      "client_response_rtf": 0.982525096619575,
+      "required_extra_initial_buffer_seconds": 0.8055041232705116,
+      "immediate_playback_underrun_seconds": 0.8055041232705116,
+      "arrivals": [
+        {
+          "seconds": 2.1243035160005093,
+          "received_bytes": 9600
+        },
+        {
+          "seconds": 2.1243348754942417,
+          "received_bytes": 19200
+        },
+        {
+          "seconds": 2.1243566758930683,
+          "received_bytes": 28800
+        },
+        {
+          "seconds": 2.124378874897957,
+          "received_bytes": 38400
+        },
+        {
+          "seconds": 2.1243977546691895,
+          "received_bytes": 48000
+        },
+        {
+          "seconds": 2.1244174744933844,
+          "received_bytes": 57600
+        },
+        {
+          "seconds": 2.124437354505062,
+          "received_bytes": 65482
+        },
+        {
+          "seconds": 2.1244772356003523,
+          "received_bytes": 67200
+        },
+        {
+          "seconds": 2.1244960352778435,
+          "received_bytes": 76800
+        },
+        {
+          "seconds": 2.1245147958397865,
+          "received_bytes": 86400
+        },
+        {
+          "seconds": 2.1245529148727655,
+          "received_bytes": 96000
+        },
+        {
+          "seconds": 2.1245728377252817,
+          "received_bytes": 105600
+        },
+        {
+          "seconds": 2.124591076746583,
+          "received_bytes": 115200
+        },
+        {
+          "seconds": 2.124609597027302,
+          "received_bytes": 124800
+        },
+        {
+          "seconds": 2.124630317091942,
+          "received_bytes": 130962
+        },
+        {
+          "seconds": 2.12465931661427,
+          "received_bytes": 131840
+        },
+        {
+          "seconds": 4.989807639271021,
+          "received_bytes": 141440
+        },
+        {
+          "seconds": 4.989894879981875,
+          "received_bytes": 151040
+        },
+        {
+          "seconds": 4.98991827853024,
+          "received_bytes": 160640
+        },
+        {
+          "seconds": 4.989940159022808,
+          "received_bytes": 170240
+        },
+        {
+          "seconds": 4.989960478618741,
+          "received_bytes": 179840
+        },
+        {
+          "seconds": 4.990075841546059,
+          "received_bytes": 189440
+        },
+        {
+          "seconds": 4.990105280652642,
+          "received_bytes": 199040
+        },
+        {
+          "seconds": 4.9901256412267685,
+          "received_bytes": 208640
+        },
+        {
+          "seconds": 4.990146562457085,
+          "received_bytes": 218240
+        },
+        {
+          "seconds": 4.990164963528514,
+          "received_bytes": 227840
+        },
+        {
+          "seconds": 4.990183962509036,
+          "received_bytes": 237440
+        },
+        {
+          "seconds": 4.990204602479935,
+          "received_bytes": 245322
+        },
+        {
+          "seconds": 4.9902600441128016,
+          "received_bytes": 247040
+        },
+        {
+          "seconds": 4.99028012342751,
+          "received_bytes": 256640
+        },
+        {
+          "seconds": 4.990299683064222,
+          "received_bytes": 266240
+        },
+        {
+          "seconds": 4.990317523479462,
+          "received_bytes": 275840
+        },
+        {
+          "seconds": 4.990336403250694,
+          "received_bytes": 285440
+        },
+        {
+          "seconds": 4.990354722365737,
+          "received_bytes": 295040
+        },
+        {
+          "seconds": 4.990374123677611,
+          "received_bytes": 304640
+        },
+        {
+          "seconds": 4.9903948828577995,
+          "received_bytes": 310802
+        },
+        {
+          "seconds": 4.990431202575564,
+          "received_bytes": 314240
+        },
+        {
+          "seconds": 4.990449164062738,
+          "received_bytes": 323840
+        },
+        {
+          "seconds": 4.9904675632715225,
+          "received_bytes": 325120
+        }
+      ],
+      "response_headers": {
+        "x-audio-sample-rate": "32000",
+        "x-audio-channels": "1",
+        "x-audio-format": "s16le",
+        "x-style-id": "fb4fd06797ea4ccb8c375c6f486bfa42",
+        "x-latency-mode": "fast",
+        "x-latency-mode-effective": "fixed_approved_model",
+        "x-first-audio-samples": "65920",
+        "x-stream-segments": "2",
+        "x-request-id": "3325f85a72ac465aaf3add90d302f2d9",
+        "x-time-to-first-audio-ms": "2121.649",
+        "x-accel-buffering": "no"
+      },
+      "index": 6,
+      "role": "sample"
+    },
+    {
+      "client_first_pcm_seconds": 2.1914258766919374,
+      "client_last_pcm_seconds": 5.216578932479024,
+      "client_response_complete_seconds": 5.2170719765126705,
+      "audio_seconds": 5.08,
+      "pcm_bytes": 325120,
+      "sample_rate": 32000,
+      "pcm_sha256": "a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d",
+      "client_response_rtf": 1.0269826725418643,
+      "required_extra_initial_buffer_seconds": 0.9645500095188617,
+      "immediate_playback_underrun_seconds": 0.9645500095188617,
+      "arrivals": [
+        {
+          "seconds": 2.1914258766919374,
+          "received_bytes": 9600
+        },
+        {
+          "seconds": 2.1914899963885546,
+          "received_bytes": 19200
+        },
+        {
+          "seconds": 2.1915129590779543,
+          "received_bytes": 28800
+        },
+        {
+          "seconds": 2.1915375981479883,
+          "received_bytes": 38400
+        },
+        {
+          "seconds": 2.191556718200445,
+          "received_bytes": 48000
+        },
+        {
+          "seconds": 2.191576199606061,
+          "received_bytes": 57600
+        },
+        {
+          "seconds": 2.19159771874547,
+          "received_bytes": 65482
+        },
+        {
+          "seconds": 2.191645000129938,
+          "received_bytes": 67200
+        },
+        {
+          "seconds": 2.191664520651102,
+          "received_bytes": 76800
+        },
+        {
+          "seconds": 2.1916835606098175,
+          "received_bytes": 86400
+        },
+        {
+          "seconds": 2.1917015612125397,
+          "received_bytes": 96000
+        },
+        {
+          "seconds": 2.1917204800993204,
+          "received_bytes": 105600
+        },
+        {
+          "seconds": 2.1917383205145597,
+          "received_bytes": 115200
+        },
+        {
+          "seconds": 2.191756721585989,
+          "received_bytes": 124800
+        },
+        {
+          "seconds": 2.191787840798497,
+          "received_bytes": 130962
+        },
+        {
+          "seconds": 2.1918181609362364,
+          "received_bytes": 131840
+        },
+        {
+          "seconds": 5.215975886210799,
+          "received_bytes": 141440
+        },
+        {
+          "seconds": 5.216047767549753,
+          "received_bytes": 151040
+        },
+        {
+          "seconds": 5.216069687157869,
+          "received_bytes": 160640
+        },
+        {
+          "seconds": 5.216091848909855,
+          "received_bytes": 170240
+        },
+        {
+          "seconds": 5.21611088886857,
+          "received_bytes": 179840
+        },
+        {
+          "seconds": 5.216130128130317,
+          "received_bytes": 189440
+        },
+        {
+          "seconds": 5.2161724884063005,
+          "received_bytes": 199040
+        },
+        {
+          "seconds": 5.216191088780761,
+          "received_bytes": 208640
+        },
+        {
+          "seconds": 5.216209089383483,
+          "received_bytes": 218240
+        },
+        {
+          "seconds": 5.21623264811933,
+          "received_bytes": 227840
+        },
+        {
+          "seconds": 5.216252248734236,
+          "received_bytes": 237440
+        },
+        {
+          "seconds": 5.216270249336958,
+          "received_bytes": 247040
+        },
+        {
+          "seconds": 5.2163258492946625,
+          "received_bytes": 256640
+        },
+        {
+          "seconds": 5.216389808803797,
+          "received_bytes": 266240
+        },
+        {
+          "seconds": 5.216410567983985,
+          "received_bytes": 275840
+        },
+        {
+          "seconds": 5.216433368623257,
+          "received_bytes": 285440
+        },
+        {
+          "seconds": 5.216451531276107,
+          "received_bytes": 295040
+        },
+        {
+          "seconds": 5.216470651328564,
+          "received_bytes": 304640
+        },
+        {
+          "seconds": 5.216490691527724,
+          "received_bytes": 312522
+        },
+        {
+          "seconds": 5.216541411355138,
+          "received_bytes": 314240
+        },
+        {
+          "seconds": 5.216560412198305,
+          "received_bytes": 323840
+        },
+        {
+          "seconds": 5.216578932479024,
+          "received_bytes": 325120
+        }
+      ],
+      "response_headers": {
+        "x-audio-sample-rate": "32000",
+        "x-audio-channels": "1",
+        "x-audio-format": "s16le",
+        "x-style-id": "fb4fd06797ea4ccb8c375c6f486bfa42",
+        "x-latency-mode": "fast",
+        "x-latency-mode-effective": "fixed_approved_model",
+        "x-first-audio-samples": "65920",
+        "x-stream-segments": "2",
+        "x-request-id": "9ac8d5ddd15646ddb967a739df25d268",
+        "x-time-to-first-audio-ms": "2188.645",
+        "x-accel-buffering": "no"
+      },
+      "index": 7,
+      "role": "sample"
+    }
+  ],
+  "audio_saved": false,
+  "public_host_port_opened": false,
+  "startup_health": {
+    "ready": true,
+    "busy": false,
+    "styles": 0,
+    "cache_bytes": 0,
+    "preloaded_from_disk": 0,
+    "rebuilt_on_startup": 0,
+    "steps": null,
+    "cfg": null,
+    "acoustic_threads": 2,
+    "ar_threads": 2,
+    "streaming": "sentence_fragments",
+    "default_latency_mode": "fast",
+    "cfm_backend": null,
+    "native_gelu": false,
+    "cached_rotary": false,
+    "arm_extreme": false,
+    "arm_profile": null,
+    "upstream_revision": null,
+    "model_variant": "AR17_QAT200_C24_TWO_BRANCH_VTARGET100",
+    "model_manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+    "native_sample_rate": 32000,
+    "output_sample_rate": 32000,
+    "latency_mode_effect": "fixed_approved_model"
+  },
+  "delete_status": 204,
+  "final_health": {
+    "ready": true,
+    "busy": false,
+    "styles": 0,
+    "cache_bytes": 0,
+    "preloaded_from_disk": 0,
+    "rebuilt_on_startup": 0,
+    "steps": null,
+    "cfg": null,
+    "acoustic_threads": 2,
+    "ar_threads": 2,
+    "streaming": "sentence_fragments",
+    "default_latency_mode": "fast",
+    "cfm_backend": null,
+    "native_gelu": false,
+    "cached_rotary": false,
+    "arm_extreme": false,
+    "arm_profile": null,
+    "upstream_revision": null,
+    "model_variant": "AR17_QAT200_C24_TWO_BRANCH_VTARGET100",
+    "model_manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+    "native_sample_rate": 32000,
+    "output_sample_rate": 32000,
+    "latency_mode_effect": "fixed_approved_model"
+  },
+  "complete": true,
+  "server_stopped": true,
+  "server_exit_code": -15,
+  "server_log_sha256": "fc147083d201bf017e41f882c33512fae834e3fc847c08eabfccc554b0154fbf",
+  "server_graceful_shutdown": true,
+  "server_segment_reports": [
+    {
+      "request_id": "dbd9028f3f0c41d79ec465d8c799ce58",
+      "style_id": "fb4fd06797ea4ccb8c375c6f486bfa42",
+      "first_audio_seconds": 2.2316484469920397,
+      "latency_mode": "fast",
+      "first_segment_timing": {
+        "sample_rate": 32000,
+        "native_sample_rate": 32000,
+        "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+        "native_samples": 65920,
+        "wire_samples": 65920,
+        "audio_seconds": 2.06,
+        "native_inference_seconds": 2.2263488825410604,
+        "total_seconds": 2.231250563636422,
+        "rtf": 1.0831313415710786,
+        "semantic": [
+          {
+            "tokens": 44,
+            "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+          }
+        ],
+        "semantic_tokens": 44,
+        "ar_seconds": 1.0195124838501215,
+        "seed": 42,
+        "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+        "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+        "actual_ar_blocks": 17,
+        "actual_decoder_residual_blocks": 11,
+        "model_parameter_versions_unchanged": true,
+        "native_files_sha256": {
+          "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+          "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+          "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+          "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+        },
+        "reference_preprocessing_on_request": false,
+        "approved_request_pcm_match": null,
+        "streaming": "sentence_fragments",
+        "cfm": false,
+        "latency_profile": "fixed_approved_C24",
+        "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+      },
+      "segment_timings": [
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 65920,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 2.2263488825410604,
+          "total_seconds": 2.231250563636422,
+          "rtf": 1.0831313415710786,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 1.0195124838501215,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+        },
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 96640,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 2.85703144967556,
+          "total_seconds": 2.862431935966015,
+          "rtf": 0.9478251443596075,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 1.1385422330349684,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+        }
+      ],
+      "completed_segments": 2,
+      "total_seconds": 5.123378744348884
+    },
+    {
+      "request_id": "0dc5b5cfd74741318ed26eff92efc625",
+      "style_id": "fb4fd06797ea4ccb8c375c6f486bfa42",
+      "first_audio_seconds": 2.1762772239744663,
+      "latency_mode": "fast",
+      "first_segment_timing": {
+        "sample_rate": 32000,
+        "native_sample_rate": 32000,
+        "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+        "native_samples": 65920,
+        "wire_samples": 65920,
+        "audio_seconds": 2.06,
+        "native_inference_seconds": 2.171134503558278,
+        "total_seconds": 2.175917783752084,
+        "rtf": 1.056270768811691,
+        "semantic": [
+          {
+            "tokens": 44,
+            "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+          }
+        ],
+        "semantic_tokens": 44,
+        "ar_seconds": 1.003405388444662,
+        "seed": 42,
+        "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+        "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+        "actual_ar_blocks": 17,
+        "actual_decoder_residual_blocks": 11,
+        "model_parameter_versions_unchanged": true,
+        "native_files_sha256": {
+          "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+          "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+          "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+          "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+        },
+        "reference_preprocessing_on_request": false,
+        "approved_request_pcm_match": null,
+        "streaming": "sentence_fragments",
+        "cfm": false,
+        "latency_profile": "fixed_approved_C24",
+        "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+      },
+      "segment_timings": [
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 65920,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 2.171134503558278,
+          "total_seconds": 2.175917783752084,
+          "rtf": 1.056270768811691,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 1.003405388444662,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+        },
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 96640,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 2.865036714822054,
+          "total_seconds": 2.870069356635213,
+          "rtf": 0.9503540916010639,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 1.1423096638172865,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+        }
+      ],
+      "completed_segments": 2,
+      "total_seconds": 5.048589281737804
+    },
+    {
+      "request_id": "ad0c3b9906c0419dbb8d5212ea9fb01d",
+      "style_id": "fb4fd06797ea4ccb8c375c6f486bfa42",
+      "first_audio_seconds": 2.188740771263838,
+      "latency_mode": "fast",
+      "first_segment_timing": {
+        "sample_rate": 32000,
+        "native_sample_rate": 32000,
+        "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+        "native_samples": 65920,
+        "wire_samples": 65920,
+        "audio_seconds": 2.06,
+        "native_inference_seconds": 2.1837367676198483,
+        "total_seconds": 2.1884265672415495,
+        "rtf": 1.0623429938065774,
+        "semantic": [
+          {
+            "tokens": 44,
+            "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+          }
+        ],
+        "semantic_tokens": 44,
+        "ar_seconds": 1.0103748869150877,
+        "seed": 42,
+        "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+        "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+        "actual_ar_blocks": 17,
+        "actual_decoder_residual_blocks": 11,
+        "model_parameter_versions_unchanged": true,
+        "native_files_sha256": {
+          "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+          "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+          "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+          "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+        },
+        "reference_preprocessing_on_request": false,
+        "approved_request_pcm_match": null,
+        "streaming": "sentence_fragments",
+        "cfm": false,
+        "latency_profile": "fixed_approved_C24",
+        "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+      },
+      "segment_timings": [
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 65920,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 2.1837367676198483,
+          "total_seconds": 2.1884265672415495,
+          "rtf": 1.0623429938065774,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 1.0103748869150877,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+        },
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 96640,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 2.8507938385009766,
+          "total_seconds": 2.856254443526268,
+          "rtf": 0.9457796170616781,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 1.150029368698597,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+        }
+      ],
+      "completed_segments": 2,
+      "total_seconds": 5.04720975458622
+    },
+    {
+      "request_id": "60b558c1f1a5473d9c925fbdcd4c6135",
+      "style_id": "fb4fd06797ea4ccb8c375c6f486bfa42",
+      "first_audio_seconds": 2.153054354712367,
+      "latency_mode": "fast",
+      "first_segment_timing": {
+        "sample_rate": 32000,
+        "native_sample_rate": 32000,
+        "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+        "native_samples": 65920,
+        "wire_samples": 65920,
+        "audio_seconds": 2.06,
+        "native_inference_seconds": 2.147606348618865,
+        "total_seconds": 2.152599509805441,
+        "rtf": 1.0449512183521557,
+        "semantic": [
+          {
+            "tokens": 44,
+            "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+          }
+        ],
+        "semantic_tokens": 44,
+        "ar_seconds": 0.8616448491811752,
+        "seed": 42,
+        "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+        "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+        "actual_ar_blocks": 17,
+        "actual_decoder_residual_blocks": 11,
+        "model_parameter_versions_unchanged": true,
+        "native_files_sha256": {
+          "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+          "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+          "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+          "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+        },
+        "reference_preprocessing_on_request": false,
+        "approved_request_pcm_match": null,
+        "streaming": "sentence_fragments",
+        "cfm": false,
+        "latency_profile": "fixed_approved_C24",
+        "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+      },
+      "segment_timings": [
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 65920,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 2.147606348618865,
+          "total_seconds": 2.152599509805441,
+          "rtf": 1.0449512183521557,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 0.8616448491811752,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+        },
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 96640,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 2.851970449090004,
+          "total_seconds": 2.8584837839007378,
+          "rtf": 0.9465178092386549,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 1.1350124832242727,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+        }
+      ],
+      "completed_segments": 2,
+      "total_seconds": 5.013978717848659
+    },
+    {
+      "request_id": "8b221d1e5ca548d293f8fce2453c6b8a",
+      "style_id": "fb4fd06797ea4ccb8c375c6f486bfa42",
+      "first_audio_seconds": 2.1756203044205904,
+      "latency_mode": "fast",
+      "first_segment_timing": {
+        "sample_rate": 32000,
+        "native_sample_rate": 32000,
+        "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+        "native_samples": 65920,
+        "wire_samples": 65920,
+        "audio_seconds": 2.06,
+        "native_inference_seconds": 2.169706493616104,
+        "total_seconds": 2.1751290559768677,
+        "rtf": 1.0558878912509067,
+        "semantic": [
+          {
+            "tokens": 44,
+            "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+          }
+        ],
+        "semantic_tokens": 44,
+        "ar_seconds": 0.8662648089230061,
+        "seed": 42,
+        "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+        "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+        "actual_ar_blocks": 17,
+        "actual_decoder_residual_blocks": 11,
+        "model_parameter_versions_unchanged": true,
+        "native_files_sha256": {
+          "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+          "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+          "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+          "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+        },
+        "reference_preprocessing_on_request": false,
+        "approved_request_pcm_match": null,
+        "streaming": "sentence_fragments",
+        "cfm": false,
+        "latency_profile": "fixed_approved_C24",
+        "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+      },
+      "segment_timings": [
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 65920,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 2.169706493616104,
+          "total_seconds": 2.1751290559768677,
+          "rtf": 1.0558878912509067,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 0.8662648089230061,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+        },
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 96640,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 2.8418722860515118,
+          "total_seconds": 2.8486555851995945,
+          "rtf": 0.9432634388078127,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 1.138065030798316,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+        }
+      ],
+      "completed_segments": 2,
+      "total_seconds": 5.0265865456312895
+    },
+    {
+      "request_id": "1786e1a1aba8420fba1a15b41ca66ebe",
+      "style_id": "fb4fd06797ea4ccb8c375c6f486bfa42",
+      "first_audio_seconds": 2.1273375023156404,
+      "latency_mode": "fast",
+      "first_segment_timing": {
+        "sample_rate": 32000,
+        "native_sample_rate": 32000,
+        "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+        "native_samples": 65920,
+        "wire_samples": 65920,
+        "audio_seconds": 2.06,
+        "native_inference_seconds": 2.1220540553331375,
+        "total_seconds": 2.1269495356827974,
+        "rtf": 1.0324997746032998,
+        "semantic": [
+          {
+            "tokens": 44,
+            "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+          }
+        ],
+        "semantic_tokens": 44,
+        "ar_seconds": 0.8565588872879744,
+        "seed": 42,
+        "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+        "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+        "actual_ar_blocks": 17,
+        "actual_decoder_residual_blocks": 11,
+        "model_parameter_versions_unchanged": true,
+        "native_files_sha256": {
+          "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+          "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+          "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+          "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+        },
+        "reference_preprocessing_on_request": false,
+        "approved_request_pcm_match": null,
+        "streaming": "sentence_fragments",
+        "cfm": false,
+        "latency_profile": "fixed_approved_C24",
+        "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+      },
+      "segment_timings": [
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 65920,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 2.1220540553331375,
+          "total_seconds": 2.1269495356827974,
+          "rtf": 1.0324997746032998,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 0.8565588872879744,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+        },
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 96640,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 2.864726835861802,
+          "total_seconds": 2.872240299358964,
+          "rtf": 0.9510729468076039,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 1.1404182091355324,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+        }
+      ],
+      "completed_segments": 2,
+      "total_seconds": 5.002189381048083
+    },
+    {
+      "request_id": "3325f85a72ac465aaf3add90d302f2d9",
+      "style_id": "fb4fd06797ea4ccb8c375c6f486bfa42",
+      "first_audio_seconds": 2.1216488517820835,
+      "latency_mode": "fast",
+      "first_segment_timing": {
+        "sample_rate": 32000,
+        "native_sample_rate": 32000,
+        "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+        "native_samples": 65920,
+        "wire_samples": 65920,
+        "audio_seconds": 2.06,
+        "native_inference_seconds": 2.1163009703159332,
+        "total_seconds": 2.1212035324424505,
+        "rtf": 1.0297104526419663,
+        "semantic": [
+          {
+            "tokens": 44,
+            "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+          }
+        ],
+        "semantic_tokens": 44,
+        "ar_seconds": 0.8536349833011627,
+        "seed": 42,
+        "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+        "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+        "actual_ar_blocks": 17,
+        "actual_decoder_residual_blocks": 11,
+        "model_parameter_versions_unchanged": true,
+        "native_files_sha256": {
+          "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+          "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+          "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+          "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+        },
+        "reference_preprocessing_on_request": false,
+        "approved_request_pcm_match": null,
+        "streaming": "sentence_fragments",
+        "cfm": false,
+        "latency_profile": "fixed_approved_C24",
+        "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+      },
+      "segment_timings": [
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 65920,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 2.1163009703159332,
+          "total_seconds": 2.1212035324424505,
+          "rtf": 1.0297104526419663,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 0.8536349833011627,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+        },
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 96640,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 2.8596793971955776,
+          "total_seconds": 2.864570915699005,
+          "rtf": 0.9485334157943726,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 1.1501330118626356,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+        }
+      ],
+      "completed_segments": 2,
+      "total_seconds": 4.98931291513145
+    },
+    {
+      "request_id": "9ac8d5ddd15646ddb967a739df25d268",
+      "style_id": "fb4fd06797ea4ccb8c375c6f486bfa42",
+      "first_audio_seconds": 2.188644850626588,
+      "latency_mode": "fast",
+      "first_segment_timing": {
+        "sample_rate": 32000,
+        "native_sample_rate": 32000,
+        "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+        "native_samples": 65920,
+        "wire_samples": 65920,
+        "audio_seconds": 2.06,
+        "native_inference_seconds": 2.1826210394501686,
+        "total_seconds": 2.188270688056946,
+        "rtf": 1.0622673242994882,
+        "semantic": [
+          {
+            "tokens": 44,
+            "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+          }
+        ],
+        "semantic_tokens": 44,
+        "ar_seconds": 0.8561466857790947,
+        "seed": 42,
+        "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+        "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+        "actual_ar_blocks": 17,
+        "actual_decoder_residual_blocks": 11,
+        "model_parameter_versions_unchanged": true,
+        "native_files_sha256": {
+          "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+          "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+          "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+          "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+        },
+        "reference_preprocessing_on_request": false,
+        "approved_request_pcm_match": null,
+        "streaming": "sentence_fragments",
+        "cfm": false,
+        "latency_profile": "fixed_approved_C24",
+        "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+      },
+      "segment_timings": [
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 65920,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 2.1826210394501686,
+          "total_seconds": 2.188270688056946,
+          "rtf": 1.0622673242994882,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 0.8561466857790947,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+        },
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 96640,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 3.01885399967432,
+          "total_seconds": 3.0243020057678223,
+          "rtf": 1.0014245052211332,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 1.2936894446611404,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"
+        }
+      ],
+      "completed_segments": 2,
+      "total_seconds": 5.215152958407998
+    }
+  ]
+}

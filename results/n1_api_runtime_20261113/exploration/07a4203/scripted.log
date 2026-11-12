@@ -1,0 +1,63 @@
+Traceback (most recent call last):
+  File "/repo/scripts/benchmark_api_runtime.py", line 199, in <module>
+Loading Text2Semantic weights from /student/ar.pt
+Loading VITS weights from /repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth. <All keys matched successfully>
+Removing weight norm...
+Loading CNHuBERT weights from /project/models/chinese-hubert-base
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/repo/scripts/benchmark_api_runtime.py", line 62, in main
+    compiled=torch.jit.script(original)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/jit/_script.py", line 1443, in script
+    ret = _script_impl(
+          ^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/jit/_script.py", line 1226, in _script_impl
+    return torch.jit._recursive.create_script_class(obj)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/jit/_recursive.py", line 530, in create_script_class
+    cpp_object.setattr(name, value)
+RuntimeError: Could not cast attribute 'blocks' to type List[__torch__.cpufast_fast_ar.CppLosslessBlock]: Could not cast attribute 'block' to type __torch__.AR.models.t2s_model.T2SBlock (of Python compilation unit at: 0x20fe7385150): Could not cast attribute 'num_heads' to type Tensor (inferred): Unable to cast 16 to Tensor
+{
+  "command": [
+    "python",
+    "scripts/benchmark_api_runtime.py",
+    "--manifest",
+    "/student/manifest.json",
+    "--s2",
+    "/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth",
+    "--hubert",
+    "/project/models/chinese-hubert-base",
+    "--reference",
+    "/reference.wav",
+    "--output",
+    "/repo/ci-results/scripted_ar.json",
+    "--gc-policy",
+    "default",
+    "--warmups",
+    "3",
+    "--runs",
+    "3",
+    "--script-ar",
+    "--expected-wait-policy",
+    "ACTIVE",
+    "--expected-spincount",
+    "100000",
+    "--expected-preload",
+    "/build/native/libgsv_mimalloc.so"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 2212524032,
+  "kernel_child_peak_rss_bytes": 2212397056,
+  "cpu_seconds": 12.528253,
+  "elapsed_seconds": 11.80979828722775,
+  "average_cpu_cores": 1.0608354770588466,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 1121,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 1
+}

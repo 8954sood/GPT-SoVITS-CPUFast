@@ -1,0 +1,232 @@
+ACTUAL_CLIENT_RUNTIME warmup 0 0.983474970113222 2.133703650906682 0.8010297869890928
+ACTUAL_CLIENT_RUNTIME warmup 1 0.9592018918845597 1.996000373736024 0.8153398247063159
+ACTUAL_CLIENT_RUNTIME warmup 2 0.9629943019409818 1.9753676019608974 0.8553056424111127
+ACTUAL_CLIENT_RUNTIME sample 3 0.9363701028060021 1.9981767535209656 0.6971961563080549
+ACTUAL_CLIENT_RUNTIME sample 4 0.9571637257962949 2.09803307056427 0.7029415243864059
+ACTUAL_CLIENT_RUNTIME sample 5 0.9656979863744551 2.155491791665554 0.6889475663751363
+ACTUAL_CLIENT_RUNTIME sample 6 0.9548239659254006 2.111543223261833 0.677611511722207
+ACTUAL_CLIENT_RUNTIME sample 7 0.9873725847876448 2.1775280945003033 0.7769997460395097
+{
+  "command": [
+    "python",
+    "scripts/benchmark_api_client_runtime.py",
+    "--manifest",
+    "/student/manifest.json",
+    "--s2",
+    "/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth",
+    "--hubert",
+    "/project/models/chinese-hubert-base",
+    "--reference",
+    "/reference.wav",
+    "--output",
+    "/repo/ci-results/main.json",
+    "--warmups",
+    "3",
+    "--runs",
+    "5"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 4909203456,
+  "kernel_child_peak_rss_bytes": 4857815040,
+  "cpu_seconds": 93.30883600000001,
+  "elapsed_seconds": 60.172222815454006,
+  "average_cpu_cores": 1.5506961789690699,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 5431,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}
+ACTUAL_CLIENT_RUNTIME warmup 0 0.9805087715123347 2.216766504570842 0.702836804613471
+ACTUAL_CLIENT_RUNTIME warmup 1 0.9477951197232317 2.0734981447458267 0.6798558910936117
+ACTUAL_CLIENT_RUNTIME warmup 2 0.9511085883457595 2.086719334125519 0.6835058429837226
+ACTUAL_CLIENT_RUNTIME sample 3 0.9525380731655622 2.1024953071027994 0.6750980546325445
+{
+  "command": [
+    "python",
+    "scripts/benchmark_api_client_runtime.py",
+    "--manifest",
+    "/student/manifest.json",
+    "--s2",
+    "/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth",
+    "--hubert",
+    "/project/models/chinese-hubert-base",
+    "--reference",
+    "/reference.wav",
+    "--output",
+    "/repo/ci-results/fresh1.json",
+    "--warmups",
+    "3",
+    "--runs",
+    "1"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 4905500672,
+  "kernel_child_peak_rss_bytes": 4854497280,
+  "cpu_seconds": 59.500982,
+  "elapsed_seconds": 40.375280478969216,
+  "average_cpu_cores": 1.4736982949503727,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 3667,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}
+ACTUAL_CLIENT_RUNTIME warmup 0 0.9729498685667599 2.034412696957588 0.8467326243966817
+ACTUAL_CLIENT_RUNTIME warmup 1 0.9564721868850115 1.9378222431987524 0.8598869355022907
+ACTUAL_CLIENT_RUNTIME warmup 2 0.9782891496869288 1.9849802404642105 0.9228177038580179
+ACTUAL_CLIENT_RUNTIME sample 3 0.9537777856109649 1.9305359423160553 0.8533200384676456
+{
+  "command": [
+    "python",
+    "scripts/benchmark_api_client_runtime.py",
+    "--manifest",
+    "/student/manifest.json",
+    "--s2",
+    "/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth",
+    "--hubert",
+    "/project/models/chinese-hubert-base",
+    "--reference",
+    "/reference.wav",
+    "--output",
+    "/repo/ci-results/fresh2.json",
+    "--warmups",
+    "3",
+    "--runs",
+    "1"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 4884529152,
+  "kernel_child_peak_rss_bytes": 4833263616,
+  "cpu_seconds": 59.572466999999996,
+  "elapsed_seconds": 40.20715807005763,
+  "average_cpu_cores": 1.4816383415162029,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 3651,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}
+ACTUAL_CLIENT_RUNTIME warmup 0 0.9984815779222748 2.0854360815137625 0.9254085594415664
+ACTUAL_CLIENT_RUNTIME warmup 1 0.9585112886958 1.9575450457632542 0.8504932118207216
+ACTUAL_CLIENT_RUNTIME warmup 2 0.9417167230413889 1.9481919277459383 0.7737876480072736
+ACTUAL_CLIENT_RUNTIME sample 3 0.9596576763859649 1.98240533657372 0.8314682120084762
+{
+  "command": [
+    "python",
+    "scripts/benchmark_api_client_runtime.py",
+    "--manifest",
+    "/student/manifest.json",
+    "--s2",
+    "/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth",
+    "--hubert",
+    "/project/models/chinese-hubert-base",
+    "--reference",
+    "/reference.wav",
+    "--output",
+    "/repo/ci-results/fresh3.json",
+    "--warmups",
+    "3",
+    "--runs",
+    "1"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 4883767296,
+  "kernel_child_peak_rss_bytes": 4832456704,
+  "cpu_seconds": 59.526127,
+  "elapsed_seconds": 40.19641711562872,
+  "average_cpu_cores": 1.4808814136037942,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 3647,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}
+ACTUAL_CLIENT_RUNTIME warmup 0 0.981785562329405 2.0426268372684717 0.8836247274279594
+ACTUAL_CLIENT_RUNTIME warmup 1 0.9348256634474974 1.9546827394515276 0.7329000202566385
+ACTUAL_CLIENT_RUNTIME warmup 2 0.9503598251622023 2.0867170095443726 0.677813314422965
+ACTUAL_CLIENT_RUNTIME sample 3 0.956887407888343 2.1171695441007614 0.6826246386021375
+{
+  "command": [
+    "python",
+    "scripts/benchmark_api_client_runtime.py",
+    "--manifest",
+    "/student/manifest.json",
+    "--s2",
+    "/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth",
+    "--hubert",
+    "/project/models/chinese-hubert-base",
+    "--reference",
+    "/reference.wav",
+    "--output",
+    "/repo/ci-results/fresh4.json",
+    "--warmups",
+    "3",
+    "--runs",
+    "1"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 4915159040,
+  "kernel_child_peak_rss_bytes": 4863942656,
+  "cpu_seconds": 59.497824,
+  "elapsed_seconds": 39.943289214745164,
+  "average_cpu_cores": 1.4895574493158223,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 3634,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}
+ACTUAL_CLIENT_RUNTIME warmup 0 0.9726255945128015 2.167506765574217 0.7119546817243099
+ACTUAL_CLIENT_RUNTIME warmup 1 0.9512013590740641 2.058567449450493 0.7121968051046133
+ACTUAL_CLIENT_RUNTIME warmup 2 0.9515932046140977 2.083047052845359 0.6895404928922653
+ACTUAL_CLIENT_RUNTIME sample 3 0.9532330451371867 2.105795484036207 0.6753078518062829
+{
+  "command": [
+    "python",
+    "scripts/benchmark_api_client_runtime.py",
+    "--manifest",
+    "/student/manifest.json",
+    "--s2",
+    "/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth",
+    "--hubert",
+    "/project/models/chinese-hubert-base",
+    "--reference",
+    "/reference.wav",
+    "--output",
+    "/repo/ci-results/fresh5.json",
+    "--warmups",
+    "3",
+    "--runs",
+    "1"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 4905451520,
+  "kernel_child_peak_rss_bytes": 4854468608,
+  "cpu_seconds": 59.51774,
+  "elapsed_seconds": 39.95888745225966,
+  "average_cpu_cores": 1.489474402186698,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 3635,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}

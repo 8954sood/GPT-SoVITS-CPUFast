@@ -1,0 +1,3481 @@
+{
+  "complete": true,
+  "scope": "Fixed sentence split/seed42,43/full reference/native32k API adapter exploration; HTTP overhead excluded",
+  "environment": {
+    "OMP_WAIT_POLICY": "ACTIVE",
+    "GOMP_SPINCOUNT": "100000",
+    "OPENBLAS_NUM_THREADS": "2",
+    "OPENBLAS_CORETYPE": null,
+    "LD_PRELOAD": "/build/native/libgsv_mimalloc.so"
+  },
+  "settings": {
+    "threads": 2,
+    "ar_threads": 2,
+    "tap_finish": false,
+    "script_no_opt": true,
+    "gc_policy": "default"
+  },
+  "cgroup": {
+    "cpu.max": "200000 100000",
+    "memory.max": "8000000000",
+    "memory.swap.max": "0"
+  },
+  "all_expected_pcm_match": true,
+  "observations": [
+    {
+      "role": "warmup",
+      "index": 0,
+      "wall_seconds": 8.179931163787842,
+      "cpu_seconds": 13.149178519999996,
+      "sample_rate": 32000,
+      "audio_seconds": 5.08,
+      "rtf": 1.6102226700369766,
+      "resource_counters_before": {
+        "cpu.stat": "usage_usec 19724226\nuser_usec 18500778\nsystem_usec 1223448\ncore_sched.force_idle_usec 0\nnr_periods 155\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=1.13 avg60=0.22 avg300=0.04 total=284460\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=69000",
+        "voluntary_context_switches": 2363,
+        "involuntary_context_switches": 3014,
+        "maxrss_kib": 2492476,
+        "host_cpu_jiffies": "cpu  51754334 377633 17535436 2514951012 1539492 0 506974 0 0 0"
+      },
+      "resource_counters_after": {
+        "cpu.stat": "usage_usec 33208992\nuser_usec 31357048\nsystem_usec 1851943\ncore_sched.force_idle_usec 0\nnr_periods 237\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=3.97 avg60=0.95 avg300=0.21 total=833717\nfull avg10=0.28 avg60=0.06 avg300=0.01 total=162248",
+        "voluntary_context_switches": 6835,
+        "involuntary_context_switches": 7173,
+        "maxrss_kib": 4537680,
+        "host_cpu_jiffies": "cpu  51755663 377633 17535522 2514951225 1539492 0 506974 0 0 0"
+      },
+      "expected_native_and_wire_pcm_match": true,
+      "wire_pcm_sha256": "a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d",
+      "segments": [
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 65920,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 5.124118976294994,
+          "total_seconds": 5.129945265129209,
+          "rtf": 2.4902646918102955,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 0.9168646074831486,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "25007395d9e05293144db86fbbd4dc427afc94dbd6cc8c76b1c46f28f0e0ced7",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "gc_generation_0_seconds": 0.0008705724030733109,
+            "target_frontend_seconds": 0.05908909626305103,
+            "ar_prefill_calls": 1,
+            "ar_cache_audit": {
+              "input_shape": [
+                1,
+                209,
+                512
+              ],
+              "requested_decode_capacity": 1500,
+              "keys_shapes": [
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ]
+              ],
+              "values_shapes": [
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ]
+              ],
+              "valid_prefix_length": 209
+            },
+            "ar_prefill_seconds": 0.4787185359746218,
+            "ar_decode_calls": 44,
+            "ar_decode_seconds": 0.3922429736703634,
+            "acoustic_latent_seconds": 0.10206149518489838,
+            "student_decoder_seconds": 4.042630782350898,
+            "empty_cache_seconds": 0.0001904033124446869
+          }
+        },
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 96640,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 3.0437997672706842,
+          "total_seconds": 3.0497736986726522,
+          "rtf": 1.0098588406200835,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 1.2275870945304632,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "25007395d9e05293144db86fbbd4dc427afc94dbd6cc8c76b1c46f28f0e0ced7",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "gc_generation_0_seconds": 0.0002063605934381485,
+            "target_frontend_seconds": 0.02122466079890728,
+            "ar_prefill_calls": 1,
+            "ar_cache_audit": {
+              "input_shape": [
+                1,
+                226,
+                512
+              ],
+              "requested_decode_capacity": 1500,
+              "keys_shapes": [
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ]
+              ],
+              "values_shapes": [
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ]
+              ],
+              "valid_prefix_length": 226
+            },
+            "ar_prefill_seconds": 0.4751765448600054,
+            "ar_decode_calls": 68,
+            "ar_decode_seconds": 0.686251524835825,
+            "acoustic_latent_seconds": 0.14111690409481525,
+            "student_decoder_seconds": 1.6512673683464527,
+            "empty_cache_seconds": 0.00019488297402858734
+          }
+        }
+      ]
+    },
+    {
+      "role": "warmup",
+      "index": 1,
+      "wall_seconds": 4.821199636906385,
+      "cpu_seconds": 8.279855599999998,
+      "sample_rate": 32000,
+      "audio_seconds": 5.08,
+      "rtf": 0.9490550466351152,
+      "resource_counters_before": {
+        "cpu.stat": "usage_usec 33209253\nuser_usec 31357295\nsystem_usec 1851958\ncore_sched.force_idle_usec 0\nnr_periods 237\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=3.97 avg60=0.95 avg300=0.21 total=833717\nfull avg10=0.28 avg60=0.06 avg300=0.01 total=162248",
+        "voluntary_context_switches": 6835,
+        "involuntary_context_switches": 7174,
+        "maxrss_kib": 4537680,
+        "host_cpu_jiffies": "cpu  51755663 377633 17535523 2514951225 1539492 0 506974 0 0 0"
+      },
+      "resource_counters_after": {
+        "cpu.stat": "usage_usec 41686957\nuser_usec 39737819\nsystem_usec 1949138\ncore_sched.force_idle_usec 0\nnr_periods 285\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=4.80 avg60=1.40 avg300=0.32 total=1123931\nfull avg10=0.33 avg60=0.08 avg300=0.01 total=198986",
+        "voluntary_context_switches": 9922,
+        "involuntary_context_switches": 9402,
+        "maxrss_kib": 4551632,
+        "host_cpu_jiffies": "cpu  51756519 377633 17535542 2514951308 1539492 0 506975 0 0 0"
+      },
+      "expected_native_and_wire_pcm_match": true,
+      "wire_pcm_sha256": "a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d",
+      "segments": [
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 65920,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 1.9241084177047014,
+          "total_seconds": 1.933502497151494,
+          "rtf": 0.9385934452191719,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 0.7636912446469069,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "25007395d9e05293144db86fbbd4dc427afc94dbd6cc8c76b1c46f28f0e0ced7",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "target_frontend_seconds": 0.022988753393292427,
+            "ar_prefill_calls": 1,
+            "ar_cache_audit": {
+              "input_shape": [
+                1,
+                209,
+                512
+              ],
+              "requested_decode_capacity": 1500,
+              "keys_shapes": [
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ]
+              ],
+              "values_shapes": [
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ]
+              ],
+              "valid_prefix_length": 209
+            },
+            "ar_prefill_seconds": 0.4079795815050602,
+            "ar_decode_calls": 44,
+            "ar_decode_seconds": 0.30819667130708694,
+            "acoustic_latent_seconds": 0.09667265228927135,
+            "student_decoder_seconds": 1.0386914312839508,
+            "gc_generation_0_seconds": 0.00022812001407146454,
+            "empty_cache_seconds": 0.00023796036839485168
+          }
+        },
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 96640,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 2.8817681707441807,
+          "total_seconds": 2.8875160571187735,
+          "rtf": 0.9561311447413157,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 1.163980083540082,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "25007395d9e05293144db86fbbd4dc427afc94dbd6cc8c76b1c46f28f0e0ced7",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "target_frontend_seconds": 0.021406739950180054,
+            "ar_prefill_calls": 1,
+            "ar_cache_audit": {
+              "input_shape": [
+                1,
+                226,
+                512
+              ],
+              "requested_decode_capacity": 1500,
+              "keys_shapes": [
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ]
+              ],
+              "values_shapes": [
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ]
+              ],
+              "valid_prefix_length": 226
+            },
+            "ar_prefill_seconds": 0.43679650127887726,
+            "ar_decode_calls": 68,
+            "ar_decode_seconds": 0.6626550275832415,
+            "acoustic_latent_seconds": 0.13339056074619293,
+            "student_decoder_seconds": 1.5611636508256197,
+            "gc_generation_0_seconds": 0.00023280270397663116,
+            "empty_cache_seconds": 0.0002428404986858368
+          }
+        }
+      ]
+    },
+    {
+      "role": "warmup",
+      "index": 2,
+      "wall_seconds": 4.776807421818376,
+      "cpu_seconds": 8.209618599999999,
+      "sample_rate": 32000,
+      "audio_seconds": 5.08,
+      "rtf": 0.9403164216177905,
+      "resource_counters_before": {
+        "cpu.stat": "usage_usec 41687236\nuser_usec 39737819\nsystem_usec 1949416\ncore_sched.force_idle_usec 0\nnr_periods 285\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=4.80 avg60=1.40 avg300=0.32 total=1123931\nfull avg10=0.33 avg60=0.08 avg300=0.01 total=198986",
+        "voluntary_context_switches": 9922,
+        "involuntary_context_switches": 9402,
+        "maxrss_kib": 4551632,
+        "host_cpu_jiffies": "cpu  51756519 377633 17535542 2514951308 1539492 0 506975 0 0 0"
+      },
+      "resource_counters_after": {
+        "cpu.stat": "usage_usec 50094063\nuser_usec 48038154\nsystem_usec 2055909\ncore_sched.force_idle_usec 0\nnr_periods 333\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=5.44 avg60=1.73 avg300=0.40 total=1428523\nfull avg10=0.40 avg60=0.11 avg300=0.02 total=255078",
+        "voluntary_context_switches": 11739,
+        "involuntary_context_switches": 11984,
+        "maxrss_kib": 4551760,
+        "host_cpu_jiffies": "cpu  51757374 377633 17535560 2514951390 1539493 0 506976 0 0 0"
+      },
+      "expected_native_and_wire_pcm_match": true,
+      "wire_pcm_sha256": "a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d",
+      "segments": [
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 65920,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 1.936932284384966,
+          "total_seconds": 1.9431798178702593,
+          "rtf": 0.9432911737234269,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 0.7551951743662357,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "25007395d9e05293144db86fbbd4dc427afc94dbd6cc8c76b1c46f28f0e0ced7",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "target_frontend_seconds": 0.020860493183135986,
+            "ar_prefill_calls": 1,
+            "ar_cache_audit": {
+              "input_shape": [
+                1,
+                209,
+                512
+              ],
+              "requested_decode_capacity": 1500,
+              "keys_shapes": [
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ]
+              ],
+              "values_shapes": [
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ]
+              ],
+              "valid_prefix_length": 209
+            },
+            "ar_prefill_seconds": 0.4051439594477415,
+            "ar_decode_calls": 44,
+            "ar_decode_seconds": 0.31036501191556454,
+            "acoustic_latent_seconds": 0.09410039149224758,
+            "student_decoder_seconds": 1.0649329703301191,
+            "gc_generation_0_seconds": 0.00021824240684509277,
+            "empty_cache_seconds": 0.0002575237303972244
+          }
+        },
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 96640,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 2.827595755457878,
+          "total_seconds": 2.833450522273779,
+          "rtf": 0.9382286497595295,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 0.9932108893990517,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "25007395d9e05293144db86fbbd4dc427afc94dbd6cc8c76b1c46f28f0e0ced7",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "target_frontend_seconds": 0.02130110003054142,
+            "ar_prefill_calls": 1,
+            "ar_cache_audit": {
+              "input_shape": [
+                1,
+                226,
+                512
+              ],
+              "requested_decode_capacity": 1500,
+              "keys_shapes": [
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ]
+              ],
+              "values_shapes": [
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ]
+              ],
+              "valid_prefix_length": 226
+            },
+            "ar_prefill_seconds": 0.4385750815272331,
+            "ar_decode_calls": 68,
+            "ar_decode_seconds": 0.4924749694764614,
+            "acoustic_latent_seconds": 0.1367240659892559,
+            "student_decoder_seconds": 1.6744529623538256,
+            "gc_generation_0_seconds": 0.0002683233469724655,
+            "empty_cache_seconds": 0.00027860328555107117
+          }
+        }
+      ]
+    },
+    {
+      "role": "sample",
+      "index": 0,
+      "wall_seconds": 4.780898736789823,
+      "cpu_seconds": 8.222593160000002,
+      "sample_rate": 32000,
+      "audio_seconds": 5.08,
+      "rtf": 0.9411217985806737,
+      "resource_counters_before": {
+        "cpu.stat": "usage_usec 50094459\nuser_usec 48038534\nsystem_usec 2055925\ncore_sched.force_idle_usec 0\nnr_periods 333\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=5.44 avg60=1.73 avg300=0.40 total=1428523\nfull avg10=0.40 avg60=0.11 avg300=0.02 total=255078",
+        "voluntary_context_switches": 11739,
+        "involuntary_context_switches": 11986,
+        "maxrss_kib": 4551760,
+        "host_cpu_jiffies": "cpu  51757374 377633 17535560 2514951390 1539493 0 506976 0 0 0"
+      },
+      "resource_counters_after": {
+        "cpu.stat": "usage_usec 58515776\nuser_usec 56347712\nsystem_usec 2168064\ncore_sched.force_idle_usec 0\nnr_periods 381\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=5.33 avg60=2.04 avg300=0.50 total=1709906\nfull avg10=0.40 avg60=0.13 avg300=0.03 total=316635",
+        "voluntary_context_switches": 13595,
+        "involuntary_context_switches": 14454,
+        "maxrss_kib": 4551760,
+        "host_cpu_jiffies": "cpu  51758227 377633 17535580 2514951470 1539493 0 506976 0 0 0"
+      },
+      "expected_native_and_wire_pcm_match": true,
+      "wire_pcm_sha256": "a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d",
+      "segments": [
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 65920,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 1.9337975773960352,
+          "total_seconds": 1.939584905281663,
+          "rtf": 0.9415460705250791,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 0.7611169833689928,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "25007395d9e05293144db86fbbd4dc427afc94dbd6cc8c76b1c46f28f0e0ced7",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "target_frontend_seconds": 0.021889343857765198,
+            "ar_prefill_calls": 1,
+            "ar_cache_audit": {
+              "input_shape": [
+                1,
+                209,
+                512
+              ],
+              "requested_decode_capacity": 1500,
+              "keys_shapes": [
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ]
+              ],
+              "values_shapes": [
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ]
+              ],
+              "valid_prefix_length": 209
+            },
+            "ar_prefill_seconds": 0.4072199333459139,
+            "ar_decode_calls": 44,
+            "ar_decode_seconds": 0.3122793771326542,
+            "acoustic_latent_seconds": 0.09506643936038017,
+            "student_decoder_seconds": 1.0538299158215523,
+            "gc_generation_0_seconds": 0.00022040307521820068,
+            "empty_cache_seconds": 0.00023012235760688782
+          }
+        },
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 96640,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 2.835127215832472,
+          "total_seconds": 2.841124227270484,
+          "rtf": 0.9407696116789682,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 1.0069178454577923,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "25007395d9e05293144db86fbbd4dc427afc94dbd6cc8c76b1c46f28f0e0ced7",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "target_frontend_seconds": 0.02188766375184059,
+            "ar_prefill_calls": 1,
+            "ar_cache_audit": {
+              "input_shape": [
+                1,
+                226,
+                512
+              ],
+              "requested_decode_capacity": 1500,
+              "keys_shapes": [
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ]
+              ],
+              "values_shapes": [
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ]
+              ],
+              "valid_prefix_length": 226
+            },
+            "ar_prefill_seconds": 0.43837899528443813,
+            "ar_decode_calls": 68,
+            "ar_decode_seconds": 0.5068060643970966,
+            "acoustic_latent_seconds": 0.1384041216224432,
+            "student_decoder_seconds": 1.665989451110363,
+            "gc_generation_0_seconds": 0.00027360208332538605,
+            "empty_cache_seconds": 0.00028324127197265625
+          }
+        }
+      ]
+    },
+    {
+      "role": "sample",
+      "index": 1,
+      "wall_seconds": 4.786852266639471,
+      "cpu_seconds": 8.250845439999999,
+      "sample_rate": 32000,
+      "audio_seconds": 5.08,
+      "rtf": 0.9422937532754864,
+      "resource_counters_before": {
+        "cpu.stat": "usage_usec 58516150\nuser_usec 56348071\nsystem_usec 2168078\ncore_sched.force_idle_usec 0\nnr_periods 381\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=5.33 avg60=2.04 avg300=0.50 total=1709906\nfull avg10=0.40 avg60=0.13 avg300=0.03 total=316635",
+        "voluntary_context_switches": 13595,
+        "involuntary_context_switches": 14456,
+        "maxrss_kib": 4551760,
+        "host_cpu_jiffies": "cpu  51758227 377633 17535580 2514951470 1539493 0 506976 0 0 0"
+      },
+      "resource_counters_after": {
+        "cpu.stat": "usage_usec 66966560\nuser_usec 64702530\nsystem_usec 2264029\ncore_sched.force_idle_usec 0\nnr_periods 429\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=4.89 avg60=2.17 avg300=0.54 total=2006790\nfull avg10=0.27 avg60=0.12 avg300=0.02 total=357730",
+        "voluntary_context_switches": 15421,
+        "involuntary_context_switches": 16632,
+        "maxrss_kib": 4551760,
+        "host_cpu_jiffies": "cpu  51759085 377633 17535596 2514951551 1539493 0 506977 0 0 0"
+      },
+      "expected_native_and_wire_pcm_match": true,
+      "wire_pcm_sha256": "a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d",
+      "segments": [
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 65920,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 1.9512796849012375,
+          "total_seconds": 1.9576396569609642,
+          "rtf": 0.9503105130878466,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 0.7560225799679756,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "25007395d9e05293144db86fbbd4dc427afc94dbd6cc8c76b1c46f28f0e0ced7",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "target_frontend_seconds": 0.020828455686569214,
+            "ar_prefill_calls": 1,
+            "ar_cache_audit": {
+              "input_shape": [
+                1,
+                209,
+                512
+              ],
+              "requested_decode_capacity": 1500,
+              "keys_shapes": [
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ]
+              ],
+              "values_shapes": [
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ]
+              ],
+              "valid_prefix_length": 209
+            },
+            "ar_prefill_seconds": 0.4038373865187168,
+            "ar_decode_calls": 44,
+            "ar_decode_seconds": 0.31233546137809753,
+            "acoustic_latent_seconds": 0.09661845117807388,
+            "student_decoder_seconds": 1.0758613049983978,
+            "gc_generation_0_seconds": 0.00022960081696510315,
+            "empty_cache_seconds": 0.0002397187054157257
+          }
+        },
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 96640,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 2.8230102360248566,
+          "total_seconds": 2.8290246836841106,
+          "rtf": 0.9367631402927519,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 1.004744665697217,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "25007395d9e05293144db86fbbd4dc427afc94dbd6cc8c76b1c46f28f0e0ced7",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "target_frontend_seconds": 0.022606950253248215,
+            "ar_prefill_calls": 1,
+            "ar_cache_audit": {
+              "input_shape": [
+                1,
+                226,
+                512
+              ],
+              "requested_decode_capacity": 1500,
+              "keys_shapes": [
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ]
+              ],
+              "values_shapes": [
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ]
+              ],
+              "valid_prefix_length": 226
+            },
+            "ar_prefill_seconds": 0.4442623667418957,
+            "ar_decode_calls": 68,
+            "ar_decode_seconds": 0.4987052548676729,
+            "acoustic_latent_seconds": 0.14098198153078556,
+            "student_decoder_seconds": 1.6528401840478182,
+            "gc_generation_0_seconds": 0.00023916177451610565,
+            "empty_cache_seconds": 0.0002484414726495743
+          }
+        }
+      ]
+    },
+    {
+      "role": "sample",
+      "index": 2,
+      "wall_seconds": 4.783665120601654,
+      "cpu_seconds": 8.235330520000005,
+      "sample_rate": 32000,
+      "audio_seconds": 5.08,
+      "rtf": 0.9416663623231603,
+      "resource_counters_before": {
+        "cpu.stat": "usage_usec 66966796\nuser_usec 64702758\nsystem_usec 2264037\ncore_sched.force_idle_usec 0\nnr_periods 429\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=4.89 avg60=2.17 avg300=0.54 total=2006790\nfull avg10=0.27 avg60=0.12 avg300=0.02 total=357730",
+        "voluntary_context_switches": 15421,
+        "involuntary_context_switches": 16632,
+        "maxrss_kib": 4551760,
+        "host_cpu_jiffies": "cpu  51759085 377633 17535596 2514951551 1539493 0 506977 0 0 0"
+      },
+      "resource_counters_after": {
+        "cpu.stat": "usage_usec 75396821\nuser_usec 73041606\nsystem_usec 2355214\ncore_sched.force_idle_usec 0\nnr_periods 477\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=5.19 avg60=2.41 avg300=0.62 total=2294259\nfull avg10=0.18 avg60=0.11 avg300=0.02 total=396599",
+        "voluntary_context_switches": 17257,
+        "involuntary_context_switches": 18997,
+        "maxrss_kib": 4551760,
+        "host_cpu_jiffies": "cpu  51759937 377633 17535612 2514951636 1539493 0 506977 0 0 0"
+      },
+      "expected_native_and_wire_pcm_match": true,
+      "wire_pcm_sha256": "a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d",
+      "segments": [
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 65920,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 1.9181961677968502,
+          "total_seconds": 1.9239228144288063,
+          "rtf": 0.9339431138003914,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 0.7498256117105484,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "25007395d9e05293144db86fbbd4dc427afc94dbd6cc8c76b1c46f28f0e0ced7",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "target_frontend_seconds": 0.02187354490160942,
+            "ar_prefill_calls": 1,
+            "ar_cache_audit": {
+              "input_shape": [
+                1,
+                209,
+                512
+              ],
+              "requested_decode_capacity": 1500,
+              "keys_shapes": [
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ]
+              ],
+              "values_shapes": [
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1709,
+                  32
+                ]
+              ],
+              "valid_prefix_length": 209
+            },
+            "ar_prefill_seconds": 0.40305450186133385,
+            "ar_decode_calls": 44,
+            "ar_decode_seconds": 0.3077443018555641,
+            "acoustic_latent_seconds": 0.09581984393298626,
+            "student_decoder_seconds": 1.0485411956906319,
+            "gc_generation_0_seconds": 0.00024360418319702148,
+            "empty_cache_seconds": 0.00025328435003757477
+          }
+        },
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 96640,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 2.8533422108739614,
+          "total_seconds": 2.8595663011074066,
+          "rtf": 0.9468762586448366,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 0.9841067735105753,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "25007395d9e05293144db86fbbd4dc427afc94dbd6cc8c76b1c46f28f0e0ced7",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "target_frontend_seconds": 0.021170737221837044,
+            "ar_prefill_calls": 1,
+            "ar_cache_audit": {
+              "input_shape": [
+                1,
+                226,
+                512
+              ],
+              "requested_decode_capacity": 1500,
+              "keys_shapes": [
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ]
+              ],
+              "values_shapes": [
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ],
+                [
+                  1,
+                  16,
+                  1726,
+                  32
+                ]
+              ],
+              "valid_prefix_length": 226
+            },
+            "ar_prefill_seconds": 0.436304297298193,
+            "ar_decode_calls": 68,
+            "ar_decode_seconds": 0.488693168386817,
+            "acoustic_latent_seconds": 0.13685882836580276,
+            "student_decoder_seconds": 1.709302294999361,
+            "gc_generation_0_seconds": 0.0002386830747127533,
+            "empty_cache_seconds": 0.00024788081645965576
+          }
+        }
+      ]
+    }
+  ],
+  "excluded_profile": null,
+  "tap_finish_audit": [],
+  "loaded_openmp_libraries": [
+    "/opt/venv/lib/python3.12/site-packages/torch.libs/libgomp-947d5fa1.so.1.0.0",
+    "/usr/lib/aarch64-linux-gnu/libgomp.so.1.0.0"
+  ],
+  "process_threads": 5,
+  "torch_parallel_info": "ATen/Parallel:\n\tat::get_num_threads() : 2\n\tat::get_num_interop_threads() : 1\nOpenMP 201511 (a.k.a. OpenMP 4.5)\n\tomp_get_max_threads() : 2\nIntel(R) MKL-DNN v3.7.1 (Git Hash 8d263e693366ef8db40acc569cc7d8edf644556d)\nstd::thread::hardware_concurrency() : 2\nEnvironment variables:\n\tOMP_NUM_THREADS : 2\nATen parallel backend: OpenMP\n",
+  "script_ar": {
+    "constructor_seconds": 0.0017993766814470291,
+    "original_type": "<class 'cpufast_fast_ar.CppLosslessTransformer'>",
+    "compiled_type": "<class 'torch.jit._script.RecursiveScriptClass'>",
+    "original_decode_has_python_code": true,
+    "compiled_decode_has_python_code": false,
+    "decode_graph": "graph(%self.1 : __torch__.cpufast_fast_ar.CppLosslessTransformer,\n      %x.1 : Tensor,\n      %k_cache.1 : Tensor[],\n      %v_cache.1 : Tensor[],\n      %cache_len.1 : int,\n      %attn_mask.1 : Tensor?,\n      %torch_sdpa.1 : bool):\n  %12 : bool = prim::Constant[value=1]() # /repo/cpufast_fast_ar.py:212:8\n  %43 : int = prim::Constant[value=1]() # /repo/cpufast_fast_ar.py:216:48\n  %blocks.1 : __torch__.cpufast_fast_ar.CppLosslessBlock[] = prim::GetAttr[name=\"blocks\"](%self.1)\n  %9 : int = aten::len(%blocks.1) # /repo/cpufast_fast_ar.py:212:23\n  %x : Tensor = prim::Loop(%9, %12, %x.1) # /repo/cpufast_fast_ar.py:212:8\n    block0(%i.1 : int, %x.11 : Tensor):\n      %blocks : __torch__.cpufast_fast_ar.CppLosslessBlock[] = prim::GetAttr[name=\"blocks\"](%self.1)\n      %17 : __torch__.cpufast_fast_ar.CppLosslessBlock = aten::__getitem__(%blocks, %i.1) # /repo/cpufast_fast_ar.py:213:40\n      %21 : Tensor = aten::__getitem__(%k_cache.1, %i.1) # /repo/cpufast_fast_ar.py:214:19\n      %24 : Tensor = aten::__getitem__(%v_cache.1, %i.1) # /repo/cpufast_fast_ar.py:214:31\n      %28 : (Tensor, Tensor, Tensor) = prim::CallMethod[name=\"decode_next_token\"](%17, %x.11, %21, %24, %cache_len.1, %attn_mask.1, %torch_sdpa.1) # /repo/cpufast_fast_ar.py:213:40\n      %x.5 : Tensor, %30 : Tensor, %31 : Tensor = prim::TupleUnpack(%28)\n      %35 : Tensor[] = aten::_set_item(%k_cache.1, %i.1, %30) # /repo/cpufast_fast_ar.py:213:40\n      %38 : Tensor[] = aten::_set_item(%v_cache.1, %i.1, %31) # /repo/cpufast_fast_ar.py:213:40\n      -> (%12, %x.5)\n  %44 : int = aten::add(%cache_len.1, %43) # /repo/cpufast_fast_ar.py:216:36\n  %45 : (Tensor, Tensor[], Tensor[], int) = prim::TupleConstruct(%x, %k_cache.1, %v_cache.1, %44)\n  return (%45)\n",
+    "all_authoritative_parameter_pointers_versions_unchanged": true
+  },
+  "int8_probe": null,
+  "model_files_unchanged": true,
+  "original_inputs_unchanged": true,
+  "native_files_unchanged": true,
+  "native_files_sha256": {
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+  },
+  "model_input_sha256": {
+    "manifest": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+    "s2": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+    "speaker_encoder": "4f5a0bf73c61eb41b174e1bb54e7ee3c83233892be8e0af1f187024e8e581a35",
+    "hubert/config.json": "c3e5060a1277e0f078cc6be9da4528a605dba6ece93018981fe2c820e5c7b103",
+    "hubert/preprocessor_config.json": "dcd684124d06722947939d41ea6ae58dbf10968c60a11a29f23ddc602c64a29b",
+    "hubert/pytorch_model.bin": "24164f129c66499d1346e2aa55f183250c223161ec2770c0da3d3b08cf432d3c"
+  },
+  "runtime_source_sha256": {
+    "cpufast_server_engine.py": "1a95c659c6124c2ed71eaef5954eab42a47365c593bb7c287ca62fdb1bcdd344",
+    "cpufast_engine.py": "a93b4f99962feef43a4ff41b3cfa6f42978c8ba313bcd7cdb34642a60af030b6",
+    "cpufast_fast_ar.py": "dff2387facef8c50fa1c32fdf568eca0f0f1740b5c43a1a5300b90fa278653e7",
+    "cpufast_kv_cache.py": "17dd9f3e95811257cc4ff1cc9f1512a77d7ae079264b2b534e0ae2f8b159039e",
+    "cpufast_ar_cpp.py": "6b974921f0c218f63b3525a4f287783f4f88dabc38efeb7f00d8044941ced977",
+    "cpufast_fft.py": "639e0e2da460a1a90748cb54c3c163d1b6cef4c89761ece591571ba72736e562",
+    "cpufast_tap.py": "18197fb1ec9c29a1e85104489da36f1acc4c3a30455deb70ea6dd6a1c4babd8c",
+    "cpufast_fused_blocks.py": "3f24b52a37c42c42a055597d6159aa431eed1c59f78c11c16d3aa831f3b66664",
+    "cpufast_cooktoom.py": "c6abf18c098a7016c191110f46b7628e6a2378ed437e7aad5678fa90df3cc09d",
+    "cpufast_optimizations.py": "ed1ab9c16ee06202903622ae3edd2c8756cd7733344afb64ad8b44219e0dbe12",
+    "cpufast_predictor.py": "04845d66664dbc1556dc274c765030294e5fd5b650b6e02a46119e8e5d9933c5",
+    "cpufast_winograd.py": "81dffc0c59082eb50a32f14c60e3fb44eda04a3cb9033eba1bbe5e491449d6f4",
+    "student_runtime.py": "c09dd983882a3cb26981ab4697a19ffd380308dca49617038ac19a2fba982968",
+    "GPT_SoVITS/TTS_infer_pack/TTS.py": "18b1f6f7812c45c92fd20eb509ba51419c41710827a6363aec5c72753df3e32e",
+    "GPT_SoVITS/TTS_infer_pack/TextPreprocessor.py": "53be4a1a9b3db9cbc5fa26b517d45f528a8db48783b970e970a0265df863b400",
+    "GPT_SoVITS/module/models.py": "3cbe5d4999be1bdfa7b8b35349686e1f04e780bdffb689719e6a1f02c2aa7907",
+    "GPT_SoVITS/AR/models/t2s_model.py": "ff13c40dda213cdefeeba9610dcad6deaddc7dbc54d55691c52203866d3a4eed",
+    "tools/audio_utils.py": "03bde0bae9517395db2095534c61c37686212163a4e89cb6ca4cd746b6d67405",
+    "GPT_SoVITS/sv.py": "e5c8254ec26c950e104ac0182db4202382ecb536b23287ec14937b90c3555d1e",
+    "GPT_SoVITS/feature_extractor/cnhubert.py": "8169d27764dd9799ab01abcde27c32fe2bfb30ccfdbb7781e53d44cc25554047",
+    "GPT_SoVITS/module/mel_processing.py": "6cb80f5f4dd662322bb32dbf3cdaf2140f4b64ad4e88c03328ebf26ca3538b1b",
+    "GPT_SoVITS/eres2net/ERes2Net.py": "4c2582ffc59707514c4f2273262c408d424b5043d55511c4769956e11235778a",
+    "GPT_SoVITS/eres2net/ERes2NetV2.py": "e6a17f01a36e8133b9c3e15be2358f41951c9d887c5c536dd3788f128801f8fd",
+    "GPT_SoVITS/eres2net/ERes2Net_huge.py": "45d2bddae25565fcc01acff069bd10fb17ec2a527c8ae813b1b57368af256240",
+    "GPT_SoVITS/eres2net/fusion.py": "e92db5cc722247f98580f2ed221bbd5b108290cda7ff694ae66d1557dbde792f",
+    "GPT_SoVITS/eres2net/kaldi.py": "90d8a167a64405931a991bc9426262d9b0d944c8599b7f770aa7f4318cbe67d6",
+    "GPT_SoVITS/eres2net/pooling_layers.py": "f7fb8d8bb4a9080a0b7ffc060a06d622b7eb7e945c145fe801ee051df837e70c",
+    "GPT_SoVITS/text/LangSegmenter/__init__.py": "325aeb7453d371e8e30bebf51937e2897d7df593ff08833ee45f08012b2ea421",
+    "GPT_SoVITS/text/LangSegmenter/langsegmenter.py": "5f9250e0a7472008a721e7b20e848a220572f72da12c3eab7651da2afe0350d8",
+    "GPT_SoVITS/text/__init__.py": "8d72e92e3f5f868e64242c686e52863f69bd1fc1d4c3fa38d994cc82f174bf6b",
+    "GPT_SoVITS/text/cantonese.py": "2aa7b8ab9036e13ca046d96093a931b169bad52347e67341586496ed54b7c1c3",
+    "GPT_SoVITS/text/chinese.py": "a543e5e941a8506726d1678c4822263f0ead20f6fc8f6c418e37d1db0f853776",
+    "GPT_SoVITS/text/chinese2.py": "e882b5860b69ea66b75f7f37aab7f39fd4e266bce856d57adbdd28666cdf33d1",
+    "GPT_SoVITS/text/chinese_bert.py": "c0b9e41c63e11df3a3c986d56eabe645b804d28d6d206347f6aaf356fa0aee74",
+    "GPT_SoVITS/text/cleaner.py": "d0aa60efc7ffe285f41ccb77568b61206394ce7cc35e12fc067a9575fd8d1ef5",
+    "GPT_SoVITS/text/en_normalization/expend.py": "ae4dd0067372c34dd878e584ccd7454c7e1a8a8a8b8b1016724dc0ccb44de903",
+    "GPT_SoVITS/text/english.py": "f1ecf20ee894ea9a66db4fd774ec0ac04fca34cd4788c0463b62f2a5e7ad5131",
+    "GPT_SoVITS/text/g2pw/__init__.py": "9d9634039425e42c0d78e6321fce93d7da62f46cf6a2d52e3201e2d21c6ed631",
+    "GPT_SoVITS/text/g2pw/base_api.py": "1ed32a65aee53a872cae20cc320ab97e1ed0a6c6c82d43990edef1ce4c8f3da3",
+    "GPT_SoVITS/text/g2pw/compact_pypinyin.py": "6b27fc2916c5d0ad0c592dc9d21f1d9e4039ac31cf21d16776b61acb234f58a7",
+    "GPT_SoVITS/text/g2pw/dataset.py": "8ade84a3737e696e6d0a6ebc871ff8431c2fb0f4db37243c0b8ac472f3c4be7c",
+    "GPT_SoVITS/text/g2pw/g2ps_adapter.py": "b0bc5677439bb25b535df940e12aeb8b83854f40a78df2fa254ed506cc52831b",
+    "GPT_SoVITS/text/g2pw/g2pw.py": "b3d158088f6ef79109c674c14d390eec58379f937694f75e670e23cbd5cdbc03",
+    "GPT_SoVITS/text/g2pw/pronunciation.py": "17f7b434ca44d65d1b23a464486446636f5f3184e44dddef79bc180efd4981c6",
+    "GPT_SoVITS/text/g2pw/torch_api.py": "5616be566beb986c6b102e651671e24696022de369799b971daf1b67d6058ad5",
+    "GPT_SoVITS/text/g2pw/utils.py": "68ce30b84d53385822b798e5032cc5a2f5f57a320586afc1669a9009e82f4d37",
+    "GPT_SoVITS/text/japanese.py": "03fe44d4e61764b0539dbc20553a89ffc809e3e2598dc92185556ae1324a1e1d",
+    "GPT_SoVITS/text/jieba_posseg_fast.py": "88abdc31b737f7570e1b00b73a0ccedc40c42ea3573c0c6eefb0981ec2cdc5eb",
+    "GPT_SoVITS/text/korean.py": "a5057b79e8e352a0dbdf1e1d451cb5cfdfd6380c506bf5fe1652e841e1ad8dbc",
+    "GPT_SoVITS/text/opencc_s2tw.py": "efe0112b129f722cea26a3c4adc3262c4327f317f2e1696c4516650d5d3a2bc8",
+    "GPT_SoVITS/text/phone_units.py": "4c66d302e5ad6a451951e98a83337a99cda18fc7d95a7be510ca425db8fee63c",
+    "GPT_SoVITS/text/pinyin_cache.py": "05e396a036087c22d9aa935e9437ff061c6863f188ecc6808563894f0778f098",
+    "GPT_SoVITS/text/symbols.py": "c0e4576761cb0a254899208f4990d6e2fbbbc59ccd8bc06e7677229cb3721e44",
+    "GPT_SoVITS/text/symbols2.py": "160f85789ae647bdfd1e5b15daa83f81d6d903dea22dcb131a8cd96894e19626",
+    "GPT_SoVITS/text/tone_sandhi.py": "2c9be60d080a2e0b7e77902cf040561560aa41aade5e20ef09df9c9631045dec",
+    "GPT_SoVITS/text/zh_normalization/__init__.py": "61e674c9950d1d2a2241a39ecb87bc4172c9b0ed03082ec1dc06ec8dbcaf11e5",
+    "GPT_SoVITS/text/zh_normalization/char_convert.py": "df066ce8e2a3385c7f3b4749f02049f2fdbabbfcc76e6784462a99f0347795e7",
+    "GPT_SoVITS/text/zh_normalization/chronology.py": "bd873579e79976aaa465708791da13b79fd7beeafa6981743f438ec18f7d680a",
+    "GPT_SoVITS/text/zh_normalization/constants.py": "33dd3cbe8443454ab51f12f513d4ce4ba43770981cd0605e240f6d942a9b675b",
+    "GPT_SoVITS/text/zh_normalization/num.py": "403d613bacc9a8d922db65dd89a6ecb9a283ff4f07b5b38f645005c24387a7e2",
+    "GPT_SoVITS/text/zh_normalization/phonecode.py": "d8279ca6ddf1af8f26119a75b4dfbb28c7da0adba5c51f807f4503c59d9816a5",
+    "GPT_SoVITS/text/zh_normalization/quantifier.py": "de2d3367906a9df18edcf30698ae286d441c13c090f89d1f492ffdbe0edf93d0",
+    "GPT_SoVITS/text/zh_normalization/text_normlization.py": "2010a90d73d0e03cc4f99c22a774a4e127fc3a1fe5c0fdc38b03fb3b5754cbb3"
+  },
+  "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865"
+}

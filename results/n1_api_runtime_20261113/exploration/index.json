@@ -1,0 +1,19 @@
+{
+  "scope": "Exploration only; final goal evidence lives in ../final/summary.json. No result was substituted into the fixed final10 plan.",
+  "invalid_policy_labels": "protocol_invalid.json identifies unprefixed e8e1225 cases whose requested environment was not applied; explicit_* corrected cases are separate.",
+  "script_constructor_failure": "07a4203 failed before synthesis because missing scalar type annotations; no RTF observation.",
+  "script_numerical_gate_failures": [
+    "03fe824",
+    "b8431f5"
+  ],
+  "script_failure_note": "Default optimized JIT graphs changed first semantic44to46 and waveform/duration. Their apparent RTF values are not valid same-voice performance evidence.",
+  "script_exact_probe": "e20e8f5: compiled transformer method calls scoped with optimized_execution(False), original44+68tokens/nativePCM restored.",
+  "unadopted_candidates": [
+    "Tap epilogue",
+    "NEON quant",
+    "FFN2 row8",
+    "packed4 global-cache probe",
+    "OMP spin/passive/affinity/preload"
+  ],
+  "adopted_runtime": "Native32k output; gen0 explicit cleanup with automatic GC retained; valid-prefix head-major KV allocation; exact compiled class methods without FP32 graph rewrites. Four baseline DSOs unchanged."
+}
