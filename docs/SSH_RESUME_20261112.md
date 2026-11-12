@@ -62,9 +62,13 @@ same 12 validation contexts, mean original-teacher log-mel error is 0.117331
 for L and 0.162211 for V. These are numerical decoder errors, not listening
 ratings or free-generation quality guarantees.
 
-A separate CPU-only 100-update recovery candidate was started from the
+A separate CPU-only 100-update recovery candidate completed from the
 authoritative V checkpoint at learning rate 2e-6 with cosine decay, accumulation
 3, full contexts and original-teacher log-mel supervision. It uses a fresh
 private output directory `budget40_recovery_20261112`, retaining the original
-checkpoint. This candidate also requires its own listening and performance
-validation; starting training establishes no improvement.
+checkpoint. Its fixed validation mean log-mel error decreased from 0.162211
+to 0.160459, with reductions in all six language/latent-origin groups. This is
+a small numerical improvement, not a listening or speed approval. Details are
+in `results/student_pilot/v_recovery100_cpu_20261112.json`. The redundant latest
+checkpoint was removed only after confirming its step/spec/tensors exactly
+matched the retained best checkpoint.
