@@ -21,6 +21,7 @@ def main():
     p.add_argument('--runs', type=int, default=3)
     p.add_argument('--profile', action='store_true')
     p.add_argument('--tap-finish', action='store_true')
+    p.add_argument('--gc-policy', choices=('original','gen0','freeze'), default='original')
     args = p.parse_args()
     assert not args.output.exists()
     import torch
@@ -36,6 +37,20 @@ def main():
     segments = split_text(case['text'])
     assert len(segments)==2
     ref = engine.prepare_reference(args.reference, manifest['prompt_text'], manifest['prompt_language'])
+    import gc
+    if args.gc_policy=='gen0':
+        engine.pipeline.empty_cache=lambda:gc.collect(0)
+    diagnostic={}
+    def timed(owner,name,label):
+        original=getattr(owner,name)
+        def run(*a,**kw):
+            begin=time.perf_counter()
+            try:return original(*a,**kw)
+            finally:diagnostic[label]=diagnostic.get(label,0.)+time.perf_counter()-begin
+        setattr(owner,name,run)
+    timed(engine.pipeline,'empty_cache','empty_cache_seconds')
+    timed(engine.pipeline.vits_model,'decode','acoustic_decode_seconds')
+    timed(engine.pipeline.text_preprocessor,'segment_and_extract_feature_for_text','target_frontend_seconds')
     tap_audit=[]
     if args.tap_finish:
         from cpufast_tap_epilogue_runtime import enable_tap_epilogues
@@ -43,7 +58,9 @@ def main():
     def pair(role, index):
         reports=[];wire=[];begin=time.perf_counter()
         for i,text in enumerate(segments):
+            diagnostic.clear()
             audio,report=engine.synthesize_prepared(text, ref, lang='ko', seed=42+i)
+            report['diagnostic_stage_seconds']=dict(diagnostic)
             wire.append(pcm16(audio));reports.append(report)
         elapsed=time.perf_counter()-begin
         wire=b''.join(wire)
@@ -55,6 +72,8 @@ def main():
         print('API_RUNTIME',role,index,args.ar_threads,args.threads,elapsed,flush=True)
         return observation
     rows=[pair('warmup',i) for i in range(args.warmups)]
+    if args.gc_policy=='freeze':
+        gc.collect();gc.freeze()
     rows += [pair('sample',i) for i in range(args.runs)]
     profile=None
     if args.profile:
@@ -82,7 +101,7 @@ def main():
     cgroup={n:(Path('/sys/fs/cgroup')/n).read_text().strip() for n in ('cpu.max','memory.max','memory.swap.max')}
     assert cgroup=={'cpu.max':'200000 100000','memory.max':'8000000000','memory.swap.max':'0'}
     result=dict(complete=True,scope='Fixed sentence split/seed42,43/full reference/48k API adapter exploration; HTTP overhead excluded',
-        settings={'threads':args.threads,'ar_threads':args.ar_threads,'tap_finish':args.tap_finish},
+        settings={'threads':args.threads,'ar_threads':args.ar_threads,'tap_finish':args.tap_finish,'gc_policy':args.gc_policy},
         cgroup=cgroup,observations=rows,excluded_profile=profile,tap_finish_audit=tap_audit,
         model_files_unchanged=True,original_inputs_unchanged=True,native_files_unchanged=True,
         native_files_sha256=native_after,model_input_sha256=engine.input_sha256,
