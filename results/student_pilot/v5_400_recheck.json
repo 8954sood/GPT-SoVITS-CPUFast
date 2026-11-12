@@ -1,0 +1,55 @@
+{
+  "referenced_chat": "01a1bf3d-1286-78e2-b59b-333eaa94f9e2",
+  "thread_read": true,
+  "cfm_refinement": {
+    "initial_updates": 1500,
+    "additional_updates": 400,
+    "full_context": true,
+    "lr": 2e-05,
+    "rollout_every": 4,
+    "objective": "Normalized mel endpoint MSE + .25 L1 + .25 temporal-difference L1 + .25 frequency-difference L1; combined with per-step velocity supervision",
+    "validation_endpoint_rmse_before": 0.08255,
+    "validation_endpoint_rmse_after": 0.07139,
+    "quality_approved": false
+  },
+  "vocoder_log_domain": {
+    "updates": 600,
+    "objective": "log_mel + .25 log_STFT + .5 spectral",
+    "quality_approved": false
+  },
+  "new_v2_recovery": "Expand to 30 train / 6 validation texts on one verified voice; original-rate32k log-mel/STFT plus intermediate features and full-context decoder400 updates; separate AR400 token KL. No direct CFM loss transfer.",
+  "sources": [
+    {
+      "path": "results/round12_refined_train_guard.json",
+      "sha256": "0e59e0903b76965bb8273e9c801c1bbbec8f47a1cdaf90e6095663a7badbaea3"
+    },
+    {
+      "path": "results/round12_refined_evaluation.json",
+      "sha256": "4656717cd02645d65878f077bd7953b4087087be24ba23a989459977c14ec672"
+    },
+    {
+      "path": "vocos_log_loss.py",
+      "sha256": "f9b3806a2121759d1616f5cccef450b760fb275eade725b1d1d127eeb24d1498"
+    },
+    {
+      "path": "train_vocos_log_voice.py",
+      "sha256": "691c7e6136fb974ea62fbea424979722194b922e26d3e8cdbd785181f83e553e"
+    },
+    {
+      "path": "results/round22_log_voice_training.json",
+      "sha256": "3058dcd0735fe7ca47b5225d70e9ddb015937480e45dbdb05239e03ba2baac4d"
+    },
+    {
+      "path": "results/round22_listening_feedback.json",
+      "sha256": "144f738c0ed8ff0814f09a9baa8a3ce1f7c0c223ec5e3e22bb4858aa5867df86"
+    }
+  ],
+  "failed_collection": {
+    "name": "recovery_corpus36",
+    "completed_train": 24,
+    "completed_validation": 4,
+    "exit": 1,
+    "reason": "Existing English frontend requested averaged_perceptron_tagger_eng absent inside container; existing local NLTK resource now mounted read-only in a fresh retry.",
+    "used_for_training": false
+  }
+}

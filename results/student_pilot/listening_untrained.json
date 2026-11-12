@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "B": "AR20 + original decoder",
+    "C": "AR24 + decoder13",
+    "D": "AR20 + decoder13"
+  },
+  "training": "none",
+  "feedback": "B,C,D다 저하가 다 있어. 음색, 먹먹함, 말의 억양 이런게 달라져",
+  "decision": "All three rejected for adoption; distillation research only",
+  "evaluation": "Korean same reference/text/seed local free generation; not N1 performance"
+}

@@ -1,0 +1,60 @@
+{
+  "scope": "Export correctness/local audio validity, not listening approval or N1 RTF",
+  "trained_ar_eager_vs_stock_max_abs": 0.0,
+  "audio": [
+    {
+      "file": ".experiments/student/listening_trained_B_fp32/en_B.wav",
+      "sample_rate": 32000,
+      "frames": 142720,
+      "finite": true
+    },
+    {
+      "file": ".experiments/student/listening_trained_B_fp32/ja_B.wav",
+      "sample_rate": 32000,
+      "frames": 196480,
+      "finite": true
+    },
+    {
+      "file": ".experiments/student/listening_trained_B_fp32/ko_B.wav",
+      "sample_rate": 32000,
+      "frames": 158080,
+      "finite": true
+    },
+    {
+      "file": ".experiments/student/listening_trained_C/en_C.wav",
+      "sample_rate": 32000,
+      "frames": 156800,
+      "finite": true
+    },
+    {
+      "file": ".experiments/student/listening_trained_C/ja_C.wav",
+      "sample_rate": 32000,
+      "frames": 191360,
+      "finite": true
+    },
+    {
+      "file": ".experiments/student/listening_trained_C/ko_C.wav",
+      "sample_rate": 32000,
+      "frames": 184960,
+      "finite": true
+    },
+    {
+      "file": ".experiments/student/listening_trained_D_fp32/en_D.wav",
+      "sample_rate": 32000,
+      "frames": 142720,
+      "finite": true
+    },
+    {
+      "file": ".experiments/student/listening_trained_D_fp32/ja_D.wav",
+      "sample_rate": 32000,
+      "frames": 196480,
+      "finite": true
+    },
+    {
+      "file": ".experiments/student/listening_trained_D_fp32/ko_D.wav",
+      "sample_rate": 32000,
+      "frames": 158080,
+      "finite": true
+    }
+  ]
+}

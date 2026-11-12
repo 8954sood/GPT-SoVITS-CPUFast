@@ -1,0 +1,118 @@
+{
+  "scope": "Local CPU-only small recovery pilots; not N1 RTF or quality approval",
+  "original_checkpoint_preserved": true,
+  "ar_training_reconstruction": {
+    "layers": 24,
+    "max_abs_logits": 2.47955322265625e-05,
+    "rmse_logits": 3.832685706584016e-06,
+    "temperature2_kl": 4.395555919245453e-08
+  },
+  "ar20_training": {
+    "scope": "Teacher forcing only; no free-generation approval",
+    "train_contexts": 3,
+    "validation_contexts": 3,
+    "history": [
+      {
+        "step": 0,
+        "validation_kl": 0.1449194997549057
+      },
+      {
+        "step": 10,
+        "validation_kl": 0.06762749950091045
+      },
+      {
+        "step": 20,
+        "validation_kl": 0.05999841168522835
+      },
+      {
+        "step": 30,
+        "validation_kl": 0.05720768868923187
+      },
+      {
+        "step": 40,
+        "validation_kl": 0.05654776965578397
+      },
+      {
+        "step": 50,
+        "validation_kl": 0.055834190299113594
+      }
+    ]
+  },
+  "decoder13_training": {
+    "scope": "Small crop-based pilot; not listening approved or N1 performance",
+    "train_records": 3,
+    "validation_records": 3,
+    "history": [
+      {
+        "step": 0,
+        "validation_spectral": 0.9386952519416809
+      },
+      {
+        "step": 10,
+        "validation_spectral": 0.9169404705365499
+      },
+      {
+        "step": 20,
+        "validation_spectral": 0.7995952566464742
+      },
+      {
+        "step": 30,
+        "validation_spectral": 0.7104553778966268
+      }
+    ]
+  },
+  "decoder_training_host_observation": {
+    "command": [
+      "<V5_ROOT>/.venv/bin/python",
+      "-u",
+      "experiments/student/distill_decoder.py",
+      "--s2",
+      "<V5_ROOT>/data/cpufast-v2proplus/assets/v2Pro/s2Gv2ProPlus.pth",
+      "--spec",
+      ".experiments/student/subsets_pilot/student_spec.json",
+      "--manifest",
+      ".experiments/student/distill_corpus_v2/manifest_reference_pilot.json",
+      "--output",
+      ".experiments/student/decoder13_distilled_pilot",
+      "--steps",
+      "30",
+      "--threads",
+      "8"
+    ],
+    "platform": "Darwin",
+    "machine": "arm64",
+    "device_policy": "CPU only; train script rejects GPU/MPS parameters",
+    "cpu_quota_cores": null,
+    "memory_limit_bytes": null,
+    "scope": "unrestricted host training observation; not an inference RTF benchmark",
+    "logical_cpus": 14,
+    "physical_ram_bytes": 38654705664,
+    "peak_sampled_tree_rss_bytes": 1293713408,
+    "cpu_seconds": 21.160652288,
+    "elapsed_seconds": 10.083800750027876,
+    "average_cpu_cores": 2.0984798105953755,
+    "exit_code": 0,
+    "status": "complete"
+  },
+  "ar_training_host_observation": null,
+  "ar_observation_note": "First bounded pilot completed without wrapper; no peak RSS or elapsed claim",
+  "data_scope": "First CPU recovery pilot: one V5-generated reference, 3 languages, 3 train / 3 validation texts; not general speaker validation",
+  "data_exclusions": "Other two recorded references produced teacher utterances 11.7–22.22s for short sentences versus 3.66–4.5s on known reference; excluded pending listening audit, not silently treated as clean training data.",
+  "checkpoints": {
+    "ar20_distilled_pilot": {
+      "sha256": "b65dcfb4396eab8a1cbf37eb58469c07c98e26e35b54c8c059b195f36d0d298e",
+      "bytes": 257216209
+    },
+    "decoder13_distilled_pilot": {
+      "sha256": "cd22c3d828b656f67d9fbc7b214fb86c213668c32d194cceef8e38e02ea1ac1f",
+      "bytes": 133618281
+    }
+  },
+  "quality_approved": false,
+  "failed_listening_synthesis": {
+    "variant": "B trained AR20",
+    "reason": "General FP32 posttrained weights rejected by exact-FP16 native AR packing check. No coefficients rounded. Retrying with existing FP32 cache and prefetch=0.",
+    "guard_exit_code": 1,
+    "guard_violation": null
+  }
+}

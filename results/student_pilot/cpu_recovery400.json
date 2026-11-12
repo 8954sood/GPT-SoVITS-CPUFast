@@ -1,0 +1,390 @@
+{
+  "scope": "CPU-only 400-update recovery experiments, no quality approval or N1 student RTF",
+  "corpus_sha256_verified_after_training": true,
+  "context_files_verified": 73,
+  "train_contexts": 30,
+  "validation_contexts": 6,
+  "speaker_count": 1,
+  "ar": {
+    "updates_executed": 400,
+    "initial": {
+      "step": 0,
+      "validation_kl": 0.05622698490818342,
+      "elapsed_seconds": 0.5616821659496054
+    },
+    "selected": {
+      "step": 25,
+      "validation_kl": 0.04274647807081541,
+      "elapsed_seconds": 7.381605165952351
+    },
+    "last": {
+      "step": 400,
+      "validation_kl": 0.07578845508396626,
+      "elapsed_seconds": 77.29848162498092
+    },
+    "provenance": {
+      "teacher_sha256": "87133414860ea14ff6620c483a3db5ed07b44be42e2c3fcdad65523a729a745a",
+      "manifest_sha256": "54c87e32dbba8277350b82279c8c9e872460fb55b8e4d6abe135c0096d60f98c",
+      "resume_sha256": "b65dcfb4396eab8a1cbf37eb58469c07c98e26e35b54c8c059b195f36d0d298e",
+      "lr": 2e-05,
+      "temperature": 2.0,
+      "device": "cpu",
+      "dtype": "float32"
+    },
+    "host": {
+      "command": [
+        "<V5_ROOT>/.venv/bin/python",
+        "-u",
+        "experiments/student/distill_ar.py",
+        "--teacher",
+        "<V5_ROOT>/models/s1v3.ckpt",
+        "--resume",
+        "<V2_ROOT>/.experiments/student/ar20_distilled_pilot/best.pt",
+        "--output",
+        "<V2_ROOT>/.experiments/student/ar20_recovery400",
+        "--spec",
+        "<V2_ROOT>/.experiments/student/subsets_pilot/student_spec.json",
+        "--manifest",
+        "<V2_ROOT>/.experiments/student/recovery_corpus36_retry/manifest.json",
+        "--steps",
+        "400",
+        "--threads",
+        "8",
+        "--validate-every",
+        "25"
+      ],
+      "platform": "Darwin",
+      "machine": "arm64",
+      "device_policy": "CPU only; train script rejects GPU/MPS parameters",
+      "cpu_quota_cores": null,
+      "memory_limit_bytes": null,
+      "scope": "unrestricted host training observation; not an inference RTF benchmark",
+      "logical_cpus": 14,
+      "physical_ram_bytes": 38654705664,
+      "peak_sampled_tree_rss_bytes": 2610479104,
+      "cpu_seconds": 229.606920192,
+      "elapsed_seconds": 80.6751913750195,
+      "average_cpu_cores": 2.846066012098685,
+      "exit_code": 0,
+      "status": "complete"
+    },
+    "checkpoint": {
+      "sha256": "9a8571d454c76875057fc894643fca995e090a7abb7516f023ceefae3ca01e82",
+      "bytes": 257216593
+    },
+    "history": [
+      {
+        "step": 0,
+        "validation_kl": 0.05622698490818342,
+        "elapsed_seconds": 0.5616821659496054
+      },
+      {
+        "step": 25,
+        "validation_kl": 0.04274647807081541,
+        "elapsed_seconds": 7.381605165952351
+      },
+      {
+        "step": 50,
+        "validation_kl": 0.04549852013587952,
+        "elapsed_seconds": 13.08978370798286
+      },
+      {
+        "step": 75,
+        "validation_kl": 0.04561582828561465,
+        "elapsed_seconds": 17.98197895794874
+      },
+      {
+        "step": 100,
+        "validation_kl": 0.05972949539621671,
+        "elapsed_seconds": 22.558185665984638
+      },
+      {
+        "step": 125,
+        "validation_kl": 0.059758229181170464,
+        "elapsed_seconds": 27.29588299995521
+      },
+      {
+        "step": 150,
+        "validation_kl": 0.06195642426609993,
+        "elapsed_seconds": 32.051095374976285
+      },
+      {
+        "step": 175,
+        "validation_kl": 0.05642482948799928,
+        "elapsed_seconds": 36.46414316596929
+      },
+      {
+        "step": 200,
+        "validation_kl": 0.0628982378790776,
+        "elapsed_seconds": 41.02225641597761
+      },
+      {
+        "step": 225,
+        "validation_kl": 0.053559803093473114,
+        "elapsed_seconds": 46.211720790946856
+      },
+      {
+        "step": 250,
+        "validation_kl": 0.06084646222492059,
+        "elapsed_seconds": 50.659375666000415
+      },
+      {
+        "step": 275,
+        "validation_kl": 0.07916479061047237,
+        "elapsed_seconds": 55.47834674996557
+      },
+      {
+        "step": 300,
+        "validation_kl": 0.06820282836755116,
+        "elapsed_seconds": 59.84240712499013
+      },
+      {
+        "step": 325,
+        "validation_kl": 0.08041844020287196,
+        "elapsed_seconds": 64.1891779579455
+      },
+      {
+        "step": 350,
+        "validation_kl": 0.09728965908288956,
+        "elapsed_seconds": 68.50504266598728
+      },
+      {
+        "step": 375,
+        "validation_kl": 0.10708916559815407,
+        "elapsed_seconds": 72.88889991596807
+      },
+      {
+        "step": 400,
+        "validation_kl": 0.07578845508396626,
+        "elapsed_seconds": 77.29848162498092
+      }
+    ],
+    "original_checkpoint_preserved": true
+  },
+  "decoder": {
+    "updates_executed": 400,
+    "initial": {
+      "step": 0,
+      "validation_objective": 0.7046650052070618,
+      "validation_log_mel": 0.22670306265354156,
+      "validation_log_stft": 0.47026267647743225,
+      "validation_spectral": 0.7207925319671631,
+      "elapsed_seconds": 3.8606576250167564
+    },
+    "selected": {
+      "step": 175,
+      "validation_objective": 0.33925938606262207,
+      "validation_log_mel": 0.09850447624921799,
+      "validation_log_stft": 0.2571944296360016,
+      "validation_spectral": 0.35291263461112976,
+      "elapsed_seconds": 292.8424681670149
+    },
+    "last": {
+      "step": 400,
+      "validation_objective": 0.36057236790657043,
+      "validation_log_mel": 0.10258719325065613,
+      "validation_log_stft": 0.26952365040779114,
+      "validation_spectral": 0.38120853900909424,
+      "elapsed_seconds": 575.1891928340192
+    },
+    "provenance": {
+      "teacher_s2_sha256": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+      "manifest_sha256": "54c87e32dbba8277350b82279c8c9e872460fb55b8e4d6abe135c0096d60f98c",
+      "resume_sha256": "cd22c3d828b656f67d9fbc7b214fb86c213668c32d194cceef8e38e02ea1ac1f",
+      "full_context": true,
+      "log_mel": true,
+      "sample_rate": 32000,
+      "lr": 1e-05,
+      "device": "cpu",
+      "dtype": "float32"
+    },
+    "host": {
+      "command": [
+        "<V5_ROOT>/.venv/bin/python",
+        "-u",
+        "experiments/student/distill_decoder.py",
+        "--s2",
+        "<V5_ROOT>/data/cpufast-v2proplus/assets/v2Pro/s2Gv2ProPlus.pth",
+        "--resume",
+        "<V2_ROOT>/.experiments/student/decoder13_distilled_pilot/best.pt",
+        "--output",
+        "<V2_ROOT>/.experiments/student/decoder13_recovery400",
+        "--full-context",
+        "--log-mel",
+        "--spec",
+        "<V2_ROOT>/.experiments/student/subsets_pilot/student_spec.json",
+        "--manifest",
+        "<V2_ROOT>/.experiments/student/recovery_corpus36_retry/manifest.json",
+        "--steps",
+        "400",
+        "--threads",
+        "8",
+        "--validate-every",
+        "25"
+      ],
+      "platform": "Darwin",
+      "machine": "arm64",
+      "device_policy": "CPU only; train script rejects GPU/MPS parameters",
+      "cpu_quota_cores": null,
+      "memory_limit_bytes": null,
+      "scope": "unrestricted host training observation; not an inference RTF benchmark",
+      "logical_cpus": 14,
+      "physical_ram_bytes": 38654705664,
+      "peak_sampled_tree_rss_bytes": 4449828864,
+      "cpu_seconds": 1537.4709227520002,
+      "elapsed_seconds": 578.0777425419656,
+      "average_cpu_cores": 2.6596265685499687,
+      "exit_code": 0,
+      "status": "complete"
+    },
+    "checkpoint": {
+      "sha256": "ac54705c303b811bdead74d0f38adac93d320044255e3b5c39da1f8bdf114006",
+      "bytes": 133618793
+    },
+    "history": [
+      {
+        "step": 0,
+        "validation_objective": 0.7046650052070618,
+        "validation_log_mel": 0.22670306265354156,
+        "validation_log_stft": 0.47026267647743225,
+        "validation_spectral": 0.7207925319671631,
+        "elapsed_seconds": 3.8606576250167564
+      },
+      {
+        "step": 25,
+        "validation_objective": 0.45249509811401367,
+        "validation_log_mel": 0.13489842414855957,
+        "validation_log_stft": 0.3327144682407379,
+        "validation_spectral": 0.46883609890937805,
+        "elapsed_seconds": 55.175689959025476
+      },
+      {
+        "step": 50,
+        "validation_objective": 0.4146954119205475,
+        "validation_log_mel": 0.12153144925832748,
+        "validation_log_stft": 0.3054788410663605,
+        "validation_spectral": 0.43358853459358215,
+        "elapsed_seconds": 97.61070220900001
+      },
+      {
+        "step": 75,
+        "validation_objective": 0.38588646054267883,
+        "validation_log_mel": 0.1121438518166542,
+        "validation_log_stft": 0.2862589657306671,
+        "validation_spectral": 0.4043557345867157,
+        "elapsed_seconds": 161.4339030419942
+      },
+      {
+        "step": 100,
+        "validation_objective": 0.3857528865337372,
+        "validation_log_mel": 0.11216218024492264,
+        "validation_log_stft": 0.28616419434547424,
+        "validation_spectral": 0.40409934520721436,
+        "elapsed_seconds": 199.3698426670162
+      },
+      {
+        "step": 125,
+        "validation_objective": 0.3741474151611328,
+        "validation_log_mel": 0.10851625353097916,
+        "validation_log_stft": 0.28156641125679016,
+        "validation_spectral": 0.390479177236557,
+        "elapsed_seconds": 231.03070525004296
+      },
+      {
+        "step": 150,
+        "validation_objective": 0.38370609283447266,
+        "validation_log_mel": 0.11185523122549057,
+        "validation_log_stft": 0.287981241941452,
+        "validation_spectral": 0.39971110224723816,
+        "elapsed_seconds": 262.3073702499969
+      },
+      {
+        "step": 175,
+        "validation_objective": 0.33925938606262207,
+        "validation_log_mel": 0.09850447624921799,
+        "validation_log_stft": 0.2571944296360016,
+        "validation_spectral": 0.35291263461112976,
+        "elapsed_seconds": 292.8424681670149
+      },
+      {
+        "step": 200,
+        "validation_objective": 0.373719722032547,
+        "validation_log_mel": 0.10723505169153214,
+        "validation_log_stft": 0.2837424874305725,
+        "validation_spectral": 0.39109811186790466,
+        "elapsed_seconds": 324.46465887501836
+      },
+      {
+        "step": 225,
+        "validation_objective": 0.40337780117988586,
+        "validation_log_mel": 0.11598924547433853,
+        "validation_log_stft": 0.2997114956378937,
+        "validation_spectral": 0.4249214231967926,
+        "elapsed_seconds": 355.2114040420274
+      },
+      {
+        "step": 250,
+        "validation_objective": 0.38308119773864746,
+        "validation_log_mel": 0.10944235324859619,
+        "validation_log_stft": 0.2894153892993927,
+        "validation_spectral": 0.40257009863853455,
+        "elapsed_seconds": 385.231180917006
+      },
+      {
+        "step": 275,
+        "validation_objective": 0.3891203701496124,
+        "validation_log_mel": 0.11075827479362488,
+        "validation_log_stft": 0.2931194007396698,
+        "validation_spectral": 0.410164475440979,
+        "elapsed_seconds": 416.96046433399897
+      },
+      {
+        "step": 300,
+        "validation_objective": 0.3545488119125366,
+        "validation_log_mel": 0.10318993777036667,
+        "validation_log_stft": 0.26399287581443787,
+        "validation_spectral": 0.37072131037712097,
+        "elapsed_seconds": 448.08043274999363
+      },
+      {
+        "step": 325,
+        "validation_objective": 0.35165271162986755,
+        "validation_log_mel": 0.09994375705718994,
+        "validation_log_stft": 0.2624607980251312,
+        "validation_spectral": 0.3721875250339508,
+        "elapsed_seconds": 480.29494887503097
+      },
+      {
+        "step": 350,
+        "validation_objective": 0.37660956382751465,
+        "validation_log_mel": 0.1056041345000267,
+        "validation_log_stft": 0.28778380155563354,
+        "validation_spectral": 0.3981189727783203,
+        "elapsed_seconds": 511.94306150003104
+      },
+      {
+        "step": 375,
+        "validation_objective": 0.3739492893218994,
+        "validation_log_mel": 0.10568014532327652,
+        "validation_log_stft": 0.2838309705257416,
+        "validation_spectral": 0.394622802734375,
+        "elapsed_seconds": 544.6939071250381
+      },
+      {
+        "step": 400,
+        "validation_objective": 0.36057236790657043,
+        "validation_log_mel": 0.10258719325065613,
+        "validation_log_stft": 0.26952365040779114,
+        "validation_spectral": 0.38120853900909424,
+        "elapsed_seconds": 575.1891928340192
+      }
+    ],
+    "original_checkpoint_preserved": true
+  },
+  "selection_note": "Best validation checkpoint, not final400, selected. AR warmstarted from CPU50-update pilot; decoder from CPU30-update pilot. Optimizers start fresh each phase.",
+  "script_hashes": {
+    "experiments/student/distill_ar.py": "0bc5675cc9138baf99f89a5423f6d2285495c98a85de59897571a29e65d97426",
+    "experiments/student/distill_decoder.py": "b0fbdeb58daa44765f35eaa0d42dac2d3a46a3229758134b7395c0e8fb54eaaa",
+    "experiments/student/voice_loss.py": "8704e20a54ac33aba5c68f8f1e2b6e620480ff02d17deff1140e74400ea6996c"
+  }
+}

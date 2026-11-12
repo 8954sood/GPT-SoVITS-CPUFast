@@ -1,0 +1,130 @@
+{
+  "quality_approved": true,
+  "scope": "User Korean listening, same reference/text/seed. User accepts G despite small phrase-ending difference; E/F/G muffling improved. Not broad zero-shot/language approval.",
+  "feedback": "G는 첫 시작의 문장 말 끝 흐리는게 다르긴 한데, 이정도는 막 그런 정도는 아니라서 괜찮은거 같은데 E,F,G다 먹먹함등이 개선되었어.",
+  "ar_layers": 20,
+  "decoder_branches": [
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ]
+  ],
+  "ar_selected_additional_step": 25,
+  "decoder_selected_additional_step": 175,
+  "additional_updates_executed_each": 400,
+  "files": {
+    "ar.pt": {
+      "sha256": "9a8571d454c76875057fc894643fca995e090a7abb7516f023ceefae3ca01e82",
+      "bytes": 257216593
+    },
+    "decoder.pt": {
+      "sha256": "ac54705c303b811bdead74d0f38adac93d320044255e3b5c39da1f8bdf114006",
+      "bytes": 133618793
+    },
+    "student_spec.json": {
+      "sha256": "4ec72f1b08c90397b56427f8093c490c9f1b97599a729b18e412b301697c2a7c",
+      "bytes": 531
+    }
+  },
+  "runtime": "CPU FP32; general FP32 AR cache, no precision conversion",
+  "original_teacher_files_overwritten": false,
+  "listening_report": {
+    "scope": "Local free-generation listening smoke; not N1 performance",
+    "variant": "D",
+    "ar_cache_storage": "FP32",
+    "quality_approved": false,
+    "ar_layers": 20,
+    "decoder_branches": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    "cases": [
+      {
+        "language": "ko",
+        "text": "오늘은 날씨가 참 좋네요. 잠깐 쉬었다가 함께 이야기를 이어 가요.",
+        "sample_rate": 32000,
+        "audio_seconds": 5.9,
+        "smoke_elapsed_seconds": 5.035079293999999,
+        "semantic": [
+          {
+            "tokens": 140,
+            "sha256": "cd739167078c20de37f0aa23cc7237d722d392da1a83088aac1ad9936bb144f5"
+          }
+        ],
+        "pcm_sha256": "4e37c28c7f96d5e80794826f1e894699d2fb3e4748ae69a5444ad1b4becdfb25"
+      },
+      {
+        "language": "ja",
+        "text": "今日は穏やかな天気ですね。少し休んでから、また一緒に続きを進めましょう。",
+        "sample_rate": 32000,
+        "audio_seconds": 6.58,
+        "smoke_elapsed_seconds": 2.863349376000002,
+        "semantic": [
+          {
+            "tokens": 157,
+            "sha256": "ed0f206f302b046439ed30192f86eb957618507b5ff6905e46b7bcb17e6174ce"
+          }
+        ],
+        "pcm_sha256": "28db9ccb9757dc6256b8de32e4a7e2075f3ea9e8435d916c4db419f99ae4c380"
+      },
+      {
+        "language": "en",
+        "text": "The weather is pleasant today. Let us take a short break and continue together.",
+        "sample_rate": 32000,
+        "audio_seconds": 4.58,
+        "smoke_elapsed_seconds": 2.2227410009999957,
+        "semantic": [
+          {
+            "tokens": 107,
+            "sha256": "d76bcdd50219cf29175b602d263da9ea07a45fdfbe470c7fa022dcff4945d812"
+          }
+        ],
+        "pcm_sha256": "ae2523981d809e7fffba4b97fe36f198f8ac658875b1c064b3aa8b38dae1f732"
+      }
+    ],
+    "student_parameters_unchanged_during_inference": true,
+    "checkpoint_files_unchanged": true,
+    "finite_original_rate_wavs": 3
+  },
+  "training_report": "results/student_pilot/cpu_recovery400.json"
+}

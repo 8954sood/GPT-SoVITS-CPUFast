@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "B": "AR20 CPU50 updates + original decoder",
+    "C": "AR24 + decoder13 CPU30 updates",
+    "D": "both trained pilots"
+  },
+  "feedback": "B,C,D 품질저하가 아직 있고",
+  "quality_approved": false,
+  "decision": "All rejected; expand corpus and add original-rate log-mel supervision/full context for longer recovery phase",
+  "reference_chat": "thread://01a1bf3d-1286-78e2-b59b-333eaa94f9e2?hostId=local"
+}

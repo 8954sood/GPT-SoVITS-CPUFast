@@ -1,0 +1,213 @@
+{
+  "scope": "Same-context subset selection; not heldout quality or deployment RTF",
+  "candidates": [
+    {
+      "layers": 20,
+      "removed_layer_ids": [
+        17,
+        18,
+        16,
+        20
+      ],
+      "keep_layer_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        19,
+        21,
+        22,
+        23
+      ],
+      "teacher_forcing": [
+        {
+          "language": "ja",
+          "mean_token_kl": 0.09070098400115967,
+          "max_token_kl": 0.3463747799396515,
+          "teacher_argmax_agreement": 0.6713286638259888,
+          "teacher_eos_argmax_positions": [
+            142
+          ],
+          "student_eos_argmax_positions": [
+            142
+          ]
+        },
+        {
+          "language": "ko",
+          "mean_token_kl": 0.07757099717855453,
+          "max_token_kl": 0.34777548909187317,
+          "teacher_argmax_agreement": 0.739130437374115,
+          "teacher_eos_argmax_positions": [
+            137
+          ],
+          "student_eos_argmax_positions": [
+            137
+          ]
+        },
+        {
+          "language": "en",
+          "mean_token_kl": 0.06237123906612396,
+          "max_token_kl": 0.19597530364990234,
+          "teacher_argmax_agreement": 0.732758641242981,
+          "teacher_eos_argmax_positions": [
+            115
+          ],
+          "student_eos_argmax_positions": [
+            115
+          ]
+        }
+      ]
+    },
+    {
+      "layers": 16,
+      "removed_layer_ids": [
+        17,
+        18,
+        16,
+        20,
+        15,
+        21,
+        19,
+        13
+      ],
+      "keep_layer_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        22,
+        23
+      ],
+      "teacher_forcing": [
+        {
+          "language": "ja",
+          "mean_token_kl": 0.3708622455596924,
+          "max_token_kl": 1.2992267608642578,
+          "teacher_argmax_agreement": 0.5104895234107971,
+          "teacher_eos_argmax_positions": [
+            142
+          ],
+          "student_eos_argmax_positions": [
+            142
+          ]
+        },
+        {
+          "language": "ko",
+          "mean_token_kl": 0.3449955880641937,
+          "max_token_kl": 1.081128716468811,
+          "teacher_argmax_agreement": 0.47826087474823,
+          "teacher_eos_argmax_positions": [
+            137
+          ],
+          "student_eos_argmax_positions": [
+            137
+          ]
+        },
+        {
+          "language": "en",
+          "mean_token_kl": 0.28979748487472534,
+          "max_token_kl": 1.1280590295791626,
+          "teacher_argmax_agreement": 0.5517241358757019,
+          "teacher_eos_argmax_positions": [
+            115
+          ],
+          "student_eos_argmax_positions": [
+            115
+          ]
+        }
+      ]
+    },
+    {
+      "layers": 12,
+      "removed_layer_ids": [
+        17,
+        18,
+        16,
+        20,
+        15,
+        21,
+        19,
+        13,
+        14,
+        12,
+        11,
+        8
+      ],
+      "keep_layer_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        22,
+        23
+      ],
+      "teacher_forcing": [
+        {
+          "language": "ja",
+          "mean_token_kl": 0.966172456741333,
+          "max_token_kl": 3.332487106323242,
+          "teacher_argmax_agreement": 0.2657342553138733,
+          "teacher_eos_argmax_positions": [
+            142
+          ],
+          "student_eos_argmax_positions": [
+            141,
+            142
+          ]
+        },
+        {
+          "language": "ko",
+          "mean_token_kl": 0.8326777815818787,
+          "max_token_kl": 2.873857259750366,
+          "teacher_argmax_agreement": 0.2971014380455017,
+          "teacher_eos_argmax_positions": [
+            137
+          ],
+          "student_eos_argmax_positions": [
+            137
+          ]
+        },
+        {
+          "language": "en",
+          "mean_token_kl": 0.8273965120315552,
+          "max_token_kl": 3.930393695831299,
+          "teacher_argmax_agreement": 0.3103448152542114,
+          "teacher_eos_argmax_positions": [
+            115
+          ],
+          "student_eos_argmax_positions": [
+            115
+          ]
+        }
+      ]
+    }
+  ]
+}

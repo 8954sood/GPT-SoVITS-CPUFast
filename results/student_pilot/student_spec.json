@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "training": "none",
+  "quality_approved": false,
+  "ar_keep": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    19,
+    21,
+    22,
+    23
+  ],
+  "decoder_branches": [
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ]
+  ],
+  "selection_scope": "3 languages, one reference; no heldout generalization evidence"
+}

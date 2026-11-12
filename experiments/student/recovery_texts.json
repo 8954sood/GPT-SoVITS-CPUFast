@@ -1,0 +1,56 @@
+{
+  "ja": {
+    "train": [
+      "窓を開けると、遠くから鳥の声が聞こえてきました。",
+      "今日は駅の近くにある小さな本屋に寄りました。",
+      "温かいお茶を飲みながら、明日の予定を確認しています。",
+      "雨が止んだら、公園まで少し散歩に行きましょう。",
+      "新しい仕事にも少しずつ慣れて、毎日が楽しくなりました。",
+      "この道をまっすぐ進むと、右側に大きな橋があります。",
+      "久しぶりに友達と会って、時間を忘れて話しました。",
+      "夕方になると、海の向こうに美しい夕日が見えます。",
+      "急がなくても大丈夫ですから、落ち着いて準備してください。",
+      "好きな音楽を聴いていると、疲れた気持ちが軽くなります。"
+    ],
+    "validation": [
+      "明日の朝は少し早く起きて、駅までゆっくり歩きます。",
+      "机の上に置いてある青い封筒を、忘れずに持ってきてください。"
+    ]
+  },
+  "ko": {
+    "train": [
+      "창문을 여니 멀리서 새가 지저귀는 소리가 들렸어요.",
+      "오늘은 역 근처에 있는 작은 서점에 들렀어요.",
+      "따뜻한 차를 마시면서 내일 일정을 확인하고 있어요.",
+      "비가 그치면 공원까지 잠깐 산책하러 가요.",
+      "새로운 일에도 조금씩 익숙해져서 하루하루가 즐거워졌어요.",
+      "이 길을 따라 곧장 가면 오른쪽에 큰 다리가 있어요.",
+      "오랜만에 친구를 만나서 시간 가는 줄 모르고 이야기했어요.",
+      "저녁이 되면 바다 건너편으로 아름다운 노을이 보여요.",
+      "서두르지 않아도 괜찮으니 마음을 가라앉히고 준비해 주세요.",
+      "좋아하는 음악을 듣고 있으면 지친 마음이 한결 가벼워져요."
+    ],
+    "validation": [
+      "내일 아침에는 조금 일찍 일어나서 역까지 천천히 걸어갈게요.",
+      "책상 위에 놓인 파란 봉투를 잊지 말고 가져와 주세요."
+    ]
+  },
+  "en": {
+    "train": [
+      "When I opened the window, I could hear birds singing in the distance.",
+      "Today I stopped at a small bookshop near the station.",
+      "I am checking tomorrow's schedule while drinking a warm cup of tea.",
+      "When the rain stops, let us take a short walk to the park.",
+      "I am gradually getting used to my new work and enjoying each day.",
+      "If you follow this road straight ahead, there is a large bridge on your right.",
+      "I met an old friend and we talked for so long that we lost track of time.",
+      "In the evening, you can see a beautiful sunset across the sea.",
+      "There is no need to rush, so take your time and get ready calmly.",
+      "Listening to my favorite music helps me feel less tired."
+    ],
+    "validation": [
+      "Tomorrow morning I will get up early and walk slowly to the station.",
+      "Please remember to bring the blue envelope that is on the desk."
+    ]
+  }
+}
