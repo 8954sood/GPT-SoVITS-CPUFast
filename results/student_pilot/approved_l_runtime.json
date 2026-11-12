@@ -1,0 +1,23 @@
+{
+  "model_variant": "L",
+  "quality_approved": true,
+  "feedback": "L 사용 가능",
+  "scope": "Korean same reference/text/seed versus approved K. Not broad zero-shot or JA/EN listening approval.",
+  "model_weights_changed": false,
+  "underlying_hf_repo": "babihoba/gpt-sovits-v2proplus-arm-students",
+  "underlying_hf_revision": "475ac97f4a503ea9c6581333c8b936fd5c9f6dcd",
+  "underlying_manifest_path": "approved-k-20261112/manifest.json",
+  "underlying_manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+  "arithmetic": {
+    "ar": "W8A8 per-output-channel weights, dynamically quantized input; FP32 dequantization",
+    "attention": "Native FP32 head-major attention",
+    "acoustic": "Normal FP32 engine, fast_half0, no mixed global fast mode"
+  },
+  "implementation": "experiments/student/listen_ar_int8.py",
+  "implementation_sha256": "170a6532158d27262ba8d2aeb0ed1c6b0f9c11ab95946a2a3c8273768f3e4587",
+  "reference_sha256": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+  "seed": 42,
+  "listening_report": "results/student_pilot/ar_int8_listening.json",
+  "actual_n1_rtf_measured": false,
+  "primary_objective": "Reduce actual target N1 latency/RTF with accepted quality; size alone is not success"
+}

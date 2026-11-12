@@ -1,9 +1,9 @@
 {
   "candidate": "L: approved K bundle with isolated W8A8 AR and native FP32 attention; normal FP32 acoustic engine",
-  "quality_approved": false,
+  "quality_approved": true,
   "underlying_model_release": "results/student_pilot/hf_approved_k_release.json",
   "new_model_weights": false,
-  "scope": "Local Korean/JA/EN synthesis for listening, not actual N1 RTF. User approval pending.",
+  "scope": "User Korean same reference/text/seed L versus K listening approval. JA/EN synthesis checks only. Actual N1 RTF pending.",
   "comparison": {
     "scope": "Local free-generation listening smoke; not N1 performance",
     "variant": "D",
@@ -520,5 +520,6 @@
     },
     "library_sha256": "54d89f5397ddf906e9e0e269d66df6f139b93f5851a43e62636060a7f6969143"
   },
-  "native_numerical_tests": "Linux ARM64 existing 3tests passed: int8 quantized reference at1/2threads, native head attention masked reference, half FFT product (not enabled for this candidate)"
+  "native_numerical_tests": "Linux ARM64 existing 3tests passed: int8 quantized reference at1/2threads, native head attention masked reference, half FFT product (not enabled for this candidate)",
+  "feedback": "L 사용 가능"
 }
