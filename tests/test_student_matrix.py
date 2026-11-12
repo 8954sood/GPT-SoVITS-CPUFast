@@ -62,6 +62,7 @@ def synthetic_bundle(root, variant, storage):
         ("exact_fp16", "exact_fp16", False, "stream"),
         ("exact_fp16", "exact_fp16", True, "bottleneck"),
         ("exact_fp16", "exact_fp16", False, "packed"),
+        ("exact_fp16", "exact_fp16", False, "profile"),
     ],
 )
 def test_comparison_uses_each_approved_bundle_and_matching_cache(
@@ -119,7 +120,9 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             index = argv.index(key)
             del argv[index : index + 2]
         argv.append(
-            "--packed-prefill-comparison"
+            "--diagnostic-profile-only"
+            if ar_only == "profile"
+            else "--packed-prefill-comparison"
             if ar_only == "packed"
             else "--fft-half-stream-comparison"
             if ar_only == "stream"
@@ -196,6 +199,18 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
 
     monkeypatch.setattr(run_student_matrix.subprocess, "run", execute)
     run_student_matrix.main()
+    if ar_only == "profile":
+        assert len(calls) == 1
+        command = calls[0]
+        assert command[command.index("--warmups") + 1] == "3"
+        assert command[command.index("--samples") + 1] == "1"
+        assert "--ar-int8-only" in command and "--profile-output" in command
+        assert "--packed-prefill-ffn" not in command
+        assert "--fft-half-products" not in command
+        summary = json.loads((output / "student_summary.json").read_text())
+        assert summary["cases"] == [] and "profile_run" in summary
+        assert summary["complete"] and summary["student_assets_unchanged"]
+        return
     if ar_only in ("bottleneck", "packed"):
         assert len(calls) == 11
         candidate_label = "packed" if ar_only == "packed" else "R"

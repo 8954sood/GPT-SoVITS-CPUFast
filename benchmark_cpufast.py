@@ -891,6 +891,7 @@ def main():
     if args.profile_output is not None:
         from cpufast_profiling import (
             ar_phase_ranges,
+            decoder_fft_ranges,
             decoder_tap_ranges,
             predictor_range,
         )
@@ -906,6 +907,7 @@ def main():
                     pipeline.t2s_model.model.ar_predict_layer
                 ) as predictor_metadata,
                 decoder_tap_ranges(pipeline.vits_model.dec) as tap_metadata,
+                decoder_fft_ranges(pipeline.vits_model.dec) as fft_metadata,
                 ar_phase_ranges(pipeline.t2s_model.model) as ar_phase_metadata,
                 torch.inference_mode(args.inference_mode),
             ):
@@ -944,6 +946,7 @@ def main():
                     "record_shapes": not args.profile_no_shapes,
                     "predictor": predictor_metadata,
                     "decoder_taps": tap_metadata,
+                    "decoder_fft": fft_metadata,
                     "ar_phases": ar_phase_metadata,
                     "profile_output_checks": profile_checks,
                     "operators": sorted(

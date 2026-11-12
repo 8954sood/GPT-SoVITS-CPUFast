@@ -5,7 +5,7 @@ from types import SimpleNamespace
 import pytest
 import torch
 
-from cpufast_profiling import ar_phase_ranges
+from cpufast_profiling import ar_phase_ranges, decoder_fft_ranges
 
 
 class Transformer:
@@ -40,6 +40,7 @@ def test_phase_shape_and_matrix_roles_preserve_results_and_restore_on_error():
         assert torch.equal(model.t2s_transformer.process_prompt(x), expected)
         assert torch.equal(model.t2s_transformer.decode_next_token(x), expected)
     assert model.t2s_transformer is transformer
+
     assert {r["phase"] for r in metadata["phases"]} == {"prefill", "decode"}
     for phase in ("prefill", "decode"):
         rows = [r for r in metadata["operators"] if r["phase"] == phase]
@@ -59,3 +60,18 @@ def test_phase_shape_and_matrix_roles_preserve_results_and_restore_on_error():
     with pytest.raises(RuntimeError), ar_phase_ranges(model):
         raise RuntimeError("restore")
     assert model.t2s_transformer is transformer
+
+
+def test_fft_shape_labels_restore_forward_and_preserve_pcm_math():
+    from cpufast_fft import FFTConv1d
+
+    layer = FFTConv1d(torch.nn.Conv1d(12, 12, 7, padding=3).eval())
+    value = torch.randn(1, 12, 137)
+    with torch.no_grad():
+        expected = layer(value)
+        with decoder_fft_ranges(layer) as metadata:
+            actual = layer(value)
+        assert torch.equal(actual, expected)
+    assert "forward" not in layer.__dict__
+    assert metadata[0]["input_shapes"] == [{"shape": [1, 12, 137], "calls": 1}]
+    assert "Cin12_Cout12_K7" in metadata[0]["range"]

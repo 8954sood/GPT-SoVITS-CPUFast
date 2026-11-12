@@ -70,6 +70,29 @@ def decoder_tap_ranges(decoder):
 
 
 @contextmanager
+def decoder_fft_ranges(decoder):
+    from cpufast_fft import FFTConv1d
+
+    metadata = []
+    with ExitStack() as stack:
+        for name, module in decoder.named_modules():
+            if isinstance(module, FFTConv1d):
+                cout, cin, kernel = module.weight.shape
+                label = f"cpufast_decoder_fft_Cin{cin}_Cout{cout}_K{kernel}_D{module.dilation}_N{module.n_fft}"
+                row = stack.enter_context(module_range(module, label))
+                row.update(
+                    module=name,
+                    dilation=module.dilation,
+                    n_fft=module.n_fft,
+                    stream_products=module.stream_products,
+                    fast_half=module.fast_half,
+                    half_stream_products=module.half_stream_products,
+                )
+                metadata.append(row)
+        yield metadata
+
+
+@contextmanager
 def ar_phase_ranges(model):
     """Attribute real AR operators without retaining global profiler input tensors.
 

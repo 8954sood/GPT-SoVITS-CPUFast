@@ -28,7 +28,22 @@ def main():
     parser.add_argument("--fft-half-stream-comparison", action="store_true")
     parser.add_argument("--alternating-decoder-comparison", action="store_true")
     parser.add_argument("--packed-prefill-comparison", action="store_true")
+    parser.add_argument("--diagnostic-profile-only", action="store_true")
     args = parser.parse_args()
+    if args.diagnostic_profile_only and args.warmups != 3:
+        parser.error("Diagnostic profile uses exactly three warmups")
+    if args.diagnostic_profile_only and (
+        args.baseline_manifest
+        or args.decoder_only
+        or args.ar_int8_comparison
+        or args.fft_half_comparison
+        or args.fft_half_stream_comparison
+        or args.packed_prefill_comparison
+        or args.ar_int8_confirm_only
+        or args.decoder_ar_int8
+        or args.alternating_decoder_comparison
+    ):
+        parser.error("Diagnostic profile requires one unchanged approved L bundle")
     if bool(args.baseline_manifest) != bool(args.baseline_manifest_sha256):
         parser.error("Comparison baseline manifest and SHA required together")
     if args.decoder_only and not args.baseline_manifest:
@@ -184,7 +199,7 @@ def main():
             "--text",
             run_cases[language]["text"],
             "--warmups",
-            "1" if profile else str(args.warmups),
+            "1" if profile and not args.diagnostic_profile_only else str(args.warmups),
             "--samples",
             "1"
             if profile
@@ -385,6 +400,26 @@ def main():
         )
         return data, row
 
+    if args.diagnostic_profile_only:
+        summary["scope"] = (
+            "Excluded actual N1 unchanged approved L diagnostic only; three warmups, "
+            "one unprofiled PCM reference and one separate operator profile; no speed decision"
+        )
+        summary["prefetch_selection"] = "No tuning or alternative arithmetic"
+        run(
+            "ko",
+            "L_diagnostic_profile_run",
+            distance=256,
+            combined=True,
+            ar_int8_only=True,
+            profile=True,
+        )
+        summary["student_assets_unchanged"] = before == snapshot(args.manifest)
+        summary["complete"] = True
+        save()
+        if not summary["student_assets_unchanged"]:
+            raise RuntimeError("Private diagnostic assets changed")
+        return
     if args.alternating_decoder_comparison or args.packed_prefill_comparison:
         candidate_label = "packed" if args.packed_prefill_comparison else "R"
         summary["scope"] = (
