@@ -1,0 +1,454 @@
+{
+  "scope": "Actual excluded V profile shapes; scoped CPU timings overlap and are instrumented, not wall time or isolated speedup",
+  "profile_sha256": "deb6bfacaa76a3fe4b72ce87dd11b21cb43089b5ce99486d15d8fad59d89dd69",
+  "source_sha": "73780c6820b0832ce0765ca80e14a780b17c0490",
+  "geometry": [
+    {
+      "range": "cpufast_decoder_fft_Cin120_Cout192_K11_D1_N256",
+      "modules": [
+        "resblocks.4.convs2.1"
+      ],
+      "count": 1,
+      "cin": 120,
+      "cout": 192,
+      "kernel": 11,
+      "dilation": 1,
+      "n_fft": 256,
+      "input_length": 18880,
+      "blocks": 77,
+      "padded_gemm_rows": 80,
+      "freq_times_padded_rows": 10320,
+      "derived_spectral_weight_bytes_per_module": 35665920,
+      "packed_input_bytes_per_module": 14860800,
+      "stream_scratch_bytes_per_worker": 737280,
+      "excluded_diagnostic_total_cpu_seconds": 0.04725515600000042
+    },
+    {
+      "range": "cpufast_decoder_fft_Cin120_Cout192_K7_D1_N256",
+      "modules": [
+        "resblocks.3.convs2.0",
+        "resblocks.3.convs2.1",
+        "resblocks.3.convs2.2"
+      ],
+      "count": 3,
+      "cin": 120,
+      "cout": 192,
+      "kernel": 7,
+      "dilation": 1,
+      "n_fft": 256,
+      "input_length": 18880,
+      "blocks": 76,
+      "padded_gemm_rows": 80,
+      "freq_times_padded_rows": 10320,
+      "derived_spectral_weight_bytes_per_module": 35665920,
+      "packed_input_bytes_per_module": 14860800,
+      "stream_scratch_bytes_per_worker": 737280,
+      "excluded_diagnostic_total_cpu_seconds": 0.14489593500000053
+    },
+    {
+      "range": "cpufast_decoder_fft_Cin192_Cout120_K11_D3_N256",
+      "modules": [
+        "resblocks.4.convs1.1"
+      ],
+      "count": 1,
+      "cin": 192,
+      "cout": 120,
+      "kernel": 11,
+      "dilation": 3,
+      "n_fft": 256,
+      "input_length": 18880,
+      "blocks": 84,
+      "padded_gemm_rows": 88,
+      "freq_times_padded_rows": 11352,
+      "derived_spectral_weight_bytes_per_module": 35665920,
+      "packed_input_bytes_per_module": 26155008,
+      "stream_scratch_bytes_per_worker": 506880,
+      "excluded_diagnostic_total_cpu_seconds": 0.05617807100000046
+    },
+    {
+      "range": "cpufast_decoder_fft_Cin192_Cout120_K7_D1_N256",
+      "modules": [
+        "resblocks.3.convs1.0"
+      ],
+      "count": 1,
+      "cin": 192,
+      "cout": 120,
+      "kernel": 7,
+      "dilation": 1,
+      "n_fft": 256,
+      "input_length": 18880,
+      "blocks": 76,
+      "padded_gemm_rows": 80,
+      "freq_times_padded_rows": 10320,
+      "derived_spectral_weight_bytes_per_module": 35665920,
+      "packed_input_bytes_per_module": 23777280,
+      "stream_scratch_bytes_per_worker": 460800,
+      "excluded_diagnostic_total_cpu_seconds": 0.05112158900000062
+    },
+    {
+      "range": "cpufast_decoder_fft_Cin192_Cout120_K7_D3_N256",
+      "modules": [
+        "resblocks.3.convs1.1"
+      ],
+      "count": 1,
+      "cin": 192,
+      "cout": 120,
+      "kernel": 7,
+      "dilation": 3,
+      "n_fft": 256,
+      "input_length": 18880,
+      "blocks": 80,
+      "padded_gemm_rows": 80,
+      "freq_times_padded_rows": 10320,
+      "derived_spectral_weight_bytes_per_module": 35665920,
+      "packed_input_bytes_per_module": 23777280,
+      "stream_scratch_bytes_per_worker": 460800,
+      "excluded_diagnostic_total_cpu_seconds": 0.05231019900000002
+    },
+    {
+      "range": "cpufast_decoder_fft_Cin192_Cout120_K7_D5_N256",
+      "modules": [
+        "resblocks.3.convs1.2"
+      ],
+      "count": 1,
+      "cin": 192,
+      "cout": 120,
+      "kernel": 7,
+      "dilation": 5,
+      "n_fft": 256,
+      "input_length": 18880,
+      "blocks": 84,
+      "padded_gemm_rows": 88,
+      "freq_times_padded_rows": 11352,
+      "derived_spectral_weight_bytes_per_module": 35665920,
+      "packed_input_bytes_per_module": 26155008,
+      "stream_scratch_bytes_per_worker": 506880,
+      "excluded_diagnostic_total_cpu_seconds": 0.05573422800000012
+    },
+    {
+      "range": "cpufast_decoder_fft_Cin192_Cout96_K11_D1_N256",
+      "modules": [
+        "resblocks.4.convs1.0"
+      ],
+      "count": 1,
+      "cin": 192,
+      "cout": 96,
+      "kernel": 11,
+      "dilation": 1,
+      "n_fft": 256,
+      "input_length": 18880,
+      "blocks": 77,
+      "padded_gemm_rows": 80,
+      "freq_times_padded_rows": 10320,
+      "derived_spectral_weight_bytes_per_module": 28532736,
+      "packed_input_bytes_per_module": 23777280,
+      "stream_scratch_bytes_per_worker": 368640,
+      "excluded_diagnostic_total_cpu_seconds": 0.04561450300000049
+    },
+    {
+      "range": "cpufast_decoder_fft_Cin192_Cout96_K11_D5_N256",
+      "modules": [
+        "resblocks.4.convs1.2"
+      ],
+      "count": 1,
+      "cin": 192,
+      "cout": 96,
+      "kernel": 11,
+      "dilation": 5,
+      "n_fft": 256,
+      "input_length": 18880,
+      "blocks": 92,
+      "padded_gemm_rows": 96,
+      "freq_times_padded_rows": 12384,
+      "derived_spectral_weight_bytes_per_module": 28532736,
+      "packed_input_bytes_per_module": 28532736,
+      "stream_scratch_bytes_per_worker": 442368,
+      "excluded_diagnostic_total_cpu_seconds": 0.05282740299999993
+    },
+    {
+      "range": "cpufast_decoder_fft_Cin240_Cout384_K11_D1_N256",
+      "modules": [
+        "resblocks.1.convs2.0",
+        "resblocks.1.convs2.1",
+        "resblocks.1.convs2.2"
+      ],
+      "count": 3,
+      "cin": 240,
+      "cout": 384,
+      "kernel": 11,
+      "dilation": 1,
+      "n_fft": 256,
+      "input_length": 2360,
+      "blocks": 10,
+      "padded_gemm_rows": 16,
+      "freq_times_padded_rows": 2064,
+      "derived_spectral_weight_bytes_per_module": 142663680,
+      "packed_input_bytes_per_module": 5944320,
+      "stream_scratch_bytes_per_worker": 294912,
+      "excluded_diagnostic_total_cpu_seconds": 0.0733470560000008,
+      "unmeasured_fft128_geometry": {
+        "n_fft": 128,
+        "blocks": 21,
+        "padded_gemm_rows": 24,
+        "freq_times_padded_rows": 1560,
+        "padded_spectral_mac_ratio": 0.7558139534883721,
+        "derived_weight_bytes": 71884800,
+        "note": "Geometry only; not numerical/quality validation or measured speedup"
+      }
+    },
+    {
+      "range": "cpufast_decoder_fft_Cin240_Cout384_K7_D1_N256",
+      "modules": [
+        "resblocks.0.convs2.0",
+        "resblocks.0.convs2.1",
+        "resblocks.0.convs2.2"
+      ],
+      "count": 3,
+      "cin": 240,
+      "cout": 384,
+      "kernel": 7,
+      "dilation": 1,
+      "n_fft": 256,
+      "input_length": 2360,
+      "blocks": 10,
+      "padded_gemm_rows": 16,
+      "freq_times_padded_rows": 2064,
+      "derived_spectral_weight_bytes_per_module": 142663680,
+      "packed_input_bytes_per_module": 5944320,
+      "stream_scratch_bytes_per_worker": 294912,
+      "excluded_diagnostic_total_cpu_seconds": 0.0738022589999996,
+      "unmeasured_fft128_geometry": {
+        "n_fft": 128,
+        "blocks": 20,
+        "padded_gemm_rows": 24,
+        "freq_times_padded_rows": 1560,
+        "padded_spectral_mac_ratio": 0.7558139534883721,
+        "derived_weight_bytes": 71884800,
+        "note": "Geometry only; not numerical/quality validation or measured speedup"
+      }
+    },
+    {
+      "range": "cpufast_decoder_fft_Cin384_Cout240_K11_D1_N128",
+      "modules": [
+        "resblocks.1.convs1.0"
+      ],
+      "count": 1,
+      "cin": 384,
+      "cout": 240,
+      "kernel": 11,
+      "dilation": 1,
+      "n_fft": 128,
+      "input_length": 2360,
+      "blocks": 21,
+      "padded_gemm_rows": 24,
+      "freq_times_padded_rows": 1560,
+      "derived_spectral_weight_bytes_per_module": 71884800,
+      "packed_input_bytes_per_module": 7188480,
+      "stream_scratch_bytes_per_worker": 276480,
+      "excluded_diagnostic_total_cpu_seconds": 0.021943344000000507
+    },
+    {
+      "range": "cpufast_decoder_fft_Cin384_Cout240_K11_D3_N128",
+      "modules": [
+        "resblocks.1.convs1.1"
+      ],
+      "count": 1,
+      "cin": 384,
+      "cout": 240,
+      "kernel": 11,
+      "dilation": 3,
+      "n_fft": 128,
+      "input_length": 2360,
+      "blocks": 25,
+      "padded_gemm_rows": 32,
+      "freq_times_padded_rows": 2080,
+      "derived_spectral_weight_bytes_per_module": 71884800,
+      "packed_input_bytes_per_module": 9584640,
+      "stream_scratch_bytes_per_worker": 368640,
+      "excluded_diagnostic_total_cpu_seconds": 0.02674790499999933
+    },
+    {
+      "range": "cpufast_decoder_fft_Cin384_Cout240_K11_D5_N128",
+      "modules": [
+        "resblocks.1.convs1.2"
+      ],
+      "count": 1,
+      "cin": 384,
+      "cout": 240,
+      "kernel": 11,
+      "dilation": 5,
+      "n_fft": 128,
+      "input_length": 2360,
+      "blocks": 31,
+      "padded_gemm_rows": 32,
+      "freq_times_padded_rows": 2080,
+      "derived_spectral_weight_bytes_per_module": 71884800,
+      "packed_input_bytes_per_module": 9584640,
+      "stream_scratch_bytes_per_worker": 368640,
+      "excluded_diagnostic_total_cpu_seconds": 0.02932644599999953
+    },
+    {
+      "range": "cpufast_decoder_fft_Cin384_Cout240_K7_D1_N128",
+      "modules": [
+        "resblocks.0.convs1.0"
+      ],
+      "count": 1,
+      "cin": 384,
+      "cout": 240,
+      "kernel": 7,
+      "dilation": 1,
+      "n_fft": 128,
+      "input_length": 2360,
+      "blocks": 20,
+      "padded_gemm_rows": 24,
+      "freq_times_padded_rows": 1560,
+      "derived_spectral_weight_bytes_per_module": 71884800,
+      "packed_input_bytes_per_module": 7188480,
+      "stream_scratch_bytes_per_worker": 276480,
+      "excluded_diagnostic_total_cpu_seconds": 0.02106217699999921
+    },
+    {
+      "range": "cpufast_decoder_fft_Cin384_Cout240_K7_D3_N128",
+      "modules": [
+        "resblocks.0.convs1.1"
+      ],
+      "count": 1,
+      "cin": 384,
+      "cout": 240,
+      "kernel": 7,
+      "dilation": 3,
+      "n_fft": 128,
+      "input_length": 2360,
+      "blocks": 22,
+      "padded_gemm_rows": 24,
+      "freq_times_padded_rows": 1560,
+      "derived_spectral_weight_bytes_per_module": 71884800,
+      "packed_input_bytes_per_module": 7188480,
+      "stream_scratch_bytes_per_worker": 276480,
+      "excluded_diagnostic_total_cpu_seconds": 0.02195782400000002
+    },
+    {
+      "range": "cpufast_decoder_fft_Cin384_Cout240_K7_D5_N128",
+      "modules": [
+        "resblocks.0.convs1.2"
+      ],
+      "count": 1,
+      "cin": 384,
+      "cout": 240,
+      "kernel": 7,
+      "dilation": 5,
+      "n_fft": 128,
+      "input_length": 2360,
+      "blocks": 25,
+      "padded_gemm_rows": 32,
+      "freq_times_padded_rows": 2080,
+      "derived_spectral_weight_bytes_per_module": 71884800,
+      "packed_input_bytes_per_module": 9584640,
+      "stream_scratch_bytes_per_worker": 368640,
+      "excluded_diagnostic_total_cpu_seconds": 0.026924746000000277
+    },
+    {
+      "range": "cpufast_decoder_fft_Cin60_Cout96_K11_D1_N256",
+      "modules": [
+        "resblocks.6.convs2.0",
+        "resblocks.6.convs2.1",
+        "resblocks.6.convs2.2"
+      ],
+      "count": 3,
+      "cin": 60,
+      "cout": 96,
+      "kernel": 11,
+      "dilation": 1,
+      "n_fft": 256,
+      "input_length": 37760,
+      "blocks": 154,
+      "padded_gemm_rows": 160,
+      "freq_times_padded_rows": 20640,
+      "derived_spectral_weight_bytes_per_module": 8916480,
+      "packed_input_bytes_per_module": 14860800,
+      "stream_scratch_bytes_per_worker": 737280,
+      "excluded_diagnostic_total_cpu_seconds": 0.13823071799999942
+    },
+    {
+      "range": "cpufast_decoder_fft_Cin96_Cout192_K11_D1_N256",
+      "modules": [
+        "resblocks.4.convs2.0",
+        "resblocks.4.convs2.2"
+      ],
+      "count": 2,
+      "cin": 96,
+      "cout": 192,
+      "kernel": 11,
+      "dilation": 1,
+      "n_fft": 256,
+      "input_length": 18880,
+      "blocks": 77,
+      "padded_gemm_rows": 80,
+      "freq_times_padded_rows": 10320,
+      "derived_spectral_weight_bytes_per_module": 28532736,
+      "packed_input_bytes_per_module": 11888640,
+      "stream_scratch_bytes_per_worker": 737280,
+      "excluded_diagnostic_total_cpu_seconds": 0.0864222860000003
+    },
+    {
+      "range": "cpufast_decoder_fft_Cin96_Cout60_K11_D1_N256",
+      "modules": [
+        "resblocks.6.convs1.0"
+      ],
+      "count": 1,
+      "cin": 96,
+      "cout": 60,
+      "kernel": 11,
+      "dilation": 1,
+      "n_fft": 256,
+      "input_length": 37760,
+      "blocks": 154,
+      "padded_gemm_rows": 160,
+      "freq_times_padded_rows": 20640,
+      "derived_spectral_weight_bytes_per_module": 8916480,
+      "packed_input_bytes_per_module": 23777280,
+      "stream_scratch_bytes_per_worker": 460800,
+      "excluded_diagnostic_total_cpu_seconds": 0.06130911400000006
+    },
+    {
+      "range": "cpufast_decoder_fft_Cin96_Cout60_K11_D3_N256",
+      "modules": [
+        "resblocks.6.convs1.1"
+      ],
+      "count": 1,
+      "cin": 96,
+      "cout": 60,
+      "kernel": 11,
+      "dilation": 3,
+      "n_fft": 256,
+      "input_length": 37760,
+      "blocks": 168,
+      "padded_gemm_rows": 168,
+      "freq_times_padded_rows": 21672,
+      "derived_spectral_weight_bytes_per_module": 8916480,
+      "packed_input_bytes_per_module": 24966144,
+      "stream_scratch_bytes_per_worker": 483840,
+      "excluded_diagnostic_total_cpu_seconds": 0.07093839499999956
+    },
+    {
+      "range": "cpufast_decoder_fft_Cin96_Cout60_K11_D5_N256",
+      "modules": [
+        "resblocks.6.convs1.2"
+      ],
+      "count": 1,
+      "cin": 96,
+      "cout": 60,
+      "kernel": 11,
+      "dilation": 5,
+      "n_fft": 256,
+      "input_length": 37760,
+      "blocks": 184,
+      "padded_gemm_rows": 184,
+      "freq_times_padded_rows": 23736,
+      "derived_spectral_weight_bytes_per_module": 8916480,
+      "packed_input_bytes_per_module": 27343872,
+      "stream_scratch_bytes_per_worker": 529920,
+      "excluded_diagnostic_total_cpu_seconds": 0.06195424000000022
+    }
+  ]
+}

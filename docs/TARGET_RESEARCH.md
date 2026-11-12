@@ -778,3 +778,43 @@ before inference; this failed invocation remains in the raw evidence.
 Raw JSON and full provenance are in
 `results/n1_int8_quant_neon_20261112/full_pcm`. The host mutex is free and
 no benchmark containers remain; pre-existing unrelated services are untouched.
+
+
+## Approved AR18/V400: direct SSH counterbalanced N1 comparison
+
+Source `73780c6820b0832ce0765ca80e14a780b17c0490` compares approved L with
+owner-approved corrected AR18+original V400 on actual Neoverse N1,
+2vCPU/8,000,000,000B/no-swap. The V manifest is
+`def34d8555ea01c87091547fccbd27aa8a3bd33e8b6bbebb0df62095004c5d7c`;
+its decoder is the unchanged original `7d4c184...b9524`, not V recovery100.
+Both use identical approved K AR weights `4051df84...1335`. No new prefill,
+FFT-size/tile, row8, NEON-quantization or FP16 candidate is enabled.
+
+Five fresh-process pairs alternate L/V then V/L; every process excludes
+three warmups and records one sample. The separate V profile is excluded.
+
+| Model | Median RTF | Wall s | CPU s | AR s | Decoder s | Peak sampled RSS GB |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| L | 1.160668 | 5.826554 | 9.875800 | 1.912022 | 3.460650 | 5.120 |
+| Approved AR18/V400 | 1.059591 | 5.319145 | 9.101680 | 1.958056 | 2.990778 | 4.886 |
+
+All five paired decoder observations improve; their V/L ratios are
+.93635/.87821/.86422/.88878/.82476. Decoder median decreases13.58%,
+while unchanged AR median increases2.41%; the8.71% overall decrease therefore
+has a credible changed-stage basis. RTF1 has not been reached. Every slow
+sample remains in the record, including V RTF1.10142 and1.09475.
+
+All ten processes use actual18AR blocks,118identical semantic tokens and
+5.02s lengths. L PCM is `0269c2ff...69907`; V PCM `a2271807...4f1f5`
+matches its approved listening sample exactly. All checkpoint, parameter,
+student, reference and resource guards pass. The separate V profile matches
+its own unprofiled waveform exactly.
+
+Excluded diagnostic self times include spectral GEMM/reconstruction.5375s,
+head attention.5142s, forward FFT.2441s, inverse FFT.2247s and packing.1453s.
+These instrumented, potentially overlapping CPU scopes are not wall time or
+isolated savings. Actual Cin240→Cout384 conv2 modules select FFT256;
+`profile_geometry.json` records their8row padding and an unmeasured FFT128
+alternative. No alternative numerical/quality/speed result is claimed.
+All raw JSON, manifest/source/image hashes, per-pair ratios and shape costs
+are in `results/n1_student_v_20261112`. Audio/console logs remain private.
