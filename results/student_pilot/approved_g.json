@@ -126,5 +126,11 @@
     "checkpoint_files_unchanged": true,
     "finite_original_rate_wavs": 3
   },
-  "training_report": "results/student_pilot/cpu_recovery400.json"
+  "training_report": "results/student_pilot/cpu_recovery400.json",
+  "reference_sha256": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+  "prompt_text": "スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。",
+  "prompt_language": "ja",
+  "seed": 42,
+  "original_s2_sha256": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+  "scope_note": "Korean listening approval; Japanese/English are synthesis checks, not separately approved listening"
 }
