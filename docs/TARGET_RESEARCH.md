@@ -937,3 +937,22 @@ weights. Raw timing arrays,120conditions, native/build hashes and resource
 report are in `results/n1_head_qk4_20261112/`. Full PCM-gated fixed-model AR17+
 originalV400 comparison source `5cb102c` is pending. Rejected AR16 is excluded
 from every performance run.
+
+Full QK4 source `5cb102c7ca4bc49c737e0cbde3d47fadc953c6d2` finished all5pairs
+and an excluded profile. Baseline RTFs1.029649,.990742,.996747,.999784,.991685;
+QK4 .989601,.981041,.998626,.996269,1.019419. Medians .996747→.996269 differ
+only−0.048%, with overlapping ranges .990742–1.029649/.981041–1.019419. AR
+median worsens1.865049→1.918634s; CPU medians9.580549→9.555400s differ−.26%.
+Only3/5pairs improve overallRTF/AR. All11processes pass approved133tokens5.62s
+PCM/semantic, original/student/parameter/resource guards. Candidate processes
+record9044nativecalls and actual baseline4file SHA matches; profile11305calls
+and ownPCM exact. Raw all24JSON and ratio arrays are in
+`results/n1_head_qk4_20261112/full_pcm/`.
+
+**QK4 is not adopted.** The strong primitive does not establish a full-runtime
+win; no canonical QK modification or extra confirmation/sample collection is
+performed. Keep the approved AR17+originalV400 model and canonical exact value
+loop. Next isolated hypothesis is row8 only forFFN2 shape512×2048, preserving
+row4 everywhere else; do not mix QK4. Its earlier64MBrotating ratio .9026 is
+promising for thatshape, but FFN2 accounts for roughly one-third of four-GEMV
+MACs, so only a small aggregate gain is plausible and must be measured.
