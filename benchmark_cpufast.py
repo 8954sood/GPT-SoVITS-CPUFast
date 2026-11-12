@@ -587,7 +587,7 @@ def main():
         assert report["student_files_unchanged"]
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     if args.profile_output is not None:
-        from cpufast_profiling import predictor_range
+        from cpufast_profiling import predictor_range, decoder_tap_ranges
 
         # The additional profiled synthesis is explicitly excluded from the RTF runs.
         with torch.profiler.profile(
@@ -599,6 +599,7 @@ def main():
                 predictor_range(
                     pipeline.t2s_model.model.ar_predict_layer
                 ) as predictor_metadata,
+                decoder_tap_ranges(pipeline.vits_model.dec) as tap_metadata,
                 torch.inference_mode(args.inference_mode),
             ):
                 profile_chunks = list(runtime.run(inputs))
@@ -635,6 +636,7 @@ def main():
                     "note": "Extra profiled inference, excluded from RTF; CPU totals may overlap across threads and include profiler overhead",
                     "record_shapes": not args.profile_no_shapes,
                     "predictor": predictor_metadata,
+                    "decoder_taps": tap_metadata,
                     "profile_output_checks": profile_checks,
                     "operators": sorted(
                         rows, key=lambda row: row["self_cpu_us"], reverse=True

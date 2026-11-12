@@ -40,11 +40,36 @@ def cgroup():
     }
 
 
+def probe_shapes(profile=None):
+    targets = [(48, 7, 1), (48, 11, 5), (24, 7, 1), (24, 11, 5)]
+    if profile is None:
+        # Approved H3/K KO: 5.10s audio including .30s appended silence.
+        return [(c, k, d, 76800 if c == 48 else 153600) for c, k, d in targets]
+    rows = json.loads(Path(profile).read_text())["decoder_taps"]
+    result = []
+    for channels, kernel, dilation in targets:
+        lengths = {
+            shape["shape"][2]
+            for row in rows
+            if row["weight_shape"] == [channels, channels, kernel]
+            and row["dilation"] == dilation
+            for shape in row["input_shapes"]
+            if len(shape["shape"]) == 3 and shape["shape"][:2] == [1, channels]
+        }
+        if len(lengths) != 1:
+            raise ValueError(
+                "One actual profiled length per target tap geometry required"
+            )
+        result.append((channels, kernel, dilation, lengths.pop()))
+    return result
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--warmups", type=int, default=3)
     parser.add_argument("--samples", type=int, default=5)
+    parser.add_argument("--profile-shapes", type=Path)
     args = parser.parse_args()
     if (
         args.output.exists()
@@ -70,6 +95,9 @@ def main():
         "seed": 412,
         "rows": [],
         "complete": False,
+        "shape_source": str(args.profile_shapes)
+        if args.profile_shapes
+        else "Approved H3/K KO duration-derived shapes",
     }
     torch.manual_seed(412)
 
@@ -77,12 +105,7 @@ def main():
         args.output.write_text(json.dumps(report, indent=2) + "\n")
 
     with torch.inference_mode():
-        for channels, kernel, dilation, length in [
-            (48, 7, 1, 90880),
-            (48, 11, 5, 90880),
-            (24, 7, 1, 181760),
-            (24, 11, 5, 181760),
-        ]:
+        for channels, kernel, dilation, length in probe_shapes(args.profile_shapes):
             x = torch.randn(channels, length)
             padding = dilation * (kernel - 1) // 2
             padded = F.pad(x, (padding, padding))

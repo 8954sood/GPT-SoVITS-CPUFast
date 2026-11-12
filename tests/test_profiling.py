@@ -3,7 +3,7 @@
 import pytest
 import torch
 
-from cpufast_profiling import predictor_range
+from cpufast_profiling import predictor_range, decoder_tap_ranges
 
 
 def test_profile_range_is_excluded_from_normal_inference_and_preserves_output():
@@ -31,3 +31,23 @@ def test_profile_wrapper_restored_after_exception():
         with predictor_range(module):
             raise RuntimeError("diagnostic failure")
     assert "forward" not in module.__dict__
+
+
+def test_decoder_metadata_captures_fused_kwargs_and_actual_length():
+    from cpufast_fft import FFTConv1d
+    from cpufast_tap import TapConv1d
+
+    layer = TapConv1d(
+        FFTConv1d(torch.nn.Conv1d(24, 24, 7, padding=9, dilation=3).eval())
+    ).eval()
+    decoder = torch.nn.Sequential(layer)
+    value = torch.randn(1, 24, 79)
+    residual = torch.randn_like(value)
+    with torch.no_grad():
+        expected = layer(value, activate=True, residual=residual)
+        with decoder_tap_ranges(decoder) as metadata:
+            actual = layer(value, activate=True, residual=residual)
+    assert torch.equal(actual, expected)
+    assert "forward" not in layer.__dict__
+    assert metadata[0]["dilation"] == 3
+    assert metadata[0]["input_shapes"] == [{"shape": [1, 24, 79], "calls": 1}]

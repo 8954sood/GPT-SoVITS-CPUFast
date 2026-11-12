@@ -79,7 +79,7 @@ if [[ "$mode" == student || "$mode" == studentpredictor || "$mode" == studentcom
     --manifest-sha256 "$student_manifest_sha" --output /repo/ci-results --warmups "$warmups" --samples "$samples" "${student_args[@]}"
   if [[ "$mode" == studentdecoder ]]; then
     run_container python resource_guard.py --report /repo/ci-results/tap_tiles_guard.json -- \
-      python experiments/rtf07/bench_tap_tiles.py --output /repo/ci-results/tap_tiles.json --warmups "$warmups" --samples "$samples"
+      python experiments/rtf07/bench_tap_tiles.py --output /repo/ci-results/tap_tiles.json --warmups "$warmups" --samples "$samples" --profile-shapes /repo/ci-results/ko_student_profile_ops.json
   fi
   exit 0
 fi
