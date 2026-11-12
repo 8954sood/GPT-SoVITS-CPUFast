@@ -2,7 +2,7 @@
 #include <arm_neon.h>
 #include <cstdint>
 
-template<bool HALF, int PREFETCH>
+template<bool HALF, int PREFETCH, int LOCALITY = 1>
 static void gemv(const float* x, const void* data, const float* bias, float* y, int64_t n, int64_t k) {
  for (int64_t row=0;row<n/8;++row) {
   const auto* h=static_cast<const float16_t*>(data)+row*k*8;
@@ -11,8 +11,8 @@ static void gemv(const float* x, const void* data, const float* bias, float* y, 
   for (int64_t i=0;i<k;i+=4) {
    if constexpr (PREFETCH>0) {
     if (i+PREFETCH<k) {
-    if constexpr (HALF) __builtin_prefetch(h+(i+PREFETCH)*8,0,1);
-    else __builtin_prefetch(f+(i+PREFETCH)*8,0,1);
+    if constexpr (HALF) __builtin_prefetch(h+(i+PREFETCH)*8,0,LOCALITY);
+    else __builtin_prefetch(f+(i+PREFETCH)*8,0,LOCALITY);
     }
    }
    auto a=vld1q_f32(x+i);

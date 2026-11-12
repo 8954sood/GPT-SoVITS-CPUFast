@@ -9,7 +9,7 @@ cpus=${4:-2}
 warmups=${5:-2}
 samples=${6:-3}
 mode=${7:-compare}
-[[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention || "$mode" == small || "$mode" == scheduling || "$mode" == packed48 || "$mode" == fft || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
+[[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention || "$mode" == small || "$mode" == scheduling || "$mode" == packed48 || "$mode" == fft || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
 project="$bench_root/project"
 assets="$bench_root/cpufast-cefae22/assets/pretrained_models"
 reference="$bench_root/reference_ja_4s.wav"
@@ -49,6 +49,11 @@ common=(--engine --head-major --cook-phase --fft-layout --packed-fft --fused-fin
 texts=('今日は穏やかな天気ですね。少し休んでから、また一緒に続きを進めましょう。'
        '今日は新しい音声合成モデルを使って、声の雰囲気を確かめています。')
 if [[ "$mode" == prefetchcandidate ]]; then common+=(--ar-prefetch 0); fi
+if [[ "$mode" == locality ]]; then
+  run_container python resource_guard.py --report /repo/ci-results/ar_locality_guard.json -- \
+    python experiments/rtf07/bench_ar_locality.py --output /repo/ci-results/ar_locality.json
+  exit 0
+fi
 if [[ "$mode" == winograd ]]; then
   run_container python resource_guard.py --report /repo/ci-results/winograd_methods_guard.json -- \
     python experiments/rtf07/bench_winograd_methods.py --output /repo/ci-results/winograd_methods.json
@@ -94,7 +99,7 @@ if [[ "$mode" == diagnostics ]]; then
 fi
 for index in 0 1; do
   number=$((index + 1))
-  if [[ "$mode" == attention || "$mode" == packed48 || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 ]]; then
+  if [[ "$mode" == attention || "$mode" == packed48 || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality ]]; then
     candidate_args=(--native-attention)
     if [[ "$mode" == packed48 ]]; then candidate_args=(--packed-small-48); fi
     if [[ "$mode" == fftcandidate ]]; then candidate_args=(--n1-fft-sizes); fi

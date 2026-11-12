@@ -51,3 +51,14 @@ static at::Tensor lossless_linear_prefetch(const at::Tensor& x,const at::Tensor&
 }
 TORCH_LIBRARY_FRAGMENT(cpufast_cpp,m){m.def("lossless_linear_prefetch(Tensor input, Tensor weight, Tensor bias, int distance) -> Tensor");}
 TORCH_LIBRARY_IMPL(cpufast_cpp,CPU,m){m.impl("lossless_linear_prefetch",TORCH_FN(lossless_linear_prefetch));}
+static at::Tensor lossless_linear_prefetch_locality(const at::Tensor& x,const at::Tensor& w,const at::Tensor& b,int64_t locality){
+ TORCH_CHECK(x.device().is_cpu() && w.device().is_cpu() && b.device().is_cpu() && x.scalar_type()==at::kFloat && w.scalar_type()==at::kHalf && b.scalar_type()==at::kFloat,"CPU FP32 input and exact half cache required");
+ TORCH_CHECK(w.dim()==3 && w.size(2)==8 && w.size(1)%4==0 && x.dim()>0 && x.numel()==w.size(1) && x.size(-1)==w.size(1) && b.numel()==w.size(0)*8 && x.is_contiguous() && w.is_contiguous() && b.is_contiguous(),"Invalid GEMV geometry");
+ TORCH_CHECK(locality>=0 && locality<=3,"Invalid prefetch locality");
+ auto shape=x.sizes().vec();shape.back()=w.size(0)*8;auto y=at::empty(shape,x.options());
+ auto xp=x.const_data_ptr<float>(); auto wp=w.const_data_ptr<at::Half>(); auto bp=b.const_data_ptr<float>(); auto yp=y.mutable_data_ptr<float>(); auto blocks=w.size(0),k=w.size(1);
+ at::parallel_for(0,blocks,8,[&](int64_t start,int64_t end){auto ptr=wp+start*k*8;auto bias=bp+start*8;auto out=yp+start*8;auto n=(end-start)*8;
+ switch(locality){case 0:gemv<true,256,0>(xp,ptr,bias,out,n,k);break;case 1:gemv<true,256,1>(xp,ptr,bias,out,n,k);break;case 2:gemv<true,256,2>(xp,ptr,bias,out,n,k);break;default:gemv<true,256,3>(xp,ptr,bias,out,n,k);}});return y;
+}
+TORCH_LIBRARY_FRAGMENT(cpufast_cpp,m){m.def("lossless_linear_prefetch_locality(Tensor input, Tensor weight, Tensor bias, int locality) -> Tensor");}
+TORCH_LIBRARY_IMPL(cpufast_cpp,CPU,m){m.impl("lossless_linear_prefetch_locality",TORCH_FN(lossless_linear_prefetch_locality));}
