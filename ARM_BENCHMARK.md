@@ -218,3 +218,12 @@ Changing BLAS shapes can change rounding; tiny host tests verify ragged tile
 coverage and convolution equivalence within FP32 tolerance, not PCM identity.
 The production tap path is unchanged. Only a promising target-server probe
 justifies a separate five-sample full-TTS candidate and waveform checks.
+
+`mode=studentdecoder` uses the same two-bundle inputs for an approved decoder
+comparison. It requires identical AR checkpoint hashes/cache storage, skips
+the redundant candidate FP32-storage control, and checks all timed semantic
+tokens/durations against the baseline. Different decoder coefficients can
+change PCM; this mode does not require cross-model waveform identity. It runs
+the separate candidate profile, then the guarded `taptiles` synthetic probe
+serially in the same job to reuse setup. These timings remain separate and
+are never combined with the full-model RTF measurements.

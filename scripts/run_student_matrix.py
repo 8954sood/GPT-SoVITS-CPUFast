@@ -22,11 +22,14 @@ def main():
     parser.add_argument("--baseline-manifest", type=Path)
     parser.add_argument("--baseline-manifest-sha256")
     parser.add_argument("--predictor-cache", action="store_true")
+    parser.add_argument("--decoder-only", action="store_true")
     args = parser.parse_args()
     if bool(args.baseline_manifest) != bool(args.baseline_manifest_sha256):
         parser.error("Comparison baseline manifest and SHA required together")
     if args.baseline_manifest and args.predictor_only:
         parser.error("Choose model comparison or predictor-only comparison")
+    if args.decoder_only and not args.baseline_manifest:
+        parser.error("Decoder comparison requires an approved baseline bundle")
     manifest = load_manifest(args.manifest, args.manifest_sha256)
     before = snapshot(args.manifest)
     cases = {r["language"]: r for r in manifest["listening_report"]["cases"]}
@@ -53,6 +56,14 @@ def main():
         ):
             parser.error(
                 "Model comparison must share the approved request and reference"
+            )
+        if args.decoder_only and (
+            baseline["files"]["ar.pt"] != manifest["files"]["ar.pt"]
+            or baseline.get("ar_cache_storage", "fp32")
+            != manifest.get("ar_cache_storage", "fp32")
+        ):
+            parser.error(
+                "Decoder comparison requires identical approved AR weights/cache"
             )
     args.output.mkdir(parents=True, exist_ok=True)
     summary_file = args.output / "student_summary.json"
@@ -271,7 +282,7 @@ def main():
         )
         summary["selected_prefetch"] = args.prefetch
         summary["baseline_manifest_sha256"] = args.baseline_manifest_sha256
-        run(
+        baseline_data, _ = run(
             "ko",
             "comparison_baseline",
             distance=args.prefetch,
@@ -281,7 +292,10 @@ def main():
             baseline_bundle=True,
         )
         candidate_compare = None
-        if manifest.get("ar_cache_storage", "fp32") == "exact_fp16":
+        if (
+            manifest.get("ar_cache_storage", "fp32") == "exact_fp16"
+            and not args.decoder_only
+        ):
             run(
                 "ko",
                 "comparison_candidate_fp32",
@@ -292,7 +306,7 @@ def main():
                 fp32_control=True,
             )
             candidate_compare = args.output / "ko_comparison_candidate_fp32.wav"
-        _, candidate_result = run(
+        candidate_data, candidate_result = run(
             "ko",
             "comparison_candidate",
             distance=args.prefetch,
@@ -307,6 +321,14 @@ def main():
         ):
             raise RuntimeError(
                 "Same approved coefficients changed PCM/tokens between cache storage paths"
+            )
+        if args.decoder_only and not all(
+            row["semantic"] == baseline_data["runs"][0]["semantic"]
+            and row["audio_seconds"] == baseline_data["runs"][0]["audio_seconds"]
+            for row in baseline_data["runs"] + candidate_data["runs"]
+        ):
+            raise RuntimeError(
+                "Decoder-only model comparison changed semantic tokens/duration"
             )
         try:
             run(

@@ -49,13 +49,25 @@ def synthetic_bundle(root, variant, storage):
 
 
 @pytest.mark.parametrize(
-    "baseline_storage,candidate_storage", [("fp32", "fp32"), ("fp32", "exact_fp16")]
+    "baseline_storage,candidate_storage,decoder_only",
+    [
+        ("fp32", "fp32", False),
+        ("fp32", "exact_fp16", False),
+        ("exact_fp16", "exact_fp16", True),
+    ],
 )
 def test_comparison_uses_each_approved_bundle_and_matching_cache(
-    monkeypatch, tmp_path, baseline_storage, candidate_storage
+    monkeypatch, tmp_path, baseline_storage, candidate_storage, decoder_only
 ):
     baseline = synthetic_bundle(tmp_path / "baseline", "H2", baseline_storage)
     candidate = synthetic_bundle(tmp_path / "candidate", "H3", candidate_storage)
+    if decoder_only:
+        (candidate.parent / "ar.pt").write_bytes(
+            (baseline.parent / "ar.pt").read_bytes()
+        )
+        data = json.loads(candidate.read_text())
+        data["files"]["ar.pt"] = json.loads(baseline.read_text())["files"]["ar.pt"]
+        candidate.write_text(json.dumps(data))
     output = tmp_path / "output"
     argv = [
         "matrix",
@@ -73,6 +85,8 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
         "0",
         "--predictor-cache",
     ]
+    if decoder_only:
+        argv.append("--decoder-only")
     monkeypatch.setattr(sys, "argv", argv)
     calls = []
 
@@ -117,7 +131,7 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
 
     monkeypatch.setattr(run_student_matrix.subprocess, "run", execute)
     run_student_matrix.main()
-    has_control = candidate_storage == "exact_fp16"
+    has_control = candidate_storage == "exact_fp16" and not decoder_only
     assert len(calls) == (4 if has_control else 3)
     for index, command in enumerate(calls):
         bundle = baseline if index == 0 else candidate
@@ -148,3 +162,35 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
         "H2",
         *(["H3"] * (2 if has_control else 1)),
     ]
+
+
+def test_decoder_comparison_rejects_different_ar_before_inference(
+    monkeypatch, tmp_path
+):
+    baseline = synthetic_bundle(tmp_path / "baseline", "H3", "exact_fp16")
+    candidate = synthetic_bundle(tmp_path / "candidate", "K", "exact_fp16")
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "matrix",
+            "--manifest",
+            str(candidate),
+            "--manifest-sha256",
+            sha256(candidate),
+            "--baseline-manifest",
+            str(baseline),
+            "--baseline-manifest-sha256",
+            sha256(baseline),
+            "--decoder-only",
+            "--output",
+            str(tmp_path / "out"),
+        ],
+    )
+
+    def forbidden(*args, **kwargs):
+        pytest.fail("Different AR model reached inference")
+
+    monkeypatch.setattr(run_student_matrix.subprocess, "run", forbidden)
+    with pytest.raises(SystemExit):
+        run_student_matrix.main()
