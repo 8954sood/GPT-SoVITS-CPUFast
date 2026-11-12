@@ -30,9 +30,15 @@ def main():
     parser.add_argument("--packed-prefill-comparison", action="store_true")
     parser.add_argument("--int8-prefill-comparison", action="store_true")
     parser.add_argument("--diagnostic-profile-only", action="store_true")
+    parser.add_argument("--fft-output-tiles-comparison", action="store_true")
     parser.add_argument("--decoder-candidate-label", choices=["R", "U", "V"], default="R")
     args = parser.parse_args()
     prefill_comparison = args.packed_prefill_comparison or args.int8_prefill_comparison
+    runtime_comparison = prefill_comparison or args.fft_output_tiles_comparison
+    if args.fft_output_tiles_comparison and (
+        prefill_comparison or args.warmups != 3 or args.samples != 5
+    ):
+        parser.error("FFT output tiling requires isolated3warm5sample comparison")
     if args.int8_prefill_comparison and (
         args.packed_prefill_comparison or args.warmups != 3 or args.samples != 5
     ):
@@ -55,6 +61,7 @@ def main():
         or args.fft_half_stream_comparison
         or args.packed_prefill_comparison
         or args.int8_prefill_comparison
+        or args.fft_output_tiles_comparison
         or args.ar_int8_confirm_only
         or args.decoder_ar_int8
         or args.alternating_decoder_comparison
@@ -82,7 +89,7 @@ def main():
         parser.error("FFT-product comparison uses one unchanged approved L bundle")
     if args.fft_half_comparison and args.fft_half_stream_comparison:
         parser.error("Select one FFT-product comparison")
-    if prefill_comparison and (
+    if runtime_comparison and (
         args.baseline_manifest
         or args.decoder_only
         or args.ar_int8_comparison
@@ -175,6 +182,7 @@ def main():
         measured_samples=None,
         packed_prefill=False,
         int8_prefill=False,
+        fft_output_tiles=False,
     ):
         run_manifest = baseline if baseline_bundle else manifest
         run_path = args.baseline_manifest if baseline_bundle else args.manifest
@@ -226,6 +234,7 @@ def main():
                 args.diagnostic_profile_only
                 or args.decoder_candidate_label in ("U", "V")
                 or args.int8_prefill_comparison
+                or args.fft_output_tiles_comparison
             )
             else str(args.warmups),
             "--samples",
@@ -239,6 +248,11 @@ def main():
             "--output",
             str(file),
         ]
+        if fft_output_tiles:
+            command[1] = "/repo/scripts/benchmark_fft_output_tiles.py"
+            command += [
+                "--fft-output-tile-library", "/repo/libcpufast_fft_output_tiles.so"
+            ]
         if not original:
             command += [
                 "--student-manifest",
@@ -319,6 +333,8 @@ def main():
             not data.get("packed_prefill_ffn") or not data.get("packed_prefill_audit")
         ):
             raise RuntimeError("Packed FP32 prefill candidate scope audit failed")
+        if fft_output_tiles and not data.get("fft_output_tiles", {}).get("calls"):
+            raise RuntimeError("Output-tiling candidate did not use the native probe")
         if int8_prefill and (
             not data.get("int8_prefill_ffn")
             or not data.get("int8_prefill_audit")
@@ -459,9 +475,11 @@ def main():
         if not summary["student_assets_unchanged"]:
             raise RuntimeError("Private diagnostic assets changed")
         return
-    if args.alternating_decoder_comparison or prefill_comparison:
+    if args.alternating_decoder_comparison or runtime_comparison:
         candidate_label = (
-            "W"
+            "tile4"
+            if args.fft_output_tiles_comparison
+            else "W"
             if args.int8_prefill_comparison
             else "packed"
             if args.packed_prefill_comparison
@@ -482,6 +500,12 @@ def main():
             summary["prefetch_selection"] = (
                 "No tuning; fixed L decode/runtime, only prefill FFN arithmetic differs"
             )
+        if args.fft_output_tiles_comparison:
+            summary["scope"] = (
+                "Actual N1 unchanged approved L versus exact-FP32 spectral output tiling4; "
+                "counterbalanced fresh processes, no model/prefill/precision changes"
+            )
+            summary["prefetch_selection"] = "No tuning; unchanged approved L AR/runtime"
         samples = {"L": [], candidate_label: []}
         last_candidate = None
         reference = None
@@ -494,11 +518,12 @@ def main():
                     f"paired_{index}_{label}",
                     distance=256,
                     combined=True,
-                    baseline_bundle=label == "L" and not prefill_comparison,
+                    baseline_bundle=label == "L" and not runtime_comparison,
                     ar_int8_only=True,
                     measured_samples=1,
                     packed_prefill=label == "packed",
                     int8_prefill=label == "W",
+                    fft_output_tiles=label == "tile4",
                 )
                 observed = data["runs"][0]
                 if reference is None:
@@ -512,11 +537,11 @@ def main():
                     )
                 samples[label].append((observed, row))
                 if (
-                    prefill_comparison
+                    runtime_comparison
                     and observed["pcm_sha256"] != reference["pcm_sha256"]
                 ):
                     raise RuntimeError(
-                        "Prefill changed approved L PCM on actual N1; listening gate required"
+                        "Runtime changed approved L PCM on actual N1; listening gate required"
                     )
                 summary["comparison_order"].append(
                     {"round": index, "runtime": label, "name": row["name"]}
@@ -553,7 +578,9 @@ def main():
         try:
             _, row = run(
                 "ko",
-                "int8_prefill_profile_run"
+                "fft_output_tile4_profile_run"
+                if args.fft_output_tiles_comparison
+                else "int8_prefill_profile_run"
                 if args.int8_prefill_comparison
                 else "packed_prefill_profile_run"
                 if args.packed_prefill_comparison
@@ -565,6 +592,7 @@ def main():
                 compare=last_candidate,
                 packed_prefill=args.packed_prefill_comparison,
                 int8_prefill=args.int8_prefill_comparison,
+                fft_output_tiles=args.fft_output_tiles_comparison,
             )
             if not row["candidate_pcm_exact_to_n1_student"]:
                 raise RuntimeError("Profile process changed approved candidate PCM")
