@@ -238,6 +238,9 @@ def main():
                 != "experiments/student/listen_fft_half.py"
                 or approval.get("implementation_sha256")
                 != file_digest(root / approval["implementation"])
+                or approval.get("common_helper") != "cpufast_fft_half_runtime.py"
+                or approval.get("common_helper_sha256")
+                != file_digest(root / "cpufast_fft_half_runtime.py")
             ):
                 parser.error(
                     "FFT-product runtime does not match its separate listening approval"
