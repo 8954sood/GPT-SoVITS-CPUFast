@@ -1,0 +1,6 @@
+{
+  "candidate": "H: AR18 trained400 accumulation3 cosine + approved G decoder13",
+  "feedback": "조금 보완해보자, 티쳐 모델이랑 비교했을 떄 살짝 모자란감이 있어",
+  "quality_approved": false,
+  "decision": "Keep approved G baseline; add original-teacher intermediate AR feature supervision before further AR reduction"
+}

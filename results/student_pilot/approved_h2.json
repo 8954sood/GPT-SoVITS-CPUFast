@@ -1,0 +1,142 @@
+{
+  "quality_approved": true,
+  "scope": "User accepts H2 for Korean same reference/text/seed; not broad zero-shot or JA/EN listening approval",
+  "feedback": "H2 사용 가능",
+  "ar_layers": 18,
+  "decoder_branches": [
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ]
+  ],
+  "ar_selected_additional_step": 400,
+  "decoder_selected_additional_step": 175,
+  "additional_updates_executed_each": null,
+  "files": {
+    "ar.pt": {
+      "sha256": "c251559209da56d06d8d0a633602599fab5d287fcc3119a067ab8829276ed130",
+      "bytes": 231990337
+    },
+    "decoder.pt": {
+      "sha256": "ac54705c303b811bdead74d0f38adac93d320044255e3b5c39da1f8bdf114006",
+      "bytes": 133618793
+    },
+    "student_spec.json": {
+      "sha256": "88db2016d95b4407c335ffe4b2cefc3f7259bff0bf897047914805747fb1de79",
+      "bytes": 655
+    }
+  },
+  "runtime": "CPU FP32; general FP32 AR cache, no precision conversion",
+  "original_teacher_files_overwritten": false,
+  "listening_report": {
+    "scope": "Local free-generation listening smoke; not N1 performance",
+    "variant": "D",
+    "ar_cache_storage": "FP32",
+    "quality_approved": false,
+    "ar_layers": 18,
+    "decoder_branches": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    "cases": [
+      {
+        "language": "ko",
+        "text": "오늘은 날씨가 참 좋네요. 잠깐 쉬었다가 함께 이야기를 이어 가요.",
+        "sample_rate": 32000,
+        "audio_seconds": 5.02,
+        "smoke_elapsed_seconds": 6.190892711,
+        "semantic": [
+          {
+            "tokens": 118,
+            "sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+          }
+        ],
+        "pcm_sha256": "bd5428390c4d80c4430db130f11fa803678c425f7d13a6add9e7c78e79b281d2"
+      },
+      {
+        "language": "ja",
+        "text": "今日は穏やかな天気ですね。少し休んでから、また一緒に続きを進めましょう。",
+        "sample_rate": 32000,
+        "audio_seconds": 6.94,
+        "smoke_elapsed_seconds": 4.110009669,
+        "semantic": [
+          {
+            "tokens": 166,
+            "sha256": "d4f3e9bf87c26d75a5c649ef7be39da9795d5c519b032fee2915ead0ae6fa232"
+          }
+        ],
+        "pcm_sha256": "4f1b225e4c111e629f8e48406c4bf17b74767bd550553865eff63d57a5e1c0dd"
+      },
+      {
+        "language": "en",
+        "text": "The weather is pleasant today. Let us take a short break and continue together.",
+        "sample_rate": 32000,
+        "audio_seconds": 4.58,
+        "smoke_elapsed_seconds": 2.3283082099999994,
+        "semantic": [
+          {
+            "tokens": 107,
+            "sha256": "fb60ec34817170d67841d0c4ca6caca0c07778d556dd2f7de3afd423f312269b"
+          }
+        ],
+        "pcm_sha256": "7c1b88961df7024bca706d3edfc9c680efba653455bfcbdcbc6e0a1b84fabe57"
+      }
+    ],
+    "student_parameters_unchanged_during_inference": true,
+    "checkpoint_files_unchanged": true,
+    "finite_original_rate_wavs": 3
+  },
+  "training_report": "results/student_pilot/incremental_training.json",
+  "reference_sha256": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+  "prompt_text": "スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。",
+  "prompt_language": "ja",
+  "seed": 42,
+  "original_s2_sha256": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+  "scope_note": "Korean approved. JA/EN synthesis checks only. Actual N1 H2 RTF unmeasured at release.",
+  "ar_additional_updates_executed": 800,
+  "decoder_additional_updates_executed": 0,
+  "ar_training": "Incrementally prune G AR20 to18, KL400 then KL+original6/13/23 features400; accum3 cosine CPU FP32",
+  "parent_manifest_sha256": "684e5c5f093af572ff1a77a70facd83e86808908e696330e0d5bcc42f3d98654",
+  "ar_cache_storage": "fp32",
+  "model_variant": "H2"
+}

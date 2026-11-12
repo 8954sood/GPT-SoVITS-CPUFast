@@ -1,5 +1,6 @@
 import copy
 
+import pytest
 import torch
 
 from experiments.student.distill_ar import MAPPING, ARStudent, distill_loss
@@ -64,3 +65,22 @@ def test_trainable_subset_checkpoint_roundtrip_and_teacher_is_immutable():
     assert checkpoint["config"]["model"]["n_layer"] == 2
     for key in original["weight"]:
         assert torch.equal(before["weight"][key], original["weight"][key])
+
+
+def test_hidden_supervision_preserves_logits_and_has_finite_gradients():
+    model = ARStudent(small_teacher(), [0, 1, 2])
+    inputs = torch.randn(1, 5, 4)
+    mask = torch.ones(5, 5, dtype=torch.bool).triu(1)
+    expected = model(inputs, mask, 2)
+    logits, hidden = model.forward_with_features(inputs, mask, 2, [0, 2])
+    assert torch.equal(logits, expected)
+    assert set(hidden) == {"0", "2"}
+    assert all(v.shape == (1, 3, 4) for v in hidden.values())
+    (
+        logits.square().mean() + sum(v.square().mean() for v in hidden.values())
+    ).backward()
+    assert all(
+        p.grad is not None and torch.isfinite(p.grad).all() for p in model.parameters()
+    )
+    with pytest.raises(ValueError):
+        model.forward_with_features(inputs, mask, 2, [3])
