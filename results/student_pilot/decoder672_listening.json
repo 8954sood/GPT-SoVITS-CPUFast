@@ -529,7 +529,7 @@
   },
   "implementation": "experiments/student/listen_thin_decoder.py",
   "implementation_sha256": "c25d782b108664b2fdc3cfd7866b0bb0f9296180e8f8e7c290721a92de7b9f68",
-  "quality_feedback_pending": true,
+  "quality_feedback_pending": false,
   "prior_local_attempts": [
     {
       "name": "student_O_672",
@@ -547,5 +547,7 @@
       "exit_code": 2,
       "reason": "Fresh-output-directory guard rejected reused path; no synthesis"
     }
-  ]
+  ],
+  "feedback": "O에 품질 저하 있음",
+  "actual_n1_measurement_allowed": false
 }
