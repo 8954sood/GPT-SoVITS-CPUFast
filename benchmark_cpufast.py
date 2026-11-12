@@ -487,7 +487,9 @@ def main():
         with torch.profiler.profile(
             activities=[torch.profiler.ProfilerActivity.CPU], record_shapes=True
         ) as prof:
-            list(runtime.run(inputs))
+            # Profile the same execution mode as the measured inference.
+            with torch.inference_mode(args.inference_mode):
+                list(runtime.run(inputs))
         rows = [
             {
                 "name": event.key,
