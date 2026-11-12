@@ -1,0 +1,393 @@
+{
+  "scope": "CPU-only AR17 quality recovery pilot, fixed 100 updates/300 contexts per run. No native performance or new listening approval.",
+  "quality_approved": false,
+  "actual_n1_measured": false,
+  "adopted": false,
+  "decision": "No established validation benefit from sparse teacher-top-k history substitution versus equal-update original-context control. Keep approved AR17 QAT200 immutable; do not replace the model being benchmarked.",
+  "validation_scope": "Six validation contexts are disjoint from gradient training but reused for checkpoint selection; this is not an independent test set or voice-quality metric.",
+  "parent_approved_manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+  "parent_bundle_files_verified_unchanged": true,
+  "generator_source_commit": "06ad321",
+  "strengthened_guard_source_commit": "c3a5e64",
+  "strengthened_guards_replayed_all30_augmented_inputs_exact": true,
+  "source_files_sha256": {
+    "experiments/student/augment_ar_histories.py": "1d6228a4abf21069c86050fb056cba5f6bdce067e97937389c704dcf53d27a93",
+    "experiments/student/distill_ar.py": "ca0fd37a24e5575bda6fabe90f5d61ed1c58184f940937a305541c89aa8e1e22",
+    "experiments/student/quant_aware_ar.py": "4d8f2b1e9636084d0ab74b84fd6f6821337b3a62dd1a2c6476d6dfd16f2fe86a"
+  },
+  "corpus": {
+    "manifest_sha256": "05ab5cc284e5d8409835361b69e8efd73e27b1a17332fb5bd61dd7a40f83ff97",
+    "features_manifest_sha256": "14fba9c0b0b89bf1b983b3eb8092382d9bc1501614c75cffeb825f1108d0a3c8",
+    "original_training_contexts": 30,
+    "augmented_training_contexts": 30,
+    "validation_contexts_unchanged": 6,
+    "new_texts_or_speakers": false,
+    "on_policy_rollout": false,
+    "history_rows_changed": 255,
+    "max_original_teacher_logit_reproduction_error": 2.193450927734375e-05,
+    "seed": 1742,
+    "probability": 0.1,
+    "proposal_top_k": 4,
+    "eos_excluded_from_substitutions": true
+  },
+  "runs": [
+    {
+      "name": "control",
+      "steps_executed": 100,
+      "history": {
+        "scope": "Teacher forcing only; no free-generation approval",
+        "train_contexts": 30,
+        "validation_contexts": 6,
+        "history": [
+          {
+            "step": 0,
+            "validation_kl": 0.062386379266778626,
+            "validation_feature": 0.01960436099519332,
+            "validation_objective": 0.06434681536629795,
+            "elapsed_seconds": 1.9068560840023565
+          },
+          {
+            "step": 25,
+            "validation_kl": 0.061142768089969955,
+            "validation_feature": 0.019380878036220867,
+            "validation_objective": 0.06308085589359204,
+            "elapsed_seconds": 30.331413166997663
+          },
+          {
+            "step": 50,
+            "validation_kl": 0.060553902139266334,
+            "validation_feature": 0.01920892298221588,
+            "validation_objective": 0.06247479443748792,
+            "elapsed_seconds": 58.028328749998764
+          },
+          {
+            "step": 75,
+            "validation_kl": 0.06029829941689968,
+            "validation_feature": 0.019100746450324852,
+            "validation_objective": 0.062208374061932165,
+            "elapsed_seconds": 85.66971441700298
+          },
+          {
+            "step": 100,
+            "validation_kl": 0.06034640905757745,
+            "validation_feature": 0.01906132698059082,
+            "validation_objective": 0.062252541755636534,
+            "elapsed_seconds": 114.33044579200214
+          }
+        ],
+        "provenance": {
+          "teacher_sha256": "87133414860ea14ff6620c483a3db5ed07b44be42e2c3fcdad65523a729a745a",
+          "manifest_sha256": "54c87e32dbba8277350b82279c8c9e872460fb55b8e4d6abe135c0096d60f98c",
+          "resume_sha256": "a25ae9826d4d608ca41adca04075ff75a5ac66ababa0e823da60b7990f354352",
+          "lr": 2e-06,
+          "temperature": 2.0,
+          "device": "cpu",
+          "dtype": "float32",
+          "grad_accum": 3,
+          "lr_final_ratio": 0.1,
+          "feature_weight": 0.1,
+          "qat_decode_surrogate": true,
+          "feature_manifest_sha256": "7442b9326722bdeb0d9d3fd2a21504a8f445c76a0002219255b3bd452ee3eacd"
+        }
+      },
+      "evaluation": {
+        "scope": "Evaluate immutable AR checkpoints on original-teacher heldout contexts.\n\nQAT is a training surrogate, not native bitwise inference or a voice-quality\nrating. This script never selects layers, trains parameters or measures RTF.\n",
+        "runtime_surrogate": "qat",
+        "ar_layers": 17,
+        "ar_keep": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          13,
+          15,
+          19,
+          22,
+          23
+        ],
+        "inputs_sha256": {
+          "teacher": "87133414860ea14ff6620c483a3db5ed07b44be42e2c3fcdad65523a729a745a",
+          "checkpoint": "ca731f3d9d7a093197ce3c80ecb101a7e2a631072c015e8474c0f28428f0e05a",
+          "spec": "9348c090eff2f00f82eceada445ed6e090d375c55ee77a091d18ff19e4f2a7a2",
+          "manifest": "54c87e32dbba8277350b82279c8c9e872460fb55b8e4d6abe135c0096d60f98c"
+        },
+        "feature_manifest_sha256": "7442b9326722bdeb0d9d3fd2a21504a8f445c76a0002219255b3bd452ee3eacd",
+        "parameters_unchanged": true,
+        "input_files_unchanged": true,
+        "quality_approved": false,
+        "actual_n1_measured": false,
+        "mean_kl": 0.06029829941689968,
+        "mean_feature_error": 0.019100746450324852,
+        "groups": [
+          {
+            "language": "ja",
+            "count": 2,
+            "kl": 0.056946974247694016,
+            "feature_error": 0.01943596452474594,
+            "top1_agreement": 0.8056872037914692
+          },
+          {
+            "language": "ko",
+            "count": 2,
+            "kl": 0.056621039286255836,
+            "feature_error": 0.018490404821932316,
+            "top1_agreement": 0.7411167512690355
+          },
+          {
+            "language": "en",
+            "count": 2,
+            "kl": 0.06732688471674919,
+            "feature_error": 0.019375870004296303,
+            "top1_agreement": 0.668918918918919
+          }
+        ],
+        "cases": [
+          {
+            "context": "voice0_ja_10_ar.pt",
+            "language": "ja",
+            "tokens": 98,
+            "top1_matches": 77,
+            "top1_agreement": 0.7857142857142857,
+            "kl": 0.052096717059612274,
+            "feature_error": 0.01972287893295288
+          },
+          {
+            "context": "voice0_ja_11_ar.pt",
+            "language": "ja",
+            "tokens": 113,
+            "top1_matches": 93,
+            "top1_agreement": 0.8230088495575221,
+            "kl": 0.06179723143577576,
+            "feature_error": 0.019149050116539
+          },
+          {
+            "context": "voice0_ko_10_ar.pt",
+            "language": "ko",
+            "tokens": 106,
+            "top1_matches": 78,
+            "top1_agreement": 0.7358490566037735,
+            "kl": 0.048984091728925705,
+            "feature_error": 0.018095042556524277
+          },
+          {
+            "context": "voice0_ko_11_ar.pt",
+            "language": "ko",
+            "tokens": 91,
+            "top1_matches": 68,
+            "top1_agreement": 0.7472527472527473,
+            "kl": 0.06425798684358597,
+            "feature_error": 0.018885767087340355
+          },
+          {
+            "context": "voice0_en_10_ar.pt",
+            "language": "en",
+            "tokens": 80,
+            "top1_matches": 52,
+            "top1_agreement": 0.65,
+            "kl": 0.06834748387336731,
+            "feature_error": 0.01931917481124401
+          },
+          {
+            "context": "voice0_en_11_ar.pt",
+            "language": "en",
+            "tokens": 68,
+            "top1_matches": 47,
+            "top1_agreement": 0.6911764705882353,
+            "kl": 0.06630628556013107,
+            "feature_error": 0.019432565197348595
+          }
+        ]
+      },
+      "best_checkpoint_sha256": "ca731f3d9d7a093197ce3c80ecb101a7e2a631072c015e8474c0f28428f0e05a"
+    },
+    {
+      "name": "aug",
+      "steps_executed": 100,
+      "history": {
+        "scope": "Teacher forcing only; no free-generation approval",
+        "train_contexts": 60,
+        "validation_contexts": 6,
+        "history": [
+          {
+            "step": 0,
+            "validation_kl": 0.062386379266778626,
+            "validation_feature": 0.01960436099519332,
+            "validation_objective": 0.06434681536629795,
+            "elapsed_seconds": 1.899522915999114
+          },
+          {
+            "step": 25,
+            "validation_kl": 0.06144199954966704,
+            "validation_feature": 0.0194550563270847,
+            "validation_objective": 0.06338750518237551,
+            "elapsed_seconds": 31.624049124999146
+          },
+          {
+            "step": 50,
+            "validation_kl": 0.06109357438981533,
+            "validation_feature": 0.019301591751476128,
+            "validation_objective": 0.06302373356496295,
+            "elapsed_seconds": 59.68327587500244
+          },
+          {
+            "step": 75,
+            "validation_kl": 0.06051973936458429,
+            "validation_feature": 0.019257600729664166,
+            "validation_objective": 0.062445499437550706,
+            "elapsed_seconds": 89.66469512500043
+          },
+          {
+            "step": 100,
+            "validation_kl": 0.06034324690699577,
+            "validation_feature": 0.019231267583866913,
+            "validation_objective": 0.062266373665382464,
+            "elapsed_seconds": 116.75335283300228
+          }
+        ],
+        "provenance": {
+          "teacher_sha256": "87133414860ea14ff6620c483a3db5ed07b44be42e2c3fcdad65523a729a745a",
+          "manifest_sha256": "05ab5cc284e5d8409835361b69e8efd73e27b1a17332fb5bd61dd7a40f83ff97",
+          "resume_sha256": "a25ae9826d4d608ca41adca04075ff75a5ac66ababa0e823da60b7990f354352",
+          "lr": 2e-06,
+          "temperature": 2.0,
+          "device": "cpu",
+          "dtype": "float32",
+          "grad_accum": 3,
+          "lr_final_ratio": 0.1,
+          "feature_weight": 0.1,
+          "qat_decode_surrogate": true,
+          "feature_manifest_sha256": "14fba9c0b0b89bf1b983b3eb8092382d9bc1501614c75cffeb825f1108d0a3c8"
+        }
+      },
+      "evaluation": {
+        "scope": "Evaluate immutable AR checkpoints on original-teacher heldout contexts.\n\nQAT is a training surrogate, not native bitwise inference or a voice-quality\nrating. This script never selects layers, trains parameters or measures RTF.\n",
+        "runtime_surrogate": "qat",
+        "ar_layers": 17,
+        "ar_keep": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          13,
+          15,
+          19,
+          22,
+          23
+        ],
+        "inputs_sha256": {
+          "teacher": "87133414860ea14ff6620c483a3db5ed07b44be42e2c3fcdad65523a729a745a",
+          "checkpoint": "c18bc29663b12bdc0ac245be2863b74c6625ce4ada70633af99e44ee92c585c7",
+          "spec": "9348c090eff2f00f82eceada445ed6e090d375c55ee77a091d18ff19e4f2a7a2",
+          "manifest": "54c87e32dbba8277350b82279c8c9e872460fb55b8e4d6abe135c0096d60f98c"
+        },
+        "feature_manifest_sha256": "7442b9326722bdeb0d9d3fd2a21504a8f445c76a0002219255b3bd452ee3eacd",
+        "parameters_unchanged": true,
+        "input_files_unchanged": true,
+        "quality_approved": false,
+        "actual_n1_measured": false,
+        "mean_kl": 0.06034324690699577,
+        "mean_feature_error": 0.019231267583866913,
+        "groups": [
+          {
+            "language": "ja",
+            "count": 2,
+            "kl": 0.05695120990276337,
+            "feature_error": 0.019586103968322277,
+            "top1_agreement": 0.8104265402843602
+          },
+          {
+            "language": "ko",
+            "count": 2,
+            "kl": 0.056768208742141724,
+            "feature_error": 0.018600777722895145,
+            "top1_agreement": 0.7360406091370558
+          },
+          {
+            "language": "en",
+            "count": 2,
+            "kl": 0.06731032207608223,
+            "feature_error": 0.01950692106038332,
+            "top1_agreement": 0.6756756756756757
+          }
+        ],
+        "cases": [
+          {
+            "context": "voice0_ja_10_ar.pt",
+            "language": "ja",
+            "tokens": 98,
+            "top1_matches": 77,
+            "top1_agreement": 0.7857142857142857,
+            "kl": 0.05215198174118996,
+            "feature_error": 0.019930562004446983
+          },
+          {
+            "context": "voice0_ja_11_ar.pt",
+            "language": "ja",
+            "tokens": 113,
+            "top1_matches": 94,
+            "top1_agreement": 0.831858407079646,
+            "kl": 0.06175043806433678,
+            "feature_error": 0.01924164593219757
+          },
+          {
+            "context": "voice0_ko_10_ar.pt",
+            "language": "ko",
+            "tokens": 106,
+            "top1_matches": 78,
+            "top1_agreement": 0.7358490566037735,
+            "kl": 0.048730120062828064,
+            "feature_error": 0.018191946670413017
+          },
+          {
+            "context": "voice0_ko_11_ar.pt",
+            "language": "ko",
+            "tokens": 91,
+            "top1_matches": 67,
+            "top1_agreement": 0.7362637362637363,
+            "kl": 0.06480629742145538,
+            "feature_error": 0.019009608775377274
+          },
+          {
+            "context": "voice0_en_10_ar.pt",
+            "language": "en",
+            "tokens": 80,
+            "top1_matches": 52,
+            "top1_agreement": 0.65,
+            "kl": 0.06782849878072739,
+            "feature_error": 0.019425788894295692
+          },
+          {
+            "context": "voice0_en_11_ar.pt",
+            "language": "en",
+            "tokens": 68,
+            "top1_matches": 48,
+            "top1_agreement": 0.7058823529411765,
+            "kl": 0.06679214537143707,
+            "feature_error": 0.019588053226470947
+          }
+        ]
+      },
+      "best_checkpoint_sha256": "c18bc29663b12bdc0ac245be2863b74c6625ce4ada70633af99e44ee92c585c7"
+    }
+  ],
+  "tests": {
+    "root_suite": "41 passed, 19 ARM-only skips",
+    "student_focused": "9 passed; strengthened guards 2 passed"
+  }
+}
