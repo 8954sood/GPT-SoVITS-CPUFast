@@ -120,3 +120,21 @@ CPU FP32 training, learning rate 2e-6, accumulation 3 and feature weight 0.1.
 This tests the existing quantization-aware surrogate before considering
 further pruning. It is not a native-bitwise emulator, quality approval, model
 size improvement or speed result. Approved AR/V files remain unchanged.
+
+
+## Accepted AR17 model and completed comparisons
+
+The corrected V400 comparison is complete: five fresh L/V pairs give median
+RTF1.160668/1.059591, with fixed18-block AR weights,118tokens and5.02s.
+The owner subsequently approved the separate AR17 QAT200 + same original V400
+Korean listening and requested RTF measurement. Its pinned manifest is
+`e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb`.
+Five fresh AR18/AR17 pairs give medianRTF1.057507/1.012739 and token-normalized
+AR16.3397/14.8897ms. Absolute wall increases5.309->5.692s because the approved
+AR17 sample contains133tokens/5.62s instead of118tokens/5.02s. All measured
+PCM/token/model/resource guards pass. See `results/n1_ar17_v400_20261112/`.
+
+Runtime work now fixes approved AR17+V400 and tests only native attention
+value scheduling. Model work keeps AR16, extra-recovery and inactive-FFN
+candidates separate and unapproved. No model candidate silently replaces
+the one being timed. Target head results and final adoption are pending.
