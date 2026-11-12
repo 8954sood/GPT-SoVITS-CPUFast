@@ -1,4 +1,4 @@
-"""Select one AR18 layer on training contexts for a separate AR17 QAT pilot.
+"""Select one redundant layer on training contexts for a separate QAT pilot.
 
 This creates an unapproved initialization, not a speed or listening result.
 Protected original teacher feature anchors are retained. Decoder files are not
@@ -27,6 +27,7 @@ def main():
         parser.add_argument("--" + name, type=Path, required=True)
     parser.add_argument("--threads", type=int, default=8)
     parser.add_argument("--contexts-per-language", type=int, default=2)
+    parser.add_argument("--target-layers", type=int, choices=(16, 17), default=17)
     args = parser.parse_args()
     if args.output.exists() or not 1 <= args.contexts_per_language <= 10:
         parser.error("Fresh output and 1..10 training contexts per language required")
@@ -36,14 +37,15 @@ def main():
     saved = torch.load(args.parent, map_location="cpu", weights_only=False)
     spec = json.loads(args.spec.read_text())
     original_ids = list(saved["student_metadata"]["original_layer_ids"])
+    parent_layers = args.target_layers + 1
     if (
         original_ids != spec["ar_keep"]
-        or len(original_ids) != 18
-        or saved["config"]["model"]["n_layer"] != 18
+        or len(original_ids) != parent_layers
+        or saved["config"]["model"]["n_layer"] != parent_layers
         or saved["config"]["model"].get("linear_units_by_layer")
         or saved["student_metadata"].get("ffn_neuron_keep")
     ):
-        raise ValueError("AR18 parent and matching original IDs without FFN pruning required")
+        raise ValueError("Matching parent depth/original IDs without FFN pruning required")
     features = json.loads((args.feature_dir / "manifest.json").read_text())
     if (
         features["context_manifest_sha256"] != sha256(args.manifest)
@@ -65,7 +67,9 @@ def main():
         raise ValueError("Insufficient balanced training contexts")
     if {p.resolve() for p, _ in contexts} & set(validation):
         raise ValueError("Selection may not access heldout contexts")
-    model = QuantAwareARStudent(saved, list(range(18))).eval().requires_grad_(False)
+    if not set(features["anchors"]).issubset(original_ids):
+        raise ValueError("Original teacher feature anchors must be retained")
+    model = QuantAwareARStudent(saved, list(range(parent_layers))).eval().requires_grad_(False)
     protected = {original_ids[0], original_ids[-1], *features["anchors"]}
 
     def score(removed):
@@ -90,29 +94,30 @@ def main():
             candidates.append(row)
             print(original, row["mean_kl"], flush=True)
     selected = min(candidates, key=lambda row: row["mean_kl"])
-    keep = [i for i in range(18) if i != selected["local_index"]]
+    keep = [i for i in range(parent_layers) if i != selected["local_index"]]
     reduced = ARStudent(saved, keep).eval()
     exported = reduced.checkpoint(saved)
     exported["student_metadata"].update(
         original_layer_ids=[original_ids[i] for i in keep],
         teacher_sha256=features["teacher_sha256"],
         parent_sha256=before,
-        training="Unapproved single-layer AR17 initialization, selected on training-only QAT surrogate",
+        training=f"Unapproved single-layer AR{args.target_layers} initialization, selected on training-only QAT surrogate",
         quality_approved=False,
     )
     # Round-trip layer mapping must preserve every selected tensor exactly.
-    restored = ARStudent(exported, list(range(17)))
+    restored = ARStudent(exported, list(range(args.target_layers)))
     if any(not torch.equal(value, restored.state_dict()[key]) for key, value in reduced.state_dict().items()):
         raise RuntimeError("Export changed selected AR tensors")
     if sha256(args.parent) != before:
         raise RuntimeError("Parent checkpoint changed")
     spec.update(ar_keep=[original_ids[i] for i in keep], quality_approved=False,
-                training="AR17 training-only QAT selection; CPU recovery and listening required")
+                training=f"AR{args.target_layers} training-only QAT selection; CPU recovery and listening required")
     args.output.mkdir(parents=True)
     torch.save(exported, args.output / "initial.pt")
     (args.output / "student_spec.json").write_text(json.dumps(spec, indent=2) + "\n")
     report = {"scope": __doc__, "quality_approved": False, "actual_n1_measured": False,
               "parent_sha256": before, "parent_unchanged": True,
+              "parent_layers": parent_layers, "target_layers": args.target_layers,
               "context_manifest_sha256": sha256(args.manifest),
               "feature_manifest_sha256": sha256(args.feature_dir / "manifest.json"),
               "training_contexts": [{"name": p.name, "sha256": sha256(p)} for p, _ in contexts],
