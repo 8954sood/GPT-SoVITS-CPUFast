@@ -103,3 +103,5 @@ V2의 다음 확장 실험은 다음과 같습니다.
 `prepare_half_cache.py`는 H2를 별도 복사해 각 AR 층의4개 선형 행렬 및 predictor 행렬만 FP16 표현 가능한 값으로 반올림합니다. 18층에서 총73행렬입니다. bias·LayerNorm·embedding·디코더는 그대로입니다. H3는 해당 복사본을 기존 exact-FP16 저장 캐시로 읽으며 FP32 곱셈/누산을 유지합니다. **H2 대비 계수 변환은 손실 변환**이며 H2 원본과 파형 일치를 주장하지 않습니다. 사용자는 H3도 한국어 비교에서 사용 가능으로 승인했습니다. H2/H3는 같은 N1에서 비교하며 속도 결과 전에는 개선을 주장하지 않습니다. `approved_h2.json`, `approved_h3.json`, `h3_half_conversion.json`, `incremental_training.json`에 provenance와 범위가 있습니다.
 
 디코더 첫 단계11-tap 분기를 제거한12분기 모델은200회 후에도 G 대비 log-mel 오차가 커서 미채택입니다. 더 보수적인3-tap 제거는 `prune_decoder_branch.py --stage 0 --original-branch 0`으로 재현하며7/11-tap 분기를 유지합니다. 정해진100회만 시험하고, 이후 구조 탐색은 실제 서버 시간 감소 근거를 우선합니다. 두 경로 모두 기본 모델을 교체하지 않습니다.
+
+보수적인 디코더는100회에서 log-mel0.326903→0.117517로 종료했습니다. H3 AR과 결합한 K는 H3와 한·일·영 semantic token/출력 길이가 같으며, 사용자가 한국어에서 사용 가능으로 승인했습니다. `approved_k.json`과 `conservative_decoder12_listening.json`이 해당 범위를 기록합니다. G/H2/H3/K는 비공개 HF 저장소에 중요 모델만 보존하고 fresh-download SHA256까지 확인합니다. 미채택/중복 모델은 삭제 기록을 남기며 원본·학습 타깃·로그·청취 음성은 유지합니다. K의 추가 디코더 축소가 실제 속도 이득인지 H3와 같은 N1에서 측정하기 전에는 속도 성과로 주장하지 않습니다.
