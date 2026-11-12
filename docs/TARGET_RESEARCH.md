@@ -867,3 +867,36 @@ there is no established augmentation benefit. Neither new model is promoted or
 sent for native performance measurement. Validation was reused for checkpoint
 selection, not an independent quality test. Diagnostics and per-language values
 are in `results/student_pilot/ar17_history_recovery_20261112.json`.
+
+### Approved AR17 QAT200 with unchanged V400, actual N1 (2026-11-12)
+
+Source `c00e55f063d685e48ad56a661c265ee50d52d9cd`; owner-approved manifests
+AR18+V `def34d8555ea01c87091547fccbd27aa8a3bd33e8b6bbebb0df62095004c5d7c`
+and AR17+V `e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb`.
+The decoder is byte-identical original V400 in both. Runtime stays canonical
+W8A8/native FP32 with normal FP32 acoustics; the pending head scheduling probe
+is absent. Docker enforces 2vCPU / 8,000,000,000 bytes / no swap. Five fresh
+processes per model alternate AB/BA, each with three excluded warmups and one
+timed synthesis; both additional operator profiles are excluded.
+
+| Median | AR18 + V400 | AR17 QAT200 + V400 |
+|---|---:|---:|
+| RTF | 1.057507 | 1.012739 |
+| All five RTF range | 1.034626–1.101667 | 1.006747–1.023589 |
+| Wall seconds | 5.308684 | 5.691592 |
+| AR seconds | 1.928084 | 1.980327 |
+| Decoder seconds | 2.942294 | 3.300265 |
+| AR milliseconds / generated token | 16.339691 | 14.889673 |
+| Decoder seconds / audio second | 0.586114 | 0.587236 |
+| Generated tokens / audio seconds | 118 / 5.02 | 133 / 5.62 |
+
+AR17's median RTF improves 4.23% and AR time/token improves 8.87%, while absolute
+wall time increases 7.21% because its approved waveform is longer. This is a
+model comparison with different generated sequences, not an isolated layer
+compute speedup. Neither model reaches RTF1. Each of all ten observations
+reproduces its own approved PCM/semantic hash, depth18/17, and duration; original
+checkpoints, student assets, parameter and resource guards pass. Both separate
+profiles reproduce their own model's PCM. AR17 is the next fixed realtime
+baseline for the independent exact-output head scheduling trial. Complete raw
+observations, guards, profiles, hashes and paired ratios are under
+`results/n1_ar17_v400_20261112/`; no private model/audio files are committed.
