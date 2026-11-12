@@ -6,7 +6,7 @@ on:
       mode:
         description: Full audio comparison or targeted diagnostics
         type: choice
-        options: ['compare', 'diagnostics', 'attention']
+        options: ['compare', 'diagnostics', 'attention', 'small']
         default: 'compare'
       warmups:
         description: Excluded warmup runs (1–5)
@@ -51,7 +51,7 @@ jobs:
           set -euo pipefail
           : "${ARM_HOST:?Missing ARM_SSH_HOST secret}" "${ARM_USER:?Missing ARM_SSH_USER secret}" "${ARM_PRIVATE_KEY:?Missing ARM_SSH_PRIVATE_KEY secret}" "${ARM_KNOWN_HOSTS:?Missing ARM_SSH_KNOWN_HOSTS secret}"
           [[ "$ARM_HOST" =~ ^[A-Za-z0-9._-]+$ && "$ARM_USER" =~ ^[A-Za-z_][A-Za-z0-9_-]*$ ]]
-          [[ "$MODE" == compare || "$MODE" == diagnostics || "$MODE" == attention ]]
+          [[ "$MODE" == compare || "$MODE" == diagnostics || "$MODE" == attention || "$MODE" == small ]]
           [[ "$WARMUPS" =~ ^[1-5]$ && "$SAMPLES" =~ ^([1-9]|1[0-9]|20)$ ]]
           [[ "$GITHUB_RUN_ID" =~ ^[0-9]+$ && "$GITHUB_RUN_ATTEMPT" =~ ^[0-9]+$ ]]
           umask 077
@@ -91,6 +91,13 @@ jobs:
               print('- Operator profile and synthetic kernel timing details are in the JSON artifacts.')
               if not all(d.get(k) for k in ('checkpoint_files_unchanged', 'parameters_unchanged', 'ar_parameters_unchanged')):
                   raise SystemExit('Parameter integrity verification failed')
+              raise SystemExit(0)
+          if os.environ['MODE'] == 'small':
+              d = json.loads(Path('ci-artifact/decoder_small.json').read_text())
+              print('### ARM FP32 small-channel synthetic convolution probe')
+              for row in d['cases']:
+                  print(f"- {row['channels']} channels, kernel {row['kernel']}, {row['method']}: {row['median_seconds']:.4f}s")
+              print('These are synthetic timings, not speech RTF.')
               raise SystemExit(0)
           if os.environ['MODE'] == 'attention':
               print('### ARM 2-vCPU FP32 attention comparison')

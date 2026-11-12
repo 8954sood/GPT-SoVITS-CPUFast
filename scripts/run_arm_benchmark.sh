@@ -9,7 +9,7 @@ cpus=${4:-2}
 warmups=${5:-2}
 samples=${6:-3}
 mode=${7:-compare}
-[[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
+[[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention || "$mode" == small ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
 project="$bench_root/project"
 assets="$bench_root/cpufast-cefae22/assets/pretrained_models"
 reference="$bench_root/reference_ja_4s.wav"
@@ -48,6 +48,11 @@ common=(--engine --head-major --cook-phase --fft-layout --packed-fft --fused-fin
   --warmups "$warmups" --samples "$samples")
 texts=('今日は穏やかな天気ですね。少し休んでから、また一緒に続きを進めましょう。'
        '今日は新しい音声合成モデルを使って、声の雰囲気を確かめています。')
+if [[ "$mode" == small ]]; then
+  run_container python resource_guard.py --report /repo/ci-results/decoder_small_guard.json -- \
+    python experiments/rtf07/bench_decoder_small.py --output /repo/ci-results/decoder_small.json
+  exit 0
+fi
 if [[ "$mode" == diagnostics ]]; then
   run_container python resource_guard.py --report /repo/ci-results/profile_guard.json -- \
     python benchmark_cpufast.py "${common[@]}" --tap-small --text "${texts[0]}" \
