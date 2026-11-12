@@ -1,0 +1,476 @@
+{
+  "scope": "Actual N1 quality synthesis only; not an RTF benchmark",
+  "candidate": "Unapproved AR16 QAT200 + owner-approved original V400 decoder",
+  "ar_layers": 16,
+  "loaded_ar_transformer_blocks": 16,
+  "input_sha256": {
+    "s1": "e15b83131e28e4e28e8e1aece6ab980b254d3265976610e8ffb422293cb2f0d4",
+    "s2": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+    "reference": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+    "student_spec": "d6f92f78be77d895df481ce4ea126c951adaee0d0824c9205a985540865a16cb",
+    "decoder_student": "7d4c184c638b09880a7e61b088b999542598644d22166e84e32137c5649b9524"
+  },
+  "ar_runtime_audit": {
+    "matrices": [
+      {
+        "block": 0,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 0,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 0,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 0,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 1,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 1,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 1,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 1,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 2,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 2,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 2,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 2,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 3,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 3,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 3,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 3,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 4,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 4,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 4,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 4,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 5,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 5,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 5,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 5,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 6,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 6,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 6,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 6,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 7,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 7,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 7,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 7,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 8,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 8,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 8,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 8,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 9,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 9,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 9,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 9,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 10,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 10,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 10,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 10,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 11,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 11,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 11,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 11,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 12,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 12,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 12,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 12,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 13,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 13,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 13,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 13,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 14,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 14,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 14,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 14,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 15,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 15,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 15,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 15,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      }
+    ],
+    "original_digest_before": "e621253c19d6d21e3bd4d063b756d62aba077aefd82a6e823a66b7d704e8e8ce",
+    "original_digest_after": "e621253c19d6d21e3bd4d063b756d62aba077aefd82a6e823a66b7d704e8e8ce",
+    "authoritative_coefficients_unchanged": true,
+    "int8_cache_lossless": false,
+    "arithmetic": "experimental W8A8 multiplication with per-channel weights",
+    "head_geometry": [
+      {
+        "block": 0,
+        "heads": 16,
+        "dim": 32
+      },
+      {
+        "block": 1,
+        "heads": 16,
+        "dim": 32
+      },
+      {
+        "block": 2,
+        "heads": 16,
+        "dim": 32
+      },
+      {
+        "block": 3,
+        "heads": 16,
+        "dim": 32
+      },
+      {
+        "block": 4,
+        "heads": 16,
+        "dim": 32
+      },
+      {
+        "block": 5,
+        "heads": 16,
+        "dim": 32
+      },
+      {
+        "block": 6,
+        "heads": 16,
+        "dim": 32
+      },
+      {
+        "block": 7,
+        "heads": 16,
+        "dim": 32
+      },
+      {
+        "block": 8,
+        "heads": 16,
+        "dim": 32
+      },
+      {
+        "block": 9,
+        "heads": 16,
+        "dim": 32
+      },
+      {
+        "block": 10,
+        "heads": 16,
+        "dim": 32
+      },
+      {
+        "block": 11,
+        "heads": 16,
+        "dim": 32
+      },
+      {
+        "block": 12,
+        "heads": 16,
+        "dim": 32
+      },
+      {
+        "block": 13,
+        "heads": 16,
+        "dim": 32
+      },
+      {
+        "block": 14,
+        "heads": 16,
+        "dim": 32
+      },
+      {
+        "block": 15,
+        "heads": 16,
+        "dim": 32
+      }
+    ],
+    "head_major": true,
+    "torch_head_attention": false,
+    "native_workers": 1,
+    "fp16_acoustic_modules": 0
+  },
+  "student_parameters_unchanged_during_inference": true,
+  "checkpoint_files_unchanged": true,
+  "source_sha": "c35624599dac169ad752819383f515ff441b0aeb",
+  "quality_approved": false,
+  "actual_n1_measured": false,
+  "cases": [
+    {
+      "language": "ko",
+      "text": "오늘은 날씨가 참 좋네요. 잠깐 쉬었다가 함께 이야기를 이어 가요.",
+      "sample_rate": 32000,
+      "audio_seconds": 5.54,
+      "semantic": [
+        {
+          "tokens": 131,
+          "sha256": "d0d2edccab06c8b27a21d582cdae8933706998031bf673f19cdf11c2c8f3fa96"
+        }
+      ],
+      "pcm_sha256": "57733051b5f4b1c4efc1c57e0f911787d4531570b74ce7d8483fd86cd2113754"
+    },
+    {
+      "language": "ja",
+      "text": "今日は穏やかな天気ですね。少し休んでから、また一緒に続きを進めましょう。",
+      "sample_rate": 32000,
+      "audio_seconds": 5.94,
+      "semantic": [
+        {
+          "tokens": 141,
+          "sha256": "82f83cd56aaeb021ce0c686bdc8f3447574f2ef0d23eeb26e4e5ff8fce3d7e73"
+        }
+      ],
+      "pcm_sha256": "941878427ee249a5d9dfd3e160267fa8d0290d363b52c255c6360c107f8ed67c"
+    },
+    {
+      "language": "en",
+      "text": "The weather is pleasant today. Let us take a short break and continue together.",
+      "sample_rate": 32000,
+      "audio_seconds": 4.3,
+      "semantic": [
+        {
+          "tokens": 100,
+          "sha256": "5f23dcdd9f33304b4c46107b49faa99e397bd90a092f6ea0c7cc247700799ca2"
+        }
+      ],
+      "pcm_sha256": "e2b342feed812a695cba11aeee927af28641991fb61272b58b669dabef5efd22"
+    }
+  ],
+  "raw_private_listening_report_sha256": "d2c0e44fd4991a850a294ec9b66ebba58388d01fc65c91f3bb8c88eaff8c3d3e",
+  "quality_feedback_pending": true
+}
