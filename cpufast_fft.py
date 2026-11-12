@@ -7,7 +7,7 @@ import torch.nn.functional as F
 class FFTConv1d(torch.nn.Module):
     """Compute the original cross-correlation; preserve all parameter objects."""
 
-    def __init__(self, original, n_fft=None, backend="torch"):
+    def __init__(self, original, n_fft=None, backend="torch", *, pad_channels=False):
         super().__init__()
         if (
             original.stride != (1,)
@@ -29,6 +29,9 @@ class FFTConv1d(torch.nn.Module):
         self.hop = self.n_fft - self.effective_kernel + 1
         self._key = self._wr = self._wi = self._ws = None
         self.backend = backend
+        if pad_channels and backend != "packed":
+            raise ValueError("Output cache padding requires the packed FP32 backend")
+        self.pad_channels = pad_channels
         self._packed = None
         self._packed_half = None
         self.fast_half = False
@@ -61,6 +64,8 @@ class FFTConv1d(torch.nn.Module):
             (id(p), p._version, p.data_ptr(), p.dtype, p.device)
             for p in self.parameters()
         )
+        if self.pad_channels:
+            key = (key, True)
         if self._key != key:
             self._packed_half = None
             w = self.weight.detach()
@@ -76,14 +81,18 @@ class FFTConv1d(torch.nn.Module):
                 ).contiguous()
                 self._wr = self._wi = self._ws = None
             elif self.backend in ("native", "packed"):
-                if w.shape[0] % 12:
+                if w.shape[0] % 12 and not self.pad_channels:
                     raise ValueError(
                         "Native spectral GEMM requires output channels divisible by 12"
                     )
                 coefficients = torch.cat((self._wr, self._wi, self._ws), dim=0)
+                outputs = ((w.shape[0] + 11) // 12) * 12
+                if outputs != w.shape[0]:
+                    # Derived output rows only: inputs/original parameters are untouched.
+                    coefficients = F.pad(coefficients, (0, 0, 0, outputs - w.shape[0]))
                 self._packed = (
                     coefficients.reshape(
-                        coefficients.shape[0], w.shape[0] // 12, 12, w.shape[1]
+                        coefficients.shape[0], outputs // 12, 12, w.shape[1]
                     )
                     .transpose(2, 3)
                     .contiguous()
@@ -125,10 +134,14 @@ class FFTConv1d(torch.nn.Module):
                 )
             if not self.stream_products:
                 product = (
-                    torch.ops.cpufast_cpp.fft_unpack_layout(products, x.shape[0], blocks)
+                    torch.ops.cpufast_cpp.fft_unpack_layout(
+                        products, x.shape[0], blocks
+                    )
                     if self.output_layout
                     else torch.ops.cpufast_cpp.fft_unpack(products, x.shape[0] * blocks)
                 )
+            if self.pad_channels and product.shape[1] != self.weight.shape[0]:
+                product = product.narrow(1, 0, self.weight.shape[0])
         elif self.backend == "fused":
             packed_input = torch.ops.cpufast_cpp.fft_split(transformed_raw.contiguous())
             products = torch.bmm(self._packed, packed_input)
@@ -253,7 +266,13 @@ def tuned_size(channels, kernel, dilation):
 
 
 def install_fft(
-    model, *, min_kernel=7, backend="torch", tuned=False, n1_selected=False
+    model,
+    *,
+    min_kernel=7,
+    backend="torch",
+    tuned=False,
+    n1_selected=False,
+    pad_channels=False,
 ):
     """Use measured long-kernel candidates only; leave phase upsampling intact."""
     from cpufast_optimizations import PackedConv1d, PhaseUpsample1d
@@ -288,7 +307,13 @@ def install_fft(
                     size = 256
                 elif child.weight.shape[1] == 96:
                     size = 512
-            setattr(model, name, FFTConv1d(child, n_fft=size, backend=backend))
+            setattr(
+                model,
+                name,
+                FFTConv1d(
+                    child, n_fft=size, backend=backend, pad_channels=pad_channels
+                ),
+            )
             count += 1
         elif not isinstance(child, FFTConv1d):
             count += install_fft(
@@ -297,5 +322,6 @@ def install_fft(
                 backend=backend,
                 tuned=tuned,
                 n1_selected=n1_selected,
+                pad_channels=pad_channels,
             )
     return count

@@ -23,12 +23,15 @@ def main():
     parser.add_argument("--decoder-only", action="store_true")
     parser.add_argument("--ar-int8-comparison", action="store_true")
     parser.add_argument("--ar-int8-confirm-only", action="store_true")
+    parser.add_argument("--ar-int8-attention-comparison", action="store_true")
     args = parser.parse_args()
     if bool(args.baseline_manifest) != bool(args.baseline_manifest_sha256):
         parser.error("Comparison baseline manifest and SHA required together")
     if args.decoder_only and not args.baseline_manifest:
         parser.error("Decoder comparison requires an approved baseline bundle")
-    if args.ar_int8_comparison and args.baseline_manifest:
+    if (
+        args.ar_int8_comparison or args.ar_int8_attention_comparison
+    ) and args.baseline_manifest:
         parser.error("AR runtime comparison uses one unchanged approved bundle")
     if args.ar_int8_confirm_only and not args.ar_int8_comparison:
         parser.error("Runtime confirmation requires AR-only runtime comparison mode")
@@ -99,6 +102,7 @@ def main():
         baseline_bundle=False,
         fp32_control=False,
         ar_int8_only=False,
+        torch_head_attention=False,
     ):
         run_manifest = baseline if baseline_bundle else manifest
         run_path = args.baseline_manifest if baseline_bundle else args.manifest
@@ -165,6 +169,8 @@ def main():
                 command += ["--student-fp32-control"]
         if ar_int8_only:
             command += ["--ar-int8-only"]
+        if torch_head_attention:
+            command += ["--ar-int8-torch-sdpa"]
         if combined:
             command += ["--fft-stream", "--parallel-transforms", "--inference-mode"]
         if compare is not None:
@@ -221,7 +227,10 @@ def main():
             "name": name,
             "prefetch": None if ar_int8_only else (256 if original else distance),
             "approximate_ar_int8_only": ar_int8_only,
-            "runtime_variant": "L_ar_int8_only"
+            "torch_head_attention": torch_head_attention,
+            "runtime_variant": "M_ar_int8_torch_sdpa"
+            if torch_head_attention
+            else "L_ar_int8_only"
             if ar_int8_only
             else data["model_variant"],
             "runtime_local_generated_tokens_match": all(
@@ -297,7 +306,7 @@ def main():
         )
         return data, row
 
-    if args.ar_int8_comparison:
+    if args.ar_int8_comparison or args.ar_int8_attention_comparison:
         if manifest.get("ar_cache_storage", "fp32") != "exact_fp16":
             parser.error(
                 "Approximate AR runtime requires an approved half-exact bundle"
@@ -309,19 +318,45 @@ def main():
             "Baseline verified half-cache256; candidate INT8 runtime has no half-cache prefetch"
         )
         if not args.ar_int8_confirm_only:
-            run("ko", "ar_runtime_baseline", distance=256, combined=True, confirm=True)
+            run(
+                "ko",
+                "ar_runtime_baseline",
+                distance=256,
+                combined=True,
+                confirm=True,
+                ar_int8_only=args.ar_int8_attention_comparison,
+            )
         else:
             summary["scope"] = (
                 "Independent actual N1 five-sample confirmation of separately approved L AR-only runtime"
             )
-        run(
+        _, candidate_row = run(
             "ko",
             "ar_runtime_candidate",
             distance=256,
             combined=True,
             confirm=True,
             ar_int8_only=True,
+            torch_head_attention=args.ar_int8_attention_comparison,
+            compare=args.output / "ko_ar_runtime_baseline.wav"
+            if args.ar_int8_attention_comparison
+            else None,
         )
+        if args.ar_int8_attention_comparison:
+            summary["scope"] = (
+                "Actual N1 Korean L/M attention-only comparison; M inherits approved L from exact local PCM, no separate user answer"
+            )
+            summary["prefetch_selection"] = (
+                "Same W8A8 projections and head-major KV; native FP32 attention versus Torch SDPA"
+            )
+            save()
+            if (
+                not candidate_row["candidate_pcm_exact_to_n1_student"]
+                or not candidate_row["candidate_tokens_exact_to_n1_student"]
+            ):
+                raise RuntimeError(
+                    "Attention candidate differs from approved L PCM/tokens/duration on N1"
+                )
         try:
             run(
                 "ko",
@@ -330,6 +365,7 @@ def main():
                 combined=True,
                 profile=True,
                 ar_int8_only=True,
+                torch_head_attention=args.ar_int8_attention_comparison,
                 compare=args.output / "ko_ar_runtime_candidate.wav",
             )
         except subprocess.CalledProcessError as error:

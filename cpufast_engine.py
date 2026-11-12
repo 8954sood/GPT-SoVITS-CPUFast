@@ -14,6 +14,7 @@ def optimize(
     fft_layout=False,
     packed_fft=False,
     fft_stream=False,
+    fft_pad_channels=False,
     parallel_transforms=False,
     fused_finish=False,
     tap_small=False,
@@ -47,6 +48,8 @@ def optimize(
         raise ValueError("parallel_transforms requires FP32")
     if fft_stream and (not packed_fft or not fft_layout or fast_experimental):
         raise ValueError("fft_stream requires packed_fft, fft_layout and FP32")
+    if fft_pad_channels and (not packed_fft or fast_experimental):
+        raise ValueError("fft_pad_channels requires packed FFT with FP32 arithmetic")
     if packed_small_48 and not tap_small:
         raise ValueError("packed_small_48 requires tap_small")
     if fast_experimental and (tap_small or cook_resblock):
@@ -66,6 +69,8 @@ def optimize(
             )
         if existing.audit.get("fft_stream", False) != fft_stream:
             raise ValueError("Recreate the pipeline before changing FFT streaming")
+        if existing.audit.get("fft_pad_channels", False) != fft_pad_channels:
+            raise ValueError("Recreate the pipeline before changing FFT output padding")
         if existing.audit.get("tap_small", False) != tap_small:
             raise ValueError("Recreate the pipeline before changing tap settings")
         if existing.audit.get("packed_small_48", False) != packed_small_48:
@@ -96,7 +101,7 @@ def optimize(
         head_major = cook_phase = fft_layout = packed_fft = fused_finish = True
     else:
         from cpufast_ar_cpp import build
-    from cpufast_fft import install_fft
+    from cpufast_fft import FFTConv1d, install_fft
     from cpufast_predictor import NativePredictor
     from cpufast_winograd import install_winograd
 
@@ -126,6 +131,7 @@ def optimize(
         pipeline.vits_model.dec.resblocks,
         backend="packed" if packed_fft else "fused",
         n1_selected=n1_fft_sizes,
+        pad_channels=fft_pad_channels,
     )
     winograd = install_winograd(
         pipeline.vits_model.dec.resblocks, native=True, n1_small_direct=n1_small_direct
@@ -226,6 +232,18 @@ def optimize(
         "tap_convolutions": taps,
         "tap_small": tap_small,
         "fft_stream": fft_stream,
+        "fft_pad_channels": fft_pad_channels,
+        "fft_padded_output_cache": [
+            {
+                "module": name,
+                "outputs": int(module.weight.shape[0]),
+                "packed_outputs": int((module.weight.shape[0] + 11) // 12 * 12),
+            }
+            for name, module in pipeline.vits_model.dec.named_modules()
+            if isinstance(module, FFTConv1d)
+            and module.pad_channels
+            and module.weight.shape[0] % 12
+        ],
         "parallel_transforms": parallel_transforms,
         "packed_small_48": packed_small_48,
         "n1_fft_sizes": n1_fft_sizes,

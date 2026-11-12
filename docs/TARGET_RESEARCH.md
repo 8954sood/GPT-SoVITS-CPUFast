@@ -311,3 +311,64 @@ These inclusive diagnostic ranges contain overhead and are not added to wall
 time or other operator totals. Raw timings, all slow samples, numerical errors,
 actual shapes, guards, profile and provenance:
 `results/n1_student_k_20261112`.
+
+## Approved L: isolated approximate AR runtime
+
+[Run 43168034387](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43168034387)
+fixed source `a84f4b90cc1167fcc7e27f4552a45e48043d6c8a`, three warmups and
+five retained Korean samples each. It reused the identical private K checkpoint
+bundle. L changes only derived AR inference to W8A8 projections/native FP32
+attention; its normal acoustic engine remains FP32, with zero `fast_half`
+modules and mixed global fast mode false. It had separate Korean listening
+approval and does not rewrite original coefficients/checkpoints.
+
+| Configuration | Median RTF | Wall s | CPU s | AR s | Decoder s | Audio s |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| K half-cache256 | 1.2276 | 6.261 | 10.630 | 2.264 | 3.534 | 5.10 |
+| L AR-only W8A8/native FP32 attention | **1.1414** | **5.730** | **9.771** | **1.925** | 3.424 | 5.02 |
+
+The measured RTF gain is 7.02%, wall-time gain 8.48%; tokens/duration change
+from 120/5.10s to 118/5.02s. Every L generated semantic hash matches the local
+approved L render. The underlying K semantic comparison is false as expected;
+the separate runtime-approved match is explicitly true. Cross-platform PCM
+differs. All model/reference/checkpoint/asset guards passed; timed RSS was
+below 5.06GB, separate profiler 5.71GB. Actual AR/classifier and acoustic tap
+profile ranges observed the global Torch intra-op pool at two threads; legacy
+`native_workers=1` metadata is not a thread limit.
+
+The excluded L profile recorded self times of 1.310s addmm, .775s FFT stream,
+.442s bmm, .433s INT8 projection and .413s native head attention. The decoder
+is now about 60% of wall time. Profiled PCM/tokens/duration matched the same
+process unprofiled output exactly. Preserve L as an explicit approved candidate;
+**RTF remains above 1**, so the conditional independent sub-real-time
+confirmation was not run. Raw data: `results/n1_student_l_20261112`.
+
+## Rejected explicit im2col tap probe
+
+[Run 43169070226](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43169070226)
+fixed source `faa35c07a7135b88267223d3b89ae2f764c00820`. Its four synthetic
+bulk geometries came from the actual L profile, C48 length75520 and C24
+length151040, dilation1 and kernels7/11. Three warmups and five measurements
+included actual materialization for every full/tiled im2col candidate.
+
+| Geometry | Existing taps s | Best im2col s | Best setting |
+| --- | ---: | ---: | --- |
+| C48 K7 | **.03719** | .06701 | Full sequence |
+| C48 K11 | **.05699** | .10784 | Full sequence |
+| C24 K7 | **.02264** | .05693 | Tile8192 |
+| C24 K11 | **.03468** | .07957 | Full sequence |
+
+All im2col candidates were slower. Different accumulation order changed FP32
+values by at most 8.6e-6 to 1.9e-5 across geometries; outputs remained finite,
+coefficients unchanged, and guard peak RSS was 577.6MB. Reject the approach:
+no production tap implementation or full-TTS job was added. Every measured
+candidate, warmup, slow sample, error, memory estimate and guard is retained in
+`results/n1_im2col_tap_20261112`.
+
+The next prepared attention experiment adds explicit
+`cpufast_fast_ar.build(..., head_major=True, torch_head_attention=True)`.
+Default false preserves L's native attention; true keeps the same W8A8
+projections and head-major KV layout while using Torch SDPA. Tiny Linux ARM
+one/two-thread block checks passed mask/all-masked-head, cache-write identity
+and FP32 output tolerance. This preparation has no full-TTS quality or actual
+N1 speed claim; new listening approval and target measurement are required.
