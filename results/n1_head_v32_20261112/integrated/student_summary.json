@@ -1,0 +1,370 @@
+{
+  "scope": "Actual N1 canonical integrated dim32 head-value scheduling confirmation; five fresh processes, each3excluded warmups+1sample; separate excluded profile. Independent confirmation, not a new causal paired speed estimate.",
+  "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+  "ar_selected_additional_step": null,
+  "decoder_selected_additional_step": 400,
+  "ar_training": "Approved K AR18 -> QAT100 -> training-only layer21 removal -> QAT200 with original teacher KL and anchors6/13/23; CPU FP32, separate half-representable matrix export.",
+  "ar_selected_step": 200,
+  "ar_recovery_updates": 200,
+  "ar_control_parent_updates": 100,
+  "prefetch_selection": "No tuning; one unchanged owner-approved AR/decoder bundle",
+  "cases": [
+    {
+      "language": "ko",
+      "name": "integrated_head_0",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": true,
+      "original": false,
+      "combined": true,
+      "model_variant": "AR17_QAT200_V400",
+      "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.2120287138968706,
+      "installation_seconds": 2.06744553335011,
+      "median_rtf": 1.0119357852271866,
+      "rtfs": [
+        1.0119357852271866
+      ],
+      "median_seconds": 5.6870791129767895,
+      "median_cpu_seconds": 9.69659112,
+      "median_stages": {
+        "ar_seconds": 1.8763934504240751,
+        "enc_p_seconds": 0.1401395369321108,
+        "flow_seconds": 0.1740186233073473,
+        "dec_seconds": 3.3148211780935526
+      },
+      "audio_seconds": 5.62,
+      "median_decoder_seconds_per_audio_second": 0.589825832400988,
+      "peak_sampled_tree_rss_bytes": 4837662720,
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": true,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "integrated_head_1",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": true,
+      "original": false,
+      "combined": true,
+      "model_variant": "AR17_QAT200_V400",
+      "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.1287658512592316,
+      "installation_seconds": 2.090119883418083,
+      "median_rtf": 1.0102171371309783,
+      "rtfs": [
+        1.0102171371309783
+      ],
+      "median_seconds": 5.677420310676098,
+      "median_cpu_seconds": 9.69848828,
+      "median_stages": {
+        "ar_seconds": 2.0826077833771706,
+        "enc_p_seconds": 0.13734075613319874,
+        "flow_seconds": 0.08533783815801144,
+        "dec_seconds": 3.1926585901528597
+      },
+      "audio_seconds": 5.62,
+      "median_decoder_seconds_per_audio_second": 0.5680887171090497,
+      "peak_sampled_tree_rss_bytes": 4946464768,
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": true,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "integrated_head_2",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": true,
+      "original": false,
+      "combined": true,
+      "model_variant": "AR17_QAT200_V400",
+      "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.2175406366586685,
+      "installation_seconds": 2.1056017745286226,
+      "median_rtf": 1.003143433282596,
+      "rtfs": [
+        1.003143433282596
+      ],
+      "median_seconds": 5.637666095048189,
+      "median_cpu_seconds": 9.6507614,
+      "median_stages": {
+        "ar_seconds": 2.043758451938629,
+        "enc_p_seconds": 0.13706495240330696,
+        "flow_seconds": 0.08601200394332409,
+        "dec_seconds": 3.189907608553767
+      },
+      "audio_seconds": 5.62,
+      "median_decoder_seconds_per_audio_second": 0.5675992186038732,
+      "peak_sampled_tree_rss_bytes": 4872929280,
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": true,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "integrated_head_3",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": true,
+      "original": false,
+      "combined": true,
+      "model_variant": "AR17_QAT200_V400",
+      "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.242807850241661,
+      "installation_seconds": 2.0447443816810846,
+      "median_rtf": 1.0171232715222547,
+      "rtfs": [
+        1.0171232715222547
+      ],
+      "median_seconds": 5.7162327859550714,
+      "median_cpu_seconds": 9.737486839999995,
+      "median_stages": {
+        "ar_seconds": 1.8976472076028585,
+        "enc_p_seconds": 0.14652520045638084,
+        "flow_seconds": 0.08675265870988369,
+        "dec_seconds": 3.403188716620207
+      },
+      "audio_seconds": 5.62,
+      "median_decoder_seconds_per_audio_second": 0.6055495937046631,
+      "peak_sampled_tree_rss_bytes": 4841586688,
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": true,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "integrated_head_4",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": true,
+      "original": false,
+      "combined": true,
+      "model_variant": "AR17_QAT200_V400",
+      "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.2209571599960327,
+      "installation_seconds": 2.029250195249915,
+      "median_rtf": 0.9916029210961373,
+      "rtfs": [
+        0.9916029210961373
+      ],
+      "median_seconds": 5.572808416560292,
+      "median_cpu_seconds": 9.572323440000005,
+      "median_stages": {
+        "ar_seconds": 1.8782438337802887,
+        "enc_p_seconds": 0.14046014100313187,
+        "flow_seconds": 0.0865466557443142,
+        "dec_seconds": 3.2883181404322386
+      },
+      "audio_seconds": 5.62,
+      "median_decoder_seconds_per_audio_second": 0.5851099894007542,
+      "peak_sampled_tree_rss_bytes": 4975513600,
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": true,
+      "local_approved_generated_tokens_match": true
+    }
+  ],
+  "native_files_before": {
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+  },
+  "aggregate": {
+    "samples": 5,
+    "rtfs": [
+      1.0119357852271866,
+      1.0102171371309783,
+      1.003143433282596,
+      1.0171232715222547,
+      0.9916029210961373
+    ],
+    "median_rtf": 1.0102171371309783,
+    "rtf_range": [
+      0.9916029210961373,
+      1.0171232715222547
+    ],
+    "median_seconds": 5.677420310676098,
+    "median_cpu_seconds": 9.69659112,
+    "median_stages": {
+      "ar_seconds": 1.8976472076028585,
+      "enc_p_seconds": 0.1401395369321108,
+      "flow_seconds": 0.0865466557443142,
+      "dec_seconds": 3.2883181404322386
+    },
+    "audio_seconds": 5.62,
+    "semantic": [
+      {
+        "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+        "index": 133,
+        "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+      }
+    ],
+    "pcm_sha256": "2d7691a829c0f793796be37c9a1287a88497ea41dcd1328729333c6b0ec0e83e",
+    "peak_sampled_tree_rss_bytes": 4975513600
+  },
+  "profile_run": {
+    "language": "ko",
+    "name": "integrated_head_profile_run",
+    "prefetch": null,
+    "approximate_ar_int8_only": true,
+    "approximate_fft_half_products": false,
+    "approximate_fft_half_stream": false,
+    "fft_half_product_modules": [],
+    "packed_prefill_ffn": false,
+    "int8_prefill_ffn": false,
+    "runtime_variant": "L_ar_int8_only",
+    "runtime_local_generated_tokens_match": true,
+    "runtime_local_pcm_match": true,
+    "original": false,
+    "combined": true,
+    "model_variant": "AR17_QAT200_V400",
+    "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+    "ar_cache_storage": "int8_approximate",
+    "student_fp32_control": false,
+    "fft_pad_channels": false,
+    "fft_padded_output_cache": [],
+    "cold_load_seconds": 3.1607969645410776,
+    "installation_seconds": 2.0401509311050177,
+    "median_rtf": 1.004128794109588,
+    "rtfs": [
+      1.004128794109588
+    ],
+    "median_seconds": 5.6432038228958845,
+    "median_cpu_seconds": 9.682285239999999,
+    "median_stages": {
+      "ar_seconds": 1.919251723214984,
+      "enc_p_seconds": 0.1436117198318243,
+      "flow_seconds": 0.08451943472027779,
+      "dec_seconds": 3.3153590112924576
+    },
+    "audio_seconds": 5.62,
+    "median_decoder_seconds_per_audio_second": 0.5899215322584443,
+    "peak_sampled_tree_rss_bytes": 5698908160,
+    "semantic": [
+      {
+        "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+        "index": 133,
+        "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+      }
+    ],
+    "candidate_tokens_exact_to_n1_student": true,
+    "candidate_pcm_exact_to_n1_student": true,
+    "local_approved_pcm_match": true,
+    "local_approved_generated_tokens_match": true
+  },
+  "profile_head_attn_operator": [
+    {
+      "name": "cpufast_cpp::head_attn",
+      "calls": 4522,
+      "input_shapes": "",
+      "self_cpu_us": 470512.7290000288,
+      "total_cpu_us": 974308.4630000296
+    }
+  ],
+  "native_files_after": {
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+  },
+  "native_files_unchanged": true,
+  "student_assets_unchanged": true,
+  "complete": true
+}

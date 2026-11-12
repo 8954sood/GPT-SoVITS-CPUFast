@@ -1,0 +1,88 @@
+{
+  "scope": "Independent actual N1 canonical integrated same-model confirmation; no additional sampling after fixed5fresh processes",
+  "source_sha": "c35624599dac169ad752819383f515ff441b0aeb",
+  "canonical_adoption_commit": "e9e6442",
+  "source_archive_sha256": "38e7849da85381b409dd8d1dc3ddc71327e321015d4daf513a4726cd32bee206",
+  "retrieved_result_tar_sha256": "d8f482c4f977e8bed16c972ce2cd667de1f41b6eb740f56dc715f7dda38e31e9",
+  "image_id": "sha256:23eb9b78c3c75319c99172766f94bba4faa8cffe05f8765ce4b33a3c34bb989b",
+  "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+  "protocol": "5fresh processes, each3excluded warmups+1sample, separate excluded profile. 2vCPU/8e9byte/no swap; host exclusiveflock. Default fast DSO rebuilt; original base DSO copied from c00e55f with unchanged sources/bytes.",
+  "aggregate": {
+    "samples": 5,
+    "rtfs": [
+      1.0119357852271866,
+      1.0102171371309783,
+      1.003143433282596,
+      1.0171232715222547,
+      0.9916029210961373
+    ],
+    "median_rtf": 1.0102171371309783,
+    "rtf_range": [
+      0.9916029210961373,
+      1.0171232715222547
+    ],
+    "median_seconds": 5.677420310676098,
+    "median_cpu_seconds": 9.69659112,
+    "median_stages": {
+      "ar_seconds": 1.8976472076028585,
+      "enc_p_seconds": 0.1401395369321108,
+      "flow_seconds": 0.0865466557443142,
+      "dec_seconds": 3.2883181404322386
+    },
+    "audio_seconds": 5.62,
+    "semantic": [
+      {
+        "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+        "index": 133,
+        "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+      }
+    ],
+    "pcm_sha256": "2d7691a829c0f793796be37c9a1287a88497ea41dcd1328729333c6b0ec0e83e",
+    "peak_sampled_tree_rss_bytes": 4975513600
+  },
+  "canonical_native_head_source_sha256": "a4fd3cc395daf5e3049e6ec4b92c37977cdee75019bfbc41303f667675ed8b31",
+  "native_files_before": {
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+  },
+  "native_files_after": {
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+  },
+  "actual_call_proof": {
+    "profile_canonical_operator": [
+      {
+        "name": "cpufast_cpp::head_attn",
+        "calls": 4522,
+        "input_shapes": "",
+        "self_cpu_us": 470512.7290000288,
+        "total_cpu_us": 974308.4630000296
+      }
+    ],
+    "geometry": "All17 blocks audit heads16 dim32",
+    "source_library": "Source-verified canonical fast DSO includes declared dim32 eight-vector schedule; no standalone probe substitution/counter is loaded."
+  },
+  "semantic_pcm_guard": "All6processes reproduce approved AR17 133tokens5.62s PCM2d7691a8... with same generated semantics; original/student/parameters/resources guards pass.",
+  "conclusion": "Integrated default-path independent medianRTF1.0102171371 remains above1 (range0.9916029211..1.0171232715;1of5below1). Do not claim stable default-path sub1. Separate controlled prototype comparison median0.9926522 remains valid for its source/run; independent canonical confirmation cannot be substituted for it or pooled to force a threshold.",
+  "next": "Keep exact-output value scheduling adoption based on controlled all5paired AR/RTF gains. Investigate isolated per-token QK scheduling on unchanged approved AR17 model; no repeat sampling merely to cross1.",
+  "raw_json_sha256": {
+    "ko_integrated_head_0.json": "7d306131e554f93981798e55be287e7869fc46ff3b15ed689172642aae38c9b9",
+    "ko_integrated_head_0_guard.json": "0cc9d29132367fb829de90ddef68d3dd1e4a6c89809acc0bcccecf607466f045",
+    "ko_integrated_head_1.json": "4e2d52bd8803a023f9479b9bae2d85515b03dd6299db3f2411f803dc5769a254",
+    "ko_integrated_head_1_guard.json": "add260923d7d2e6e19bbb76fd02d8132bac56c31c46cba3a15bb7e064f1989c9",
+    "ko_integrated_head_2.json": "a29bd0b8902acc407f3f273a56c3c55550e2cd6112ce56538e0a51238744169c",
+    "ko_integrated_head_2_guard.json": "a2210cb022eb257b11ea1801612baad21ed34c730903ce9e6e1cb41422db5eea",
+    "ko_integrated_head_3.json": "1670476e16e827095863a595cb4ed1b83893af187eef98092f80e4fe6bc6bf85",
+    "ko_integrated_head_3_guard.json": "ab0a4562a7a2b33b44bf7406db439c076e2f5e3b7bb00b9b8a9dbf298ee1a8a2",
+    "ko_integrated_head_4.json": "276f753cfc0c27475e2b257aca334e1648e1967656cfbcf672828808e3ce9e50",
+    "ko_integrated_head_4_guard.json": "35736e77335bdec990aeb16ba4ecd9d4d8905f788bf4abe13aff13abbf790841",
+    "ko_integrated_head_profile_run.json": "7563af924d3774867327dc694e68471e1bc0a7c02484e75123e14b191b4c0ac3",
+    "ko_integrated_head_profile_run_guard.json": "c98f6e97fece24eb226c070e799903b49552df2cc6409e9092d34d85642b0c19",
+    "ko_student_profile_ops.json": "4a356abafabe7cf651f6a301dea8457ea2cb2c98def3dd6ae610a7bcbf866de7",
+    "student_summary.json": "466b54e3ccc327d7ce58c00e2e8fc9e45d3b5b6245a528234b14538dab0589b9"
+  }
+}
