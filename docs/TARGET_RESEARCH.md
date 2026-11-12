@@ -572,3 +572,34 @@ activation and FFN2 total of .348480s. This cross-run diagnostic difference is
 not an isolated speed comparison and cannot override the measured AR result.
 TorchDispatch produces outer and redispatched entries, so raw operator call
 counts are doubled; the role metadata records actual invocations.
+
+## L FFT geometry attribution for the next internal bottleneck
+
+Run `43184533534`, source `0abf0c28847e92afe1b3620f004240ae7046fd07`,
+is one unchanged approved L process on the actual fixed N1 resource profile.
+It uses three warmups, one unprofiled PCM reference and one excluded profile.
+No new model/arithmetic, packed prefill, R or P is combined. The profiled
+waveform, semantic tokens and duration match its unprofiled reference exactly;
+all asset/parameter/resource guards pass. This run makes no RTF improvement
+claim. Source/raw hashes are in `results/n1_l_fft_geometry_20261112`.
+
+| Actual FFT geometry | Modules | Input time | Diagnostic range total s |
+| --- | ---: | ---: | ---: |
+| C192 K7 | 6 | 18,880 | .412658 |
+| C192 K11 | 6 | 18,880 | .429178 |
+| C384 K7 | 6 | 2,360 | .197460 |
+| C384 K11 | 6 | 2,360 | .207397 |
+| C96 K11 | 6 | 37,760 | .337228 |
+
+C192 is the largest grouped FFT scope (.841836s) in this diagnostic. Its K11
+block is `resblocks.4`, original stage1/branch2, with convs1 dilations1/3/5
+and convs2 dilation1. K7 is `resblocks.3`, stage1/original branch1. C192 K11
+dilation1's four modules total .273422s, d3 .075466s, d5 .080290s; K7 totals
+.269247/.069102/.074309s respectively. Geometry labels group identical
+modules, so do not read the four-module d1 total as an individual convolution.
+
+A candidate internal C192→144→192 pair preserves outer residual width and
+native12 output alignment, but needs actual activation-based model selection,
+recovery, listening and separate full-synthesis N1 comparison. The diagnostic
+CPU ranges include profiler effects and must not be added to measured wall
+time or treated as the speedup that a new model will deliver.

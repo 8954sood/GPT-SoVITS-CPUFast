@@ -1,0 +1,59 @@
+{
+  "scope": "Excluded actual N1 unchanged approved L diagnostic only; three warmups, one unprofiled PCM reference and one separate operator profile; no speed decision",
+  "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+  "ar_selected_additional_step": 400,
+  "decoder_selected_additional_step": 100,
+  "prefetch_selection": "No tuning or alternative arithmetic",
+  "cases": [],
+  "profile_run": {
+    "language": "ko",
+    "name": "L_diagnostic_profile_run",
+    "prefetch": null,
+    "approximate_ar_int8_only": true,
+    "approximate_fft_half_products": false,
+    "approximate_fft_half_stream": false,
+    "fft_half_product_modules": [],
+    "packed_prefill_ffn": false,
+    "runtime_variant": "L_ar_int8_only",
+    "runtime_local_generated_tokens_match": true,
+    "runtime_local_pcm_match": false,
+    "original": false,
+    "combined": true,
+    "model_variant": "K",
+    "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+    "ar_cache_storage": "int8_approximate",
+    "student_fp32_control": false,
+    "fft_pad_channels": false,
+    "fft_padded_output_cache": [],
+    "cold_load_seconds": 3.1587812397629023,
+    "installation_seconds": 2.2276586778461933,
+    "median_rtf": 1.1449974664742966,
+    "rtfs": [
+      1.1449974664742966
+    ],
+    "median_seconds": 5.747887281700969,
+    "median_cpu_seconds": 9.835807520000003,
+    "median_stages": {
+      "ar_seconds": 1.9388495273888111,
+      "enc_p_seconds": 0.1249651350080967,
+      "flow_seconds": 0.07580267637968063,
+      "dec_seconds": 3.429673880338669
+    },
+    "audio_seconds": 5.02,
+    "median_decoder_seconds_per_audio_second": 0.683201968194954,
+    "peak_sampled_tree_rss_bytes": 5853401088,
+    "semantic": [
+      {
+        "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+        "index": 118,
+        "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+      }
+    ],
+    "candidate_tokens_exact_to_n1_student": null,
+    "candidate_pcm_exact_to_n1_student": null,
+    "local_approved_pcm_match": false,
+    "local_approved_generated_tokens_match": false
+  },
+  "student_assets_unchanged": true,
+  "complete": true
+}

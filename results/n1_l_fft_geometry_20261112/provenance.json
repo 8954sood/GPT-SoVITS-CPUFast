@@ -1,0 +1,14 @@
+{
+  "run_id": 43184533534,
+  "url": "https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43184533534",
+  "head_sha": "0abf0c28847e92afe1b3620f004240ae7046fd07",
+  "status": "completed",
+  "conclusion": "success",
+  "scope": "Approved L unchanged. One process, three warmups, one unprofiled PCM reference and one excluded diagnostic profile on actual N1 2vCPU/8000000000 bytes/no swap. Diagnostic only, not a repeated RTF comparison or performance adoption.",
+  "artifact_json_sha256": {
+    "ko_L_diagnostic_profile_run.json": "24ccbd46a60fee60b84483839605cfa5c7cccb1f81ce081f58f0b349e0454135",
+    "ko_L_diagnostic_profile_run_guard.json": "46761771278c05af32c45985373c63f0bd30a8f12982f60f038c7b8ee85d26d5",
+    "ko_student_profile_ops.json": "8cf7f48a5e12c38fb1558af869a372f0354f02abe4b427bcd8dae0bc3e7088c3",
+    "student_summary.json": "2198eff7a5f523ae044d2c06420051d62ef545394d99dac625c812fb26b6e76a"
+  }
+}
