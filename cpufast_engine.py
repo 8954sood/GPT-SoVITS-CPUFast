@@ -61,7 +61,9 @@ def optimize(
         ):
             raise ValueError("Recreate the pipeline before changing thread settings")
         if existing.audit.get("parallel_transforms", False) != parallel_transforms:
-            raise ValueError("Recreate the pipeline before changing transform scheduling")
+            raise ValueError(
+                "Recreate the pipeline before changing transform scheduling"
+            )
         if existing.audit.get("fft_stream", False) != fft_stream:
             raise ValueError("Recreate the pipeline before changing FFT streaming")
         if existing.audit.get("tap_small", False) != tap_small:

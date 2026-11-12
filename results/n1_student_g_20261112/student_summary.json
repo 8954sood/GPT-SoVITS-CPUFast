@@ -1,0 +1,386 @@
+{
+  "scope": "Actual N1 original/student performance; user approval covers Korean listening only",
+  "manifest_sha256": "684e5c5f093af572ff1a77a70facd83e86808908e696330e0d5bcc42f3d98654",
+  "ar_selected_additional_step": 25,
+  "decoder_selected_additional_step": 175,
+  "prefetch_selection": "KO median RTF; retain 0 unless best hint improves at least 1%; provisional until independent verification",
+  "cases": [
+    {
+      "language": "ko",
+      "name": "original",
+      "prefetch": 256,
+      "original": true,
+      "combined": true,
+      "median_rtf": 1.4439820991925714,
+      "rtfs": [
+        1.4446888222104537,
+        1.4439820991925714,
+        1.4414717626973832
+      ],
+      "median_seconds": 8.346216533333063,
+      "median_cpu_seconds": 14.237576560000008,
+      "median_stages": {
+        "ar_seconds": 3.408974301069975,
+        "enc_p_seconds": 0.13802410289645195,
+        "flow_seconds": 0.08482682518661022,
+        "dec_seconds": 4.5420031398534775
+      },
+      "audio_seconds": 5.78,
+      "peak_sampled_tree_rss_bytes": 5289013248,
+      "semantic": [
+        {
+          "sha256": "4e1347e115cb442b64f9089bed89ddb2ccd8157fcb3675efe826b81b35ee3427",
+          "index": 137,
+          "generated_sha256": "59ff652e1c26d13a0b359b12db4e48e069650d369ce30c4ad8c90d0560f7be28"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": null,
+      "local_approved_generated_tokens_match": null
+    },
+    {
+      "language": "ko",
+      "name": "student_p0",
+      "prefetch": 0,
+      "original": false,
+      "combined": false,
+      "median_rtf": 1.4708538337658017,
+      "rtfs": [
+        1.4928482217177494,
+        1.4442714414227815,
+        1.4708538337658017
+      ],
+      "median_seconds": 8.67803761921823,
+      "median_cpu_seconds": 14.4899542,
+      "median_stages": {
+        "ar_seconds": 3.9012174513190985,
+        "enc_p_seconds": 0.14326246827840805,
+        "flow_seconds": 0.08764604851603508,
+        "dec_seconds": 4.383224532008171
+      },
+      "audio_seconds": 5.9,
+      "peak_sampled_tree_rss_bytes": 5330288640,
+      "semantic": [
+        {
+          "sha256": "b1a4d4b501ffe2b1ae7bec241fcaae5dad29596f4de533232801cd39bb28da3d",
+          "index": 140,
+          "generated_sha256": "cd739167078c20de37f0aa23cc7237d722d392da1a83088aac1ad9936bb144f5"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "student_p64",
+      "prefetch": 64,
+      "original": false,
+      "combined": false,
+      "median_rtf": 1.4778520245799573,
+      "rtfs": [
+        1.46287025536521,
+        1.4879598901054616,
+        1.4778520245799573
+      ],
+      "median_seconds": 8.719326945021749,
+      "median_cpu_seconds": 14.555143920000006,
+      "median_stages": {
+        "ar_seconds": 3.9423357974737883,
+        "enc_p_seconds": 0.1422335021197796,
+        "flow_seconds": 0.0888323001563549,
+        "dec_seconds": 4.363892707973719
+      },
+      "audio_seconds": 5.9,
+      "peak_sampled_tree_rss_bytes": 5262454784,
+      "semantic": [
+        {
+          "sha256": "b1a4d4b501ffe2b1ae7bec241fcaae5dad29596f4de533232801cd39bb28da3d",
+          "index": 140,
+          "generated_sha256": "cd739167078c20de37f0aa23cc7237d722d392da1a83088aac1ad9936bb144f5"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": true,
+      "candidate_pcm_exact_to_n1_student": true,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "student_p128",
+      "prefetch": 128,
+      "original": false,
+      "combined": false,
+      "median_rtf": 1.4785917598943588,
+      "rtfs": [
+        1.4569665336886704,
+        1.4785917598943588,
+        1.4892020938381298
+      ],
+      "median_seconds": 8.723691383376718,
+      "median_cpu_seconds": 14.404590080000006,
+      "median_stages": {
+        "ar_seconds": 3.86999699100852,
+        "enc_p_seconds": 0.1452326476573944,
+        "flow_seconds": 0.08884721994400024,
+        "dec_seconds": 4.437468880787492
+      },
+      "audio_seconds": 5.9,
+      "peak_sampled_tree_rss_bytes": 5340024832,
+      "semantic": [
+        {
+          "sha256": "b1a4d4b501ffe2b1ae7bec241fcaae5dad29596f4de533232801cd39bb28da3d",
+          "index": 140,
+          "generated_sha256": "cd739167078c20de37f0aa23cc7237d722d392da1a83088aac1ad9936bb144f5"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": true,
+      "candidate_pcm_exact_to_n1_student": true,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "student_p256",
+      "prefetch": 256,
+      "original": false,
+      "combined": false,
+      "median_rtf": 1.515458784366058,
+      "rtfs": [
+        1.515458784366058,
+        1.5076614325960813,
+        1.5208777684276387
+      ],
+      "median_seconds": 8.941206827759743,
+      "median_cpu_seconds": 14.908072520000005,
+      "median_stages": {
+        "ar_seconds": 4.072631681337953,
+        "enc_p_seconds": 0.1491988841444254,
+        "flow_seconds": 0.09571751579642296,
+        "dec_seconds": 4.469519317150116
+      },
+      "audio_seconds": 5.9,
+      "peak_sampled_tree_rss_bytes": 5367545856,
+      "semantic": [
+        {
+          "sha256": "b1a4d4b501ffe2b1ae7bec241fcaae5dad29596f4de533232801cd39bb28da3d",
+          "index": 140,
+          "generated_sha256": "cd739167078c20de37f0aa23cc7237d722d392da1a83088aac1ad9936bb144f5"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": true,
+      "candidate_pcm_exact_to_n1_student": true,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "student_combined",
+      "prefetch": 0,
+      "original": false,
+      "combined": true,
+      "median_rtf": 1.441392513086735,
+      "rtfs": [
+        1.4220611084947141,
+        1.4423551707197042,
+        1.441392513086735,
+        1.4126491827606145,
+        1.447319669680575
+      ],
+      "median_seconds": 8.504215827211738,
+      "median_cpu_seconds": 14.471580199999991,
+      "median_stages": {
+        "ar_seconds": 3.820520170032978,
+        "enc_p_seconds": 0.14819811843335629,
+        "flow_seconds": 0.0937118623405695,
+        "dec_seconds": 4.23685984313488
+      },
+      "audio_seconds": 5.9,
+      "peak_sampled_tree_rss_bytes": 5343514624,
+      "semantic": [
+        {
+          "sha256": "b1a4d4b501ffe2b1ae7bec241fcaae5dad29596f4de533232801cd39bb28da3d",
+          "index": 140,
+          "generated_sha256": "cd739167078c20de37f0aa23cc7237d722d392da1a83088aac1ad9936bb144f5"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": true,
+      "candidate_pcm_exact_to_n1_student": true,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ja",
+      "name": "original",
+      "prefetch": 256,
+      "original": true,
+      "combined": true,
+      "median_rtf": 1.4688460112714448,
+      "rtfs": [
+        1.4655115403683487,
+        1.4688460112714448,
+        1.4801860469265724
+      ],
+      "median_seconds": 8.78369914740324,
+      "median_cpu_seconds": 14.964317839999993,
+      "median_stages": {
+        "ar_seconds": 3.5936094261705875,
+        "enc_p_seconds": 0.14962648786604404,
+        "flow_seconds": 0.0903230756521225,
+        "dec_seconds": 4.858226153999567
+      },
+      "audio_seconds": 5.98,
+      "peak_sampled_tree_rss_bytes": 5245431808,
+      "semantic": [
+        {
+          "sha256": "efd1307fdbd804c4770686974a6e47a0a24529a5ea9d4041f1a7e4b991dac69d",
+          "index": 142,
+          "generated_sha256": "bab67b6afb56a3de5519c65c623e0575dda437a2891ddafa5194167ec8760c0c"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": null,
+      "local_approved_generated_tokens_match": null
+    },
+    {
+      "language": "ja",
+      "name": "student_combined",
+      "prefetch": 0,
+      "original": false,
+      "combined": true,
+      "median_rtf": 1.4032554645714064,
+      "rtfs": [
+        1.4187570400875753,
+        1.4032554645714064,
+        1.3899962117719977
+      ],
+      "median_seconds": 9.233420956879854,
+      "median_cpu_seconds": 15.918663439999989,
+      "median_stages": {
+        "ar_seconds": 4.168060403317213,
+        "enc_p_seconds": 0.1601713802665472,
+        "flow_seconds": 0.09794293716549873,
+        "dec_seconds": 4.709729740396142
+      },
+      "audio_seconds": 6.58,
+      "peak_sampled_tree_rss_bytes": 5471182848,
+      "semantic": [
+        {
+          "sha256": "73a139abaf7d5182359981850ada54544a60d2ef06f75b5dcdd9cb5319558884",
+          "index": 157,
+          "generated_sha256": "ed0f206f302b046439ed30192f86eb957618507b5ff6905e46b7bcb17e6174ce"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "en",
+      "name": "original",
+      "prefetch": 256,
+      "original": true,
+      "combined": true,
+      "median_rtf": 1.488414647019639,
+      "rtfs": [
+        1.4953277567971726,
+        1.4549733956857602,
+        1.488414647019639
+      ],
+      "median_seconds": 7.293231770396233,
+      "median_cpu_seconds": 12.310921319999999,
+      "median_stages": {
+        "ar_seconds": 2.976319056004286,
+        "enc_p_seconds": 0.11952516064047813,
+        "flow_seconds": 0.07685152254998684,
+        "dec_seconds": 3.901999682188034
+      },
+      "audio_seconds": 4.9,
+      "peak_sampled_tree_rss_bytes": 5252943872,
+      "semantic": [
+        {
+          "sha256": "98218d6e9556ac38d98e770fe40f1380f58e684687e93a83a3c76414e770183b",
+          "index": 115,
+          "generated_sha256": "50994170029165a4c5d2945dbac3ab28124a3bce553f72500ca1c6941a4940da"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": null,
+      "local_approved_generated_tokens_match": null
+    },
+    {
+      "language": "en",
+      "name": "student_combined",
+      "prefetch": 0,
+      "original": false,
+      "combined": true,
+      "median_rtf": 1.4300440995258534,
+      "rtfs": [
+        1.4696373555435103,
+        1.4251309320916254,
+        1.4300440995258534
+      ],
+      "median_seconds": 6.549601975828409,
+      "median_cpu_seconds": 11.250870640000002,
+      "median_stages": {
+        "ar_seconds": 3.0088714193552732,
+        "enc_p_seconds": 0.11609353125095367,
+        "flow_seconds": 0.07555595226585865,
+        "dec_seconds": 3.268851475790143
+      },
+      "audio_seconds": 4.58,
+      "peak_sampled_tree_rss_bytes": 5317226496,
+      "semantic": [
+        {
+          "sha256": "dbcd134c728f4f91cf69d16e1a92b24e4b2a73ac8d5cd4da6c7d601177efc146",
+          "index": 107,
+          "generated_sha256": "d76bcdd50219cf29175b602d263da9ea07a45fdfbe470c7fa022dcff4945d812"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": true
+    }
+  ],
+  "selected_prefetch": 0,
+  "profile_run": {
+    "language": "ko",
+    "name": "student_profile_run",
+    "prefetch": 0,
+    "original": false,
+    "combined": true,
+    "median_rtf": 1.4179049002922186,
+    "rtfs": [
+      1.4179049002922186
+    ],
+    "median_seconds": 8.36563891172409,
+    "median_cpu_seconds": 14.447442960000004,
+    "median_stages": {
+      "ar_seconds": 3.8651581965386868,
+      "enc_p_seconds": 0.14274967461824417,
+      "flow_seconds": 0.08888354524970055,
+      "dec_seconds": 4.089533435180783
+    },
+    "audio_seconds": 5.9,
+    "peak_sampled_tree_rss_bytes": 6406582272,
+    "semantic": [
+      {
+        "sha256": "b1a4d4b501ffe2b1ae7bec241fcaae5dad29596f4de533232801cd39bb28da3d",
+        "index": 140,
+        "generated_sha256": "cd739167078c20de37f0aa23cc7237d722d392da1a83088aac1ad9936bb144f5"
+      }
+    ],
+    "candidate_tokens_exact_to_n1_student": true,
+    "candidate_pcm_exact_to_n1_student": true,
+    "local_approved_pcm_match": false,
+    "local_approved_generated_tokens_match": true
+  },
+  "student_assets_unchanged": true,
+  "complete": true
+}

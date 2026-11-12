@@ -1,0 +1,26 @@
+{
+  "run_id": 43164950232,
+  "url": "https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43164950232",
+  "head_sha": "023439e23d12508e9cabb7f672d627982e197ee6",
+  "target": "Actual ARM Neoverse N1, Docker 2 vCPU / 8000000000 bytes / no swap",
+  "warmups": 3,
+  "samples": 5,
+  "private_hf_revision": "423984f1ff08206bb0a6f6193f6b06c8da3d2991",
+  "baseline_manifest_sha256": "2b855a33c96b817bffb1d01df91e2bdc93bfba916ea2930543d1db046bfbc682",
+  "candidate_manifest_sha256": "ba160d0a4811620f3be581716fec8d5d8c0306c7d03cc7aa19cd773af4b48329",
+  "quality_scope": "Korean same reference/text/seed only; H3 matrix rounding separately user-approved. No new broad language/zero-shot approval.",
+  "same_h3_coefficients_full_rtf_improvement_percent": 9.392949423626916,
+  "h2_to_h3_full_rtf_improvement_percent": 9.613288667380726,
+  "same_h3_cache_paths": "All 5 measured half-cache candidate PCM/token/duration outputs exactly equal same-H3 full FP32-cache control. FP32 arithmetic throughout. Cache/prefetch execution profile changes jointly: FP32cache0 versus exacthalf256.",
+  "classifier_profile": [
+    {
+      "name": "cpufast_predictor_projection",
+      "calls": 121,
+      "input_shapes": "",
+      "self_cpu_us": 21830.45499999833,
+      "total_cpu_us": 35774.97700000042
+    }
+  ],
+  "decision": "Preserve separately approved H3 exact-half storage/prefetch256 runtime, negative eligibility cache off. RTF1.2313 remains above real time. Focus next on decoder, 3.607 of6.280s wall; compare approved K independently, then temporal tap probe.",
+  "limits": "One text/reference/seed, five chronological samples per case. H2/H3 coefficients/tokens/output lengths differ (5.02/5.10s). Storage effect isolated with same-H3 FP32 control but prefetch is profile-specific. Cross-platform PCM differs while approved generated semantic hashes match."
+}

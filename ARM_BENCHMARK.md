@@ -113,5 +113,115 @@ with torch.inference_mode():
 The benchmark equivalent adds `--fft-stream --parallel-transforms
 --inference-mode` to the existing approved tap/prefetch profile. These options
 remain explicit and preserve original-model coefficients. The combined score
-has not been measured with trained students. A fresh pipeline is required when
+is measured separately for approved G below. A fresh pipeline is required when
 changing weights/settings; rebuild the extension after native source changes.
+
+## Approved private student benchmark
+
+`mode=student` fetches only the approved manifest and its three model/spec files
+from a private Hugging Face model repository at a full immutable commit SHA.
+Supply `student_repo`, `student_revision`, `student_manifest_path`, and the
+independently verified `student_manifest_sha256`. The runner uses the repository
+secret `HF_STUDENT_TOKEN` without login or persisted credentials. Model bytes
+are never added to Git or public Actions artifacts. Download errors report only
+type/status because signed storage URLs may include temporary credentials.
+
+Before transfer, after private SSH installation, and before/after inference,
+all asset sizes/hashes are checked. The server keeps a user-private cache under
+`ARM_BENCH_ROOT/student-assets/<manifest SHA256>` and mounts it read-only.
+Temporary runner copies/cache and the disposable source/upload directory are
+removed; the verified server cache is reusable. Reference audio stays on the
+server and is checked against the approved manifest.
+
+The serial matrix measures Korean original combined-runtime baseline, then
+approved G with FP32-cache prefetch 0/64/128/256 under fixed decoder settings.
+It keeps 0 unless the best hint improves the measured median by at least 1%;
+the selected hint remains provisional. A fresh combined-kernel G process has
+five retained measurements. Japanese/English measure original/G combined only;
+these languages have synthesis checks and are not separately listening approved.
+The additional operator profile runs last, excludes shape retention to bound
+memory, and is excluded from the main RTF table. Every warmup/slow measurement,
+CPU time, stage, RSS, semantic token count/hash and waveform check is retained.
+Original/Student durations may differ; compare wall/CPU times together with RTF.
+
+A student cannot be loaded unless the trusted approved manifest, checkpoint
+SHA/size, original S2/reference hash, architecture, text, prompt language and
+seed match. Original checkpoint files remain unchanged. Within-student prefetch
+and combined candidates must produce the same PCM/tokens/duration as N1 G0.
+Local approved-waveform matches are reported separately from the N1 comparisons.
+
+The historical `mode=studentpredictor` experiment cached a failed predictor
+FP16-storage eligibility check while preserving FP32 `F.linear`. It failed to
+improve full synthesis and its runtime flag/engine path were removed. Reproduce
+that experiment only from source `2c94b384a6b5f55cfdf2709221c620374c24d631`;
+complete target measurements remain in `results/n1_student_predictor_20261112`.
+
+The first approved G actual-N1 sweep completed in
+[run 43161518437](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43161518437).
+Korean FP32-cache prefetch 0/64/128/256 medians were
+**1.4709 / 1.4779 / 1.4786 / 1.5155**; retain **0**. The independent five-sample
+G combined result was **1.4414**, while the three-sample original combined
+baseline was **1.4440**. Original/G wall times were 8.346/8.504s for different
+output lengths, 5.78/5.90s. Layer reduction therefore did not deliver a meaningful
+Korean synthesis speed improvement on this server. Trained FP32 AR storage
+increased AR time while the decoder became faster. Full data, every slow sample,
+guards, and the separate profile are in `results/n1_student_g_20261112`.
+Within-N1 Korean variants were PCM/token exact. All three generated semantic
+hashes matched approved local synthesis; cross-platform PCM hashes differed.
+Japanese/English are performance smoke checks only, outside listening approval.
+
+`mode=studentcompare` compares two separately listening-approved bundles in one
+serial N1 job: baseline and candidate each have three warmups and five Korean
+measurements, followed by a separate candidate profile. For an exact-half
+candidate, a third case runs those same approved coefficients in a full FP32
+cache with `--student-fp32-control`; both storage paths must produce identical
+PCM/tokens/duration. This separates the effect of cache storage/runtime from
+the separately approved coefficient rounding. Supply the candidate's
+usual manifest inputs plus `comparison_manifest_path` and
+`comparison_manifest_sha256` for the baseline in the same immutable private HF
+revision. Both verified bundles are mounted read-only. There is no cross-model
+PCM equality requirement because model changes can alter tokens and duration;
+each report retains its own approved semantic/PCM matches and asset hashes.
+The extra profile is checked against the candidate's own timed waveform.
+
+Manifests may declare `model_variant` and `ar_cache_storage`, either `fp32`
+(the backward-compatible G default) or `exact_fp16`. The latter is a separately
+approved inference-copy checkpoint whose AR matrix values must pass the existing
+exact half round-trip guard. Arithmetic remains FP32; no benchmark code rounds
+weights. The student spec's original layer IDs must be unique, within 0–23,
+and match the manifest/loaded AR layer count. Decoder branch identities and
+original teacher/reference hashes also remain checked. FP32 cache uses the
+explicit `student_prefetch` from its prior N1 sweep; exact-half cache uses the
+verified original profile's distance 256. Each row records the actual setting.
+The rejected predictor negative-cache flag is not available in the current
+engine or comparison workflow.
+
+The independent predictor negative-cache comparison
+[run 43163928379](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43163928379)
+did **not** improve G: baseline/candidate medians were **1.4002/1.4047** over
+five samples each, despite a small AR/CPU reduction. All candidate waveforms and
+tokens were exact. This is a failed speed hypothesis; the experimental runtime option was removed.
+Raw reports/provenance are in `results/n1_student_predictor_20261112`.
+The classifier range and its input/weight shapes are now recorded only during
+the additional excluded profile synthesis, with no wrappers in timed samples.
+
+`mode=taptiles` is a separate synthetic N1 diagnostic prepared from previously
+observed long-sequence 48×48 and 24×24 tap GEMMs. In `studentdecoder`,
+target lengths are read from the actual candidate profile; standalone defaults
+are the approved H3/K Korean lengths 76800 and 153600. It compares the current full
+sequence with temporal tiles 1024/4096/8192, kernels 7/11 and dilation 1/5,
+using fixed coefficients and tap accumulation order. It records every warmup,
+wall/CPU sample, exactness, changed values, maximum error, RMSE and guard data.
+Changing BLAS shapes can change rounding; tiny host tests verify ragged tile
+coverage and convolution equivalence within FP32 tolerance, not PCM identity.
+The production tap path is unchanged. Only a promising target-server probe
+justifies a separate five-sample full-TTS candidate and waveform checks.
+
+`mode=studentdecoder` uses the same two-bundle inputs for an approved decoder
+comparison. It requires identical AR checkpoint hashes/cache storage, skips
+the redundant candidate FP32-storage control, and checks all timed semantic
+tokens/durations against the baseline. Different decoder coefficients can
+change PCM; this mode does not require cross-model waveform identity. It runs
+the separate candidate profile, then the guarded `taptiles` synthetic probe
+serially in the same job to reuse setup. These timings remain separate and
+are never combined with the full-model RTF measurements.

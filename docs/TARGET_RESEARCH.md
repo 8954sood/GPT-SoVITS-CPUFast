@@ -161,3 +161,110 @@ configuration and original weights remain unchanged. This does not reach RTF
 1, does not establish an optimum or coverage of other voices/languages, and
 does not predict the performance/quality of separately trained students.
 See `ARM_BENCHMARK.md` for the exact original-model settings.
+
+## Approved G: trained FP32-cache actual N1 validation
+
+[Run 43161518437](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43161518437)
+fixed source `e32a7096a3221d3a7682b700e949d33d0b9dec81` and the private,
+SHA-verified approved G bundle. Model bytes are excluded from Git and artifacts.
+The user approved Korean listening only. Three warmups preceded each case;
+the sweep and JA/EN had three samples, selected Korean combined had five.
+
+| Korean configuration | Median RTF | Wall seconds | AR seconds | Decoder seconds |
+| --- | ---: | ---: | ---: | ---: |
+| Original combined, exact-half coefficient cache | 1.4440 | 8.346 | 3.409 | 4.542 |
+| G, full FP32 cache, prefetch 0 | 1.4709 | 8.678 | 3.901 | 4.383 |
+| G, prefetch 64 | 1.4779 | 8.719 | 3.942 | 4.364 |
+| G, prefetch 128 | 1.4786 | 8.724 | 3.870 | 4.437 |
+| G, prefetch 256 | 1.5155 | 8.941 | 4.073 | 4.470 |
+| G combined, prefetch 0, independent five samples | 1.4414 | 8.504 | 3.821 | 4.237 |
+
+Retain prefetch 0. Positive hints did not improve this workload. Model changes
+altered generated duration from 5.78 to 5.90s: the nearly equal Korean RTF does
+not mean lower latency. The trained AR's FP32 coefficient cache plausibly offsets
+the reduced layer count: AR became slower despite fewer layers, while decoder
+time fell. This is evidence about this complete model, not a proof of a pure
+memory bottleneck. No individual optimization gains are added together.
+
+JA original/G combined measured RTF 1.4688/1.4033, but wall time increased
+8.784/9.233s with 5.98/6.58s outputs. EN measured 1.4884/1.4300 and wall time
+7.293/6.550s, output 4.90/4.58s. These are one-text performance smoke checks,
+not listening approval or a language-wide speed claim.
+
+Every within-N1 Korean prefetch/combined PCM and token sequence was exact to
+G0. All three generated semantic hashes matched the local approved render;
+cross-platform PCM hashes differed and are reported explicitly. Asset,
+parameter, checkpoint, resource checks passed. Peak tree RSS was below 5.48GB
+for timed jobs and 6.41GB for the separate profile.
+
+The extra unshaped CPU profile, excluded from RTF, recorded self operator times
+of 1.772s FP32 GEMV, 1.498s addmm, .959s FFT stream, .650s bmm, and .529s
+CPU flash attention. Threaded CPU totals overlap and include profiling overhead;
+unshaped addmm totals cannot all be attributed to the classifier. A concrete
+next candidate caches a failed predictor half-storage eligibility check, while
+retaining the same FP32 F.linear arithmetic. It requires its own N1 comparison.
+Raw JSON, guards, profile and provenance: `results/n1_student_g_20261112`.
+
+### Failed G predictor eligibility-cache speed hypothesis
+
+[Run 43163928379](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43163928379)
+fixed source `2c94b384a6b5f55cfdf2709221c620374c24d631`. The approved G
+combined runtime, FP32 cache0, compared the existing failed-eligibility check
+against an opt-in negative cache. Three excluded warmups and five retained
+samples per configuration measured **RTF 1.400229/1.404697** (+0.319%, slower).
+Wall medians were 8.261/8.288s; CPU 14.260/14.159s; AR 3.767/3.745s; decoder
+4.142/4.118s, same 5.90s output. Small stage/CPU reductions do not establish
+an overall latency gain. Do not enable the negative cache in the next model
+comparison or describe it as a successful optimization.
+
+All five measured candidate PCM/token/duration outputs matched the baseline
+exactly. Original/model parameter, checkpoint, student asset and resource checks
+passed. Peak tree RSS was 5.32GB (6.38GB in the separate profile). Every slow
+sample, guard, profiler output and provenance is retained in
+`results/n1_student_predictor_20261112`. This chronological A/B run does not
+establish a sub-percent effect or a server-wide optimum.
+
+The rejected predictor negative-cache runtime/API/workflow paths were then
+removed. Its exact source remains reproducible at the run's commit above;
+raw failure reports are retained. Original NativePredictor behavior is restored.
+
+## Approved H2/H3: actual N1 inference-profile gain
+
+[Run 43164950232](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43164950232)
+fixed source `023439e23d12508e9cabb7f672d627982e197ee6`, three excluded
+warmups and five retained Korean samples per configuration. Both models have
+18 AR layers and the same approved G 13-branch decoder. H3 is a separately
+user-approved inference copy with 73 AR matrices rounded to exactly
+FP16-representable values; biases, normalization, embeddings and decoder remain
+unchanged. Original H2 and teacher checkpoint bytes are preserved.
+
+| Configuration | Median RTF | Wall s | CPU s | AR s | Decoder s | Audio s |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| H2 FP32 cache0 | 1.3623 | 6.839 | 11.764 | 2.871 | 3.542 | 5.02 |
+| Same H3 weights, FP32 cache0 control | 1.3589 | 6.931 | 11.836 | 3.010 | 3.567 | 5.10 |
+| H3 exact-half cache256, FP32 arithmetic | **1.2313** | **6.280** | **10.693** | **2.350** | 3.607 | 5.10 |
+
+The same-H3 cache/prefetch execution profile improved measured full latency/RTF
+by **9.39%**. This jointly changes coefficient storage and prefetch 0→256;
+it does not isolate storage alone. All five half-cache candidate PCM outputs,
+semantic tokens and durations were exactly equal to the H3 FP32-cache control.
+H2/H3 generate different tokens and lengths, so their RTF improvement of 9.61%
+and wall-time improvement of 8.17% are separate cross-model observations.
+Every variant's generated semantic hash matched its own local approved render;
+cross-platform local/N1 PCM hashes differed, as in G. Approval covers only the
+same Korean reference/text/seed, not other languages or general zero-shot use.
+
+The unchanged decoder now consumes about 57% of H3 wall time: 3.607s, or
+.7072 decoder seconds per audio second, versus AR .4608 seconds per audio second.
+The separate excluded profile measured classifier range 121 calls, input
+1×512, weight 1025×512, only **35.775ms total CPU**. The 1.209s addmm total
+therefore does not identify classifier projection as the bottleneck. Other
+profile self times were FFT stream .875s, half-cache GEMV .797s, bmm .547s,
+CPU attention .394s. Totals include overhead/overlap and are not added to wall time.
+
+All asset, parameter, checkpoint and fixed 2CPU/8GB/no-swap guards passed.
+Peak sampled tree RSS was under 5.16GB (5.86GB with profiler). Preserve this
+approved H3 cache256 profile for subsequent isolated decoder comparisons.
+RTF remains above 1; no real-time or 0.7 result is claimed. Full raw data,
+all slow samples, guards, profile and provenance:
+`results/n1_student_h2_h3_20261112`.

@@ -1,0 +1,16 @@
+{
+  "run_id": 43161518437,
+  "url": "https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43161518437",
+  "head_sha": "e32a7096a3221d3a7682b700e949d33d0b9dec81",
+  "source_branch": "codex/cpu-performance",
+  "target": "Actual ARM Neoverse N1, Docker 2 vCPU / 8000000000 bytes / no swap",
+  "warmups": 3,
+  "samples": "3 per sweep/language case; independent 5 for selected KO combined; profiler separate",
+  "student_assets": "Private immutable HF commit 7f23879f3a49617251170746a66c1145f47697eb; asset bytes deliberately excluded from Git and public artifacts",
+  "manifest_sha256": "684e5c5f093af572ff1a77a70facd83e86808908e696330e0d5bcc42f3d98654",
+  "quality_scope": "User listening approval covers Korean only; JA/EN performance and semantic smoke do not constitute listening approval",
+  "selected_prefetch": 0,
+  "decision": "No positive FP32 prefetch hint improved target median. Keep 0. G KO RTF near original despite layer reduction: trained FP32 AR cost offsets decoder savings. Proceed with opt-in negative eligibility cache actual N1 comparison.",
+  "cross_platform_audio": "N1 output differs in PCM hash from approved local synthesis, while all three generated semantic hashes and duration match. Within N1, every KO kernel variant matches G prefetch0 PCM exactly.",
+  "limitations": "Three-sample sweep is exploratory; chronological serial order not randomized. Cross-model output durations differ; compare wall/CPU as well as RTF. Profiling excludes RTF and overlaps threaded operator CPU times."
+}

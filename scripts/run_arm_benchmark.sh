@@ -9,7 +9,10 @@ cpus=${4:-2}
 warmups=${5:-2}
 samples=${6:-3}
 mode=${7:-compare}
-[[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention || "$mode" == small || "$mode" == scheduling || "$mode" == packed48 || "$mode" == fft || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference || "$mode" == runtime ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
+student_manifest_sha=${8:-}
+student_prefetch=${9:-0}
+comparison_manifest_sha=${10:-}
+[[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention || "$mode" == small || "$mode" == scheduling || "$mode" == packed48 || "$mode" == fft || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference || "$mode" == runtime || "$mode" == student || "$mode" == studentcompare || "$mode" == studentdecoder || "$mode" == taptiles ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
 project="$bench_root/project"
 assets="$bench_root/cpufast-cefae22/assets/pretrained_models"
 reference="$bench_root/reference_ja_4s.wav"
@@ -20,6 +23,15 @@ if [[ "$(uname -m)" != aarch64 ]]; then echo 'Target must be Linux ARM64.' >&2; 
 if docker info >/dev/null 2>&1; then docker_cmd=(docker); else docker_cmd=(sudo -n docker); fi
 "${docker_cmd[@]}" image inspect "$image" >/dev/null
 mkdir -p "$repo_dir/ci-results"
+student_mount=()
+if [[ "$mode" == student || "$mode" == studentcompare || "$mode" == studentdecoder ]]; then
+  [[ "$student_manifest_sha" =~ ^[0-9a-f]{64}$ ]] || { echo 'Approved student manifest SHA required' >&2; exit 1; }
+  student_mount=(--mount "type=bind,src=$bench_root/student-assets/$student_manifest_sha,dst=/student,readonly" -e NLTK_DATA=/repo/.experiments/nltk_data)
+  if [[ "$mode" == studentcompare || "$mode" == studentdecoder ]]; then
+    [[ "$comparison_manifest_sha" =~ ^[0-9a-f]{64}$ ]] || { echo 'Approved comparison manifest SHA required' >&2; exit 1; }
+    student_mount+=(--mount "type=bind,src=$bench_root/student-assets/$comparison_manifest_sha,dst=/student-baseline,readonly")
+  fi
+fi
 docker_args=(run --rm --user "$(id -u):$(id -g)" --platform linux/arm64 --cpus "$cpus" --memory "$memory" --memory-swap "$memory"
   --mount "type=bind,src=$repo_dir,dst=/repo"
   --mount "type=bind,src=$assets,dst=/repo/GPT_SoVITS/pretrained_models"
@@ -27,6 +39,7 @@ docker_args=(run --rm --user "$(id -u):$(id -g)" --platform linux/arm64 --cpus "
   --mount "type=bind,src=$assets/sv/pretrained_eres2netv2w24s4ep4.ckpt,dst=/repo/GPT_SoVITS/pretrained_models/sv/pretrained_eres2netv2w24s4ep4.ckpt,readonly"
   --mount "type=bind,src=$project,dst=/project,readonly"
   --mount "type=bind,src=$reference,dst=/reference.wav,readonly"
+  "${student_mount[@]}"
   -e PYTHONPATH=/repo:/repo/GPT_SoVITS
   -e OPEN_JTALK_DICT_DIR=/project/.venv/lib/python3.12/site-packages/pyopenjtalk/open_jtalk_dic_utf_8-1.11
   -e GPT_SOVITS_DATA_DIR=/repo -e OMP_WAIT_POLICY=ACTIVE -e GOMP_SPINCOUNT=100000
@@ -36,6 +49,11 @@ run_container() { "${docker_cmd[@]}" "${docker_args[@]}" "$@"; }
 # One serial, weight-preserving FP32 comparison on the target ARM host.
 # Generated audio is produced for listening; the input reference stays on the host.
 mkdir -p "$repo_dir/.experiments"
+if [[ "$mode" == taptiles ]]; then
+  run_container python resource_guard.py --report /repo/ci-results/tap_tiles_guard.json -- \
+    python experiments/rtf07/bench_tap_tiles.py --output /repo/ci-results/tap_tiles.json --warmups "$warmups" --samples "$samples"
+  exit 0
+fi
 run_container python build_cpufast_ar.py --output /repo/libcpufast_ar_torch.so
 run_container python -m unittest discover -s tests -p test_cpufast_tap.py -v
 run_container python experiments/rtf07/test_fusion_layout.py
@@ -43,6 +61,24 @@ run_container python -m unittest discover -s tests -p test_fp32_head_attention.p
 run_container python -m unittest discover -s tests -p test_fft_stream.py -v
 run_container python -m unittest discover -s tests -p test_parallel_transforms.py -v
 run_container python -m unittest discover -s tests -p test_fp32_cache_prefetch.py -v
+if [[ "$mode" == student || "$mode" == studentcompare || "$mode" == studentdecoder ]]; then
+  run_container python scripts/verify_student_assets.py /student "$student_manifest_sha"
+  run_container python -m nltk.downloader -q -d /repo/.experiments/nltk_data cmudict averaged_perceptron_tagger averaged_perceptron_tagger_eng
+  student_args=()
+
+  if [[ "$mode" == studentcompare || "$mode" == studentdecoder ]]; then
+    run_container python scripts/verify_student_assets.py /student-baseline "$comparison_manifest_sha"
+    student_args=(--baseline-manifest /student-baseline/manifest.json --baseline-manifest-sha256 "$comparison_manifest_sha" --prefetch "$student_prefetch")
+    if [[ "$mode" == studentdecoder ]]; then student_args+=(--decoder-only); fi
+  fi
+  run_container python scripts/run_student_matrix.py --manifest /student/manifest.json \
+    --manifest-sha256 "$student_manifest_sha" --output /repo/ci-results --warmups "$warmups" --samples "$samples" "${student_args[@]}"
+  if [[ "$mode" == studentdecoder ]]; then
+    run_container python resource_guard.py --report /repo/ci-results/tap_tiles_guard.json -- \
+      python experiments/rtf07/bench_tap_tiles.py --output /repo/ci-results/tap_tiles.json --warmups "$warmups" --samples "$samples" --profile-shapes /repo/ci-results/ko_student_profile_ops.json
+  fi
+  exit 0
+fi
 common=(--engine --head-major --cook-phase --fft-layout --packed-fft --fused-finish
   --ar-threads 2 --threads 2
   --s1 /project/models/s1v3.ckpt --s2 /repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth
@@ -124,7 +160,7 @@ if [[ "$mode" == runtime ]]; then
 fi
 for index in 0 1; do
   number=$((index + 1))
-  if [[ "$mode" == attention || "$mode" == packed48 || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference || "$mode" == runtime ]]; then
+  if [[ "$mode" == attention || "$mode" == packed48 || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference || "$mode" == runtime || "$mode" == student || "$mode" == studentcompare || "$mode" == studentdecoder ]]; then
     candidate_args=(--native-attention)
     if [[ "$mode" == packed48 ]]; then candidate_args=(--packed-small-48); fi
     if [[ "$mode" == fftcandidate ]]; then candidate_args=(--n1-fft-sizes); fi
@@ -132,7 +168,8 @@ for index in 0 1; do
     if [[ "$mode" == prefetchcandidate ]]; then candidate_args=(--ar-prefetch 256); fi
     if [[ "$mode" == direct3 ]]; then candidate_args=(--n1-small-direct); fi
     if [[ "$mode" == fftstream ]]; then candidate_args=(--fft-stream); fi
-    if [[ "$mode" == transforms || "$mode" == inference || "$mode" == runtime ]]; then candidate_args=(--parallel-transforms); fi
+    if [[ "$mode" == transforms ]]; then candidate_args=(--parallel-transforms); fi
+    if [[ "$mode" == inference ]]; then candidate_args=(--inference-mode); fi
     echo "Benchmarking sentence $number: approved tap and $mode candidate"
     run_container python resource_guard.py --report "/repo/ci-results/tap_${number}_guard.json" -- \
       python benchmark_cpufast.py "${common[@]}" --tap-small --text "${texts[$index]}" \

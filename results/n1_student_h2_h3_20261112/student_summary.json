@@ -1,0 +1,177 @@
+{
+  "scope": "Actual N1 separately approved Korean student model comparison",
+  "manifest_sha256": "ba160d0a4811620f3be581716fec8d5d8c0306c7d03cc7aa19cd773af4b48329",
+  "ar_selected_additional_step": 400,
+  "decoder_selected_additional_step": 175,
+  "prefetch_selection": "Fixed FP32 cache distance; exact-half cache uses verified distance 256; no parameter search",
+  "cases": [
+    {
+      "language": "ko",
+      "name": "comparison_baseline",
+      "prefetch": 0,
+      "original": false,
+      "combined": true,
+      "predictor_eligibility_cache": false,
+      "model_variant": "H2",
+      "manifest_sha256": "2b855a33c96b817bffb1d01df91e2bdc93bfba916ea2930543d1db046bfbc682",
+      "ar_cache_storage": "fp32",
+      "student_fp32_control": false,
+      "median_rtf": 1.3622600032365417,
+      "rtfs": [
+        1.3533834865190595,
+        1.3745168587601044,
+        1.3897548912026256,
+        1.355194803549949,
+        1.3622600032365417
+      ],
+      "median_seconds": 6.838545216247439,
+      "median_cpu_seconds": 11.763833159999997,
+      "median_stages": {
+        "ar_seconds": 2.8714263197034597,
+        "enc_p_seconds": 0.12633969262242317,
+        "flow_seconds": 0.07748308591544628,
+        "dec_seconds": 3.5418497379869223
+      },
+      "audio_seconds": 5.02,
+      "median_decoder_seconds_per_audio_second": 0.7055477565711001,
+      "peak_sampled_tree_rss_bytes": 5137883136,
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "comparison_candidate_fp32",
+      "prefetch": 0,
+      "original": false,
+      "combined": true,
+      "predictor_eligibility_cache": false,
+      "model_variant": "H3",
+      "manifest_sha256": "ba160d0a4811620f3be581716fec8d5d8c0306c7d03cc7aa19cd773af4b48329",
+      "ar_cache_storage": "fp32",
+      "student_fp32_control": true,
+      "median_rtf": 1.3589472440527937,
+      "rtfs": [
+        1.3525530878527492,
+        1.3589472440527937,
+        1.3419689544860056,
+        1.362627087635737,
+        1.378226599783874
+      ],
+      "median_seconds": 6.930630944669247,
+      "median_cpu_seconds": 11.836441839999992,
+      "median_stages": {
+        "ar_seconds": 3.009856106713414,
+        "enc_p_seconds": 0.12652037292718887,
+        "flow_seconds": 0.07740976475179195,
+        "dec_seconds": 3.5671842209994793
+      },
+      "audio_seconds": 5.1,
+      "median_decoder_seconds_per_audio_second": 0.6994478864704862,
+      "peak_sampled_tree_rss_bytes": 5153214464,
+      "semantic": [
+        {
+          "sha256": "62343dfea79dc0785fb8824b0048a8020649eaa89e553b7fde621b1ef733c6fa",
+          "index": 120,
+          "generated_sha256": "fee8ae9803f48a1f6b9754dfa4d3f45ecf0a459a819602f1f4a44acb67f18546"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "comparison_candidate",
+      "prefetch": 256,
+      "original": false,
+      "combined": true,
+      "predictor_eligibility_cache": false,
+      "model_variant": "H3",
+      "manifest_sha256": "ba160d0a4811620f3be581716fec8d5d8c0306c7d03cc7aa19cd773af4b48329",
+      "ar_cache_storage": "exact_fp16",
+      "student_fp32_control": false,
+      "median_rtf": 1.231302016725143,
+      "rtfs": [
+        1.231302016725143,
+        1.2564813016968617,
+        1.2260445861109333,
+        1.2207817582084852,
+        1.2329201900637619
+      ],
+      "median_seconds": 6.279640285298228,
+      "median_cpu_seconds": 10.693148719999996,
+      "median_stages": {
+        "ar_seconds": 2.3499806225299835,
+        "enc_p_seconds": 0.12602741084992886,
+        "flow_seconds": 0.0770974438637495,
+        "dec_seconds": 3.606852415949106
+      },
+      "audio_seconds": 5.1,
+      "median_decoder_seconds_per_audio_second": 0.7072259639115895,
+      "peak_sampled_tree_rss_bytes": 4941656064,
+      "semantic": [
+        {
+          "sha256": "62343dfea79dc0785fb8824b0048a8020649eaa89e553b7fde621b1ef733c6fa",
+          "index": 120,
+          "generated_sha256": "fee8ae9803f48a1f6b9754dfa4d3f45ecf0a459a819602f1f4a44acb67f18546"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": true,
+      "candidate_pcm_exact_to_n1_student": true,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": true
+    }
+  ],
+  "selected_prefetch": 0,
+  "baseline_manifest_sha256": "2b855a33c96b817bffb1d01df91e2bdc93bfba916ea2930543d1db046bfbc682",
+  "profile_run": {
+    "language": "ko",
+    "name": "comparison_profile_run",
+    "prefetch": 256,
+    "original": false,
+    "combined": true,
+    "predictor_eligibility_cache": false,
+    "model_variant": "H3",
+    "manifest_sha256": "ba160d0a4811620f3be581716fec8d5d8c0306c7d03cc7aa19cd773af4b48329",
+    "ar_cache_storage": "exact_fp16",
+    "student_fp32_control": false,
+    "median_rtf": 1.2616907158756958,
+    "rtfs": [
+      1.2616907158756958
+    ],
+    "median_seconds": 6.434622650966048,
+    "median_cpu_seconds": 10.776896040000004,
+    "median_stages": {
+      "ar_seconds": 2.415102895349264,
+      "enc_p_seconds": 0.125481728464365,
+      "flow_seconds": 0.0778920128941536,
+      "dec_seconds": 3.638943739235401
+    },
+    "audio_seconds": 5.1,
+    "median_decoder_seconds_per_audio_second": 0.7135183802422356,
+    "peak_sampled_tree_rss_bytes": 5854224384,
+    "semantic": [
+      {
+        "sha256": "62343dfea79dc0785fb8824b0048a8020649eaa89e553b7fde621b1ef733c6fa",
+        "index": 120,
+        "generated_sha256": "fee8ae9803f48a1f6b9754dfa4d3f45ecf0a459a819602f1f4a44acb67f18546"
+      }
+    ],
+    "candidate_tokens_exact_to_n1_student": true,
+    "candidate_pcm_exact_to_n1_student": true,
+    "local_approved_pcm_match": false,
+    "local_approved_generated_tokens_match": true
+  },
+  "student_assets_unchanged": true,
+  "complete": true
+}

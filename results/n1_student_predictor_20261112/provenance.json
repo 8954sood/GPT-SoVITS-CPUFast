@@ -1,0 +1,14 @@
+{
+  "run_id": 43163928379,
+  "url": "https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43163928379",
+  "head_sha": "2c94b384a6b5f55cfdf2709221c620374c24d631",
+  "target": "Actual ARM Neoverse N1, 2 vCPU / 8000000000 bytes / no swap",
+  "warmups": 3,
+  "samples": 5,
+  "baseline": "Approved G, FP32 cache0, FFTstream/parallel transforms/inference mode, negative eligibility cache off",
+  "candidate": "Same coefficients/arithmetic, opt-in negative eligibility cache on",
+  "median_rtf_change_percent": 0.31907590649029594,
+  "decision": "No measured overall speed improvement; do not adopt/enable default. Keep only explicitly opt-in experimental path and raw failed-experiment record. H2/H3 benchmark uses cache off.",
+  "correctness": "All 5 measured candidate PCM/token/duration outputs exactly equal baseline; all parameter/checkpoint/student hashes and guards passed",
+  "limitations": "One chronological five-sample A/B, natural run variability. Tiny AR/CPU reduction does not establish total latency benefit. Separate profile excluded from RTF."
+}
