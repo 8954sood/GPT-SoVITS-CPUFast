@@ -35,6 +35,12 @@ def main():
     if len(audit) != 24 or not all(r['fused_calls'] for r in audit) or any(r['fallback_calls'] for r in audit) or before != after:
         raise RuntimeError('Tap fused invocation or baseline DSO integrity failure')
     report = json.loads(output.read_text())
+    if not all(report.get(k) for k in ('checkpoint_files_unchanged', 'parameters_unchanged', 'ar_parameters_unchanged', 'student_files_unchanged')):
+        raise RuntimeError('Tap candidate changed model files or parameters')
+    if not all(row.get('runtime_local_pcm_match') and row.get('runtime_local_generated_tokens_match') for row in report['warmups'] + report['runs']):
+        raise RuntimeError('Tap candidate did not reproduce its own approved PCM/semantic')
+    if report['fp16_acoustic_modules'] or report['experimental_options']['fast_experimental']:
+        raise RuntimeError('Tap candidate contaminated FP32 acoustics')
     report['tap_finish'] = {
         'scope': 'Only Tap bias/activation/residual epilogues fused with existing fft_finish/effective1; same FP32 arithmetic order and GEMMs; canonical FFT256 policy and AR runtime unchanged',
         'modules': audit, 'calls': sum(r['fused_calls'] for r in audit),
