@@ -1,0 +1,19 @@
+{
+  "source_commit": "e4588ad",
+  "source_archive_sha256": "dd3da3d9f2bbfb457d85bd34fecd67ecbe5249e5d149a48cc5bf3abf0547c0b4",
+  "scope": "Primitive72edgeconditions bitexact and actual-shape synthetic epilogue micro only; not full model or TTS RTF",
+  "image_id": "sha256:23eb9b78c3c75319c99172766f94bba4faa8cffe05f8765ce4b33a3c34bb989b",
+  "native_library_files_measured_after": {
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+  },
+  "native_note": "DSOs copied unchanged from the canonical c356245 source checkout; no native build or substitution. Before hashes were not separately captured by this primitive-only harness; full wrapper captures both.",
+  "all_raw_sha256": {
+    "tap_finish_guard.json": "3cd925a189683d9388244ebc30d642eb4f67e609e6d1f1d8b45c540eabf5912c",
+    "micro.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "tap_finish_micro.json": "45a83b4680ec08c44d599b889609e870ed5df8c8a0115f04c0bf775fad1ef3df",
+    "micro.sh": "e74f8ce7b85d951ff75b4babf30e15375f621865ccae593b7f986e1d4d338752"
+  }
+}
