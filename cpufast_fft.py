@@ -36,6 +36,7 @@ class FFTConv1d(torch.nn.Module):
         self._packed_half = None
         self.fast_half = False
         self.stream_products = False
+        self.half_stream_products = False
         self.parallel_transforms = False
         self._native = None
         self.output_layout = False
@@ -116,7 +117,17 @@ class FFTConv1d(torch.nn.Module):
         transformed_raw = torch.fft.rfft(windows, n=self.n_fft)
         if self.backend == "packed":
             packed_input = torch.ops.cpufast_cpp.fft_pack(transformed_raw.contiguous())
-            if self.stream_products:
+            if self.half_stream_products:
+                if not self.fast_half or not self.output_layout or self.stream_products:
+                    raise ValueError(
+                        "Half streaming requires explicit FP16 products and output layout"
+                    )
+                if self._packed_half is None:
+                    self._packed_half = self._packed.half()
+                product = torch.ops.cpufast_cpp.fft_half_stream(
+                    packed_input.half(), self._packed_half, x.shape[0], blocks
+                )
+            elif self.stream_products:
                 if not self.output_layout or self.fast_half:
                     raise ValueError("Streaming products require FP32 output layout")
                 product = torch.ops.cpufast_cpp.fft_packed_stream(
@@ -132,7 +143,7 @@ class FFTConv1d(torch.nn.Module):
                 products = torch.ops.cpufast_cpp.fft_packed_gemm(
                     packed_input, self._packed
                 )
-            if not self.stream_products:
+            if not self.stream_products and not self.half_stream_products:
                 product = (
                     torch.ops.cpufast_cpp.fft_unpack_layout(
                         products, x.shape[0], blocks

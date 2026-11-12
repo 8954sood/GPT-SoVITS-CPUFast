@@ -58,6 +58,7 @@ def synthetic_bundle(root, variant, storage):
         ("exact_fp16", "exact_fp16", False, True),
         ("exact_fp16", "exact_fp16", False, "confirm"),
         ("exact_fp16", "exact_fp16", False, "fft"),
+        ("exact_fp16", "exact_fp16", False, "stream"),
     ],
 )
 def test_comparison_uses_each_approved_bundle_and_matching_cache(
@@ -102,7 +103,11 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             index = argv.index(key)
             del argv[index : index + 2]
         argv.append(
-            "--fft-half-comparison" if ar_only == "fft" else "--ar-int8-comparison"
+            "--fft-half-stream-comparison"
+            if ar_only == "stream"
+            else "--fft-half-comparison"
+            if ar_only == "fft"
+            else "--ar-int8-comparison"
         )
         if ar_only == "confirm":
             argv.append("--ar-int8-confirm-only")
@@ -129,7 +134,13 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             "student_files_unchanged": True,
             "approximate_ar_int8_only": "--ar-int8-only" in command,
             "approximate_fft_half_products": "--fft-half-products" in command,
-            "fft_half_product_modules": [{"module": "large"}]
+            "approximate_fft_half_stream": "--fft-half-stream" in command,
+            "fft_half_product_modules": [
+                {
+                    "module": "large",
+                    "half_stream_products": "--fft-half-stream" in command,
+                }
+            ]
             if "--fft-half-products" in command
             else [],
             "fp16_acoustic_modules": 1 if "--fft-half-products" in command else 0,
@@ -185,17 +196,23 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
         )
         assert ("--student-fp32-control" in command) == (has_control and index == 1)
         assert ("--compare-pcm" in command) == (
-            index >= 2 or (confirm_only and index == 1)
+            index >= 2
+            or (confirm_only and index == 1)
+            or (ar_only == "stream" and index == 1)
         )
         assert ("--ar-int8-only" in command) == bool(
-            ar_only and (index > 0 or confirm_only or ar_only in ("decoder", "fft"))
+            ar_only
+            and (index > 0 or confirm_only or ar_only in ("decoder", "fft", "stream"))
         )
-        assert ("--fft-half-products" in command) == (ar_only == "fft" and index > 0)
+        assert ("--fft-half-products" in command) == (
+            (ar_only == "fft" and index > 0) or ar_only == "stream"
+        )
+        assert ("--fft-half-stream" in command) == (ar_only == "stream" and index > 0)
     assert calls[-1][calls[-1].index("--compare-pcm") + 1] == str(
         output
         / (
             "ko_fft_product_candidate.wav"
-            if ar_only == "fft"
+            if ar_only in ("fft", "stream")
             else "ko_ar_runtime_candidate.wav"
             if one_bundle_runtime
             else "ko_comparison_candidate.wav"

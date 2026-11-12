@@ -25,6 +25,7 @@ def main():
     parser.add_argument("--ar-int8-comparison", action="store_true")
     parser.add_argument("--ar-int8-confirm-only", action="store_true")
     parser.add_argument("--fft-half-comparison", action="store_true")
+    parser.add_argument("--fft-half-stream-comparison", action="store_true")
     args = parser.parse_args()
     if bool(args.baseline_manifest) != bool(args.baseline_manifest_sha256):
         parser.error("Comparison baseline manifest and SHA required together")
@@ -36,10 +37,12 @@ def main():
         parser.error("Runtime confirmation requires AR-only runtime comparison mode")
     if args.decoder_ar_int8 and not args.decoder_only:
         parser.error("Decoder AR INT8 mode requires a same-AR decoder-only comparison")
-    if args.fft_half_comparison and (
+    if (args.fft_half_comparison or args.fft_half_stream_comparison) and (
         args.baseline_manifest or args.ar_int8_comparison or args.decoder_only
     ):
         parser.error("FFT-product comparison uses one unchanged approved L bundle")
+    if args.fft_half_comparison and args.fft_half_stream_comparison:
+        parser.error("Select one FFT-product comparison")
     manifest = load_manifest(args.manifest, args.manifest_sha256)
     before = snapshot(args.manifest)
     cases = {r["language"]: r for r in manifest["listening_report"]["cases"]}
@@ -108,6 +111,7 @@ def main():
         fp32_control=False,
         ar_int8_only=False,
         fft_half_products=False,
+        fft_half_stream=False,
     ):
         run_manifest = baseline if baseline_bundle else manifest
         run_path = args.baseline_manifest if baseline_bundle else args.manifest
@@ -178,6 +182,8 @@ def main():
             command += ["--ar-int8-only"]
         if fft_half_products:
             command += ["--fft-half-products"]
+        if fft_half_stream:
+            command += ["--fft-half-stream"]
         if combined:
             command += ["--fft-stream", "--parallel-transforms", "--inference-mode"]
         if compare is not None:
@@ -223,6 +229,14 @@ def main():
                 raise RuntimeError("FFT-product candidate scope audit failed")
         elif ar_int8_only and data["fp16_acoustic_modules"] != 0:
             raise RuntimeError("AR-only runtime changed FP32 acoustics")
+        if fft_half_stream and (
+            not data.get("approximate_fft_half_stream")
+            or not all(
+                row.get("half_stream_products")
+                for row in data["fft_half_product_modules"]
+            )
+        ):
+            raise RuntimeError("Half-stream candidate scope audit failed")
         if (
             data["cgroup"]["cpu.max"] != "200000 100000"
             or data["cgroup"]["memory.max"] != "8000000000"
@@ -244,8 +258,11 @@ def main():
             "prefetch": None if ar_int8_only else (256 if original else distance),
             "approximate_ar_int8_only": ar_int8_only,
             "approximate_fft_half_products": fft_half_products,
+            "approximate_fft_half_stream": fft_half_stream,
             "fft_half_product_modules": data.get("fft_half_product_modules", []),
-            "runtime_variant": "P_fft_half_products"
+            "runtime_variant": "P_equivalent_half_stream"
+            if fft_half_stream
+            else "P_fft_half_products"
             if fft_half_products
             else "L_ar_int8_only"
             if ar_int8_only
@@ -326,13 +343,20 @@ def main():
         )
         return data, row
 
-    if args.fft_half_comparison:
+    if args.fft_half_comparison or args.fft_half_stream_comparison:
         summary["scope"] = (
             "Actual N1 L versus separately KO listening-approved P; identical K weights and W8A8/native FP32 AR; only large FFT spectral products approximate"
         )
         summary["prefetch_selection"] = (
             "No search; P disables FFT streaming and materializes FP32 products after FP16 spectral multiplication/accumulation"
         )
+        if args.fft_half_stream_comparison:
+            summary["scope"] = (
+                "Actual N1 independent P baseline repeat versus locally PCM-identical half-stream; unchanged FP16 accumulation and approved Korean waveform"
+            )
+            summary["prefetch_selection"] = (
+                "No retuning; same P arithmetic, four-frequency scratch instead of full-frequency products"
+            )
         baseline_data, _ = run(
             "ko",
             "fft_product_baseline",
@@ -340,6 +364,7 @@ def main():
             combined=True,
             confirm=True,
             ar_int8_only=True,
+            fft_half_products=args.fft_half_stream_comparison,
         )
         candidate_data, _ = run(
             "ko",
@@ -349,6 +374,10 @@ def main():
             confirm=True,
             ar_int8_only=True,
             fft_half_products=True,
+            fft_half_stream=args.fft_half_stream_comparison,
+            compare=args.output / "ko_fft_product_baseline.wav"
+            if args.fft_half_stream_comparison
+            else None,
         )
         if not all(
             row["semantic"] == baseline_data["runs"][0]["semantic"]
@@ -358,6 +387,10 @@ def main():
             raise RuntimeError(
                 "FFT-product-only comparison changed semantic tokens/duration"
             )
+        if args.fft_half_stream_comparison and not all(
+            row["comparison"].get("exact") for row in candidate_data["runs"]
+        ):
+            raise RuntimeError("Half-stream changed approved P PCM on actual N1")
         try:
             run(
                 "ko",
@@ -367,6 +400,7 @@ def main():
                 profile=True,
                 ar_int8_only=True,
                 fft_half_products=True,
+                fft_half_stream=args.fft_half_stream_comparison,
                 compare=args.output / "ko_fft_product_candidate.wav",
             )
         except subprocess.CalledProcessError as error:

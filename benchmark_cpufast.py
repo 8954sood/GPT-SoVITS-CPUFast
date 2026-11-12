@@ -109,6 +109,7 @@ def main():
     parser.add_argument("--student-fp32-control", action="store_true")
     parser.add_argument("--ar-int8-only", action="store_true")
     parser.add_argument("--fft-half-products", action="store_true")
+    parser.add_argument("--fft-half-stream", action="store_true")
     parser.add_argument("--inference-mode", action="store_true")
     parser.add_argument("--fused-fft", action="store_true")
     parser.add_argument(
@@ -134,6 +135,8 @@ def main():
         )
     if args.student_manifest and (not args.engine or args.fast_experimental):
         parser.error("Approved student requires the FP32 arithmetic engine")
+    if args.fft_half_stream and not args.fft_half_products:
+        parser.error("Half streaming requires approved P FFT products")
     if args.fft_half_products and (
         not args.ar_int8_only
         or not args.packed_fft
@@ -148,6 +151,7 @@ def main():
     ar_runtime_approval = None
     ar_runtime_listening_case = None
     fft_half_runtime_approval = None
+    fft_half_stream_equivalence = None
     if args.student_manifest:
         from cpufast_student_assets import load_manifest, snapshot
 
@@ -255,6 +259,39 @@ def main():
                 parser.error(
                     "FFT-product runtime text differs from its listening approval"
                 )
+            if args.fft_half_stream:
+                fft_half_stream_equivalence = json.loads(
+                    (
+                        root
+                        / "results/rtf07_half_stream_equivalence/local_equivalence.json"
+                    ).read_text()
+                )
+                proof = fft_half_stream_equivalence
+                if (
+                    proof.get("full_pcm_exact_to_approved_p") is not True
+                    or proof.get("native_bitwise_tests_passed") is not True
+                    or proof.get("underlying_manifest_sha256")
+                    != args.student_manifest_sha256
+                    or proof.get("approved_p_implementation_sha256")
+                    != approval["implementation_sha256"]
+                    or proof.get("reference_sha256")
+                    != student_manifest["reference_sha256"]
+                    or set(proof["sources"])
+                    != {
+                        "cpufast_fft.py",
+                        "cpufast_fft_half_stream_runtime.py",
+                        "native/cpufast_fft_half_stream.cpp",
+                        "experiments/rtf07/build_half_stream_probe.py",
+                        "experiments/rtf07/test_half_stream_probe.py",
+                    }
+                    or any(
+                        file_digest(root / name) != expected
+                        for name, expected in proof["sources"].items()
+                    )
+                ):
+                    parser.error(
+                        "Half-stream source differs from its approved-P PCM equivalence proof"
+                    )
     if args.threads is None:
         args.threads = 1 if args.engine else 2
     if args.ar_prefetch is None:
@@ -409,7 +446,12 @@ def main():
         if args.fft_half_products:
             from cpufast_fft_half_runtime import enable_fft_half_products
 
-            product_modules = enable_fft_half_products(pipeline.vits_model.dec)
+            if args.fft_half_stream:
+                from cpufast_fft_half_stream_runtime import enable_fft_half_stream
+
+                product_modules = enable_fft_half_stream(pipeline.vits_model.dec)
+            else:
+                product_modules = enable_fft_half_products(pipeline.vits_model.dec)
             half_acoustics = sum(
                 bool(getattr(module, "fast_half", False))
                 for module in pipeline.vits_model.modules()
@@ -423,6 +465,10 @@ def main():
                 fp16_acoustic_modules=half_acoustics,
                 arithmetic="Approximate W8A8 AR/native FP32 attention; large FFT spectral inputs/derived weights and accumulation FP16, materialized FP32 products; transforms/Tap/Winograd FP32",
             )
+            if args.fft_half_stream:
+                runtime.audit["arithmetic"] = (
+                    "Approved-P-equivalent FP16 spectral arithmetic; four-frequency FP32 scratch replaces full products; transforms/Tap/Winograd FP32"
+                )
         ar_install_seconds = 0.0
         packing_seconds = time.perf_counter() - start_install
         ar_audit = runtime.audit["ar_coefficients"]
@@ -579,6 +625,8 @@ def main():
         "ar_runtime_approval": ar_runtime_approval,
         "approximate_fft_half_products": args.fft_half_products,
         "fft_half_runtime_approval": fft_half_runtime_approval,
+        "approximate_fft_half_stream": args.fft_half_stream,
+        "fft_half_stream_equivalence": fft_half_stream_equivalence,
         "fft_half_product_modules": runtime.audit.get("fft_half_product_modules", [])
         if args.engine
         else [],
@@ -608,6 +656,7 @@ def main():
                 "fft_stream",
                 "fft_pad_channels",
                 "fft_half_products",
+                "fft_half_stream",
                 "parallel_transforms",
                 "fused_finish",
                 "tap_small",
@@ -764,7 +813,11 @@ def main():
         assert report["student_files_unchanged"]
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     if args.profile_output is not None:
-        from cpufast_profiling import decoder_tap_ranges, predictor_range
+        from cpufast_profiling import (
+            ar_phase_ranges,
+            decoder_tap_ranges,
+            predictor_range,
+        )
 
         # The additional profiled synthesis is explicitly excluded from the RTF runs.
         with torch.profiler.profile(
@@ -777,6 +830,7 @@ def main():
                     pipeline.t2s_model.model.ar_predict_layer
                 ) as predictor_metadata,
                 decoder_tap_ranges(pipeline.vits_model.dec) as tap_metadata,
+                ar_phase_ranges(pipeline.t2s_model.model) as ar_phase_metadata,
                 torch.inference_mode(args.inference_mode),
             ):
                 profile_chunks = list(runtime.run(inputs))
@@ -814,6 +868,7 @@ def main():
                     "record_shapes": not args.profile_no_shapes,
                     "predictor": predictor_metadata,
                     "decoder_taps": tap_metadata,
+                    "ar_phases": ar_phase_metadata,
                     "profile_output_checks": profile_checks,
                     "operators": sorted(
                         rows, key=lambda row: row["self_cpu_us"], reverse=True
