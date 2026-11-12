@@ -1,0 +1,836 @@
+{
+  "scope": "W local final-runtime listening probe; same fixed model tensors and decode as approved L, genuine multirow W8A8 FFN prefill. No N1 performance claim.",
+  "variant": "D",
+  "ar_cache_storage": "INT8 per-output-channel weights",
+  "quality_approved": false,
+  "ar_layers": 18,
+  "decoder_branches": [
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ]
+  ],
+  "decoder_channel_widths": null,
+  "cases": [
+    {
+      "language": "ko",
+      "text": "오늘은 날씨가 참 좋네요. 잠깐 쉬었다가 함께 이야기를 이어 가요.",
+      "sample_rate": 32000,
+      "audio_seconds": 5.02,
+      "smoke_elapsed_seconds": 10.830318297,
+      "semantic": [
+        {
+          "tokens": 118,
+          "sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "pcm_sha256": "92a135e36f8a0a0fd111cfbc42b1075e0ae3a421401fcc823d509e67be7edd9f"
+    },
+    {
+      "language": "ja",
+      "text": "今日は穏やかな天気ですね。少し休んでから、また一緒に続きを進めましょう。",
+      "sample_rate": 32000,
+      "audio_seconds": 6.94,
+      "smoke_elapsed_seconds": 3.364137334999999,
+      "semantic": [
+        {
+          "tokens": 166,
+          "sha256": "6b2988cfd5022b74b6fc43fd4acb33f4ea12f5224f56e2012227b9b89fe5601a"
+        }
+      ],
+      "pcm_sha256": "18d094e3f3baa0dd779f6882a151468e6776d22a66a2099c60b7bd74b9df7aec"
+    },
+    {
+      "language": "en",
+      "text": "The weather is pleasant today. Let us take a short break and continue together.",
+      "sample_rate": 32000,
+      "audio_seconds": 4.38,
+      "smoke_elapsed_seconds": 2.614804918000001,
+      "semantic": [
+        {
+          "tokens": 102,
+          "sha256": "058837ca68ba0926b0b78b1bcfb758859a15c55c3b2444cc9230fbb727d7b051"
+        }
+      ],
+      "pcm_sha256": "ec58a01bc042805e3aa263b0ae9972d74c4e439ac8b5562f24a3f36baa28847d"
+    }
+  ],
+  "student_parameters_unchanged_during_inference": true,
+  "checkpoint_files_unchanged": true,
+  "candidate": "W: unchanged approved L model tensors and decode; W8A8 genuine multirow FFN prefill",
+  "ar_arithmetic": "W8A8 with FP32 dequantization and native FP32 attention",
+  "acoustic_arithmetic": "Normal FP32 engine, no FP16 FFT accumulation",
+  "approximate_inference": true,
+  "ar_runtime_audit": {
+    "matrices": [
+      {
+        "block": 0,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 0,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 0,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 0,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 1,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 1,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 1,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 1,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 2,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 2,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 2,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 2,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 3,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 3,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 3,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 3,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 4,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 4,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 4,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 4,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 5,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 5,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 5,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 5,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 6,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 6,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 6,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 6,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 7,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 7,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 7,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 7,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 8,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 8,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 8,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 8,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 9,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 9,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 9,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 9,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 10,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 10,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 10,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 10,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 11,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 11,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 11,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 11,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 12,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 12,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 12,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 12,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 13,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 13,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 13,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 13,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 14,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 14,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 14,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 14,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 15,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 15,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 15,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 15,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 16,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 16,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 16,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 16,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 17,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 17,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 17,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 17,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      }
+    ],
+    "original_digest_before": "3eec4aa909625f4c9f0b1f6e2b5c8e0db9d8fd520eb3a1e7ae03d9ab46bafc9f",
+    "original_digest_after": "3eec4aa909625f4c9f0b1f6e2b5c8e0db9d8fd520eb3a1e7ae03d9ab46bafc9f",
+    "authoritative_coefficients_unchanged": true,
+    "int8_cache_lossless": false,
+    "arithmetic": "experimental W8A8 multiplication with per-channel weights",
+    "head_major": true,
+    "torch_head_attention": false,
+    "native_workers": 1,
+    "prefill_arithmetic": "Experimental genuine multirow W8A8 FFN GEMM; existing decode delegated unchanged",
+    "fp16_acoustic_modules": 0
+  },
+  "prefill_calls": 3,
+  "prefill_audit": [
+    {
+      "block": 0,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 3,
+      "arithmetic": "Approximate per-token W8A8 genuine multirow GEMM; FP32 dequant/bias",
+      "input_shape": [
+        1,
+        235,
+        512
+      ]
+    },
+    {
+      "block": 1,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 3,
+      "arithmetic": "Approximate per-token W8A8 genuine multirow GEMM; FP32 dequant/bias",
+      "input_shape": [
+        1,
+        235,
+        512
+      ]
+    },
+    {
+      "block": 2,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 3,
+      "arithmetic": "Approximate per-token W8A8 genuine multirow GEMM; FP32 dequant/bias",
+      "input_shape": [
+        1,
+        235,
+        512
+      ]
+    },
+    {
+      "block": 3,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 3,
+      "arithmetic": "Approximate per-token W8A8 genuine multirow GEMM; FP32 dequant/bias",
+      "input_shape": [
+        1,
+        235,
+        512
+      ]
+    },
+    {
+      "block": 4,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 3,
+      "arithmetic": "Approximate per-token W8A8 genuine multirow GEMM; FP32 dequant/bias",
+      "input_shape": [
+        1,
+        235,
+        512
+      ]
+    },
+    {
+      "block": 5,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 3,
+      "arithmetic": "Approximate per-token W8A8 genuine multirow GEMM; FP32 dequant/bias",
+      "input_shape": [
+        1,
+        235,
+        512
+      ]
+    },
+    {
+      "block": 6,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 3,
+      "arithmetic": "Approximate per-token W8A8 genuine multirow GEMM; FP32 dequant/bias",
+      "input_shape": [
+        1,
+        235,
+        512
+      ]
+    },
+    {
+      "block": 7,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 3,
+      "arithmetic": "Approximate per-token W8A8 genuine multirow GEMM; FP32 dequant/bias",
+      "input_shape": [
+        1,
+        235,
+        512
+      ]
+    },
+    {
+      "block": 8,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 3,
+      "arithmetic": "Approximate per-token W8A8 genuine multirow GEMM; FP32 dequant/bias",
+      "input_shape": [
+        1,
+        235,
+        512
+      ]
+    },
+    {
+      "block": 9,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 3,
+      "arithmetic": "Approximate per-token W8A8 genuine multirow GEMM; FP32 dequant/bias",
+      "input_shape": [
+        1,
+        235,
+        512
+      ]
+    },
+    {
+      "block": 10,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 3,
+      "arithmetic": "Approximate per-token W8A8 genuine multirow GEMM; FP32 dequant/bias",
+      "input_shape": [
+        1,
+        235,
+        512
+      ]
+    },
+    {
+      "block": 11,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 3,
+      "arithmetic": "Approximate per-token W8A8 genuine multirow GEMM; FP32 dequant/bias",
+      "input_shape": [
+        1,
+        235,
+        512
+      ]
+    },
+    {
+      "block": 12,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 3,
+      "arithmetic": "Approximate per-token W8A8 genuine multirow GEMM; FP32 dequant/bias",
+      "input_shape": [
+        1,
+        235,
+        512
+      ]
+    },
+    {
+      "block": 13,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 3,
+      "arithmetic": "Approximate per-token W8A8 genuine multirow GEMM; FP32 dequant/bias",
+      "input_shape": [
+        1,
+        235,
+        512
+      ]
+    },
+    {
+      "block": 14,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 3,
+      "arithmetic": "Approximate per-token W8A8 genuine multirow GEMM; FP32 dequant/bias",
+      "input_shape": [
+        1,
+        235,
+        512
+      ]
+    },
+    {
+      "block": 15,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 3,
+      "arithmetic": "Approximate per-token W8A8 genuine multirow GEMM; FP32 dequant/bias",
+      "input_shape": [
+        1,
+        235,
+        512
+      ]
+    },
+    {
+      "block": 16,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 3,
+      "arithmetic": "Approximate per-token W8A8 genuine multirow GEMM; FP32 dequant/bias",
+      "input_shape": [
+        1,
+        235,
+        512
+      ]
+    },
+    {
+      "block": 17,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 3,
+      "arithmetic": "Approximate per-token W8A8 genuine multirow GEMM; FP32 dequant/bias",
+      "input_shape": [
+        1,
+        235,
+        512
+      ]
+    }
+  ],
+  "prefill_arithmetic": "Per-token activation INT8, per-output weight INT8, int32 SDOT, FP32 dequantization/bias; FFN1 fused ReLU",
+  "model_weights_changed": false,
+  "actual_n1_measured": false,
+  "ko_semantic_exact_to_approved_L": true,
+  "ko_pcm_exact_to_approved_L": true,
+  "approval_scope_note": "Korean PCM identity to approved L is established; no JA/EN or broad quality approval and remote W push not yet authorized under supplied plan.",
+  "guard": {
+    "command": [
+      "python",
+      "/repo/experiments/student/listen_prefill_int8.py",
+      "--s1",
+      "/repo/.experiments/student/approved_k_20261112/ar.pt",
+      "--s2",
+      "/work/assets/v2Pro/s2Gv2ProPlus.pth",
+      "--hubert",
+      "/baseline/models/chinese-hubert-base",
+      "--reference",
+      "/work/reference_segment.wav",
+      "--prompt-text",
+      "スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。",
+      "--spec",
+      "/repo/.experiments/student/approved_k_20261112/student_spec.json",
+      "--decoder-student",
+      "/repo/.experiments/student/approved_k_20261112/decoder.pt",
+      "--output",
+      "/repo/.experiments/student/listening_W",
+      "--variant",
+      "D",
+      "--languages",
+      "ko",
+      "ja",
+      "en"
+    ],
+    "cpu_quota_cores": 2,
+    "memory_limit_bytes": 8000000000,
+    "peak_sampled_tree_rss_bytes": 5755846656,
+    "kernel_child_peak_rss_bytes": 5755826176,
+    "cpu_seconds": 30.481164,
+    "elapsed_seconds": 28.196248721,
+    "average_cpu_cores": 1.0810361442619223,
+    "quota_stop_seconds": 0.0,
+    "maximum_cpu_debt_seconds": 0.0,
+    "samples": 2390,
+    "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+    "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+    "violation": null,
+    "exit_code": 0
+  },
+  "source_files_sha256": {
+    "cpufast_prefill_int8_probe.py": "929ce65abc68ef3f40647e78f4518366040c5cd122dcece051467017ffe25681",
+    "native/cpufast_prefill_int8.cpp": "8834a85397759f363f45e92df36e924d804e488da2e03dd3426a816e4ef4b404",
+    "experiments/student/listen_prefill_int8.py": "0ff1a37c0804ad39c587184b4307e540dcb98dc61d2b3cd10cf5752c0b54c237"
+  }
+}
