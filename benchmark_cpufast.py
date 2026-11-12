@@ -51,6 +51,9 @@ def main():
     parser.add_argument("--hubert", type=Path, required=True)
     parser.add_argument("--reference", type=Path, required=True)
     parser.add_argument("--prompt-text", required=True)
+    parser.add_argument("--prompt-lang", choices=["ja", "ko", "en"])
+    parser.add_argument("--student-manifest", type=Path)
+    parser.add_argument("--student-manifest-sha256")
     parser.add_argument("--text", required=True)
     parser.add_argument("--lang", choices=["ja", "ko", "en"], default="ja")
     parser.add_argument("--output", type=Path, required=True)
@@ -92,6 +95,7 @@ def main():
         type=Path,
         help="Optional fresh JSON for a separate extra profiled inference (excluded from RTF)",
     )
+    parser.add_argument("--profile-no-shapes", action="store_true")
     parser.add_argument("--head-major", action="store_true")
     parser.add_argument("--cook-phase", action="store_true")
     parser.add_argument("--cook-resblock", type=int, choices=[0, 6, 8], default=0)
@@ -109,6 +113,40 @@ def main():
         default="original",
     )
     args = parser.parse_args()
+    if args.prompt_lang is None:
+        args.prompt_lang = args.lang
+    if bool(args.student_manifest) != bool(args.student_manifest_sha256):
+        parser.error("Student manifest and its trusted SHA256 are required together")
+    if args.student_manifest and (
+        not args.engine or not args.ar_fp32_cache or args.fast_experimental
+    ):
+        parser.error("Approved student requires the FP32 engine/cache")
+    student_manifest = None
+    student_files_before = None
+    if args.student_manifest:
+        from cpufast_student_assets import load_manifest, snapshot
+
+        student_manifest = load_manifest(
+            args.student_manifest, args.student_manifest_sha256
+        )
+        if args.s1.resolve() != (args.student_manifest.parent / "ar.pt").resolve():
+            parser.error("AR checkpoint must come from the approved student bundle")
+        if (
+            file_digest(args.s2) != student_manifest["original_s2_sha256"]
+            or file_digest(args.reference) != student_manifest["reference_sha256"]
+            or args.prompt_text != student_manifest["prompt_text"]
+            or args.prompt_lang != student_manifest["prompt_language"]
+            or args.text
+            not in [
+                r["text"]
+                for r in student_manifest["listening_report"]["cases"]
+                if r["language"] == args.lang
+            ]
+        ):
+            parser.error(
+                "Student teacher/reference/request differs from approved manifest"
+            )
+        student_files_before = snapshot(args.student_manifest)
     if args.threads is None:
         args.threads = 1 if args.engine else 2
     if args.ar_prefetch is None:
@@ -169,6 +207,33 @@ def main():
             }
         )
     )
+    student_load_start = time.perf_counter()
+    if student_manifest is not None:
+        from student_runtime import StudentGenerator
+
+        spec = json.loads(
+            (args.student_manifest.parent / "student_spec.json").read_text()
+        )
+        trained = torch.load(
+            args.student_manifest.parent / "decoder.pt",
+            map_location="cpu",
+            weights_only=True,
+        )
+        if (
+            spec["decoder_branches"] != student_manifest["decoder_branches"]
+            or trained["student_spec"]["decoder_branches"] != spec["decoder_branches"]
+            or trained["provenance"]["teacher_s2_sha256"]
+            != student_manifest["original_s2_sha256"]
+            or len(pipeline.t2s_model.model.t2s_transformer.blocks)
+            != student_manifest["ar_layers"]
+        ):
+            raise ValueError("Approved student architecture/teacher mismatch")
+        pipeline.vits_model.dec = StudentGenerator(
+            pipeline.vits_model.dec, spec["decoder_branches"]
+        ).eval()
+        pipeline.vits_model.dec.load_state_dict(trained["state_dict"], strict=True)
+        del trained
+    student_load_seconds = time.perf_counter() - student_load_start
     load_seconds = time.perf_counter() - start
     from cpufast_integrity import ar_digest
 
@@ -300,6 +365,9 @@ def main():
                     t.detach().cpu().numpy().tobytes()
                 ).hexdigest(),
                 "index": int(i),
+                "generated_sha256": hashlib.sha256(
+                    t[-int(i) :].detach().cpu().numpy().tobytes()
+                ).hexdigest(),
             }
             for t, i in zip(tokens, indices)
         ]
@@ -327,7 +395,7 @@ def main():
         "text_lang": args.lang,
         "ref_audio_path": str(args.reference),
         "prompt_text": args.prompt_text,
-        "prompt_lang": args.lang,
+        "prompt_lang": args.prompt_lang,
         "top_k": 15,
         "top_p": 1.0,
         "temperature": 1.0,
@@ -339,6 +407,13 @@ def main():
         "fragment_interval": 0.3,
     }
     report = {
+        "model_variant": "approved_G_student" if student_manifest else "original",
+        "student_manifest_sha256": args.student_manifest_sha256,
+        "student_quality_scope": student_manifest["scope"]
+        if student_manifest
+        else None,
+        "student_files_before": student_files_before,
+        "student_load_seconds": student_load_seconds,
         "experimental_options": {
             k: getattr(args, k)
             for k in (
@@ -481,11 +556,18 @@ def main():
     )
     assert report["checkpoint_files_unchanged"] and report["parameters_unchanged"]
     assert report["ar_parameters_unchanged"]
+    if student_manifest is not None:
+        report["student_files_after"] = snapshot(args.student_manifest)
+        report["student_files_unchanged"] = (
+            report["student_files_after"] == student_files_before
+        )
+        assert report["student_files_unchanged"]
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     if args.profile_output is not None:
         # The additional profiled synthesis is explicitly excluded from the RTF runs.
         with torch.profiler.profile(
-            activities=[torch.profiler.ProfilerActivity.CPU], record_shapes=True
+            activities=[torch.profiler.ProfilerActivity.CPU],
+            record_shapes=not args.profile_no_shapes,
         ) as prof:
             # Profile the same execution mode as the measured inference.
             with torch.inference_mode(args.inference_mode):
@@ -498,12 +580,15 @@ def main():
                 "self_cpu_us": event.self_cpu_time_total,
                 "total_cpu_us": event.cpu_time_total,
             }
-            for event in prof.key_averages(group_by_input_shape=True)
+            for event in prof.key_averages(
+                group_by_input_shape=not args.profile_no_shapes
+            )
         ]
         args.profile_output.write_text(
             json.dumps(
                 {
                     "note": "Extra profiled inference, excluded from RTF; CPU totals may overlap across threads and include profiler overhead",
+                    "record_shapes": not args.profile_no_shapes,
                     "operators": sorted(
                         rows, key=lambda row: row["self_cpu_us"], reverse=True
                     ),
@@ -513,6 +598,11 @@ def main():
             + "\n"
         )
         report["profile_output"] = str(args.profile_output)
+        if (
+            student_manifest is not None
+            and snapshot(args.student_manifest) != student_files_before
+        ):
+            raise RuntimeError("Student execution assets changed during profiling")
         if (
             parameter_digest(pipeline.vits_model) != parameters_before
             or ar_digest(pipeline.t2s_model.model.t2s_transformer) != ar_before

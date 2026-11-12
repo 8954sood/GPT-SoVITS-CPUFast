@@ -115,3 +115,37 @@ The benchmark equivalent adds `--fft-stream --parallel-transforms
 remain explicit and preserve original-model coefficients. The combined score
 has not been measured with trained students. A fresh pipeline is required when
 changing weights/settings; rebuild the extension after native source changes.
+
+## Approved private student benchmark
+
+`mode=student` fetches only the approved manifest and its three model/spec files
+from a private Hugging Face model repository at a full immutable commit SHA.
+Supply `student_repo`, `student_revision`, `student_manifest_path`, and the
+independently verified `student_manifest_sha256`. The runner uses the repository
+secret `HF_STUDENT_TOKEN` without login or persisted credentials. Model bytes
+are never added to Git or public Actions artifacts. Download errors report only
+type/status because signed storage URLs may include temporary credentials.
+
+Before transfer, after private SSH installation, and before/after inference,
+all asset sizes/hashes are checked. The server keeps a user-private cache under
+`ARM_BENCH_ROOT/student-assets/<manifest SHA256>` and mounts it read-only.
+Temporary runner copies/cache and the disposable source/upload directory are
+removed; the verified server cache is reusable. Reference audio stays on the
+server and is checked against the approved manifest.
+
+The serial matrix measures Korean original combined-runtime baseline, then
+approved G with FP32-cache prefetch 0/64/128/256 under fixed decoder settings.
+It keeps 0 unless the best hint improves the measured median by at least 1%;
+the selected hint remains provisional. A fresh combined-kernel G process has
+five retained measurements. Japanese/English measure original/G combined only;
+these languages have synthesis checks and are not separately listening approved.
+The additional operator profile runs last, excludes shape retention to bound
+memory, and is excluded from the main RTF table. Every warmup/slow measurement,
+CPU time, stage, RSS, semantic token count/hash and waveform check is retained.
+Original/Student durations may differ; compare wall/CPU times together with RTF.
+
+A student cannot be loaded unless the trusted approved manifest, checkpoint
+SHA/size, original S2/reference hash, architecture, text, prompt language and
+seed match. Original checkpoint files remain unchanged. Within-student prefetch
+and combined candidates must produce the same PCM/tokens/duration as N1 G0.
+Local approved-waveform matches are reported separately from the N1 comparisons.
