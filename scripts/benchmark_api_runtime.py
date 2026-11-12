@@ -35,7 +35,7 @@ def main():
     p.add_argument('--profile', action='store_true')
     p.add_argument('--tap-finish', action='store_true')
     p.add_argument('--script-ar',action='store_true')
-    p.add_argument('--int8-probe',choices=('none','quant-neon','ffn2-rows8'),default='none')
+    p.add_argument('--int8-probe',choices=('none','quant-neon','ffn2-rows8','packed4'),default='none')
     p.add_argument('--int8-probe-library',type=Path)
     p.add_argument('--expected-wait-policy')
     p.add_argument('--expected-spincount')
@@ -74,9 +74,9 @@ def main():
         if args.int8_probe_library is None:p.error('Explicit probe library required')
         from experiments.rtf07.bench_fft_output_tiles import load_probe
         probe_manifest=load_probe(args.int8_probe_library)
-        replacement='-DCPUFAST_REPLACE_INT8_'+('QUANT_NEON' if args.int8_probe=='quant-neon' else 'FFN2_ROWS8')+'=1'
+        replacement='-DCPUFAST_REPLACE_INT8_'+{'quant-neon':'QUANT_NEON','ffn2-rows8':'FFN2_ROWS8','packed4':'PACKED4'}[args.int8_probe]+'=1'
         assert replacement in probe_manifest['flags']
-        counter=getattr(torch.ops.cpufast_cpp,'int8_quant_neon_calls' if args.int8_probe=='quant-neon' else 'int8_ffn2_rows8_calls')
+        counter=(lambda:torch.ops.cpufast_cpp.int8_packed4_stats()[0]) if args.int8_probe=='packed4' else getattr(torch.ops.cpufast_cpp,'int8_quant_neon_calls' if args.int8_probe=='quant-neon' else 'int8_ffn2_rows8_calls')
         before_calls=counter()
         probe_audit={'kind':args.int8_probe,'manifest':probe_manifest,'library_sha256':sha256(args.int8_probe_library)}
     manifest = engine.manifest
@@ -177,6 +177,7 @@ def main():
             for owner,name,original in wrapped:setattr(owner,name,original)
     if probe_audit is not None:
         probe_audit['actual_calls']=counter()-before_calls
+        if args.int8_probe=='packed4':probe_audit['stats_calls_hits_misses_entries_bytes']=list(torch.ops.cpufast_cpp.int8_packed4_stats())
         assert probe_audit['actual_calls']>0
     native_after={n:sha256(Path(__file__).resolve().parents[1]/n) for n in engine.native_files_sha256}
     assert native_after==engine.native_files_sha256
