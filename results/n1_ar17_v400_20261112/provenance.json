@@ -1,0 +1,452 @@
+{
+  "source_sha": "c00e55f063d685e48ad56a661c265ee50d52d9cd",
+  "source_archive_sha256": "72d89b4cf276b9c2fe725b3254896e7299ccdc34dfa6ca1c0efffa31b09f7851",
+  "retrieved_result_tar_sha256": "cd1412829afc74d87c69d917d12bbe04d2875795ee83612b19ed763aaf2325f0",
+  "image_id": "sha256:23eb9b78c3c75319c99172766f94bba4faa8cffe05f8765ce4b33a3c34bb989b",
+  "host": "Actual aarch64 Neoverse N1, 2vCPU, Docker memory.max8000000000 swap.max0; host flock exclusive",
+  "protocol": "5 fresh processes per model, AB/BA counterbalanced, 3 excluded warmups and 1 measured inference each; 2 separate excluded same-model PCM-matched operator profiles",
+  "command": "bash scripts/run_arm_benchmark.sh BENCH_ROOT cpufast-n1:cefae22 8000000000 2 3 5 studentardepth e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb 0 def34d8555ea01c87091547fccbd27aa8a3bd33e8b6bbebb0df62095004c5d7c",
+  "baseline_manifest_sha256": "def34d8555ea01c87091547fccbd27aa8a3bd33e8b6bbebb0df62095004c5d7c",
+  "candidate_manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+  "shared_decoder_sha256": "7d4c184c638b09880a7e61b088b999542598644d22166e84e32137c5649b9524",
+  "baseline_dso_files_after": {
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so": "54d89f5397ddf906e9e0e269d66df6f139b93f5851a43e62636060a7f6969143",
+    "libcpufast_fast.so.json": "838f25e27b77fc7c2028f8c21c6c5d9f5821fedd48618cc206aa511cc75fe43b"
+  },
+  "runtime_changes": "None: default native W8A8 with FP32 dequantization, canonical native head, normal FP32 acoustics. No FFTtile4/row8/NEONquant/W prefill/half-stream.",
+  "guard_observations": [
+    {
+      "file": "ko_paired_4_AR17_QAT200_V400_guard.json",
+      "exit_code": 0,
+      "peak_sampled_tree_rss_bytes": 4862664704
+    },
+    {
+      "file": "ko_paired_1_AR18_V400_guard.json",
+      "exit_code": 0,
+      "peak_sampled_tree_rss_bytes": 4852576256
+    },
+    {
+      "file": "ko_paired_1_AR17_QAT200_V400_guard.json",
+      "exit_code": 0,
+      "peak_sampled_tree_rss_bytes": 4879826944
+    },
+    {
+      "file": "ko_paired_4_AR18_V400_guard.json",
+      "exit_code": 0,
+      "peak_sampled_tree_rss_bytes": 4874285056
+    },
+    {
+      "file": "ko_AR17_QAT200_V400_profile_run_guard.json",
+      "exit_code": 0,
+      "peak_sampled_tree_rss_bytes": 5630009344
+    },
+    {
+      "file": "ko_paired_0_AR18_V400_guard.json",
+      "exit_code": 0,
+      "peak_sampled_tree_rss_bytes": 4861947904
+    },
+    {
+      "file": "ko_paired_0_AR17_QAT200_V400_guard.json",
+      "exit_code": 0,
+      "peak_sampled_tree_rss_bytes": 4843798528
+    },
+    {
+      "file": "ko_paired_3_AR17_QAT200_V400_guard.json",
+      "exit_code": 0,
+      "peak_sampled_tree_rss_bytes": 4903702528
+    },
+    {
+      "file": "ko_paired_3_AR18_V400_guard.json",
+      "exit_code": 0,
+      "peak_sampled_tree_rss_bytes": 4769972224
+    },
+    {
+      "file": "ko_AR18_V400_profile_run_guard.json",
+      "exit_code": 0,
+      "peak_sampled_tree_rss_bytes": 5612449792
+    },
+    {
+      "file": "ko_paired_2_AR17_QAT200_V400_guard.json",
+      "exit_code": 0,
+      "peak_sampled_tree_rss_bytes": 4855451648
+    },
+    {
+      "file": "ko_paired_2_AR18_V400_guard.json",
+      "exit_code": 0,
+      "peak_sampled_tree_rss_bytes": 4851331072
+    }
+  ],
+  "median_candidate_over_baseline": {
+    "median_rtf": 0.9576665010737013,
+    "median_seconds": 1.072128632676136,
+    "median_cpu_seconds": 1.0735836480799645,
+    "median_ar_seconds_per_generated_token": 0.9112579224254755,
+    "median_decoder_seconds_per_audio_second": 1.001913192802583
+  },
+  "paired_observations": [
+    {
+      "round": 0,
+      "rtf_candidate_over_baseline": 0.9560434275154318,
+      "wall_candidate_over_baseline": 1.0703115662622962,
+      "cpu_seconds_candidate_over_baseline": 1.0712090037320023,
+      "ar_seconds_per_token_candidate_over_baseline": 0.9222612501622316
+    },
+    {
+      "round": 1,
+      "rtf_candidate_over_baseline": 0.9809215322095853,
+      "wall_candidate_over_baseline": 1.0981631496051534,
+      "cpu_seconds_candidate_over_baseline": 1.0931132240804773,
+      "ar_seconds_per_token_candidate_over_baseline": 0.9293503337930422
+    },
+    {
+      "round": 2,
+      "rtf_candidate_over_baseline": 0.919278490539123,
+      "wall_candidate_over_baseline": 1.02915241371113,
+      "cpu_seconds_candidate_over_baseline": 1.0721252511337473,
+      "ar_seconds_per_token_candidate_over_baseline": 0.7769752239286741
+    },
+    {
+      "round": 3,
+      "rtf_candidate_over_baseline": 0.967926721803724,
+      "wall_candidate_over_baseline": 1.08361517460895,
+      "cpu_seconds_candidate_over_baseline": 1.0809810723673396,
+      "ar_seconds_per_token_candidate_over_baseline": 0.9109595415072984
+    },
+    {
+      "round": 4,
+      "rtf_candidate_over_baseline": 0.9654269021997973,
+      "wall_candidate_over_baseline": 1.0808165717854308,
+      "cpu_seconds_candidate_over_baseline": 1.0777864908976156,
+      "ar_seconds_per_token_candidate_over_baseline": 0.9112579224254755
+    }
+  ],
+  "rtf_ranges": {
+    "AR18_V400": [
+      1.0346261391126779,
+      1.1016669801892751
+    ],
+    "AR17_QAT200_V400": [
+      1.006746975194623,
+      1.0235890109768118
+    ]
+  },
+  "conclusion": "AR17 is faster per audio second and AR generated token, but generates133 rather than118 tokens and5.62 rather than5.02 seconds. Absolute wall time increases. Both medians and every observed RTF remain above1. AR17 is the favorable approved realtime baseline for the following isolated runtime test.",
+  "profile_caveat": "Profiles are excluded from all RTF medians. Self CPU scopes/call counts can overlap and do not predict wall savings.",
+  "profile_top20_operators": {
+    "AR18_V400": [
+      {
+        "name": "aten::addmm",
+        "calls": 336,
+        "input_shapes": "",
+        "self_cpu_us": 1158081.2880000048,
+        "total_cpu_us": 1588545.5530000012
+      },
+      {
+        "name": "cpufast_cpp::int8_linear",
+        "calls": 16992,
+        "input_shapes": "",
+        "self_cpu_us": 1001067.0810000196,
+        "total_cpu_us": 2075037.4840000218
+      },
+      {
+        "name": "cpufast_cpp::fft_packed_stream",
+        "calls": 30,
+        "input_shapes": "",
+        "self_cpu_us": 603880.4499999993,
+        "total_cpu_us": 604571.8149999976
+      },
+      {
+        "name": "cpufast_cpp::head_attn",
+        "calls": 4248,
+        "input_shapes": "",
+        "self_cpu_us": 517159.8599999915,
+        "total_cpu_us": 1066817.0609999986
+      },
+      {
+        "name": "aten::bmm",
+        "calls": 71,
+        "input_shapes": "",
+        "self_cpu_us": 514010.6379999984,
+        "total_cpu_us": 516916.5090000024
+      },
+      {
+        "name": "cpufast_ar_decode",
+        "calls": 118,
+        "input_shapes": "",
+        "self_cpu_us": 362452.2800000162,
+        "total_cpu_us": 3577401.5749999983
+      },
+      {
+        "name": "aten::slice",
+        "calls": 21971,
+        "input_shapes": "",
+        "self_cpu_us": 274061.5180000261,
+        "total_cpu_us": 293953.2940000328
+      },
+      {
+        "name": "aten::copy_",
+        "calls": 8166,
+        "input_shapes": "",
+        "self_cpu_us": 265106.5639999937,
+        "total_cpu_us": 265106.5639999937
+      },
+      {
+        "name": "aten::_fft_r2c",
+        "calls": 30,
+        "input_shapes": "",
+        "self_cpu_us": 243398.9740000004,
+        "total_cpu_us": 243765.1750000026
+      },
+      {
+        "name": "aten::_fft_c2r",
+        "calls": 30,
+        "input_shapes": "",
+        "self_cpu_us": 232371.794999999,
+        "total_cpu_us": 233063.52000000048
+      },
+      {
+        "name": "aten::add",
+        "calls": 4524,
+        "input_shapes": "",
+        "self_cpu_us": 179605.76399999653,
+        "total_cpu_us": 179605.76399999653
+      },
+      {
+        "name": "aten::mkldnn_convolution",
+        "calls": 94,
+        "input_shapes": "",
+        "self_cpu_us": 156517.2389999982,
+        "total_cpu_us": 164320.70499999728
+      },
+      {
+        "name": "cpufast_cpp::fft_pack",
+        "calls": 30,
+        "input_shapes": "",
+        "self_cpu_us": 132146.83199999947,
+        "total_cpu_us": 132724.47699999996
+      },
+      {
+        "name": "aten::layer_norm",
+        "calls": 4308,
+        "input_shapes": "",
+        "self_cpu_us": 122286.0329999939,
+        "total_cpu_us": 195080.5809999875
+      },
+      {
+        "name": "aten::view",
+        "calls": 13853,
+        "input_shapes": "",
+        "self_cpu_us": 114323.25300000006,
+        "total_cpu_us": 114323.25300000006
+      },
+      {
+        "name": "cpufast_ar_decode_attention",
+        "calls": 2124,
+        "input_shapes": "",
+        "self_cpu_us": 107754.95199999597,
+        "total_cpu_us": 544946.0740000037
+      },
+      {
+        "name": "aten::mm",
+        "calls": 25,
+        "input_shapes": "",
+        "self_cpu_us": 102061.18100000103,
+        "total_cpu_us": 102081.22100000038
+      },
+      {
+        "name": "cpufast_cpp::winograd_output",
+        "calls": 18,
+        "input_shapes": "",
+        "self_cpu_us": 101736.97700000275,
+        "total_cpu_us": 102052.94000000041
+      },
+      {
+        "name": "cpufast_ar_decode_ffn1",
+        "calls": 2124,
+        "input_shapes": "",
+        "self_cpu_us": 90883.04200000456,
+        "total_cpu_us": 296753.6980000023
+      },
+      {
+        "name": "cpufast_ar_decode_qkv",
+        "calls": 2124,
+        "input_shapes": "",
+        "self_cpu_us": 90305.8319999834,
+        "total_cpu_us": 279187.19600000023
+      }
+    ],
+    "AR17_QAT200_V400": [
+      {
+        "name": "aten::addmm",
+        "calls": 328,
+        "input_shapes": "",
+        "self_cpu_us": 1244367.596000009,
+        "total_cpu_us": 1650106.1270000055
+      },
+      {
+        "name": "cpufast_cpp::int8_linear",
+        "calls": 18088,
+        "input_shapes": "",
+        "self_cpu_us": 987075.1629999853,
+        "total_cpu_us": 2068419.828000011
+      },
+      {
+        "name": "cpufast_cpp::fft_packed_stream",
+        "calls": 30,
+        "input_shapes": "",
+        "self_cpu_us": 554356.2700000023,
+        "total_cpu_us": 555050.8769999957
+      },
+      {
+        "name": "cpufast_cpp::head_attn",
+        "calls": 4522,
+        "input_shapes": "",
+        "self_cpu_us": 525889.0800000369,
+        "total_cpu_us": 1087555.8920000158
+      },
+      {
+        "name": "aten::bmm",
+        "calls": 71,
+        "input_shapes": "",
+        "self_cpu_us": 498331.6379999984,
+        "total_cpu_us": 501253.3029999919
+      },
+      {
+        "name": "cpufast_ar_decode",
+        "calls": 133,
+        "input_shapes": "",
+        "self_cpu_us": 391859.79599995515,
+        "total_cpu_us": 3721014.3019999973
+      },
+      {
+        "name": "aten::copy_",
+        "calls": 8719,
+        "input_shapes": "",
+        "self_cpu_us": 280568.4750000143,
+        "total_cpu_us": 280568.4750000143
+      },
+      {
+        "name": "aten::slice",
+        "calls": 23390,
+        "input_shapes": "",
+        "self_cpu_us": 280291.13499998336,
+        "total_cpu_us": 300399.1309999944
+      },
+      {
+        "name": "aten::_fft_r2c",
+        "calls": 30,
+        "input_shapes": "",
+        "self_cpu_us": 268175.3800000055,
+        "total_cpu_us": 268535.54400000256
+      },
+      {
+        "name": "aten::mkldnn_convolution",
+        "calls": 94,
+        "input_shapes": "",
+        "self_cpu_us": 257432.84500000253,
+        "total_cpu_us": 272805.3750000028
+      },
+      {
+        "name": "aten::_fft_c2r",
+        "calls": 30,
+        "input_shapes": "",
+        "self_cpu_us": 254230.90300000086,
+        "total_cpu_us": 254874.66800000146
+      },
+      {
+        "name": "aten::add",
+        "calls": 4811,
+        "input_shapes": "",
+        "self_cpu_us": 197465.60799998458,
+        "total_cpu_us": 197465.60799998458
+      },
+      {
+        "name": "aten::layer_norm",
+        "calls": 4580,
+        "input_shapes": "",
+        "self_cpu_us": 137564.69400002077,
+        "total_cpu_us": 211442.9330000097
+      },
+      {
+        "name": "cpufast_cpp::fft_pack",
+        "calls": 30,
+        "input_shapes": "",
+        "self_cpu_us": 123461.52000000142,
+        "total_cpu_us": 124031.00600000191
+      },
+      {
+        "name": "aten::view",
+        "calls": 14718,
+        "input_shapes": "",
+        "self_cpu_us": 122543.34599998404,
+        "total_cpu_us": 122543.34599998404
+      },
+      {
+        "name": "cpufast_ar_decode_attention",
+        "calls": 2261,
+        "input_shapes": "",
+        "self_cpu_us": 116005.78899998078,
+        "total_cpu_us": 556800.0979999824
+      },
+      {
+        "name": "aten::mm",
+        "calls": 25,
+        "input_shapes": "",
+        "self_cpu_us": 115836.81700000347,
+        "total_cpu_us": 115858.8570000019
+      },
+      {
+        "name": "cpufast_cpp::winograd_output",
+        "calls": 18,
+        "input_shapes": "",
+        "self_cpu_us": 102833.26699999999,
+        "total_cpu_us": 103199.15000000037
+      },
+      {
+        "name": "cpufast_ar_decode_ffn1",
+        "calls": 2261,
+        "input_shapes": "",
+        "self_cpu_us": 100033.24000001617,
+        "total_cpu_us": 307304.45600001514
+      },
+      {
+        "name": "cpufast_ar_decode_qkv",
+        "calls": 2261,
+        "input_shapes": "",
+        "self_cpu_us": 99056.61600000504,
+        "total_cpu_us": 266986.4540000071
+      }
+    ]
+  },
+  "raw_json_sha256": {
+    "ko_AR17_QAT200_V400_profile_ops.json": "b234ea704a9e8602fb85364aa4e0c093fead90aeb95741839a857a3ccc3faaa7",
+    "ko_AR17_QAT200_V400_profile_run.json": "af1fbe1c9501cf8977451fee280da33fa2f0da57d865f03629fbe43aaf786b91",
+    "ko_AR17_QAT200_V400_profile_run_guard.json": "3657e1b61c023234fac0d079c1a4aedbf2c76e0adb981ab5494c3f50709fd3e6",
+    "ko_AR18_V400_profile_ops.json": "1e88b2c19b58022f053c7ba11992c2a6278a56f3ff2a7cb74b9c3f78b764db92",
+    "ko_AR18_V400_profile_run.json": "7d5ef15ad12c30708cc7166671b20d0b7f82dcebcaaadaa285074e5e3c648684",
+    "ko_AR18_V400_profile_run_guard.json": "60168de165ccdac57c8bdd4baba7d3aaa305ef75b92783f6a60e5181160181d5",
+    "ko_paired_0_AR17_QAT200_V400.json": "fc498e5f90206fa39242d2b828f62369479f2bdbb5e4ea1ab01a356d9b637634",
+    "ko_paired_0_AR17_QAT200_V400_guard.json": "2119d066d3d98f1ec04c69e0825c7521bddfee329b8973a67e68abe88cb6c048",
+    "ko_paired_0_AR18_V400.json": "f374b9286e97e4e7cb0d94fb47514667c6cfbb105073fac8ef2b78f824575471",
+    "ko_paired_0_AR18_V400_guard.json": "5c73f08be23470f8a8a60e4b90e64ba6caad1162b4bf5106f500f7a11c405a54",
+    "ko_paired_1_AR17_QAT200_V400.json": "693b6d46383ee7261b04ef5d10c4007edcf7d25ed2db4c181ce9d2eee32bcd95",
+    "ko_paired_1_AR17_QAT200_V400_guard.json": "bb5c955a5ff68ba4185136277f9659397f1370958ea29551a8f44d82d187f2e1",
+    "ko_paired_1_AR18_V400.json": "8d69c34a93ef5360fe0f6c196f12c899730dd219234729d1aa78ede4acd4c4eb",
+    "ko_paired_1_AR18_V400_guard.json": "6f056e1e274f4d4778b191ed69cf087ae88431d73744a1fee4da197cd4ab8a18",
+    "ko_paired_2_AR17_QAT200_V400.json": "76f0422434e572cd0a829df2a825004b17ea5a3d45a3f3ace095b464d7733ca8",
+    "ko_paired_2_AR17_QAT200_V400_guard.json": "4ff9e352202ef3b213f3d805ce220acf0e76433ce6acdcda0ab52a7703ec2151",
+    "ko_paired_2_AR18_V400.json": "413e11b873bfa2e6ea6d4ec159230cc1f561e20fa1c441aed9b72bf38307439c",
+    "ko_paired_2_AR18_V400_guard.json": "ac6e8bacb6c9d410c584ae6b22255863bb7f979b79c752c1413d0791b18ac03d",
+    "ko_paired_3_AR17_QAT200_V400.json": "d3c7300d3bda18b815c937a4d565f8d40939326f3bdc9bf8abdc94590b49f7b2",
+    "ko_paired_3_AR17_QAT200_V400_guard.json": "26bc3451698f90fdbe03887e1cc304afb727aa39f7ae94dce63c5b009d24a81e",
+    "ko_paired_3_AR18_V400.json": "9456c91880c497859c1cefb0351b347ba17b92b601c5fe2ee0eb9ec6e2a0eccc",
+    "ko_paired_3_AR18_V400_guard.json": "d38dbc57818e270d7a7c840faa421b9de1b92dd712a0b398e5a172986f356b2e",
+    "ko_paired_4_AR17_QAT200_V400.json": "75613d55f76263682e19621b16c2c9eaad839dc5de329befa269c38ae85c08c7",
+    "ko_paired_4_AR17_QAT200_V400_guard.json": "137ec033d61470a2951195d1939b0483e1f32c15b091b66df3d06d303d67dc07",
+    "ko_paired_4_AR18_V400.json": "1ab92ab5b8b5f1945280f4f9a2b821489d738898186251db59845d8bedefd815",
+    "ko_paired_4_AR18_V400_guard.json": "bf975f7142a39fdd5a870af086d26c21ab5acb1a84c2aff6277c86449de7e7ba",
+    "student_summary.json": "8b52d88eedce25cdcede143b59936f4a981f879a41f9911f85c6b0c2135de31b"
+  }
+}
