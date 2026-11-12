@@ -24,6 +24,7 @@ def main():
     parser.add_argument("--decoder-ar-int8", action="store_true")
     parser.add_argument("--ar-int8-comparison", action="store_true")
     parser.add_argument("--ar-int8-confirm-only", action="store_true")
+    parser.add_argument("--fft-half-comparison", action="store_true")
     args = parser.parse_args()
     if bool(args.baseline_manifest) != bool(args.baseline_manifest_sha256):
         parser.error("Comparison baseline manifest and SHA required together")
@@ -35,6 +36,10 @@ def main():
         parser.error("Runtime confirmation requires AR-only runtime comparison mode")
     if args.decoder_ar_int8 and not args.decoder_only:
         parser.error("Decoder AR INT8 mode requires a same-AR decoder-only comparison")
+    if args.fft_half_comparison and (
+        args.baseline_manifest or args.ar_int8_comparison or args.decoder_only
+    ):
+        parser.error("FFT-product comparison uses one unchanged approved L bundle")
     manifest = load_manifest(args.manifest, args.manifest_sha256)
     before = snapshot(args.manifest)
     cases = {r["language"]: r for r in manifest["listening_report"]["cases"]}
@@ -102,6 +107,7 @@ def main():
         baseline_bundle=False,
         fp32_control=False,
         ar_int8_only=False,
+        fft_half_products=False,
     ):
         run_manifest = baseline if baseline_bundle else manifest
         run_path = args.baseline_manifest if baseline_bundle else args.manifest
@@ -170,6 +176,8 @@ def main():
             command += ["--fft-pad-channels"]
         if ar_int8_only:
             command += ["--ar-int8-only"]
+        if fft_half_products:
+            command += ["--fft-half-products"]
         if combined:
             command += ["--fft-stream", "--parallel-transforms", "--inference-mode"]
         if compare is not None:
@@ -202,10 +210,19 @@ def main():
             raise RuntimeError("Model/resource integrity failure")
         if ar_int8_only and (
             not data["approximate_ar_int8_only"]
-            or data["fp16_acoustic_modules"] != 0
             or data["experimental_options"]["fast_experimental"]
         ):
             raise RuntimeError("Approximate AR runtime contaminated FP32 acoustics")
+        if fft_half_products:
+            if (
+                not data.get("approximate_fft_half_products")
+                or not data.get("fft_half_product_modules")
+                or data["fp16_acoustic_modules"]
+                != len(data["fft_half_product_modules"])
+            ):
+                raise RuntimeError("FFT-product candidate scope audit failed")
+        elif ar_int8_only and data["fp16_acoustic_modules"] != 0:
+            raise RuntimeError("AR-only runtime changed FP32 acoustics")
         if (
             data["cgroup"]["cpu.max"] != "200000 100000"
             or data["cgroup"]["memory.max"] != "8000000000"
@@ -226,7 +243,11 @@ def main():
             "name": name,
             "prefetch": None if ar_int8_only else (256 if original else distance),
             "approximate_ar_int8_only": ar_int8_only,
-            "runtime_variant": "L_ar_int8_only"
+            "approximate_fft_half_products": fft_half_products,
+            "fft_half_product_modules": data.get("fft_half_product_modules", []),
+            "runtime_variant": "P_fft_half_products"
+            if fft_half_products
+            else "L_ar_int8_only"
             if ar_int8_only
             else data["model_variant"],
             "runtime_local_generated_tokens_match": all(
@@ -305,6 +326,57 @@ def main():
         )
         return data, row
 
+    if args.fft_half_comparison:
+        summary["scope"] = (
+            "Actual N1 L versus separately KO listening-approved P; identical K weights and W8A8/native FP32 AR; only large FFT spectral products approximate"
+        )
+        summary["prefetch_selection"] = (
+            "No search; P disables FFT streaming and materializes FP32 products after FP16 spectral multiplication/accumulation"
+        )
+        baseline_data, _ = run(
+            "ko",
+            "fft_product_baseline",
+            distance=256,
+            combined=True,
+            confirm=True,
+            ar_int8_only=True,
+        )
+        candidate_data, _ = run(
+            "ko",
+            "fft_product_candidate",
+            distance=256,
+            combined=True,
+            confirm=True,
+            ar_int8_only=True,
+            fft_half_products=True,
+        )
+        if not all(
+            row["semantic"] == baseline_data["runs"][0]["semantic"]
+            and row["audio_seconds"] == baseline_data["runs"][0]["audio_seconds"]
+            for row in baseline_data["runs"] + candidate_data["runs"]
+        ):
+            raise RuntimeError(
+                "FFT-product-only comparison changed semantic tokens/duration"
+            )
+        try:
+            run(
+                "ko",
+                "fft_product_profile_run",
+                distance=256,
+                combined=True,
+                profile=True,
+                ar_int8_only=True,
+                fft_half_products=True,
+                compare=args.output / "ko_fft_product_candidate.wav",
+            )
+        except subprocess.CalledProcessError as error:
+            summary["profile_error"] = {"exit_code": error.returncode}
+        summary["student_assets_unchanged"] = before == snapshot(args.manifest)
+        summary["complete"] = True
+        save()
+        if not summary["student_assets_unchanged"]:
+            raise RuntimeError("Private FFT-product runtime assets changed")
+        return
     if args.ar_int8_comparison:
         if manifest.get("ar_cache_storage", "fp32") != "exact_fp16":
             parser.error(

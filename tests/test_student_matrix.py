@@ -57,6 +57,7 @@ def synthetic_bundle(root, variant, storage):
         ("exact_fp16", "exact_fp16", True, "decoder"),
         ("exact_fp16", "exact_fp16", False, True),
         ("exact_fp16", "exact_fp16", False, "confirm"),
+        ("exact_fp16", "exact_fp16", False, "fft"),
     ],
 )
 def test_comparison_uses_each_approved_bundle_and_matching_cache(
@@ -100,7 +101,9 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
         for key in ("--baseline-manifest", "--baseline-manifest-sha256"):
             index = argv.index(key)
             del argv[index : index + 2]
-        argv.append("--ar-int8-comparison")
+        argv.append(
+            "--fft-half-comparison" if ar_only == "fft" else "--ar-int8-comparison"
+        )
         if ar_only == "confirm":
             argv.append("--ar-int8-confirm-only")
     if decoder_only:
@@ -125,7 +128,11 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             "ar_parameters_unchanged": True,
             "student_files_unchanged": True,
             "approximate_ar_int8_only": "--ar-int8-only" in command,
-            "fp16_acoustic_modules": 0,
+            "approximate_fft_half_products": "--fft-half-products" in command,
+            "fft_half_product_modules": [{"module": "large"}]
+            if "--fft-half-products" in command
+            else [],
+            "fp16_acoustic_modules": 1 if "--fft-half-products" in command else 0,
             "experimental_options": {"fast_experimental": False},
             "model_variant": manifest["model_variant"],
             "median_rtf": 1.2,
@@ -181,12 +188,15 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             index >= 2 or (confirm_only and index == 1)
         )
         assert ("--ar-int8-only" in command) == bool(
-            ar_only and (index > 0 or confirm_only or ar_only == "decoder")
+            ar_only and (index > 0 or confirm_only or ar_only in ("decoder", "fft"))
         )
+        assert ("--fft-half-products" in command) == (ar_only == "fft" and index > 0)
     assert calls[-1][calls[-1].index("--compare-pcm") + 1] == str(
         output
         / (
-            "ko_ar_runtime_candidate.wav"
+            "ko_fft_product_candidate.wav"
+            if ar_only == "fft"
+            else "ko_ar_runtime_candidate.wav"
             if one_bundle_runtime
             else "ko_comparison_candidate.wav"
         )
