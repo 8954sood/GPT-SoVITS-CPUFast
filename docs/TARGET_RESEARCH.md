@@ -62,3 +62,5 @@ Independent five-sample verification [run 43136472254](https://github.com/8954so
 ## Three-tap decoder probe
 
 [Run 43137924850](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43137924850) compared native Winograd against channels-last direct FP32 convolution at 15 synthetic geometries. Direct convolution favored 96/48/24 channels with dilation 3 or 5, while Winograd remained faster for 192/384 channels. Synthetic timings are in `results/n1_winograd_20261112`; selective end-to-end testing and listening remain necessary.
+
+The subsequent full-model [run 43138450302](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43138450302) selected six direct three-tap convolutions with the verified prefetch enabled for both variants. Baseline/candidate RTF medians were 1.5407/1.5429 and 1.5661/1.5670; the candidate did not improve end-to-end speed and was not adopted or listening approved. PCM differed by at most one unit, with 17/21 changed samples. Raw runs and guards: `results/n1_direct3_20261112`.
