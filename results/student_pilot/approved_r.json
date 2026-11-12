@@ -1,0 +1,27 @@
+{
+  "model_variant": "R",
+  "quality_approved": true,
+  "feedback": "R 사용 가능, push·N1 진행",
+  "scope": "Owner approves Korean same reference/text/seed versus L, branch push and actual N1 test; JA/EN synthesis only, not broad listening approval",
+  "manifest_sha256": "dbb4a69d2b92120fce7bbb685c8c2f78590d5ca46abd5753b26088b93626c635",
+  "files": {
+    "ar.pt": {
+      "sha256": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+      "bytes": 231975560
+    },
+    "decoder.pt": {
+      "sha256": "7187fabe5a86913dcb5b88de782e02838c94a052e9ebb0785dc0b234c076a487",
+      "bytes": 122888321
+    },
+    "student_spec.json": {
+      "sha256": "96bc102a89a9106ade348b73c7992ecdf85134721f0a4613cfc72258da2be08b",
+      "bytes": 2117
+    }
+  },
+  "runtime_implementation": {
+    "path": "experiments/student/listen_bottleneck_decoder.py",
+    "sha256": "9a81fe25348393619e92a49f377e9bceffdb47e0db383ae235dcb17391051652"
+  },
+  "listening_report": "results/student_pilot/bottleneck48_listening.json",
+  "actual_n1_rtf_measured": false
+}

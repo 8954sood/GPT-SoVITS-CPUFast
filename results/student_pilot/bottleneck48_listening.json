@@ -1,8 +1,8 @@
 {
   "candidate": "R: two C48/K11 internal bottleneck pairs; approved L AR unchanged",
-  "quality_approved": false,
-  "feedback_pending": true,
-  "scope": "Local Korean/Japanese/English free-generation for listening, not actual N1 performance; no new quality approval yet",
+  "quality_approved": true,
+  "feedback_pending": false,
+  "scope": "Owner approves Korean same reference/text/seed versus L, branch push and actual N1 test; JA/EN synthesis only, not broad listening approval",
   "comparison": {
     "scope": "Local free-generation listening smoke; not N1 performance",
     "variant": "D",
@@ -634,5 +634,6 @@
   "implementation": "experiments/student/listen_bottleneck_decoder.py",
   "implementation_sha256": "9a81fe25348393619e92a49f377e9bceffdb47e0db383ae235dcb17391051652",
   "student_runtime_sha256": "86fe2ef274af3b5ca346e6b75bcaa1be219cbe522146045d65720751d990de9d",
-  "actual_n1_rtf_measured": false
+  "actual_n1_rtf_measured": false,
+  "feedback": "R 사용 가능, push·N1 진행"
 }
