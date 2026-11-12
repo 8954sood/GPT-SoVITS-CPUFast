@@ -1,0 +1,156 @@
+{
+  "scope": "Actual N1 same approved AR17 QAT200+originalV400 model; runtime scheduling only",
+  "source_sha": "75779d2a5eaf6cd82541e5610ced36eb47909319",
+  "source_archive_sha256": "ac6c548ca319bb4d5f2ee5a5d1000c24e89aa030bd02a416d3580cdbf6bcef74",
+  "retrieved_result_tar_sha256": "38af178b1e0a036e32dc1e90898f0631dc8a8ee29829108249dcbd38a139e9e9",
+  "image_id": "sha256:23eb9b78c3c75319c99172766f94bba4faa8cffe05f8765ce4b33a3c34bb989b",
+  "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+  "protocol": "5fresh processes/runtime, counterbalanced AB/BA, 3 excluded warmups+1sample/process; separate excluded candidate profile. Actual2vCPU/8e9byte/no swap, host exclusiveflock.",
+  "change": "Dim32 weighted-value scheduling only; unchanged QK, softmax, masks and each output lane token/FMA order; dynamic dispatcher substitution in disposable process.",
+  "compiler_flags_match_canonical_except_explicit_registration_macro": true,
+  "baseline_dso_copy_source": "c00e55f063d685e48ad56a661c265ee50d52d9cd; canonical builder/native sources unchanged in75779d2",
+  "canonical_fast_manifest": {
+    "abi": 1,
+    "torch_version": "2.8.0+cpu",
+    "system": "Linux",
+    "architecture": "aarch64",
+    "flags": [
+      "-O3",
+      "-std=c++17",
+      "-march=armv8.2-a+fp16+dotprod",
+      "-mtune=neoverse-n1",
+      "-fopenmp",
+      "-fPIC",
+      "-shared",
+      "-D_GLIBCXX_USE_CXX11_ABI=1"
+    ],
+    "sources": {
+      "native/cpufast_fast_int8.cpp": "1e6b496c6547e7f4e27a382de9b52cc5882afd46cb38c5f3040af4fb532e4838",
+      "native/cpufast_fast_attention.cpp": "cd8d4ff9549b2012e425e8dac7992e1d66f60a63fb1379d42fb8627c4f3a7c29",
+      "native/cpufast_fast_half.cpp": "e4f2569cf7aff34f6eac62502b9a9ef2bc1d7de4bd81026faa20ab00cb1b0ecb"
+    },
+    "library_sha256": "54d89f5397ddf906e9e0e269d66df6f139b93f5851a43e62636060a7f6969143"
+  },
+  "probe_manifest": {
+    "abi": 1,
+    "torch_version": "2.8.0+cpu",
+    "architecture": "aarch64",
+    "flags": [
+      "-O3",
+      "-std=c++17",
+      "-march=armv8.2-a+fp16+dotprod",
+      "-mtune=neoverse-n1",
+      "-fopenmp",
+      "-fPIC",
+      "-shared",
+      "-D_GLIBCXX_USE_CXX11_ABI=1",
+      "-DCPUFAST_REPLACE_HEAD_V32=1"
+    ],
+    "sources": {
+      "native/cpufast_head_v32.cpp": "e6f571d728cc12496029f96e65c8bc078ce26d4eb75a7dff95e83c607e697ffc"
+    },
+    "library_sha256": "65ee9af0e0f8b597b6cde9e95c5df46d5ee5fb3ca77e47103595a7cb8c4e4dc7"
+  },
+  "rtf_ranges": {
+    "L": [
+      1.0049756417495075,
+      1.0429671743480335
+    ],
+    "head_v32": [
+      0.990021374951584,
+      1.0089618196956203
+    ]
+  },
+  "median_candidate_over_baseline": {
+    "rtf": 0.9769683703266001,
+    "wall": 0.9769683703266,
+    "cpu": 0.9775530473429336,
+    "AR": 0.8915373236326957,
+    "decoder": 0.9994121033960368
+  },
+  "paired_observations": [
+    {
+      "round": 0,
+      "rtf_candidate_over_baseline": 0.9739836627470729,
+      "wall_candidate_over_baseline": 0.9739836627470729,
+      "ar_candidate_over_baseline": 0.9133708103974113,
+      "decoder_candidate_over_baseline": 1.0115739936780266
+    },
+    {
+      "round": 1,
+      "rtf_candidate_over_baseline": 0.9851197718863212,
+      "wall_candidate_over_baseline": 0.985119771886321,
+      "ar_candidate_over_baseline": 0.9611817811914878,
+      "decoder_candidate_over_baseline": 0.9998163744464008
+    },
+    {
+      "round": 2,
+      "rtf_candidate_over_baseline": 0.9771398121958846,
+      "wall_candidate_over_baseline": 0.9771398121958846,
+      "ar_candidate_over_baseline": 0.9563035404128805,
+      "decoder_candidate_over_baseline": 0.9894616977343501
+    },
+    {
+      "round": 3,
+      "rtf_candidate_over_baseline": 0.9837685136961886,
+      "wall_candidate_over_baseline": 0.9837685136961886,
+      "ar_candidate_over_baseline": 0.9423229366436116,
+      "decoder_candidate_over_baseline": 1.0112841045508936
+    },
+    {
+      "round": 4,
+      "rtf_candidate_over_baseline": 0.950695746994193,
+      "wall_candidate_over_baseline": 0.950695746994193,
+      "ar_candidate_over_baseline": 0.870175936928942,
+      "decoder_candidate_over_baseline": 1.0021599290183336
+    }
+  ],
+  "actual_native_calls_each_candidate_process": 9044,
+  "actual_native_calls_excluded_profile_process": 11305,
+  "call_count_basis": "4inferences (3warm+1sample) *17layers*133generatedtokens; separate profiled process adds1excluded profile inference.",
+  "same_model_semantic_pcm_duration": "All10timed and excludedprofile reproduce own approved133tokens/5.62s/PCM2d7691a8...",
+  "parameter_model_resource_guards": "All11processes: original/student/AR/acoustic parameter guards and exact Docker resource profile pass.",
+  "guard_count": 11,
+  "profile_head_operator": [
+    {
+      "name": "cpufast_cpp::head_attn",
+      "calls": 4522,
+      "input_shapes": "",
+      "self_cpu_us": 438846.3070000026,
+      "total_cpu_us": 910793.2090000167
+    }
+  ],
+  "adoption": "Controlled medianRTF falls below1; candidate4of5 observations below1, one1.00896. All5pairs improve AR and overallRTF with nearly unchanged decoder. Canonical loop adoption e9e6442; independent actual integrated confirmation still pending at this snapshot.",
+  "raw_json_sha256": {
+    "ko_head_v32_profile_run.json": "e8d178a1241ee6b70b1bd648463f900df9edfda09b5a20958968205e9f8d13ac",
+    "ko_head_v32_profile_run_guard.json": "e316da65d4f841efb08cd824c3ae193172f3de8ca0ca50bb76bfd73c788560f1",
+    "ko_paired_0_L.json": "67773b05acc84997ee14c1a305191014029898ce266f0f1636daf4ce8817e62a",
+    "ko_paired_0_L_guard.json": "751b4337215c7627f22e6b90d70c70c95601945636f398cc22e9ff75f1640fc2",
+    "ko_paired_0_head_v32.json": "69d07e10b9c28056e001e95bd2f91865cb7534e1b392af6022ab22fb1f22aca1",
+    "ko_paired_0_head_v32_guard.json": "8ce0765a4d703d882361f72b0fe2b33ce2d378302aed535fbea2b1b115a38465",
+    "ko_paired_1_L.json": "bd03138d0ec54bb3f478222bac1ce4e2ae72325914d88b9f0d098f307fab6c9a",
+    "ko_paired_1_L_guard.json": "9134a01130ad0ab9450a90753bdcb92c21461f53c6d3f105edc28409980768e9",
+    "ko_paired_1_head_v32.json": "f6a20c38e9672fa1da234b7254f68ac6f14c06ad6da6d5587076d33a591a995b",
+    "ko_paired_1_head_v32_guard.json": "fed55527bcea38bbc1c3ec1bf1c3594cbe244ce0e10c168026aab56c169cdb0d",
+    "ko_paired_2_L.json": "71bb329f762a312581a6655668b1299e9298b6b3b01a07070008b090134bfa22",
+    "ko_paired_2_L_guard.json": "799731cf5bf676d0253ec1c9ddf30db2fdd0eabfc76f665f27f9ae38e5b15ffe",
+    "ko_paired_2_head_v32.json": "a48c2338d84d77784eb1ca1e30fca47ad99b264e849fc25164ff09f5482199e1",
+    "ko_paired_2_head_v32_guard.json": "932492f46c1b85a92b762ad86181b6553c2ce650f0c66d27446473f4eec8da50",
+    "ko_paired_3_L.json": "095ac76953e2fce486eac27363b46ee3074a18b9b3f829d56c6afab7ff0d0807",
+    "ko_paired_3_L_guard.json": "769c42b409c2552aab292727eba52392e37a71f862346ba5c77e8f6ffae8c2a7",
+    "ko_paired_3_head_v32.json": "a414c859168b8b6e0b821adb0eeba3bd112a712c8af021e2e023fd7c931ec7fd",
+    "ko_paired_3_head_v32_guard.json": "9be80bf93d8e855e84043750750947cc87a3c01d91baf61b9ac58d0151c8ee3b",
+    "ko_paired_4_L.json": "356a092c71d768bb3b35b361dd0b6c749eb767f3e442ff5aca0cafcd87439f0c",
+    "ko_paired_4_L_guard.json": "e62486becf105c4da8c301e8c9616e7287683ba23fa9e4f053756b97940b57d3",
+    "ko_paired_4_head_v32.json": "ab27834d316fde310b7b67cc8305ba9feecc2f9f9689aeda2df870572a45c3b5",
+    "ko_paired_4_head_v32_guard.json": "d14f4a0cbc05bf83bfbe5234931140fef0f993b82d8a568a166d7647516431a8",
+    "ko_student_profile_ops.json": "6686ce54a6fce53b3d64eb6d713f4307d6fa9caef86ccb15ad1cb56a5f13a229",
+    "student_summary.json": "02731bf43aeb34122339ed3dc44f8a89a22b5c0a2371a4dc3cccbff829b4d62b"
+  },
+  "paired_ratio_medians": {
+    "rtf_candidate_over_baseline": 0.9771398121958846,
+    "wall_candidate_over_baseline": 0.9771398121958846,
+    "ar_candidate_over_baseline": 0.9423229366436116,
+    "decoder_candidate_over_baseline": 1.0021599290183336
+  }
+}

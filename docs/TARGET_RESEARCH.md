@@ -851,3 +851,45 @@ profiles reproduce their own model's PCM. AR17 is the next fixed realtime
 baseline for the independent exact-output head scheduling trial. Complete raw
 observations, guards, profiles, hashes and paired ratios are under
 `results/n1_ar17_v400_20261112/`; no private model/audio files are committed.
+
+### Exact head-value scheduling on approved AR17+V400 (2026-11-12)
+
+Independent primitive source `c620b1a` passed all120 bit-pattern conditions,
+including32dim production shapes,16/64dim fallback, ragged lengths/shared and
+per-head/all-blocked masks, and1/2threads. For32dim weighted-value accumulation,
+eight independent NEON vectors preserve every lane's original token/FMA order;
+QK, softmax, masks and model tensors stay unchanged. The full comparison uses
+source `75779d2a5eaf6cd82541e5610ced36eb47909319`, approved AR17+V400 manifest
+`e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb`,
+canonical old DSOs and an explicitly registered standalone probe. Five fresh
+processes/runtime alternate AB/BA on the same2vCPU/8e9byte/no-swap N1, each
+with3excluded warmups+1sample. One separate candidate profile is excluded.
+
+| Median | Unchanged runtime | Value schedule |
+|---|---:|---:|
+| RTF | 1.016054 | 0.992652 |
+| All five RTF range | 1.004976–1.042967 | 0.990021–1.008962 |
+| Wall seconds | 5.710221 | 5.578705 |
+| AR seconds | 2.126797 | 1.896119 |
+| Decoder seconds | 3.291303 | 3.289368 |
+
+All5paired observations improve total RTF and AR time. The median paired
+candidate/baseline ratios are0.977140 overall and0.942323 AR; unchanged decoder
+ratios range0.989462–1.011574. Independent stage medians must not be added or
+interpreted as the paired causal effect. The candidate median falls below1,
+and4/5candidate observations are below1; the worst is1.008962. This is evidence
+for this fixed Korean request/model/resource profile, not a guarantee that every
+request/run is realtime. All11processes reproduce approved133tokens/5.62s PCM
+and semantic hashes with original/student/parameter/resource guards intact.
+Every candidate timed process records9044actual kernel calls
+(4inferences×17layers×133tokens) and actual baseline4file SHA before/after
+matches. The excluded profile records11305kernel calls and its own PCM exact.
+
+Canonical adoption is `e9e6442`: the same32dim loop moves to the normal native
+head function, without the probe's atomic counter;16/64dim behavior stays on
+the original loop. Head geometry and the source-hashed build manifest identify
+the selected production path. Source `c356245` adds an independent five-fresh
+canonical confirmation plus an excluded operator-profile invocation check;
+that actual run is pending at this evidence snapshot. Primitive and all full
+raw observations/guards/profiles/provenance are in
+`results/n1_head_v32_20261112/`.
