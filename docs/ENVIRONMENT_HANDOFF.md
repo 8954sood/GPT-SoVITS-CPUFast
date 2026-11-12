@@ -32,17 +32,19 @@
   workflow `studentheadqk4`만 보존한다. FFN2-only row8도 원래PCM/실제호출
   검증은 통과했지만 단일RTF1.00254는 정합성 관측이며 성능 채택 근거가 아니다.
   현재 기본경로에는 QK4/FFN2가 없다. worker는 승인AR17+V400와 채택된
-  value scheduling을 고정하고 stage0 Cin240 conv2 여섯 모듈의 FFT256→128을
-  시험한다. KO/JA/EN 수치 비교는 최대1PCM LSB, SNR92dB 이상으로 길이와
-  semantic이 같았다. 가중치 변경 없이 생긴 roundoff 수준 차이여서 기존
-  최적화 권한으로 RTF 비교를 진행하며, 성능 결과 전에는 채택하지 않는다.
+  value scheduling을 고정한 FFT256→128 후보는 KO/JA/EN 최대1PCM LSB와
+  SNR92dB 이상이며 사용자가 KO 음질을 승인했다. 그러나 실제5쌍의 기준/후보
+  중앙RTF .997117/1.012851, 최악1.009013/1.050644로 개선이 없어 채택하지
+  않았다. 기본FFT256 정책을 유지하며 다음 후보는 Tap 후처리 pass 통합이다.
 - 사용자는 새 AR16의 음질을 거부해 해당 모델을 보류했고 성능 측정은 없다.
   V recovery200은 같은 구조에서 CPU 추가학습을 마쳤고 고정입력 logmel 오차가
   원래V보다2.35% 낮지만 청취/RTF 미승인 후보다. 현재서버의 V400을 바꾸지 않는다.
 - Main은 실제 Tap 모듈 계측을 근거로 마지막 C24 K11 분기만 제거한 후보도
   별도로 학습한다. AR17과 prefix/upsampler/나머지 geometry는 고정하고 마지막
-  두 residual block+conv_post만 회복한다. 첫200회 logmel .403049→.186033은
-  기존V .162211보다 나쁘며 아직 청취/RTF 승인이 없다. 짧은 추가회복 진행 중이다.
+  두 residual block+conv_post만 회복했다. 원래교사로300회 학습 후 승인V
+  출력을 직접target으로100회 추가학습했다. 최종SHA afac9da...의 승인V기준
+  logmel .069813→.052186, 원래S2기준 .174778이며 서로 다른 target을 구분한다.
+  이 후보 하나만 canonical FFT256 경로에서 청취용 생성하며 아직 미승인이다.
 - Main의 AR16, history 보강, inactive-FFN slice는 별도 미승인 연구 후보다.
   승인 모델 파일을 덮어쓰거나 이들 후보를 현재 서버 비교에 섞지 않는다.
 

@@ -1105,6 +1105,28 @@ candidate is queued for possible separate listening after FFT timing, with no
 performance claim or approval. Details:
 `results/student_pilot/c24_two_branch_recovery300_cpu_20261112.json`.
 
+### Approved-V target for C24 compression (separate, unapproved)
+
+Source `8a2c9ec` optionally uses a checksum-pinned released decoder as the
+frozen CPU FP32 teacher; default training/evaluation still targets original S2.
+Approved V400 self-consistency evaluation gives exactly zero logmel, logSTFT
+and captured-pair errors across all12 validation cases. The helper verifies
+the original S2, teacher checkpoint/spec and full manifest before/after; teacher
+parameter digests are unchanged. This targets the approved output directly
+instead of asking a fixed approved prefix to match the original full decoder.
+
+From the300-update C24 candidate,100 last-stage-only updates (LR2e-5→2e-6,
+accumulation3) reduce logmel against approvedV400 .069813→.052186 (25.25%).
+Against originalS2, the separate final error is .174778, not .052186; those
+different targets must not be conflated. Every captured prefix pair remains
+exact to approvedV400, and all frozen parameters remain exact to initialization.
+The final candidate SHA is
+`afac9da039331cb1a8511d709998396a28ffc29469ba092fda3c7fc823d0ab11`.
+Only this candidate is sent for quality-only N1 listening using canonical
+FFT256 policy. Prior C24 candidates stay private/untransferred, and no C24 RTF,
+quality approval or promotion is claimed. Detailed history and both-target
+group reports: `results/student_pilot/c24_two_branch_vtarget100_cpu_20261112.json`.
+
 ### FFN2-only row8 and excluded addmm attribution (2026-11-12)
 
 FFN2 sourcee269bd5 routes only512×2048 to row8, all other shapes to original

@@ -1,0 +1,183 @@
+{
+  "scope": "Unapproved final-C24 two-branch model;100 last-stage-only CPU FP32 updates directly target immutable approved V400 output, following300 original-teacher recovery updates. Quality-only N1 generation pending, no RTF claim.",
+  "quality_approved": false,
+  "actual_n1_measured": false,
+  "adopted": false,
+  "source_commit": "8a2c9ec",
+  "candidate_checkpoint_sha256": "afac9da039331cb1a8511d709998396a28ffc29469ba092fda3c7fc823d0ab11",
+  "parent_checkpoint_sha256": "fae55308fd783243a1213cb9290a8e4943cbdb64425b93e4b7ff1aefbd1f9dab",
+  "spec_sha256": "3a6550930e73dafadd07a9fdbe79a4e00fe7a55e1bfcd370ff237d0da074dc69",
+  "integrity": {
+    "checkpoint_sha256": "afac9da039331cb1a8511d709998396a28ffc29469ba092fda3c7fc823d0ab11",
+    "selected_step": 100,
+    "frozen_prefix_exact": true,
+    "approved_bundle_unchanged": true,
+    "all_values_finite": true,
+    "log_mel_vs_approved_V400": 0.05218614637851715,
+    "teacher_parameter_digest": "b34f6ffa50cab0d864a006ffe013eede3fa000699e0f24abc342f1778a42bc7d"
+  },
+  "teacher": {
+    "teacher_target": "approved_student",
+    "teacher_student_manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+    "teacher_student_decoder_sha256": "7d4c184c638b09880a7e61b088b999542598644d22166e84e32137c5649b9524",
+    "teacher_and_student_unchanged": true
+  },
+  "training": {
+    "steps": 100,
+    "threads": 8,
+    "trainable_parameters": 35016,
+    "train_scope": "last_stage",
+    "lr": 2e-05,
+    "lr_final_ratio": 0.1,
+    "grad_accum": 3,
+    "full_context": true,
+    "log_mel": true,
+    "train_records": 60,
+    "validation_records": 12,
+    "history": [
+      {
+        "step": 0,
+        "validation_objective": 0.20245550572872162,
+        "validation_log_mel": 0.06981278210878372,
+        "validation_log_stft": 0.14474590122699738,
+        "validation_spectral": 0.19291245937347412,
+        "elapsed_seconds": 10.00081845800014
+      },
+      {
+        "step": 25,
+        "validation_objective": 0.1845664530992508,
+        "validation_log_mel": 0.06367716938257217,
+        "validation_log_stft": 0.13269281387329102,
+        "validation_spectral": 0.17543216049671173,
+        "elapsed_seconds": 85.75484866699844
+      },
+      {
+        "step": 50,
+        "validation_objective": 0.16728107631206512,
+        "validation_log_mel": 0.05662457272410393,
+        "validation_log_stft": 0.1218518391251564,
+        "validation_spectral": 0.1603870987892151,
+        "elapsed_seconds": 131.7536346669949
+      },
+      {
+        "step": 75,
+        "validation_objective": 0.16042377054691315,
+        "validation_log_mel": 0.05342164263129234,
+        "validation_log_stft": 0.11852890253067017,
+        "validation_spectral": 0.15473981201648712,
+        "elapsed_seconds": 181.3630212499993
+      },
+      {
+        "step": 100,
+        "validation_objective": 0.15783505141735077,
+        "validation_log_mel": 0.05218614637851715,
+        "validation_log_stft": 0.11722925305366516,
+        "validation_spectral": 0.15268318355083466,
+        "elapsed_seconds": 229.1263372079993
+      }
+    ],
+    "corpus_manifest_sha256": "93fb5d1150656150e615b208d0b23383eaa31aae4065cb43bfd7dc772e28b0dd",
+    "training_source_sha256": "17069698a7ce1d64352d8a6c62152705ce802b15d202177a1c861714f205e8a1"
+  },
+  "approved_teacher_self_consistency": {
+    "cases": 12,
+    "log_mel_log_stft_and_pair_errors_all_zero": true,
+    "report_sha256": "79c432ba51b145b5c9c091df4ab82e2b6036dfae0e81f35a9d253533872eeae1"
+  },
+  "frozen_prefix_pair_boundaries_vs_approved_V400_all_zero": true,
+  "log_mel_against_approved_V400_before": 0.06981278210878372,
+  "log_mel_against_approved_V400_after": 0.052186147620280586,
+  "relative_log_mel_reduction_vs_V400_target": 0.2524843439276915,
+  "log_mel_against_original_S2_after": 0.1747781274219354,
+  "groups_against_approved_V400": [
+    {
+      "language": "ja",
+      "latent_origin": "original_AR_teacher",
+      "count": 2,
+      "log_mel": 0.05246190167963505,
+      "log_stft": 0.11268682405352592
+    },
+    {
+      "language": "ko",
+      "latent_origin": "original_AR_teacher",
+      "count": 2,
+      "log_mel": 0.05279429629445076,
+      "log_stft": 0.115726538002491
+    },
+    {
+      "language": "en",
+      "latent_origin": "original_AR_teacher",
+      "count": 2,
+      "log_mel": 0.051311129704117775,
+      "log_stft": 0.12327427044510841
+    },
+    {
+      "language": "ja",
+      "latent_origin": "approved_L_free_generation",
+      "count": 2,
+      "log_mel": 0.052843715995550156,
+      "log_stft": 0.11572607606649399
+    },
+    {
+      "language": "ko",
+      "latent_origin": "approved_L_free_generation",
+      "count": 2,
+      "log_mel": 0.05302276834845543,
+      "log_stft": 0.11553674936294556
+    },
+    {
+      "language": "en",
+      "latent_origin": "approved_L_free_generation",
+      "count": 2,
+      "log_mel": 0.050683073699474335,
+      "log_stft": 0.12042507156729698
+    }
+  ],
+  "groups_against_original_S2": [
+    {
+      "language": "ja",
+      "latent_origin": "original_AR_teacher",
+      "count": 2,
+      "log_mel": 0.1716311350464821,
+      "log_stft": 0.39406995475292206
+    },
+    {
+      "language": "ko",
+      "latent_origin": "original_AR_teacher",
+      "count": 2,
+      "log_mel": 0.17459025979042053,
+      "log_stft": 0.39811302721500397
+    },
+    {
+      "language": "en",
+      "latent_origin": "original_AR_teacher",
+      "count": 2,
+      "log_mel": 0.18139461427927017,
+      "log_stft": 0.4158366620540619
+    },
+    {
+      "language": "ja",
+      "latent_origin": "approved_L_free_generation",
+      "count": 2,
+      "log_mel": 0.17391915619373322,
+      "log_stft": 0.39990173280239105
+    },
+    {
+      "language": "ko",
+      "latent_origin": "approved_L_free_generation",
+      "count": 2,
+      "log_mel": 0.1755591630935669,
+      "log_stft": 0.39608123898506165
+    },
+    {
+      "language": "en",
+      "latent_origin": "approved_L_free_generation",
+      "count": 2,
+      "log_mel": 0.1715744361281395,
+      "log_stft": 0.4047922044992447
+    }
+  ],
+  "validation_scope": "Twelve gradient-disjoint records reused for checkpoint selection. Fixed-input proxy errors are not perceptual approval or independent generalization evidence. Different teacher targets must not be conflated.",
+  "redundant_latest_removed_after_tensor_spec_step_equality": true,
+  "removed_latest_sha256": "1ba3f155ab3bd5236334e3e5bc75dd76abd153404d6a58c7acad1be0870bb237"
+}
