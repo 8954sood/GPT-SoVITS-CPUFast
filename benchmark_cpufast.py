@@ -79,7 +79,9 @@ def main():
     parser.add_argument("--packed-small-48", action="store_true")
     parser.add_argument("--n1-fft-sizes", action="store_true")
     parser.add_argument("--ar-fp32-cache", action="store_true")
-    parser.add_argument("--ar-prefetch", type=int, choices=(0, 64, 128, 256), default=0)
+    parser.add_argument(
+        "--ar-prefetch", type=int, choices=(0, 64, 128, 256), default=None
+    )
     parser.add_argument("--fast-experimental", action="store_true")
     parser.add_argument("--no-save-audio", action="store_true")
     parser.add_argument(
@@ -106,6 +108,8 @@ def main():
     args = parser.parse_args()
     if args.threads is None:
         args.threads = 1 if args.engine else 2
+    if args.ar_prefetch is None:
+        args.ar_prefetch = 256 if args.engine and not args.fast_experimental else 0
     if args.ar_prefetch and not args.engine:
         parser.error("--ar-prefetch requires --engine")
     if args.ar_fp32_cache and not args.engine:

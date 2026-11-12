@@ -1,0 +1,97 @@
+{
+  "scope": "Synthetic 24-layer weight traversal; not end-to-end RTF",
+  "weight_bytes": 150994944,
+  "cases": [
+    {
+      "distance": 0,
+      "warmup_seconds_per_token": 0.011155745759606362,
+      "seconds_per_token": [
+        0.011121989227831364,
+        0.011411575973033905,
+        0.011219810135662556,
+        0.01161002553999424,
+        0.010958708077669143
+      ],
+      "median_seconds_per_token": 0.011219810135662556,
+      "bit_exact_all_layers": true
+    },
+    {
+      "distance": 64,
+      "warmup_seconds_per_token": 0.014661159180104733,
+      "seconds_per_token": [
+        0.023026313446462155,
+        0.010492076352238654,
+        0.01035306677222252,
+        0.010369811207056046,
+        0.010284850373864174
+      ],
+      "median_seconds_per_token": 0.010369811207056046,
+      "bit_exact_all_layers": true
+    },
+    {
+      "distance": 128,
+      "warmup_seconds_per_token": 0.009527111984789371,
+      "seconds_per_token": [
+        0.009496415592730045,
+        0.009583220630884171,
+        0.009596816450357436,
+        0.00975733008235693,
+        0.009581536427140236
+      ],
+      "median_seconds_per_token": 0.009583220630884171,
+      "bit_exact_all_layers": true
+    },
+    {
+      "distance": 192,
+      "warmup_seconds_per_token": 0.009032163769006729,
+      "seconds_per_token": [
+        0.009000543877482415,
+        0.009072996117174626,
+        0.009147460944950581,
+        0.00898231565952301,
+        0.009051135927438735
+      ],
+      "median_seconds_per_token": 0.009051135927438735,
+      "bit_exact_all_layers": true
+    },
+    {
+      "distance": 256,
+      "warmup_seconds_per_token": 0.00915253683924675,
+      "seconds_per_token": [
+        0.009020395763218402,
+        0.009025675803422928,
+        0.009014619700610637,
+        0.009074904210865497,
+        0.008993367664515972
+      ],
+      "median_seconds_per_token": 0.009020395763218402,
+      "bit_exact_all_layers": true
+    },
+    {
+      "distance": 320,
+      "warmup_seconds_per_token": 0.009035655856132507,
+      "seconds_per_token": [
+        0.009109340608119965,
+        0.008974343165755272,
+        0.009057100117206573,
+        0.008921867050230504,
+        0.009019695594906807
+      ],
+      "median_seconds_per_token": 0.009019695594906807,
+      "bit_exact_all_layers": true
+    },
+    {
+      "distance": 384,
+      "warmup_seconds_per_token": 0.009213501587510109,
+      "seconds_per_token": [
+        0.00903582777827978,
+        0.009048892185091972,
+        0.009005047567188739,
+        0.009084208123385906,
+        0.00895851943641901
+      ],
+      "median_seconds_per_token": 0.00903582777827978,
+      "bit_exact_all_layers": true
+    }
+  ]
+}

@@ -48,6 +48,7 @@ common=(--engine --head-major --cook-phase --fft-layout --packed-fft --fused-fin
   --warmups "$warmups" --samples "$samples")
 texts=('今日は穏やかな天気ですね。少し休んでから、また一緒に続きを進めましょう。'
        '今日は新しい音声合成モデルを使って、声の雰囲気を確かめています。')
+if [[ "$mode" == prefetchcandidate ]]; then common+=(--ar-prefetch 0); fi
 if [[ "$mode" == prefetch ]]; then
   run_container python resource_guard.py --report /repo/ci-results/ar_prefetch_guard.json -- \
     python experiments/rtf07/bench_ar_prefetch.py --output /repo/ci-results/ar_prefetch.json

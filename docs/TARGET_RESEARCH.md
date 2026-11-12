@@ -54,3 +54,7 @@ On [run 43131935673](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs
 ## Full synthesis with AR prefetch
 
 [Run 43135656821](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43135656821) compared the approved tap path to prefetch distance 256. Median RTF improved 1.5717 to 1.5274 and 1.5879 to 1.5529 on the two sentences (three samples each). AR median fell 4.044 to 3.742s and 3.679 to 3.484s. Both outputs were PCM-exact and weights unchanged. This is provisional pending independent five-sample confirmation; reports and guards are in `results/n1_prefetchcandidate_20261112`.
+
+Independent five-sample verification [run 43136472254](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43136472254) reproduced the result: tap/prefetch median RTF 1.5787/1.5394 and 1.5870/1.5552. Every candidate output was PCM-exact, checkpoints/parameters unchanged and guards passed. Sentence 2 candidate included a 1.8727 outlier; all five runs, including that outlier, remain in `results/n1_prefetchrepeat_20261112`. The 256 setting is now the default for the FP32 engine, with `ar_prefetch=0` available for the prior path. This remains above the target RTF.
+
+[Run 43136630015](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43136630015) extended the synthetic prefetch sweep: 192/256/320/384 all measured approximately 9.02–9.05ms per synthetic token, so there is no compelling reason to replace the independently verified 256. Details are in `results/n1_prefetch_extended_20261112`.

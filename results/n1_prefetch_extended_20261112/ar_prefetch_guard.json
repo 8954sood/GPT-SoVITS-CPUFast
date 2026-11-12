@@ -1,0 +1,22 @@
+{
+  "command": [
+    "python",
+    "experiments/rtf07/bench_ar_prefetch.py",
+    "--output",
+    "/repo/ci-results/ar_prefetch.json"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 441982976,
+  "kernel_child_peak_rss_bytes": 442896384,
+  "cpu_seconds": 12.959341,
+  "elapsed_seconds": 9.22058673761785,
+  "average_cpu_cores": 1.4054789970283454,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 861,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}

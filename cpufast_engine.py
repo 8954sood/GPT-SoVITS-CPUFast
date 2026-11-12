@@ -18,7 +18,7 @@ def optimize(
     packed_small_48=False,
     n1_fft_sizes=False,
     ar_fp32_cache=False,
-    ar_prefetch=0,
+    ar_prefetch=None,
     ar_threads=1,
     acoustic_threads=1,
     fast_experimental=False,
@@ -30,6 +30,8 @@ def optimize(
     Recreate the engine after changing model checkpoints. The native library
     must be built for the installed Linux ARM64 PyTorch version.
     """
+    if ar_prefetch is None:
+        ar_prefetch = 0 if fast_experimental else 256
     if ar_threads not in (1, 2) or acoustic_threads not in (1, 2):
         raise ValueError("Expected one or two CPU threads per stage")
     if ar_prefetch not in (0, 64, 128, 256) or (ar_prefetch and ar_fp32_cache):
