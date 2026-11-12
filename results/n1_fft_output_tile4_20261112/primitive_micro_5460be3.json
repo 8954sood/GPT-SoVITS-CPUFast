@@ -1,0 +1,406 @@
+{
+  "scope": "actual executing host primitive only; not synthesis RTF",
+  "platform": "Linux-6.8.0-1054-oracle-aarch64-with-glibc2.36",
+  "machine": "aarch64",
+  "torch": "2.8.0+cpu",
+  "probe_manifest": {
+    "abi": 1,
+    "torch_version": "2.8.0+cpu",
+    "architecture": "aarch64",
+    "flags": [
+      "-O3",
+      "-fopenmp",
+      "-std=c++17",
+      "-march=armv8-a",
+      "-mtune=neoverse-n1",
+      "-ffp-contract=off",
+      "-fno-fast-math",
+      "-fPIC",
+      "-shared",
+      "-D_GLIBCXX_USE_CXX11_ABI=1"
+    ],
+    "sources": {
+      "native/cpufast_fft_output_tiles.cpp": "2107c5137206e095422627db3443ae812b94cb81391b793666a28216a0c076ed",
+      "native/acl_sgemm_8x12.cpp": "5be9c92b0bee523b1f54f9b65cf4d85445b8fb3c42d331ae35438ae9e05992c5",
+      "native/acl_asmlib.hpp": "9ce1af08a2a6708ed36406a9a61ae8ce2ab220cb9a627d394f619842e7584048"
+    },
+    "library_sha256": "9cd58d8d83c249f909b1e91d8d0bcc6fc673226a48fe90b01e0c62cdc71f4e11"
+  },
+  "groups_per_tile": 4,
+  "correctness": [
+    {
+      "batch": 1,
+      "blocks": 1,
+      "k": 24,
+      "groups": 1,
+      "freq": 5,
+      "threads": 1,
+      "chunk": 1,
+      "bitwise_equal": true
+    },
+    {
+      "batch": 1,
+      "blocks": 1,
+      "k": 24,
+      "groups": 1,
+      "freq": 5,
+      "threads": 1,
+      "chunk": 1,
+      "bitwise_equal": true
+    },
+    {
+      "batch": 1,
+      "blocks": 1,
+      "k": 24,
+      "groups": 1,
+      "freq": 5,
+      "threads": 1,
+      "chunk": 1,
+      "bitwise_equal": true
+    },
+    {
+      "batch": 1,
+      "blocks": 1,
+      "k": 24,
+      "groups": 1,
+      "freq": 5,
+      "threads": 2,
+      "chunk": 1,
+      "bitwise_equal": true
+    },
+    {
+      "batch": 1,
+      "blocks": 1,
+      "k": 24,
+      "groups": 1,
+      "freq": 5,
+      "threads": 2,
+      "chunk": 1,
+      "bitwise_equal": true
+    },
+    {
+      "batch": 1,
+      "blocks": 1,
+      "k": 24,
+      "groups": 1,
+      "freq": 5,
+      "threads": 2,
+      "chunk": 1,
+      "bitwise_equal": true
+    },
+    {
+      "batch": 2,
+      "blocks": 7,
+      "k": 48,
+      "groups": 5,
+      "freq": 9,
+      "threads": 1,
+      "chunk": 1,
+      "bitwise_equal": true
+    },
+    {
+      "batch": 2,
+      "blocks": 7,
+      "k": 48,
+      "groups": 5,
+      "freq": 9,
+      "threads": 1,
+      "chunk": 4,
+      "bitwise_equal": true
+    },
+    {
+      "batch": 2,
+      "blocks": 7,
+      "k": 48,
+      "groups": 5,
+      "freq": 9,
+      "threads": 1,
+      "chunk": 5,
+      "bitwise_equal": true
+    },
+    {
+      "batch": 2,
+      "blocks": 7,
+      "k": 48,
+      "groups": 5,
+      "freq": 9,
+      "threads": 2,
+      "chunk": 1,
+      "bitwise_equal": true
+    },
+    {
+      "batch": 2,
+      "blocks": 7,
+      "k": 48,
+      "groups": 5,
+      "freq": 9,
+      "threads": 2,
+      "chunk": 4,
+      "bitwise_equal": true
+    },
+    {
+      "batch": 2,
+      "blocks": 7,
+      "k": 48,
+      "groups": 5,
+      "freq": 9,
+      "threads": 2,
+      "chunk": 5,
+      "bitwise_equal": true
+    },
+    {
+      "batch": 1,
+      "blocks": 19,
+      "k": 192,
+      "groups": 16,
+      "freq": 129,
+      "threads": 1,
+      "chunk": 1,
+      "bitwise_equal": true
+    },
+    {
+      "batch": 1,
+      "blocks": 19,
+      "k": 192,
+      "groups": 16,
+      "freq": 129,
+      "threads": 1,
+      "chunk": 4,
+      "bitwise_equal": true
+    },
+    {
+      "batch": 1,
+      "blocks": 19,
+      "k": 192,
+      "groups": 16,
+      "freq": 129,
+      "threads": 1,
+      "chunk": 16,
+      "bitwise_equal": true
+    },
+    {
+      "batch": 1,
+      "blocks": 19,
+      "k": 192,
+      "groups": 16,
+      "freq": 129,
+      "threads": 2,
+      "chunk": 1,
+      "bitwise_equal": true
+    },
+    {
+      "batch": 1,
+      "blocks": 19,
+      "k": 192,
+      "groups": 16,
+      "freq": 129,
+      "threads": 2,
+      "chunk": 4,
+      "bitwise_equal": true
+    },
+    {
+      "batch": 1,
+      "blocks": 19,
+      "k": 192,
+      "groups": 16,
+      "freq": 129,
+      "threads": 2,
+      "chunk": 16,
+      "bitwise_equal": true
+    }
+  ],
+  "cases": [
+    {
+      "shape": "L_C384_short",
+      "k": 384,
+      "outputs": 384,
+      "blocks": 25,
+      "freq": 65,
+      "samples": {
+        "baseline": [
+          0.027151061221957207,
+          0.027059581130743027,
+          0.027141060680150986,
+          0.026911458000540733,
+          0.0269020963460207,
+          0.026930177584290504,
+          0.02690405771136284
+        ],
+        "output_tile4": [
+          0.024819759652018547,
+          0.024744359776377678,
+          0.025121523067355156,
+          0.02498544193804264,
+          0.02511892095208168,
+          0.02498520165681839,
+          0.02486608177423477
+        ]
+      },
+      "medians": {
+        "baseline": 0.026930177584290504,
+        "output_tile4": 0.02498520165681839
+      },
+      "candidate_over_baseline": 0.9277770849678058
+    },
+    {
+      "shape": "L_C192_long",
+      "k": 192,
+      "outputs": 192,
+      "blocks": 84,
+      "freq": 129,
+      "samples": {
+        "baseline": [
+          0.03471064195036888,
+          0.034757161512970924,
+          0.03444599732756615,
+          0.0347015205770731,
+          0.03444031998515129,
+          0.03451339900493622,
+          0.03446747735142708
+        ],
+        "output_tile4": [
+          0.03402339480817318,
+          0.03388171270489693,
+          0.03402143716812134,
+          0.033946795389056206,
+          0.036053773015737534,
+          0.033723434433341026,
+          0.03385039605200291
+        ]
+      },
+      "medians": {
+        "baseline": 0.03451339900493622,
+        "output_tile4": 0.033946795389056206
+      },
+      "candidate_over_baseline": 0.9835830827384178
+    },
+    {
+      "shape": "L_C96_long",
+      "k": 96,
+      "outputs": 96,
+      "blocks": 184,
+      "freq": 129,
+      "samples": {
+        "baseline": [
+          0.02069476805627346,
+          0.02059328742325306,
+          0.02068992704153061,
+          0.020619967952370644,
+          0.020628565922379494,
+          0.020461127161979675,
+          0.020455244928598404
+        ],
+        "output_tile4": [
+          0.020140204578638077,
+          0.020335523411631584,
+          0.020434964448213577,
+          0.020082002505660057,
+          0.019969001412391663,
+          0.019910000264644623,
+          0.019800400361418724
+        ]
+      },
+      "medians": {
+        "baseline": 0.020619967952370644,
+        "output_tile4": 0.020082002505660057
+      },
+      "candidate_over_baseline": 0.9739104615509968
+    },
+    {
+      "shape": "V_C384_to240",
+      "k": 384,
+      "outputs": 240,
+      "blocks": 25,
+      "freq": 65,
+      "samples": {
+        "baseline": [
+          0.016599373891949654,
+          0.01653209514915943,
+          0.016519812867045403,
+          0.016475774347782135,
+          0.0165015310049057,
+          0.016467174515128136,
+          0.016483811661601067
+        ],
+        "output_tile4": [
+          0.015526168048381805,
+          0.015570763498544693,
+          0.01572960801422596,
+          0.01554296724498272,
+          0.015575766563415527,
+          0.015532886609435081,
+          0.015534967184066772
+        ]
+      },
+      "medians": {
+        "baseline": 0.0165015310049057,
+        "output_tile4": 0.01554296724498272
+      },
+      "candidate_over_baseline": 0.9419106166792638
+    },
+    {
+      "shape": "V_C240_to384",
+      "k": 240,
+      "outputs": 384,
+      "blocks": 10,
+      "freq": 129,
+      "samples": {
+        "baseline": [
+          0.01682637631893158,
+          0.016810055822134018,
+          0.016915176063776016,
+          0.016770416870713234,
+          0.016732295975089073,
+          0.016798175871372223,
+          0.016775935888290405
+        ],
+        "output_tile4": [
+          0.016025729477405548,
+          0.01645481400191784,
+          0.01592281088232994,
+          0.01595401018857956,
+          0.015894407406449318,
+          0.015898847952485085,
+          0.015886209905147552
+        ]
+      },
+      "medians": {
+        "baseline": 0.016798175871372223,
+        "output_tile4": 0.01592281088232994
+      },
+      "candidate_over_baseline": 0.9478892829944652
+    },
+    {
+      "shape": "V_C192_to96",
+      "k": 192,
+      "outputs": 96,
+      "blocks": 84,
+      "freq": 129,
+      "samples": {
+        "baseline": [
+          0.017628023400902748,
+          0.017744384706020355,
+          0.01769058220088482,
+          0.01775798574090004,
+          0.01789698377251625,
+          0.01763318106532097,
+          0.017711423337459564
+        ],
+        "output_tile4": [
+          0.017416099086403847,
+          0.01767890341579914,
+          0.01727222092449665,
+          0.017461420968174934,
+          0.017367901280522346,
+          0.017232978716492653,
+          0.01721617951989174
+        ]
+      },
+      "medians": {
+        "baseline": 0.017711423337459564,
+        "output_tile4": 0.017367901280522346
+      },
+      "candidate_over_baseline": 0.9806044917795698
+    }
+  ]
+}

@@ -664,3 +664,89 @@ These are instrumented scopes, not wall-time savings. Its PCM matches its
 own unprofiled process exactly. Raw JSON, all slow observations, per-file
 hashes and exact source/run provenance are in
 `results/n1_student_w_prefill_20261112`; audio remains private locally.
+
+
+## FP32 FFT output tiling4: direct SSH exact-output comparison
+
+Source `462434b29253acaf1f1ee9e04081c6587f0a9623` runs on the same actual
+Neoverse N1 2vCPU/8,000,000,000B/no-swap host through direct SSH, under the
+single host benchmark mutex. It retains approved L/K weights, AR, transforms,
+ACL8x12 inner-K accumulation and complex reconstruction order. Only output
+channel groups are scheduled in chunks of4 in an isolated disposable DSO.
+The default engine and native library files remain unchanged.
+
+The synthetic primitive screening gives tile4/base ratios.9278 for C384,
+.9836 for C192 and.9739 for C96. These are warm shape timings, not RTF.
+Five fresh-process L/tile4 rounds alternate AB/BA,3warm1sample each, and
+exclude the additional profile:
+
+| Runtime | Median RTF | Wall s | CPU s | AR s | Decoder s | Peak sampled RSS GB |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| L | 1.149869 | 5.772341 | 9.851829 | 1.982425 | 3.410537 | 5.114 |
+| Output tile4 | 1.143409 | 5.739916 | 9.812847 | 1.964784 | 3.385326 | 5.111 |
+
+All10 measured PCM hashes,118 semantic tokens and5.02s lengths match L;
+all resource/checkpoint/parameter/student guards pass. Every measured
+candidate process uses the actual probe120times(3warm+1sample×30FFT).
+The excluded profile also matches its own unprofiled PCM exactly.
+
+The overall median change is-.562%; decoder changes-.739%, and unchanged
+AR also changes-.890%. Decoder improves in only3of5 individual pairs.
+This is insufficient to adopt the candidate or justify another same-setting
+full measurement. Retain L; do not add the primitive gain or combine this
+candidate with W/V/another runtime. Raw JSON, every observation, DSO/source
+hashes and direct-SSH provenance are in `results/n1_fft_output_tile4_20261112`.
+Generated audio and complete remote console logs remain private locally.
+
+
+## Eight-row SDOT: exact compiler policy, hot versus rotating weights
+
+Source `04bce68` screens an independent row8 operator on actual N1, keeping
+scalar input quantization and per-output integer/dequantization order unchanged.
+An earlier probe copied prefill's `-ffp-contract=off` policy and failed the
+float-bit gate before any model inference. Matching the approved fast DSO's
+complete flags/order/ABI restores exact values:40cases across5dimensions,
+4finite scales and1/2threads pass int32-bit comparisons, immutable inputs,
+and nonfinite-input rejection. The baseline DSO/weights are untouched.
+
+| Matrix | Hot row8/base | Rotating64MB row8/base |
+| --- | ---: | ---: |
+| QKV1536×512 | .9939 | 1.0191 |
+| Output512×512 | .9870 | .9995 |
+| FFN1 2048×512 | .9718 | 1.0225 |
+| FFN2 512×2048 | .9954 | .9026 |
+
+The synthetic rotating pool better exposes weight traffic but remains a
+primitive experiment, not full AR inference or RTF. QKV andFFN1 regress,
+so the all-matrix row8 candidate is not adopted and does not justify a full
+paired synthesis run. The FFN2-only observation is retained without combining
+it with other changes. Raw values, manifests, initial failed-gate provenance
+and exact source hashes are in `results/n1_int8_rows8_20261112`.
+
+
+## Input quantization NEON only: bounded exact primitive screening
+
+Source `d5f6437` keeps the original4row SDOT, scalar scale computation,
+dequantization and complete approved fast compiler flags. Only finite amax
+and input rounding/clamp/narrow use NEON. FRINTI follows current FPCR;
+exceptional nonfinite reciprocal inputs fall back to the original scalar
+expression. Baseline files and model tensors remain unchanged.
+
+On actual fixed N1 resources,70bit-pattern conditions cover5dimensions,
+1/2threads, zero/subnormal/ordinary/extreme finite scales from1e-40to1e37.
+An identity-weight probe also checks signed zero and exact half-way ties.
+Inputs are immutable and NaN/Inf is rejected.
+
+| Matrix | Hot NEON/scalar | Rotating64MB NEON/scalar |
+| --- | ---: | ---: |
+| QKV1536×512 | .9813 | .9817 |
+| Output512×512 | .9884 | .9930 |
+| FFN1 2048×512 | .9669 | .9987 |
+| FFN2 512×2048 | .8954 | .9528 |
+
+Directions are consistent, but most weight-traffic dominated shapes improve
+only slightly. This is neither model inference nor an RTF result, and does
+not establish a useful full synthesis speedup. Keep the candidate isolated
+and the default L path unchanged; no model/FFT/row8 candidate is combined.
+Raw observations, exact flags/library/source hashes and finite-range scope
+are in `results/n1_int8_quant_neon_20261112`.

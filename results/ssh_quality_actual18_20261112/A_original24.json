@@ -1,0 +1,61 @@
+{
+  "scope": "Local free-generation listening smoke; not N1 performance",
+  "variant": "A",
+  "ar_cache_storage": "exact FP16",
+  "quality_approved": false,
+  "ar_layers": 24,
+  "loaded_ar_transformer_blocks": 24,
+  "input_sha256": {
+    "s1": "87133414860ea14ff6620c483a3db5ed07b44be42e2c3fcdad65523a729a745a",
+    "s2": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+    "reference": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+    "student_spec": "6b4b12ecdf6f4716b4089f1590c0833c98f8397e6a8ea90c79e1180abf4c0002",
+    "decoder_student": null
+  },
+  "decoder_branches": [
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ]
+  ],
+  "decoder_channel_widths": null,
+  "cases": [
+    {
+      "language": "ko",
+      "text": "오늘은 날씨가 참 좋네요. 잠깐 쉬었다가 함께 이야기를 이어 가요.",
+      "sample_rate": 32000,
+      "audio_seconds": 5.78,
+      "smoke_elapsed_seconds": 16.59211956895888,
+      "semantic": [
+        {
+          "tokens": 137,
+          "sha256": "59ff652e1c26d13a0b359b12db4e48e069650d369ce30c4ad8c90d0560f7be28"
+        }
+      ],
+      "pcm_sha256": "21da04adda5e2ce93160eb2ef6561edd514ce546fafdba045ee7860db0b2bc88"
+    }
+  ],
+  "student_parameters_unchanged_during_inference": true,
+  "checkpoint_files_unchanged": true
+}

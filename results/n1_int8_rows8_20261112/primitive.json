@@ -1,0 +1,526 @@
+{
+  "scope": "Actual executing host hot primitive; not synthesis RTF",
+  "probe_manifest": {
+    "abi": 1,
+    "torch_version": "2.8.0+cpu",
+    "architecture": "aarch64",
+    "flags": [
+      "-O3",
+      "-std=c++17",
+      "-march=armv8.2-a+fp16+dotprod",
+      "-mtune=neoverse-n1",
+      "-fopenmp",
+      "-fPIC",
+      "-shared",
+      "-D_GLIBCXX_USE_CXX11_ABI=1"
+    ],
+    "sources": {
+      "native/cpufast_int8_rows8.cpp": "29b9a16ef167f4578bb08c4279cf27aa30fa0e889ecb3347a2db006ea6d6ecd4"
+    },
+    "library_sha256": "40a142e44925bce0f13690ca641effce03446fe74738e9688d98281ef22f5cdd"
+  },
+  "correctness": [
+    {
+      "n": 16,
+      "k": 32,
+      "factor": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "n": 16,
+      "k": 32,
+      "factor": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "n": 16,
+      "k": 32,
+      "factor": 1e-10,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "n": 16,
+      "k": 32,
+      "factor": 1e-10,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "n": 16,
+      "k": 32,
+      "factor": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "n": 16,
+      "k": 32,
+      "factor": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "n": 16,
+      "k": 32,
+      "factor": 10000000000.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "n": 16,
+      "k": 32,
+      "factor": 10000000000.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "n": 1536,
+      "k": 512,
+      "factor": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "n": 1536,
+      "k": 512,
+      "factor": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "n": 1536,
+      "k": 512,
+      "factor": 1e-10,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "n": 1536,
+      "k": 512,
+      "factor": 1e-10,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "n": 1536,
+      "k": 512,
+      "factor": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "n": 1536,
+      "k": 512,
+      "factor": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "n": 1536,
+      "k": 512,
+      "factor": 10000000000.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "n": 1536,
+      "k": 512,
+      "factor": 10000000000.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "n": 512,
+      "k": 512,
+      "factor": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "n": 512,
+      "k": 512,
+      "factor": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "n": 512,
+      "k": 512,
+      "factor": 1e-10,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "n": 512,
+      "k": 512,
+      "factor": 1e-10,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "n": 512,
+      "k": 512,
+      "factor": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "n": 512,
+      "k": 512,
+      "factor": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "n": 512,
+      "k": 512,
+      "factor": 10000000000.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "n": 512,
+      "k": 512,
+      "factor": 10000000000.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "n": 2048,
+      "k": 512,
+      "factor": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "n": 2048,
+      "k": 512,
+      "factor": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "n": 2048,
+      "k": 512,
+      "factor": 1e-10,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "n": 2048,
+      "k": 512,
+      "factor": 1e-10,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "n": 2048,
+      "k": 512,
+      "factor": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "n": 2048,
+      "k": 512,
+      "factor": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "n": 2048,
+      "k": 512,
+      "factor": 10000000000.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "n": 2048,
+      "k": 512,
+      "factor": 10000000000.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "n": 512,
+      "k": 2048,
+      "factor": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "n": 512,
+      "k": 2048,
+      "factor": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "n": 512,
+      "k": 2048,
+      "factor": 1e-10,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "n": 512,
+      "k": 2048,
+      "factor": 1e-10,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "n": 512,
+      "k": 2048,
+      "factor": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "n": 512,
+      "k": 2048,
+      "factor": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "n": 512,
+      "k": 2048,
+      "factor": 10000000000.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "n": 512,
+      "k": 2048,
+      "factor": 10000000000.0,
+      "threads": 2,
+      "bitwise_equal": true
+    }
+  ],
+  "cases": [
+    {
+      "n": 1536,
+      "k": 512,
+      "samples": {
+        "rows4": [
+          2.4969801306724547e-05,
+          2.492021769285202e-05,
+          2.5242585688829422e-05,
+          2.376139163970947e-05,
+          2.4434197694063187e-05,
+          2.3669395595788955e-05,
+          2.4314187467098236e-05
+        ],
+        "rows8": [
+          2.4805795401334763e-05,
+          2.581743523478508e-05,
+          2.4100206792354585e-05,
+          2.3919790983200074e-05,
+          2.4284590035676957e-05,
+          2.437260001897812e-05,
+          2.407379448413849e-05
+        ]
+      },
+      "medians": {
+        "rows4": 2.4434197694063187e-05,
+        "rows8": 2.4284590035676957e-05
+      },
+      "candidate_over_baseline": 0.9938771200814758,
+      "rotating_weights": {
+        "note": "Synthetic rotating weight pool; not full model inference or RTF",
+        "weight_bytes": 67633152,
+        "matrices": 86,
+        "samples": {
+          "rows4": [
+            5.68707148696101e-05,
+            5.596977940132452e-05,
+            5.547442408495171e-05,
+            5.552371920541275e-05,
+            5.47613991900932e-05
+          ],
+          "rows8": [
+            5.662326462740122e-05,
+            5.786653694718383e-05,
+            5.5549774578837464e-05,
+            5.6586531532365224e-05,
+            5.482973227667254e-05
+          ]
+        },
+        "medians": {
+          "rows4": 5.552371920541275e-05,
+          "rows8": 5.6586531532365224e-05
+        },
+        "candidate_over_baseline": 1.0191415910562573
+      }
+    },
+    {
+      "n": 512,
+      "k": 512,
+      "samples": {
+        "rows4": [
+          1.5520136803388595e-05,
+          1.577412709593773e-05,
+          1.8340945243835448e-05,
+          1.574574038386345e-05,
+          1.52549147605896e-05,
+          1.572694629430771e-05,
+          1.5100538730621338e-05
+        ],
+        "rows8": [
+          1.591334119439125e-05,
+          1.553613692522049e-05,
+          1.519693061709404e-05,
+          1.6039740294218064e-05,
+          1.521492376923561e-05,
+          1.5099719166755677e-05,
+          1.552291214466095e-05
+        ]
+      },
+      "medians": {
+        "rows4": 1.572694629430771e-05,
+        "rows8": 1.552291214466095e-05
+      },
+      "candidate_over_baseline": 0.9870264610924112,
+      "rotating_weights": {
+        "note": "Synthetic rotating weight pool; not full model inference or RTF",
+        "weight_bytes": 67108864,
+        "matrices": 256,
+        "samples": {
+          "rows4": [
+            2.6665074983611703e-05,
+            2.645975473569706e-05,
+            2.6940069801639766e-05,
+            2.6993344363290817e-05,
+            2.6636313123162836e-05
+          ],
+          "rows8": [
+            2.6765534130390733e-05,
+            2.9895563784521073e-05,
+            2.64986592810601e-05,
+            2.665256761247292e-05,
+            2.6529763999860734e-05
+          ]
+        },
+        "medians": {
+          "rows4": 2.6665074983611703e-05,
+          "rows8": 2.665256761247292e-05
+        },
+        "candidate_over_baseline": 0.9995309455853221
+      }
+    },
+    {
+      "n": 2048,
+      "k": 512,
+      "samples": {
+        "rows4": [
+          3.102743998169899e-05,
+          3.024384379386902e-05,
+          2.8993040323257447e-05,
+          3.168465569615364e-05,
+          3.0089858919382097e-05,
+          3.0472241342067718e-05,
+          3.0180644243955613e-05
+        ],
+        "rows8": [
+          3.070347011089325e-05,
+          3.0579455196857455e-05,
+          2.931743860244751e-05,
+          3.0172690749168396e-05,
+          2.92450375854969e-05,
+          2.9375050216913224e-05,
+          2.9390640556812286e-05
+        ]
+      },
+      "medians": {
+        "rows4": 3.024384379386902e-05,
+        "rows8": 2.9390640556812286e-05
+      },
+      "candidate_over_baseline": 0.9717891931041618,
+      "rotating_weights": {
+        "note": "Synthetic rotating weight pool; not full model inference or RTF",
+        "weight_bytes": 67108864,
+        "matrices": 64,
+        "samples": {
+          "rows4": [
+            6.972745177336037e-05,
+            6.938370643183589e-05,
+            7.461939821951091e-05,
+            6.944304914213717e-05,
+            7.250375347211957e-05
+          ],
+          "rows8": [
+            7.122813258320093e-05,
+            7.129431469365954e-05,
+            7.35656067263335e-05,
+            7.080502109602094e-05,
+            7.74349900893867e-05
+          ]
+        },
+        "medians": {
+          "rows4": 6.972745177336037e-05,
+          "rows8": 7.129431469365954e-05
+        },
+        "candidate_over_baseline": 1.0224712488474703
+      }
+    },
+    {
+      "n": 512,
+      "k": 2048,
+      "samples": {
+        "rows4": [
+          3.184506669640541e-05,
+          3.179466351866722e-05,
+          3.120308741927147e-05,
+          3.2159872353076936e-05,
+          3.2125487923622134e-05,
+          3.290148451924324e-05,
+          3.1779035925865176e-05
+        ],
+        "rows8": [
+          3.202548250555992e-05,
+          3.220386803150177e-05,
+          3.9805509150028226e-05,
+          3.169786185026169e-05,
+          3.0933469533920286e-05,
+          3.092186525464058e-05,
+          3.1470675021409986e-05
+        ]
+      },
+      "medians": {
+        "rows4": 3.184506669640541e-05,
+        "rows8": 3.169786185026169e-05
+      },
+      "candidate_over_baseline": 0.9953774678022471,
+      "rotating_weights": {
+        "note": "Synthetic rotating weight pool; not full model inference or RTF",
+        "weight_bytes": 67108864,
+        "matrices": 64,
+        "samples": {
+          "rows4": [
+            7.086683763191104e-05,
+            7.244935841299593e-05,
+            8.463510312139988e-05,
+            6.905870395712554e-05,
+            6.989185931161046e-05
+          ],
+          "rows8": [
+            6.560614565387368e-05,
+            6.396305980160832e-05,
+            6.765616126358509e-05,
+            6.28461129963398e-05,
+            6.330237374641001e-05
+          ]
+        },
+        "medians": {
+          "rows4": 7.086683763191104e-05,
+          "rows8": 6.396305980160832e-05
+        },
+        "candidate_over_baseline": 0.9025809805968543
+      }
+    }
+  ]
+}

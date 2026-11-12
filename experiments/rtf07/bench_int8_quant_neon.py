@@ -1,0 +1,117 @@
+"""NEON quantization primitive equality and synthetic timing; no model/RTF claims."""
+
+import argparse
+import json
+import statistics
+import time
+from pathlib import Path
+
+import torch
+
+from experiments.rtf07.bench_fft_output_tiles import load_probe
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--library", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--rotating-weight-bytes", type=int, default=0)
+    args = parser.parse_args()
+    torch.set_num_threads(2)
+    torch.set_num_interop_threads(1)
+    import cpufast_fast_ops  # noqa: F401
+
+    manifest = load_probe(args.library)
+    baseline = torch.ops.cpufast_cpp.int8_linear
+    candidate = torch.ops.cpufast_cpp.int8_linear_quant_neon
+    torch.manual_seed(2026111208)
+    report = {"scope": "Actual executing host hot primitive; not synthesis RTF",
+              "probe_manifest": manifest, "correctness": [], "cases": []}
+    # Identity coefficients expose every quantized input, including negative
+    # zero and half-way ties. The explicit127 maximum fixes sx=inv=1.
+    ties = torch.tensor([-127., -126.5, -125.5, -64.5, -63.5, -1.5, -0.5, -0.,
+                         0., 0.5, 1.5, 63.5, 64.5, 125.5, 126.5, 127.])
+    tie_x = ties.repeat(2).reshape(1,1,32)
+    identity = torch.eye(32, dtype=torch.int8)
+    scales = torch.ones(32); bias = torch.zeros(32)
+    expected = baseline(tie_x, identity, scales, bias)
+    actual = candidate(tie_x, identity, scales, bias)
+    assert torch.equal(expected.view(torch.int32), actual.view(torch.int32))
+    report["ties_and_signed_zero_bitwise_equal"] = True
+    # Keep quantization unchanged: cover zero, tiny/large finite magnitudes and
+    # real AR dimensions under both thread settings. Integer sum/dequant order
+    # must match bitwise, not merely satisfy a quantization tolerance.
+    for n, k in ((16, 32), (1536, 512), (512, 512), (2048, 512), (512, 2048)):
+        w = torch.randint(-127, 128, (n, k), dtype=torch.int8)
+        s = torch.rand(n) / 100
+        bias = torch.randn(n)
+        for factor in (0.0, 1e-40, 1e-38, 1e-10, 1.0, 1e10, 1e37):
+            x = torch.randn(1, 1, k) * factor
+            originals = [t.clone() for t in (x, w, s, bias)]
+            for threads in (1, 2):
+                torch.set_num_threads(threads)
+                expected = baseline(x, w, s, bias)
+                actual = candidate(x, w, s, bias)
+                assert torch.equal(actual.view(torch.int32), expected.view(torch.int32)), (
+                    n, k, factor, threads, float((actual - expected).abs().max())
+                )
+                report["correctness"].append({"n": n, "k": k, "factor": factor,
+                                              "threads": threads, "bitwise_equal": True})
+            assert all(torch.equal(a, b) for a, b in zip((x, w, s, bias), originals))
+        for invalid in (float("nan"), float("inf"), -float("inf")):
+            x = torch.randn(1, 1, k); x[0, 0, 0] = invalid
+            for call in (baseline, candidate):
+                try:
+                    call(x, w, s, bias)
+                except RuntimeError:
+                    continue
+                raise AssertionError("Nonfinite input reached SDOT")
+        if n == 16:
+            continue
+        torch.set_num_threads(2)
+        x = torch.randn(1, 1, k)
+        functions = {"scalar_quant": lambda: baseline(x, w, s, bias),
+                     "neon_quant": lambda: candidate(x, w, s, bias)}
+        for call in functions.values():
+            for _ in range(20):
+                call()
+        samples = {name: [] for name in functions}
+        for turn in range(7):
+            for name in (tuple(functions) if turn % 2 == 0 else tuple(reversed(functions))):
+                start = time.perf_counter()
+                for _ in range(100):
+                    functions[name]()
+                samples[name].append((time.perf_counter() - start) / 100)
+        row = {"n": n, "k": k, "samples": samples,
+               "medians": {name: statistics.median(v) for name, v in samples.items()}}
+        row["candidate_over_baseline"] = row["medians"]["neon_quant"] / row["medians"]["scalar_quant"]
+        if args.rotating_weight_bytes:
+            count = max(2, (args.rotating_weight_bytes + n * k - 1) // (n * k))
+            pool = [torch.randint(-127, 128, (n, k), dtype=torch.int8) for _ in range(count)]
+            cold_functions = {"scalar_quant": baseline, "neon_quant": candidate}
+            for call in cold_functions.values():
+                for weight in pool:
+                    call(x, weight, s, bias)
+            rotating = {name: [] for name in cold_functions}
+            for turn in range(5):
+                for name in (tuple(cold_functions) if turn % 2 == 0 else tuple(reversed(cold_functions))):
+                    start = time.perf_counter()
+                    for weight in pool:
+                        cold_functions[name](x, weight, s, bias)
+                    rotating[name].append((time.perf_counter() - start) / count)
+            medians = {name: statistics.median(v) for name, v in rotating.items()}
+            row["rotating_weights"] = {
+                "note": "Synthetic rotating weight pool; not full model inference or RTF",
+                "weight_bytes": count * n * k, "matrices": count,
+                "samples": rotating, "medians": medians,
+                "candidate_over_baseline": medians["neon_quant"] / medians["scalar_quant"],
+            }
+            del pool
+        report["cases"].append(row)
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(json.dumps(report, indent=2) + "\n")
+        print(n, k, row["medians"], row["candidate_over_baseline"], flush=True)
+
+
+if __name__ == "__main__":
+    main()

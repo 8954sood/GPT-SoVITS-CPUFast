@@ -1,0 +1,73 @@
+"""Standalone FP32 spectral output-tiling probe; default libraries untouched."""
+
+import argparse
+import hashlib
+import json
+import platform
+import subprocess
+from pathlib import Path
+
+import torch
+from torch.utils.cpp_extension import include_paths, library_paths
+
+ROOT = Path(__file__).resolve().parents[2]
+SOURCES = [
+    "native/cpufast_fft_output_tiles.cpp",
+    "native/acl_sgemm_8x12.cpp",
+    "native/acl_asmlib.hpp",
+]
+
+
+def hashes():
+    return {
+        name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in SOURCES
+    }
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args()
+    if platform.system() != "Linux" or platform.machine() != "aarch64":
+        parser.error("Use the Linux ARM64 kernel-build image")
+    flags = [
+        "-O3",
+        "-fopenmp",
+        "-std=c++17",
+        "-march=armv8-a",
+        "-mtune=neoverse-n1",
+        "-ffp-contract=off",
+        "-fno-fast-math",
+        "-fPIC",
+        "-shared",
+        f"-D_GLIBCXX_USE_CXX11_ABI={int(torch._C._GLIBCXX_USE_CXX11_ABI)}",
+    ]
+    before = hashes()
+    command = ["c++", *flags]
+    for path in include_paths():
+        command += ["-I", path]
+    command += [str(ROOT / SOURCES[0]), "-o", str(args.output)]
+    for path in library_paths():
+        command += ["-L", path, f"-Wl,-rpath,{path}"]
+    command += ["-ltorch", "-ltorch_cpu", "-lc10"]
+    subprocess.run(command, check=True)
+    if hashes() != before:
+        raise RuntimeError("Sources changed during the research build")
+    args.output.with_suffix(args.output.suffix + ".json").write_text(
+        json.dumps(
+            {
+                "abi": 1,
+                "torch_version": torch.__version__,
+                "architecture": platform.machine(),
+                "flags": flags,
+                "sources": before,
+                "library_sha256": hashlib.sha256(args.output.read_bytes()).hexdigest(),
+            },
+            indent=2,
+        )
+        + "\n"
+    )
+
+
+if __name__ == "__main__":
+    main()
