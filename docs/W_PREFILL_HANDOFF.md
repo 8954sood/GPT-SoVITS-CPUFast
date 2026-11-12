@@ -16,6 +16,31 @@ no additional listening answer from the owner. The source/equality proof is
 `results/student_pilot/approved_w_runtime.json`; its seven source hashes and
 baseline approval/report hashes are checked before the benchmark loads TTS.
 
+## State at this environment handoff
+
+The final W run was already dispatched before the owner's immediate handoff
+instruction arrived: [43195474472](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43195474472),
+created 2026-11-12 09:53:37 UTC. Its verified `headSha` is
+`b88177079aff850861e5ab3848e190032e369b41` on `codex/cpu-w-prefill`.
+The initial status is `in_progress`; no result or adoption is claimed here.
+Do not dispatch it again merely to resume the chat. Inspect that run and collect
+its existing artifact first. No subsequent W or V run belongs to this environment.
+V native numerical proof is preserved locally in worker commit `ee5b462`;
+V quality and performance testing are handed to the next environment.
+
+```bash
+gh run view 43195474472 -R 8954sood/GPT-SoVITS-CPUFast --json status,conclusion,headSha,url
+gh run download 43195474472 -R 8954sood/GPT-SoVITS-CPUFast --dir .experiments/n1_student_w_prefill_20261112
+```
+
+Current operating baseline remains L until completed, guarded actual N1 evidence
+shows a useful W improvement. The preparation commit includes a local loader
+proof at `results/rtf07_prefill_int8_prototype/local_loader_equivalence.json`.
+Host tests passed 57 tests with 19 ARM-specific skips; native primitive checks
+passed separately in Linux ARM64. Local KO PCM and semantic tokens match L
+exactly. The excluded phase profile confirms 18 multirow FFN1 and 18 FFN2 calls.
+These checks establish scope/correctness for the fixed KO case, not N1 speed.
+
 ## Restore the published source
 
 Use repository `8954sood/GPT-SoVITS-CPUFast`, branch `codex/cpu-w-prefill`.
