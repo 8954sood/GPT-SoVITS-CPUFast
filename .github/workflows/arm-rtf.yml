@@ -50,10 +50,10 @@ jobs:
         run: |
           set -euo pipefail
           : "${ARM_HOST:?Missing ARM_SSH_HOST secret}" "${ARM_USER:?Missing ARM_SSH_USER secret}" "${ARM_PRIVATE_KEY:?Missing ARM_SSH_PRIVATE_KEY secret}" "${ARM_KNOWN_HOSTS:?Missing ARM_SSH_KNOWN_HOSTS secret}"
-          [[ "$ARM_HOST" =~ ^[A-Za-z0-9._-]+$ && "$ARM_USER" =~ ^[A-Za-z_][A-Za-z0-9_-]*$ ]]
-          [[ "$MODE" == compare || "$MODE" == diagnostics || "$MODE" == attention || "$MODE" == small || "$MODE" == scheduling || "$MODE" == packed48 || "$MODE" == fft || "$MODE" == fftcandidate || "$MODE" == arcache || "$MODE" == prefetch ]]
-          [[ "$WARMUPS" =~ ^[1-5]$ && "$SAMPLES" =~ ^([1-9]|1[0-9]|20)$ ]]
-          [[ "$GITHUB_RUN_ID" =~ ^[0-9]+$ && "$GITHUB_RUN_ATTEMPT" =~ ^[0-9]+$ ]]
+          [[ "$ARM_HOST" =~ ^[A-Za-z0-9._-]+$ && "$ARM_USER" =~ ^[A-Za-z_][A-Za-z0-9_-]*$ ]] || { echo "Invalid SSH host or user format" >&2; exit 1; }
+          [[ "$MODE" == compare || "$MODE" == diagnostics || "$MODE" == attention || "$MODE" == small || "$MODE" == scheduling || "$MODE" == packed48 || "$MODE" == fft || "$MODE" == fftcandidate || "$MODE" == arcache || "$MODE" == prefetch ]] || { echo "Invalid mode" >&2; exit 1; }
+          [[ "$WARMUPS" =~ ^[1-5]$ && "$SAMPLES" =~ ^([1-9]|1[0-9]|20)$ ]] || { echo "Invalid sample counts" >&2; exit 1; }
+          [[ "$GITHUB_RUN_ID" =~ ^[0-9]+$ && "$GITHUB_RUN_ATTEMPT" =~ ^[0-9]+$ ]] || { echo "Invalid run identifier" >&2; exit 1; }
           umask 077
           printf '%s\n' "$ARM_PRIVATE_KEY" > "$RUNNER_TEMP/arm_key"
           printf '%s\n' "$ARM_KNOWN_HOSTS" > "$RUNNER_TEMP/arm_known_hosts"
