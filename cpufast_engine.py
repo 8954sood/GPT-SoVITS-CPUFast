@@ -34,11 +34,11 @@ def optimize(
     must be built for the installed Linux ARM64 PyTorch version.
     """
     if ar_prefetch is None:
-        ar_prefetch = 0 if fast_experimental else 256
+        ar_prefetch = 0 if fast_experimental or ar_fp32_cache else 256
     if ar_threads not in (1, 2) or acoustic_threads not in (1, 2):
         raise ValueError("Expected one or two CPU threads per stage")
-    if ar_prefetch not in (0, 64, 128, 256) or (ar_prefetch and ar_fp32_cache):
-        raise ValueError("Invalid prefetch or incompatible cache storage")
+    if ar_prefetch not in (0, 64, 128, 256):
+        raise ValueError("Invalid prefetch distance")
     if fast_experimental and ar_prefetch:
         raise ValueError("Prefetch cannot be combined with fast experimental mode")
     if fast_experimental and ar_fp32_cache:

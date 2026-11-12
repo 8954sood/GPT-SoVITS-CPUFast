@@ -37,6 +37,10 @@ class CppLosslessBlock:
 
     def linear(self, x: torch.Tensor, weights: torch.Tensor, bias: torch.Tensor):
         if self.fp32_cache:
+            if self.prefetch != 0:
+                return torch.ops.cpufast_cpp.lossless_linear_f32_prefetch(
+                    x, weights, bias, self.prefetch
+                )
             return torch.ops.cpufast_cpp.lossless_linear_f32(x, weights, bias)
         if self.prefetch != 0:
             return torch.ops.cpufast_cpp.lossless_linear_prefetch(

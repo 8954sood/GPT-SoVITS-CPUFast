@@ -68,3 +68,9 @@ sentences. The non-baseline order is reversed for the second sentence. Use
 three excluded warmups and five retained samples for confirmation. Every
 candidate is compared to that sentence's baseline WAV, and the combined RTF is
 measured directly. Individual improvements are not added together.
+
+For a separately approved model requiring FP32 AR storage, the experimental
+`--ar-fp32-cache --ar-prefetch 256` combination is now supported. Unspecified
+prefetch with FP32 cache defaults to zero. This option passed local ARM64
+bit-exact operator checks only and has no target-server speed claim; do not
+infer a benefit from the original model's exact-half-cache prefetch results.

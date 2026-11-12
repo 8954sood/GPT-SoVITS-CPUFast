@@ -112,3 +112,23 @@ checks/guards passed. Keep the streaming implementation as an opt-in; this
 roughly one-percent total gain is specific to the two target workloads and
 does not reach real-time synthesis. Raw runs, including every warmup and slow
 sample, are in `results/n1_fftstream_repeat_20261112`.
+
+## Prepared FP32-cache prefetch for future student validation
+
+Trained student coefficients may no longer round-trip exactly through FP16
+storage. The existing explicit FP32 AR cache preserves them, but the N1
+full-model experiment above found that a larger FP32 cache can lose despite
+winning cache-hot matrix probes. Its native path previously hard-coded
+prefetch 0. A new opt-in `lossless_linear_f32_prefetch` uses the existing FP32
+GEMV arithmetic and coefficient storage with explicit distance 64/128/256.
+`optimize(ar_fp32_cache=True)` keeps prefetch 0 when unspecified; requesting a
+nonzero distance is an experiment, not a recommended student default.
+
+The Linux ARM64 local correctness test compares all five actual AR matrix
+shapes using FP32 coefficients that cannot be exactly converted to half, at
+one/two threads and four distances. Every output was bit-exact to the existing
+no-prefetch FP32 operator, original coefficients remained unchanged, and the
+TorchScript classes imported/compiled successfully. These are tiny correctness
+checks, not performance evidence. No student or full-model N1 run has validated
+this option. Keep original and trained student checkpoints separate and obtain
+quality approval before measuring a student on the actual server.

@@ -112,7 +112,11 @@ def main():
     if args.threads is None:
         args.threads = 1 if args.engine else 2
     if args.ar_prefetch is None:
-        args.ar_prefetch = 256 if args.engine and not args.fast_experimental else 0
+        args.ar_prefetch = (
+            256
+            if args.engine and not args.fast_experimental and not args.ar_fp32_cache
+            else 0
+        )
     if args.ar_prefetch and not args.engine:
         parser.error("--ar-prefetch requires --engine")
     if args.ar_fp32_cache and not args.engine:
