@@ -927,3 +927,12 @@ transferred during server timing. Native free generation/listening is needed
 before any performance adoption; current head trials stay on approved AR17.
 Analysis and initialization diagnostics are in
 `results/student_pilot/ar17_inactive_ffn_*_20261112.json`.
+
+
+Paired same-context QAT diagnosis compares that inactive-FFN slice directly to
+its immutable approved AR17 parent. Only2/6 validation cases have exactly equal
+logits; four differ(up to0.28545 absolute logit), and two cases each change one
+argmax token. This is not an exact-output model reduction despite similar mean
+teacher KL. The candidate remains unapproved. Optional evaluator
+`--reference-checkpoint` records paired differences with same original layer IDs
+and validates both models/files remain unchanged.

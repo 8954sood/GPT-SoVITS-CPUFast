@@ -22,12 +22,16 @@ def main():
         parser.add_argument("--" + name, type=Path, required=True)
     parser.add_argument("--runtime", choices=("fp32", "qat"), default="qat")
     parser.add_argument("--threads", type=int, default=4)
+    parser.add_argument("--reference-checkpoint", type=Path,
+                        help="Optional immutable same-depth parent for paired logit diagnostics")
     args = parser.parse_args()
     if args.output.exists():
         parser.error("Fresh report path required")
     torch.set_num_threads(args.threads)
     torch.set_num_interop_threads(1)
     files_before = {name: sha256(getattr(args, name)) for name in ("teacher", "checkpoint", "spec", "manifest")}
+    if args.reference_checkpoint:
+        files_before["reference_checkpoint"] = sha256(args.reference_checkpoint)
     features = json.loads((args.feature_dir / "manifest.json").read_text())
     if (
         features["teacher_sha256"] != files_before["teacher"]
@@ -44,11 +48,22 @@ def main():
     model = model_type(teacher, spec["ar_keep"], ffn_keep=spec.get("ar_ffn_keep"))
     current = ARStudent(saved, list(range(len(spec["ar_keep"]))))
     model.load_state_dict(current.state_dict(), strict=True)
+    reference = None
+    if args.reference_checkpoint:
+        ref_saved = torch.load(args.reference_checkpoint, map_location="cpu", weights_only=False)
+        if list(ref_saved["student_metadata"]["original_layer_ids"]) != spec["ar_keep"]:
+            raise ValueError("Paired reference must retain the same original layer IDs")
+        reference = model_type(teacher, spec["ar_keep"],
+                               ffn_keep=ref_saved["student_metadata"].get("ffn_neuron_keep"))
+        reference.load_state_dict(ARStudent(ref_saved, range(len(spec["ar_keep"]))).state_dict())
+        reference.eval().requires_grad_(False)
+        del ref_saved
     del teacher, saved, current
     model.eval().requires_grad_(False)
     if not set(features["anchors"]).issubset(spec["ar_keep"]):
         raise ValueError("Original teacher feature anchors must be retained")
     before = parameter_digest(model)
+    reference_before = parameter_digest(reference) if reference is not None else None
     rows = []
     with torch.no_grad():
         for path in validation:
@@ -74,8 +89,20 @@ def main():
                          "top1_agreement": matches / logits.shape[0],
                          "kl": float(distill_loss(logits, teacher_logits, 2.0)),
                          "feature_error": float(feature_error)})
+            if reference is not None:
+                ref_logits = reference(ctx["inputs"], ctx["mask"], ctx["prediction_start"])
+                if ref_logits.shape != logits.shape or not torch.isfinite(ref_logits).all():
+                    raise ValueError("Finite aligned reference logits required")
+                rows[-1]["paired_reference"] = {
+                    "max_abs_logit_difference": float((logits - ref_logits).abs().max()),
+                    "mean_abs_logit_difference": float((logits - ref_logits).abs().mean()),
+                    "top1_disagreements": int((logits.argmax(-1) != ref_logits.argmax(-1)).sum()),
+                    "reference_teacher_kl": float(distill_loss(ref_logits, teacher_logits, 2.0)),
+                }
     if not rows or parameter_digest(model) != before:
         raise RuntimeError("Nonempty evaluation with unchanged parameters required")
+    if reference is not None and parameter_digest(reference) != reference_before:
+        raise RuntimeError("Paired reference parameters changed")
     for name, digest in files_before.items():
         if sha256(getattr(args, name)) != digest:
             raise RuntimeError("Evaluation changed an input file")
@@ -93,6 +120,7 @@ def main():
               "inputs_sha256": files_before,
               "feature_manifest_sha256": sha256(args.feature_dir / "manifest.json"),
               "parameters_unchanged": True, "input_files_unchanged": True,
+              "paired_reference_parameters_unchanged": True if reference is not None else None,
               "quality_approved": False, "actual_n1_measured": False,
               "mean_kl": sum(row["kl"] for row in rows) / len(rows),
               "mean_feature_error": sum(row["feature_error"] for row in rows) / len(rows),
