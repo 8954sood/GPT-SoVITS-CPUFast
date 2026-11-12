@@ -1,8 +1,11 @@
 # ARM64 V2ProPlus optimized fork
 
-This fork adds an **opt-in** CPU inference engine for GPT-SoVITS V2ProPlus. It is tuned for one measured deployment proxy: Linux ARM64, a 0.7426 CPU cgroup quota (7,426 / 10,000 µs), CPUs 0–1, 8,000,000,000 bytes of memory and no swap. It is not a general performance guarantee and it does not emulate or benchmark a Neoverse N1. Measure again on the actual target. The original CPUFast interfaces remain available; the original project documentation follows below.
+This fork adds an **opt-in** CPU inference engine for GPT-SoVITS V2ProPlus. It was initially tuned against a local Linux ARM64 proxy with a 0.7426 CPU cgroup quota and has since been measured and further tuned on the target 2-vCPU Neoverse N1 server with an 8,000,000,000-byte memory limit and no swap. The proxy does not emulate N1 microarchitecture; results are specific to each environment. The original CPUFast interfaces remain available; the original project documentation follows below.
 
 ## Experimental Neoverse N1 tuning
+
+The FP32 engine now defaults to AR coefficient prefetch distance 256, which preserves the original parameters and changes only memory access hints. On the real 2-vCPU server, independent five-run comparisons of the tap profile improved median RTF from **1.5787 to 1.5394** and **1.5870 to 1.5552** for two Japanese sentences. Every candidate PCM waveform was bit-identical to its respective tap baseline; one candidate run was a slow outlier and is included in the median. Model checkpoint and parameter hashes remained unchanged. This has **not** reached the immediate RTF < 1 target; results depend on the inputs and hardware. See [actual-server research and measurements](docs/TARGET_RESEARCH.md) and the [benchmark workflow guide](ARM_BENCHMARK.md). To disable prefetch, pass `ar_prefetch=0` to `optimize` or `--ar-prefetch 0` to the benchmark. Rebuild the native extension after updating.
+
 
 `optimize(..., ar_threads=2, acoustic_threads=2, tap_small=True)` optionally uses two threads per stage and tap GEMMs for eligible decoder FFT convolutions with up to 48 input channels. The default remains one thread per stage with tap GEMMs off. The native build enables OpenMP for the parallel GEMV and packed FFT kernels; use a compiler and OpenMP runtime available for the target PyTorch environment. Rebuild the source-checked library before testing.
 
