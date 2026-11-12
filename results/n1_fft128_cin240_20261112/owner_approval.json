@@ -1,0 +1,17 @@
+{
+  "scope": "Owner approval applies to the Korean FFT128-on-Cin240 runtime output only, on immutable approved AR17+originalV400 model bundle",
+  "owner_reply": "ko_D ㄱㅊ네",
+  "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+  "quality_source": "5af1f0f355168c3d14e7a2ee163403262c3f40dc",
+  "approved_ko_pcm_sha256": "c0a60fd5c7fd67d8f03170bc224e9e127b6384d142d3100557d90756a454b45f",
+  "prior_numerical_record": "quality_numerical_before_owner_reply.json",
+  "raw_record_preserved": true,
+  "approved_scope": {
+    "language": "ko",
+    "same_reference_seed_text_and_model": true,
+    "ja_en_listening_approval": false,
+    "c24_two_branch_model_approval": false
+  },
+  "runtime_change": "Six original V400 Cin240/Cout384 conv2 FFT lengths256to128; normalFP32; no QK/FFN2/half/prefill changes",
+  "performance_claim": null
+}
