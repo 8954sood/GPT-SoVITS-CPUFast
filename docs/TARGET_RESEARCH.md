@@ -635,3 +635,32 @@ selected FFT scopes total approximately.2361s in this diagnostic; unchanged
 K11 pair1 remains192→192. This verifies rectangular execution, not isolated
 speedup: L's geometry profile was a separate run and scope labels add overhead.
 Do not add analytical MAC savings or R/P/prefill differences to these timings.
+
+
+## W genuine multirow INT8 prefill: recovered completed N1 result
+
+Existing run [43195474472](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43195474472),
+source `b88177079aff850861e5ab3848e190032e369b41`, completed successfully.
+The handoff resumed by retrieving artifact13933846293, without dispatching
+another measurement. Five fresh-process L/W observations alternate AB/BA;
+each process excludes three warmups. The separate profile is excluded.
+
+| Runtime | Median RTF | Wall s | CPU s | AR s | Decoder s | Peak sampled tree RSS GB |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| L | 1.145583 | 5.750826 | 9.802617 | 1.911403 | 3.459458 | 5.109 |
+| W, genuine multirow W8A8 prompt FFN only | 1.124986 | 5.647429 | 9.567139 | 1.910003 | 3.357112 | 5.217 |
+
+Every measured PCM/semantic hash and5.02s duration matches same-host L.
+All original/student/checkpoint/parameter/resource guards pass. The overall
+median is1.80% lower, but changed AR improves only.001399s(.073%), while
+unchanged decoder improves.102346s(2.96%). This does not isolate a useful
+prefill speedup. Retain L; do not combine W with V or claim its full1.80%
+as an attributable gain.
+
+The excluded W profile confirms18 genuine FFN1 and18 FFN2 calls; nested
+TorchDispatch redispatch doubles low-level operator counts. Diagnostic
+prefill totals are.478848s overall,.073471s FFN1 and.083318s FFN2.
+These are instrumented scopes, not wall-time savings. Its PCM matches its
+own unprofiled process exactly. Raw JSON, all slow observations, per-file
+hashes and exact source/run provenance are in
+`results/n1_student_w_prefill_20261112`; audio remains private locally.

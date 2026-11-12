@@ -12,10 +12,16 @@ mode=${7:-compare}
 student_manifest_sha=${8:-}
 student_prefetch=${9:-0}
 comparison_manifest_sha=${10:-}
+decoder_candidate_label=${11:-R}
+[[ "$decoder_candidate_label" == R || "$decoder_candidate_label" == U || "$decoder_candidate_label" == V ]] || { echo 'Invalid decoder label' >&2; exit 1; }
+if [[ "$decoder_candidate_label" == V && "$mode" != studentbottleneck ]]; then echo 'V requires isolated studentbottleneck mode' >&2; exit 1; fi
 [[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention || "$mode" == small || "$mode" == scheduling || "$mode" == packed48 || "$mode" == fft || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference || "$mode" == runtime || "$mode" == student || "$mode" == studentcompare || "$mode" == studentdecoder || "$mode" == studentprofile || "$mode" == studentprefillint8 || "$mode" == studentprefill || "$mode" == studentu || "$mode" == studentbottleneck || "$mode" == studentdecoderint8 || "$mode" == studentarint8 || "$mode" == studentarint8confirm || "$mode" == studenthalfstream || "$mode" == studentffthalf || "$mode" == taptiles || "$mode" == im2col ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
 project="$bench_root/project"
 assets="$bench_root/cpufast-cefae22/assets/pretrained_models"
 reference="$bench_root/reference_ja_4s.wav"
+# Keep direct SSH runs and Actions runs using this script serial on the host.
+exec 9>"$bench_root/.cpufast-arm-benchmark.lock"
+flock -n 9 || { echo 'Another ARM benchmark holds the host lock' >&2; exit 1; }
 for path in "$project/models/s1v3.ckpt" "$project/models/chinese-hubert-base" "$assets/v2Pro/s2Gv2ProPlus.pth" "$assets/sv/pretrained_eres2netv2w24s4ep4.ckpt" "$reference"; do
   if [[ ! -e "$path" ]]; then printf 'Required benchmark asset missing: %s\n' "$path" >&2; exit 1; fi
 done
@@ -109,6 +115,7 @@ if [[ "$mode" == student || "$mode" == studentcompare || "$mode" == studentdecod
       run_container python -m unittest discover -s tests -p test_rectangular_bottleneck_runtime.py -v
       student_args+=(--alternating-decoder-comparison)
       if [[ "$mode" == studentu ]]; then student_args+=(--decoder-candidate-label U); fi
+      if [[ "$mode" == studentbottleneck ]]; then student_args+=(--decoder-candidate-label "$decoder_candidate_label"); fi
     fi
   fi
   run_container python scripts/run_student_matrix.py --manifest /student/manifest.json \

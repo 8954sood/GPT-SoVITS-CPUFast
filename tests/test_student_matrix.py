@@ -62,6 +62,7 @@ def synthetic_bundle(root, variant, storage):
         ("exact_fp16", "exact_fp16", False, "stream"),
         ("exact_fp16", "exact_fp16", True, "bottleneck"),
         ("exact_fp16", "exact_fp16", True, "bottleneckU"),
+        ("exact_fp16", "exact_fp16", True, "bottleneckV"),
         ("exact_fp16", "exact_fp16", False, "packed"),
         ("exact_fp16", "exact_fp16", False, "int8packed"),
         ("exact_fp16", "exact_fp16", False, "profile"),
@@ -87,7 +88,7 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
                 "path": "experiments/student/synthetic.py",
                 "sha256": "a" * 64,
             }
-        if ar_only in ("bottleneck", "bottleneckU"):
+        if ar_only in ("bottleneck", "bottleneckU", "bottleneckV"):
             data["decoder_bottlenecks"] = [
                 {
                     "stage": 3,
@@ -100,8 +101,8 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
                     "dilation": 3,
                 }
             ]
-        if ar_only == "bottleneckU":
-            data["model_variant"] = "U"
+        if ar_only in ("bottleneckU", "bottleneckV"):
+            data["model_variant"] = ar_only[-1]
         candidate.write_text(json.dumps(data))
     output = tmp_path / "output"
     argv = [
@@ -119,7 +120,7 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
         "--prefetch",
         "0",
     ]
-    if ar_only and ar_only not in ("decoder", "bottleneck", "bottleneckU"):
+    if ar_only and ar_only not in ("decoder", "bottleneck", "bottleneckU", "bottleneckV"):
         for key in ("--baseline-manifest", "--baseline-manifest-sha256"):
             index = argv.index(key)
             del argv[index : index + 2]
@@ -142,12 +143,12 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             argv += ["--samples", "5"]
     if decoder_only:
         argv.append("--decoder-only")
-    if ar_only in ("decoder", "bottleneck", "bottleneckU"):
+    if ar_only in ("decoder", "bottleneck", "bottleneckU", "bottleneckV"):
         argv.append("--decoder-ar-int8")
-    if ar_only in ("bottleneck", "bottleneckU"):
+    if ar_only in ("bottleneck", "bottleneckU", "bottleneckV"):
         argv.append("--alternating-decoder-comparison")
-        if ar_only == "bottleneckU":
-            argv += ["--decoder-candidate-label", "U", "--samples", "5"]
+        if ar_only in ("bottleneckU", "bottleneckV"):
+            argv += ["--decoder-candidate-label", ar_only[-1], "--samples", "5"]
     monkeypatch.setattr(sys, "argv", argv)
     calls = []
 
@@ -228,15 +229,15 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
         assert summary["cases"] == [] and "profile_run" in summary
         assert summary["complete"] and summary["student_assets_unchanged"]
         return
-    if ar_only in ("bottleneck", "bottleneckU", "packed", "int8packed"):
+    if ar_only in ("bottleneck", "bottleneckU", "bottleneckV", "packed", "int8packed"):
         assert len(calls) == 11
         candidate_label = (
             "W"
             if ar_only == "int8packed"
             else "packed"
             if ar_only == "packed"
-            else "U"
-            if ar_only == "bottleneckU"
+            else ar_only[-1]
+            if ar_only in ("bottleneckU", "bottleneckV")
             else "R"
         )
         order = [
@@ -254,7 +255,7 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
         for label, command in zip(order, calls):
             path = (
                 baseline
-                if label == "L" and ar_only in ("bottleneck", "bottleneckU")
+                if label == "L" and ar_only in ("bottleneck", "bottleneckU", "bottleneckV")
                 else candidate
             )
             assert command[command.index("--s1") + 1] == str(path.parent / "ar.pt")
@@ -266,7 +267,7 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             )
             assert ("--packed-prefill-ffn" in command) == (label == "packed")
             assert ("--int8-prefill-ffn" in command) == (label == "W")
-        if ar_only in ("bottleneckU", "int8packed"):
+        if ar_only in ("bottleneckU", "bottleneckV", "int8packed"):
             assert calls[-1][calls[-1].index("--warmups") + 1] == "3"
         summary = json.loads((output / "student_summary.json").read_text())
         assert [r["runtime"] for r in summary["comparison_order"]] == order
