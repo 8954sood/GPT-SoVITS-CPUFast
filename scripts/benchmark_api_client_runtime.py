@@ -58,8 +58,8 @@ def main():
                 row.update(index=i,role='warmup' if i<args.warmups else 'sample')
                 assert row['audio_seconds']==5.08 and row['pcm_bytes']==325120
                 assert row['response_headers']['x-audio-sample-rate']=='32000'
-                expected_hash=expected_hash or row['pcm48k_sha256']
-                assert row['pcm48k_sha256']==expected_hash
+                expected_hash=expected_hash or row['pcm_sha256']
+                assert row['pcm_sha256']==expected_hash
                 result['trials'].append(row)
                 print('ACTUAL_CLIENT_RUNTIME',row['role'],i,row['client_response_rtf'],row['client_first_pcm_seconds'],row['required_extra_initial_buffer_seconds'],flush=True)
             response=client.delete('/v1/styles/'+style_id);assert response.status_code==204
