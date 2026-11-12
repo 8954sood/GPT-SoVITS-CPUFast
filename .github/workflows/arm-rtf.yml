@@ -107,7 +107,7 @@ jobs:
             printf -v asset_args ' %q' "${ARM_BENCH_ROOT:-}" "$HF_STUDENT_MANIFEST_SHA256"
             if ! ssh "${ssh_args[@]}" "$target" "bash \"\$HOME/$remote_rel/scripts/prepare_student_assets.sh\"$asset_args verify"; then
               python3 scripts/download_student_assets.py --output "$RUNNER_TEMP/private_student"
-              ssh "${ssh_args[@]}" "$target" "mkdir -p \"\$HOME/$remote_rel/.private-student-upload\""
+              ssh "${ssh_args[@]}" "$target" "umask 077 && mkdir -p \"\$HOME/$remote_rel/.private-student-upload\" && chmod 700 \"\$HOME/$remote_rel/.private-student-upload\""
               for name in manifest.json ar.pt decoder.pt student_spec.json; do
                 scp "${ssh_args[@]}" "$RUNNER_TEMP/private_student/$name" "$target:$remote_rel/.private-student-upload/$name"
               done

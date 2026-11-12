@@ -10,6 +10,7 @@ action=${3:-verify}
 export PYTHONPATH="$repo_dir"
 cache="$bench_root/student-assets/$manifest_sha"
 if [[ "$action" == verify ]]; then
+  [[ -f "$cache/manifest.json" ]] || exit 1
   python3 "$repo_dir/scripts/verify_student_assets.py" "$cache" "$manifest_sha"
   exit 0
 fi
