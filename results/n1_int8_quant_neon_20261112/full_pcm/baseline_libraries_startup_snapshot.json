@@ -1,9 +1,10 @@
 {
-  "scope": "Independent file snapshot before candidate process; baseline process already launched",
+  "scope": "Independent file snapshot during candidate startup after baseline guard; not a wrapper-entry snapshot",
   "files": {
     "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
     "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
     "libcpufast_fast.so": "54d89f5397ddf906e9e0e269d66df6f139b93f5851a43e62636060a7f6969143",
     "libcpufast_fast.so.json": "838f25e27b77fc7c2028f8c21c6c5d9f5821fedd48618cc206aa511cc75fe43b"
-  }
+  },
+  "label_note": "Original capture filename/label said before candidate process. File mtimes show baseline guard ended1.214s earlier, so the evidence is conservatively labelled a startup snapshot. The four captured numerical SHA values are unchanged."
 }

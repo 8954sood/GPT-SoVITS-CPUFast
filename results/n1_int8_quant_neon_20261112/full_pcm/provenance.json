@@ -19,7 +19,7 @@
     "memory.swap.max": "0"
   },
   "baseline_and_runtime_compiler_flags_match_except_explicit_registration_macro": true,
-  "baseline_library_hash_evidence": "baseline_libraries_before_candidate.json and baseline_libraries_after.json; independent file snapshot captured during candidate startup after baseline guard, before synthesis samples, not at wrapper entry",
+  "baseline_library_hash_evidence": "baseline_libraries_startup_snapshot.json and baseline_libraries_after.json; independent file snapshot captured during candidate startup after baseline guard, before synthesis samples, not at wrapper entry",
   "legacy_wrapper_caveat": "This measured source emitted a literal baseline_library_files_unchanged flag. Do not treat that flag as evidence by itself; use the external actual four-file SHA snapshots and baseline loader library SHA guards. Follow-up source1a6bd18 measures actual DSO/manifest hashes inside the wrapper before import and after inference. No running source/DSO was changed.",
   "rtf_values_archival_only_not_speed_evidence": {
     "baseline": 1.1395873123431113,
@@ -41,7 +41,7 @@
     "baseline.json": "9a9ca7d45b12240cc450a91a9f2489901f02ea4e4c4f2d1b7fc124071428bd8c",
     "baseline_guard.json": "62269661dee7732e0d01638555d37760293b5b403586b81be61c30b9fca08417",
     "baseline_libraries_after.json": "915321f362a68aad0cabb8e10b3ad5d130156411c2b67394b8a523b9f863a500",
-    "baseline_libraries_before_candidate.json": "ec369bc7df9776f5e296c02b1862ca0834dde444f73c4dcb036649f53212f560",
+    "baseline_libraries_startup_snapshot.json": "e6582440370f644917ce23e46daeaf0e376240dd7383056d67edcecf609a7369",
     "initial_missing_prompt_language_guard.json": "49a0fe4b32fd8e2bed26b52e17fe563e237a45937da72c7c24fd11e351889689",
     "quant_neon.json": "048c0274af8fc455cb0e47a938a8610e9ce25a656b6c43971f542784ed99697f",
     "quant_neon_guard.json": "c5721bef803e91aed97203d7bb5def2ba9974d8b6ab2fa38b83bb7d339a07379"
