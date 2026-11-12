@@ -19,6 +19,7 @@ def optimize(
     n1_fft_sizes=False,
     ar_fp32_cache=False,
     ar_prefetch=None,
+    n1_small_direct=False,
     ar_threads=1,
     acoustic_threads=1,
     fast_experimental=False,
@@ -65,6 +66,8 @@ def optimize(
             raise ValueError("Recreate the pipeline before changing AR cache storage")
         if existing.audit.get("ar_prefetch", 0) != ar_prefetch:
             raise ValueError("Recreate the pipeline before changing prefetch")
+        if existing.audit.get("n1_small_direct", False) != n1_small_direct:
+            raise ValueError("Recreate the pipeline before changing decoder kernels")
         if existing.audit.get("fast_experimental", False) != fast_experimental:
             raise ValueError("Recreate the pipeline before changing fast settings")
         return existing
@@ -112,7 +115,9 @@ def optimize(
         backend="packed" if packed_fft else "fused",
         n1_selected=n1_fft_sizes,
     )
-    winograd = install_winograd(pipeline.vits_model.dec.resblocks, native=True)
+    winograd = install_winograd(
+        pipeline.vits_model.dec.resblocks, native=True, n1_small_direct=n1_small_direct
+    )
     if fft_layout:
         from cpufast_fft import FFTConv1d
 
@@ -149,6 +154,13 @@ def optimize(
         )
     from cpufast_fft import FFTConv1d
     from cpufast_tap import PackedSmallTap
+    from cpufast_winograd import PackedSmallWinograd
+
+    n1_small_count = sum(
+        isinstance(m, PackedSmallWinograd) for m in pipeline.vits_model.dec.modules()
+    )
+    if n1_small_direct and not n1_small_count:
+        raise ValueError("No direct three-tap kernels matched the model")
 
     n1_fft_count = (
         sum(
@@ -195,6 +207,8 @@ def optimize(
         "tap_small": tap_small,
         "packed_small_48": packed_small_48,
         "n1_fft_sizes": n1_fft_sizes,
+        "n1_small_direct": n1_small_direct,
+        "n1_small_direct_count": n1_small_count,
         "ar_fp32_cache": ar_fp32_cache,
         "ar_prefetch": ar_prefetch,
         "n1_fft_size_count": n1_fft_count,

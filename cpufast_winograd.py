@@ -117,7 +117,46 @@ class WinogradConv1d(torch.nn.Module):
         return outputs if residual is None else outputs + residual
 
 
-def install_winograd(model, *, native=False):
+class PackedSmallWinograd(WinogradConv1d):
+    """Channels-last direct three-tap path for selected N1 geometries."""
+
+    def forward(self, x, *, activate=False, residual=None):
+        if (
+            self.training
+            or torch.is_grad_enabled()
+            or x.ndim != 3
+            or x.shape[0] != 1
+            or x.device.type != "cpu"
+            or x.dtype != torch.float32
+            or self.weight.dtype != torch.float32
+            or torch.is_autocast_enabled("cpu")
+            or any(p.is_inference() for p in self.parameters())
+        ):
+            return super().forward(x, activate=activate, residual=residual)
+        key = tuple(
+            (id(p), p._version, p.data_ptr(), p.dtype, p.device)
+            for p in self.parameters()
+        )
+        if key != self._key:
+            self._transformed = (
+                self.weight.detach()
+                .unsqueeze(2)
+                .contiguous(memory_format=torch.channels_last)
+            )
+            self._key = key
+        y = F.conv2d(
+            x.unsqueeze(2).contiguous(memory_format=torch.channels_last),
+            self._transformed,
+            self.bias,
+            padding=(0, self.padding),
+            dilation=(1, self.dilation),
+        ).squeeze(2)
+        if activate:
+            y = F.leaky_relu(y, 0.1)
+        return y if residual is None else y + residual
+
+
+def install_winograd(model, *, native=False, n1_small_direct=False):
     from cpufast_optimizations import PackedConv1d
 
     count = 0
@@ -127,8 +166,21 @@ def install_winograd(model, *, native=False):
             and not getattr(child, "transposed", False)
             and child.weight.shape[-1] == 3
         ):
-            setattr(model, name, WinogradConv1d(child, native=native))
+            use_direct = (
+                n1_small_direct
+                and child.weight.shape[1] <= 96
+                and child.weight.shape[0] == child.weight.shape[1]
+                and child.dilation[0] in (3, 5)
+            )
+            module = (
+                PackedSmallWinograd(child, native=native)
+                if use_direct
+                else WinogradConv1d(child, native=native)
+            )
+            setattr(model, name, module)
             count += 1
         elif not isinstance(child, WinogradConv1d):
-            count += install_winograd(child, native=native)
+            count += install_winograd(
+                child, native=native, n1_small_direct=n1_small_direct
+            )
     return count

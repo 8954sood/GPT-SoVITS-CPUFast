@@ -79,6 +79,7 @@ def main():
     parser.add_argument("--packed-small-48", action="store_true")
     parser.add_argument("--n1-fft-sizes", action="store_true")
     parser.add_argument("--ar-fp32-cache", action="store_true")
+    parser.add_argument("--n1-small-direct", action="store_true")
     parser.add_argument(
         "--ar-prefetch", type=int, choices=(0, 64, 128, 256), default=None
     )
@@ -114,6 +115,8 @@ def main():
         parser.error("--ar-prefetch requires --engine")
     if args.ar_fp32_cache and not args.engine:
         parser.error("--ar-fp32-cache requires --engine")
+    if args.n1_small_direct and not args.engine:
+        parser.error("--n1-small-direct requires --engine")
     if args.n1_fft_sizes and not args.engine:
         parser.error("--n1-fft-sizes requires --engine")
     if args.packed_small_48 and not args.tap_small:
@@ -181,6 +184,7 @@ def main():
             tap_small=args.tap_small,
             packed_small_48=args.packed_small_48,
             n1_fft_sizes=args.n1_fft_sizes,
+            n1_small_direct=args.n1_small_direct,
             ar_fp32_cache=args.ar_fp32_cache,
             ar_prefetch=args.ar_prefetch,
             ar_threads=args.ar_threads,
@@ -340,6 +344,7 @@ def main():
                 "tap_small",
                 "packed_small_48",
                 "n1_fft_sizes",
+                "n1_small_direct",
                 "ar_fp32_cache",
                 "ar_prefetch",
                 "fast_experimental",
@@ -363,6 +368,9 @@ def main():
         if args.fast_experimental
         else args.ar_layout,
         "ar_coefficient_audit": ar_audit,
+        "n1_small_direct_count": runtime.audit.get("n1_small_direct_count", 0)
+        if args.engine
+        else 0,
         "n1_fft_size_count": runtime.audit.get("n1_fft_size_count", 0)
         if args.engine
         else 0,

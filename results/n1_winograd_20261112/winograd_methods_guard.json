@@ -1,0 +1,22 @@
+{
+  "command": [
+    "python",
+    "experiments/rtf07/bench_winograd_methods.py",
+    "--output",
+    "/repo/ci-results/winograd_methods.json"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 773582848,
+  "kernel_child_peak_rss_bytes": 774336512,
+  "cpu_seconds": 17.154245,
+  "elapsed_seconds": 11.741226021200418,
+  "average_cpu_cores": 1.4610267248944548,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 1092,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}
