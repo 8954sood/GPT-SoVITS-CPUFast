@@ -456,3 +456,55 @@ def test_ar_depth_separates_approved_lengths_and_guards(monkeypatch, tmp_path, c
     assert [r["generated_tokens"] for r in summary["paired_aggregate"]] == [1, 2]
     assert [r["median_ar_seconds_per_generated_token"] for r in summary["paired_aggregate"]] == [.5, .25]
     assert len(summary["excluded_profiles"]) == 2
+
+
+@pytest.mark.parametrize("bad_geometry", [False, True])
+def test_integrated_head_confirmation_executes_five_fresh_and_profiles(monkeypatch, tmp_path, bad_geometry):
+    path = synthetic_bundle(tmp_path / "bundle", "AR17_QAT200_V400", "exact_fp16")
+    manifest = json.loads(path.read_text())
+    manifest.update(ar_layers=17, ar_runtime="int8_native",
+        runtime_implementation={"path": "experiments/student/synthetic.py", "sha256": "a"*64})
+    path.write_text(json.dumps(manifest))
+    for env, name in (("CPUFAST_AR_LIBRARY", "base.so"), ("CPUFAST_FAST_LIBRARY", "fast.so")):
+        library = tmp_path / name
+        library.write_bytes(b"immutable")
+        library.with_suffix(".so.json").write_text("{}")
+        monkeypatch.setenv(env, str(library))
+    output = tmp_path / "output"
+    monkeypatch.setattr(sys, "argv", ["matrix", "--head-integrated-confirm", "--warmups", "3", "--samples", "5",
+        "--manifest", str(path), "--manifest-sha256", sha256(path), "--output", str(output)])
+    calls = []
+    def execute(command, check):
+        calls.append(command)
+        value = lambda key: command[command.index(key)+1]
+        assert check and value("--warmups") == "3" and value("--samples") == "1"
+        assert "/repo/benchmark_cpufast.py" in command and "--ar-int8-only" in command
+        file = Path(value("--output"))
+        data = {"checkpoint_files_unchanged": True, "parameters_unchanged": True,
+            "ar_parameters_unchanged": True, "student_files_unchanged": True,
+            "approximate_ar_int8_only": True, "experimental_options": {"fast_experimental": False},
+            "fp16_acoustic_modules": 0, "model_variant": manifest["model_variant"],
+            "median_rtf": .99, "median_seconds": .99,
+            "cgroup": {"cpu.max": "200000 100000", "memory.max": "8000000000", "memory.swap.max": "0"},
+            "ar_coefficient_audit": {"head_geometry": [{"block": b, "heads": 16,
+                "dim": 64 if bad_geometry else 32} for b in range(17)]},
+            "ar_runtime_library_manifest": {"head_value_schedule": {
+                "dim32": "eight_independent_vectors_preserve_token_FMA_order"}},
+            "runs": [{"rtf": .99, "cpu_seconds": 2., "audio_seconds": 1.,
+                "stages": {"ar_seconds": .5, "dec_seconds": .4}, "pcm_sha256": "pcm",
+                "semantic": [{"index": 1, "generated_sha256": "semantic"}], "comparison": {"exact": True}}]}
+        file.write_text(json.dumps(data));file.with_suffix(".wav").write_bytes(b"wav")
+        Path(value("--report")).write_text(json.dumps({"exit_code": 0, "peak_sampled_tree_rss_bytes": 100}))
+        if "--profile-output" in command:
+            Path(value("--profile-output")).write_text(json.dumps({"operators": [{"name": "cpufast_cpp::head_attn", "calls": 2261}]}))
+    monkeypatch.setattr(run_student_matrix.subprocess, "run", execute)
+    if bad_geometry:
+        with pytest.raises(RuntimeError, match="geometry/library"):
+            run_student_matrix.main()
+        assert len(calls) == 1
+        return
+    run_student_matrix.main()
+    data = json.loads((output / "student_summary.json").read_text())
+    assert len(calls) == 6 and data["aggregate"]["rtfs"] == [.99]*5
+    assert data["complete"] and data["native_files_unchanged"] and data["student_assets_unchanged"]
+    assert data["profile_head_attn_operator"][0]["calls"] == 2261

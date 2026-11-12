@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import os
 import statistics
 import subprocess
 import sys
@@ -20,6 +21,7 @@ def main():
     parser.add_argument("--prefetch", type=int, choices=[0, 64, 128, 256], default=0)
     parser.add_argument("--baseline-manifest", type=Path)
     parser.add_argument("--baseline-manifest-sha256")
+    parser.add_argument("--head-integrated-confirm", action="store_true")
     parser.add_argument("--head-v32-comparison", action="store_true")
     parser.add_argument("--ar-depth-comparison", action="store_true")
     parser.add_argument("--decoder-only", action="store_true")
@@ -35,6 +37,17 @@ def main():
     parser.add_argument("--fft-output-tiles-comparison", action="store_true")
     parser.add_argument("--decoder-candidate-label", choices=["R", "U", "V"], default="R")
     args = parser.parse_args()
+    if args.head_integrated_confirm and (
+        args.baseline_manifest or args.warmups != 3 or args.samples != 5
+        or any((args.decoder_only, args.decoder_ar_int8, args.ar_int8_comparison,
+                args.ar_int8_confirm_only, args.fft_half_comparison,
+                args.fft_half_stream_comparison, args.alternating_decoder_comparison,
+                args.packed_prefill_comparison, args.int8_prefill_comparison,
+                args.diagnostic_profile_only, args.fft_output_tiles_comparison,
+                args.head_v32_comparison, args.ar_depth_comparison))
+        or args.decoder_candidate_label != "R"
+    ):
+        parser.error("Integrated head confirmation requires one approved model, isolated3warm5sample")
     if args.ar_depth_comparison and (
         not args.baseline_manifest or args.warmups != 3 or args.samples != 5
         or any((args.decoder_only, args.decoder_ar_int8, args.ar_int8_comparison,
@@ -268,6 +281,7 @@ def main():
                 args.diagnostic_profile_only
                 or args.ar_depth_comparison
                 or args.head_v32_comparison
+                or args.head_integrated_confirm
                 or args.decoder_candidate_label in ("U", "V")
                 or args.int8_prefill_comparison
                 or args.fft_output_tiles_comparison
@@ -485,7 +499,7 @@ def main():
                 for r in data["runs"]
             ),
         }
-        if args.head_v32_comparison and not (
+        if (args.head_v32_comparison or args.head_integrated_confirm) and not (
             row["local_approved_pcm_match"] and row["local_approved_generated_tokens_match"]
             and all(r["audio_seconds"] == run_cases[language]["audio_seconds"] for r in data["runs"])
         ):
@@ -537,6 +551,59 @@ def main():
         save()
         if not summary["student_assets_unchanged"]:
             raise RuntimeError("Private diagnostic assets changed")
+        return
+    if args.head_integrated_confirm:
+        summary["scope"] = (
+            "Actual N1 canonical integrated dim32 head-value scheduling confirmation; "
+            "five fresh processes, each3excluded warmups+1sample; separate excluded profile. "
+            "Independent confirmation, not a new causal paired speed estimate."
+        )
+        summary["prefetch_selection"] = "No tuning; one unchanged owner-approved AR/decoder bundle"
+        paths = [Path(os.environ.get(key, str(Path(__file__).resolve().parents[1] / name)))
+                 for key, name in (("CPUFAST_AR_LIBRARY", "libcpufast_ar_torch.so"),
+                                   ("CPUFAST_FAST_LIBRARY", "libcpufast_fast.so"))]
+        paths += [p.with_suffix(p.suffix + ".json") for p in paths]
+        summary["native_files_before"] = {p.name: sha256(p) for p in paths}
+        records = []
+        for index in range(5):
+            data, row = run("ko", f"integrated_head_{index}", distance=256,
+                            combined=True, ar_int8_only=True, measured_samples=1)
+            geometry = data["ar_coefficient_audit"].get("head_geometry", [])
+            schedule = data["ar_runtime_library_manifest"].get("head_value_schedule", {})
+            if (len(geometry) != manifest["ar_layers"]
+                or [r["block"] for r in geometry] != list(range(manifest["ar_layers"]))
+                or any(r["dim"] != 32 or r["heads"] != 16 for r in geometry)
+                or schedule.get("dim32") != "eight_independent_vectors_preserve_token_FMA_order"
+                or data.get("head_v32")):
+                raise RuntimeError("Integrated canonical schedule/geometry/library audit failed")
+            records.append((data["runs"][0], row))
+        summary["aggregate"] = {
+            "samples": 5, "rtfs": [r[0]["rtf"] for r in records],
+            "median_rtf": statistics.median(r[0]["rtf"] for r in records),
+            "rtf_range": [min(r[0]["rtf"] for r in records), max(r[0]["rtf"] for r in records)],
+            "median_seconds": statistics.median(r[1]["median_seconds"] for r in records),
+            "median_cpu_seconds": statistics.median(r[0]["cpu_seconds"] for r in records),
+            "median_stages": {k: statistics.median(r[0]["stages"][k] for r in records)
+                              for k in records[0][0]["stages"]},
+            "audio_seconds": records[0][0]["audio_seconds"],
+            "semantic": records[0][0]["semantic"], "pcm_sha256": records[0][0]["pcm_sha256"],
+            "peak_sampled_tree_rss_bytes": max(r[1]["peak_sampled_tree_rss_bytes"] for r in records),
+        }
+        _, row = run("ko", "integrated_head_profile_run", distance=256,
+                     combined=True, ar_int8_only=True, profile=True,
+                     compare=args.output / "ko_integrated_head_4.wav")
+        ops = json.loads((args.output / "ko_student_profile_ops.json").read_text())["operators"]
+        summary["profile_head_attn_operator"] = [r for r in ops if r["name"] == "cpufast_cpp::head_attn"]
+        if not (row["candidate_pcm_exact_to_n1_student"] and summary["profile_head_attn_operator"]
+                and all(r["calls"] > 0 for r in summary["profile_head_attn_operator"])):
+            raise RuntimeError("Integrated head canonical operator did not execute or PCM changed")
+        summary["native_files_after"] = {p.name: sha256(p) for p in paths}
+        summary["native_files_unchanged"] = summary["native_files_before"] == summary["native_files_after"]
+        summary["student_assets_unchanged"] = before == snapshot(args.manifest)
+        summary["complete"] = True
+        save()
+        if not (summary["native_files_unchanged"] and summary["student_assets_unchanged"]):
+            raise RuntimeError("Integrated head confirmation changed models/libraries")
         return
     if args.ar_depth_comparison:
         summary["scope"] = (
