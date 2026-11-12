@@ -1,0 +1,168 @@
+{
+  "transport": "Direct SSH under exclusive host mutex; no Actions dispatch",
+  "source_sha": "73780c6820b0832ce0765ca80e14a780b17c0490",
+  "source_archive_sha256": "05f2ffb5d55c32036a5a755b0741dc938061f0516d32231b2b66fe709e5e96a9",
+  "remote_checkout": "/home/ubuntu/gpt-sovits-benchmark/ssh-v-73780c6-20261112",
+  "image_id": "sha256:23eb9b78c3c75319c99172766f94bba4faa8cffe05f8765ce4b33a3c34bb989b",
+  "L_manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+  "V_manifest_sha256": "def34d8555ea01c87091547fccbd27aa8a3bd33e8b6bbebb0df62095004c5d7c",
+  "shared_AR_sha256": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+  "V_decoder_sha256": "7d4c184c638b09880a7e61b088b999542598644d22166e84e32137c5649b9524",
+  "V_spec_sha256": "cb411065f3e69c2725791fc00272940589c309a67bd5122abcd26499cfde6a16",
+  "not_V_recovery100": true,
+  "new_runtime_options_enabled": false,
+  "actual_AR_blocks_all_processes": 18,
+  "all_integrity_resource_guards_pass": true,
+  "profile_exact_to_unprofiled": true,
+  "median_rtf_fraction_change": -0.08708570611697763,
+  "median_decoder_fraction_change": -0.13577564015697363,
+  "median_unchanged_AR_fraction_change": 0.024076136038972518,
+  "sub1_rtf_achieved": false,
+  "observations": [
+    {
+      "name": "ko_paired_0_L.json",
+      "model": "L",
+      "pcm_sha256": "0269c2ff38ef266552fb60743ff958a0376018280afa2197ef8bf01363069907",
+      "actual_ar_blocks": 18,
+      "rtf": 1.133042864456951,
+      "ar_seconds": 1.8798152711242437,
+      "decoder_seconds": 3.4251812919974327
+    },
+    {
+      "name": "ko_paired_0_V.json",
+      "model": "V",
+      "pcm_sha256": "a22718077e84fb8d44874f9792503283d132734df5bc3b5fbfb57d145164f1f5",
+      "actual_ar_blocks": 18,
+      "rtf": 1.1014166532967433,
+      "ar_seconds": 1.9401853773742914,
+      "decoder_seconds": 3.2071801777929068
+    },
+    {
+      "name": "ko_paired_1_L.json",
+      "model": "L",
+      "pcm_sha256": "0269c2ff38ef266552fb60743ff958a0376018280afa2197ef8bf01363069907",
+      "actual_ar_blocks": 18,
+      "rtf": 1.1606681435201986,
+      "ar_seconds": 1.8903725910931826,
+      "decoder_seconds": 3.355294769629836
+    },
+    {
+      "name": "ko_paired_1_V.json",
+      "model": "V",
+      "pcm_sha256": "a22718077e84fb8d44874f9792503283d132734df5bc3b5fbfb57d145164f1f5",
+      "actual_ar_blocks": 18,
+      "rtf": 1.0543880813506497,
+      "ar_seconds": 1.9580564815551043,
+      "decoder_seconds": 2.9466463830322027
+    },
+    {
+      "name": "ko_paired_2_L.json",
+      "model": "L",
+      "pcm_sha256": "0269c2ff38ef266552fb60743ff958a0376018280afa2197ef8bf01363069907",
+      "actual_ar_blocks": 18,
+      "rtf": 1.144736972210773,
+      "ar_seconds": 1.9120223708450794,
+      "decoder_seconds": 3.4606501292437315
+    },
+    {
+      "name": "ko_paired_2_V.json",
+      "model": "V",
+      "pcm_sha256": "a22718077e84fb8d44874f9792503283d132734df5bc3b5fbfb57d145164f1f5",
+      "actual_ar_blocks": 18,
+      "rtf": 1.0497843969123535,
+      "ar_seconds": 1.9022981245070696,
+      "decoder_seconds": 2.9907781425863504
+    },
+    {
+      "name": "ko_paired_3_L.json",
+      "model": "L",
+      "pcm_sha256": "0269c2ff38ef266552fb60743ff958a0376018280afa2197ef8bf01363069907",
+      "actual_ar_blocks": 18,
+      "rtf": 1.1610887707229631,
+      "ar_seconds": 1.9544575605541468,
+      "decoder_seconds": 3.498090511187911
+    },
+    {
+      "name": "ko_paired_3_V.json",
+      "model": "V",
+      "pcm_sha256": "a22718077e84fb8d44874f9792503283d132734df5bc3b5fbfb57d145164f1f5",
+      "actual_ar_blocks": 18,
+      "rtf": 1.094754135599768,
+      "ar_seconds": 1.9946578983217478,
+      "decoder_seconds": 3.109019372612238
+    },
+    {
+      "name": "ko_paired_4_L.json",
+      "model": "L",
+      "pcm_sha256": "0269c2ff38ef266552fb60743ff958a0376018280afa2197ef8bf01363069907",
+      "actual_ar_blocks": 18,
+      "rtf": 1.1879513218286504,
+      "ar_seconds": 2.0764565020799637,
+      "decoder_seconds": 3.4889249932020903
+    },
+    {
+      "name": "ko_paired_4_V.json",
+      "model": "V",
+      "pcm_sha256": "a22718077e84fb8d44874f9792503283d132734df5bc3b5fbfb57d145164f1f5",
+      "actual_ar_blocks": 18,
+      "rtf": 1.0595905386742606,
+      "ar_seconds": 2.0569442957639694,
+      "decoder_seconds": 2.8775147385895252
+    }
+  ],
+  "paired_ratios": [
+    {
+      "pair": 0,
+      "rtf_candidate_over_L": 0.9720873656661122,
+      "decoder_candidate_over_L": 0.9363534085877843
+    },
+    {
+      "pair": 1,
+      "rtf_candidate_over_L": 0.9084319986183033,
+      "decoder_candidate_over_L": 0.8782079028356974
+    },
+    {
+      "pair": 2,
+      "rtf_candidate_over_L": 0.9170529321551987,
+      "decoder_candidate_over_L": 0.8642243598430264
+    },
+    {
+      "pair": 3,
+      "rtf_candidate_over_L": 0.9428685930000932,
+      "decoder_candidate_over_L": 0.8887761373436992
+    },
+    {
+      "pair": 4,
+      "rtf_candidate_over_L": 0.8919477753037893,
+      "decoder_candidate_over_L": 0.8247568360443827
+    }
+  ],
+  "interpretation": "Credible decoder gain: all five paired decoder observations improve and unchanged AR median worsens. Owner-approved V400 is faster than L; RTF1 has not yet been reached. Final adoption/integration belongs to main. No W/FP16/row8/NEON/tile4 mixing.",
+  "raw_files": {
+    "ko_bottleneck_profile_run.json": "29a177017be7abb4fe4526dcfb243d52e0fd6e55752ab163253c07f3c479cbbe",
+    "ko_bottleneck_profile_run_guard.json": "51d98f66df3ed2bffbae7d1074556a98cdc30d2515ad9b33e3c1e449c27e5e90",
+    "ko_paired_0_L.json": "060ef8b391a8c1852ac0939069b48169bc9760abefad77feec8df7862fdf20d9",
+    "ko_paired_0_L_guard.json": "1b0d51b29d64471c6ffbab71e728a8ebf5c3452d65fc2e4cb57184a6520543fb",
+    "ko_paired_0_V.json": "de531ac59a3d440b701e2e4d60e95d352e77172c5876c00dda2c3a5f5895a249",
+    "ko_paired_0_V_guard.json": "baa57408b6093b6b5895ddbffff81c1b87a34f8ff81f83b25e106ee9df838571",
+    "ko_paired_1_L.json": "3322bae9f6f32ad55735b9cf2d02f36950ce29e1966ddfaa95ac0744b703b1e3",
+    "ko_paired_1_L_guard.json": "7940897d3be79134876cc101a95f5b1d8513d5073f8adbd19572efcbfd1f1a87",
+    "ko_paired_1_V.json": "fb08beb834a28203db8ce63fe71fcc2b8429685d05126572c0a9548c897f547a",
+    "ko_paired_1_V_guard.json": "011402dd6a45d0a428808d00e046b43d4f706d47907e290ea691d2c5537b383e",
+    "ko_paired_2_L.json": "e73cf36ed1f26d9c7938cfb0fcba4f331e14e7216f1c0fdee7c908750f8da1db",
+    "ko_paired_2_L_guard.json": "4e2996813e2f5711173986bd4845877e6603326b8ce6a325e8e23c1038070fc0",
+    "ko_paired_2_V.json": "4caaec603f1d00afe8b8c722d07ac02385fdcfc69291b980a485c0035e831c72",
+    "ko_paired_2_V_guard.json": "89ef7cf0fa7ddb1277cabd341fade7ef054bfb4d0fb89465e0a4c395d9c33682",
+    "ko_paired_3_L.json": "c15fa9855f5f2050cf63febd998361dd307ca02a71e833333638cb05914ddc83",
+    "ko_paired_3_L_guard.json": "8e257ae502c93ae300cb6a3ba4310da75716070d9650024f63ac3f75fd7251c5",
+    "ko_paired_3_V.json": "ede93f244d9b1764fd0380e343ca4916af3d9f7a0cfa787b52fbe15f5d5f45ff",
+    "ko_paired_3_V_guard.json": "25b5864a04efb55effff55ec7ad5aea9cb0f0cf97909d82108e8b06ed5b5e83d",
+    "ko_paired_4_L.json": "b0990375c0cf614cb8e9d50ff4423ce97728fcb89724f1e69fd90928f5b7ec53",
+    "ko_paired_4_L_guard.json": "7694decb554129fa99e70a721e977d5cd5aaa66ed89623dfb633ef3532d7f880",
+    "ko_paired_4_V.json": "7ad6930123498ea942bd7c801b14be8e06074f097c2290a2aa87a382d695fa01",
+    "ko_paired_4_V_guard.json": "4a56bea08b83abe59d15d81c276d726eecf8ec531207c203c0adfea9350e0d50",
+    "ko_student_profile_ops.json": "deb6bfacaa76a3fe4b72ce87dd11b21cb43089b5ce99486d15d8fad59d89dd69",
+    "profile_geometry.json": "4c4df826eeb2e680adbd58c806665653d3bcdd3e87063e24c18edd52ffb0c50a",
+    "student_summary.json": "878a2776270840b6a3d653a981726b5e4f8d76986a6d0d2b03493e3fa2a48438"
+  }
+}
