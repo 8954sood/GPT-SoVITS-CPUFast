@@ -1,0 +1,1 @@
+{"OMP_WAIT_POLICY": "ACTIVE", "GOMP_SPINCOUNT": "10000", "LD_PRELOAD": "/build/native/libgsv_mimalloc.so", "OMP_NUM_THREADS": "2", "OPENBLAS_NUM_THREADS": "2"}

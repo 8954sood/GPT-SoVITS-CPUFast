@@ -1,0 +1,423 @@
+{
+  "complete": true,
+  "scope": "Actual Neoverse N1 temporary localhost sentence-stream API, native32k mono PCM16, same two sentences/seeds42,43/full reference; request-start through complete-response latency included. No extra pacing/padding/audio output files.",
+  "source_commit": "139eaef0cf1b16f2b7f8ae5dcee721f75fe8e8c9",
+  "production_parent": "94f492f",
+  "model_manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+  "protocol": {
+    "main_process": {
+      "excluded_warmups": 3,
+      "measured_samples": 5
+    },
+    "independent_processes": 5,
+    "each_independent": {
+      "excluded_warmups": 3,
+      "measured_samples": 1
+    },
+    "actual_HTTP_requests": 28,
+    "excluded_target_warmup_requests": 18,
+    "measured_target_requests": 10,
+    "target_sentence_syntheses": 56,
+    "additional_registration_JA_warmup_syntheses": 6,
+    "total_syntheses_confirmed_in_server_logs": 62,
+    "log_seed_counts": {
+      "main": {
+        "42": 9,
+        "43": 8
+      },
+      "fresh1": {
+        "42": 5,
+        "43": 4
+      },
+      "fresh2": {
+        "42": 5,
+        "43": 4
+      },
+      "fresh3": {
+        "42": 5,
+        "43": 4
+      },
+      "fresh4": {
+        "42": 5,
+        "43": 4
+      },
+      "fresh5": {
+        "42": 5,
+        "43": 4
+      }
+    }
+  },
+  "all_10_measured_client_response_RTF_at_most_one": true,
+  "main_RTF": [
+    0.9363701028060021,
+    0.9571637257962949,
+    0.9656979863744551,
+    0.9548239659254006,
+    0.9873725847876448
+  ],
+  "independent_RTF": [
+    0.9525380731655622,
+    0.9537777856109649,
+    0.9596576763859649,
+    0.956887407888343,
+    0.9532330451371867
+  ],
+  "combined_RTF": {
+    "min": 0.9363701028060021,
+    "median": 0.9558556869068718,
+    "max": 0.9873725847876448
+  },
+  "all_observations_including_excluded_warmups_preserved": true,
+  "excluded_warmup_RTF": [
+    0.983474970113222,
+    0.9592018918845597,
+    0.9629943019409818,
+    0.9805087715123347,
+    0.9477951197232317,
+    0.9511085883457595,
+    0.9729498685667599,
+    0.9564721868850115,
+    0.9782891496869288,
+    0.9984815779222748,
+    0.9585112886958,
+    0.9417167230413889,
+    0.981785562329405,
+    0.9348256634474974,
+    0.9503598251622023,
+    0.9726255945128015,
+    0.9512013590740641,
+    0.9515932046140977
+  ],
+  "client_first_PCM_seconds": {
+    "min": 1.9305359423160553,
+    "median": 2.1041453955695033,
+    "max": 2.1775280945003033
+  },
+  "client_last_PCM_seconds": {
+    "min": 4.756003275513649,
+    "median": 4.85508868470788,
+    "max": 5.015746250748634
+  },
+  "client_response_complete_seconds": {
+    "min": 4.756760122254491,
+    "median": 4.855746889486909,
+    "max": 5.015852730721235
+  },
+  "required_extra_initial_buffer_seconds": {
+    "min": 0.6750980546325445,
+    "median": 0.6930718613415956,
+    "max": 0.8533200384676456
+  },
+  "playback_limit": "RTF includes initial latency, but sentence-granularity synthesis still needs the reported additional initial playback buffer after first PCM to avoid the observed inter-sentence starvation. This is not zero-gap token streaming.",
+  "fixed_audio": {
+    "sample_rate": 32000,
+    "channels": 1,
+    "format": "s16le",
+    "seconds": 5.08,
+    "bytes": 325120,
+    "pcm_sha256": "a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d",
+    "segment_native_pcm_sha256": [
+      "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+      "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a"
+    ],
+    "semantic_tokens": [
+      44,
+      68
+    ]
+  },
+  "all_models_native_DSOs_and_original_inputs_unchanged": true,
+  "actual_AR_dispatch": "compiled_methods_eager_fp32_order",
+  "actual_AR_blocks": 17,
+  "actual_decoder_residual_blocks": 11,
+  "runtime_options_not_adopted": [
+    "Tap epilogue probe",
+    "NEON quantization probe",
+    "FFN2 row8 probe",
+    "packed4 probe",
+    "FFT128/QK4",
+    "alternative OMP spin/passive/affinity/system-libgomp preload"
+  ],
+  "resource_limits": {
+    "cpu.max": "200000 100000",
+    "memory.max": "8000000000",
+    "memory.swap.max": "0"
+  },
+  "peak_sampled_process_tree_RSS_bytes": 4915159040,
+  "server_RSS_series": {
+    "main": [
+      {
+        "role": "warmup",
+        "before_bytes": 4742451200,
+        "after_bytes": 4827783168
+      },
+      {
+        "role": "warmup",
+        "before_bytes": 4827783168,
+        "after_bytes": 4847423488
+      },
+      {
+        "role": "warmup",
+        "before_bytes": 4847423488,
+        "after_bytes": 4848689152
+      },
+      {
+        "role": "sample",
+        "before_bytes": 4848689152,
+        "after_bytes": 4848689152
+      },
+      {
+        "role": "sample",
+        "before_bytes": 4848689152,
+        "after_bytes": 4848705536
+      },
+      {
+        "role": "sample",
+        "before_bytes": 4848705536,
+        "after_bytes": 4857339904
+      },
+      {
+        "role": "sample",
+        "before_bytes": 4857339904,
+        "after_bytes": 4857344000
+      },
+      {
+        "role": "sample",
+        "before_bytes": 4857344000,
+        "after_bytes": 4858187776
+      }
+    ],
+    "fresh1": [
+      {
+        "role": "warmup",
+        "before_bytes": 4738416640,
+        "after_bytes": 4822761472
+      },
+      {
+        "role": "warmup",
+        "before_bytes": 4822761472,
+        "after_bytes": 4847140864
+      },
+      {
+        "role": "warmup",
+        "before_bytes": 4847140864,
+        "after_bytes": 4847599616
+      },
+      {
+        "role": "sample",
+        "before_bytes": 4847599616,
+        "after_bytes": 4854558720
+      }
+    ],
+    "fresh2": [
+      {
+        "role": "warmup",
+        "before_bytes": 4717445120,
+        "after_bytes": 4801789952
+      },
+      {
+        "role": "warmup",
+        "before_bytes": 4801789952,
+        "after_bytes": 4826157056
+      },
+      {
+        "role": "warmup",
+        "before_bytes": 4826157056,
+        "after_bytes": 4826619904
+      },
+      {
+        "role": "sample",
+        "before_bytes": 4826619904,
+        "after_bytes": 4833579008
+      }
+    ],
+    "fresh3": [
+      {
+        "role": "warmup",
+        "before_bytes": 4696866816,
+        "after_bytes": 4810444800
+      },
+      {
+        "role": "warmup",
+        "before_bytes": 4810444800,
+        "after_bytes": 4829900800
+      },
+      {
+        "role": "warmup",
+        "before_bytes": 4829900800,
+        "after_bytes": 4830552064
+      },
+      {
+        "role": "sample",
+        "before_bytes": 4830552064,
+        "after_bytes": 4832821248
+      }
+    ],
+    "fresh4": [
+      {
+        "role": "warmup",
+        "before_bytes": 4726222848,
+        "after_bytes": 4842926080
+      },
+      {
+        "role": "warmup",
+        "before_bytes": 4842926080,
+        "after_bytes": 4861894656
+      },
+      {
+        "role": "warmup",
+        "before_bytes": 4861894656,
+        "after_bytes": 4862148608
+      },
+      {
+        "role": "sample",
+        "before_bytes": 4862148608,
+        "after_bytes": 4864208896
+      }
+    ],
+    "fresh5": [
+      {
+        "role": "warmup",
+        "before_bytes": 4738371584,
+        "after_bytes": 4822712320
+      },
+      {
+        "role": "warmup",
+        "before_bytes": 4822712320,
+        "after_bytes": 4847083520
+      },
+      {
+        "role": "warmup",
+        "before_bytes": 4847083520,
+        "after_bytes": 4847542272
+      },
+      {
+        "role": "sample",
+        "before_bytes": 4847542272,
+        "after_bytes": 4854505472
+      }
+    ]
+  },
+  "stage_observations": [
+    {
+      "process": "main",
+      "client_complete_seconds": 4.756760122254491,
+      "AR_seconds": 1.7760405708104372,
+      "native_inference_seconds": 4.739412533119321,
+      "native_non_AR_seconds": 2.9633719623088837,
+      "adapter_total_seconds": 4.751301473006606,
+      "outside_reported_adapter_body_seconds": 0.00545864924788475
+    },
+    {
+      "process": "main",
+      "client_complete_seconds": 4.862391727045178,
+      "AR_seconds": 1.9175713546574116,
+      "native_inference_seconds": 4.844580775126815,
+      "native_non_AR_seconds": 2.9270094204694033,
+      "adapter_total_seconds": 4.857262441888452,
+      "outside_reported_adapter_body_seconds": 0.005129285156726837
+    },
+    {
+      "process": "main",
+      "client_complete_seconds": 4.905745770782232,
+      "AR_seconds": 1.9434382934123278,
+      "native_inference_seconds": 4.888626946136355,
+      "native_non_AR_seconds": 2.9451886527240276,
+      "adapter_total_seconds": 4.9004037622362375,
+      "outside_reported_adapter_body_seconds": 0.005342008545994759
+    },
+    {
+      "process": "main",
+      "client_complete_seconds": 4.850505746901035,
+      "AR_seconds": 1.8361184373497963,
+      "native_inference_seconds": 4.831343585625291,
+      "native_non_AR_seconds": 2.9952251482754946,
+      "adapter_total_seconds": 4.84512409940362,
+      "outside_reported_adapter_body_seconds": 0.005381647497415543
+    },
+    {
+      "process": "main",
+      "client_complete_seconds": 5.015852730721235,
+      "AR_seconds": 1.8569284118711948,
+      "native_inference_seconds": 4.998866951093078,
+      "native_non_AR_seconds": 3.141938539221883,
+      "adapter_total_seconds": 5.0110186114907265,
+      "outside_reported_adapter_body_seconds": 0.004834119230508804
+    },
+    {
+      "process": "fresh1",
+      "client_complete_seconds": 4.838893411681056,
+      "AR_seconds": 1.7906031422317028,
+      "native_inference_seconds": 4.815942982211709,
+      "native_non_AR_seconds": 3.025339839980006,
+      "adapter_total_seconds": 4.832932084798813,
+      "outside_reported_adapter_body_seconds": 0.005961326882243156
+    },
+    {
+      "process": "fresh2",
+      "client_complete_seconds": 4.845191150903702,
+      "AR_seconds": 1.7532634511590004,
+      "native_inference_seconds": 4.8247614204883575,
+      "native_non_AR_seconds": 3.071497969329357,
+      "adapter_total_seconds": 4.840123390778899,
+      "outside_reported_adapter_body_seconds": 0.005067760124802589
+    },
+    {
+      "process": "fresh3",
+      "client_complete_seconds": 4.875060996040702,
+      "AR_seconds": 1.764001738280058,
+      "native_inference_seconds": 4.858018089085817,
+      "native_non_AR_seconds": 3.0940163508057594,
+      "adapter_total_seconds": 4.87003955617547,
+      "outside_reported_adapter_body_seconds": 0.005021439865231514
+    },
+    {
+      "process": "fresh4",
+      "client_complete_seconds": 4.8609880320727825,
+      "AR_seconds": 1.930905096232891,
+      "native_inference_seconds": 4.843654362484813,
+      "native_non_AR_seconds": 2.9127492662519217,
+      "adapter_total_seconds": 4.855658262968063,
+      "outside_reported_adapter_body_seconds": 0.005329769104719162
+    },
+    {
+      "process": "fresh5",
+      "client_complete_seconds": 4.842423869296908,
+      "AR_seconds": 1.7567979916930199,
+      "native_inference_seconds": 4.824555682018399,
+      "native_non_AR_seconds": 3.0677576903253794,
+      "adapter_total_seconds": 4.837684227153659,
+      "outside_reported_adapter_body_seconds": 0.004739642143249512
+    }
+  ],
+  "median_direct_HTTP_stage_seconds": {
+    "client_complete_seconds": 4.855746889486909,
+    "AR_seconds": 1.8133607897907495,
+    "native_inference_seconds": 4.837498974055052,
+    "native_non_AR_seconds": 3.0102824941277504,
+    "adapter_total_seconds": 4.850391181185842,
+    "outside_reported_adapter_body_seconds": 0.005229527130723
+  },
+  "stage_scope_limit": "Final HTTP reports directly time AR and total native inference only. native_non_AR_seconds includes frontend, acoustic latent/decoder, audio postprocess and cleanup; it is not a direct decoder-only timer.",
+  "separate_excluded_adapter_stage_probe": {
+    "source": "e20e8f5",
+    "samples": 3,
+    "same_expected_audio": true,
+    "median_seconds_per_two_sentences": {
+      "student_decoder_seconds": 2.728701489046216,
+      "acoustic_latent_seconds": 0.23347056098282337,
+      "target_frontend_seconds": 0.04343540593981743,
+      "empty_cache_seconds": 0.0005011651664972305,
+      "ar_prefill_seconds": 0.845598928630352,
+      "ar_decode_seconds": 0.8110407162457705
+    },
+    "not_final_HTTP_timing": true
+  },
+  "cleanup": {
+    "all_6_servers_gracefully_stopped": true,
+    "active_benchmark_containers": [],
+    "host_lock_available": true,
+    "styles_deleted_and_empty": true,
+    "public_host_port_opened": false,
+    "deployed": false
+  }
+}

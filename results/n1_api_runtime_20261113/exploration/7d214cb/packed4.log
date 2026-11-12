@@ -1,0 +1,62 @@
+In file included from /usr/include/c++/12/bits/alloc_traits.h:33,
+                 from /usr/include/c++/12/ext/alloc_traits.h:34,
+                 from /usr/include/c++/12/unordered_map:41,
+                 from /usr/include/c++/12/functional:61,
+                 from /opt/venv/lib/python3.12/site-packages/torch/include/c10/core/DeviceType.h:12,
+                 from /opt/venv/lib/python3.12/site-packages/torch/include/c10/core/Device.h:3,
+                 from /opt/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:11,
+                 from /opt/venv/lib/python3.12/site-packages/torch/include/ATen/core/Tensor.h:3,
+                 from /repo/native/cpufast_int8_packed4_probe.cpp:2:
+In function ‘void std::_Construct(_Tp*, _Args&& ...) [with _Tp = signed char; _Args = {}]’,
+    inlined from ‘static _ForwardIterator std::__uninitialized_default_n_1<true>::__uninit_default_n(_ForwardIterator, _Size) [with _ForwardIterator = signed char*; _Size = long unsigned int]’ at /usr/include/c++/12/bits/stl_uninitialized.h:661:23,
+    inlined from ‘static _ForwardIterator std::__uninitialized_default_n_1<true>::__uninit_default_n(_ForwardIterator, _Size) [with _ForwardIterator = signed char*; _Size = long unsigned int]’ at /usr/include/c++/12/bits/stl_uninitialized.h:655:9,
+    inlined from ‘_ForwardIterator std::__uninitialized_default_n(_ForwardIterator, _Size) [with _ForwardIterator = signed char*; _Size = long unsigned int]’ at /usr/include/c++/12/bits/stl_uninitialized.h:701:20,
+    inlined from ‘_ForwardIterator std::__uninitialized_default_n_a(_ForwardIterator, _Size, allocator<_Tp>&) [with _ForwardIterator = signed char*; _Size = long unsigned int; _Tp = signed char]’ at /usr/include/c++/12/bits/stl_uninitialized.h:766:44,
+    inlined from ‘void std::vector<_Tp, _Alloc>::_M_default_initialize(size_type) [with _Tp = signed char; _Alloc = std::allocator<signed char>]’ at /usr/include/c++/12/bits/stl_vector.h:1713:36,
+    inlined from ‘std::vector<_Tp, _Alloc>::vector(size_type, const allocator_type&) [with _Tp = signed char; _Alloc = std::allocator<signed char>]’ at /usr/include/c++/12/bits/stl_vector.h:553:30,
+    inlined from ‘at::Tensor arq_packed4(const at::Tensor&, const at::Tensor&, const at::Tensor&, const at::Tensor&)’ at /repo/native/cpufast_int8_packed4_probe.cpp:40:25:
+/usr/include/c++/12/bits/stl_construct.h:119:7: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+  119 |       ::new((void*)__p) _Tp(std::forward<_Args>(__args)...);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/aarch64-linux-gnu/c++/12/bits/c++allocator.h:33,
+                 from /usr/include/c++/12/bits/allocator.h:46,
+                 from /usr/include/c++/12/unordered_map:40:
+In member function ‘_Tp* std::__new_allocator<_Tp>::allocate(size_type, const void*) [with _Tp = signed char]’,
+    inlined from ‘static _Tp* std::allocator_traits<std::allocator<_Tp1> >::allocate(allocator_type&, size_type) [with _Tp = signed char]’ at /usr/include/c++/12/bits/alloc_traits.h:464:28,
+    inlined from ‘std::_Vector_base<_Tp, _Alloc>::pointer std::_Vector_base<_Tp, _Alloc>::_M_allocate(std::size_t) [with _Tp = signed char; _Alloc = std::allocator<signed char>]’ at /usr/include/c++/12/bits/stl_vector.h:378:33,
+    inlined from ‘void std::_Vector_base<_Tp, _Alloc>::_M_create_storage(std::size_t) [with _Tp = signed char; _Alloc = std::allocator<signed char>]’ at /usr/include/c++/12/bits/stl_vector.h:395:44,
+    inlined from ‘std::_Vector_base<_Tp, _Alloc>::_Vector_base(std::size_t, const allocator_type&) [with _Tp = signed char; _Alloc = std::allocator<signed char>]’ at /usr/include/c++/12/bits/stl_vector.h:332:26,
+    inlined from ‘std::vector<_Tp, _Alloc>::vector(size_type, const allocator_type&) [with _Tp = signed char; _Alloc = std::allocator<signed char>]’ at /usr/include/c++/12/bits/stl_vector.h:552:47,
+    inlined from ‘at::Tensor arq_packed4(const at::Tensor&, const at::Tensor&, const at::Tensor&, const at::Tensor&)’ at /repo/native/cpufast_int8_packed4_probe.cpp:40:25:
+/usr/include/c++/12/bits/new_allocator.h:137:55: note: destination object of size 0 allocated by ‘operator new’
+  137 |         return static_cast<_Tp*>(_GLIBCXX_OPERATOR_NEW(__n * sizeof(_Tp)));
+      |                                                       ^
+[('hot_actual_FFN2', 0.8943130639988034), ('rotating17layers_FFN2_only', 0.8299107866084945), ('rotating17layers_all4_GEMV', 0.8549209100121904)]
+{
+  "command": [
+    "python",
+    "experiments/rtf07/bench_int8_packed4.py",
+    "--library",
+    "/repo/libcpufast_int8_packed4_probe.so",
+    "--ar-checkpoint",
+    "/student/ar.pt",
+    "--ar-sha256",
+    "a25ae9826d4d608ca41adca04075ff75a5ac66ababa0e823da60b7990f354352",
+    "--output",
+    "/repo/ci-results/packed4_primitive.json"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 632709120,
+  "kernel_child_peak_rss_bytes": 633344000,
+  "cpu_seconds": 4.999047,
+  "elapsed_seconds": 4.477921973913908,
+  "average_cpu_cores": 1.1163765311503642,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 425,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}

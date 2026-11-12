@@ -1,0 +1,72 @@
+{
+  "source_commit": "139eaef0cf1b16f2b7f8ae5dcee721f75fe8e8c9",
+  "source_archive_sha256": "04ebaf96366d4195bd1573d6d6fdb1852a3b4ebaf0a9ccf2a05478bd11f5a245",
+  "parent_production_commit": "94f492fae9695ce523e96383470af130c5f1c97b",
+  "production_source_files_equal_parent_94f492f": true,
+  "production_source_files_sha256": {
+    "cpufast_server_engine.py": "629627455d8511761414b21c3576e0a3a48515e843e69b9e886f291f1b9761b4",
+    "cpufast_script_ar.py": "40184606e436f159c8a737f7856ae9b82e91d80c4e94c49b77330a08cabca6be",
+    "cpufast_fast_ar.py": "dff2387facef8c50fa1c32fdf568eca0f0f1740b5c43a1a5300b90fa278653e7",
+    "cpufast_kv_cache.py": "17dd9f3e95811257cc4ff1cc9f1512a77d7ae079264b2b534e0ae2f8b159039e",
+    "cpufast_ar_cpp.py": "6b974921f0c218f63b3525a4f287783f4f88dabc38efeb7f00d8044941ced977",
+    "GPT_SoVITS/AR/models/t2s_model.py": "ff13c40dda213cdefeeba9610dcad6deaddc7dbc54d55691c52203866d3a4eed",
+    "server.py": "6dc64661c23e9d4c6159e5cf34e5b1e295789d67cd7df5cb40715a5fe107fcbc",
+    "style_store.py": "b3c2233713ca91c224e5b2885dbbad26363f95056d86e852e6abb4dad13db1a0",
+    "streaming_audio.py": "f8fb487d6c7926b42bc83644ca821869048e98d06b1445f1e766a3f4127e4e4c",
+    "scripts/measure_streaming_api.py": "fbe1e50d68b9ec075e7beef7e8a1295c95cd7bb0040677453a7aa131c1a15679"
+  },
+  "image_id": "sha256:23eb9b78c3c75319c99172766f94bba4faa8cffe05f8765ce4b33a3c34bb989b",
+  "transport": "Direct SSH; exclusive host flock; one model process at a time; no Actions dispatch/deployment",
+  "environment": {
+    "OMP_WAIT_POLICY": "ACTIVE",
+    "GOMP_SPINCOUNT": "100000",
+    "OMP_NUM_THREADS": "2",
+    "OPENBLAS_NUM_THREADS": "2",
+    "LD_PRELOAD": "/build/native/libgsv_mimalloc.so"
+  },
+  "final_plan_launcher": "raw/final.sh",
+  "actual_cleanup_evidence": "raw/cleanup.json",
+  "protocol_invalid_environment_labels": "../exploration/protocol_invalid.json",
+  "invalid_policy_case_note": "Exploration e8e1225 unprefixed policy labels had unset OMP env because sudo stripped exported values; unprefixed preload also removed image mimalloc. Retained but excluded from policy conclusions. Correct explicit_* cases record actual values. Final139eaef always passes literal ACTIVE/100000 and asserts actual environment including mimalloc.",
+  "asset_hashes": {
+    "manifest.json": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+    "ar.pt": "a25ae9826d4d608ca41adca04075ff75a5ac66ababa0e823da60b7990f354352",
+    "decoder.pt": "afac9da039331cb1a8511d709998396a28ffc29469ba092fda3c7fc823d0ab11",
+    "student_spec.json": "3a6550930e73dafadd07a9fdbe79a4e00fe7a55e1bfcd370ff237d0da074dc69"
+  },
+  "original_input_hashes": {
+    "s2": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+    "reference": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839"
+  },
+  "native_four_file_hashes": {
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+  },
+  "artifact_sha256": {
+    "raw/cleanup.json": "9e32d2dff446c63c214524a1aae7260594112e39df46de194ee2732a69c2f673",
+    "raw/final.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "raw/final.log": "340cc763002304c97a3bdd8c100e05cb88d98dd7e387be2ffd81eaf4ca7feda7",
+    "raw/final.sh": "7439ccf8c9a3a9eeb63c21359b1c1977e1af8976434f89df4f7fde8a44892679",
+    "raw/fresh1.json": "ecb8ddab346bd9d09afbd922487b28ea29c049fae8752c273f6743ac4076a5f2",
+    "raw/fresh1.server.log": "2760647a061098fc205f620e46790e9e07753d0c51dd28cdcc826fdcf2d6a2b6",
+    "raw/fresh1_guard.json": "76165ed26ec04081c32185e3ea5c234b32877d7bb36c5977dd98239683f40d58",
+    "raw/fresh2.json": "c8d596dd639171a6ec0fadba14442458121a2f7bd2915998bae8eda412b56336",
+    "raw/fresh2.server.log": "e615477ad740214fa67432f43e46762b9041b39fc9e54f751d51c3c5058043f3",
+    "raw/fresh2_guard.json": "9aa347e0feb837697abc916077e953e691bbbb859c0fae52696edb8d5bcfb976",
+    "raw/fresh3.json": "4c929da209bfbbbd72f7585ba0a2448ec87354de5505f370bf2bac22f793cba8",
+    "raw/fresh3.server.log": "062f2f396e4202da2a3ced04819e2e7dbcbd801de867ec59875893d20aa85fff",
+    "raw/fresh3_guard.json": "e0daae6a8fbbacb7e6d6ee1e7cdcce9f5f377f42f25a00e7bcc4d22f9281a66b",
+    "raw/fresh4.json": "39abb3e4b9d27d798d12f350f60b6215da1dd2589a3670dcc911255dd3b7eec8",
+    "raw/fresh4.server.log": "e6d4fb09de2a6a411afcb6caab9561f93ec5ca91aea9b530a982ab0a818cfe49",
+    "raw/fresh4_guard.json": "c928c9b86d93c8aabe395feb75129e4dff7f9d0bde028064aa93c3cc40a45fa3",
+    "raw/fresh5.json": "a26d87b3158964c84fff89f509f6e50175b35446bd80ea0dc799c0bc929c2335",
+    "raw/fresh5.server.log": "8bbfc0ea0797843ba987797ae17f64c6177e15974d4c22d5fb379dbe1fc0fda8",
+    "raw/fresh5_guard.json": "e06f46972b99a14289fe7f743766be236d3e6a67e23c842089a916af736cd95e",
+    "raw/main.json": "356129b2cf6f2934f76a914026e7d397719185327dae6ae7742f20d66fe18d15",
+    "raw/main.server.log": "765e5be2706e0d75dd4a17ce102aa3acedfb8b100f382715f7990e6a64abfa73",
+    "raw/main_guard.json": "19d3ecf113edb05a8fadd120c7c3e0e4a0683376ae12b9ecb00457f043666281",
+    "summary.json": "5e237c5f84e2d919fd56511812e2f7673687a0e521e3f9c019fcb408b62d7a64"
+  }
+}

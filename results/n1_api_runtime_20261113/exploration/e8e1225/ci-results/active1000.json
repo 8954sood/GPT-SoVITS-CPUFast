@@ -1,0 +1,713 @@
+{
+  "complete": true,
+  "scope": "Fixed sentence split/seed42,43/full reference/native32k API adapter exploration; HTTP overhead excluded",
+  "environment": {
+    "OMP_WAIT_POLICY": null,
+    "GOMP_SPINCOUNT": null,
+    "OPENBLAS_NUM_THREADS": "2",
+    "OPENBLAS_CORETYPE": null
+  },
+  "settings": {
+    "threads": 2,
+    "ar_threads": 2,
+    "tap_finish": false,
+    "gc_policy": "default"
+  },
+  "cgroup": {
+    "cpu.max": "200000 100000",
+    "memory.max": "8000000000",
+    "memory.swap.max": "0"
+  },
+  "all_expected_pcm_match": true,
+  "observations": [
+    {
+      "role": "warmup",
+      "index": 0,
+      "wall_seconds": 8.15231072716415,
+      "cpu_seconds": 13.343859600000002,
+      "sample_rate": 32000,
+      "audio_seconds": 5.08,
+      "rtf": 1.604785576213415,
+      "resource_counters_before": {
+        "cpu.stat": "usage_usec 19488290\nuser_usec 18328724\nsystem_usec 1159566\ncore_sched.force_idle_usec 0\nnr_periods 152\nnr_throttled 1\nthrottled_usec 606\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=1.44 avg60=0.31 avg300=0.06 total=418384\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=146565",
+        "voluntary_context_switches": 1079,
+        "involuntary_context_switches": 2947,
+        "maxrss_kib": 2478284,
+        "host_cpu_jiffies": "cpu  51611038 377633 17525890 2514738884 1538655 0 506569 0 0 0"
+      },
+      "resource_counters_after": {
+        "cpu.stat": "usage_usec 33159870\nuser_usec 31682573\nsystem_usec 1477296\ncore_sched.force_idle_usec 0\nnr_periods 233\nnr_throttled 1\nthrottled_usec 606\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=6.09 avg60=1.41 avg300=0.31 total=1097427\nfull avg10=0.82 avg60=0.21 avg300=0.04 total=238628",
+        "voluntary_context_switches": 3606,
+        "involuntary_context_switches": 6853,
+        "maxrss_kib": 4584736,
+        "host_cpu_jiffies": "cpu  51612431 377633 17525943 2514739065 1538655 0 506570 0 0 0"
+      },
+      "expected_native_and_wire_pcm_match": true,
+      "wire_pcm_sha256": "a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d",
+      "segments": [
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 65920,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 4.905648313462734,
+          "total_seconds": 4.910373754799366,
+          "rtf": 2.383676579999692,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 0.8408659677952528,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "gc_generation_0_seconds": 0.0010196436196565628,
+            "target_frontend_seconds": 0.05362648703157902,
+            "ar_prefill_seconds": 0.42100342735648155,
+            "ar_decode_seconds": 0.3794440757483244,
+            "acoustic_latent_seconds": 0.10287805646657944,
+            "student_decoder_seconds": 3.903002480044961,
+            "empty_cache_seconds": 0.00020183995366096497
+          }
+        },
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 96640,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 3.2299388349056244,
+          "total_seconds": 3.2417293712496758,
+          "rtf": 1.0734203216058529,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 1.5091005340218544,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "gc_generation_0_seconds": 0.00023856386542320251,
+            "target_frontend_seconds": 0.024378523230552673,
+            "ar_prefill_seconds": 0.48169333301484585,
+            "ar_decode_seconds": 0.9513199590146542,
+            "acoustic_latent_seconds": 0.13972220569849014,
+            "student_decoder_seconds": 1.5539818666875362,
+            "empty_cache_seconds": 0.00016936101019382477
+          }
+        }
+      ]
+    },
+    {
+      "role": "warmup",
+      "index": 1,
+      "wall_seconds": 4.982842400670052,
+      "cpu_seconds": 8.78308664,
+      "sample_rate": 32000,
+      "audio_seconds": 5.08,
+      "rtf": 0.9808744883208763,
+      "resource_counters_before": {
+        "cpu.stat": "usage_usec 33160308\nuser_usec 31682573\nsystem_usec 1477734\ncore_sched.force_idle_usec 0\nnr_periods 233\nnr_throttled 1\nthrottled_usec 606\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=6.09 avg60=1.41 avg300=0.31 total=1097427\nfull avg10=0.82 avg60=0.21 avg300=0.04 total=238628",
+        "voluntary_context_switches": 3606,
+        "involuntary_context_switches": 6855,
+        "maxrss_kib": 4584736,
+        "host_cpu_jiffies": "cpu  51612431 377633 17525943 2514739065 1538655 0 506570 0 0 0"
+      },
+      "resource_counters_after": {
+        "cpu.stat": "usage_usec 42146142\nuser_usec 40586319\nsystem_usec 1559823\ncore_sched.force_idle_usec 0\nnr_periods 283\nnr_throttled 2\nthrottled_usec 1178\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=6.34 avg60=1.91 avg300=0.44 total=1454236\nfull avg10=0.60 avg60=0.22 avg300=0.05 total=294951",
+        "voluntary_context_switches": 4499,
+        "involuntary_context_switches": 9614,
+        "maxrss_kib": 4586784,
+        "host_cpu_jiffies": "cpu  51613343 377633 17525958 2514739131 1538655 0 506571 0 0 0"
+      },
+      "expected_native_and_wire_pcm_match": true,
+      "wire_pcm_sha256": "a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d",
+      "segments": [
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 65920,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 2.164162591099739,
+          "total_seconds": 2.169411877170205,
+          "rtf": 1.0531125617331092,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 0.8333627842366695,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "target_frontend_seconds": 0.020975856110453606,
+            "ar_prefill_seconds": 0.4233709666877985,
+            "ar_decode_seconds": 0.37457746267318726,
+            "acoustic_latent_seconds": 0.09341313689947128,
+            "student_decoder_seconds": 1.2145996000617743,
+            "gc_generation_0_seconds": 0.00020208023488521576,
+            "empty_cache_seconds": 0.00021123886108398438
+          }
+        },
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 96640,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 2.8083707597106695,
+          "total_seconds": 2.81323872320354,
+          "rtf": 0.9315360010607748,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 1.110686056315899,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "target_frontend_seconds": 0.021577419713139534,
+            "ar_prefill_seconds": 0.46219349279999733,
+            "ar_decode_seconds": 0.5948230400681496,
+            "acoustic_latent_seconds": 0.13501356355845928,
+            "student_decoder_seconds": 1.5392420664429665,
+            "gc_generation_0_seconds": 0.00020404160022735596,
+            "empty_cache_seconds": 0.00021312013268470764
+          }
+        }
+      ]
+    },
+    {
+      "role": "sample",
+      "index": 0,
+      "wall_seconds": 5.010739590972662,
+      "cpu_seconds": 8.785431039999999,
+      "sample_rate": 32000,
+      "audio_seconds": 5.08,
+      "rtf": 0.986366061215091,
+      "resource_counters_before": {
+        "cpu.stat": "usage_usec 42146565\nuser_usec 40586742\nsystem_usec 1559823\ncore_sched.force_idle_usec 0\nnr_periods 283\nnr_throttled 2\nthrottled_usec 1178\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=6.34 avg60=1.91 avg300=0.44 total=1454236\nfull avg10=0.60 avg60=0.22 avg300=0.05 total=294951",
+        "voluntary_context_switches": 4499,
+        "involuntary_context_switches": 9616,
+        "maxrss_kib": 4586784,
+        "host_cpu_jiffies": "cpu  51613343 377633 17525958 2514739131 1538655 0 506571 0 0 0"
+      },
+      "resource_counters_after": {
+        "cpu.stat": "usage_usec 51135041\nuser_usec 49471789\nsystem_usec 1663252\ncore_sched.force_idle_usec 0\nnr_periods 333\nnr_throttled 2\nthrottled_usec 1178\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=6.80 avg60=2.27 avg300=0.53 total=1839332\nfull avg10=0.94 avg60=0.30 avg300=0.07 total=378612",
+        "voluntary_context_switches": 5496,
+        "involuntary_context_switches": 12540,
+        "maxrss_kib": 4586784,
+        "host_cpu_jiffies": "cpu  51614255 377633 17525978 2514739198 1538655 0 506571 0 0 0"
+      },
+      "expected_native_and_wire_pcm_match": true,
+      "wire_pcm_sha256": "a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d",
+      "segments": [
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 65920,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 2.012856211513281,
+          "total_seconds": 2.017576651647687,
+          "rtf": 0.979406141576547,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 0.8365876097232103,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "target_frontend_seconds": 0.022030504420399666,
+            "ar_prefill_seconds": 0.4249204620718956,
+            "ar_decode_seconds": 0.37528269551694393,
+            "acoustic_latent_seconds": 0.09170404449105263,
+            "student_decoder_seconds": 1.060721717774868,
+            "gc_generation_0_seconds": 0.00020936504006385803,
+            "empty_cache_seconds": 0.00021840259432792664
+          }
+        },
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 96640,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 2.988159539178014,
+          "total_seconds": 2.992950778454542,
+          "rtf": 0.9910433041240205,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 1.304308271035552,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "target_frontend_seconds": 0.021009253337979317,
+            "ar_prefill_seconds": 0.6280667539685965,
+            "ar_decode_seconds": 0.6237036231905222,
+            "acoustic_latent_seconds": 0.13378607481718063,
+            "student_decoder_seconds": 1.5272541642189026,
+            "gc_generation_0_seconds": 0.00021176226437091827,
+            "empty_cache_seconds": 0.0002224016934633255
+          }
+        }
+      ]
+    },
+    {
+      "role": "sample",
+      "index": 1,
+      "wall_seconds": 4.940511807799339,
+      "cpu_seconds": 8.70562872,
+      "sample_rate": 32000,
+      "audio_seconds": 5.08,
+      "rtf": 0.9725416944486889,
+      "resource_counters_before": {
+        "cpu.stat": "usage_usec 51135280\nuser_usec 49472020\nsystem_usec 1663260\ncore_sched.force_idle_usec 0\nnr_periods 333\nnr_throttled 2\nthrottled_usec 1178\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=6.80 avg60=2.27 avg300=0.53 total=1839332\nfull avg10=0.94 avg60=0.30 avg300=0.07 total=378612",
+        "voluntary_context_switches": 5496,
+        "involuntary_context_switches": 12542,
+        "maxrss_kib": 4586784,
+        "host_cpu_jiffies": "cpu  51614255 377633 17525978 2514739198 1538655 0 506571 0 0 0"
+      },
+      "resource_counters_after": {
+        "cpu.stat": "usage_usec 60037021\nuser_usec 58286598\nsystem_usec 1750423\ncore_sched.force_idle_usec 0\nnr_periods 383\nnr_throttled 3\nthrottled_usec 1769\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=6.55 avg60=2.66 avg300=0.65 total=2210840\nfull avg10=0.66 avg60=0.31 avg300=0.07 total=438420",
+        "voluntary_context_switches": 6417,
+        "involuntary_context_switches": 15189,
+        "maxrss_kib": 4586784,
+        "host_cpu_jiffies": "cpu  51615158 377633 17525994 2514739265 1538655 0 506572 0 0 0"
+      },
+      "expected_native_and_wire_pcm_match": true,
+      "wire_pcm_sha256": "a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d",
+      "segments": [
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 65920,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 1.984819296747446,
+          "total_seconds": 1.9897460173815489,
+          "rtf": 0.9658961249424994,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 0.8297515958547592,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "target_frontend_seconds": 0.02181106247007847,
+            "ar_prefill_seconds": 0.4239651318639517,
+            "ar_decode_seconds": 0.3702166173607111,
+            "acoustic_latent_seconds": 0.09175720438361168,
+            "student_decoder_seconds": 1.0396649818867445,
+            "gc_generation_0_seconds": 0.00021244212985038757,
+            "empty_cache_seconds": 0.00022212229669094086
+          }
+        },
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 96640,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 2.9458480663597584,
+          "total_seconds": 2.9505652636289597,
+          "rtf": 0.9770083654400529,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 1.2356006558984518,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "target_frontend_seconds": 0.02129613608121872,
+            "ar_prefill_seconds": 0.5978927034884691,
+            "ar_decode_seconds": 0.5850344803184271,
+            "acoustic_latent_seconds": 0.1341820415109396,
+            "student_decoder_seconds": 1.5523520950227976,
+            "gc_generation_0_seconds": 0.000266440212726593,
+            "empty_cache_seconds": 0.0002779196947813034
+          }
+        }
+      ]
+    },
+    {
+      "role": "sample",
+      "index": 2,
+      "wall_seconds": 4.954209960997105,
+      "cpu_seconds": 8.765357479999992,
+      "sample_rate": 32000,
+      "audio_seconds": 5.08,
+      "rtf": 0.9752381812986426,
+      "resource_counters_before": {
+        "cpu.stat": "usage_usec 60037323\nuser_usec 58286900\nsystem_usec 1750423\ncore_sched.force_idle_usec 0\nnr_periods 383\nnr_throttled 3\nthrottled_usec 1769\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=6.55 avg60=2.66 avg300=0.65 total=2210840\nfull avg10=0.66 avg60=0.31 avg300=0.07 total=438420",
+        "voluntary_context_switches": 6417,
+        "involuntary_context_switches": 15191,
+        "maxrss_kib": 4586784,
+        "host_cpu_jiffies": "cpu  51615158 377633 17525994 2514739265 1538655 0 506572 0 0 0"
+      },
+      "resource_counters_after": {
+        "cpu.stat": "usage_usec 69001529\nuser_usec 67156381\nsystem_usec 1845147\ncore_sched.force_idle_usec 0\nnr_periods 432\nnr_throttled 3\nthrottled_usec 1769\nnr_bursts 0\nburst_usec 0",
+        "cpu.pressure": "some avg10=6.94 avg60=2.97 avg300=0.75 total=2549516\nfull avg10=0.62 avg60=0.32 avg300=0.08 total=493196",
+        "voluntary_context_switches": 7859,
+        "involuntary_context_switches": 17590,
+        "maxrss_kib": 4586784,
+        "host_cpu_jiffies": "cpu  51616066 377633 17526012 2514739328 1538655 0 506573 0 0 0"
+      },
+      "expected_native_and_wire_pcm_match": true,
+      "wire_pcm_sha256": "a3aa7f71c04a7a4b28457225575946c9b29ee7e23bef493ed9de262ecbb4be9d",
+      "segments": [
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 65920,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 1.9798921793699265,
+          "total_seconds": 1.9850077014416456,
+          "rtf": 0.9635959715736143,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 0.827124334871769,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "target_frontend_seconds": 0.02083989419043064,
+            "ar_prefill_seconds": 0.4201205801218748,
+            "ar_decode_seconds": 0.37153968773782253,
+            "acoustic_latent_seconds": 0.09090187586843967,
+            "student_decoder_seconds": 1.0392268188297749,
+            "gc_generation_0_seconds": 0.0002654027193784714,
+            "empty_cache_seconds": 0.00027588196098804474
+          }
+        },
+        {
+          "sample_rate": 32000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 96640,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 2.9642784986644983,
+          "total_seconds": 2.9690157007426023,
+          "rtf": 0.9831177817028485,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 1.278700454160571,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24",
+          "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained",
+          "diagnostic_stage_seconds": {
+            "target_frontend_seconds": 0.021104056388139725,
+            "ar_prefill_seconds": 0.45421018451452255,
+            "ar_decode_seconds": 0.7655657175928354,
+            "acoustic_latent_seconds": 0.1346857212483883,
+            "student_decoder_seconds": 1.5279977712780237,
+            "gc_generation_0_seconds": 0.00022988207638263702,
+            "empty_cache_seconds": 0.00023924186825752258
+          }
+        }
+      ]
+    }
+  ],
+  "excluded_profile": null,
+  "tap_finish_audit": [],
+  "model_files_unchanged": true,
+  "original_inputs_unchanged": true,
+  "native_files_unchanged": true,
+  "native_files_sha256": {
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+  },
+  "model_input_sha256": {
+    "manifest": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+    "s2": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+    "speaker_encoder": "4f5a0bf73c61eb41b174e1bb54e7ee3c83233892be8e0af1f187024e8e581a35",
+    "hubert/config.json": "c3e5060a1277e0f078cc6be9da4528a605dba6ece93018981fe2c820e5c7b103",
+    "hubert/preprocessor_config.json": "dcd684124d06722947939d41ea6ae58dbf10968c60a11a29f23ddc602c64a29b",
+    "hubert/pytorch_model.bin": "24164f129c66499d1346e2aa55f183250c223161ec2770c0da3d3b08cf432d3c"
+  },
+  "runtime_source_sha256": {
+    "cpufast_server_engine.py": "a4ce1bca54d876849ae0fe40128dcefb3b8772bad4541162e3015973d8609f0d",
+    "cpufast_engine.py": "a93b4f99962feef43a4ff41b3cfa6f42978c8ba313bcd7cdb34642a60af030b6",
+    "cpufast_fast_ar.py": "005d87d88cbb14bde1a5d6ffbf1b6e5b64ed9fc5b379ee2230cc21641cf03c85",
+    "cpufast_ar_cpp.py": "230dd6ea2039ad7305af82e2607d722ccae00650038f6ce8f16ef296baaebe01",
+    "cpufast_fft.py": "639e0e2da460a1a90748cb54c3c163d1b6cef4c89761ece591571ba72736e562",
+    "cpufast_tap.py": "18197fb1ec9c29a1e85104489da36f1acc4c3a30455deb70ea6dd6a1c4babd8c",
+    "cpufast_fused_blocks.py": "3f24b52a37c42c42a055597d6159aa431eed1c59f78c11c16d3aa831f3b66664",
+    "cpufast_cooktoom.py": "c6abf18c098a7016c191110f46b7628e6a2378ed437e7aad5678fa90df3cc09d",
+    "cpufast_optimizations.py": "ed1ab9c16ee06202903622ae3edd2c8756cd7733344afb64ad8b44219e0dbe12",
+    "cpufast_predictor.py": "04845d66664dbc1556dc274c765030294e5fd5b650b6e02a46119e8e5d9933c5",
+    "cpufast_winograd.py": "81dffc0c59082eb50a32f14c60e3fb44eda04a3cb9033eba1bbe5e491449d6f4",
+    "student_runtime.py": "c09dd983882a3cb26981ab4697a19ffd380308dca49617038ac19a2fba982968",
+    "GPT_SoVITS/TTS_infer_pack/TTS.py": "18b1f6f7812c45c92fd20eb509ba51419c41710827a6363aec5c72753df3e32e",
+    "GPT_SoVITS/TTS_infer_pack/TextPreprocessor.py": "53be4a1a9b3db9cbc5fa26b517d45f528a8db48783b970e970a0265df863b400",
+    "GPT_SoVITS/module/models.py": "3cbe5d4999be1bdfa7b8b35349686e1f04e780bdffb689719e6a1f02c2aa7907",
+    "GPT_SoVITS/AR/models/t2s_model.py": "652e52b2488836a5f2073ff1a2ef5f4f15978598b215cbb9605ecafa836b3b39",
+    "tools/audio_utils.py": "03bde0bae9517395db2095534c61c37686212163a4e89cb6ca4cd746b6d67405",
+    "GPT_SoVITS/sv.py": "e5c8254ec26c950e104ac0182db4202382ecb536b23287ec14937b90c3555d1e",
+    "GPT_SoVITS/feature_extractor/cnhubert.py": "8169d27764dd9799ab01abcde27c32fe2bfb30ccfdbb7781e53d44cc25554047",
+    "GPT_SoVITS/module/mel_processing.py": "6cb80f5f4dd662322bb32dbf3cdaf2140f4b64ad4e88c03328ebf26ca3538b1b",
+    "GPT_SoVITS/eres2net/ERes2Net.py": "4c2582ffc59707514c4f2273262c408d424b5043d55511c4769956e11235778a",
+    "GPT_SoVITS/eres2net/ERes2NetV2.py": "e6a17f01a36e8133b9c3e15be2358f41951c9d887c5c536dd3788f128801f8fd",
+    "GPT_SoVITS/eres2net/ERes2Net_huge.py": "45d2bddae25565fcc01acff069bd10fb17ec2a527c8ae813b1b57368af256240",
+    "GPT_SoVITS/eres2net/fusion.py": "e92db5cc722247f98580f2ed221bbd5b108290cda7ff694ae66d1557dbde792f",
+    "GPT_SoVITS/eres2net/kaldi.py": "90d8a167a64405931a991bc9426262d9b0d944c8599b7f770aa7f4318cbe67d6",
+    "GPT_SoVITS/eres2net/pooling_layers.py": "f7fb8d8bb4a9080a0b7ffc060a06d622b7eb7e945c145fe801ee051df837e70c",
+    "GPT_SoVITS/text/LangSegmenter/__init__.py": "325aeb7453d371e8e30bebf51937e2897d7df593ff08833ee45f08012b2ea421",
+    "GPT_SoVITS/text/LangSegmenter/langsegmenter.py": "5f9250e0a7472008a721e7b20e848a220572f72da12c3eab7651da2afe0350d8",
+    "GPT_SoVITS/text/__init__.py": "8d72e92e3f5f868e64242c686e52863f69bd1fc1d4c3fa38d994cc82f174bf6b",
+    "GPT_SoVITS/text/cantonese.py": "2aa7b8ab9036e13ca046d96093a931b169bad52347e67341586496ed54b7c1c3",
+    "GPT_SoVITS/text/chinese.py": "a543e5e941a8506726d1678c4822263f0ead20f6fc8f6c418e37d1db0f853776",
+    "GPT_SoVITS/text/chinese2.py": "e882b5860b69ea66b75f7f37aab7f39fd4e266bce856d57adbdd28666cdf33d1",
+    "GPT_SoVITS/text/chinese_bert.py": "c0b9e41c63e11df3a3c986d56eabe645b804d28d6d206347f6aaf356fa0aee74",
+    "GPT_SoVITS/text/cleaner.py": "d0aa60efc7ffe285f41ccb77568b61206394ce7cc35e12fc067a9575fd8d1ef5",
+    "GPT_SoVITS/text/en_normalization/expend.py": "ae4dd0067372c34dd878e584ccd7454c7e1a8a8a8b8b1016724dc0ccb44de903",
+    "GPT_SoVITS/text/english.py": "f1ecf20ee894ea9a66db4fd774ec0ac04fca34cd4788c0463b62f2a5e7ad5131",
+    "GPT_SoVITS/text/g2pw/__init__.py": "9d9634039425e42c0d78e6321fce93d7da62f46cf6a2d52e3201e2d21c6ed631",
+    "GPT_SoVITS/text/g2pw/base_api.py": "1ed32a65aee53a872cae20cc320ab97e1ed0a6c6c82d43990edef1ce4c8f3da3",
+    "GPT_SoVITS/text/g2pw/compact_pypinyin.py": "6b27fc2916c5d0ad0c592dc9d21f1d9e4039ac31cf21d16776b61acb234f58a7",
+    "GPT_SoVITS/text/g2pw/dataset.py": "8ade84a3737e696e6d0a6ebc871ff8431c2fb0f4db37243c0b8ac472f3c4be7c",
+    "GPT_SoVITS/text/g2pw/g2ps_adapter.py": "b0bc5677439bb25b535df940e12aeb8b83854f40a78df2fa254ed506cc52831b",
+    "GPT_SoVITS/text/g2pw/g2pw.py": "b3d158088f6ef79109c674c14d390eec58379f937694f75e670e23cbd5cdbc03",
+    "GPT_SoVITS/text/g2pw/pronunciation.py": "17f7b434ca44d65d1b23a464486446636f5f3184e44dddef79bc180efd4981c6",
+    "GPT_SoVITS/text/g2pw/torch_api.py": "5616be566beb986c6b102e651671e24696022de369799b971daf1b67d6058ad5",
+    "GPT_SoVITS/text/g2pw/utils.py": "68ce30b84d53385822b798e5032cc5a2f5f57a320586afc1669a9009e82f4d37",
+    "GPT_SoVITS/text/japanese.py": "03fe44d4e61764b0539dbc20553a89ffc809e3e2598dc92185556ae1324a1e1d",
+    "GPT_SoVITS/text/jieba_posseg_fast.py": "88abdc31b737f7570e1b00b73a0ccedc40c42ea3573c0c6eefb0981ec2cdc5eb",
+    "GPT_SoVITS/text/korean.py": "a5057b79e8e352a0dbdf1e1d451cb5cfdfd6380c506bf5fe1652e841e1ad8dbc",
+    "GPT_SoVITS/text/opencc_s2tw.py": "efe0112b129f722cea26a3c4adc3262c4327f317f2e1696c4516650d5d3a2bc8",
+    "GPT_SoVITS/text/phone_units.py": "4c66d302e5ad6a451951e98a83337a99cda18fc7d95a7be510ca425db8fee63c",
+    "GPT_SoVITS/text/pinyin_cache.py": "05e396a036087c22d9aa935e9437ff061c6863f188ecc6808563894f0778f098",
+    "GPT_SoVITS/text/symbols.py": "c0e4576761cb0a254899208f4990d6e2fbbbc59ccd8bc06e7677229cb3721e44",
+    "GPT_SoVITS/text/symbols2.py": "160f85789ae647bdfd1e5b15daa83f81d6d903dea22dcb131a8cd96894e19626",
+    "GPT_SoVITS/text/tone_sandhi.py": "2c9be60d080a2e0b7e77902cf040561560aa41aade5e20ef09df9c9631045dec",
+    "GPT_SoVITS/text/zh_normalization/__init__.py": "61e674c9950d1d2a2241a39ecb87bc4172c9b0ed03082ec1dc06ec8dbcaf11e5",
+    "GPT_SoVITS/text/zh_normalization/char_convert.py": "df066ce8e2a3385c7f3b4749f02049f2fdbabbfcc76e6784462a99f0347795e7",
+    "GPT_SoVITS/text/zh_normalization/chronology.py": "bd873579e79976aaa465708791da13b79fd7beeafa6981743f438ec18f7d680a",
+    "GPT_SoVITS/text/zh_normalization/constants.py": "33dd3cbe8443454ab51f12f513d4ce4ba43770981cd0605e240f6d942a9b675b",
+    "GPT_SoVITS/text/zh_normalization/num.py": "403d613bacc9a8d922db65dd89a6ecb9a283ff4f07b5b38f645005c24387a7e2",
+    "GPT_SoVITS/text/zh_normalization/phonecode.py": "d8279ca6ddf1af8f26119a75b4dfbb28c7da0adba5c51f807f4503c59d9816a5",
+    "GPT_SoVITS/text/zh_normalization/quantifier.py": "de2d3367906a9df18edcf30698ae286d441c13c090f89d1f492ffdbe0edf93d0",
+    "GPT_SoVITS/text/zh_normalization/text_normlization.py": "2010a90d73d0e03cc4f99c22a774a4e127fc3a1fe5c0fdc38b03fb3b5754cbb3"
+  },
+  "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865"
+}

@@ -1,0 +1,228 @@
+INFO:     Started server process [9]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:18736 (Press CTRL+C to quit)
+Loading Text2Semantic weights from /student/ar.pt
+Loading VITS weights from /repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth. <All keys matched successfully>
+Removing weight norm...
+Loading CNHuBERT weights from /project/models/chinese-hubert-base
+INFO:     127.0.0.1:39532 - "GET /health HTTP/1.1" 200 OK
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['。テスト。']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.002	0.534	3.262
+INFO:     127.0.0.1:39532 - "POST /v1/styles HTTP/1.1" 201 Created
+INFO:     127.0.0.1:39532 - "GET /health HTTP/1.1" 200 OK
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+mecab installed
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.052	1.020	1.153
+INFO:     127.0.0.1:39532 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+INFO:     {"request_id": "dbd9028f3f0c41d79ec465d8c799ce58", "style_id": "fb4fd06797ea4ccb8c375c6f486bfa42", "first_audio_seconds": 2.2316484469920397, "latency_mode": "fast", "first_segment_timing": {"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897", "native_samples": 65920, "wire_samples": 65920, "audio_seconds": 2.06, "native_inference_seconds": 2.2263488825410604, "total_seconds": 2.231250563636422, "rtf": 1.0831313415710786, "semantic": [{"tokens": 44, "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"}], "semantic_tokens": 44, "ar_seconds": 1.0195124838501215, "seed": 42, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}, "segment_timings": [{"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897", "native_samples": 65920, "wire_samples": 65920, "audio_seconds": 2.06, "native_inference_seconds": 2.2263488825410604, "total_seconds": 2.231250563636422, "rtf": 1.0831313415710786, "semantic": [{"tokens": 44, "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"}], "semantic_tokens": 44, "ar_seconds": 1.0195124838501215, "seed": 42, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}, {"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a", "native_samples": 96640, "wire_samples": 96640, "audio_seconds": 3.02, "native_inference_seconds": 2.85703144967556, "total_seconds": 2.862431935966015, "rtf": 0.9478251443596075, "semantic": [{"tokens": 68, "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"}], "semantic_tokens": 68, "ar_seconds": 1.1385422330349684, "seed": 43, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}], "completed_segments": 2, "total_seconds": 5.123378744348884}
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.139	1.695
+INFO:     127.0.0.1:39532 - "GET /health HTTP/1.1" 200 OK
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	1.003	1.145
+INFO:     127.0.0.1:39532 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+INFO:     {"request_id": "0dc5b5cfd74741318ed26eff92efc625", "style_id": "fb4fd06797ea4ccb8c375c6f486bfa42", "first_audio_seconds": 2.1762772239744663, "latency_mode": "fast", "first_segment_timing": {"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897", "native_samples": 65920, "wire_samples": 65920, "audio_seconds": 2.06, "native_inference_seconds": 2.171134503558278, "total_seconds": 2.175917783752084, "rtf": 1.056270768811691, "semantic": [{"tokens": 44, "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"}], "semantic_tokens": 44, "ar_seconds": 1.003405388444662, "seed": 42, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}, "segment_timings": [{"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897", "native_samples": 65920, "wire_samples": 65920, "audio_seconds": 2.06, "native_inference_seconds": 2.171134503558278, "total_seconds": 2.175917783752084, "rtf": 1.056270768811691, "semantic": [{"tokens": 44, "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"}], "semantic_tokens": 44, "ar_seconds": 1.003405388444662, "seed": 42, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}, {"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a", "native_samples": 96640, "wire_samples": 96640, "audio_seconds": 3.02, "native_inference_seconds": 2.865036714822054, "total_seconds": 2.870069356635213, "rtf": 0.9503540916010639, "semantic": [{"tokens": 68, "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"}], "semantic_tokens": 68, "ar_seconds": 1.1423096638172865, "seed": 43, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}], "completed_segments": 2, "total_seconds": 5.048589281737804}
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	1.142	1.700
+INFO:     127.0.0.1:39532 - "GET /health HTTP/1.1" 200 OK
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	1.010	1.150
+INFO:     127.0.0.1:39532 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+INFO:     {"request_id": "ad0c3b9906c0419dbb8d5212ea9fb01d", "style_id": "fb4fd06797ea4ccb8c375c6f486bfa42", "first_audio_seconds": 2.188740771263838, "latency_mode": "fast", "first_segment_timing": {"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897", "native_samples": 65920, "wire_samples": 65920, "audio_seconds": 2.06, "native_inference_seconds": 2.1837367676198483, "total_seconds": 2.1884265672415495, "rtf": 1.0623429938065774, "semantic": [{"tokens": 44, "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"}], "semantic_tokens": 44, "ar_seconds": 1.0103748869150877, "seed": 42, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}, "segment_timings": [{"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897", "native_samples": 65920, "wire_samples": 65920, "audio_seconds": 2.06, "native_inference_seconds": 2.1837367676198483, "total_seconds": 2.1884265672415495, "rtf": 1.0623429938065774, "semantic": [{"tokens": 44, "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"}], "semantic_tokens": 44, "ar_seconds": 1.0103748869150877, "seed": 42, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}, {"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a", "native_samples": 96640, "wire_samples": 96640, "audio_seconds": 3.02, "native_inference_seconds": 2.8507938385009766, "total_seconds": 2.856254443526268, "rtf": 0.9457796170616781, "semantic": [{"tokens": 68, "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"}], "semantic_tokens": 68, "ar_seconds": 1.150029368698597, "seed": 43, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}], "completed_segments": 2, "total_seconds": 5.04720975458622}
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.150	1.678
+INFO:     127.0.0.1:39532 - "GET /health HTTP/1.1" 200 OK
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	0.862	1.263
+INFO:     127.0.0.1:39532 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+INFO:     {"request_id": "60b558c1f1a5473d9c925fbdcd4c6135", "style_id": "fb4fd06797ea4ccb8c375c6f486bfa42", "first_audio_seconds": 2.153054354712367, "latency_mode": "fast", "first_segment_timing": {"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897", "native_samples": 65920, "wire_samples": 65920, "audio_seconds": 2.06, "native_inference_seconds": 2.147606348618865, "total_seconds": 2.152599509805441, "rtf": 1.0449512183521557, "semantic": [{"tokens": 44, "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"}], "semantic_tokens": 44, "ar_seconds": 0.8616448491811752, "seed": 42, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}, "segment_timings": [{"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897", "native_samples": 65920, "wire_samples": 65920, "audio_seconds": 2.06, "native_inference_seconds": 2.147606348618865, "total_seconds": 2.152599509805441, "rtf": 1.0449512183521557, "semantic": [{"tokens": 44, "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"}], "semantic_tokens": 44, "ar_seconds": 0.8616448491811752, "seed": 42, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}, {"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a", "native_samples": 96640, "wire_samples": 96640, "audio_seconds": 3.02, "native_inference_seconds": 2.851970449090004, "total_seconds": 2.8584837839007378, "rtf": 0.9465178092386549, "semantic": [{"tokens": 68, "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"}], "semantic_tokens": 68, "ar_seconds": 1.1350124832242727, "seed": 43, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}], "completed_segments": 2, "total_seconds": 5.013978717848659}
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	1.135	1.694
+INFO:     127.0.0.1:39532 - "GET /health HTTP/1.1" 200 OK
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.023	0.866	1.279
+INFO:     127.0.0.1:39532 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+INFO:     {"request_id": "8b221d1e5ca548d293f8fce2453c6b8a", "style_id": "fb4fd06797ea4ccb8c375c6f486bfa42", "first_audio_seconds": 2.1756203044205904, "latency_mode": "fast", "first_segment_timing": {"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897", "native_samples": 65920, "wire_samples": 65920, "audio_seconds": 2.06, "native_inference_seconds": 2.169706493616104, "total_seconds": 2.1751290559768677, "rtf": 1.0558878912509067, "semantic": [{"tokens": 44, "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"}], "semantic_tokens": 44, "ar_seconds": 0.8662648089230061, "seed": 42, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}, "segment_timings": [{"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897", "native_samples": 65920, "wire_samples": 65920, "audio_seconds": 2.06, "native_inference_seconds": 2.169706493616104, "total_seconds": 2.1751290559768677, "rtf": 1.0558878912509067, "semantic": [{"tokens": 44, "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"}], "semantic_tokens": 44, "ar_seconds": 0.8662648089230061, "seed": 42, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}, {"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a", "native_samples": 96640, "wire_samples": 96640, "audio_seconds": 3.02, "native_inference_seconds": 2.8418722860515118, "total_seconds": 2.8486555851995945, "rtf": 0.9432634388078127, "semantic": [{"tokens": 68, "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"}], "semantic_tokens": 68, "ar_seconds": 1.138065030798316, "seed": 43, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}], "completed_segments": 2, "total_seconds": 5.0265865456312895}
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	1.138	1.681
+INFO:     127.0.0.1:39532 - "GET /health HTTP/1.1" 200 OK
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	0.857	1.242
+INFO:     127.0.0.1:39532 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+INFO:     {"request_id": "1786e1a1aba8420fba1a15b41ca66ebe", "style_id": "fb4fd06797ea4ccb8c375c6f486bfa42", "first_audio_seconds": 2.1273375023156404, "latency_mode": "fast", "first_segment_timing": {"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897", "native_samples": 65920, "wire_samples": 65920, "audio_seconds": 2.06, "native_inference_seconds": 2.1220540553331375, "total_seconds": 2.1269495356827974, "rtf": 1.0324997746032998, "semantic": [{"tokens": 44, "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"}], "semantic_tokens": 44, "ar_seconds": 0.8565588872879744, "seed": 42, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}, "segment_timings": [{"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897", "native_samples": 65920, "wire_samples": 65920, "audio_seconds": 2.06, "native_inference_seconds": 2.1220540553331375, "total_seconds": 2.1269495356827974, "rtf": 1.0324997746032998, "semantic": [{"tokens": 44, "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"}], "semantic_tokens": 44, "ar_seconds": 0.8565588872879744, "seed": 42, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}, {"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a", "native_samples": 96640, "wire_samples": 96640, "audio_seconds": 3.02, "native_inference_seconds": 2.864726835861802, "total_seconds": 2.872240299358964, "rtf": 0.9510729468076039, "semantic": [{"tokens": 68, "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"}], "semantic_tokens": 68, "ar_seconds": 1.1404182091355324, "seed": 43, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}], "completed_segments": 2, "total_seconds": 5.002189381048083}
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	1.141	1.702
+INFO:     127.0.0.1:39532 - "GET /health HTTP/1.1" 200 OK
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	0.854	1.240
+INFO:     127.0.0.1:39532 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+INFO:     {"request_id": "3325f85a72ac465aaf3add90d302f2d9", "style_id": "fb4fd06797ea4ccb8c375c6f486bfa42", "first_audio_seconds": 2.1216488517820835, "latency_mode": "fast", "first_segment_timing": {"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897", "native_samples": 65920, "wire_samples": 65920, "audio_seconds": 2.06, "native_inference_seconds": 2.1163009703159332, "total_seconds": 2.1212035324424505, "rtf": 1.0297104526419663, "semantic": [{"tokens": 44, "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"}], "semantic_tokens": 44, "ar_seconds": 0.8536349833011627, "seed": 42, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}, "segment_timings": [{"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897", "native_samples": 65920, "wire_samples": 65920, "audio_seconds": 2.06, "native_inference_seconds": 2.1163009703159332, "total_seconds": 2.1212035324424505, "rtf": 1.0297104526419663, "semantic": [{"tokens": 44, "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"}], "semantic_tokens": 44, "ar_seconds": 0.8536349833011627, "seed": 42, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}, {"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a", "native_samples": 96640, "wire_samples": 96640, "audio_seconds": 3.02, "native_inference_seconds": 2.8596793971955776, "total_seconds": 2.864570915699005, "rtf": 0.9485334157943726, "semantic": [{"tokens": 68, "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"}], "semantic_tokens": 68, "ar_seconds": 1.1501330118626356, "seed": 43, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}], "completed_segments": 2, "total_seconds": 4.98931291513145}
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.150	1.687
+INFO:     127.0.0.1:39532 - "GET /health HTTP/1.1" 200 OK
+Set seed to 42
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['오늘은 날씨가 참 좋네요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.021	0.856	1.304
+INFO:     127.0.0.1:39532 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+INFO:     {"request_id": "9ac8d5ddd15646ddb967a739df25d268", "style_id": "fb4fd06797ea4ccb8c375c6f486bfa42", "first_audio_seconds": 2.188644850626588, "latency_mode": "fast", "first_segment_timing": {"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897", "native_samples": 65920, "wire_samples": 65920, "audio_seconds": 2.06, "native_inference_seconds": 2.1826210394501686, "total_seconds": 2.188270688056946, "rtf": 1.0622673242994882, "semantic": [{"tokens": 44, "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"}], "semantic_tokens": 44, "ar_seconds": 0.8561466857790947, "seed": 42, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}, "segment_timings": [{"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897", "native_samples": 65920, "wire_samples": 65920, "audio_seconds": 2.06, "native_inference_seconds": 2.1826210394501686, "total_seconds": 2.188270688056946, "rtf": 1.0622673242994882, "semantic": [{"tokens": 44, "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"}], "semantic_tokens": 44, "ar_seconds": 0.8561466857790947, "seed": 42, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}, {"sample_rate": 32000, "native_sample_rate": 32000, "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a", "native_samples": 96640, "wire_samples": 96640, "audio_seconds": 3.02, "native_inference_seconds": 3.01885399967432, "total_seconds": 3.0243020057678223, "rtf": 1.0014245052211332, "semantic": [{"tokens": 68, "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"}], "semantic_tokens": 68, "ar_seconds": 1.2936894446611404, "seed": 43, "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865", "engine_fingerprint": "5d0bd7c3bff5f89cab23ae7b1a2d4aba1519b517158c5e1dceb6794d2da7a610", "actual_ar_blocks": 17, "actual_decoder_residual_blocks": 11, "model_parameter_versions_unchanged": true, "native_files_sha256": {"libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0", "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f", "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5", "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"}, "reference_preprocessing_on_request": false, "approved_request_pcm_match": null, "streaming": "sentence_fragments", "cfm": false, "latency_profile": "fixed_approved_C24", "cpu_cleanup": "generation0_per_utterance_automatic_gc_retained"}], "completed_segments": 2, "total_seconds": 5.215152958407998}
+Set seed to 43
+T2S并行推理模式已开启
+Bucket Processing Mode Enabled
+VITS串行推理模式已开启
+Actual Input Reference Text: スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。
+############ 推理 ############
+Processed text from the frontend (per sentence): ['잠깐 쉬었다가 함께 이야기를 이어 가요.']
+############ Predict Semantic Token ############
+############ Synthesize Audio ############
+前半段批量合成中...
+0.000	0.022	1.294	1.702
+INFO:     127.0.0.1:39532 - "DELETE /v1/styles/fb4fd06797ea4ccb8c375c6f486bfa42 HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:39532 - "GET /health HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [9]

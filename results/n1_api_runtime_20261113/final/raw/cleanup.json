@@ -1,0 +1,44 @@
+{
+  "checked_unix_time": 1794502237.616595,
+  "source_commit": "139eaef",
+  "image_id": "sha256:23eb9b78c3c75319c99172766f94bba4faa8cffe05f8765ce4b33a3c34bb989b",
+  "active_benchmark_containers": [],
+  "host_lock_available": true,
+  "native_files_after": {
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+  },
+  "source_files_sha256": {
+    "cpufast_server_engine.py": "629627455d8511761414b21c3576e0a3a48515e843e69b9e886f291f1b9761b4",
+    "cpufast_script_ar.py": "40184606e436f159c8a737f7856ae9b82e91d80c4e94c49b77330a08cabca6be",
+    "cpufast_fast_ar.py": "dff2387facef8c50fa1c32fdf568eca0f0f1740b5c43a1a5300b90fa278653e7",
+    "cpufast_kv_cache.py": "17dd9f3e95811257cc4ff1cc9f1512a77d7ae079264b2b534e0ae2f8b159039e",
+    "cpufast_ar_cpp.py": "6b974921f0c218f63b3525a4f287783f4f88dabc38efeb7f00d8044941ced977",
+    "GPT_SoVITS/AR/models/t2s_model.py": "ff13c40dda213cdefeeba9610dcad6deaddc7dbc54d55691c52203866d3a4eed",
+    "server.py": "6dc64661c23e9d4c6159e5cf34e5b1e295789d67cd7df5cb40715a5fe107fcbc",
+    "style_store.py": "b3c2233713ca91c224e5b2885dbbad26363f95056d86e852e6abb4dad13db1a0",
+    "streaming_audio.py": "f8fb487d6c7926b42bc83644ca821869048e98d06b1445f1e766a3f4127e4e4c",
+    "scripts/measure_streaming_api.py": "fbe1e50d68b9ec075e7beef7e8a1295c95cd7bb0040677453a7aa131c1a15679"
+  },
+  "test_style_directories_after_delete": {
+    "fresh2.private-styles": [],
+    "fresh1.private-styles": [],
+    "fresh4.private-styles": [],
+    "fresh5.private-styles": [],
+    "fresh3.private-styles": [],
+    "main.private-styles": []
+  },
+  "all_test_style_directories_empty": true,
+  "public_host_port_opened": false,
+  "deployed": false,
+  "final_exit": "0",
+  "unrelated_running_container_names": [
+    "onlinejudgedeploy-oj-redis-1",
+    "onlinejudgedeploy-oj-postgres-1",
+    "onlinejudgedeploy-oj-judge-1",
+    "eager_ritchie",
+    "local-db"
+  ]
+}
