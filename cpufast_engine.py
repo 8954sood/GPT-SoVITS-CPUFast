@@ -18,6 +18,7 @@ def optimize(
     packed_small_48=False,
     n1_fft_sizes=False,
     ar_fp32_cache=False,
+    ar_prefetch=0,
     ar_threads=1,
     acoustic_threads=1,
     fast_experimental=False,
@@ -31,6 +32,10 @@ def optimize(
     """
     if ar_threads not in (1, 2) or acoustic_threads not in (1, 2):
         raise ValueError("Expected one or two CPU threads per stage")
+    if ar_prefetch not in (0, 64, 128, 256) or (ar_prefetch and ar_fp32_cache):
+        raise ValueError("Invalid prefetch or incompatible cache storage")
+    if fast_experimental and ar_prefetch:
+        raise ValueError("Prefetch cannot be combined with fast experimental mode")
     if fast_experimental and ar_fp32_cache:
         raise ValueError("FP32 cache cannot be combined with fast experimental mode")
     if packed_small_48 and not tap_small:
@@ -56,6 +61,8 @@ def optimize(
             raise ValueError("Recreate the pipeline before changing FFT sizes")
         if existing.audit.get("ar_fp32_cache", False) != ar_fp32_cache:
             raise ValueError("Recreate the pipeline before changing AR cache storage")
+        if existing.audit.get("ar_prefetch", 0) != ar_prefetch:
+            raise ValueError("Recreate the pipeline before changing prefetch")
         if existing.audit.get("fast_experimental", False) != fast_experimental:
             raise ValueError("Recreate the pipeline before changing fast settings")
         return existing
@@ -86,6 +93,7 @@ def optimize(
     build_options = {"native_attention": native_attention, "head_major": head_major}
     if not fast_experimental:
         build_options["fp32_cache"] = ar_fp32_cache
+        build_options["prefetch"] = ar_prefetch
     decoder.t2s_transformer, audit = build(decoder.t2s_transformer, **build_options)
     decoder.ar_predict_layer = NativePredictor(decoder.ar_predict_layer)
     if cook_phase:
@@ -186,6 +194,7 @@ def optimize(
         "packed_small_48": packed_small_48,
         "n1_fft_sizes": n1_fft_sizes,
         "ar_fp32_cache": ar_fp32_cache,
+        "ar_prefetch": ar_prefetch,
         "n1_fft_size_count": n1_fft_count,
         "packed_small_48_count": packed_small_count,
         "fast_experimental": fast_experimental,

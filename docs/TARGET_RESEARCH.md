@@ -46,3 +46,7 @@ On [run 43131935673](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs
 ## FP32 AR cache full synthesis
 
 [Run 43134001131](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43134001131) measured tap/FP32-cache RTF 1.5842/1.6892 and 1.5922/1.6967 on two sentences. AR time rose from about 4.09s to 4.70s for sentence 1, and output was PCM-exact. Target guard peaks were about 5.45GB. The cache-hot single-matrix probe did not predict full-model performance; do not adopt. Results: `results/n1_arcache_20261112`. Next probe traverses a synthetic 24-layer weight set to reflect model-scale cache pressure.
+
+## Model-sized AR prefetch probe
+
+[Run 43135138734](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43135138734) traversed 151MB of synthetic 24-layer AR weights. Prefetch distances 0/64/128/256 gave medians 11.05/10.37/9.71/9.02ms per synthetic token, with bit-exact output across all 96 matrices. Distance 256 warrants end-to-end testing; the traversal does not model attention, layer computation or full inference. Data and guard: `results/n1_prefetch_20261112`. Initial run 43134968081 selected the previous commit due to dispatch immediately after push and failed input validation before server access; rerun used the intended commit.

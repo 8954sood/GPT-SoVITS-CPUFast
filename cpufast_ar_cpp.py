@@ -23,7 +23,9 @@ class CppLosslessBlock:
         native_attention: bool = False,
         head_major: bool = False,
         fp32_cache: bool = False,
+        prefetch: int = 0,
     ):
+        self.prefetch = prefetch
         self.fp32_cache = fp32_cache
         self.head_major = head_major
         self.native_attention = native_attention
@@ -36,6 +38,10 @@ class CppLosslessBlock:
     def linear(self, x: torch.Tensor, weights: torch.Tensor, bias: torch.Tensor):
         if self.fp32_cache:
             return torch.ops.cpufast_cpp.lossless_linear_f32(x, weights, bias)
+        if self.prefetch != 0:
+            return torch.ops.cpufast_cpp.lossless_linear_prefetch(
+                x, weights, bias, self.prefetch
+            )
         return torch.ops.cpufast_cpp.lossless_linear(x, weights, bias)
 
     def process_prompt(
@@ -184,7 +190,9 @@ class CppLosslessTransformer:
         return x, k_cache, v_cache, cache_len + 1
 
 
-def build(original, native_attention=False, head_major=False, fp32_cache=False):
+def build(
+    original, native_attention=False, head_major=False, fp32_cache=False, prefetch=0
+):
     import hashlib
 
     audit = []
@@ -211,7 +219,7 @@ def build(original, native_attention=False, head_major=False, fp32_cache=False):
             )
     runtime = CppLosslessTransformer(
         [
-            CppLosslessBlock(block, native_attention, head_major, fp32_cache)
+            CppLosslessBlock(block, native_attention, head_major, fp32_cache, prefetch)
             for block in original.blocks
         ]
     )
@@ -240,5 +248,6 @@ def build(original, native_attention=False, head_major=False, fp32_cache=False):
         "all_coefficients_exact": True,
         "arithmetic": "FP32 multiplication and accumulation",
         "cache_storage": "FP32" if fp32_cache else "exact FP16",
+        "prefetch": prefetch,
         "native_workers": cpufast_cpp_ops.WORKERS,
     }

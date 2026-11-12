@@ -1,0 +1,58 @@
+{
+  "scope": "Synthetic 24-layer weight traversal; not end-to-end RTF",
+  "weight_bytes": 150994944,
+  "cases": [
+    {
+      "distance": 0,
+      "warmup_seconds_per_token": 0.011167697049677372,
+      "seconds_per_token": [
+        0.010964359156787395,
+        0.01105195190757513,
+        0.010926667042076588,
+        0.011172512732446193,
+        0.011078028194606303
+      ],
+      "median_seconds_per_token": 0.01105195190757513,
+      "bit_exact_all_layers": true
+    },
+    {
+      "distance": 64,
+      "warmup_seconds_per_token": 0.01037873439490795,
+      "seconds_per_token": [
+        0.010447254963219165,
+        0.010406766645610332,
+        0.010245189256966113,
+        0.010367334447801113,
+        0.010273961536586284
+      ],
+      "median_seconds_per_token": 0.010367334447801113,
+      "bit_exact_all_layers": true
+    },
+    {
+      "distance": 128,
+      "warmup_seconds_per_token": 0.009686364606022835,
+      "seconds_per_token": [
+        0.009644152410328389,
+        0.009712500683963298,
+        0.009604495763778687,
+        0.00973884090781212,
+        0.009713616780936718
+      ],
+      "median_seconds_per_token": 0.009712500683963298,
+      "bit_exact_all_layers": true
+    },
+    {
+      "distance": 256,
+      "warmup_seconds_per_token": 0.009013126976788044,
+      "seconds_per_token": [
+        0.009019255079329014,
+        0.008955862559378146,
+        0.009270424954593182,
+        0.008929890394210816,
+        0.009074659459292889
+      ],
+      "median_seconds_per_token": 0.009019255079329014,
+      "bit_exact_all_layers": true
+    }
+  ]
+}
