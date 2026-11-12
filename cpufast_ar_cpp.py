@@ -73,7 +73,7 @@ class CppLosslessBlock:
             values[:, :, cache_len:next_len] = v.view(1, 1, b.num_heads, -1).transpose(
                 1, 2
             )
-            if self.native_attention and (
+            if self.native_attention and next_len <= 128 and (
                 mask is None
                 or mask.numel() == next_len
                 or mask.numel() == b.num_heads * next_len

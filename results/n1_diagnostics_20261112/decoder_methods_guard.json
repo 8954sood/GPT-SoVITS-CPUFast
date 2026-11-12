@@ -1,0 +1,22 @@
+{
+  "command": [
+    "python",
+    "experiments/rtf07/bench_decoder_methods.py",
+    "--output",
+    "/repo/ci-results/decoder_methods.json"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 897306624,
+  "kernel_child_peak_rss_bytes": 898572288,
+  "cpu_seconds": 14.949257,
+  "elapsed_seconds": 10.279731575399637,
+  "average_cpu_cores": 1.4542458516888686,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 956,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}

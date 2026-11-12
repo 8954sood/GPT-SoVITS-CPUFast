@@ -437,17 +437,18 @@ def main():
     if args.profile_output is not None:
         # The additional profiled synthesis is explicitly excluded from the RTF runs.
         with torch.profiler.profile(
-            activities=[torch.profiler.ProfilerActivity.CPU]
+            activities=[torch.profiler.ProfilerActivity.CPU], record_shapes=True
         ) as prof:
             list(runtime.run(inputs))
         rows = [
             {
                 "name": event.key,
                 "calls": event.count,
+                "input_shapes": event.input_shapes,
                 "self_cpu_us": event.self_cpu_time_total,
                 "total_cpu_us": event.cpu_time_total,
             }
-            for event in prof.key_averages()
+            for event in prof.key_averages(group_by_input_shape=True)
         ]
         args.profile_output.write_text(
             json.dumps(

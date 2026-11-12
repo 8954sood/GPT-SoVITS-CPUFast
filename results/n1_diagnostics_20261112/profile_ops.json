@@ -1,0 +1,827 @@
+{
+  "note": "Extra profiled inference, excluded from RTF; CPU totals may overlap across threads and include profiler overhead",
+  "operators": [
+    {
+      "name": "cpufast_cpp::lossless_linear",
+      "calls": 13775,
+      "self_cpu_us": 1599052.233000027,
+      "total_cpu_us": 1620733.368000017
+    },
+    {
+      "name": "aten::addmm",
+      "calls": 288,
+      "self_cpu_us": 1533804.8129999812,
+      "total_cpu_us": 1538377.3269999996
+    },
+    {
+      "name": "cpufast_cpp::fft_packed_gemm",
+      "calls": 36,
+      "self_cpu_us": 939752.936999999,
+      "total_cpu_us": 940608.5019999994
+    },
+    {
+      "name": "aten::bmm",
+      "calls": 83,
+      "self_cpu_us": 696513.7740000077,
+      "total_cpu_us": 700456.601999999
+    },
+    {
+      "name": "aten::_scaled_dot_product_flash_attention_for_cpu",
+      "calls": 3432,
+      "self_cpu_us": 650286.9100000727,
+      "total_cpu_us": 713654.4730000022
+    },
+    {
+      "name": "aten::_fft_r2c",
+      "calls": 36,
+      "self_cpu_us": 461118.79300000146,
+      "total_cpu_us": 461582.3959999997
+    },
+    {
+      "name": "aten::_fft_c2r",
+      "calls": 36,
+      "self_cpu_us": 459469.9779999973,
+      "total_cpu_us": 460523.22699999623
+    },
+    {
+      "name": "cpufast_cpp::fft_unpack_layout",
+      "calls": 36,
+      "self_cpu_us": 264054.77700000163,
+      "total_cpu_us": 265606.7940000016
+    },
+    {
+      "name": "aten::copy_",
+      "calls": 8932,
+      "self_cpu_us": 253170.3790000131,
+      "total_cpu_us": 253170.3790000131
+    },
+    {
+      "name": "cpufast_cpp::fft_pack",
+      "calls": 36,
+      "self_cpu_us": 232336.67099999916,
+      "total_cpu_us": 233135.87500000093
+    },
+    {
+      "name": "cpufast_cpp::winograd_output",
+      "calls": 30,
+      "self_cpu_us": 195185.72300000023,
+      "total_cpu_us": 195716.36700000148
+    },
+    {
+      "name": "aten::mkldnn_convolution",
+      "calls": 94,
+      "self_cpu_us": 176865.40499999747,
+      "total_cpu_us": 186284.277999999
+    },
+    {
+      "name": "cpufast_cpp::winograd_input",
+      "calls": 30,
+      "self_cpu_us": 161066.14899999928,
+      "total_cpu_us": 161363.6330000013
+    },
+    {
+      "name": "aten::mm",
+      "calls": 25,
+      "self_cpu_us": 127979.03700000672,
+      "total_cpu_us": 128002.15700000315
+    },
+    {
+      "name": "aten::slice",
+      "calls": 54378,
+      "self_cpu_us": 113008.00900006505,
+      "total_cpu_us": 148528.42200004967
+    },
+    {
+      "name": "aten::where",
+      "calls": 7295,
+      "self_cpu_us": 85786.26099997584,
+      "total_cpu_us": 164257.11799998384
+    },
+    {
+      "name": "aten::add",
+      "calls": 7121,
+      "self_cpu_us": 77164.0120000153,
+      "total_cpu_us": 77164.0120000153
+    },
+    {
+      "name": "cpufast_cpp::fft_finish",
+      "calls": 36,
+      "self_cpu_us": 70126.31000000052,
+      "total_cpu_us": 70967.79799999855
+    },
+    {
+      "name": "aten::native_layer_norm",
+      "calls": 6888,
+      "self_cpu_us": 68961.4639999652,
+      "total_cpu_us": 97763.84900002528
+    },
+    {
+      "name": "aten::as_strided",
+      "calls": 95462,
+      "self_cpu_us": 61481.80300003724,
+      "total_cpu_us": 61481.80300003724
+    },
+    {
+      "name": "aten::empty",
+      "calls": 49677,
+      "self_cpu_us": 60232.66199999004,
+      "total_cpu_us": 60232.66199999004
+    },
+    {
+      "name": "aten::leaky_relu",
+      "calls": 63,
+      "self_cpu_us": 59348.65899999812,
+      "total_cpu_us": 59348.65899999812
+    },
+    {
+      "name": "aten::transpose",
+      "calls": 34496,
+      "self_cpu_us": 55338.09199996323,
+      "total_cpu_us": 76354.71699999097
+    },
+    {
+      "name": "aten::view",
+      "calls": 31999,
+      "self_cpu_us": 46024.254000019864,
+      "total_cpu_us": 46024.254000019864
+    },
+    {
+      "name": "aten::fill_",
+      "calls": 213,
+      "self_cpu_us": 32802.434000000736,
+      "total_cpu_us": 32802.434000000736
+    },
+    {
+      "name": "aten::bitwise_not",
+      "calls": 3432,
+      "self_cpu_us": 32508.06000000361,
+      "total_cpu_us": 32508.06000000361
+    },
+    {
+      "name": "aten::add_",
+      "calls": 35,
+      "self_cpu_us": 31809.704999995753,
+      "total_cpu_us": 31809.704999995753
+    },
+    {
+      "name": "aten::scaled_dot_product_attention",
+      "calls": 3432,
+      "self_cpu_us": 27903.086000004943,
+      "total_cpu_us": 839635.5499999989
+    },
+    {
+      "name": "aten::clamp_min",
+      "calls": 3444,
+      "self_cpu_us": 25008.88899999544,
+      "total_cpu_us": 25008.88899999544
+    },
+    {
+      "name": "aten::split",
+      "calls": 3433,
+      "self_cpu_us": 24257.242000008388,
+      "total_cpu_us": 65850.09999998767
+    },
+    {
+      "name": "cpufast_cpp::cook_output",
+      "calls": 3,
+      "self_cpu_us": 23878.55999999866,
+      "total_cpu_us": 23937.96199999936
+    },
+    {
+      "name": "aten::narrow",
+      "calls": 10656,
+      "self_cpu_us": 20093.385999960345,
+      "total_cpu_us": 44173.28299998752
+    },
+    {
+      "name": "cpufast_cpp::cook_input",
+      "calls": 3,
+      "self_cpu_us": 19968.887000000104,
+      "total_cpu_us": 19992.846999999136
+    },
+    {
+      "name": "aten::layer_norm",
+      "calls": 6888,
+      "self_cpu_us": 13171.717999971588,
+      "total_cpu_us": 110935.56699999687
+    },
+    {
+      "name": "aten::_slow_conv2d_forward",
+      "calls": 36,
+      "self_cpu_us": 12239.4240000071,
+      "total_cpu_us": 12836.231999996118
+    },
+    {
+      "name": "aten::scalar_tensor",
+      "calls": 7007,
+      "self_cpu_us": 11662.036999989567,
+      "total_cpu_us": 11662.036999989567
+    },
+    {
+      "name": "aten::chunk",
+      "calls": 3432,
+      "self_cpu_us": 10324.541000005982,
+      "total_cpu_us": 76158.76099999377
+    },
+    {
+      "name": "aten::relu",
+      "calls": 3444,
+      "self_cpu_us": 9779.603000024537,
+      "total_cpu_us": 34788.49200001998
+    },
+    {
+      "name": "aten::select",
+      "calls": 2022,
+      "self_cpu_us": 8877.023000002237,
+      "total_cpu_us": 11224.888000007535
+    },
+    {
+      "name": "aten::empty_strided",
+      "calls": 4705,
+      "self_cpu_us": 8584.020000014345,
+      "total_cpu_us": 8584.020000014345
+    },
+    {
+      "name": "aten::reshape",
+      "calls": 3863,
+      "self_cpu_us": 8546.195000010684,
+      "total_cpu_us": 44529.799000012485
+    },
+    {
+      "name": "aten::empty_like",
+      "calls": 3845,
+      "self_cpu_us": 6059.737999974808,
+      "total_cpu_us": 14188.479999976622
+    },
+    {
+      "name": "aten::expand",
+      "calls": 3667,
+      "self_cpu_us": 5731.328999993515,
+      "total_cpu_us": 7354.703000011981
+    },
+    {
+      "name": "aten::mul",
+      "calls": 539,
+      "self_cpu_us": 5009.246000008212,
+      "total_cpu_us": 6849.6640000045445
+    },
+    {
+      "name": "aten::exponential_",
+      "calls": 143,
+      "self_cpu_us": 4985.362999998615,
+      "total_cpu_us": 4985.362999998615
+    },
+    {
+      "name": "aten::tanh",
+      "calls": 17,
+      "self_cpu_us": 4839.239999996498,
+      "total_cpu_us": 4839.239999996498
+    },
+    {
+      "name": "aten::_weight_norm_interface",
+      "calls": 36,
+      "self_cpu_us": 4115.711999999359,
+      "total_cpu_us": 4446.2360000014305
+    },
+    {
+      "name": "aten::mul_",
+      "calls": 6,
+      "self_cpu_us": 3560.148999998346,
+      "total_cpu_us": 3675.870999998413
+    },
+    {
+      "name": "aten::_softmax",
+      "calls": 156,
+      "self_cpu_us": 3377.1049999999814,
+      "total_cpu_us": 3377.1049999999814
+    },
+    {
+      "name": "aten::argmax",
+      "calls": 286,
+      "self_cpu_us": 3101.231999998563,
+      "total_cpu_us": 3228.113999996567
+    },
+    {
+      "name": "aten::_to_copy",
+      "calls": 1052,
+      "self_cpu_us": 3049.911000007127,
+      "total_cpu_us": 6847.256000006946
+    },
+    {
+      "name": "aten::div",
+      "calls": 454,
+      "self_cpu_us": 3024.064999991446,
+      "total_cpu_us": 4765.555999998469
+    },
+    {
+      "name": "aten::constant_pad_nd",
+      "calls": 224,
+      "self_cpu_us": 2738.4969999911336,
+      "total_cpu_us": 142456.71700000053
+    },
+    {
+      "name": "aten::to",
+      "calls": 5513,
+      "self_cpu_us": 2634.0210000202596,
+      "total_cpu_us": 9481.277000027207
+    },
+    {
+      "name": "aten::lt",
+      "calls": 290,
+      "self_cpu_us": 2599.944999998821,
+      "total_cpu_us": 4452.638999998722
+    },
+    {
+      "name": "aten::eq",
+      "calls": 303,
+      "self_cpu_us": 2354.2129999946337,
+      "total_cpu_us": 3341.0239999972982
+    },
+    {
+      "name": "aten::gather",
+      "calls": 143,
+      "self_cpu_us": 2253.573999997112,
+      "total_cpu_us": 2278.613999997033
+    },
+    {
+      "name": "aten::topk",
+      "calls": 143,
+      "self_cpu_us": 2043.706999998074,
+      "total_cpu_us": 2043.706999998074
+    },
+    {
+      "name": "aten::index_select",
+      "calls": 146,
+      "self_cpu_us": 1874.453000001642,
+      "total_cpu_us": 2771.2630000021563
+    },
+    {
+      "name": "aten::_convolution",
+      "calls": 130,
+      "self_cpu_us": 1553.4080000044778,
+      "total_cpu_us": 203292.74100000225
+    },
+    {
+      "name": "aten::scatter_",
+      "calls": 143,
+      "self_cpu_us": 1526.7279999986058,
+      "total_cpu_us": 1558.4079999981914
+    },
+    {
+      "name": "aten::sigmoid",
+      "calls": 16,
+      "self_cpu_us": 1482.6959999995306,
+      "total_cpu_us": 1482.6959999995306
+    },
+    {
+      "name": "aten::unsqueeze",
+      "calls": 500,
+      "self_cpu_us": 1455.935000007894,
+      "total_cpu_us": 1877.098000005817
+    },
+    {
+      "name": "aten::any",
+      "calls": 286,
+      "self_cpu_us": 1450.8919999970822,
+      "total_cpu_us": 2544.8189999985043
+    },
+    {
+      "name": "aten::embedding",
+      "calls": 146,
+      "self_cpu_us": 1365.9299999965988,
+      "total_cpu_us": 4600.355999996984
+    },
+    {
+      "name": "aten::clone",
+      "calls": 250,
+      "self_cpu_us": 1025.363000001802,
+      "total_cpu_us": 121331.72699999782
+    },
+    {
+      "name": "aten::normal_",
+      "calls": 1,
+      "self_cpu_us": 937.3279999997467,
+      "total_cpu_us": 937.3279999997467
+    },
+    {
+      "name": "aten::masked_fill_",
+      "calls": 13,
+      "self_cpu_us": 804.5659999996424,
+      "total_cpu_us": 804.5659999996424
+    },
+    {
+      "name": "aten::cat",
+      "calls": 12,
+      "self_cpu_us": 757.8860000017694,
+      "total_cpu_us": 882.7670000014868
+    },
+    {
+      "name": "aten::pad",
+      "calls": 224,
+      "self_cpu_us": 738.5259999885384,
+      "total_cpu_us": 143195.24299998907
+    },
+    {
+      "name": "aten::squeeze",
+      "calls": 156,
+      "self_cpu_us": 682.6139999963943,
+      "total_cpu_us": 919.1350000004331
+    },
+    {
+      "name": "aten::convolution",
+      "calls": 130,
+      "self_cpu_us": 672.8100000014529,
+      "total_cpu_us": 203965.5510000037
+    },
+    {
+      "name": "aten::matmul",
+      "calls": 51,
+      "self_cpu_us": 586.2090000018852,
+      "total_cpu_us": 29766.93400000116
+    },
+    {
+      "name": "aten::fft_irfft",
+      "calls": 36,
+      "self_cpu_us": 584.0870000012219,
+      "total_cpu_us": 461107.31399999745
+    },
+    {
+      "name": "aten::item",
+      "calls": 309,
+      "self_cpu_us": 546.7659999976931,
+      "total_cpu_us": 903.9280000015096
+    },
+    {
+      "name": "aten::resolve_conj",
+      "calls": 1918,
+      "self_cpu_us": 489.80500000399843,
+      "total_cpu_us": 489.80500000399843
+    },
+    {
+      "name": "aten::as_strided_",
+      "calls": 92,
+      "self_cpu_us": 438.8070000000298,
+      "total_cpu_us": 438.8070000000298
+    },
+    {
+      "name": "aten::exp",
+      "calls": 5,
+      "self_cpu_us": 424.043000000529,
+      "total_cpu_us": 424.043000000529
+    },
+    {
+      "name": "aten::unfold",
+      "calls": 46,
+      "self_cpu_us": 412.04100000005565,
+      "total_cpu_us": 529.7610000009809
+    },
+    {
+      "name": "aten::fft_rfft",
+      "calls": 36,
+      "self_cpu_us": 387.8849999997765,
+      "total_cpu_us": 461970.2809999995
+    },
+    {
+      "name": "aten::softmax",
+      "calls": 156,
+      "self_cpu_us": 381.16400000301655,
+      "total_cpu_us": 3758.269000002998
+    },
+    {
+      "name": "fused_add_tanh_sigmoid_multiply",
+      "calls": 16,
+      "self_cpu_us": 371.9229999994859,
+      "total_cpu_us": 7904.266999999993
+    },
+    {
+      "name": "aten::_local_scalar_dense",
+      "calls": 309,
+      "self_cpu_us": 357.1620000038165,
+      "total_cpu_us": 357.1620000038165
+    },
+    {
+      "name": "aten::contiguous",
+      "calls": 200,
+      "self_cpu_us": 336.64200001263816,
+      "total_cpu_us": 75054.73600000821
+    },
+    {
+      "name": "aten::conv1d",
+      "calls": 125,
+      "self_cpu_us": 334.9639999885112,
+      "total_cpu_us": 165676.02899999078
+    },
+    {
+      "name": "aten::view_as",
+      "calls": 286,
+      "self_cpu_us": 311.5630000001984,
+      "total_cpu_us": 584.8849999983795
+    },
+    {
+      "name": "aten::permute",
+      "calls": 39,
+      "self_cpu_us": 266.2029999969527,
+      "total_cpu_us": 321.76299999654293
+    },
+    {
+      "name": "aten::resize_",
+      "calls": 134,
+      "self_cpu_us": 210.48299999497976,
+      "total_cpu_us": 210.48299999497976
+    },
+    {
+      "name": "aten::_unsafe_view",
+      "calls": 56,
+      "self_cpu_us": 205.56399999692985,
+      "total_cpu_us": 205.56399999692985
+    },
+    {
+      "name": "aten::_reshape_alias",
+      "calls": 87,
+      "self_cpu_us": 189.24000000283013,
+      "total_cpu_us": 189.24000000283013
+    },
+    {
+      "name": "aten::upsample_nearest1d",
+      "calls": 1,
+      "self_cpu_us": 186.40199999976903,
+      "total_cpu_us": 195.16199999954551
+    },
+    {
+      "name": "aten::flip",
+      "calls": 4,
+      "self_cpu_us": 163.7999999988824,
+      "total_cpu_us": 188.75999999977648
+    },
+    {
+      "name": "aten::dropout",
+      "calls": 211,
+      "self_cpu_us": 137.48099999993792,
+      "total_cpu_us": 137.48099999993792
+    },
+    {
+      "name": "aten::_weight_norm",
+      "calls": 36,
+      "self_cpu_us": 111.1609999993816,
+      "total_cpu_us": 4557.397000000812
+    },
+    {
+      "name": "aten::masked_fill",
+      "calls": 13,
+      "self_cpu_us": 102.16000000201166,
+      "total_cpu_us": 1259.968999998644
+    },
+    {
+      "name": "aten::new_empty",
+      "calls": 48,
+      "self_cpu_us": 95.91999999954714,
+      "total_cpu_us": 328.1619999999457
+    },
+    {
+      "name": "aten::sub",
+      "calls": 6,
+      "self_cpu_us": 88.88200000021607,
+      "total_cpu_us": 88.88200000021607
+    },
+    {
+      "name": "aten::thnn_conv2d",
+      "calls": 36,
+      "self_cpu_us": 81.72100000549108,
+      "total_cpu_us": 12917.95300000161
+    },
+    {
+      "name": "aten::abs",
+      "calls": 2,
+      "self_cpu_us": 58.559999998658895,
+      "total_cpu_us": 112.0800000000745
+    },
+    {
+      "name": "aten::max",
+      "calls": 6,
+      "self_cpu_us": 55.92100000079154,
+      "total_cpu_us": 74.52100000258179
+    },
+    {
+      "name": "aten::triu",
+      "calls": 1,
+      "self_cpu_us": 49.16100000000006,
+      "total_cpu_us": 49.16100000000006
+    },
+    {
+      "name": "aten::gt",
+      "calls": 3,
+      "self_cpu_us": 48.03999999992811,
+      "total_cpu_us": 66.1600000009712
+    },
+    {
+      "name": "aten::detach",
+      "calls": 34,
+      "self_cpu_us": 46.95999999996275,
+      "total_cpu_us": 60.919999999925494
+    },
+    {
+      "name": "aten::arange",
+      "calls": 8,
+      "self_cpu_us": 43.76099999944927,
+      "total_cpu_us": 87.52100000035352
+    },
+    {
+      "name": "aten::neg",
+      "calls": 4,
+      "self_cpu_us": 41.28000000026077,
+      "total_cpu_us": 41.28000000026077
+    },
+    {
+      "name": "aten::repeat_interleave",
+      "calls": 3,
+      "self_cpu_us": 40.15999999921769,
+      "total_cpu_us": 268.80199999921024
+    },
+    {
+      "name": "aten::repeat",
+      "calls": 4,
+      "self_cpu_us": 35.2400000000016,
+      "total_cpu_us": 107.43999999999505
+    },
+    {
+      "name": "aten::split_with_sizes",
+      "calls": 4,
+      "self_cpu_us": 32.80099999997765,
+      "total_cpu_us": 39.56099999975413
+    },
+    {
+      "name": "aten::zero_",
+      "calls": 14,
+      "self_cpu_us": 31.439999999140127,
+      "total_cpu_us": 468.60399999901347
+    },
+    {
+      "name": "aten::zeros_like",
+      "calls": 9,
+      "self_cpu_us": 29.119999999180436,
+      "total_cpu_us": 529.2440000008792
+    },
+    {
+      "name": "aten::sum",
+      "calls": 2,
+      "self_cpu_us": 25.75999999884516,
+      "total_cpu_us": 33.87999999988824
+    },
+    {
+      "name": "aten::logical_or",
+      "calls": 4,
+      "self_cpu_us": 25.359999999440333,
+      "total_cpu_us": 42.36000000059357
+    },
+    {
+      "name": "aten::conv2d",
+      "calls": 5,
+      "self_cpu_us": 23.520000000484288,
+      "total_cpu_us": 38648.006000001915
+    },
+    {
+      "name": "aten::flatten",
+      "calls": 6,
+      "self_cpu_us": 20.40000000037253,
+      "total_cpu_us": 36.919999999925494
+    },
+    {
+      "name": "aten::alias",
+      "calls": 6,
+      "self_cpu_us": 19.76000000014392,
+      "total_cpu_us": 19.76000000014392
+    },
+    {
+      "name": "aten::zeros",
+      "calls": 5,
+      "self_cpu_us": 18.000000002128218,
+      "total_cpu_us": 34.04000000133965
+    },
+    {
+      "name": "aten::_nnpack_available",
+      "calls": 36,
+      "self_cpu_us": 16.59999999869615,
+      "total_cpu_us": 16.59999999869615
+    },
+    {
+      "name": "detach",
+      "calls": 4,
+      "self_cpu_us": 13.959999999962747,
+      "total_cpu_us": 13.959999999962747
+    },
+    {
+      "name": "aten::nonzero",
+      "calls": 2,
+      "self_cpu_us": 13.359999997541308,
+      "total_cpu_us": 20.239999999292195
+    },
+    {
+      "name": "aten::ones",
+      "calls": 4,
+      "self_cpu_us": 12.839999998472194,
+      "total_cpu_us": 27.15999999858468
+    },
+    {
+      "name": "aten::logical_and",
+      "calls": 4,
+      "self_cpu_us": 11.839999999850988,
+      "total_cpu_us": 18.959999999962747
+    },
+    {
+      "name": "aten::linear",
+      "calls": 1,
+      "self_cpu_us": 9.600000000004002,
+      "total_cpu_us": 2616.0620000000017
+    },
+    {
+      "name": "aten::unbind",
+      "calls": 3,
+      "self_cpu_us": 9.279999999329448,
+      "total_cpu_us": 17.28000000026077
+    },
+    {
+      "name": "aten::stack",
+      "calls": 1,
+      "self_cpu_us": 8.520000000000437,
+      "total_cpu_us": 63.400000000001455
+    },
+    {
+      "name": "aten::rsub",
+      "calls": 2,
+      "self_cpu_us": 8.079999999998108,
+      "total_cpu_us": 15.079999999998108
+    },
+    {
+      "name": "aten::sub_",
+      "calls": 2,
+      "self_cpu_us": 7.919999999998254,
+      "total_cpu_us": 7.919999999998254
+    },
+    {
+      "name": "aten::randn",
+      "calls": 1,
+      "self_cpu_us": 6.040000000037253,
+      "total_cpu_us": 945.8880000002682
+    },
+    {
+      "name": "aten::is_nonzero",
+      "calls": 3,
+      "self_cpu_us": 5.919999999103311,
+      "total_cpu_us": 15.119999999329593
+    },
+    {
+      "name": "aten::round",
+      "calls": 1,
+      "self_cpu_us": 5.2000000001862645,
+      "total_cpu_us": 5.2000000001862645
+    },
+    {
+      "name": "aten::nonzero_numpy",
+      "calls": 2,
+      "self_cpu_us": 4.880000000819564,
+      "total_cpu_us": 37.0
+    },
+    {
+      "name": "aten::lift_fresh",
+      "calls": 12,
+      "self_cpu_us": 4.720000000073924,
+      "total_cpu_us": 4.720000000073924
+    },
+    {
+      "name": "aten::concat",
+      "calls": 3,
+      "self_cpu_us": 4.279999999998836,
+      "total_cpu_us": 96.72100000000137
+    },
+    {
+      "name": "aten::t",
+      "calls": 1,
+      "self_cpu_us": 3.5199999999986176,
+      "total_cpu_us": 5.360999999998967
+    },
+    {
+      "name": "aten::expand_as",
+      "calls": 4,
+      "self_cpu_us": 3.1199999999989814,
+      "total_cpu_us": 9.639999999999418
+    },
+    {
+      "name": "aten::detach_",
+      "calls": 3,
+      "self_cpu_us": 2.6000000005587935,
+      "total_cpu_us": 4.880000000819564
+    },
+    {
+      "name": "detach_",
+      "calls": 3,
+      "self_cpu_us": 2.2800000002607703,
+      "total_cpu_us": 2.2800000002607703
+    },
+    {
+      "name": "aten::resolve_neg",
+      "calls": 4,
+      "self_cpu_us": 0.9599999999627471,
+      "total_cpu_us": 0.9599999999627471
+    }
+  ]
+}
