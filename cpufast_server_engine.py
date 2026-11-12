@@ -6,6 +6,7 @@ to48kHz float mono; this is sentence-fragment inference, not token streaming.
 from __future__ import annotations
 
 import functools
+import gc
 import hashlib
 import importlib.metadata
 import json
@@ -112,6 +113,12 @@ class Engine:
             def init_bert_weights(self, base_path):
                 pass
 
+            def empty_cache(self):
+                # This dedicated CPU process has no device cache to flush. Keep
+                # automatic generational GC enabled; collect young request cycles
+                # without rescanning all loaded models/libraries per sentence.
+                gc.collect(0)
+
         directory = self.manifest_path.parent
         self.pipeline = NonChineseTTS(TTS_Config({'custom': {
             'device': 'cpu', 'is_half': False, 'version': 'v2ProPlus',
@@ -178,6 +185,7 @@ class Engine:
         recipe = {'schema': REFERENCE_SCHEMA, 'inputs': inputs, 'source': self.source_sha256,
                   'native': self.native_files_sha256, 'libraries': versions,
                   'threads': {'ar': self.ar_threads, 'acoustic': self.threads, 'interop': 1},
+                  'cpu_cleanup': 'generation0_per_utterance_automatic_gc_retained',
                   'profile': 'approvedAR17_C24Vtarget100_W8A8_canonicalTap_FFT256_value_schedule'}
         self.fingerprint = hashlib.sha256(json.dumps(recipe, sort_keys=True).encode()).hexdigest()
         self._capture_semantics()
@@ -383,6 +391,7 @@ class Engine:
                     'model_parameter_versions_unchanged': True, 'native_files_sha256': self.native_files_sha256,
                     'reference_preprocessing_on_request': False, 'approved_request_pcm_match': True if approved_match else None,
                     'streaming': 'sentence_fragments', 'cfm': False, 'latency_profile': 'fixed_approved_C24'}
+                report['cpu_cleanup'] = 'generation0_per_utterance_automatic_gc_retained'
                 return wire, report
             finally:
                 self.clear_reference()
