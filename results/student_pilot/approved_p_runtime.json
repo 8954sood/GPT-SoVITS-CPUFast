@@ -18,8 +18,11 @@
   "reference_sha256": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
   "seed": 42,
   "listening_report": "results/student_pilot/fft_half_listening.json",
-  "actual_n1_rtf_measured": false,
+  "actual_n1_rtf_measured": true,
   "primary_objective": "Reduce actual target N1 latency/RTF with accepted quality; size alone is not success",
   "common_helper": "cpufast_fft_half_runtime.py",
-  "common_helper_sha256": "512a95960e64fd440a8147b44262c1017ddf2e8e5b1eacdccf8687362fa5687d"
+  "common_helper_sha256": "512a95960e64fd440a8147b44262c1017ddf2e8e5b1eacdccf8687362fa5687d",
+  "actual_n1_report": "results/n1_student_p_20261112/student_summary.json",
+  "actual_n1_provenance": "results/n1_student_p_20261112/provenance.json",
+  "performance_adoption": "Not established: small paired gain is accompanied by unchanged-AR variability and increased RSS; quality approval alone is not performance approval"
 }
