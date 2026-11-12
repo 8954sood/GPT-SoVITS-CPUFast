@@ -1,0 +1,142 @@
+{
+  "scope": "Actual N1 separately listening-approved approximate AR-only runtime; unchanged approved checkpoint bytes and normal FP32 acoustics",
+  "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+  "ar_selected_additional_step": 400,
+  "decoder_selected_additional_step": 100,
+  "prefetch_selection": "Baseline verified half-cache256; candidate INT8 runtime has no half-cache prefetch",
+  "cases": [
+    {
+      "language": "ko",
+      "name": "ar_runtime_baseline",
+      "prefetch": 256,
+      "approximate_ar_int8_only": false,
+      "runtime_variant": "K",
+      "runtime_local_generated_tokens_match": null,
+      "runtime_local_pcm_match": null,
+      "original": false,
+      "combined": true,
+      "model_variant": "K",
+      "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+      "ar_cache_storage": "exact_fp16",
+      "student_fp32_control": false,
+      "median_rtf": 1.2275868464334339,
+      "rtfs": [
+        1.2325431855724138,
+        1.2136826353768508,
+        1.228024607122529,
+        1.2270266924272566,
+        1.2275868464334339
+      ],
+      "median_seconds": 6.2606929168105125,
+      "median_cpu_seconds": 10.630306759999996,
+      "median_stages": {
+        "ar_seconds": 2.2642687633633614,
+        "enc_p_seconds": 0.12947016395628452,
+        "flow_seconds": 0.07938146591186523,
+        "dec_seconds": 3.53369683586061
+      },
+      "audio_seconds": 5.1,
+      "median_decoder_seconds_per_audio_second": 0.6928817325216883,
+      "peak_sampled_tree_rss_bytes": 5026742272,
+      "semantic": [
+        {
+          "sha256": "62343dfea79dc0785fb8824b0048a8020649eaa89e553b7fde621b1ef733c6fa",
+          "index": 120,
+          "generated_sha256": "fee8ae9803f48a1f6b9754dfa4d3f45ecf0a459a819602f1f4a44acb67f18546"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "ar_runtime_candidate",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": false,
+      "original": false,
+      "combined": true,
+      "model_variant": "K",
+      "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "median_rtf": 1.1414206122972101,
+      "rtfs": [
+        1.1358660957460622,
+        1.1414206122972101,
+        1.1359748693991942,
+        1.1513544406103662,
+        1.1562668087621373
+      ],
+      "median_seconds": 5.729931473731995,
+      "median_cpu_seconds": 9.770865720000003,
+      "median_stages": {
+        "ar_seconds": 1.9248561654239893,
+        "enc_p_seconds": 0.12598889507353306,
+        "flow_seconds": 0.07781749218702316,
+        "dec_seconds": 3.4235606752336025
+      },
+      "audio_seconds": 5.02,
+      "median_decoder_seconds_per_audio_second": 0.6819841982537057,
+      "peak_sampled_tree_rss_bytes": 5052641280,
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": false,
+      "local_approved_generated_tokens_match": false
+    }
+  ],
+  "profile_run": {
+    "language": "ko",
+    "name": "ar_runtime_profile_run",
+    "prefetch": null,
+    "approximate_ar_int8_only": true,
+    "runtime_variant": "L_ar_int8_only",
+    "runtime_local_generated_tokens_match": true,
+    "runtime_local_pcm_match": false,
+    "original": false,
+    "combined": true,
+    "model_variant": "K",
+    "manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+    "ar_cache_storage": "int8_approximate",
+    "student_fp32_control": false,
+    "median_rtf": 1.1961942026577148,
+    "rtfs": [
+      1.1961942026577148
+    ],
+    "median_seconds": 6.004894897341728,
+    "median_cpu_seconds": 9.979247319999999,
+    "median_stages": {
+      "ar_seconds": 2.0984602570533752,
+      "enc_p_seconds": 0.12527116760611534,
+      "flow_seconds": 0.0776374526321888,
+      "dec_seconds": 3.526466701179743
+    },
+    "audio_seconds": 5.02,
+    "median_decoder_seconds_per_audio_second": 0.7024834066095106,
+    "peak_sampled_tree_rss_bytes": 5708062720,
+    "semantic": [
+      {
+        "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+        "index": 118,
+        "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+      }
+    ],
+    "candidate_tokens_exact_to_n1_student": true,
+    "candidate_pcm_exact_to_n1_student": true,
+    "local_approved_pcm_match": false,
+    "local_approved_generated_tokens_match": false
+  },
+  "student_assets_unchanged": true,
+  "complete": true
+}

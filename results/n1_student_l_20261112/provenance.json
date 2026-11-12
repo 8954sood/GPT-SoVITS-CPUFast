@@ -1,0 +1,16 @@
+{
+  "run_id": 43168034387,
+  "url": "https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43168034387",
+  "head_sha": "a84f4b90cc1167fcc7e27f4552a45e48043d6c8a",
+  "target": "Actual ARM Neoverse N1, 2 vCPU / 8000000000 bytes / no swap",
+  "warmups": 3,
+  "samples": 5,
+  "underlying_manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+  "baseline": "Approved K exact-half cache256, normal FP32 attention/acoustics",
+  "candidate": "Separately approved L, same K authoritative weights, derived approximate W8A8 AR/native FP32 head-major attention; unchanged normal FP32 acoustics",
+  "rtf_improvement_percent": 7.019155865555793,
+  "wall_improvement_percent": 8.477678910801977,
+  "decision": "Preserve opt-in approved L runtime for this Korean request. Median RTF1.1414 remains above1; no below-real-time or0.7 claim and no conditional under1 confirmation job. Next actual-L-shape im2col probe, then attention isolation if justified.",
+  "integrity": "All model/reference/checkpoint/student parameter guards passed; acoustic fast_half0/global fastfalse; observed AR and acoustic global Torch threads2. All L generated semantic hashes match local approvedL; cross-platform PCM differs. Extra profiled synthesis PCM/tokens/duration exact to same unprofiled process.",
+  "limits": "Single5sample chronological comparison. K/L tokens/durations differ120/118 and5.10/5.02s; latency/CPU andRTF reported together. Approximate inference explicitly changes arithmetic without rewriting model coefficients."
+}
