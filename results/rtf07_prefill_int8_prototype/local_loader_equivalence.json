@@ -1,0 +1,120 @@
+{
+  "scope": "Local Linux ARM64 Docker correctness only; no performance claim",
+  "proof_sha256": "9bd0c3d32a5fceae1f7a6bb7ba7cf6b14b40c54f387539a890850fc5d84a1090",
+  "checks": {
+    "checkpoint_files_unchanged": true,
+    "parameters_unchanged": true,
+    "ar_parameters_unchanged": true,
+    "student_files_unchanged": true,
+    "fp16_acoustic_modules": 0,
+    "int8_prefill_ffn": true
+  },
+  "pcm_sha256": "92a135e36f8a0a0fd111cfbc42b1075e0ae3a421401fcc823d509e67be7edd9f",
+  "semantic": [
+    {
+      "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+      "index": 118,
+      "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+    }
+  ],
+  "audio_seconds": 5.02,
+  "runtime_local_pcm_match": true,
+  "runtime_local_generated_tokens_match": true,
+  "profile_output_checks": {
+    "sample_rate": 32000,
+    "pcm_sha256": "92a135e36f8a0a0fd111cfbc42b1075e0ae3a421401fcc823d509e67be7edd9f",
+    "semantic": [
+      {
+        "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+        "index": 118,
+        "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+      }
+    ],
+    "audio_seconds": 5.02,
+    "exact_to_unprofiled_same_process": true
+  },
+  "prefill_ffn_operators": [
+    {
+      "phase": "prefill",
+      "role": "ffn1",
+      "operator": "cpufast_cpp.prefill_int8_linear.default",
+      "input_shapes": [
+        [
+          256,
+          512
+        ],
+        [
+          512,
+          32,
+          4,
+          16
+        ],
+        [
+          2048
+        ],
+        [
+          2048
+        ]
+      ],
+      "calls": 18
+    },
+    {
+      "phase": "prefill",
+      "role": "ffn2",
+      "operator": "cpufast_cpp.prefill_int8_linear.default",
+      "input_shapes": [
+        [
+          256,
+          2048
+        ],
+        [
+          128,
+          128,
+          4,
+          16
+        ],
+        [
+          512
+        ],
+        [
+          512
+        ]
+      ],
+      "calls": 18
+    }
+  ],
+  "native_library_manifest": {
+    "abi": 1,
+    "torch_version": "2.8.0+cpu",
+    "architecture": "aarch64",
+    "flags": [
+      "-O3",
+      "-fopenmp",
+      "-std=c++17",
+      "-march=armv8.2-a+dotprod",
+      "-mtune=neoverse-n1",
+      "-ffp-contract=off",
+      "-fno-fast-math",
+      "-fPIC",
+      "-shared",
+      "-D_GLIBCXX_USE_CXX11_ABI=1"
+    ],
+    "sources": {
+      "native/cpufast_prefill_int8.cpp": "8834a85397759f363f45e92df36e924d804e488da2e03dd3426a816e4ef4b404"
+    },
+    "library_sha256": "c838353126f794670f253d50538cfffcdd0692c3345a11297d80c2f482eb1971"
+  },
+  "guard_exit_code": 0,
+  "guard_violation": null,
+  "original_checkpoint_hashes": {
+    "/student/ar.pt": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+    "/work/assets/v2Pro/s2Gv2ProPlus.pth": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b"
+  },
+  "student_files": {
+    "manifest.json": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+    "ar.pt": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+    "decoder.pt": "a2fe6478aae00a8a481209f32aba85eab97198cd30aca0ce1ff63d9ec31c3c1d",
+    "student_spec.json": "6b4b12ecdf6f4716b4089f1590c0833c98f8397e6a8ea90c79e1180abf4c0002"
+  },
+  "reference_sha256": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839"
+}

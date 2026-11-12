@@ -1,0 +1,36 @@
+{
+  "scope": "Korean-only inherited L listening approval by exact semantic and PCM identity. Different Japanese/English are not approved. Latest owner requests finishing current V/W tests before environment handoff; no new listening answer is fabricated.",
+  "quality_inherited_ko_only": true,
+  "full_pcm_exact_to_approved_l": true,
+  "underlying_manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+  "reference_sha256": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+  "baseline_runtime_approval_sha256": "5ddde36edec32eec8f720c6c1517e7ebd26dca8d9dda26cd432095f18730b355",
+  "approved_l_implementation_sha256": "170a6532158d27262ba8d2aeb0ed1c6b0f9c11ab95946a2a3c8273768f3e4587",
+  "sources": {
+    "cpufast_prefill_int8_probe.py": "929ce65abc68ef3f40647e78f4518366040c5cd122dcece051467017ffe25681",
+    "native/cpufast_prefill_int8.cpp": "8834a85397759f363f45e92df36e924d804e488da2e03dd3426a816e4ef4b404",
+    "experiments/rtf07/build_prefill_int8_probe.py": "3854d3ef04aac3f61735120b908dc39891e8eeaf3f9ed2805497e9eb9e18bd57",
+    "experiments/rtf07/test_prefill_int8_probe.py": "d9b679d21654b130006bf16780f7ae4eb3cceedf5c93df51f1144dc664dc2b8c",
+    "tests/test_int8_prefill_proxy.py": "3fef7a7744a2acab2ce214cbe5c9948caaf93bc71cb18fcdb41b96866d4e7a7f",
+    "experiments/student/listen_prefill_int8.py": "0ff1a37c0804ad39c587184b4307e540dcb98dc61d2b3cd10cf5752c0b54c237",
+    "cpufast_prefill_probe.py": "030ba4469e059064241b861f5794b7eb421ad1d32308ce3344e33c20d5c43768"
+  },
+  "listening_report": "results/student_pilot/prefill_int8_listening.json",
+  "listening_report_sha256": "e0cae00ca1758c36923d17c00b3fc0bcc02322a6d75024106e87a7edc005ba20",
+  "ko_case": {
+    "language": "ko",
+    "text": "오늘은 날씨가 참 좋네요. 잠깐 쉬었다가 함께 이야기를 이어 가요.",
+    "sample_rate": 32000,
+    "audio_seconds": 5.02,
+    "smoke_elapsed_seconds": 10.830318297,
+    "semantic": [
+      {
+        "tokens": 118,
+        "sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+      }
+    ],
+    "pcm_sha256": "92a135e36f8a0a0fd111cfbc42b1075e0ae3a421401fcc823d509e67be7edd9f"
+  },
+  "owner_authorized_current_batch_test_and_handoff": true,
+  "actual_n1_measured": false
+}

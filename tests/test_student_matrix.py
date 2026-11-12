@@ -63,6 +63,7 @@ def synthetic_bundle(root, variant, storage):
         ("exact_fp16", "exact_fp16", True, "bottleneck"),
         ("exact_fp16", "exact_fp16", True, "bottleneckU"),
         ("exact_fp16", "exact_fp16", False, "packed"),
+        ("exact_fp16", "exact_fp16", False, "int8packed"),
         ("exact_fp16", "exact_fp16", False, "profile"),
     ],
 )
@@ -123,7 +124,9 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             index = argv.index(key)
             del argv[index : index + 2]
         argv.append(
-            "--diagnostic-profile-only"
+            "--int8-prefill-comparison"
+            if ar_only == "int8packed"
+            else "--diagnostic-profile-only"
             if ar_only == "profile"
             else "--packed-prefill-comparison"
             if ar_only == "packed"
@@ -135,6 +138,8 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
         )
         if ar_only == "confirm":
             argv.append("--ar-int8-confirm-only")
+        if ar_only == "int8packed":
+            argv += ["--samples", "5"]
     if decoder_only:
         argv.append("--decoder-only")
     if ar_only in ("decoder", "bottleneck", "bottleneckU"):
@@ -161,6 +166,13 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
             "ar_parameters_unchanged": True,
             "student_files_unchanged": True,
             "approximate_ar_int8_only": "--ar-int8-only" in command,
+            "int8_prefill_ffn": "--int8-prefill-ffn" in command,
+            "int8_prefill_audit": [{"block": 0}]
+            if "--int8-prefill-ffn" in command
+            else [],
+            "int8_prefill_library_manifest": {"source": "trueGEMM"}
+            if "--int8-prefill-ffn" in command
+            else None,
             "packed_prefill_ffn": "--packed-prefill-ffn" in command,
             "packed_prefill_audit": [{"block": 0}]
             if "--packed-prefill-ffn" in command
@@ -216,10 +228,12 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
         assert summary["cases"] == [] and "profile_run" in summary
         assert summary["complete"] and summary["student_assets_unchanged"]
         return
-    if ar_only in ("bottleneck", "bottleneckU", "packed"):
+    if ar_only in ("bottleneck", "bottleneckU", "packed", "int8packed"):
         assert len(calls) == 11
         candidate_label = (
-            "packed"
+            "W"
+            if ar_only == "int8packed"
+            else "packed"
             if ar_only == "packed"
             else "U"
             if ar_only == "bottleneckU"
@@ -251,7 +265,8 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
                 and "--fft-pad-channels" not in command
             )
             assert ("--packed-prefill-ffn" in command) == (label == "packed")
-        if ar_only == "bottleneckU":
+            assert ("--int8-prefill-ffn" in command) == (label == "W")
+        if ar_only in ("bottleneckU", "int8packed"):
             assert calls[-1][calls[-1].index("--warmups") + 1] == "3"
         summary = json.loads((output / "student_summary.json").read_text())
         assert [r["runtime"] for r in summary["comparison_order"]] == order

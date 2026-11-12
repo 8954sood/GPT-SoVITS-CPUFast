@@ -96,8 +96,8 @@ def decoder_fft_ranges(decoder):
 def ar_phase_ranges(model):
     """Attribute real AR operators without retaining global profiler input tensors.
 
-    Installed only for the separate excluded profile. Scripted prefill remains
-    the original FP32 block; decode remains the original selected runtime.
+    Installed only for the separate excluded profile. Selected prefill and
+    decode arithmetic are unchanged by instrumentation.
     Matrix storage identities distinguish QKV/out/FFN from acoustic addmm.
     """
     original = model.t2s_transformer
@@ -140,6 +140,7 @@ def ar_phase_ranges(model):
                 "aten.mm.default",
                 "cpufast_cpp.int8_linear.default",
                 "cpufast_cpp.prefill_packed_linear.default",
+                "cpufast_cpp.prefill_int8_linear.default",
             ):
                 matrix_index = 2 if name == "aten.addmm.default" else 1
                 role = roles.get(args[matrix_index].data_ptr(), "unattributed_matrix")

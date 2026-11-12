@@ -111,6 +111,7 @@ def main():
     parser.add_argument("--fft-half-products", action="store_true")
     parser.add_argument("--fft-half-stream", action="store_true")
     parser.add_argument("--packed-prefill-ffn", action="store_true")
+    parser.add_argument("--int8-prefill-ffn", action="store_true")
     parser.add_argument("--inference-mode", action="store_true")
     parser.add_argument("--fused-fft", action="store_true")
     parser.add_argument(
@@ -139,10 +140,22 @@ def main():
     if args.fft_half_stream and not args.fft_half_products:
         parser.error("Half streaming requires approved P FFT products")
     if args.packed_prefill_ffn and (
-        not args.ar_int8_only or args.lang != "ko" or args.fft_half_products
+        not args.ar_int8_only
+        or args.lang != "ko"
+        or args.fft_half_products
+        or args.int8_prefill_ffn
     ):
         parser.error(
             "Packed FP32 prefill currently inherits only the separate Korean L waveform approval; no combined decoder changes"
+        )
+    if args.int8_prefill_ffn and (
+        not args.ar_int8_only
+        or args.lang != "ko"
+        or args.fft_half_products
+        or args.packed_prefill_ffn
+    ):
+        parser.error(
+            "W8A8 prefill is source-pinned Korean L only; no combined candidate"
         )
     if args.fft_half_products and (
         not args.ar_int8_only
@@ -160,6 +173,8 @@ def main():
     fft_half_runtime_approval = None
     fft_half_stream_equivalence = None
     packed_prefill_equivalence = None
+    int8_prefill_equivalence = None
+    int8_prefill_library_path = None
     if args.student_manifest:
         from cpufast_student_assets import load_manifest, snapshot
 
@@ -265,6 +280,53 @@ def main():
             ):
                 parser.error(
                     "Packed prefill differs from source-pinned Korean L waveform equivalence"
+                )
+        if args.int8_prefill_ffn:
+            root = Path(__file__).resolve().parent
+            int8_prefill_equivalence = json.loads(
+                (root / "results/student_pilot/approved_w_runtime.json").read_text()
+            )
+            proof = int8_prefill_equivalence
+            required_sources = {
+                "cpufast_prefill_int8_probe.py",
+                "cpufast_prefill_probe.py",
+                "native/cpufast_prefill_int8.cpp",
+                "experiments/rtf07/build_prefill_int8_probe.py",
+                "experiments/rtf07/test_prefill_int8_probe.py",
+                "tests/test_int8_prefill_proxy.py",
+                "experiments/student/listen_prefill_int8.py",
+            }
+            if (
+                proof.get("quality_inherited_ko_only") is not True
+                or proof.get("full_pcm_exact_to_approved_l") is not True
+                or proof.get("underlying_manifest_sha256")
+                != args.student_manifest_sha256
+                or proof.get("reference_sha256") != student_manifest["reference_sha256"]
+                or proof.get("approved_l_implementation_sha256")
+                != ar_runtime_approval["implementation_sha256"]
+                or proof.get("baseline_runtime_approval_sha256")
+                != file_digest(root / "results/student_pilot/approved_l_runtime.json")
+                or proof.get("listening_report_sha256")
+                != file_digest(root / proof["listening_report"])
+                or any(
+                    proof["ko_case"][key] != ar_runtime_listening_case[key]
+                    for key in (
+                        "language",
+                        "text",
+                        "sample_rate",
+                        "audio_seconds",
+                        "semantic",
+                        "pcm_sha256",
+                    )
+                )
+                or set(proof["sources"]) != required_sources
+                or any(
+                    file_digest(root / name) != expected
+                    for name, expected in proof["sources"].items()
+                )
+            ):
+                parser.error(
+                    "W8A8 prefill differs from source-pinned Korean L PCM equivalence"
                 )
         if args.fft_half_products:
             root = Path(__file__).resolve().parent
@@ -511,6 +573,28 @@ def main():
                 runtime.audit["arithmetic"] = (
                     "L W8A8 decode/native FP32 attention; source-pinned Korean-equivalent FP32 packed FFN prefill only; normal FP32 acoustics"
                 )
+            if args.int8_prefill_ffn:
+                from cpufast_prefill_int8_probe import (
+                    build_prefill_ffn_proxy,
+                    load_library,
+                )
+
+                int8_prefill_library_path = Path(
+                    os.environ.get(
+                        "CPUFAST_INT8_PREFILL_LIBRARY",
+                        str(
+                            Path(__file__).resolve().parent
+                            / "libcpufast_prefill_int8_probe.so"
+                        ),
+                    )
+                )
+                load_library(int8_prefill_library_path)
+                proxy = build_prefill_ffn_proxy(approximate_ar)
+                pipeline.t2s_model.model.t2s_transformer = proxy
+                runtime.audit["int8_prefill_ffn"] = proxy.audit
+                runtime.audit["arithmetic"] = (
+                    "L unchanged W8A8 decode/native FP32 attention; approximate genuine multirow W8A8 FFN prefill; normal FP32 acoustics"
+                )
         if args.fft_half_products:
             from cpufast_fft_half_runtime import enable_fft_half_products
 
@@ -696,6 +780,18 @@ def main():
         "ar_runtime_approval": ar_runtime_approval,
         "packed_prefill_ffn": args.packed_prefill_ffn,
         "packed_prefill_equivalence": packed_prefill_equivalence,
+        "int8_prefill_ffn": args.int8_prefill_ffn,
+        "int8_prefill_equivalence": int8_prefill_equivalence,
+        "int8_prefill_library_manifest": json.loads(
+            int8_prefill_library_path.with_suffix(
+                int8_prefill_library_path.suffix + ".json"
+            ).read_text()
+        )
+        if int8_prefill_library_path
+        else None,
+        "int8_prefill_audit": runtime.audit.get("int8_prefill_ffn", [])
+        if args.engine
+        else [],
         "packed_prefill_audit": runtime.audit.get("packed_prefill_ffn", [])
         if args.engine
         else [],

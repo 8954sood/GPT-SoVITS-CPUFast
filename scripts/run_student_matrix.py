@@ -28,9 +28,15 @@ def main():
     parser.add_argument("--fft-half-stream-comparison", action="store_true")
     parser.add_argument("--alternating-decoder-comparison", action="store_true")
     parser.add_argument("--packed-prefill-comparison", action="store_true")
+    parser.add_argument("--int8-prefill-comparison", action="store_true")
     parser.add_argument("--diagnostic-profile-only", action="store_true")
     parser.add_argument("--decoder-candidate-label", choices=["R", "U"], default="R")
     args = parser.parse_args()
+    prefill_comparison = args.packed_prefill_comparison or args.int8_prefill_comparison
+    if args.int8_prefill_comparison and (
+        args.packed_prefill_comparison or args.warmups != 3 or args.samples != 5
+    ):
+        parser.error("W requires one counterbalanced3warm5sample prefill comparison")
     if args.decoder_candidate_label == "U" and (
         not args.alternating_decoder_comparison
         or args.warmups != 3
@@ -48,6 +54,7 @@ def main():
         or args.fft_half_comparison
         or args.fft_half_stream_comparison
         or args.packed_prefill_comparison
+        or args.int8_prefill_comparison
         or args.ar_int8_confirm_only
         or args.decoder_ar_int8
         or args.alternating_decoder_comparison
@@ -75,7 +82,7 @@ def main():
         parser.error("FFT-product comparison uses one unchanged approved L bundle")
     if args.fft_half_comparison and args.fft_half_stream_comparison:
         parser.error("Select one FFT-product comparison")
-    if args.packed_prefill_comparison and (
+    if prefill_comparison and (
         args.baseline_manifest
         or args.decoder_only
         or args.ar_int8_comparison
@@ -165,6 +172,7 @@ def main():
         fft_half_stream=False,
         measured_samples=None,
         packed_prefill=False,
+        int8_prefill=False,
     ):
         run_manifest = baseline if baseline_bundle else manifest
         run_path = args.baseline_manifest if baseline_bundle else args.manifest
@@ -213,7 +221,9 @@ def main():
             "1"
             if profile
             and not (
-                args.diagnostic_profile_only or args.decoder_candidate_label == "U"
+                args.diagnostic_profile_only
+                or args.decoder_candidate_label == "U"
+                or args.int8_prefill_comparison
             )
             else str(args.warmups),
             "--samples",
@@ -248,6 +258,8 @@ def main():
             command += ["--fft-half-stream"]
         if packed_prefill:
             command += ["--packed-prefill-ffn"]
+        if int8_prefill:
+            command += ["--int8-prefill-ffn"]
         if combined:
             command += ["--fft-stream", "--parallel-transforms", "--inference-mode"]
         if compare is not None:
@@ -305,6 +317,12 @@ def main():
             not data.get("packed_prefill_ffn") or not data.get("packed_prefill_audit")
         ):
             raise RuntimeError("Packed FP32 prefill candidate scope audit failed")
+        if int8_prefill and (
+            not data.get("int8_prefill_ffn")
+            or not data.get("int8_prefill_audit")
+            or not data.get("int8_prefill_library_manifest")
+        ):
+            raise RuntimeError("W8A8 prefill candidate scope/library audit failed")
         if (
             data["cgroup"]["cpu.max"] != "200000 100000"
             or data["cgroup"]["memory.max"] != "8000000000"
@@ -329,7 +347,10 @@ def main():
             "approximate_fft_half_stream": fft_half_stream,
             "fft_half_product_modules": data.get("fft_half_product_modules", []),
             "packed_prefill_ffn": packed_prefill,
-            "runtime_variant": "L_with_packed_FP32_prefill"
+            "int8_prefill_ffn": int8_prefill,
+            "runtime_variant": "W_L_with_multitoken_W8A8_prefill"
+            if int8_prefill
+            else "L_with_packed_FP32_prefill"
             if packed_prefill
             else "P_equivalent_half_stream"
             if fft_half_stream
@@ -436,9 +457,13 @@ def main():
         if not summary["student_assets_unchanged"]:
             raise RuntimeError("Private diagnostic assets changed")
         return
-    if args.alternating_decoder_comparison or args.packed_prefill_comparison:
+    if args.alternating_decoder_comparison or prefill_comparison:
         candidate_label = (
-            "packed" if args.packed_prefill_comparison else args.decoder_candidate_label
+            "W"
+            if args.int8_prefill_comparison
+            else "packed"
+            if args.packed_prefill_comparison
+            else args.decoder_candidate_label
         )
         summary["scope"] = (
             f"Actual N1 approved L versus approved {candidate_label} pair bottlenecks only; counterbalanced AB/BA rounds; no new prefill/half-products"
@@ -447,6 +472,13 @@ def main():
         if args.packed_prefill_comparison:
             summary["scope"] = (
                 "Actual N1 Korean L versus source-pinned PCM-equivalent packed FP32 FFN prefill only, counterbalanced AB/BA; identical checkpoints and normal FP32 acoustics"
+            )
+        if args.int8_prefill_comparison:
+            summary["scope"] = (
+                "Actual N1 Korean L versus source-pinned PCM-equivalent W; genuine multirow W8A8 FFN prefill only, counterbalanced AB/BA; unchanged K weights/decode/FP32 acoustics"
+            )
+            summary["prefetch_selection"] = (
+                "No tuning; fixed L decode/runtime, only prefill FFN arithmetic differs"
             )
         samples = {"L": [], candidate_label: []}
         last_candidate = None
@@ -460,10 +492,11 @@ def main():
                     f"paired_{index}_{label}",
                     distance=256,
                     combined=True,
-                    baseline_bundle=label == "L" and not args.packed_prefill_comparison,
+                    baseline_bundle=label == "L" and not prefill_comparison,
                     ar_int8_only=True,
                     measured_samples=1,
                     packed_prefill=label == "packed",
+                    int8_prefill=label == "W",
                 )
                 observed = data["runs"][0]
                 if reference is None:
@@ -477,11 +510,11 @@ def main():
                     )
                 samples[label].append((observed, row))
                 if (
-                    args.packed_prefill_comparison
+                    prefill_comparison
                     and observed["pcm_sha256"] != reference["pcm_sha256"]
                 ):
                     raise RuntimeError(
-                        "Packed prefill changed approved L PCM on actual N1; listening gate required"
+                        "Prefill changed approved L PCM on actual N1; listening gate required"
                     )
                 summary["comparison_order"].append(
                     {"round": index, "runtime": label, "name": row["name"]}
@@ -518,7 +551,9 @@ def main():
         try:
             _, row = run(
                 "ko",
-                "packed_prefill_profile_run"
+                "int8_prefill_profile_run"
+                if args.int8_prefill_comparison
+                else "packed_prefill_profile_run"
                 if args.packed_prefill_comparison
                 else "bottleneck_profile_run",
                 distance=256,
@@ -527,6 +562,7 @@ def main():
                 profile=True,
                 compare=last_candidate,
                 packed_prefill=args.packed_prefill_comparison,
+                int8_prefill=args.int8_prefill_comparison,
             )
             if not row["candidate_pcm_exact_to_n1_student"]:
                 raise RuntimeError("Profile process changed approved candidate PCM")
