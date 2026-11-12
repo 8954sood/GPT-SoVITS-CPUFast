@@ -117,25 +117,34 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
 
     monkeypatch.setattr(run_student_matrix.subprocess, "run", execute)
     run_student_matrix.main()
-    assert len(calls) == 3
+    has_control = candidate_storage == "exact_fp16"
+    assert len(calls) == (4 if has_control else 3)
     for index, command in enumerate(calls):
         bundle = baseline if index == 0 else candidate
         storage = baseline_storage if index == 0 else candidate_storage
+        if has_control and index == 1:
+            storage = "fp32"
         assert command[command.index("--s1") + 1] == str(bundle.parent / "ar.pt")
         assert ("--ar-fp32-cache" in command) == (storage == "fp32")
         assert command[command.index("--ar-prefetch") + 1] == (
             "0" if storage == "fp32" else "256"
         )
         assert "--predictor-eligibility-cache" in command
-        assert command[command.index("--samples") + 1] == ("1" if index == 2 else "5")
-        assert ("--compare-pcm" in command) == (index == 2)
-    assert calls[2][calls[2].index("--compare-pcm") + 1] == str(
+        assert command[command.index("--samples") + 1] == (
+            "1" if index == len(calls) - 1 else "5"
+        )
+        assert ("--student-fp32-control" in command) == (has_control and index == 1)
+        assert ("--compare-pcm" in command) == (index >= 2)
+    assert calls[-1][calls[-1].index("--compare-pcm") + 1] == str(
         output / "ko_comparison_candidate.wav"
     )
     summary = json.loads((output / "student_summary.json").read_text())
     assert summary["complete"] and summary["student_assets_unchanged"]
     assert [r["manifest_sha256"] for r in summary["cases"]] == [
         sha256(baseline),
-        sha256(candidate),
+        *([sha256(candidate)] * (2 if has_control else 1)),
     ]
-    assert [r["model_variant"] for r in summary["cases"]] == ["H2", "H3"]
+    assert [r["model_variant"] for r in summary["cases"]] == [
+        "H2",
+        *(["H3"] * (2 if has_control else 1)),
+    ]

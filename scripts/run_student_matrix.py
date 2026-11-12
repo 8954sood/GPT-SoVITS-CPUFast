@@ -85,6 +85,7 @@ def main():
         compare=None,
         predictor_cache=False,
         baseline_bundle=False,
+        fp32_control=False,
     ):
         run_manifest = baseline if baseline_bundle else manifest
         run_path = args.baseline_manifest if baseline_bundle else args.manifest
@@ -94,6 +95,7 @@ def main():
         if (
             baseline is not None
             and run_manifest.get("ar_cache_storage", "fp32") == "exact_fp16"
+            and not fp32_control
         ):
             # Use the verified original exact-half profile, not the FP32-cache hint.
             distance = 256
@@ -146,8 +148,10 @@ def main():
                 "--student-manifest-sha256",
                 sha256(run_path),
             ]
-            if run_manifest.get("ar_cache_storage", "fp32") == "fp32":
+            if run_manifest.get("ar_cache_storage", "fp32") == "fp32" or fp32_control:
                 command += ["--ar-fp32-cache"]
+            if fp32_control:
+                command += ["--student-fp32-control"]
         if combined:
             command += ["--fft-stream", "--parallel-transforms", "--inference-mode"]
         if compare is not None:
@@ -202,9 +206,14 @@ def main():
             "predictor_eligibility_cache": predictor_cache,
             "model_variant": data["model_variant"],
             "manifest_sha256": None if original else sha256(run_path),
-            "ar_cache_storage": "exact_fp16"
-            if original
-            else run_manifest.get("ar_cache_storage", "fp32"),
+            "ar_cache_storage": "fp32"
+            if fp32_control
+            else (
+                "exact_fp16"
+                if original
+                else run_manifest.get("ar_cache_storage", "fp32")
+            ),
+            "student_fp32_control": fp32_control,
             "median_rtf": data["median_rtf"],
             "rtfs": [r["rtf"] for r in data["runs"]],
             "median_seconds": data["median_seconds"],
@@ -216,6 +225,9 @@ def main():
                 for k in data["runs"][0]["stages"]
             },
             "audio_seconds": data["runs"][0]["audio_seconds"],
+            "median_decoder_seconds_per_audio_second": statistics.median(
+                r["stages"]["dec_seconds"] / r["audio_seconds"] for r in data["runs"]
+            ),
             "peak_sampled_tree_rss_bytes": guard["peak_sampled_tree_rss_bytes"],
             "semantic": data["runs"][0]["semantic"],
             "candidate_tokens_exact_to_n1_student": tokens_exact,
@@ -268,14 +280,34 @@ def main():
             predictor_cache=args.predictor_cache,
             baseline_bundle=True,
         )
-        run(
+        candidate_compare = None
+        if manifest.get("ar_cache_storage", "fp32") == "exact_fp16":
+            run(
+                "ko",
+                "comparison_candidate_fp32",
+                distance=args.prefetch,
+                combined=True,
+                confirm=True,
+                predictor_cache=args.predictor_cache,
+                fp32_control=True,
+            )
+            candidate_compare = args.output / "ko_comparison_candidate_fp32.wav"
+        _, candidate_result = run(
             "ko",
             "comparison_candidate",
             distance=args.prefetch,
             combined=True,
             confirm=True,
             predictor_cache=args.predictor_cache,
+            compare=candidate_compare,
         )
+        if candidate_compare is not None and (
+            not candidate_result["candidate_pcm_exact_to_n1_student"]
+            or not candidate_result["candidate_tokens_exact_to_n1_student"]
+        ):
+            raise RuntimeError(
+                "Same approved coefficients changed PCM/tokens between cache storage paths"
+            )
         try:
             run(
                 "ko",

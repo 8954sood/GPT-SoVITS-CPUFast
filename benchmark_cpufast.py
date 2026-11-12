@@ -106,6 +106,7 @@ def main():
         "--engine", action="store_true", help="Use the optimized engine factory"
     )
     parser.add_argument("--native-predictor", action="store_true")
+    parser.add_argument("--student-fp32-control", action="store_true")
     parser.add_argument("--inference-mode", action="store_true")
     parser.add_argument("--fused-fft", action="store_true")
     parser.add_argument(
@@ -118,6 +119,8 @@ def main():
         args.prompt_lang = args.lang
     if bool(args.student_manifest) != bool(args.student_manifest_sha256):
         parser.error("Student manifest and its trusted SHA256 are required together")
+    if args.student_fp32_control and not args.student_manifest:
+        parser.error("--student-fp32-control requires an approved exact-half bundle")
     if args.student_manifest and (not args.engine or args.fast_experimental):
         parser.error("Approved student requires the FP32 arithmetic engine")
     student_manifest = None
@@ -128,7 +131,14 @@ def main():
         student_manifest = load_manifest(
             args.student_manifest, args.student_manifest_sha256
         )
-        if args.ar_fp32_cache != (
+        if args.student_fp32_control and (
+            student_manifest.get("ar_cache_storage", "fp32") != "exact_fp16"
+            or not args.ar_fp32_cache
+        ):
+            parser.error(
+                "FP32 control must use an approved exact-half bundle with FP32 cache"
+            )
+        if not args.student_fp32_control and args.ar_fp32_cache != (
             student_manifest.get("ar_cache_storage", "fp32") == "fp32"
         ):
             parser.error("AR cache storage must match the approved student manifest")
@@ -424,6 +434,7 @@ def main():
         if student_manifest
         else None,
         "student_files_before": student_files_before,
+        "student_fp32_control": args.student_fp32_control,
         "student_load_seconds": student_load_seconds,
         "experimental_options": {
             k: getattr(args, k)
@@ -576,13 +587,20 @@ def main():
         assert report["student_files_unchanged"]
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     if args.profile_output is not None:
+        from cpufast_profiling import predictor_range
+
         # The additional profiled synthesis is explicitly excluded from the RTF runs.
         with torch.profiler.profile(
             activities=[torch.profiler.ProfilerActivity.CPU],
             record_shapes=not args.profile_no_shapes,
         ) as prof:
             # Profile the same execution mode as the measured inference.
-            with torch.inference_mode(args.inference_mode):
+            with (
+                predictor_range(
+                    pipeline.t2s_model.model.ar_predict_layer
+                ) as predictor_metadata,
+                torch.inference_mode(args.inference_mode),
+            ):
                 list(runtime.run(inputs))
         rows = [
             {
@@ -601,6 +619,7 @@ def main():
                 {
                     "note": "Extra profiled inference, excluded from RTF; CPU totals may overlap across threads and include profiler overhead",
                     "record_shapes": not args.profile_no_shapes,
+                    "predictor": predictor_metadata,
                     "operators": sorted(
                         rows, key=lambda row: row["self_cpu_us"], reverse=True
                     ),
