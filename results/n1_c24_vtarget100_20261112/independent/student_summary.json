@@ -1,0 +1,372 @@
+{
+  "scope": "Independent actual N1 approved AR17+C24Vtarget100 canonical confirmation: exactly5freshprocesses each3warm1sample, max emphasized; no Tap-finish/FFT128/QK/FFN2 candidates",
+  "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+  "ar_selected_additional_step": null,
+  "decoder_selected_additional_step": 100,
+  "ar_training": "Approved K AR18 -> QAT100 -> training-only layer21 removal -> QAT200 with original teacher KL and anchors6/13/23; CPU FP32, separate half-representable matrix export.",
+  "ar_selected_step": 200,
+  "ar_recovery_updates": 200,
+  "ar_control_parent_updates": 100,
+  "prefetch_selection": "No tuning; one unchanged owner-approved AR/decoder bundle",
+  "cases": [
+    {
+      "language": "ko",
+      "name": "integrated_head_0",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": true,
+      "original": false,
+      "combined": true,
+      "model_variant": "AR17_QAT200_C24_TWO_BRANCH_VTARGET100",
+      "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.1980791706591845,
+      "installation_seconds": 2.0750484336167574,
+      "median_rtf": 0.9623892406445805,
+      "rtfs": [
+        0.9623892406445805
+      ],
+      "median_seconds": 5.408627532422543,
+      "median_cpu_seconds": 9.18732936,
+      "median_stages": {
+        "ar_seconds": 1.890780569985509,
+        "enc_p_seconds": 0.13627268373966217,
+        "flow_seconds": 0.08517006225883961,
+        "dec_seconds": 3.1189891528338194
+      },
+      "audio_seconds": 5.62,
+      "median_decoder_seconds_per_audio_second": 0.5549802763049501,
+      "peak_sampled_tree_rss_bytes": 4947599360,
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": true,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "integrated_head_1",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": true,
+      "original": false,
+      "combined": true,
+      "model_variant": "AR17_QAT200_C24_TWO_BRANCH_VTARGET100",
+      "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.1565656699240208,
+      "installation_seconds": 2.0268625803291798,
+      "median_rtf": 0.9451539000476382,
+      "rtfs": [
+        0.9451539000476382
+      ],
+      "median_seconds": 5.311764918267727,
+      "median_cpu_seconds": 9.06077388,
+      "median_stages": {
+        "ar_seconds": 1.8786544110625982,
+        "enc_p_seconds": 0.13752209581434727,
+        "flow_seconds": 0.08415549620985985,
+        "dec_seconds": 3.0343130882829428
+      },
+      "audio_seconds": 5.62,
+      "median_decoder_seconds_per_audio_second": 0.5399133609044382,
+      "peak_sampled_tree_rss_bytes": 4860874752,
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": true,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "integrated_head_2",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": true,
+      "original": false,
+      "combined": true,
+      "model_variant": "AR17_QAT200_C24_TWO_BRANCH_VTARGET100",
+      "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.2230733800679445,
+      "installation_seconds": 2.0212304778397083,
+      "median_rtf": 0.9402472220918038,
+      "rtfs": [
+        0.9402472220918038
+      ],
+      "median_seconds": 5.284189388155937,
+      "median_cpu_seconds": 9.038639959999998,
+      "median_stages": {
+        "ar_seconds": 1.877142259851098,
+        "enc_p_seconds": 0.13431999273598194,
+        "flow_seconds": 0.08393017575144768,
+        "dec_seconds": 3.0052230022847652
+      },
+      "audio_seconds": 5.62,
+      "median_decoder_seconds_per_audio_second": 0.5347371890186415,
+      "peak_sampled_tree_rss_bytes": 4884492288,
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": true,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "integrated_head_3",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": true,
+      "original": false,
+      "combined": true,
+      "model_variant": "AR17_QAT200_C24_TWO_BRANCH_VTARGET100",
+      "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.18461649492383,
+      "installation_seconds": 2.2398688718676567,
+      "median_rtf": 0.9487737722535786,
+      "rtfs": [
+        0.9487737722535786
+      ],
+      "median_seconds": 5.332108600065112,
+      "median_cpu_seconds": 9.07598892,
+      "median_stages": {
+        "ar_seconds": 1.8935859743505716,
+        "enc_p_seconds": 0.13577764481306076,
+        "flow_seconds": 0.08540890738368034,
+        "dec_seconds": 3.0413664504885674
+      },
+      "audio_seconds": 5.62,
+      "median_decoder_seconds_per_audio_second": 0.5411684075602433,
+      "peak_sampled_tree_rss_bytes": 4908949504,
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": true,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "integrated_head_4",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": true,
+      "original": false,
+      "combined": true,
+      "model_variant": "AR17_QAT200_C24_TWO_BRANCH_VTARGET100",
+      "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.2092380095273256,
+      "installation_seconds": 2.025459837168455,
+      "median_rtf": 0.9450792808920887,
+      "rtfs": [
+        0.9450792808920887
+      ],
+      "median_seconds": 5.311345558613539,
+      "median_cpu_seconds": 9.116744480000001,
+      "median_stages": {
+        "ar_seconds": 1.9000690467655659,
+        "enc_p_seconds": 0.13769862055778503,
+        "flow_seconds": 0.08421286009252071,
+        "dec_seconds": 3.0053112599998713
+      },
+      "audio_seconds": 5.62,
+      "median_decoder_seconds_per_audio_second": 0.5347528932384112,
+      "peak_sampled_tree_rss_bytes": 4833636352,
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": true,
+      "local_approved_generated_tokens_match": true
+    }
+  ],
+  "native_files_before": {
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+  },
+  "aggregate": {
+    "samples": 5,
+    "rtfs": [
+      0.9623892406445805,
+      0.9451539000476382,
+      0.9402472220918038,
+      0.9487737722535786,
+      0.9450792808920887
+    ],
+    "median_rtf": 0.9451539000476382,
+    "rtf_range": [
+      0.9402472220918038,
+      0.9623892406445805
+    ],
+    "max_rtf": 0.9623892406445805,
+    "all_measured_rtf_below_one": true,
+    "median_seconds": 5.311764918267727,
+    "median_cpu_seconds": 9.07598892,
+    "median_stages": {
+      "ar_seconds": 1.890780569985509,
+      "enc_p_seconds": 0.13627268373966217,
+      "flow_seconds": 0.08421286009252071,
+      "dec_seconds": 3.0343130882829428
+    },
+    "audio_seconds": 5.62,
+    "semantic": [
+      {
+        "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+        "index": 133,
+        "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+      }
+    ],
+    "pcm_sha256": "ab9179ec076b5b3e1bd7f90879486c4e4447d183936f9ae698bc714260a6b279",
+    "peak_sampled_tree_rss_bytes": 4947599360
+  },
+  "profile_run": {
+    "language": "ko",
+    "name": "integrated_head_profile_run",
+    "prefetch": null,
+    "approximate_ar_int8_only": true,
+    "approximate_fft_half_products": false,
+    "approximate_fft_half_stream": false,
+    "fft_half_product_modules": [],
+    "packed_prefill_ffn": false,
+    "int8_prefill_ffn": false,
+    "runtime_variant": "L_ar_int8_only",
+    "runtime_local_generated_tokens_match": true,
+    "runtime_local_pcm_match": true,
+    "original": false,
+    "combined": true,
+    "model_variant": "AR17_QAT200_C24_TWO_BRANCH_VTARGET100",
+    "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+    "ar_cache_storage": "int8_approximate",
+    "student_fp32_control": false,
+    "fft_pad_channels": false,
+    "fft_padded_output_cache": [],
+    "cold_load_seconds": 3.206939222291112,
+    "installation_seconds": 2.017626829445362,
+    "median_rtf": 0.9519515738050284,
+    "rtfs": [
+      0.9519515738050284
+    ],
+    "median_seconds": 5.34996784478426,
+    "median_cpu_seconds": 9.10392968,
+    "median_stages": {
+      "ar_seconds": 2.036606479436159,
+      "enc_p_seconds": 0.13971072249114513,
+      "flow_seconds": 0.08651899918913841,
+      "dec_seconds": 2.91471229493618
+    },
+    "audio_seconds": 5.62,
+    "median_decoder_seconds_per_audio_second": 0.5186320809494982,
+    "peak_sampled_tree_rss_bytes": 5634813952,
+    "semantic": [
+      {
+        "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+        "index": 133,
+        "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+      }
+    ],
+    "candidate_tokens_exact_to_n1_student": true,
+    "candidate_pcm_exact_to_n1_student": true,
+    "local_approved_pcm_match": true,
+    "local_approved_generated_tokens_match": true
+  },
+  "profile_head_attn_operator": [
+    {
+      "name": "cpufast_cpp::head_attn",
+      "calls": 4522,
+      "input_shapes": "",
+      "self_cpu_us": 446892.2320000209,
+      "total_cpu_us": 924803.9250000125
+    }
+  ],
+  "native_files_after": {
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+  },
+  "native_files_unchanged": true,
+  "student_assets_unchanged": true,
+  "complete": true
+}

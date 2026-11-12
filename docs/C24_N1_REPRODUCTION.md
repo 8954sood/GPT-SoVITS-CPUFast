@@ -16,6 +16,13 @@ spec SHA is `3a6550930e73dafadd07a9fdbe79a4e00fe7a55e1bfcd370ff237d0da074dc69`.
 Its approved Korean PCM SHA is `ab9179ec076b5b3e1bd7f90879486c4e4447d183936f9ae698bc714260a6b279`.
 Both produce133semantic tokens and5.62seconds on this request.
 
+Actual N1 measured results: five counterbalanced C24 samples plus five
+independent fresh confirmations all stayed below1. Their complete range was
+.934545–.962389, median.945295 and worst.962389. Raw reports and excluded
+profiles are retained in `results/n1_c24_vtarget100_20261112`; no slow sample
+was removed or replaced. These are warm nonstreaming Korean results on the
+fixed reference/text/seed and resource limits below.
+
 ## Direct SSH host
 
 Use the existing private assets, image and verified immutable student cache
