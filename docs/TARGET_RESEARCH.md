@@ -68,3 +68,20 @@ The subsequent full-model [run 43138450302](https://github.com/8954sood/GPT-SoVI
 ## Prefetch locality
 
 [Run 43139552360](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43139552360) measured locality hints 0/1/2/3 at 9.288/9.006/8.982/8.949ms per synthetic model-sized traversal. Hint 0 had two slow outliers; all samples are preserved. Hints 1–3 differ by less than one percent, so keep the independently validated locality 1. Results: `results/n1_locality_20261112`.
+
+
+## Streaming FFT products
+
+[Run 43154054097](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43154054097)
+compared the prefetch-256 FP32 tap baseline against four-frequency streamed
+spectral GEMM/complex reconstruction. It removes the full three-plane product
+buffer while retaining the existing ACL kernel and FP32 evaluation order.
+Baseline/candidate medians were **1.5336/1.5151** and **1.5410/1.5183**, with
+three excluded warmups and three retained samples per variant. Decoder medians
+were 4.990/4.897s and 4.407/4.388s; AR timing varied despite unchanged AR code.
+The small full-RTF improvement is provisional and needs independent five-sample
+verification before adoption. Every measured candidate PCM and semantic output
+matched its baseline exactly, parameter/checkpoint hashes were unchanged, and
+guards passed. Synthetic packed-GEMM/reconstruction improved at 192/96 channels
+but was approximately tied at 384 channels. Raw reports and provenance are in
+`results/n1_fftstream_20261112`; local Docker results were correctness checks only.
