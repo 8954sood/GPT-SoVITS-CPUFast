@@ -1,5 +1,5 @@
 {
-  "scope": "Actual N1 quality synthesis only; not an RTF benchmark",
+  "scope": "Actual N1 quality-only synthesis, not an RTF benchmark.",
   "candidate": "Unapproved AR16 QAT200 + owner-approved original V400 decoder",
   "ar_layers": 16,
   "loaded_ar_transformer_blocks": 16,
@@ -472,5 +472,8 @@
     }
   ],
   "raw_private_listening_report_sha256": "d2c0e44fd4991a850a294ec9b66ebba58388d01fc65c91f3bb8c88eaff8c3d3e",
-  "quality_feedback_pending": true
+  "quality_feedback_pending": true,
+  "raw_generator_scope": "Actual N1 quality synthesis only; not an RTF benchmark",
+  "generated_on_actual_n1": true,
+  "actual_n1_performance_measured": false
 }
