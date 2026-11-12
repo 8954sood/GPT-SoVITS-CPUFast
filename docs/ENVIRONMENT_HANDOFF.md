@@ -27,8 +27,13 @@
   독립5fresh 재확인은 중앙1.010217, 범위0.991603~1.017123이다. 승인PCM은
   모두 같지만 안정적인1미만 재현은 아직 미달이다. 원자료는
   `results/n1_head_v32_20261112/{full_pcm,integrated}/`에 보존한다.
-- worker는 다음 독립 QK scheduling 후보를 시험한다. 사용자는 새 AR16의
-  음질을 거부해 해당 모델을 보류했고 성능 측정은 하지 않는다. 각 모델과 native 변경은 따로 검증하고 승인된 입력을 고정한다.
+- QK4의 전체5쌍은 baseline/candidate 중앙RTF0.996747/0.996269로 사실상
+  같았고 AR시간도 일관되게 줄지 않아 채택하지 않았다. 원자료와 재현용
+  workflow `studentheadqk4`만 보존한다. worker는 승인AR17+V400와 채택된
+  value scheduling을 고정하고 FFN2-only row8 INT8 후보를 다음으로 시험한다.
+- 사용자는 새 AR16의 음질을 거부해 해당 모델을 보류했고 성능 측정은 없다.
+  V recovery200은 같은 구조에서 CPU 추가학습을 마쳤고 고정입력 logmel 오차가
+  원래V보다2.35% 낮지만 청취/RTF 미승인 후보다. 현재서버의 V400을 바꾸지 않는다.
 - Main의 AR16, history 보강, inactive-FFN slice는 별도 미승인 연구 후보다.
   승인 모델 파일을 덮어쓰거나 이들 후보를 현재 서버 비교에 섞지 않는다.
 
