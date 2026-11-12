@@ -1,0 +1,28 @@
+{
+  "command": [
+    "python",
+    "experiments/rtf07/bench_int8_ffn2_rows8.py",
+    "--library",
+    "/repo/libcpufast_int8_ffn2_rows8.so",
+    "--ar-checkpoint",
+    "/student/ar.pt",
+    "--ar-sha256",
+    "a25ae9826d4d608ca41adca04075ff75a5ac66ababa0e823da60b7990f354352",
+    "--output",
+    "/repo/ci-results/ffn2_primitive.json"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 570363904,
+  "kernel_child_peak_rss_bytes": 571482112,
+  "cpu_seconds": 4.968621,
+  "elapsed_seconds": 4.4743688981980085,
+  "average_cpu_cores": 1.1104629754603033,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 426,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}

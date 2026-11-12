@@ -956,3 +956,28 @@ loop. Next isolated hypothesis is row8 only forFFN2 shape512×2048, preserving
 row4 everywhere else; do not mix QK4. Its earlier64MBrotating ratio .9026 is
 promising for thatshape, but FFN2 accounts for roughly one-third of four-GEMV
 MACs, so only a small aggregate gain is plausible and must be measured.
+
+### FFN2-only row8 and excluded addmm attribution (2026-11-12)
+
+FFN2 sourcee269bd5 routes only512×2048 to row8, all other shapes to original
+row4; approved AR17+V400 and canonical value scheduling stay fixed, QK4 absent.
+All70bit cases (4/12rowfallback, realshapes, finite magnitudes/signed0/1–2threads)
+and68approved-model weight matrices/syntheticactivations match exactly. Actual
+17layer/53,477,376byte mixed4GEMV traversal ratio .971738, FFN2-only .922705,
+hot .985455. Correctness source0bdc1ee completes3warm1sample with approved
+133tokens5.62s PCM exact,9044FFN2row8+27132row4fallbackcalls, baseline4file
+SHA/model/parameter/resource guards intact. Its singleRTF1.002543 is not speed
+or worst-case evidence. No default adoption or5pairedclaim; prioritize larger
+acoustic bottlenecks. Raw arrays/proof: `results/n1_ffn2_rows8_20261112/`.
+
+Opt-in `--profile-matrix-shapes` source2be5404 attributes one excluded profile
+without retaining input tensors globally. All284actual mm/addmm calls are mapped:
+ARprefill68, Tapmm24 and Tapaddmm.out192; predictor uses native lossless_linear,
+not addmm. Instrumented processCPU/wall bygroup: ARprefill .7766/.4108s;
+C48K7 .5296/.3767; C48K11(rect36) .6455/.3361; C24K7 .2780/.1453;
+C24K11 .4345/.2273. C48K11 accounts for34.2% ofTapCPU, lastC24K11 for23.0%.
+These include profiling overhead and must not be converted into production wall
+savings. Own-profile PCM exactly matches approved133tokens5.62s, all guards pass.
+Raw per-module/tap matrix identity/shape/cost and source hashes are in
+`results/n1_addmm_attribution_20261112/`. FFT128-on-Cin240 is the next separate
+fixed-weights quality/numeric candidate; no approval or performance claim yet.

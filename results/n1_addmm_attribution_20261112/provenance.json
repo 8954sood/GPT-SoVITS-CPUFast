@@ -1,0 +1,48 @@
+{
+  "scope": "Single excluded actual N1 addmm/mm identity and shape attribution only; observedCPU/wall includes dispatch/range instrumentation overhead, no RTF gain estimate",
+  "source_sha": "2be54046b9bbc6ec37a59f9962ca4f753c0309c0",
+  "source_archive_sha256": "8c666dc05f46e9102a832e1163b96aa7db4b1fd6fe3c01fbc15877c3b5d4bf32",
+  "retrieved_tar_sha256": "589abb09db0e0e83a97dcfcc6dc65faa3b7970d2afff92faa9dc02f95aa012b1",
+  "image_id": "sha256:23eb9b78c3c75319c99172766f94bba4faa8cffe05f8765ce4b33a3c34bb989b",
+  "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+  "matrix_groups": {
+    "AR_prefill": {
+      "calls": 68,
+      "CPU": 0.776643560000025,
+      "wall": 0.41084009781479836
+    },
+    "stage3_C48_K7": {
+      "calls": 42,
+      "CPU": 0.529586680000051,
+      "wall": 0.376687403768301
+    },
+    "stage3_C48_K11_rect36": {
+      "calls": 66,
+      "CPU": 0.64548319999993,
+      "wall": 0.3361331671476364
+    },
+    "stage4_C24_K7": {
+      "calls": 42,
+      "CPU": 0.2779823200000209,
+      "wall": 0.14526506513357162
+    },
+    "stage4_C24_K11": {
+      "calls": 66,
+      "CPU": 0.4344678800000281,
+      "wall": 0.22727595455944538
+    }
+  },
+  "actual_call_counts": {
+    "ARprefill_addmm": 68,
+    "Tap_mm": 24,
+    "Tap_addmm_out": 192,
+    "unattributed": 0
+  },
+  "PCM_and_model_resources": "Profile exactly reproduces own unprofiled sameprocess approved133tokens5.62s PCM2d7691a8...; original/student/parameter/resource guards pass. No timingcandidateorQK/row8probe enabled.",
+  "conclusion": "Large addmm is FP32 ARprefill and small-channel TapSGEMM, not1025x512 predictor (native lossless_linear134calls). LargestTapgroup stage3C48K11(rect36included) CPU34.2% ofTap, stage4C24K11 CPU23.0%. These observed instrumented costs inform candidate choice, not causal wall savings.",
+  "raw_json_sha256": {
+    "matrix_diagnostic.json": "9127fdd0c75858f61f52e4b76a06b7ef4599d17ca54d8dc5e913d4682003b88a",
+    "matrix_diagnostic_guard.json": "382b009257036e3d2ec3ca7f3561161739cb2967044f5dc4246340b1211d3cc2",
+    "matrix_profile_ops.json": "abe37e147a79219668e9f8450cb945030d8bd5123491be73aa2c8cc71401a355"
+  }
+}
