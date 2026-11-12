@@ -97,4 +97,26 @@ actual baseline library/manifest hashes before and after execution.
 The integrated host suite passes 41 tests with 19 ARM-only skips; target-native
 checks were executed separately on N1. The host mutex is released and no
 benchmark container remains. Original service containers were preserved.
-V performance remains pending the owner's corrected AR18+V listening decision.
+The owner subsequently approved corrected AR18+original V listening with
+"V 품질 괜찮음, RTF 측정 진행". This applies to the original V400 checkpoint,
+not recovery100. The verified execution manifest SHA256 is
+`def34d8555ea01c87091547fccbd27aa8a3bd33e8b6bbebb0df62095004c5d7c`;
+approval provenance is in `results/student_pilot/approved_v_actual18_20261112.json`.
+The worker started the isolated actual-N1 L/V comparison from source `73780c6`.
+
+## Continuing division of work
+
+The owner explicitly requested continuing inference optimization by the same
+SSH worker while the main agent handles model structure, CPU training and
+quality. Model tensors/checkpoints are owned by the main agent; the worker
+owns native/engine/build/measurement. The earlier bounded-three-probe stopping
+condition no longer applies. Use fixed model/spec/source hashes for each
+experiment and one remote compute queue; share observed shapes and costs
+before requesting model changes.
+
+The main agent started a separate 100-update AR18 QAT control from approved K,
+with original AR teacher contexts and features, unchanged layer/FFN geometry,
+CPU FP32 training, learning rate 2e-6, accumulation 3 and feature weight 0.1.
+This tests the existing quantization-aware surrogate before considering
+further pruning. It is not a native-bitwise emulator, quality approval, model
+size improvement or speed result. Approved AR/V files remain unchanged.
