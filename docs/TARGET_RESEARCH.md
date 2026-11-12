@@ -893,3 +893,26 @@ canonical confirmation plus an excluded operator-profile invocation check;
 that actual run is pending at this evidence snapshot. Primitive and all full
 raw observations/guards/profiles/provenance are in
 `results/n1_head_v32_20261112/`.
+
+Canonical confirmation source `c35624599dac169ad752819383f515ff441b0aeb`
+finished with fresh RTFs1.011936,1.010217,1.003143,1.017123,0.991603: median
+**1.010217**, range0.991603–1.017123. Wall median5.677420s, AR1.897647s and
+decoder3.288318s. The canonical operator executes in the excluded profile
+(`head_attn`4522reported events); all17blocks report16heads×32dims and the
+source-verified rebuilt DSO declares the adopted schedule. No research
+substitution/counter is loaded. All6processes reproduce the approved PCM and
+133tokens/5.62s with unchanged original/student/parameters/native files and
+resource guards. Full raw independent evidence is under
+`results/n1_head_v32_20261112/integrated/`.
+
+The integrated default path therefore **has not established stable RTF<1**.
+Do not pool this independent run with the controlled prototype comparison or
+add samples merely to pass1. The exact scheduling change stays adopted based
+on all5controlled paired AR/RTF improvements; next work is an independent QK
+scheduling hypothesis on the same approved AR17 model. Existing Actions choices
+now expose `studentardepth`, `studentheadv32` and `studentheadconfirm`; each
+requires3warm5samples. Reproduce the historical pre-adoption causal head
+comparison from source75779d2 (latest canonical already includes its value
+loop), and use `studentheadconfirm` for current canonical path verification.
+Private model bundles must be available in the caller's pinned approved private
+asset revision/cache; no model upload or workflow dispatch was performed here.
