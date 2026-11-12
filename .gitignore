@@ -218,3 +218,5 @@ libcpufast_fast.so.json
 local-results/
 
 .experiments/
+.venv-research/
+TRANSFER_INDEX.json
