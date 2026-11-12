@@ -16,6 +16,7 @@ def optimize(
     fused_finish=False,
     tap_small=False,
     packed_small_48=False,
+    n1_fft_sizes=False,
     ar_threads=1,
     acoustic_threads=1,
     fast_experimental=False,
@@ -48,6 +49,8 @@ def optimize(
             raise ValueError(
                 "Recreate the pipeline before changing packed small-channel settings"
             )
+        if existing.audit.get("n1_fft_sizes", False) != n1_fft_sizes:
+            raise ValueError("Recreate the pipeline before changing FFT sizes")
         if existing.audit.get("fast_experimental", False) != fast_experimental:
             raise ValueError("Recreate the pipeline before changing fast settings")
         return existing
@@ -91,7 +94,9 @@ def optimize(
                 )
     phase = install_subpixel(pipeline.vits_model.dec)
     fft = install_fft(
-        pipeline.vits_model.dec.resblocks, backend="packed" if packed_fft else "fused"
+        pipeline.vits_model.dec.resblocks,
+        backend="packed" if packed_fft else "fused",
+        n1_selected=n1_fft_sizes,
     )
     winograd = install_winograd(pipeline.vits_model.dec.resblocks, native=True)
     if fft_layout:
@@ -128,7 +133,25 @@ def optimize(
         taps = install_small_taps(
             pipeline.vits_model.dec.resblocks, packed_48=packed_small_48
         )
+    from cpufast_fft import FFTConv1d
     from cpufast_tap import PackedSmallTap
+
+    n1_fft_count = (
+        sum(
+            isinstance(m, FFTConv1d)
+            and m.weight.shape[-1] == 11
+            and m.dilation == 5
+            and (
+                (m.weight.shape[1] == 384 and m.n_fft == 256)
+                or (m.weight.shape[1] == 96 and m.n_fft == 512)
+            )
+            for m in pipeline.vits_model.dec.modules()
+        )
+        if n1_fft_sizes
+        else 0
+    )
+    if n1_fft_sizes and not n1_fft_count:
+        raise ValueError("No selected FFT sizes matched the model")
 
     packed_small_count = sum(
         isinstance(m, PackedSmallTap) for m in pipeline.vits_model.dec.modules()
@@ -157,6 +180,8 @@ def optimize(
         "tap_convolutions": taps,
         "tap_small": tap_small,
         "packed_small_48": packed_small_48,
+        "n1_fft_sizes": n1_fft_sizes,
+        "n1_fft_size_count": n1_fft_count,
         "packed_small_48_count": packed_small_count,
         "fast_experimental": fast_experimental,
         "arithmetic": "W8A8 AR and FP16 FFT accumulation"

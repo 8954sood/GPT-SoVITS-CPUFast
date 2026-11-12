@@ -30,3 +30,11 @@ The probes and separate profiling invocation completed on the target in [run 431
 ## Thread wait policy
 
 On the actual 2-vCPU host, [run 43131083453](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43131083453) measured ACTIVE/GOMP_SPINCOUNT=100000 at median RTF 1.5733 and PASSIVE/GOMP_SPINCOUNT=0 at 1.6206, three samples per policy. PCM and semantic output were exactly equal. Keep ACTIVE; the earlier V5 proxy result does not transfer to this host. Results and guards are in `results/n1_scheduling_20261112`.
+
+## 48-channel packed full synthesis
+
+[Run 43131616992](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43131616992) selected four measured 48-channel convolutions and compared full TTS. Tap/candidate median RTFs were 1.5668/1.5887 and 1.5932/1.6037 for sentences 1/2. Semantics match; PCM differs by at most one unit (11 and 21 samples respectively). No overall gain, candidate not adopted or listening approved. Raw data under `results/n1_packed48_20261112`; output files use `attention` as a historical generic candidate label.
+
+## FFT size probe
+
+On [run 43131935673](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43131935673), 384 channels, kernel 11, dilation 5 favored FFT 256 (0.1427s) over the current 128 (0.1887s), while 96 channels, kernel 11, dilation 5 favored 512 (0.0725s) over 256 (0.0810s). Other shapes and all measurements are in `results/n1_fft_20261112`. A two-geometry selective full-synthesis comparison is required before adoption.

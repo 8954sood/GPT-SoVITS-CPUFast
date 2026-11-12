@@ -108,9 +108,13 @@ class FFTConv1d(torch.nn.Module):
             if self.fast_half:
                 if self._packed_half is None:
                     self._packed_half = self._packed.half()
-                products = torch.ops.cpufast_cpp.fft_hgemm(packed_input.half(), self._packed_half)
+                products = torch.ops.cpufast_cpp.fft_hgemm(
+                    packed_input.half(), self._packed_half
+                )
             else:
-                products = torch.ops.cpufast_cpp.fft_packed_gemm(packed_input, self._packed)
+                products = torch.ops.cpufast_cpp.fft_packed_gemm(
+                    packed_input, self._packed
+                )
             product = (
                 torch.ops.cpufast_cpp.fft_unpack_layout(products, x.shape[0], blocks)
                 if self.output_layout
@@ -238,7 +242,9 @@ def tuned_size(channels, kernel, dilation):
     return 1024 if kernel == 11 and dilation >= 3 else 256
 
 
-def install_fft(model, *, min_kernel=7, backend="torch", tuned=False):
+def install_fft(
+    model, *, min_kernel=7, backend="torch", tuned=False, n1_selected=False
+):
     """Use measured long-kernel candidates only; leave phase upsampling intact."""
     from cpufast_optimizations import PackedConv1d, PhaseUpsample1d
 
@@ -267,10 +273,19 @@ def install_fft(model, *, min_kernel=7, backend="torch", tuned=False):
                 if tuned
                 else None
             )
+            if n1_selected and child.weight.shape[-1] == 11 and child.dilation[0] == 5:
+                if child.weight.shape[1] == 384:
+                    size = 256
+                elif child.weight.shape[1] == 96:
+                    size = 512
             setattr(model, name, FFTConv1d(child, n_fft=size, backend=backend))
             count += 1
         elif not isinstance(child, FFTConv1d):
             count += install_fft(
-                child, min_kernel=min_kernel, backend=backend, tuned=tuned
+                child,
+                min_kernel=min_kernel,
+                backend=backend,
+                tuned=tuned,
+                n1_selected=n1_selected,
             )
     return count

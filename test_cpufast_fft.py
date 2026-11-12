@@ -43,3 +43,16 @@ def test_fft_training_uses_original_differentiable_convolution():
     fft(x).sum().backward()
     assert x.grad is not None and original.weight.grad is not None
     assert fft._wr is None
+
+
+def test_n1_fft_selection_applies_in_nested_models():
+    from cpufast_fft import FFTConv1d, install_fft
+
+    model = torch.nn.Sequential(torch.nn.Sequential(
+        torch.nn.Conv1d(384, 384, 11, padding=25, dilation=5),
+        torch.nn.Conv1d(96, 96, 11, padding=25, dilation=5),
+        torch.nn.Conv1d(192, 192, 11, padding=25, dilation=5),
+    ))
+    assert install_fft(model, n1_selected=True) == 3
+    assert all(isinstance(m, FFTConv1d) for m in model[0])
+    assert [m.n_fft for m in model[0]] == [256, 512, 256]
