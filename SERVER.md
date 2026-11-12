@@ -60,6 +60,10 @@ python server.py --host 127.0.0.1 --port 9880 \
 
 `--manifest`, `--s2`, `--hubert`는 실제 파일 경로로 지정한다. 로컬 사설 경로와
 SSH 키를 소스에 넣지 않는다. API 문서는 `/docs`에서 확인한다.
+SV 체크포인트는 기본적으로 저장소의
+`GPT_SoVITS/pretrained_models/sv/pretrained_eres2netv2w24s4ep4.ckpt`에 둔다.
+다른 데이터 루트를 사용하면 시작 전에 `GPT_SOVITS_DATA_DIR`를 지정하고 그 아래
+동일한 상대 경로에 SV 파일을 준비한다. 이 파일도 스타일 캐시의 모델 식별에 포함된다.
 프로세스는 하나이고 Torch 음향/AR 스레드는 각각2다. 다른 서비스와 별도
 프로세스에서 실행하며 기존 서버를 덮어쓰지 않는다. 다른 포트가 필요하면
 `--port`를 지정한다. 실제 N1 검증과 같은 하드 제한은 Docker의2CPU·8GB·swap0
