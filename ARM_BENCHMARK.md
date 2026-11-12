@@ -47,3 +47,10 @@ all three frequency-product planes. The job first checks bit-exact synthetic
 products and convolution epilogues, then reports a synthetic probe and full
 synthesis of both fixed sentences. This is a candidate, with no N1 performance
 claim until the action completes; the default engine remains unchanged.
+
+`mode=transforms` separately tests channel-parallel Winograd input/output and
+FFT finishing (`--parallel-transforms`). Independent channels retain the same
+FP32 arithmetic and output order; this is not branch-parallel synthesis.
+The default remains serial transforms until target full-TTS repeats justify a
+change. Native tests compare serial/parallel outputs exactly, including
+non-contiguous residual channel rows.

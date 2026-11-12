@@ -33,6 +33,7 @@ class FFTConv1d(torch.nn.Module):
         self._packed_half = None
         self.fast_half = False
         self.stream_products = False
+        self.parallel_transforms = False
         self._native = None
         self.output_layout = False
         self.fused_finish = False
@@ -162,6 +163,7 @@ class FFTConv1d(torch.nn.Module):
                 output_length,
                 activate,
                 residual,
+                self.parallel_transforms,
             )
         output = inverse[..., self.effective_kernel - 1 :]
         output = output.reshape(x.shape[0], self.weight.shape[0], -1)
