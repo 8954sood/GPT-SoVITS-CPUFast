@@ -1,0 +1,85 @@
+{
+  "candidate": "K = approved H3 AR18 + conservative decoder12",
+  "quality_approved": true,
+  "ar_semantic_matches_approved_h3": true,
+  "comparison": {
+    "scope": "Local free-generation listening smoke; not N1 performance",
+    "variant": "D",
+    "ar_cache_storage": "exact FP16",
+    "quality_approved": false,
+    "ar_layers": 18,
+    "decoder_branches": [
+      [
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    "cases": [
+      {
+        "language": "ko",
+        "text": "오늘은 날씨가 참 좋네요. 잠깐 쉬었다가 함께 이야기를 이어 가요.",
+        "sample_rate": 32000,
+        "audio_seconds": 5.1,
+        "smoke_elapsed_seconds": 5.356238502000001,
+        "semantic": [
+          {
+            "tokens": 120,
+            "sha256": "fee8ae9803f48a1f6b9754dfa4d3f45ecf0a459a819602f1f4a44acb67f18546"
+          }
+        ],
+        "pcm_sha256": "d621776549b0353e9f1498804b283e0e6ed0ab4b35f273e92c50fa099063b03f"
+      },
+      {
+        "language": "ja",
+        "text": "今日は穏やかな天気ですね。少し休んでから、また一緒に続きを進めましょう。",
+        "sample_rate": 32000,
+        "audio_seconds": 6.94,
+        "smoke_elapsed_seconds": 2.6727930430000004,
+        "semantic": [
+          {
+            "tokens": 166,
+            "sha256": "d4f3e9bf87c26d75a5c649ef7be39da9795d5c519b032fee2915ead0ae6fa232"
+          }
+        ],
+        "pcm_sha256": "33a5b07ddbb09bae76906807396fd962591f6554bf5794bc887b7d6b09581365"
+      },
+      {
+        "language": "en",
+        "text": "The weather is pleasant today. Let us take a short break and continue together.",
+        "sample_rate": 32000,
+        "audio_seconds": 4.58,
+        "smoke_elapsed_seconds": 1.7153145419999998,
+        "semantic": [
+          {
+            "tokens": 107,
+            "sha256": "fb60ec34817170d67841d0c4ca6caca0c07778d556dd2f7de3afd423f312269b"
+          }
+        ],
+        "pcm_sha256": "380966dbf3911496c4fc5d88470a782e8eda9d5da9da3546a016c0dfe36e06fb"
+      }
+    ],
+    "student_parameters_unchanged_during_inference": true,
+    "checkpoint_files_unchanged": true
+  },
+  "note": "Already completed bounded100 update candidate. No new training. Local timing is not N1 speed evidence.",
+  "feedback": "K 사용 가능",
+  "approval_scope": "User accepts K versus H3 in Korean same reference/text/seed; not broad zero-shot or JA/EN listening approval"
+}
