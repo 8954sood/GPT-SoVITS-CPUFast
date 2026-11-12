@@ -19,6 +19,8 @@
 보장하는 결과로 해석하지 않는다. 실제 음질은 해당 한국어 출력을 사용자가
 승인했다. 원자료는 `results/n1_c24_vtarget100_20261112/`, 재현은
 [`C24_N1_REPRODUCTION.md`](C24_N1_REPRODUCTION.md)를 따른다.
+최종 실측·병목·미채택 실험·재현 방법은
+[측정 이슈 #1](https://github.com/8954sood/GPT-SoVITS-CPUFast/issues/1)에 정리했다.
 
 - 잘못 기록됐던 V 청취의 AR24/AR18 불일치를 수정하고 실제 AR18+원래 V400
   음성을 새로 생성해 사용자 승인을 받았다. 그 비교의 실제 N1 중앙 RTF는

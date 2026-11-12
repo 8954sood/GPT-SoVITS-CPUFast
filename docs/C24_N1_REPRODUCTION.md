@@ -5,6 +5,12 @@ Vtarget100 decoder. The reference, text and seed42 are fixed by each approved
 manifest. This does not approve another model, another decoder recovery, or
 Japanese/English listening quality.
 
+Use branch `codex/ssh-resume-20261112`. Paired measurement source is `24e562a`;
+independent final-source confirmation is `61d1b5a`. The fixed ten candidate
+observations are all below1 (median.945295, maximum.962389), with raw data in
+`results/n1_c24_vtarget100_20261112/` and
+[measurement issue #1](https://github.com/8954sood/GPT-SoVITS-CPUFast/issues/1).
+
 | Bundle | Manifest SHA256 |
 | --- | --- |
 | Original approved AR17/V400 baseline | `e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb` |
