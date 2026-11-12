@@ -1,0 +1,139 @@
+{
+  "scope": "CPU FP32 continuation of final-C24 two-branch candidate; same frozen prefix, additional100 updates. No N1 RTF or listening approval.",
+  "quality_approved": false,
+  "actual_n1_measured": false,
+  "adopted": false,
+  "parent_checkpoint_sha256": "6228c51d28a3e881fdba57ff170bbd23a038da68a2a96c3299c4d30aabcfc8ed",
+  "candidate_checkpoint_sha256": "fae55308fd783243a1213cb9290a8e4943cbdb64425b93e4b7ff1aefbd1f9dab",
+  "spec_sha256": "3a6550930e73dafadd07a9fdbe79a4e00fe7a55e1bfcd370ff237d0da074dc69",
+  "additional_updates": 100,
+  "total_recovery_updates": 300,
+  "selected_this_phase_step": 100,
+  "train_scope": "last_stage",
+  "trainable_parameters": 35016,
+  "frozen_prefix_exact_to_initial_and_recovery200": true,
+  "all_state_shapes_equal_to_initial": true,
+  "all_parameters_finite": true,
+  "approved_parent_bundle_unchanged": true,
+  "training_source_sha256": "9d106a02d7efdf7ab50d9ff17ae41aedeb0239f2a081602782da9bd1059635a4",
+  "training_settings": {
+    "pair_boundary_loss_weight": 0.25,
+    "teacher_s2_sha256": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+    "manifest_sha256": "93fb5d1150656150e615b208d0b23383eaa31aae4065cb43bfd7dc772e28b0dd",
+    "resume_sha256": "6228c51d28a3e881fdba57ff170bbd23a038da68a2a96c3299c4d30aabcfc8ed",
+    "full_context": true,
+    "log_mel": true,
+    "sample_rate": 32000,
+    "lr": 1e-05,
+    "device": "cpu",
+    "dtype": "float32",
+    "grad_accum": 3,
+    "lr_final_ratio": 0.1,
+    "train_scope": "last_stage",
+    "trainable_parameters": 35016
+  },
+  "history": [
+    {
+      "step": 0,
+      "validation_objective": 0.5801892876625061,
+      "validation_log_mel": 0.18603253364562988,
+      "validation_log_stft": 0.41523417830467224,
+      "validation_spectral": 0.5806965231895447,
+      "elapsed_seconds": 10.202981207999983
+    },
+    {
+      "step": 25,
+      "validation_objective": 0.577450692653656,
+      "validation_log_mel": 0.1844262331724167,
+      "validation_log_stft": 0.41395512223243713,
+      "validation_spectral": 0.5790713429450989,
+      "elapsed_seconds": 82.64345383299951
+    },
+    {
+      "step": 50,
+      "validation_objective": 0.5746977925300598,
+      "validation_log_mel": 0.18322396278381348,
+      "validation_log_stft": 0.4123903214931488,
+      "validation_spectral": 0.5767526030540466,
+      "elapsed_seconds": 134.8608649999951
+    },
+    {
+      "step": 75,
+      "validation_objective": 0.57359379529953,
+      "validation_log_mel": 0.18272916972637177,
+      "validation_log_stft": 0.4116549491882324,
+      "validation_spectral": 0.5759017467498779,
+      "elapsed_seconds": 180.2767962500002
+    },
+    {
+      "step": 100,
+      "validation_objective": 0.573127031326294,
+      "validation_log_mel": 0.1825302392244339,
+      "validation_log_stft": 0.41135963797569275,
+      "validation_spectral": 0.5755138397216797,
+      "elapsed_seconds": 226.2805071249968
+    }
+  ],
+  "groups": [
+    {
+      "language": "ja",
+      "latent_origin": "original_AR_teacher",
+      "count": 2,
+      "log_mel": 0.17950152605772018,
+      "log_stft": 0.40497301518917084,
+      "recovery200_log_mel": 0.1834728717803955,
+      "approved_parent_V400_log_mel": 0.16001473367214203
+    },
+    {
+      "language": "ko",
+      "latent_origin": "original_AR_teacher",
+      "count": 2,
+      "log_mel": 0.1817108914256096,
+      "log_stft": 0.40735457837581635,
+      "recovery200_log_mel": 0.18512751907110214,
+      "approved_parent_V400_log_mel": 0.1609276756644249
+    },
+    {
+      "language": "en",
+      "latent_origin": "original_AR_teacher",
+      "count": 2,
+      "log_mel": 0.1895155906677246,
+      "log_stft": 0.42615513503551483,
+      "recovery200_log_mel": 0.19263343513011932,
+      "approved_parent_V400_log_mel": 0.16919365525245667
+    },
+    {
+      "language": "ja",
+      "latent_origin": "approved_L_free_generation",
+      "count": 2,
+      "log_mel": 0.18174148350954056,
+      "log_stft": 0.41069018840789795,
+      "recovery200_log_mel": 0.185438372194767,
+      "approved_parent_V400_log_mel": 0.16110409796237946
+    },
+    {
+      "language": "ko",
+      "latent_origin": "approved_L_free_generation",
+      "count": 2,
+      "log_mel": 0.1828891932964325,
+      "log_stft": 0.405831441283226,
+      "recovery200_log_mel": 0.18650323152542114,
+      "approved_parent_V400_log_mel": 0.16206838935613632
+    },
+    {
+      "language": "en",
+      "latent_origin": "approved_L_free_generation",
+      "count": 2,
+      "log_mel": 0.17982280999422073,
+      "log_stft": 0.41315320134162903,
+      "recovery200_log_mel": 0.18301966041326523,
+      "approved_parent_V400_log_mel": 0.1599595621228218
+    }
+  ],
+  "candidate_mean_validation_log_mel": 0.18253024915854135,
+  "parent_recovery200_mean_validation_log_mel": 0.1860325150191784,
+  "approved_V400_mean_validation_log_mel": 0.16221135233839354,
+  "validation_scope": "Twelve gradient-disjoint validation records are reused for checkpoint selection. These proxy errors are not listening approval or an independent generalization test.",
+  "redundant_latest_removed_after_tensor_spec_step_equality": true,
+  "removed_latest_sha256": "4308a6f9cad5f24af72f184d4da712a9c7f703e8cb4335ed88d69d2b25685498"
+}

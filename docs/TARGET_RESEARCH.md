@@ -1095,6 +1095,16 @@ generation, and labels the candidate without the older L/AR18 assumptions.
 No N1 RTF, listening approval, release bundle or promotion exists yet. The
 inference worker continues using approved original V400 for its FFT experiment.
 
+An additional100 last-stage-only updates (LR1e-5→1e-6) select this phase step100,
+checkpoint `fae55308fd783243a1213cb9290a8e4943cbdb64425b93e4b7ff1aefbd1f9dab`.
+Logmel improves .186033→.182530 in all six groups, while remaining worse than
+originalV400 .162211. Prefix state is bit-exact to both initialization and the
+200-update parent; all state shapes/finite values and approved bundle hashes
+pass. Stop this bounded recovery at300 cumulative updates. Only this final
+candidate is queued for possible separate listening after FFT timing, with no
+performance claim or approval. Details:
+`results/student_pilot/c24_two_branch_recovery300_cpu_20261112.json`.
+
 ### FFN2-only row8 and excluded addmm attribution (2026-11-12)
 
 FFN2 sourcee269bd5 routes only512×2048 to row8, all other shapes to original
