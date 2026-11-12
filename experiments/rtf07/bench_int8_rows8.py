@@ -15,6 +15,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--library", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--rotating-weight-bytes", type=int, default=0)
     args = parser.parse_args()
     torch.set_num_threads(2)
     torch.set_num_interop_threads(1)
@@ -73,6 +74,28 @@ def main():
         row = {"n": n, "k": k, "samples": samples,
                "medians": {name: statistics.median(v) for name, v in samples.items()}}
         row["candidate_over_baseline"] = row["medians"]["rows8"] / row["medians"]["rows4"]
+        if args.rotating_weight_bytes:
+            count = max(2, (args.rotating_weight_bytes + n * k - 1) // (n * k))
+            pool = [torch.randint(-127, 128, (n, k), dtype=torch.int8) for _ in range(count)]
+            cold_functions = {"rows4": baseline, "rows8": candidate}
+            for call in cold_functions.values():
+                for weight in pool:
+                    call(x, weight, s, bias)
+            rotating = {name: [] for name in cold_functions}
+            for turn in range(5):
+                for name in (tuple(cold_functions) if turn % 2 == 0 else tuple(reversed(cold_functions))):
+                    start = time.perf_counter()
+                    for weight in pool:
+                        cold_functions[name](x, weight, s, bias)
+                    rotating[name].append((time.perf_counter() - start) / count)
+            medians = {name: statistics.median(v) for name, v in rotating.items()}
+            row["rotating_weights"] = {
+                "note": "Synthetic rotating weight pool; not full model inference or RTF",
+                "weight_bytes": count * n * k, "matrices": count,
+                "samples": rotating, "medians": medians,
+                "candidate_over_baseline": medians["rows8"] / medians["rows4"],
+            }
+            del pool
         report["cases"].append(row)
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(report, indent=2) + "\n")
