@@ -112,7 +112,8 @@ def main():
         def process_prompt(self,*a,**kw):
             begin=time.perf_counter()
             try:
-                result=transformer.process_prompt(*a,**kw)
+                with torch.jit.optimized_execution(not args.script_no_opt):
+                    result=transformer.process_prompt(*a,**kw)
                 diagnostic['ar_prefill_calls']=diagnostic.get('ar_prefill_calls',0)+1
                 diagnostic['ar_cache_audit']={'input_shape':list(a[0].shape),'requested_decode_capacity':a[2],
                     'keys_shapes':[list(k.shape) for k in result[1]],'values_shapes':[list(v.shape) for v in result[2]],'valid_prefix_length':result[3]}
@@ -121,7 +122,8 @@ def main():
         def decode_next_token(self,*a,**kw):
             begin=time.perf_counter()
             try:
-                result=transformer.decode_next_token(*a,**kw)
+                with torch.jit.optimized_execution(not args.script_no_opt):
+                    result=transformer.decode_next_token(*a,**kw)
                 diagnostic['ar_decode_calls']=diagnostic.get('ar_decode_calls',0)+1
                 return result
             finally:diagnostic['ar_decode_seconds']=diagnostic.get('ar_decode_seconds',0.)+time.perf_counter()-begin
@@ -138,8 +140,7 @@ def main():
         reports=[];wire=[];before=counters();begin=time.perf_counter();cpu_begin=time.process_time()
         for i,text in enumerate(segments):
             diagnostic.clear()
-            with torch.jit.optimized_execution(not args.script_no_opt):
-                audio,report=engine.synthesize_prepared(text, ref, lang='ko', seed=42+i)
+            audio,report=engine.synthesize_prepared(text, ref, lang='ko', seed=42+i)
             report['diagnostic_stage_seconds']=dict(diagnostic)
             wire.append(pcm16(audio));reports.append(report)
         elapsed=time.perf_counter()-begin
