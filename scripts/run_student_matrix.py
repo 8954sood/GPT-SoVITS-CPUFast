@@ -23,6 +23,7 @@ def main():
     parser.add_argument("--baseline-manifest-sha256")
     parser.add_argument("--head-integrated-confirm", action="store_true")
     parser.add_argument("--head-v32-comparison", action="store_true")
+    parser.add_argument("--head-qk4-comparison", action="store_true")
     parser.add_argument("--ar-depth-comparison", action="store_true")
     parser.add_argument("--decoder-only", action="store_true")
     parser.add_argument("--decoder-ar-int8", action="store_true")
@@ -44,7 +45,7 @@ def main():
                 args.fft_half_stream_comparison, args.alternating_decoder_comparison,
                 args.packed_prefill_comparison, args.int8_prefill_comparison,
                 args.diagnostic_profile_only, args.fft_output_tiles_comparison,
-                args.head_v32_comparison, args.ar_depth_comparison))
+                args.head_v32_comparison, args.head_qk4_comparison, args.ar_depth_comparison))
         or args.decoder_candidate_label != "R"
     ):
         parser.error("Integrated head confirmation requires one approved model, isolated3warm5sample")
@@ -54,13 +55,15 @@ def main():
                 args.ar_int8_confirm_only, args.fft_half_comparison,
                 args.fft_half_stream_comparison, args.alternating_decoder_comparison,
                 args.packed_prefill_comparison, args.int8_prefill_comparison,
-                args.diagnostic_profile_only, args.fft_output_tiles_comparison, args.head_v32_comparison))
+                args.diagnostic_profile_only, args.fft_output_tiles_comparison, args.head_v32_comparison, args.head_qk4_comparison))
         or args.decoder_candidate_label != "R"
     ):
         parser.error("AR depth comparison requires isolated two approved bundles, 3warm5sample")
     prefill_comparison = args.packed_prefill_comparison or args.int8_prefill_comparison
-    runtime_comparison = prefill_comparison or args.fft_output_tiles_comparison or args.head_v32_comparison
-    if args.head_v32_comparison and (
+    runtime_comparison = prefill_comparison or args.fft_output_tiles_comparison or args.head_v32_comparison or args.head_qk4_comparison
+    if args.head_qk4_comparison and args.head_v32_comparison:
+        parser.error("Select one isolated head scheduling candidate")
+    if (args.head_v32_comparison or args.head_qk4_comparison) and (
         prefill_comparison or args.fft_output_tiles_comparison or args.diagnostic_profile_only
         or args.warmups != 3 or args.samples != 5
     ):
@@ -230,6 +233,7 @@ def main():
         int8_prefill=False,
         fft_output_tiles=False,
         head_v32=False,
+        head_qk4=False,
     ):
         run_manifest = baseline if baseline_bundle else manifest
         run_path = args.baseline_manifest if baseline_bundle else args.manifest
@@ -281,6 +285,7 @@ def main():
                 args.diagnostic_profile_only
                 or args.ar_depth_comparison
                 or args.head_v32_comparison
+                or args.head_qk4_comparison
                 or args.head_integrated_confirm
                 or args.decoder_candidate_label in ("U", "V")
                 or args.int8_prefill_comparison
@@ -306,6 +311,9 @@ def main():
         if head_v32:
             command[1] = "/repo/scripts/benchmark_head_v32.py"
             command += ["--head-v32-library", "/repo/libcpufast_head_v32_runtime.so"]
+        if head_qk4:
+            command[1] = "/repo/scripts/benchmark_head_qk4.py"
+            command += ["--head-qk4-library", "/repo/libcpufast_head_qk4_runtime.so"]
         if not original:
             command += [
                 "--student-manifest",
@@ -388,6 +396,8 @@ def main():
             raise RuntimeError("Packed FP32 prefill candidate scope audit failed")
         if fft_output_tiles and not data.get("fft_output_tiles", {}).get("calls"):
             raise RuntimeError("Output-tiling candidate did not use the native probe")
+        if head_qk4 and not data.get("head_qk4", {}).get("calls"):
+            raise RuntimeError("QK scheduling candidate did not use the native probe")
         if head_v32 and not data.get("head_v32", {}).get("calls"):
             raise RuntimeError("Head scheduling candidate did not use the native probe")
         if int8_prefill and (
@@ -499,7 +509,7 @@ def main():
                 for r in data["runs"]
             ),
         }
-        if (args.head_v32_comparison or args.head_integrated_confirm) and not (
+        if (args.head_v32_comparison or args.head_qk4_comparison or args.head_integrated_confirm) and not (
             row["local_approved_pcm_match"] and row["local_approved_generated_tokens_match"]
             and all(r["audio_seconds"] == run_cases[language]["audio_seconds"] for r in data["runs"])
         ):
@@ -671,7 +681,9 @@ def main():
         return
     if args.alternating_decoder_comparison or runtime_comparison:
         candidate_label = (
-            "head_v32"
+            "head_qk4"
+            if args.head_qk4_comparison
+            else "head_v32"
             if args.head_v32_comparison
             else "tile4"
             if args.fft_output_tiles_comparison
@@ -702,7 +714,7 @@ def main():
                 "counterbalanced fresh processes, no model/prefill/precision changes"
             )
             summary["prefetch_selection"] = "No tuning; unchanged approved L AR/runtime"
-        if args.head_v32_comparison:
+        if args.head_v32_comparison or args.head_qk4_comparison:
             summary["scope"] = (
                 "Actual N1 unchanged approved model versus exact token-order head value "
                 "scheduling; fresh counterbalanced processes, unchanged weights/AR arithmetic/FP32 acoustics"
@@ -710,6 +722,9 @@ def main():
             summary["prefetch_selection"] = "No tuning; only dim32 weighted-value accumulation schedule changes"
             summary["baseline_model_variant"] = manifest["model_variant"]
             summary["runtime_label_note"] = "L denotes unchanged runtime here, not the earlier L decoder model"
+            if args.head_qk4_comparison:
+                summary["scope"] = "Actual N1 fixed approved AR17+V400 and canonical value scheduling versus four-token QK scheduling; same token dimension FMA order, softmax, masks, weights and normal FP32 acoustics"
+                summary["prefetch_selection"] = "No tuning; four-token QK scheduling is the only difference"
         samples = {"L": [], candidate_label: []}
         last_candidate = None
         reference = None
@@ -729,6 +744,7 @@ def main():
                     int8_prefill=label == "W",
                     fft_output_tiles=label == "tile4",
                     head_v32=label == "head_v32",
+                    head_qk4=label == "head_qk4",
                 )
                 observed = data["runs"][0]
                 if reference is None:
@@ -783,7 +799,9 @@ def main():
         try:
             _, row = run(
                 "ko",
-                "head_v32_profile_run"
+                "head_qk4_profile_run"
+                if args.head_qk4_comparison
+                else "head_v32_profile_run"
                 if args.head_v32_comparison
                 else "fft_output_tile4_profile_run"
                 if args.fft_output_tiles_comparison
@@ -801,6 +819,7 @@ def main():
                 int8_prefill=args.int8_prefill_comparison,
                 fft_output_tiles=args.fft_output_tiles_comparison,
                 head_v32=args.head_v32_comparison,
+                head_qk4=args.head_qk4_comparison,
             )
             if not row["candidate_pcm_exact_to_n1_student"]:
                 raise RuntimeError("Profile process changed approved candidate PCM")

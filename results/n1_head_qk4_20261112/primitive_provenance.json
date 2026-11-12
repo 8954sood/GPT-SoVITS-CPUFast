@@ -1,0 +1,56 @@
+{
+  "scope": "Actual N1 function primitive only; no full synthesis RTF claim",
+  "source_sha": "486b2cbc591a4e4163ea70dfe12f60f217005837",
+  "source_archive_sha256": "979d49bc6ce4ed21d18de2f36064738604bd4cbc727822b47b3c648862fd9378",
+  "retrieved_tar_sha256": "f386598dd4e4daea1262b3957acdcd0aee7a17cb939913d1df590b32786ea679",
+  "image_id": "sha256:23eb9b78c3c75319c99172766f94bba4faa8cffe05f8765ce4b33a3c34bb989b",
+  "change": "Four-token QK instruction interleaving; q vectors loaded once/head, each token retains original eight vector FMA operations and horizontal reduction; scores/max are stored/updated in original token order. Canonical exact value scheduling, softmax, masks unchanged.",
+  "correctness": "All120 bit-pattern conditions; dim32 production shapes and16/64 fallback,1/257/374/19/11lengths, capacity tails, shared/per-head/all-blocked masks, qscale0/1/100,1/2threads; inputs immutable.",
+  "canonical_reference": "c356245 default fast DSO, including adopted exact eight-vector value scheduling",
+  "compiler_flags_exact_match": true,
+  "baseline_files_before": {
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+  },
+  "baseline_files_after": {
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+  },
+  "cgroup": {
+    "cpu.max": "200000 100000",
+    "memory.max": "8000000000",
+    "memory.swap.max": "0"
+  },
+  "micro_ratios": [
+    {
+      "length": 257,
+      "hot": 0.5347842097294458,
+      "rotating17layers": 0.6275265791870821
+    },
+    {
+      "length": 315,
+      "hot": 0.5526150413755834,
+      "rotating17layers": 0.7129541861360786
+    },
+    {
+      "length": 374,
+      "hot": 0.5357165938350753,
+      "rotating17layers": 0.6018060035750241
+    },
+    {
+      "length": 768,
+      "hot": 0.5104841521749538,
+      "rotating17layers": 0.7016137402657172
+    }
+  ],
+  "caveat": "Synthetic17-layer KV traversal includes18..53MBactive KV. Actual AR also streams weights; these ratios cannot predict full RTF.",
+  "status": "Promising primitive; same approved AR17+originalV400 fullPCM-gated5freshpaired source5cb102c in progress. AR16 rejected, never a performance candidate.",
+  "raw_json_sha256": {
+    "qk4_primitive.json": "5c8e49e352b318cd1cfd55eae3320237e31ae15b63688091f83316b97c856f4c",
+    "qk4_primitive_guard.json": "fd86cbbebb331ede0984262cb521728af6745b863d40c887f61a37c4ee8ea4b0"
+  }
+}

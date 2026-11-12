@@ -1028,3 +1028,43 @@ performance measurement or replacement of the server's V400 baseline occurs.
 The redundant latest file is removed only after tensor/spec/step equality
 with the retained best checkpoint. Complete history and grouped fixed-input
 evaluation are in `results/student_pilot/v_recovery200_cpu_20261112.json`.
+
+### Isolated four-token QK scheduling primitive (2026-11-12)
+
+Source `486b2cbc591a4e4163ea70dfe12f60f217005837` compares the adopted canonical
+value schedule against independent QK scheduling. The32dim path loads the eight
+query vectors once/head and interleaves four independent token accumulators;
+each token still performs its original dimension-order FMAs and horizontal
+reduction, and scores/max update in increasing token order. Canonical value
+scheduling, softmax and masks stay unchanged. Other dimensions and ragged token
+tails retain the original QK loop. All120bit-pattern conditions pass with
+immutable inputs; compiled flags exactly match canonical and four baseline
+DSO/manifest file hashes match before/after. Actual Docker profile is
+2vCPU/8e9bytes/no swap, resource guard exit0.
+
+For lengths257/315/374/768, hot function ratios are0.5348/0.5526/0.5357/0.5105;
+17-layer rotating-KV ratios are0.6275/0.7130/0.6018/0.7016. These are synthetic
+function timings, not full synthesis or RTF predictions; actual AR also streams
+weights. Raw timing arrays,120conditions, native/build hashes and resource
+report are in `results/n1_head_qk4_20261112/`. Full PCM-gated fixed-model AR17+
+originalV400 comparison source `5cb102c` is pending. Rejected AR16 is excluded
+from every performance run.
+
+Full QK4 source `5cb102c7ca4bc49c737e0cbde3d47fadc953c6d2` finished all5pairs
+and an excluded profile. Baseline RTFs1.029649,.990742,.996747,.999784,.991685;
+QK4 .989601,.981041,.998626,.996269,1.019419. Medians .996747→.996269 differ
+only−0.048%, with overlapping ranges .990742–1.029649/.981041–1.019419. AR
+median worsens1.865049→1.918634s; CPU medians9.580549→9.555400s differ−.26%.
+Only3/5pairs improve overallRTF/AR. All11processes pass approved133tokens5.62s
+PCM/semantic, original/student/parameter/resource guards. Candidate processes
+record9044nativecalls and actual baseline4file SHA matches; profile11305calls
+and ownPCM exact. Raw all24JSON and ratio arrays are in
+`results/n1_head_qk4_20261112/full_pcm/`.
+
+**QK4 is not adopted.** The strong primitive does not establish a full-runtime
+win; no canonical QK modification or extra confirmation/sample collection is
+performed. Keep the approved AR17+originalV400 model and canonical exact value
+loop. Next isolated hypothesis is row8 only forFFN2 shape512×2048, preserving
+row4 everywhere else; do not mix QK4. Its earlier64MBrotating ratio .9026 is
+promising for thatshape, but FFN2 accounts for roughly one-third of four-GEMV
+MACs, so only a small aggregate gain is plausible and must be measured.

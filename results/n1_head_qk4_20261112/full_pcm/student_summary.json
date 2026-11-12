@@ -1,0 +1,665 @@
+{
+  "scope": "Actual N1 fixed approved AR17+V400 and canonical value scheduling versus four-token QK scheduling; same token dimension FMA order, softmax, masks, weights and normal FP32 acoustics",
+  "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+  "ar_selected_additional_step": null,
+  "decoder_selected_additional_step": 400,
+  "ar_training": "Approved K AR18 -> QAT100 -> training-only layer21 removal -> QAT200 with original teacher KL and anchors6/13/23; CPU FP32, separate half-representable matrix export.",
+  "ar_selected_step": 200,
+  "ar_recovery_updates": 200,
+  "ar_control_parent_updates": 100,
+  "prefetch_selection": "No tuning; four-token QK scheduling is the only difference",
+  "cases": [
+    {
+      "language": "ko",
+      "name": "paired_0_L",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": true,
+      "original": false,
+      "combined": true,
+      "model_variant": "AR17_QAT200_V400",
+      "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.154034949839115,
+      "installation_seconds": 2.4718318171799183,
+      "median_rtf": 1.0296491425471161,
+      "rtfs": [
+        1.0296491425471161
+      ],
+      "median_seconds": 5.786628181114793,
+      "median_cpu_seconds": 9.5805492,
+      "median_stages": {
+        "ar_seconds": 1.8439154643565416,
+        "enc_p_seconds": 0.1382594332098961,
+        "flow_seconds": 0.08720087260007858,
+        "dec_seconds": 3.541815262287855
+      },
+      "audio_seconds": 5.62,
+      "median_decoder_seconds_per_audio_second": 0.6302162388412553,
+      "peak_sampled_tree_rss_bytes": 4893839360,
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": true,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "paired_0_head_qk4",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": true,
+      "original": false,
+      "combined": true,
+      "model_variant": "AR17_QAT200_V400",
+      "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.2059188336133957,
+      "installation_seconds": 2.0264218281954527,
+      "median_rtf": 0.9896007283620563,
+      "rtfs": [
+        0.9896007283620563
+      ],
+      "median_seconds": 5.561556093394756,
+      "median_cpu_seconds": 9.51643104,
+      "median_stages": {
+        "ar_seconds": 1.80260300450027,
+        "enc_p_seconds": 0.13903143629431725,
+        "flow_seconds": 0.08671778813004494,
+        "dec_seconds": 3.3564531840384007
+      },
+      "audio_seconds": 5.62,
+      "median_decoder_seconds_per_audio_second": 0.5972336626402848,
+      "peak_sampled_tree_rss_bytes": 4844331008,
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": true,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "paired_1_head_qk4",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": true,
+      "original": false,
+      "combined": true,
+      "model_variant": "AR17_QAT200_V400",
+      "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.268608534708619,
+      "installation_seconds": 2.0252971909940243,
+      "median_rtf": 0.9810405581182008,
+      "rtfs": [
+        0.9810405581182008
+      ],
+      "median_seconds": 5.513447936624289,
+      "median_cpu_seconds": 9.41612388,
+      "median_stages": {
+        "ar_seconds": 1.798127742484212,
+        "enc_p_seconds": 0.14163409732282162,
+        "flow_seconds": 0.08405964262783527,
+        "dec_seconds": 3.3071779999881983
+      },
+      "audio_seconds": 5.62,
+      "median_decoder_seconds_per_audio_second": 0.5884658362968325,
+      "peak_sampled_tree_rss_bytes": 4944515072,
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": true,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "paired_1_L",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": true,
+      "original": false,
+      "combined": true,
+      "model_variant": "AR17_QAT200_V400",
+      "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.181984756141901,
+      "installation_seconds": 2.101924428716302,
+      "median_rtf": 0.9907423959402003,
+      "rtfs": [
+        0.9907423959402003
+      ],
+      "median_seconds": 5.567972265183926,
+      "median_cpu_seconds": 9.55747512,
+      "median_stages": {
+        "ar_seconds": 1.865049060434103,
+        "enc_p_seconds": 0.1347112786024809,
+        "flow_seconds": 0.08594189770519733,
+        "dec_seconds": 3.3054141104221344
+      },
+      "audio_seconds": 5.62,
+      "median_decoder_seconds_per_audio_second": 0.5881519769434402,
+      "peak_sampled_tree_rss_bytes": 4911194112,
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": true,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "paired_2_L",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": true,
+      "original": false,
+      "combined": true,
+      "model_variant": "AR17_QAT200_V400",
+      "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.2075453028082848,
+      "installation_seconds": 2.027697129175067,
+      "median_rtf": 0.9967474701062004,
+      "rtfs": [
+        0.9967474701062004
+      ],
+      "median_seconds": 5.601720781996846,
+      "median_cpu_seconds": 9.583460800000005,
+      "median_stages": {
+        "ar_seconds": 1.8788587227463722,
+        "enc_p_seconds": 0.13547028228640556,
+        "flow_seconds": 0.0859315786510706,
+        "dec_seconds": 3.3201587665826082
+      },
+      "audio_seconds": 5.62,
+      "median_decoder_seconds_per_audio_second": 0.590775581242457,
+      "peak_sampled_tree_rss_bytes": 4888289280,
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": true,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "paired_2_head_qk4",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": true,
+      "original": false,
+      "combined": true,
+      "model_variant": "AR17_QAT200_V400",
+      "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.185667846351862,
+      "installation_seconds": 2.138233259320259,
+      "median_rtf": 0.9986262751935427,
+      "rtfs": [
+        0.9986262751935427
+      ],
+      "median_seconds": 5.61227966658771,
+      "median_cpu_seconds": 9.555399960000003,
+      "median_stages": {
+        "ar_seconds": 2.0060465950518847,
+        "enc_p_seconds": 0.14090276882052422,
+        "flow_seconds": 0.08514316752552986,
+        "dec_seconds": 3.2047175876796246
+      },
+      "audio_seconds": 5.62,
+      "median_decoder_seconds_per_audio_second": 0.5702344462063389,
+      "peak_sampled_tree_rss_bytes": 4908388352,
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": true,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "paired_3_head_qk4",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": true,
+      "original": false,
+      "combined": true,
+      "model_variant": "AR17_QAT200_V400",
+      "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.2203549966216087,
+      "installation_seconds": 2.0676453560590744,
+      "median_rtf": 0.996269193209469,
+      "rtfs": [
+        0.996269193209469
+      ],
+      "median_seconds": 5.599032865837216,
+      "median_cpu_seconds": 9.567600799999994,
+      "median_stages": {
+        "ar_seconds": 1.9955582898110151,
+        "enc_p_seconds": 0.1428360641002655,
+        "flow_seconds": 0.0859769769012928,
+        "dec_seconds": 3.1963071320205927
+      },
+      "audio_seconds": 5.62,
+      "median_decoder_seconds_per_audio_second": 0.5687379238470806,
+      "peak_sampled_tree_rss_bytes": 4892340224,
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": true,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "paired_3_L",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": true,
+      "original": false,
+      "combined": true,
+      "model_variant": "AR17_QAT200_V400",
+      "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.173626808449626,
+      "installation_seconds": 2.1069681588560343,
+      "median_rtf": 0.9997836141797359,
+      "rtfs": [
+        0.9997836141797359
+      ],
+      "median_seconds": 5.618783911690116,
+      "median_cpu_seconds": 9.584950399999997,
+      "median_stages": {
+        "ar_seconds": 2.026992941275239,
+        "enc_p_seconds": 0.13588140159845352,
+        "flow_seconds": 0.08593897707760334,
+        "dec_seconds": 3.1920200306922197
+      },
+      "audio_seconds": 5.62,
+      "median_decoder_seconds_per_audio_second": 0.5679750944292206,
+      "peak_sampled_tree_rss_bytes": 4851388416,
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": true,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "paired_4_L",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": true,
+      "original": false,
+      "combined": true,
+      "model_variant": "AR17_QAT200_V400",
+      "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.28446601331234,
+      "installation_seconds": 2.029412357136607,
+      "median_rtf": 0.9916845487026346,
+      "rtfs": [
+        0.9916845487026346
+      ],
+      "median_seconds": 5.573267163708806,
+      "median_cpu_seconds": 9.538547639999997,
+      "median_stages": {
+        "ar_seconds": 1.8448584116995335,
+        "enc_p_seconds": 0.14067832194268703,
+        "flow_seconds": 0.08294290862977505,
+        "dec_seconds": 3.32537454739213
+      },
+      "audio_seconds": 5.62,
+      "median_decoder_seconds_per_audio_second": 0.5917036561195961,
+      "peak_sampled_tree_rss_bytes": 4892082176,
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": true,
+      "local_approved_generated_tokens_match": true
+    },
+    {
+      "language": "ko",
+      "name": "paired_4_head_qk4",
+      "prefetch": null,
+      "approximate_ar_int8_only": true,
+      "approximate_fft_half_products": false,
+      "approximate_fft_half_stream": false,
+      "fft_half_product_modules": [],
+      "packed_prefill_ffn": false,
+      "int8_prefill_ffn": false,
+      "runtime_variant": "L_ar_int8_only",
+      "runtime_local_generated_tokens_match": true,
+      "runtime_local_pcm_match": true,
+      "original": false,
+      "combined": true,
+      "model_variant": "AR17_QAT200_V400",
+      "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+      "ar_cache_storage": "int8_approximate",
+      "student_fp32_control": false,
+      "fft_pad_channels": false,
+      "fft_padded_output_cache": [],
+      "cold_load_seconds": 3.267712650820613,
+      "installation_seconds": 2.070208892226219,
+      "median_rtf": 1.0194192852599553,
+      "rtfs": [
+        1.0194192852599553
+      ],
+      "median_seconds": 5.729136383160949,
+      "median_cpu_seconds": 9.624166600000002,
+      "median_stages": {
+        "ar_seconds": 1.9186336696147919,
+        "enc_p_seconds": 0.13623840361833572,
+        "flow_seconds": 0.08402488008141518,
+        "dec_seconds": 3.409045720472932
+      },
+      "audio_seconds": 5.62,
+      "median_decoder_seconds_per_audio_second": 0.6065917652087067,
+      "peak_sampled_tree_rss_bytes": 4924350464,
+      "semantic": [
+        {
+          "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+          "index": 133,
+          "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+        }
+      ],
+      "candidate_tokens_exact_to_n1_student": null,
+      "candidate_pcm_exact_to_n1_student": null,
+      "local_approved_pcm_match": true,
+      "local_approved_generated_tokens_match": true
+    }
+  ],
+  "comparison_order": [
+    {
+      "round": 0,
+      "runtime": "L",
+      "name": "paired_0_L"
+    },
+    {
+      "round": 0,
+      "runtime": "head_qk4",
+      "name": "paired_0_head_qk4"
+    },
+    {
+      "round": 1,
+      "runtime": "head_qk4",
+      "name": "paired_1_head_qk4"
+    },
+    {
+      "round": 1,
+      "runtime": "L",
+      "name": "paired_1_L"
+    },
+    {
+      "round": 2,
+      "runtime": "L",
+      "name": "paired_2_L"
+    },
+    {
+      "round": 2,
+      "runtime": "head_qk4",
+      "name": "paired_2_head_qk4"
+    },
+    {
+      "round": 3,
+      "runtime": "head_qk4",
+      "name": "paired_3_head_qk4"
+    },
+    {
+      "round": 3,
+      "runtime": "L",
+      "name": "paired_3_L"
+    },
+    {
+      "round": 4,
+      "runtime": "L",
+      "name": "paired_4_L"
+    },
+    {
+      "round": 4,
+      "runtime": "head_qk4",
+      "name": "paired_4_head_qk4"
+    }
+  ],
+  "baseline_model_variant": "AR17_QAT200_V400",
+  "runtime_label_note": "L denotes unchanged runtime here, not the earlier L decoder model",
+  "paired_aggregate": [
+    {
+      "runtime": "L",
+      "samples": 5,
+      "rtfs": [
+        1.0296491425471161,
+        0.9907423959402003,
+        0.9967474701062004,
+        0.9997836141797359,
+        0.9916845487026346
+      ],
+      "median_rtf": 0.9967474701062004,
+      "median_seconds": 5.601720781996846,
+      "median_cpu_seconds": 9.5805492,
+      "median_stages": {
+        "ar_seconds": 1.865049060434103,
+        "enc_p_seconds": 0.13588140159845352,
+        "flow_seconds": 0.08593897707760334,
+        "dec_seconds": 3.3201587665826082
+      },
+      "audio_seconds": 5.62,
+      "peak_sampled_tree_rss_bytes": 4911194112
+    },
+    {
+      "runtime": "head_qk4",
+      "samples": 5,
+      "rtfs": [
+        0.9896007283620563,
+        0.9810405581182008,
+        0.9986262751935427,
+        0.996269193209469,
+        1.0194192852599553
+      ],
+      "median_rtf": 0.996269193209469,
+      "median_seconds": 5.599032865837216,
+      "median_cpu_seconds": 9.555399960000003,
+      "median_stages": {
+        "ar_seconds": 1.9186336696147919,
+        "enc_p_seconds": 0.14090276882052422,
+        "flow_seconds": 0.08514316752552986,
+        "dec_seconds": 3.3071779999881983
+      },
+      "audio_seconds": 5.62,
+      "peak_sampled_tree_rss_bytes": 4944515072
+    }
+  ],
+  "profile_run": {
+    "language": "ko",
+    "name": "head_qk4_profile_run",
+    "prefetch": null,
+    "approximate_ar_int8_only": true,
+    "approximate_fft_half_products": false,
+    "approximate_fft_half_stream": false,
+    "fft_half_product_modules": [],
+    "packed_prefill_ffn": false,
+    "int8_prefill_ffn": false,
+    "runtime_variant": "L_ar_int8_only",
+    "runtime_local_generated_tokens_match": true,
+    "runtime_local_pcm_match": true,
+    "original": false,
+    "combined": true,
+    "model_variant": "AR17_QAT200_V400",
+    "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+    "ar_cache_storage": "int8_approximate",
+    "student_fp32_control": false,
+    "fft_pad_channels": false,
+    "fft_padded_output_cache": [],
+    "cold_load_seconds": 3.2087667249143124,
+    "installation_seconds": 2.023484321311116,
+    "median_rtf": 0.977510686473278,
+    "rtfs": [
+      0.977510686473278
+    ],
+    "median_seconds": 5.493610057979822,
+    "median_cpu_seconds": 9.39849436,
+    "median_stages": {
+      "ar_seconds": 1.7905235271900892,
+      "enc_p_seconds": 0.13557387702167034,
+      "flow_seconds": 0.08361051045358181,
+      "dec_seconds": 3.3055050149559975
+    },
+    "audio_seconds": 5.62,
+    "median_decoder_seconds_per_audio_second": 0.5881681521274017,
+    "peak_sampled_tree_rss_bytes": 5651107840,
+    "semantic": [
+      {
+        "sha256": "f289a20f0c73c3e5d3f72aee59ffbda9092e8e2e94a01d72e24b826651f3c869",
+        "index": 133,
+        "generated_sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+      }
+    ],
+    "candidate_tokens_exact_to_n1_student": true,
+    "candidate_pcm_exact_to_n1_student": true,
+    "local_approved_pcm_match": true,
+    "local_approved_generated_tokens_match": true
+  },
+  "student_assets_unchanged": true,
+  "complete": true
+}

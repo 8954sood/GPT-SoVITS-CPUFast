@@ -1,0 +1,24 @@
+{
+  "command": [
+    "python",
+    "experiments/rtf07/bench_head_qk4.py",
+    "--library",
+    "/repo/libcpufast_head_qk4.so",
+    "--output",
+    "/repo/ci-results/qk4_primitive.json"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 436473856,
+  "kernel_child_peak_rss_bytes": 437669888,
+  "cpu_seconds": 7.413849,
+  "elapsed_seconds": 6.628934105858207,
+  "average_cpu_cores": 1.118407406320141,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 630,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}

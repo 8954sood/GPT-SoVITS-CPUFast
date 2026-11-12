@@ -1,0 +1,119 @@
+{
+  "scope": "Actual N1 full fixed approved AR17+V400, canonical value scheduling retained, only four-token QK scheduling changes",
+  "source_sha": "5cb102c7ca4bc49c737e0cbde3d47fadc953c6d2",
+  "source_archive_sha256": "93674e3c8459002ce66d60dab704fde80b913e99d98413ff638c933a809ec7f7",
+  "retrieved_tar_sha256": "af996d9b5d1c2a8f6e1418bb429d759c6299629794692abbfccf402e2ec62c52",
+  "image_id": "sha256:23eb9b78c3c75319c99172766f94bba4faa8cffe05f8765ce4b33a3c34bb989b",
+  "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+  "protocol": "5fresh processes/runtime, alternatingAB/BA,3excludedwarm+1sample; separate excluded profile; actual2vCPU/8e9byte/no swap; exclusivehostflock.",
+  "baseline_dso": "Copied byte-identical canonical value-loop DSO fromc356245; QK remainsoriginal inbaseline.",
+  "probe_manifest": {
+    "abi": 1,
+    "torch_version": "2.8.0+cpu",
+    "architecture": "aarch64",
+    "flags": [
+      "-O3",
+      "-std=c++17",
+      "-march=armv8.2-a+fp16+dotprod",
+      "-mtune=neoverse-n1",
+      "-fopenmp",
+      "-fPIC",
+      "-shared",
+      "-D_GLIBCXX_USE_CXX11_ABI=1",
+      "-DCPUFAST_REPLACE_HEAD_QK4=1"
+    ],
+    "sources": {
+      "native/cpufast_head_qk4.cpp": "1361db7a7687203c52550cbe3f98813fd63c9d7cf8423c21a3c7f0e0eee48825"
+    },
+    "library_sha256": "82a35546893e4b99e1b1796f75c39036ca06acc3c75b60ecda2193e6d2b5cbe2"
+  },
+  "rtf_ranges": {
+    "L": [
+      0.9907423959402003,
+      1.0296491425471161
+    ],
+    "head_qk4": [
+      0.9810405581182008,
+      1.0194192852599553
+    ]
+  },
+  "paired_ratios": [
+    {
+      "round": 0,
+      "RTF": 0.9611047952839651,
+      "AR": 0.9775952527895913,
+      "decoder": 0.9476646678263736,
+      "CPU": 0.9933074650877008
+    },
+    {
+      "round": 1,
+      "RTF": 0.9902075071564969,
+      "AR": 0.9641181996926587,
+      "decoder": 1.0005336364846094,
+      "CPU": 0.9852103993758554
+    },
+    {
+      "round": 2,
+      "RTF": 1.0018849358976976,
+      "AR": 1.0676942181792142,
+      "decoder": 0.9652302233059157,
+      "CPU": 0.9970719512934199
+    },
+    {
+      "round": 3,
+      "RTF": 0.9964848183942779,
+      "AR": 0.984491977833703,
+      "decoder": 1.0013430684291298,
+      "CPU": 0.9981899123859834
+    },
+    {
+      "round": 4,
+      "RTF": 1.0279672972555685,
+      "AR": 1.039989658527396,
+      "decoder": 1.0251614282506671,
+      "CPU": 1.0089761002650928
+    }
+  ],
+  "median_paired_ratios": {
+    "RTF": 0.9964848183942779,
+    "AR": 0.984491977833703,
+    "decoder": 1.0005336364846094,
+    "CPU": 0.9970719512934199
+  },
+  "median_candidate_over_baseline": {
+    "RTF": 0.9995201624171864,
+    "AR": 1.0287309381385479,
+    "decoder": 0.9960903175097946,
+    "CPU": 0.9973749688587793
+  },
+  "integrity": "All11processes match own approved133tokens5.62s/semantic/PCM, original/student/parameter/resource guards pass. Each candidate records9044actual nativecalls and actual4baselinefilebefore/afterSHA match; excluded profile11305calls andPCMexact.",
+  "profile_caveat": "Excluded CPU scopes overlap; observed primitive gains and prior separate-profile headcost differences cannot be converted into full wallRTF gains.",
+  "conclusion": "NOT ADOPTED. Full medianRTF0.9967474701 to0.9962691932 (-0.048%) is effectivelyflat, AR median worsens1.865049 to1.918634s and only3/5pairs improve overall/AR. Do not claim stable realtime from this candidate; no canonical QK modification or extra independentconfirmation is justified.",
+  "next": "Independent shape-specific512x2048 FFN2 row8 hypothesis only; QK4 remainsopt-inresearch and is not mixed.",
+  "raw_json_sha256": {
+    "ko_head_qk4_profile_run.json": "2272cb7c2ae260a0ef0086f177c295ad21f92ec2169a03632431580fa27cf997",
+    "ko_head_qk4_profile_run_guard.json": "94f58cfe017cd74a7788ebc5b692e0f49d5f77439b4d1f87372c12b1ab082169",
+    "ko_paired_0_L.json": "3c11d26fc326a453a1f4de778480de4f067b59d310be3594af23c83394e4b82c",
+    "ko_paired_0_L_guard.json": "86587ba5fefdc0ec82d89a49d6a0dabeb65349df8b15c0f245bbff78ed8bbde1",
+    "ko_paired_0_head_qk4.json": "779533846d780f61288eeeb1da40af71c144adc84e00de06026f6dcad87f6e48",
+    "ko_paired_0_head_qk4_guard.json": "dafda5674e2681ef63dae88a21a5148b28671b7813fd2f8cf40764ca80d7a8ca",
+    "ko_paired_1_L.json": "f7006f0cec70db29afabdcb27dc17b92819e0cab3af2b7a7ce73174ba7116d08",
+    "ko_paired_1_L_guard.json": "25ebf96c7bd3f14a124f852df7004c45366a63335bf082ab0cb1fde727fbf512",
+    "ko_paired_1_head_qk4.json": "03e96e71615bea2b8e3e2d95f394a45f5a330d895f1764925dcc6ef302a7e653",
+    "ko_paired_1_head_qk4_guard.json": "5356195d16a1da97c370c3cc6078f7e0e51036a39c622a94a64d48999690060d",
+    "ko_paired_2_L.json": "429dd3d87f4c4887501c80c15bb706e08bcd35bbd3bc02ce2c894d495c2e1b8d",
+    "ko_paired_2_L_guard.json": "c3503500df3fc7f69051cffdd62b0239c0cadc0371b5d528ead220509015dbfa",
+    "ko_paired_2_head_qk4.json": "aca4a906297a4991baea28a5e3307bba878e0b024050aa393f62a6258266bd93",
+    "ko_paired_2_head_qk4_guard.json": "20acb1bd0dd8b6833425b6a114c67193cd4b7166022576106c5bf6ee59413749",
+    "ko_paired_3_L.json": "db6ed5e01db75ca773ee762c1d505155883179d4d002c75ee3b130b7fc41b260",
+    "ko_paired_3_L_guard.json": "c238b88a197f4dfd0a27ef783d098d2b3ec223a9604f92a63c5bcab8780a2ad4",
+    "ko_paired_3_head_qk4.json": "3ed2608d9757ef9a18b1185b5d45caa44b722c75b01d63a53843e0fcad93be03",
+    "ko_paired_3_head_qk4_guard.json": "e11b22e8bb94024cc113cb8be7509e8d22842d1b0f21ab0a66c88c306418a8a4",
+    "ko_paired_4_L.json": "3019a95389e6bfe5e604ca1b7d3bcca3ad2284bf49b2f360b2e8d7c452e7dd5b",
+    "ko_paired_4_L_guard.json": "ec97917fe2622515a571199033a65269ad8ce536c6804434c776769d16606ab2",
+    "ko_paired_4_head_qk4.json": "5f63cc768517822da3d6dd71956db9bb3b37536318292cbddc5b2e45441e5930",
+    "ko_paired_4_head_qk4_guard.json": "d7a967247b47a533bf2810ccf221d39319b642899832ebe17d07857a02b9c25d",
+    "ko_student_profile_ops.json": "3e670053b2f0f8ba51a3c68ac216d2d85a9f121ef298edd6071d43e3d9f6eb98",
+    "student_summary.json": "ce3ed5d59db8ec8e0dc3932d92bb0b96082f7a84ccc28c24c8349cf5ed6f852d"
+  }
+}

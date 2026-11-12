@@ -1,0 +1,1517 @@
+{
+  "baseline_files_before": {
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+  },
+  "baseline_fast_manifest": {
+    "abi": 1,
+    "torch_version": "2.8.0+cpu",
+    "system": "Linux",
+    "architecture": "aarch64",
+    "flags": [
+      "-O3",
+      "-std=c++17",
+      "-march=armv8.2-a+fp16+dotprod",
+      "-mtune=neoverse-n1",
+      "-fopenmp",
+      "-fPIC",
+      "-shared",
+      "-D_GLIBCXX_USE_CXX11_ABI=1"
+    ],
+    "sources": {
+      "native/cpufast_fast_int8.cpp": "1e6b496c6547e7f4e27a382de9b52cc5882afd46cb38c5f3040af4fb532e4838",
+      "native/cpufast_fast_attention.cpp": "a4fd3cc395daf5e3049e6ec4b92c37977cdee75019bfbc41303f667675ed8b31",
+      "native/cpufast_fast_half.cpp": "e4f2569cf7aff34f6eac62502b9a9ef2bc1d7de4bd81026faa20ab00cb1b0ecb"
+    },
+    "library_sha256": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "head_value_schedule": {
+      "dim32": "eight_independent_vectors_preserve_token_FMA_order",
+      "other_dims": "original_four_channel_token_loop",
+      "QK_softmax_masks": "unchanged"
+    }
+  },
+  "machine": "aarch64",
+  "torch": "2.8.0+cpu",
+  "cgroup": {
+    "cpu.max": "200000 100000",
+    "memory.max": "8000000000",
+    "memory.swap.max": "0"
+  },
+  "scope": "Actual host primitive only; unchanged softmax, canonical value scheduling and per-token dimension FMA order",
+  "probe_manifest": {
+    "abi": 1,
+    "torch_version": "2.8.0+cpu",
+    "architecture": "aarch64",
+    "flags": [
+      "-O3",
+      "-std=c++17",
+      "-march=armv8.2-a+fp16+dotprod",
+      "-mtune=neoverse-n1",
+      "-fopenmp",
+      "-fPIC",
+      "-shared",
+      "-D_GLIBCXX_USE_CXX11_ABI=1"
+    ],
+    "sources": {
+      "native/cpufast_head_qk4.cpp": "1361db7a7687203c52550cbe3f98813fd63c9d7cf8423c21a3c7f0e0eee48825"
+    },
+    "library_sha256": "347fe4f53351b4981f652e30c61bbd9fc453dc2ad0f008e198ab5562af9cd3c2"
+  },
+  "correctness": [
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "none",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "none",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "none",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "none",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "none",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "none",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "shared",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "shared",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "shared",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "shared",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "shared",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "shared",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "per_head_one_blocked",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "per_head_one_blocked",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "per_head_one_blocked",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "per_head_one_blocked",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "per_head_one_blocked",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "per_head_one_blocked",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "all_blocked",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "all_blocked",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "all_blocked",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "all_blocked",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "all_blocked",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 1,
+      "dim": 32,
+      "length": 1,
+      "capacity": 5,
+      "mask": "all_blocked",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 257,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "none",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "shared",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "per_head_one_blocked",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 16,
+      "dim": 32,
+      "length": 374,
+      "capacity": 1756,
+      "mask": "all_blocked",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "none",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "none",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "none",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "none",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "none",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "none",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "shared",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "shared",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "shared",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "shared",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "shared",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "shared",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "per_head_one_blocked",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "per_head_one_blocked",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "per_head_one_blocked",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "per_head_one_blocked",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "per_head_one_blocked",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "per_head_one_blocked",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "all_blocked",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "all_blocked",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "all_blocked",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "all_blocked",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "all_blocked",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 3,
+      "dim": 16,
+      "length": 19,
+      "capacity": 31,
+      "mask": "all_blocked",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "none",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "none",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "none",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "none",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "none",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "none",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "shared",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "shared",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "shared",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "shared",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "shared",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "shared",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "per_head_one_blocked",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "per_head_one_blocked",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "per_head_one_blocked",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "per_head_one_blocked",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "per_head_one_blocked",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "per_head_one_blocked",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "all_blocked",
+      "q_scale": 0.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "all_blocked",
+      "q_scale": 0.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "all_blocked",
+      "q_scale": 1.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "all_blocked",
+      "q_scale": 1.0,
+      "threads": 2,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "all_blocked",
+      "q_scale": 100.0,
+      "threads": 1,
+      "bitwise_equal": true
+    },
+    {
+      "heads": 2,
+      "dim": 64,
+      "length": 11,
+      "capacity": 17,
+      "mask": "all_blocked",
+      "q_scale": 100.0,
+      "threads": 2,
+      "bitwise_equal": true
+    }
+  ],
+  "cases": [
+    {
+      "length": 257,
+      "heads": 16,
+      "dim": 32,
+      "capacity": 1756,
+      "hot_samples": {
+        "baseline": [
+          8.943278342485428e-05,
+          8.882317692041397e-05,
+          8.930595591664314e-05,
+          8.409474045038223e-05,
+          8.85595753788948e-05,
+          8.787436410784722e-05,
+          8.934278041124344e-05
+        ],
+        "qk4": [
+          5.144964903593063e-05,
+          4.724361002445221e-05,
+          4.552759230136871e-05,
+          5.0854049623012545e-05,
+          5.048323422670364e-05,
+          4.660520702600479e-05,
+          4.750123247504234e-05
+        ]
+      },
+      "hot_medians": {
+        "baseline": 8.882317692041397e-05,
+        "qk4": 4.750123247504234e-05
+      },
+      "hot_candidate_over_baseline": 0.5347842097294458,
+      "rotating_caches": {
+        "layers": 17,
+        "active_bytes": 17895424,
+        "samples": {
+          "baseline": [
+            0.00011847146293696235,
+            0.00013415175763999715,
+            0.00010031615110004649,
+            9.524099090520074e-05,
+            9.830427520415363e-05,
+            0.00012285985490855048,
+            9.503609993878533e-05
+          ],
+          "qk4": [
+            8.922902976765352e-05,
+            8.095362607170554e-05,
+            9.78173578486723e-05,
+            6.295105113702662e-05,
+            6.156535271336051e-05,
+            6.0231041382340825e-05,
+            6.107109434464398e-05
+          ]
+        },
+        "medians": {
+          "baseline": 0.00010031615110004649,
+          "qk4": 6.295105113702662e-05
+        },
+        "candidate_over_baseline": 0.6275265791870821,
+        "note": "Synthetic KV-only layer traversal; actual AR also streams weights"
+      }
+    },
+    {
+      "length": 315,
+      "heads": 16,
+      "dim": 32,
+      "capacity": 1756,
+      "hot_samples": {
+        "baseline": [
+          0.00010618451982736587,
+          0.00010647213086485863,
+          0.00010622892528772354,
+          0.00010660052299499512,
+          0.00010568052530288697,
+          0.00011128135025501251,
+          0.0001054353266954422
+        ],
+        "qk4": [
+          5.8703701943159106e-05,
+          5.470767617225647e-05,
+          5.961932241916657e-05,
+          5.508927628397942e-05,
+          5.895690992474556e-05,
+          5.530528724193573e-05,
+          5.896931514143944e-05
+        ]
+      },
+      "hot_medians": {
+        "baseline": 0.00010622892528772354,
+        "qk4": 5.8703701943159106e-05
+      },
+      "hot_candidate_over_baseline": 0.5526150413755834,
+      "rotating_caches": {
+        "layers": 17,
+        "active_bytes": 21934080,
+        "samples": {
+          "baseline": [
+            0.0001391188844161875,
+            0.00012439171619275038,
+            0.00012460592038491194,
+            0.00015904140823027666,
+            0.00012076832354068756,
+            0.00011986231102662928,
+            0.0001546342802398345
+          ],
+          "qk4": [
+            0.00012109264293137719,
+            8.885496679474326e-05,
+            9.16641643818687e-05,
+            8.88383125557619e-05,
+            8.524779011221493e-05,
+            8.58453705030329e-05,
+            8.674897253513336e-05
+          ]
+        },
+        "medians": {
+          "baseline": 0.00012460592038491194,
+          "qk4": 8.88383125557619e-05
+        },
+        "candidate_over_baseline": 0.7129541861360786,
+        "note": "Synthetic KV-only layer traversal; actual AR also streams weights"
+      }
+    },
+    {
+      "length": 374,
+      "heads": 16,
+      "dim": 32,
+      "capacity": 1756,
+      "hot_samples": {
+        "baseline": [
+          0.0001306723430752754,
+          0.00012710193172097206,
+          0.00012478187680244445,
+          0.00013075871393084527,
+          0.00012969832867383956,
+          0.00012391189113259316,
+          0.000122679490596056
+        ],
+        "qk4": [
+          6.25249370932579e-05,
+          6.883738562464714e-05,
+          6.809061393141747e-05,
+          6.510935723781586e-05,
+          6.304774433374405e-05,
+          6.968060508370399e-05,
+          6.814219057559967e-05
+        ]
+      },
+      "hot_medians": {
+        "baseline": 0.00012710193172097206,
+        "qk4": 6.809061393141747e-05
+      },
+      "hot_candidate_over_baseline": 0.5357165938350753,
+      "rotating_caches": {
+        "layers": 17,
+        "active_bytes": 26042368,
+        "samples": {
+          "baseline": [
+            0.00016495673095478732,
+            0.0001700979602687499,
+            0.00014167180394425113,
+            0.00016564853927668403,
+            0.0001389730502577389,
+            0.0001337141455972896,
+            0.0001599825918674469
+          ],
+          "qk4": [
+            0.00010486911324893728,
+            9.992324254092048e-05,
+            9.440795025404762e-05,
+            9.627848425332238e-05,
+            8.655120344722972e-05,
+            8.820775238906636e-05,
+            9.967857862220091e-05
+          ]
+        },
+        "medians": {
+          "baseline": 0.0001599825918674469,
+          "qk4": 9.627848425332238e-05
+        },
+        "candidate_over_baseline": 0.6018060035750241,
+        "note": "Synthetic KV-only layer traversal; actual AR also streams weights"
+      }
+    },
+    {
+      "length": 768,
+      "heads": 16,
+      "dim": 32,
+      "capacity": 1756,
+      "hot_samples": {
+        "baseline": [
+          0.0002382940612733364,
+          0.00023883607238531113,
+          0.00024908214807510374,
+          0.0002394532784819603,
+          0.0002416064776480198,
+          0.0002420097030699253,
+          0.0002436005137860775
+        ],
+        "qk4": [
+          0.00012275787070393563,
+          0.00012333627790212632,
+          0.00012214306741952896,
+          0.00013281116262078285,
+          0.00013783479109406472,
+          0.00012529708445072174,
+          0.00012227548286318778
+        ]
+      },
+      "hot_medians": {
+        "baseline": 0.0002416064776480198,
+        "qk4": 0.00012333627790212632
+      },
+      "hot_candidate_over_baseline": 0.5104841521749538,
+      "rotating_caches": {
+        "layers": 17,
+        "active_bytes": 53477376,
+        "samples": {
+          "baseline": [
+            0.00029663314275881825,
+            0.0003163508851738537,
+            0.00028271775911836066,
+            0.00028457667897729315,
+            0.0003629795768681694,
+            0.000307428595774314,
+            0.00028600960093386034
+          ],
+          "qk4": [
+            0.00023083728464210734,
+            0.0001983924166244619,
+            0.0002061359803466236,
+            0.0002314606133629294,
+            0.00020812188877778894,
+            0.00019773095846176147,
+            0.0002293033415780348
+          ]
+        },
+        "medians": {
+          "baseline": 0.00029663314275881825,
+          "qk4": 0.00020812188877778894
+        },
+        "candidate_over_baseline": 0.7016137402657172,
+        "note": "Synthetic KV-only layer traversal; actual AR also streams weights"
+      }
+    }
+  ],
+  "baseline_files_after": {
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+  },
+  "baseline_files_unchanged": true
+}
