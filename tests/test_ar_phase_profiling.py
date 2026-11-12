@@ -75,3 +75,32 @@ def test_fft_shape_labels_restore_forward_and_preserve_pcm_math():
     assert "forward" not in layer.__dict__
     assert metadata[0]["input_shapes"] == [{"shape": [1, 12, 137], "calls": 1}]
     assert "Cin12_Cout12_K7" in metadata[0]["range"]
+
+
+def test_global_matrix_attribution_preserves_addmm_out_and_prefill_results():
+    from cpufast_profiling import addmm_matrix_ranges
+
+    class Cached(torch.nn.Module):
+        def __init__(self):
+            super().__init__()
+            self._packed = torch.randn(3, 4, 4)
+
+        def forward(self, x):
+            y = torch.mm(self._packed[0], x)
+            torch.addmm(y, self._packed[1], x, out=y)
+            return y
+
+    acoustic = Cached()
+    transformer = Transformer()
+    ar_model = SimpleNamespace(t2s_transformer=transformer)
+    x, prompt = torch.randn(4, 19), torch.randn(3, 8)
+    expected, ar_expected = acoustic(x), transformer.process_prompt(prompt)
+    with addmm_matrix_ranges(acoustic, ar_model) as metadata, ar_phase_ranges(ar_model):
+        assert torch.equal(acoustic(x), expected)
+        assert torch.equal(ar_model.t2s_transformer.process_prompt(prompt), ar_expected)
+    assert ar_model.t2s_transformer is transformer
+    rows = metadata["operators"]
+    tap = next(r for r in rows if r["operator"] == "aten.addmm.out")
+    assert tap["lhs_matrix_names"] == ["vits.._packed[1]"] and tap["calls"] == 1
+    assert tap["input_shapes"] == [[4, 19], [4, 4], [4, 19]]
+    assert len([r for r in rows if any("AR.prefill" in n for n in r["rhs_matrix_names"])]) == 4
