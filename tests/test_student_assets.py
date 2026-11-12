@@ -73,3 +73,15 @@ def test_checkpoint_symlink_and_extra_file_rejected(tmp_path):
     manifest.write_text(json.dumps(changed))
     with pytest.raises(ValueError, match="Approved"):
         load_manifest(manifest, sha256(manifest), check_files=False)
+
+
+def test_only_explicit_lossless_cache_storage_allowed(tmp_path):
+    manifest, data = bundle(tmp_path)
+    for cache in ("fp32", "exact_fp16"):
+        data["ar_cache_storage"] = cache
+        manifest.write_text(json.dumps(data))
+        assert load_manifest(manifest, sha256(manifest))["ar_cache_storage"] == cache
+    data["ar_cache_storage"] = "fp16_arithmetic"
+    manifest.write_text(json.dumps(data))
+    with pytest.raises(ValueError, match="cache storage"):
+        load_manifest(manifest, sha256(manifest))

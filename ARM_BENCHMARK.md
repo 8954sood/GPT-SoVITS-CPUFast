@@ -173,3 +173,25 @@ guards, and the separate profile are in `results/n1_student_g_20261112`.
 Within-N1 Korean variants were PCM/token exact. All three generated semantic
 hashes matched approved local synthesis; cross-platform PCM hashes differed.
 Japanese/English are performance smoke checks only, outside listening approval.
+
+`mode=studentcompare` compares two separately listening-approved bundles in one
+serial N1 job: baseline and candidate each have three warmups and five Korean
+measurements, followed by a separate candidate profile. Supply the candidate's
+usual manifest inputs plus `comparison_manifest_path` and
+`comparison_manifest_sha256` for the baseline in the same immutable private HF
+revision. Both verified bundles are mounted read-only. There is no cross-model
+PCM equality requirement because model changes can alter tokens and duration;
+each report retains its own approved semantic/PCM matches and asset hashes.
+The extra profile is checked against the candidate's own timed waveform.
+
+Manifests may declare `model_variant` and `ar_cache_storage`, either `fp32`
+(the backward-compatible G default) or `exact_fp16`. The latter is a separately
+approved inference-copy checkpoint whose AR matrix values must pass the existing
+exact half round-trip guard. Arithmetic remains FP32; no benchmark code rounds
+weights. The student spec's original layer IDs must be unique, within 0–23,
+and match the manifest/loaded AR layer count. Decoder branch identities and
+original teacher/reference hashes also remain checked. FP32 cache uses the
+explicit `student_prefetch` from its prior N1 sweep; exact-half cache uses the
+verified original profile's distance 256. Each row records the actual setting.
+`studentcomparecached` additionally enables the same opt-in predictor negative
+eligibility cache for both models; use only after its independent N1 comparison.

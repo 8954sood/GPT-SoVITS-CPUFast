@@ -26,6 +26,8 @@ def load_manifest(path, expected_sha256, *, check_files=True):
     data = json.loads(path.read_text())
     if data.get("quality_approved") is not True or set(data.get("files", {})) != FILES:
         raise ValueError("Approved immutable student bundle required")
+    if data.get("ar_cache_storage", "fp32") not in ("fp32", "exact_fp16"):
+        raise ValueError("Unsupported student coefficient cache storage")
     if data.get("seed") != 42 or data.get("prompt_language") not in ("ja", "ko", "en"):
         raise ValueError("Unsupported approved synthesis request")
     for key in ("reference_sha256", "original_s2_sha256"):

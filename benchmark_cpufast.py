@@ -118,10 +118,8 @@ def main():
         args.prompt_lang = args.lang
     if bool(args.student_manifest) != bool(args.student_manifest_sha256):
         parser.error("Student manifest and its trusted SHA256 are required together")
-    if args.student_manifest and (
-        not args.engine or not args.ar_fp32_cache or args.fast_experimental
-    ):
-        parser.error("Approved student requires the FP32 engine/cache")
+    if args.student_manifest and (not args.engine or args.fast_experimental):
+        parser.error("Approved student requires the FP32 arithmetic engine")
     student_manifest = None
     student_files_before = None
     if args.student_manifest:
@@ -130,6 +128,10 @@ def main():
         student_manifest = load_manifest(
             args.student_manifest, args.student_manifest_sha256
         )
+        if args.ar_fp32_cache != (
+            student_manifest.get("ar_cache_storage", "fp32") == "fp32"
+        ):
+            parser.error("AR cache storage must match the approved student manifest")
         if args.s1.resolve() != (args.student_manifest.parent / "ar.pt").resolve():
             parser.error("AR checkpoint must come from the approved student bundle")
         if (
@@ -224,6 +226,9 @@ def main():
         )
         if (
             spec["decoder_branches"] != student_manifest["decoder_branches"]
+            or len(spec["ar_keep"]) != student_manifest["ar_layers"]
+            or len(set(spec["ar_keep"])) != len(spec["ar_keep"])
+            or any(type(i) is not int or not 0 <= i < 24 for i in spec["ar_keep"])
             or trained["student_spec"]["decoder_branches"] != spec["decoder_branches"]
             or trained["provenance"]["teacher_s2_sha256"]
             != student_manifest["original_s2_sha256"]
@@ -411,7 +416,9 @@ def main():
         "fragment_interval": 0.3,
     }
     report = {
-        "model_variant": "approved_G_student" if student_manifest else "original",
+        "model_variant": student_manifest.get("model_variant", "approved_G_student")
+        if student_manifest
+        else "original",
         "student_manifest_sha256": args.student_manifest_sha256,
         "student_quality_scope": student_manifest["scope"]
         if student_manifest

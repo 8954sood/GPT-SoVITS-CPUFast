@@ -7,7 +7,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from cpufast_student_assets import load_manifest, snapshot
+from cpufast_student_assets import load_manifest, snapshot, sha256
 
 
 def main():
@@ -19,10 +19,41 @@ def main():
     parser.add_argument("--samples", type=int, default=3)
     parser.add_argument("--predictor-only", action="store_true")
     parser.add_argument("--prefetch", type=int, choices=[0, 64, 128, 256], default=0)
+    parser.add_argument("--baseline-manifest", type=Path)
+    parser.add_argument("--baseline-manifest-sha256")
+    parser.add_argument("--predictor-cache", action="store_true")
     args = parser.parse_args()
+    if bool(args.baseline_manifest) != bool(args.baseline_manifest_sha256):
+        parser.error("Comparison baseline manifest and SHA required together")
+    if args.baseline_manifest and args.predictor_only:
+        parser.error("Choose model comparison or predictor-only comparison")
     manifest = load_manifest(args.manifest, args.manifest_sha256)
     before = snapshot(args.manifest)
     cases = {r["language"]: r for r in manifest["listening_report"]["cases"]}
+    baseline = None
+    baseline_before = None
+    if args.baseline_manifest:
+        baseline = load_manifest(args.baseline_manifest, args.baseline_manifest_sha256)
+        baseline_before = snapshot(args.baseline_manifest)
+        baseline_ko = next(
+            r for r in baseline["listening_report"]["cases"] if r["language"] == "ko"
+        )
+        if (
+            any(
+                baseline[k] != manifest[k]
+                for k in (
+                    "seed",
+                    "prompt_text",
+                    "prompt_language",
+                    "reference_sha256",
+                    "original_s2_sha256",
+                )
+            )
+            or baseline_ko["text"] != cases["ko"]["text"]
+        ):
+            parser.error(
+                "Model comparison must share the approved request and reference"
+            )
     args.output.mkdir(parents=True, exist_ok=True)
     summary_file = args.output / "student_summary.json"
     if summary_file.exists():
@@ -53,7 +84,19 @@ def main():
         profile=False,
         compare=None,
         predictor_cache=False,
+        baseline_bundle=False,
     ):
+        run_manifest = baseline if baseline_bundle else manifest
+        run_path = args.baseline_manifest if baseline_bundle else args.manifest
+        run_cases = {
+            r["language"]: r for r in run_manifest["listening_report"]["cases"]
+        }
+        if (
+            baseline is not None
+            and run_manifest.get("ar_cache_storage", "fp32") == "exact_fp16"
+        ):
+            # Use the verified original exact-half profile, not the FP32-cache hint.
+            distance = 256
         file = args.output / f"{language}_{name}.json"
         command = [
             sys.executable,
@@ -70,9 +113,7 @@ def main():
             "--threads",
             "2",
             "--s1",
-            "/project/models/s1v3.ckpt"
-            if original
-            else str(args.manifest.parent / "ar.pt"),
+            "/project/models/s1v3.ckpt" if original else str(run_path.parent / "ar.pt"),
             "--s2",
             "/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth",
             "--hubert",
@@ -80,13 +121,13 @@ def main():
             "--reference",
             "/reference.wav",
             "--prompt-text",
-            manifest["prompt_text"],
+            run_manifest["prompt_text"],
             "--prompt-lang",
-            manifest["prompt_language"],
+            run_manifest["prompt_language"],
             "--lang",
             language,
             "--text",
-            cases[language]["text"],
+            run_cases[language]["text"],
             "--warmups",
             "1" if profile else str(args.warmups),
             "--samples",
@@ -100,12 +141,13 @@ def main():
             command += ["--predictor-eligibility-cache"]
         if not original:
             command += [
-                "--ar-fp32-cache",
                 "--student-manifest",
-                str(args.manifest),
+                str(run_path),
                 "--student-manifest-sha256",
-                args.manifest_sha256,
+                sha256(run_path),
             ]
+            if run_manifest.get("ar_cache_storage", "fp32") == "fp32":
+                command += ["--ar-fp32-cache"]
         if combined:
             command += ["--fft-stream", "--parallel-transforms", "--inference-mode"]
         if compare is not None:
@@ -158,6 +200,11 @@ def main():
             "original": original,
             "combined": combined,
             "predictor_eligibility_cache": predictor_cache,
+            "model_variant": data["model_variant"],
+            "manifest_sha256": None if original else sha256(run_path),
+            "ar_cache_storage": "exact_fp16"
+            if original
+            else run_manifest.get("ar_cache_storage", "fp32"),
             "median_rtf": data["median_rtf"],
             "rtfs": [r["rtf"] for r in data["runs"]],
             "median_seconds": data["median_seconds"],
@@ -178,7 +225,8 @@ def main():
             "local_approved_pcm_match": None
             if original
             else all(
-                r["pcm_sha256"] == cases[language]["pcm_sha256"] for r in data["runs"]
+                r["pcm_sha256"] == run_cases[language]["pcm_sha256"]
+                for r in data["runs"]
             ),
             "local_approved_generated_tokens_match": None
             if original
@@ -187,7 +235,7 @@ def main():
                     {"tokens": r2["index"], "sha256": r2["generated_sha256"]}
                     for r2 in r["semantic"]
                 ]
-                == cases[language]["semantic"]
+                == run_cases[language]["semantic"]
                 for r in data["runs"]
             ),
         }
@@ -202,6 +250,52 @@ def main():
         )
         return data, row
 
+    if baseline is not None:
+        summary["scope"] = (
+            "Actual N1 separately approved Korean student model comparison"
+        )
+        summary["prefetch_selection"] = (
+            "Fixed FP32 cache distance; exact-half cache uses verified distance 256; no parameter search"
+        )
+        summary["selected_prefetch"] = args.prefetch
+        summary["baseline_manifest_sha256"] = args.baseline_manifest_sha256
+        run(
+            "ko",
+            "comparison_baseline",
+            distance=args.prefetch,
+            combined=True,
+            confirm=True,
+            predictor_cache=args.predictor_cache,
+            baseline_bundle=True,
+        )
+        run(
+            "ko",
+            "comparison_candidate",
+            distance=args.prefetch,
+            combined=True,
+            confirm=True,
+            predictor_cache=args.predictor_cache,
+        )
+        try:
+            run(
+                "ko",
+                "comparison_profile_run",
+                distance=args.prefetch,
+                combined=True,
+                profile=True,
+                predictor_cache=args.predictor_cache,
+                compare=args.output / "ko_comparison_candidate.wav",
+            )
+        except subprocess.CalledProcessError as error:
+            summary["profile_error"] = {"exit_code": error.returncode}
+        summary["student_assets_unchanged"] = before == snapshot(
+            args.manifest
+        ) and baseline_before == snapshot(args.baseline_manifest)
+        summary["complete"] = True
+        save()
+        if not summary["student_assets_unchanged"]:
+            raise RuntimeError("Private comparison execution assets changed")
+        return
     if args.predictor_only:
         summary["scope"] = (
             "Actual N1 approved Korean G predictor eligibility cache comparison"
