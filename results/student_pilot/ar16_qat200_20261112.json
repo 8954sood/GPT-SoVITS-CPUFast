@@ -1,0 +1,3143 @@
+{
+  "scope": "Separate CPU-only AR16 QAT200 pilot; not listened to or measured on N1.",
+  "quality_approved": false,
+  "actual_n1_measured": false,
+  "adopted": false,
+  "decision": "Hold as unapproved diagnostic. Validation KL remains approximately35% above approved AR17; no quality equivalence or speed result is inferred.",
+  "selection": {
+    "scope": "Select one redundant layer on training contexts for a separate QAT pilot.\n\nThis creates an unapproved initialization, not a speed or listening result.\nProtected original teacher feature anchors are retained. Decoder files are not\nread or changed. Quantization-aware scoring is a training surrogate only.\n",
+    "quality_approved": false,
+    "actual_n1_measured": false,
+    "parent_sha256": "a25ae9826d4d608ca41adca04075ff75a5ac66ababa0e823da60b7990f354352",
+    "parent_unchanged": true,
+    "parent_layers": 17,
+    "target_layers": 16,
+    "context_manifest_sha256": "54c87e32dbba8277350b82279c8c9e872460fb55b8e4d6abe135c0096d60f98c",
+    "feature_manifest_sha256": "7442b9326722bdeb0d9d3fd2a21504a8f445c76a0002219255b3bd452ee3eacd",
+    "training_contexts": [
+      {
+        "name": "voice0_ja_0_ar.pt",
+        "sha256": "3453f793b80a03024c38f36e2ca69acfd4c113a709813f2e3086669939a8a169"
+      },
+      {
+        "name": "voice0_ja_1_ar.pt",
+        "sha256": "3c219a07ec403caa9fb2a03f4dfcfa3b9fb82a087d41897fdd089eecec02b1d6"
+      },
+      {
+        "name": "voice0_ja_2_ar.pt",
+        "sha256": "edb5e8e071927e0bab466dd4489eb868c5301222601cb720ff74632b0ec75104"
+      },
+      {
+        "name": "voice0_ja_3_ar.pt",
+        "sha256": "97f663af66f0acb945eda187523238dfebf818e7f32dbc73a8ac463ca59cbb4e"
+      },
+      {
+        "name": "voice0_ja_4_ar.pt",
+        "sha256": "93594ec4c3c11f00c74fc65242069f20a914ae316ea6c9927a6c9d87bae5da73"
+      },
+      {
+        "name": "voice0_ja_5_ar.pt",
+        "sha256": "22cfa8aea2906eae7b3a785d786e7f65b8ce15c0ae9a97152b405991fcb30756"
+      },
+      {
+        "name": "voice0_ja_6_ar.pt",
+        "sha256": "677d4a848fcf72bff39d67efccf669129e890e75db957617944b4022375c6a8b"
+      },
+      {
+        "name": "voice0_ja_7_ar.pt",
+        "sha256": "ef713c93b98dfd34f7c6085d6a749541b65a6ca143f8b80e4d7b141ef99359ff"
+      },
+      {
+        "name": "voice0_ja_8_ar.pt",
+        "sha256": "0a8cd028a8d70fd090625c95afab2a60e635ed44a4270d37439f740b910004e9"
+      },
+      {
+        "name": "voice0_ja_9_ar.pt",
+        "sha256": "26554389753216321badb1b6a00c9125a267d57138f141423bac6eec4630643b"
+      },
+      {
+        "name": "voice0_ko_0_ar.pt",
+        "sha256": "81b08f6d0abd2ed3caa5799d0b0c75f794f641872b13676b291fb2045b839d07"
+      },
+      {
+        "name": "voice0_ko_1_ar.pt",
+        "sha256": "b4491f741e8c6768066ce0507ac4492004c7ce3f265723d1aadbb513a91d9324"
+      },
+      {
+        "name": "voice0_ko_2_ar.pt",
+        "sha256": "62b1294ca0eefa2f9f0c333bf93b9e7c7e99635a1ba3a55fe943c6701aca3d19"
+      },
+      {
+        "name": "voice0_ko_3_ar.pt",
+        "sha256": "0c4019c238a45c38a52da32d5ffe687d7d8af2917684e8f95e72e3d3a5327d05"
+      },
+      {
+        "name": "voice0_ko_4_ar.pt",
+        "sha256": "5dd89984125dea3d194cf049e926b4bad34c5753327b1358ff96318a8ab906b0"
+      },
+      {
+        "name": "voice0_ko_5_ar.pt",
+        "sha256": "12a384788694d1d56c47a5f36bcbcfa0ccce7d316ceb89705ca6533d35f787c6"
+      },
+      {
+        "name": "voice0_ko_6_ar.pt",
+        "sha256": "2726a2fc2057bca7311a663f8694a4c00d8ebe41572b8e59ac4288a1122de842"
+      },
+      {
+        "name": "voice0_ko_7_ar.pt",
+        "sha256": "5c5f1eee5674268812f522a4fb8cc26b08c1287073c79f23e219a02b7a3f9c12"
+      },
+      {
+        "name": "voice0_ko_8_ar.pt",
+        "sha256": "f1442a39fadbde095c92004c3640b11ee4ce2fab5f5dc389f609cdd5bfef4611"
+      },
+      {
+        "name": "voice0_ko_9_ar.pt",
+        "sha256": "d3b0bd2ac25f47bb61b77baec6e396082f1dd05159c9521f1f081480dbab4b63"
+      },
+      {
+        "name": "voice0_en_0_ar.pt",
+        "sha256": "191eda7af75aad15e4bdf8b7043e7df6f6d74a55b9a35ff2438ed4e541d19f77"
+      },
+      {
+        "name": "voice0_en_1_ar.pt",
+        "sha256": "09f011004567e225b6641909cba1696471fa73085828be013c092f8cbf2eec8d"
+      },
+      {
+        "name": "voice0_en_2_ar.pt",
+        "sha256": "2836f4435ce9318f5a7e9459e2d2dd27a7df0ec80428f8ca5846f521c3ee135a"
+      },
+      {
+        "name": "voice0_en_3_ar.pt",
+        "sha256": "96fcebdafe0d75c63edda42b84dcaa81a3d4ea9eb85cdbc8696c7c138320950b"
+      },
+      {
+        "name": "voice0_en_4_ar.pt",
+        "sha256": "8f856ed0ff5c3e1ee18f5cdadecd64805166f054e3df1dc9185180588f3b9207"
+      },
+      {
+        "name": "voice0_en_5_ar.pt",
+        "sha256": "f1182e95e2c0345ab26b30dbec549c0a9d52d47d4e0c1e395b1aaa81aba59d81"
+      },
+      {
+        "name": "voice0_en_6_ar.pt",
+        "sha256": "9b1211b08e725cee9a243a8bbb39a613a23e5cb3da6287bc696f3b9256a07603"
+      },
+      {
+        "name": "voice0_en_7_ar.pt",
+        "sha256": "2c0e1d3a371ac4e2f23ce5546252900f66f1af09721e6800dac08feb4f6f95c0"
+      },
+      {
+        "name": "voice0_en_8_ar.pt",
+        "sha256": "7b1588ace9963aaab4cf8a5f41fac3dd812dad1b89ca51a4745c31a0f987372f"
+      },
+      {
+        "name": "voice0_en_9_ar.pt",
+        "sha256": "96fff6b7795bc0f3d8320a64948c558bc267522a70caae8d87d527d64bc9b2af"
+      }
+    ],
+    "protected_original_ids": [
+      0,
+      6,
+      13,
+      23
+    ],
+    "baseline": {
+      "mean_kl": 0.011044638386617104,
+      "cases": [
+        {
+          "context": "voice0_ja_0_ar.pt",
+          "language": "ja",
+          "kl": 0.009402780793607235
+        },
+        {
+          "context": "voice0_ja_1_ar.pt",
+          "language": "ja",
+          "kl": 0.010733713395893574
+        },
+        {
+          "context": "voice0_ja_2_ar.pt",
+          "language": "ja",
+          "kl": 0.009853008203208447
+        },
+        {
+          "context": "voice0_ja_3_ar.pt",
+          "language": "ja",
+          "kl": 0.0100210877135396
+        },
+        {
+          "context": "voice0_ja_4_ar.pt",
+          "language": "ja",
+          "kl": 0.012734116055071354
+        },
+        {
+          "context": "voice0_ja_5_ar.pt",
+          "language": "ja",
+          "kl": 0.01117043849080801
+        },
+        {
+          "context": "voice0_ja_6_ar.pt",
+          "language": "ja",
+          "kl": 0.011707711033523083
+        },
+        {
+          "context": "voice0_ja_7_ar.pt",
+          "language": "ja",
+          "kl": 0.012065204791724682
+        },
+        {
+          "context": "voice0_ja_8_ar.pt",
+          "language": "ja",
+          "kl": 0.012149176560342312
+        },
+        {
+          "context": "voice0_ja_9_ar.pt",
+          "language": "ja",
+          "kl": 0.012002791278064251
+        },
+        {
+          "context": "voice0_ko_0_ar.pt",
+          "language": "ko",
+          "kl": 0.008851750753819942
+        },
+        {
+          "context": "voice0_ko_1_ar.pt",
+          "language": "ko",
+          "kl": 0.0103587182238698
+        },
+        {
+          "context": "voice0_ko_2_ar.pt",
+          "language": "ko",
+          "kl": 0.010445145890116692
+        },
+        {
+          "context": "voice0_ko_3_ar.pt",
+          "language": "ko",
+          "kl": 0.010385718196630478
+        },
+        {
+          "context": "voice0_ko_4_ar.pt",
+          "language": "ko",
+          "kl": 0.01184060424566269
+        },
+        {
+          "context": "voice0_ko_5_ar.pt",
+          "language": "ko",
+          "kl": 0.011209294199943542
+        },
+        {
+          "context": "voice0_ko_6_ar.pt",
+          "language": "ko",
+          "kl": 0.011513683013617992
+        },
+        {
+          "context": "voice0_ko_7_ar.pt",
+          "language": "ko",
+          "kl": 0.011428416706621647
+        },
+        {
+          "context": "voice0_ko_8_ar.pt",
+          "language": "ko",
+          "kl": 0.012059614062309265
+        },
+        {
+          "context": "voice0_ko_9_ar.pt",
+          "language": "ko",
+          "kl": 0.01144617423415184
+        },
+        {
+          "context": "voice0_en_0_ar.pt",
+          "language": "en",
+          "kl": 0.009465395472943783
+        },
+        {
+          "context": "voice0_en_1_ar.pt",
+          "language": "en",
+          "kl": 0.010026653297245502
+        },
+        {
+          "context": "voice0_en_2_ar.pt",
+          "language": "en",
+          "kl": 0.011054410599172115
+        },
+        {
+          "context": "voice0_en_3_ar.pt",
+          "language": "en",
+          "kl": 0.010869115591049194
+        },
+        {
+          "context": "voice0_en_4_ar.pt",
+          "language": "en",
+          "kl": 0.010385651141405106
+        },
+        {
+          "context": "voice0_en_5_ar.pt",
+          "language": "en",
+          "kl": 0.012227940373122692
+        },
+        {
+          "context": "voice0_en_6_ar.pt",
+          "language": "en",
+          "kl": 0.011540677398443222
+        },
+        {
+          "context": "voice0_en_7_ar.pt",
+          "language": "en",
+          "kl": 0.011578000150620937
+        },
+        {
+          "context": "voice0_en_8_ar.pt",
+          "language": "en",
+          "kl": 0.011580494232475758
+        },
+        {
+          "context": "voice0_en_9_ar.pt",
+          "language": "en",
+          "kl": 0.011231665499508381
+        }
+      ]
+    },
+    "candidates": [
+      {
+        "local_index": 1,
+        "original_id": 1,
+        "mean_kl": 0.40348279625177386,
+        "cases": [
+          {
+            "context": "voice0_ja_0_ar.pt",
+            "language": "ja",
+            "kl": 0.3551616966724396
+          },
+          {
+            "context": "voice0_ja_1_ar.pt",
+            "language": "ja",
+            "kl": 0.20936238765716553
+          },
+          {
+            "context": "voice0_ja_2_ar.pt",
+            "language": "ja",
+            "kl": 0.4323989748954773
+          },
+          {
+            "context": "voice0_ja_3_ar.pt",
+            "language": "ja",
+            "kl": 0.21537835896015167
+          },
+          {
+            "context": "voice0_ja_4_ar.pt",
+            "language": "ja",
+            "kl": 0.3303854465484619
+          },
+          {
+            "context": "voice0_ja_5_ar.pt",
+            "language": "ja",
+            "kl": 0.2982441484928131
+          },
+          {
+            "context": "voice0_ja_6_ar.pt",
+            "language": "ja",
+            "kl": 0.26629638671875
+          },
+          {
+            "context": "voice0_ja_7_ar.pt",
+            "language": "ja",
+            "kl": 0.2577856779098511
+          },
+          {
+            "context": "voice0_ja_8_ar.pt",
+            "language": "ja",
+            "kl": 0.28763139247894287
+          },
+          {
+            "context": "voice0_ja_9_ar.pt",
+            "language": "ja",
+            "kl": 0.25071582198143005
+          },
+          {
+            "context": "voice0_ko_0_ar.pt",
+            "language": "ko",
+            "kl": 0.36541587114334106
+          },
+          {
+            "context": "voice0_ko_1_ar.pt",
+            "language": "ko",
+            "kl": 0.5492582321166992
+          },
+          {
+            "context": "voice0_ko_2_ar.pt",
+            "language": "ko",
+            "kl": 0.4461454451084137
+          },
+          {
+            "context": "voice0_ko_3_ar.pt",
+            "language": "ko",
+            "kl": 0.42177626490592957
+          },
+          {
+            "context": "voice0_ko_4_ar.pt",
+            "language": "ko",
+            "kl": 0.3936026394367218
+          },
+          {
+            "context": "voice0_ko_5_ar.pt",
+            "language": "ko",
+            "kl": 0.3182944059371948
+          },
+          {
+            "context": "voice0_ko_6_ar.pt",
+            "language": "ko",
+            "kl": 0.31289926171302795
+          },
+          {
+            "context": "voice0_ko_7_ar.pt",
+            "language": "ko",
+            "kl": 0.5633925199508667
+          },
+          {
+            "context": "voice0_ko_8_ar.pt",
+            "language": "ko",
+            "kl": 0.40246978402137756
+          },
+          {
+            "context": "voice0_ko_9_ar.pt",
+            "language": "ko",
+            "kl": 0.43258360028266907
+          },
+          {
+            "context": "voice0_en_0_ar.pt",
+            "language": "en",
+            "kl": 0.33145883679389954
+          },
+          {
+            "context": "voice0_en_1_ar.pt",
+            "language": "en",
+            "kl": 0.31848716735839844
+          },
+          {
+            "context": "voice0_en_2_ar.pt",
+            "language": "en",
+            "kl": 0.48388800024986267
+          },
+          {
+            "context": "voice0_en_3_ar.pt",
+            "language": "en",
+            "kl": 0.39219456911087036
+          },
+          {
+            "context": "voice0_en_4_ar.pt",
+            "language": "en",
+            "kl": 0.4511028528213501
+          },
+          {
+            "context": "voice0_en_5_ar.pt",
+            "language": "en",
+            "kl": 0.3171861469745636
+          },
+          {
+            "context": "voice0_en_6_ar.pt",
+            "language": "en",
+            "kl": 0.6269161701202393
+          },
+          {
+            "context": "voice0_en_7_ar.pt",
+            "language": "en",
+            "kl": 0.44996145367622375
+          },
+          {
+            "context": "voice0_en_8_ar.pt",
+            "language": "en",
+            "kl": 1.1084712743759155
+          },
+          {
+            "context": "voice0_en_9_ar.pt",
+            "language": "en",
+            "kl": 0.5156190991401672
+          }
+        ]
+      },
+      {
+        "local_index": 2,
+        "original_id": 2,
+        "mean_kl": 0.5460007304946581,
+        "cases": [
+          {
+            "context": "voice0_ja_0_ar.pt",
+            "language": "ja",
+            "kl": 0.7452928423881531
+          },
+          {
+            "context": "voice0_ja_1_ar.pt",
+            "language": "ja",
+            "kl": 0.36651816964149475
+          },
+          {
+            "context": "voice0_ja_2_ar.pt",
+            "language": "ja",
+            "kl": 0.4511550962924957
+          },
+          {
+            "context": "voice0_ja_3_ar.pt",
+            "language": "ja",
+            "kl": 0.17931130528450012
+          },
+          {
+            "context": "voice0_ja_4_ar.pt",
+            "language": "ja",
+            "kl": 0.250042587518692
+          },
+          {
+            "context": "voice0_ja_5_ar.pt",
+            "language": "ja",
+            "kl": 0.1622433066368103
+          },
+          {
+            "context": "voice0_ja_6_ar.pt",
+            "language": "ja",
+            "kl": 0.12988866865634918
+          },
+          {
+            "context": "voice0_ja_7_ar.pt",
+            "language": "ja",
+            "kl": 0.24657873809337616
+          },
+          {
+            "context": "voice0_ja_8_ar.pt",
+            "language": "ja",
+            "kl": 0.42267516255378723
+          },
+          {
+            "context": "voice0_ja_9_ar.pt",
+            "language": "ja",
+            "kl": 0.6342194080352783
+          },
+          {
+            "context": "voice0_ko_0_ar.pt",
+            "language": "ko",
+            "kl": 0.7491664290428162
+          },
+          {
+            "context": "voice0_ko_1_ar.pt",
+            "language": "ko",
+            "kl": 0.9953500032424927
+          },
+          {
+            "context": "voice0_ko_2_ar.pt",
+            "language": "ko",
+            "kl": 0.25334733724594116
+          },
+          {
+            "context": "voice0_ko_3_ar.pt",
+            "language": "ko",
+            "kl": 0.3921334147453308
+          },
+          {
+            "context": "voice0_ko_4_ar.pt",
+            "language": "ko",
+            "kl": 0.7104545831680298
+          },
+          {
+            "context": "voice0_ko_5_ar.pt",
+            "language": "ko",
+            "kl": 0.2603464722633362
+          },
+          {
+            "context": "voice0_ko_6_ar.pt",
+            "language": "ko",
+            "kl": 0.1831914484500885
+          },
+          {
+            "context": "voice0_ko_7_ar.pt",
+            "language": "ko",
+            "kl": 0.33064648509025574
+          },
+          {
+            "context": "voice0_ko_8_ar.pt",
+            "language": "ko",
+            "kl": 0.1973169595003128
+          },
+          {
+            "context": "voice0_ko_9_ar.pt",
+            "language": "ko",
+            "kl": 0.599683940410614
+          },
+          {
+            "context": "voice0_en_0_ar.pt",
+            "language": "en",
+            "kl": 0.4057862162590027
+          },
+          {
+            "context": "voice0_en_1_ar.pt",
+            "language": "en",
+            "kl": 0.4820665419101715
+          },
+          {
+            "context": "voice0_en_2_ar.pt",
+            "language": "en",
+            "kl": 0.874998152256012
+          },
+          {
+            "context": "voice0_en_3_ar.pt",
+            "language": "en",
+            "kl": 0.6760923266410828
+          },
+          {
+            "context": "voice0_en_4_ar.pt",
+            "language": "en",
+            "kl": 0.9603500366210938
+          },
+          {
+            "context": "voice0_en_5_ar.pt",
+            "language": "en",
+            "kl": 0.7022695541381836
+          },
+          {
+            "context": "voice0_en_6_ar.pt",
+            "language": "en",
+            "kl": 0.775191605091095
+          },
+          {
+            "context": "voice0_en_7_ar.pt",
+            "language": "en",
+            "kl": 0.34244295954704285
+          },
+          {
+            "context": "voice0_en_8_ar.pt",
+            "language": "en",
+            "kl": 1.9281777143478394
+          },
+          {
+            "context": "voice0_en_9_ar.pt",
+            "language": "en",
+            "kl": 0.9730844497680664
+          }
+        ]
+      },
+      {
+        "local_index": 3,
+        "original_id": 3,
+        "mean_kl": 0.5347009067734082,
+        "cases": [
+          {
+            "context": "voice0_ja_0_ar.pt",
+            "language": "ja",
+            "kl": 0.5253177285194397
+          },
+          {
+            "context": "voice0_ja_1_ar.pt",
+            "language": "ja",
+            "kl": 0.458626389503479
+          },
+          {
+            "context": "voice0_ja_2_ar.pt",
+            "language": "ja",
+            "kl": 0.48519134521484375
+          },
+          {
+            "context": "voice0_ja_3_ar.pt",
+            "language": "ja",
+            "kl": 0.32434847950935364
+          },
+          {
+            "context": "voice0_ja_4_ar.pt",
+            "language": "ja",
+            "kl": 0.3304741680622101
+          },
+          {
+            "context": "voice0_ja_5_ar.pt",
+            "language": "ja",
+            "kl": 0.20459601283073425
+          },
+          {
+            "context": "voice0_ja_6_ar.pt",
+            "language": "ja",
+            "kl": 0.6028809547424316
+          },
+          {
+            "context": "voice0_ja_7_ar.pt",
+            "language": "ja",
+            "kl": 0.4258318841457367
+          },
+          {
+            "context": "voice0_ja_8_ar.pt",
+            "language": "ja",
+            "kl": 0.4158497154712677
+          },
+          {
+            "context": "voice0_ja_9_ar.pt",
+            "language": "ja",
+            "kl": 0.3872567415237427
+          },
+          {
+            "context": "voice0_ko_0_ar.pt",
+            "language": "ko",
+            "kl": 0.30819305777549744
+          },
+          {
+            "context": "voice0_ko_1_ar.pt",
+            "language": "ko",
+            "kl": 0.6647931933403015
+          },
+          {
+            "context": "voice0_ko_2_ar.pt",
+            "language": "ko",
+            "kl": 0.3497997522354126
+          },
+          {
+            "context": "voice0_ko_3_ar.pt",
+            "language": "ko",
+            "kl": 0.26976585388183594
+          },
+          {
+            "context": "voice0_ko_4_ar.pt",
+            "language": "ko",
+            "kl": 0.5503511428833008
+          },
+          {
+            "context": "voice0_ko_5_ar.pt",
+            "language": "ko",
+            "kl": 0.17811867594718933
+          },
+          {
+            "context": "voice0_ko_6_ar.pt",
+            "language": "ko",
+            "kl": 0.1441878229379654
+          },
+          {
+            "context": "voice0_ko_7_ar.pt",
+            "language": "ko",
+            "kl": 0.35041555762290955
+          },
+          {
+            "context": "voice0_ko_8_ar.pt",
+            "language": "ko",
+            "kl": 0.2039259672164917
+          },
+          {
+            "context": "voice0_ko_9_ar.pt",
+            "language": "ko",
+            "kl": 0.4596647620201111
+          },
+          {
+            "context": "voice0_en_0_ar.pt",
+            "language": "en",
+            "kl": 0.48088163137435913
+          },
+          {
+            "context": "voice0_en_1_ar.pt",
+            "language": "en",
+            "kl": 0.8602896928787231
+          },
+          {
+            "context": "voice0_en_2_ar.pt",
+            "language": "en",
+            "kl": 0.6785937547683716
+          },
+          {
+            "context": "voice0_en_3_ar.pt",
+            "language": "en",
+            "kl": 0.8862926363945007
+          },
+          {
+            "context": "voice0_en_4_ar.pt",
+            "language": "en",
+            "kl": 1.1523207426071167
+          },
+          {
+            "context": "voice0_en_5_ar.pt",
+            "language": "en",
+            "kl": 0.944711446762085
+          },
+          {
+            "context": "voice0_en_6_ar.pt",
+            "language": "en",
+            "kl": 0.6336119771003723
+          },
+          {
+            "context": "voice0_en_7_ar.pt",
+            "language": "en",
+            "kl": 0.5801326036453247
+          },
+          {
+            "context": "voice0_en_8_ar.pt",
+            "language": "en",
+            "kl": 1.1968282461166382
+          },
+          {
+            "context": "voice0_en_9_ar.pt",
+            "language": "en",
+            "kl": 0.9877752661705017
+          }
+        ]
+      },
+      {
+        "local_index": 4,
+        "original_id": 4,
+        "mean_kl": 0.22138648380835851,
+        "cases": [
+          {
+            "context": "voice0_ja_0_ar.pt",
+            "language": "ja",
+            "kl": 0.1463395208120346
+          },
+          {
+            "context": "voice0_ja_1_ar.pt",
+            "language": "ja",
+            "kl": 0.15254724025726318
+          },
+          {
+            "context": "voice0_ja_2_ar.pt",
+            "language": "ja",
+            "kl": 0.13498440384864807
+          },
+          {
+            "context": "voice0_ja_3_ar.pt",
+            "language": "ja",
+            "kl": 0.1483471542596817
+          },
+          {
+            "context": "voice0_ja_4_ar.pt",
+            "language": "ja",
+            "kl": 0.1441059410572052
+          },
+          {
+            "context": "voice0_ja_5_ar.pt",
+            "language": "ja",
+            "kl": 0.1356029063463211
+          },
+          {
+            "context": "voice0_ja_6_ar.pt",
+            "language": "ja",
+            "kl": 0.12842810153961182
+          },
+          {
+            "context": "voice0_ja_7_ar.pt",
+            "language": "ja",
+            "kl": 0.18348722159862518
+          },
+          {
+            "context": "voice0_ja_8_ar.pt",
+            "language": "ja",
+            "kl": 0.16363540291786194
+          },
+          {
+            "context": "voice0_ja_9_ar.pt",
+            "language": "ja",
+            "kl": 0.14550505578517914
+          },
+          {
+            "context": "voice0_ko_0_ar.pt",
+            "language": "ko",
+            "kl": 0.18680395185947418
+          },
+          {
+            "context": "voice0_ko_1_ar.pt",
+            "language": "ko",
+            "kl": 0.24604198336601257
+          },
+          {
+            "context": "voice0_ko_2_ar.pt",
+            "language": "ko",
+            "kl": 0.1915930062532425
+          },
+          {
+            "context": "voice0_ko_3_ar.pt",
+            "language": "ko",
+            "kl": 0.18802930414676666
+          },
+          {
+            "context": "voice0_ko_4_ar.pt",
+            "language": "ko",
+            "kl": 0.2047160416841507
+          },
+          {
+            "context": "voice0_ko_5_ar.pt",
+            "language": "ko",
+            "kl": 0.13891154527664185
+          },
+          {
+            "context": "voice0_ko_6_ar.pt",
+            "language": "ko",
+            "kl": 0.1411399394273758
+          },
+          {
+            "context": "voice0_ko_7_ar.pt",
+            "language": "ko",
+            "kl": 0.16561691462993622
+          },
+          {
+            "context": "voice0_ko_8_ar.pt",
+            "language": "ko",
+            "kl": 0.1553201526403427
+          },
+          {
+            "context": "voice0_ko_9_ar.pt",
+            "language": "ko",
+            "kl": 0.15831002593040466
+          },
+          {
+            "context": "voice0_en_0_ar.pt",
+            "language": "en",
+            "kl": 0.2121984362602234
+          },
+          {
+            "context": "voice0_en_1_ar.pt",
+            "language": "en",
+            "kl": 0.2341810017824173
+          },
+          {
+            "context": "voice0_en_2_ar.pt",
+            "language": "en",
+            "kl": 0.4429756999015808
+          },
+          {
+            "context": "voice0_en_3_ar.pt",
+            "language": "en",
+            "kl": 0.28758037090301514
+          },
+          {
+            "context": "voice0_en_4_ar.pt",
+            "language": "en",
+            "kl": 0.46552130579948425
+          },
+          {
+            "context": "voice0_en_5_ar.pt",
+            "language": "en",
+            "kl": 0.3489094078540802
+          },
+          {
+            "context": "voice0_en_6_ar.pt",
+            "language": "en",
+            "kl": 0.4566183388233185
+          },
+          {
+            "context": "voice0_en_7_ar.pt",
+            "language": "en",
+            "kl": 0.2795320749282837
+          },
+          {
+            "context": "voice0_en_8_ar.pt",
+            "language": "en",
+            "kl": 0.3426453471183777
+          },
+          {
+            "context": "voice0_en_9_ar.pt",
+            "language": "en",
+            "kl": 0.3119667172431946
+          }
+        ]
+      },
+      {
+        "local_index": 5,
+        "original_id": 5,
+        "mean_kl": 0.2640538473924001,
+        "cases": [
+          {
+            "context": "voice0_ja_0_ar.pt",
+            "language": "ja",
+            "kl": 0.24681217968463898
+          },
+          {
+            "context": "voice0_ja_1_ar.pt",
+            "language": "ja",
+            "kl": 0.2739596664905548
+          },
+          {
+            "context": "voice0_ja_2_ar.pt",
+            "language": "ja",
+            "kl": 0.23673006892204285
+          },
+          {
+            "context": "voice0_ja_3_ar.pt",
+            "language": "ja",
+            "kl": 0.24981820583343506
+          },
+          {
+            "context": "voice0_ja_4_ar.pt",
+            "language": "ja",
+            "kl": 0.24217034876346588
+          },
+          {
+            "context": "voice0_ja_5_ar.pt",
+            "language": "ja",
+            "kl": 0.2930339276790619
+          },
+          {
+            "context": "voice0_ja_6_ar.pt",
+            "language": "ja",
+            "kl": 0.2538284361362457
+          },
+          {
+            "context": "voice0_ja_7_ar.pt",
+            "language": "ja",
+            "kl": 0.24383115768432617
+          },
+          {
+            "context": "voice0_ja_8_ar.pt",
+            "language": "ja",
+            "kl": 0.28082075715065
+          },
+          {
+            "context": "voice0_ja_9_ar.pt",
+            "language": "ja",
+            "kl": 0.27083954215049744
+          },
+          {
+            "context": "voice0_ko_0_ar.pt",
+            "language": "ko",
+            "kl": 0.20869477093219757
+          },
+          {
+            "context": "voice0_ko_1_ar.pt",
+            "language": "ko",
+            "kl": 0.34754180908203125
+          },
+          {
+            "context": "voice0_ko_2_ar.pt",
+            "language": "ko",
+            "kl": 0.2711200416088104
+          },
+          {
+            "context": "voice0_ko_3_ar.pt",
+            "language": "ko",
+            "kl": 0.27102115750312805
+          },
+          {
+            "context": "voice0_ko_4_ar.pt",
+            "language": "ko",
+            "kl": 0.23900790512561798
+          },
+          {
+            "context": "voice0_ko_5_ar.pt",
+            "language": "ko",
+            "kl": 0.2544119954109192
+          },
+          {
+            "context": "voice0_ko_6_ar.pt",
+            "language": "ko",
+            "kl": 0.2575676143169403
+          },
+          {
+            "context": "voice0_ko_7_ar.pt",
+            "language": "ko",
+            "kl": 0.25748229026794434
+          },
+          {
+            "context": "voice0_ko_8_ar.pt",
+            "language": "ko",
+            "kl": 0.23012717068195343
+          },
+          {
+            "context": "voice0_ko_9_ar.pt",
+            "language": "ko",
+            "kl": 0.2812138497829437
+          },
+          {
+            "context": "voice0_en_0_ar.pt",
+            "language": "en",
+            "kl": 0.25468361377716064
+          },
+          {
+            "context": "voice0_en_1_ar.pt",
+            "language": "en",
+            "kl": 0.23577076196670532
+          },
+          {
+            "context": "voice0_en_2_ar.pt",
+            "language": "en",
+            "kl": 0.26281774044036865
+          },
+          {
+            "context": "voice0_en_3_ar.pt",
+            "language": "en",
+            "kl": 0.301664263010025
+          },
+          {
+            "context": "voice0_en_4_ar.pt",
+            "language": "en",
+            "kl": 0.2783218026161194
+          },
+          {
+            "context": "voice0_en_5_ar.pt",
+            "language": "en",
+            "kl": 0.2711692154407501
+          },
+          {
+            "context": "voice0_en_6_ar.pt",
+            "language": "en",
+            "kl": 0.2924945652484894
+          },
+          {
+            "context": "voice0_en_7_ar.pt",
+            "language": "en",
+            "kl": 0.24202699959278107
+          },
+          {
+            "context": "voice0_en_8_ar.pt",
+            "language": "en",
+            "kl": 0.29294243454933167
+          },
+          {
+            "context": "voice0_en_9_ar.pt",
+            "language": "en",
+            "kl": 0.2796911299228668
+          }
+        ]
+      },
+      {
+        "local_index": 7,
+        "original_id": 7,
+        "mean_kl": 0.05874335120121638,
+        "cases": [
+          {
+            "context": "voice0_ja_0_ar.pt",
+            "language": "ja",
+            "kl": 0.0543641671538353
+          },
+          {
+            "context": "voice0_ja_1_ar.pt",
+            "language": "ja",
+            "kl": 0.05649634078145027
+          },
+          {
+            "context": "voice0_ja_2_ar.pt",
+            "language": "ja",
+            "kl": 0.0631725862622261
+          },
+          {
+            "context": "voice0_ja_3_ar.pt",
+            "language": "ja",
+            "kl": 0.062019575387239456
+          },
+          {
+            "context": "voice0_ja_4_ar.pt",
+            "language": "ja",
+            "kl": 0.06098237633705139
+          },
+          {
+            "context": "voice0_ja_5_ar.pt",
+            "language": "ja",
+            "kl": 0.0593637116253376
+          },
+          {
+            "context": "voice0_ja_6_ar.pt",
+            "language": "ja",
+            "kl": 0.047714490443468094
+          },
+          {
+            "context": "voice0_ja_7_ar.pt",
+            "language": "ja",
+            "kl": 0.06120220944285393
+          },
+          {
+            "context": "voice0_ja_8_ar.pt",
+            "language": "ja",
+            "kl": 0.06566445529460907
+          },
+          {
+            "context": "voice0_ja_9_ar.pt",
+            "language": "ja",
+            "kl": 0.05928409472107887
+          },
+          {
+            "context": "voice0_ko_0_ar.pt",
+            "language": "ko",
+            "kl": 0.05139691382646561
+          },
+          {
+            "context": "voice0_ko_1_ar.pt",
+            "language": "ko",
+            "kl": 0.05603419616818428
+          },
+          {
+            "context": "voice0_ko_2_ar.pt",
+            "language": "ko",
+            "kl": 0.05660073459148407
+          },
+          {
+            "context": "voice0_ko_3_ar.pt",
+            "language": "ko",
+            "kl": 0.05503551661968231
+          },
+          {
+            "context": "voice0_ko_4_ar.pt",
+            "language": "ko",
+            "kl": 0.05958762392401695
+          },
+          {
+            "context": "voice0_ko_5_ar.pt",
+            "language": "ko",
+            "kl": 0.05532725900411606
+          },
+          {
+            "context": "voice0_ko_6_ar.pt",
+            "language": "ko",
+            "kl": 0.053677190095186234
+          },
+          {
+            "context": "voice0_ko_7_ar.pt",
+            "language": "ko",
+            "kl": 0.0693950355052948
+          },
+          {
+            "context": "voice0_ko_8_ar.pt",
+            "language": "ko",
+            "kl": 0.06400754302740097
+          },
+          {
+            "context": "voice0_ko_9_ar.pt",
+            "language": "ko",
+            "kl": 0.059883881360292435
+          },
+          {
+            "context": "voice0_en_0_ar.pt",
+            "language": "en",
+            "kl": 0.05220899358391762
+          },
+          {
+            "context": "voice0_en_1_ar.pt",
+            "language": "en",
+            "kl": 0.05602661147713661
+          },
+          {
+            "context": "voice0_en_2_ar.pt",
+            "language": "en",
+            "kl": 0.0624983124434948
+          },
+          {
+            "context": "voice0_en_3_ar.pt",
+            "language": "en",
+            "kl": 0.05637781322002411
+          },
+          {
+            "context": "voice0_en_4_ar.pt",
+            "language": "en",
+            "kl": 0.06860500574111938
+          },
+          {
+            "context": "voice0_en_5_ar.pt",
+            "language": "en",
+            "kl": 0.056822534650564194
+          },
+          {
+            "context": "voice0_en_6_ar.pt",
+            "language": "en",
+            "kl": 0.05268526077270508
+          },
+          {
+            "context": "voice0_en_7_ar.pt",
+            "language": "en",
+            "kl": 0.06304985284805298
+          },
+          {
+            "context": "voice0_en_8_ar.pt",
+            "language": "en",
+            "kl": 0.056776195764541626
+          },
+          {
+            "context": "voice0_en_9_ar.pt",
+            "language": "en",
+            "kl": 0.0660400539636612
+          }
+        ]
+      },
+      {
+        "local_index": 8,
+        "original_id": 8,
+        "mean_kl": 0.0668375479678313,
+        "cases": [
+          {
+            "context": "voice0_ja_0_ar.pt",
+            "language": "ja",
+            "kl": 0.05689677968621254
+          },
+          {
+            "context": "voice0_ja_1_ar.pt",
+            "language": "ja",
+            "kl": 0.06112787872552872
+          },
+          {
+            "context": "voice0_ja_2_ar.pt",
+            "language": "ja",
+            "kl": 0.06324975192546844
+          },
+          {
+            "context": "voice0_ja_3_ar.pt",
+            "language": "ja",
+            "kl": 0.061825864017009735
+          },
+          {
+            "context": "voice0_ja_4_ar.pt",
+            "language": "ja",
+            "kl": 0.07248037308454514
+          },
+          {
+            "context": "voice0_ja_5_ar.pt",
+            "language": "ja",
+            "kl": 0.06701382249593735
+          },
+          {
+            "context": "voice0_ja_6_ar.pt",
+            "language": "ja",
+            "kl": 0.05806063488125801
+          },
+          {
+            "context": "voice0_ja_7_ar.pt",
+            "language": "ja",
+            "kl": 0.06681834906339645
+          },
+          {
+            "context": "voice0_ja_8_ar.pt",
+            "language": "ja",
+            "kl": 0.07512720674276352
+          },
+          {
+            "context": "voice0_ja_9_ar.pt",
+            "language": "ja",
+            "kl": 0.06591438502073288
+          },
+          {
+            "context": "voice0_ko_0_ar.pt",
+            "language": "ko",
+            "kl": 0.056849125772714615
+          },
+          {
+            "context": "voice0_ko_1_ar.pt",
+            "language": "ko",
+            "kl": 0.06715891510248184
+          },
+          {
+            "context": "voice0_ko_2_ar.pt",
+            "language": "ko",
+            "kl": 0.059908077120780945
+          },
+          {
+            "context": "voice0_ko_3_ar.pt",
+            "language": "ko",
+            "kl": 0.06292249262332916
+          },
+          {
+            "context": "voice0_ko_4_ar.pt",
+            "language": "ko",
+            "kl": 0.06622420251369476
+          },
+          {
+            "context": "voice0_ko_5_ar.pt",
+            "language": "ko",
+            "kl": 0.06449967622756958
+          },
+          {
+            "context": "voice0_ko_6_ar.pt",
+            "language": "ko",
+            "kl": 0.05976055935025215
+          },
+          {
+            "context": "voice0_ko_7_ar.pt",
+            "language": "ko",
+            "kl": 0.07108522206544876
+          },
+          {
+            "context": "voice0_ko_8_ar.pt",
+            "language": "ko",
+            "kl": 0.07425762712955475
+          },
+          {
+            "context": "voice0_ko_9_ar.pt",
+            "language": "ko",
+            "kl": 0.07435597479343414
+          },
+          {
+            "context": "voice0_en_0_ar.pt",
+            "language": "en",
+            "kl": 0.07916570454835892
+          },
+          {
+            "context": "voice0_en_1_ar.pt",
+            "language": "en",
+            "kl": 0.06754998862743378
+          },
+          {
+            "context": "voice0_en_2_ar.pt",
+            "language": "en",
+            "kl": 0.0634942427277565
+          },
+          {
+            "context": "voice0_en_3_ar.pt",
+            "language": "en",
+            "kl": 0.07459332793951035
+          },
+          {
+            "context": "voice0_en_4_ar.pt",
+            "language": "en",
+            "kl": 0.07297137379646301
+          },
+          {
+            "context": "voice0_en_5_ar.pt",
+            "language": "en",
+            "kl": 0.06875671446323395
+          },
+          {
+            "context": "voice0_en_6_ar.pt",
+            "language": "en",
+            "kl": 0.06761788576841354
+          },
+          {
+            "context": "voice0_en_7_ar.pt",
+            "language": "en",
+            "kl": 0.06923883408308029
+          },
+          {
+            "context": "voice0_en_8_ar.pt",
+            "language": "en",
+            "kl": 0.07473735511302948
+          },
+          {
+            "context": "voice0_en_9_ar.pt",
+            "language": "en",
+            "kl": 0.0614640936255455
+          }
+        ]
+      },
+      {
+        "local_index": 9,
+        "original_id": 9,
+        "mean_kl": 0.1013863056898117,
+        "cases": [
+          {
+            "context": "voice0_ja_0_ar.pt",
+            "language": "ja",
+            "kl": 0.09907396137714386
+          },
+          {
+            "context": "voice0_ja_1_ar.pt",
+            "language": "ja",
+            "kl": 0.1083855926990509
+          },
+          {
+            "context": "voice0_ja_2_ar.pt",
+            "language": "ja",
+            "kl": 0.1095801293849945
+          },
+          {
+            "context": "voice0_ja_3_ar.pt",
+            "language": "ja",
+            "kl": 0.09383915364742279
+          },
+          {
+            "context": "voice0_ja_4_ar.pt",
+            "language": "ja",
+            "kl": 0.09691725671291351
+          },
+          {
+            "context": "voice0_ja_5_ar.pt",
+            "language": "ja",
+            "kl": 0.10307066887617111
+          },
+          {
+            "context": "voice0_ja_6_ar.pt",
+            "language": "ja",
+            "kl": 0.09913360327482224
+          },
+          {
+            "context": "voice0_ja_7_ar.pt",
+            "language": "ja",
+            "kl": 0.09653300046920776
+          },
+          {
+            "context": "voice0_ja_8_ar.pt",
+            "language": "ja",
+            "kl": 0.1038472130894661
+          },
+          {
+            "context": "voice0_ja_9_ar.pt",
+            "language": "ja",
+            "kl": 0.1109529510140419
+          },
+          {
+            "context": "voice0_ko_0_ar.pt",
+            "language": "ko",
+            "kl": 0.086943119764328
+          },
+          {
+            "context": "voice0_ko_1_ar.pt",
+            "language": "ko",
+            "kl": 0.10120014101266861
+          },
+          {
+            "context": "voice0_ko_2_ar.pt",
+            "language": "ko",
+            "kl": 0.10187804698944092
+          },
+          {
+            "context": "voice0_ko_3_ar.pt",
+            "language": "ko",
+            "kl": 0.10426054149866104
+          },
+          {
+            "context": "voice0_ko_4_ar.pt",
+            "language": "ko",
+            "kl": 0.09832073748111725
+          },
+          {
+            "context": "voice0_ko_5_ar.pt",
+            "language": "ko",
+            "kl": 0.10779263079166412
+          },
+          {
+            "context": "voice0_ko_6_ar.pt",
+            "language": "ko",
+            "kl": 0.10254083573818207
+          },
+          {
+            "context": "voice0_ko_7_ar.pt",
+            "language": "ko",
+            "kl": 0.10553275048732758
+          },
+          {
+            "context": "voice0_ko_8_ar.pt",
+            "language": "ko",
+            "kl": 0.10816298425197601
+          },
+          {
+            "context": "voice0_ko_9_ar.pt",
+            "language": "ko",
+            "kl": 0.09949101507663727
+          },
+          {
+            "context": "voice0_en_0_ar.pt",
+            "language": "en",
+            "kl": 0.0965074971318245
+          },
+          {
+            "context": "voice0_en_1_ar.pt",
+            "language": "en",
+            "kl": 0.09898916631937027
+          },
+          {
+            "context": "voice0_en_2_ar.pt",
+            "language": "en",
+            "kl": 0.11258796602487564
+          },
+          {
+            "context": "voice0_en_3_ar.pt",
+            "language": "en",
+            "kl": 0.10147027671337128
+          },
+          {
+            "context": "voice0_en_4_ar.pt",
+            "language": "en",
+            "kl": 0.11150191724300385
+          },
+          {
+            "context": "voice0_en_5_ar.pt",
+            "language": "en",
+            "kl": 0.09256172180175781
+          },
+          {
+            "context": "voice0_en_6_ar.pt",
+            "language": "en",
+            "kl": 0.0977909043431282
+          },
+          {
+            "context": "voice0_en_7_ar.pt",
+            "language": "en",
+            "kl": 0.0924110934138298
+          },
+          {
+            "context": "voice0_en_8_ar.pt",
+            "language": "en",
+            "kl": 0.09820021688938141
+          },
+          {
+            "context": "voice0_en_9_ar.pt",
+            "language": "en",
+            "kl": 0.10211207717657089
+          }
+        ]
+      },
+      {
+        "local_index": 10,
+        "original_id": 10,
+        "mean_kl": 0.10888627544045448,
+        "cases": [
+          {
+            "context": "voice0_ja_0_ar.pt",
+            "language": "ja",
+            "kl": 0.12223344296216965
+          },
+          {
+            "context": "voice0_ja_1_ar.pt",
+            "language": "ja",
+            "kl": 0.11327166855335236
+          },
+          {
+            "context": "voice0_ja_2_ar.pt",
+            "language": "ja",
+            "kl": 0.09899809956550598
+          },
+          {
+            "context": "voice0_ja_3_ar.pt",
+            "language": "ja",
+            "kl": 0.10991129279136658
+          },
+          {
+            "context": "voice0_ja_4_ar.pt",
+            "language": "ja",
+            "kl": 0.10657884180545807
+          },
+          {
+            "context": "voice0_ja_5_ar.pt",
+            "language": "ja",
+            "kl": 0.10466553270816803
+          },
+          {
+            "context": "voice0_ja_6_ar.pt",
+            "language": "ja",
+            "kl": 0.09825370460748672
+          },
+          {
+            "context": "voice0_ja_7_ar.pt",
+            "language": "ja",
+            "kl": 0.10588163137435913
+          },
+          {
+            "context": "voice0_ja_8_ar.pt",
+            "language": "ja",
+            "kl": 0.12121210992336273
+          },
+          {
+            "context": "voice0_ja_9_ar.pt",
+            "language": "ja",
+            "kl": 0.1251891404390335
+          },
+          {
+            "context": "voice0_ko_0_ar.pt",
+            "language": "ko",
+            "kl": 0.09999541938304901
+          },
+          {
+            "context": "voice0_ko_1_ar.pt",
+            "language": "ko",
+            "kl": 0.09871838241815567
+          },
+          {
+            "context": "voice0_ko_2_ar.pt",
+            "language": "ko",
+            "kl": 0.09953609108924866
+          },
+          {
+            "context": "voice0_ko_3_ar.pt",
+            "language": "ko",
+            "kl": 0.10064700990915298
+          },
+          {
+            "context": "voice0_ko_4_ar.pt",
+            "language": "ko",
+            "kl": 0.0999349057674408
+          },
+          {
+            "context": "voice0_ko_5_ar.pt",
+            "language": "ko",
+            "kl": 0.1080268993973732
+          },
+          {
+            "context": "voice0_ko_6_ar.pt",
+            "language": "ko",
+            "kl": 0.11637904495000839
+          },
+          {
+            "context": "voice0_ko_7_ar.pt",
+            "language": "ko",
+            "kl": 0.10665185749530792
+          },
+          {
+            "context": "voice0_ko_8_ar.pt",
+            "language": "ko",
+            "kl": 0.1077144518494606
+          },
+          {
+            "context": "voice0_ko_9_ar.pt",
+            "language": "ko",
+            "kl": 0.11287722736597061
+          },
+          {
+            "context": "voice0_en_0_ar.pt",
+            "language": "en",
+            "kl": 0.11951850354671478
+          },
+          {
+            "context": "voice0_en_1_ar.pt",
+            "language": "en",
+            "kl": 0.10910223424434662
+          },
+          {
+            "context": "voice0_en_2_ar.pt",
+            "language": "en",
+            "kl": 0.10566642135381699
+          },
+          {
+            "context": "voice0_en_3_ar.pt",
+            "language": "en",
+            "kl": 0.09700293093919754
+          },
+          {
+            "context": "voice0_en_4_ar.pt",
+            "language": "en",
+            "kl": 0.11869198083877563
+          },
+          {
+            "context": "voice0_en_5_ar.pt",
+            "language": "en",
+            "kl": 0.10859159380197525
+          },
+          {
+            "context": "voice0_en_6_ar.pt",
+            "language": "en",
+            "kl": 0.11336264759302139
+          },
+          {
+            "context": "voice0_en_7_ar.pt",
+            "language": "en",
+            "kl": 0.1109643206000328
+          },
+          {
+            "context": "voice0_en_8_ar.pt",
+            "language": "en",
+            "kl": 0.11493919789791107
+          },
+          {
+            "context": "voice0_en_9_ar.pt",
+            "language": "en",
+            "kl": 0.1120716780424118
+          }
+        ]
+      },
+      {
+        "local_index": 11,
+        "original_id": 11,
+        "mean_kl": 0.11722167059779168,
+        "cases": [
+          {
+            "context": "voice0_ja_0_ar.pt",
+            "language": "ja",
+            "kl": 0.1250760704278946
+          },
+          {
+            "context": "voice0_ja_1_ar.pt",
+            "language": "ja",
+            "kl": 0.1143404096364975
+          },
+          {
+            "context": "voice0_ja_2_ar.pt",
+            "language": "ja",
+            "kl": 0.116767019033432
+          },
+          {
+            "context": "voice0_ja_3_ar.pt",
+            "language": "ja",
+            "kl": 0.1263212114572525
+          },
+          {
+            "context": "voice0_ja_4_ar.pt",
+            "language": "ja",
+            "kl": 0.11167788505554199
+          },
+          {
+            "context": "voice0_ja_5_ar.pt",
+            "language": "ja",
+            "kl": 0.11714030057191849
+          },
+          {
+            "context": "voice0_ja_6_ar.pt",
+            "language": "ja",
+            "kl": 0.12013382464647293
+          },
+          {
+            "context": "voice0_ja_7_ar.pt",
+            "language": "ja",
+            "kl": 0.12002789974212646
+          },
+          {
+            "context": "voice0_ja_8_ar.pt",
+            "language": "ja",
+            "kl": 0.13357013463974
+          },
+          {
+            "context": "voice0_ja_9_ar.pt",
+            "language": "ja",
+            "kl": 0.1398605853319168
+          },
+          {
+            "context": "voice0_ko_0_ar.pt",
+            "language": "ko",
+            "kl": 0.09806729853153229
+          },
+          {
+            "context": "voice0_ko_1_ar.pt",
+            "language": "ko",
+            "kl": 0.11253345012664795
+          },
+          {
+            "context": "voice0_ko_2_ar.pt",
+            "language": "ko",
+            "kl": 0.10843852907419205
+          },
+          {
+            "context": "voice0_ko_3_ar.pt",
+            "language": "ko",
+            "kl": 0.10839798301458359
+          },
+          {
+            "context": "voice0_ko_4_ar.pt",
+            "language": "ko",
+            "kl": 0.10464223474264145
+          },
+          {
+            "context": "voice0_ko_5_ar.pt",
+            "language": "ko",
+            "kl": 0.12382036447525024
+          },
+          {
+            "context": "voice0_ko_6_ar.pt",
+            "language": "ko",
+            "kl": 0.11324350535869598
+          },
+          {
+            "context": "voice0_ko_7_ar.pt",
+            "language": "ko",
+            "kl": 0.11279068142175674
+          },
+          {
+            "context": "voice0_ko_8_ar.pt",
+            "language": "ko",
+            "kl": 0.10746697336435318
+          },
+          {
+            "context": "voice0_ko_9_ar.pt",
+            "language": "ko",
+            "kl": 0.11718970537185669
+          },
+          {
+            "context": "voice0_en_0_ar.pt",
+            "language": "en",
+            "kl": 0.10837430506944656
+          },
+          {
+            "context": "voice0_en_1_ar.pt",
+            "language": "en",
+            "kl": 0.11634449660778046
+          },
+          {
+            "context": "voice0_en_2_ar.pt",
+            "language": "en",
+            "kl": 0.12842059135437012
+          },
+          {
+            "context": "voice0_en_3_ar.pt",
+            "language": "en",
+            "kl": 0.11468307673931122
+          },
+          {
+            "context": "voice0_en_4_ar.pt",
+            "language": "en",
+            "kl": 0.121567502617836
+          },
+          {
+            "context": "voice0_en_5_ar.pt",
+            "language": "en",
+            "kl": 0.1262197345495224
+          },
+          {
+            "context": "voice0_en_6_ar.pt",
+            "language": "en",
+            "kl": 0.11090461164712906
+          },
+          {
+            "context": "voice0_en_7_ar.pt",
+            "language": "en",
+            "kl": 0.11916429549455643
+          },
+          {
+            "context": "voice0_en_8_ar.pt",
+            "language": "en",
+            "kl": 0.1205502301454544
+          },
+          {
+            "context": "voice0_en_9_ar.pt",
+            "language": "en",
+            "kl": 0.11891520768404007
+          }
+        ]
+      },
+      {
+        "local_index": 13,
+        "original_id": 15,
+        "mean_kl": 0.06921132691204548,
+        "cases": [
+          {
+            "context": "voice0_ja_0_ar.pt",
+            "language": "ja",
+            "kl": 0.07454468309879303
+          },
+          {
+            "context": "voice0_ja_1_ar.pt",
+            "language": "ja",
+            "kl": 0.06925068795681
+          },
+          {
+            "context": "voice0_ja_2_ar.pt",
+            "language": "ja",
+            "kl": 0.07023902982473373
+          },
+          {
+            "context": "voice0_ja_3_ar.pt",
+            "language": "ja",
+            "kl": 0.07274553924798965
+          },
+          {
+            "context": "voice0_ja_4_ar.pt",
+            "language": "ja",
+            "kl": 0.07272008806467056
+          },
+          {
+            "context": "voice0_ja_5_ar.pt",
+            "language": "ja",
+            "kl": 0.07083787769079208
+          },
+          {
+            "context": "voice0_ja_6_ar.pt",
+            "language": "ja",
+            "kl": 0.06978380680084229
+          },
+          {
+            "context": "voice0_ja_7_ar.pt",
+            "language": "ja",
+            "kl": 0.07141637057065964
+          },
+          {
+            "context": "voice0_ja_8_ar.pt",
+            "language": "ja",
+            "kl": 0.08179228007793427
+          },
+          {
+            "context": "voice0_ja_9_ar.pt",
+            "language": "ja",
+            "kl": 0.08097752928733826
+          },
+          {
+            "context": "voice0_ko_0_ar.pt",
+            "language": "ko",
+            "kl": 0.05846549943089485
+          },
+          {
+            "context": "voice0_ko_1_ar.pt",
+            "language": "ko",
+            "kl": 0.06661003828048706
+          },
+          {
+            "context": "voice0_ko_2_ar.pt",
+            "language": "ko",
+            "kl": 0.07059456408023834
+          },
+          {
+            "context": "voice0_ko_3_ar.pt",
+            "language": "ko",
+            "kl": 0.06974988430738449
+          },
+          {
+            "context": "voice0_ko_4_ar.pt",
+            "language": "ko",
+            "kl": 0.06789880245923996
+          },
+          {
+            "context": "voice0_ko_5_ar.pt",
+            "language": "ko",
+            "kl": 0.07234169542789459
+          },
+          {
+            "context": "voice0_ko_6_ar.pt",
+            "language": "ko",
+            "kl": 0.06807462871074677
+          },
+          {
+            "context": "voice0_ko_7_ar.pt",
+            "language": "ko",
+            "kl": 0.063373863697052
+          },
+          {
+            "context": "voice0_ko_8_ar.pt",
+            "language": "ko",
+            "kl": 0.07095760107040405
+          },
+          {
+            "context": "voice0_ko_9_ar.pt",
+            "language": "ko",
+            "kl": 0.07373666018247604
+          },
+          {
+            "context": "voice0_en_0_ar.pt",
+            "language": "en",
+            "kl": 0.06422778964042664
+          },
+          {
+            "context": "voice0_en_1_ar.pt",
+            "language": "en",
+            "kl": 0.06624685972929001
+          },
+          {
+            "context": "voice0_en_2_ar.pt",
+            "language": "en",
+            "kl": 0.06526564061641693
+          },
+          {
+            "context": "voice0_en_3_ar.pt",
+            "language": "en",
+            "kl": 0.06621921807527542
+          },
+          {
+            "context": "voice0_en_4_ar.pt",
+            "language": "en",
+            "kl": 0.06436382979154587
+          },
+          {
+            "context": "voice0_en_5_ar.pt",
+            "language": "en",
+            "kl": 0.0661684051156044
+          },
+          {
+            "context": "voice0_en_6_ar.pt",
+            "language": "en",
+            "kl": 0.06396040320396423
+          },
+          {
+            "context": "voice0_en_7_ar.pt",
+            "language": "en",
+            "kl": 0.06997781246900558
+          },
+          {
+            "context": "voice0_en_8_ar.pt",
+            "language": "en",
+            "kl": 0.06342301517724991
+          },
+          {
+            "context": "voice0_en_9_ar.pt",
+            "language": "en",
+            "kl": 0.0703757032752037
+          }
+        ]
+      },
+      {
+        "local_index": 14,
+        "original_id": 19,
+        "mean_kl": 0.09557029927770297,
+        "cases": [
+          {
+            "context": "voice0_ja_0_ar.pt",
+            "language": "ja",
+            "kl": 0.10542045533657074
+          },
+          {
+            "context": "voice0_ja_1_ar.pt",
+            "language": "ja",
+            "kl": 0.1042051613330841
+          },
+          {
+            "context": "voice0_ja_2_ar.pt",
+            "language": "ja",
+            "kl": 0.10332632809877396
+          },
+          {
+            "context": "voice0_ja_3_ar.pt",
+            "language": "ja",
+            "kl": 0.09925803542137146
+          },
+          {
+            "context": "voice0_ja_4_ar.pt",
+            "language": "ja",
+            "kl": 0.1067536324262619
+          },
+          {
+            "context": "voice0_ja_5_ar.pt",
+            "language": "ja",
+            "kl": 0.1010264977812767
+          },
+          {
+            "context": "voice0_ja_6_ar.pt",
+            "language": "ja",
+            "kl": 0.09937411546707153
+          },
+          {
+            "context": "voice0_ja_7_ar.pt",
+            "language": "ja",
+            "kl": 0.10003611445426941
+          },
+          {
+            "context": "voice0_ja_8_ar.pt",
+            "language": "ja",
+            "kl": 0.11190357804298401
+          },
+          {
+            "context": "voice0_ja_9_ar.pt",
+            "language": "ja",
+            "kl": 0.11088690906763077
+          },
+          {
+            "context": "voice0_ko_0_ar.pt",
+            "language": "ko",
+            "kl": 0.0880078598856926
+          },
+          {
+            "context": "voice0_ko_1_ar.pt",
+            "language": "ko",
+            "kl": 0.09167931228876114
+          },
+          {
+            "context": "voice0_ko_2_ar.pt",
+            "language": "ko",
+            "kl": 0.09663442522287369
+          },
+          {
+            "context": "voice0_ko_3_ar.pt",
+            "language": "ko",
+            "kl": 0.09740381687879562
+          },
+          {
+            "context": "voice0_ko_4_ar.pt",
+            "language": "ko",
+            "kl": 0.08475830405950546
+          },
+          {
+            "context": "voice0_ko_5_ar.pt",
+            "language": "ko",
+            "kl": 0.10067164152860641
+          },
+          {
+            "context": "voice0_ko_6_ar.pt",
+            "language": "ko",
+            "kl": 0.10257969796657562
+          },
+          {
+            "context": "voice0_ko_7_ar.pt",
+            "language": "ko",
+            "kl": 0.09422381967306137
+          },
+          {
+            "context": "voice0_ko_8_ar.pt",
+            "language": "ko",
+            "kl": 0.09107561409473419
+          },
+          {
+            "context": "voice0_ko_9_ar.pt",
+            "language": "ko",
+            "kl": 0.0952371135354042
+          },
+          {
+            "context": "voice0_en_0_ar.pt",
+            "language": "en",
+            "kl": 0.08227048069238663
+          },
+          {
+            "context": "voice0_en_1_ar.pt",
+            "language": "en",
+            "kl": 0.08253932744264603
+          },
+          {
+            "context": "voice0_en_2_ar.pt",
+            "language": "en",
+            "kl": 0.09999022632837296
+          },
+          {
+            "context": "voice0_en_3_ar.pt",
+            "language": "en",
+            "kl": 0.09124425798654556
+          },
+          {
+            "context": "voice0_en_4_ar.pt",
+            "language": "en",
+            "kl": 0.09254932403564453
+          },
+          {
+            "context": "voice0_en_5_ar.pt",
+            "language": "en",
+            "kl": 0.08693906664848328
+          },
+          {
+            "context": "voice0_en_6_ar.pt",
+            "language": "en",
+            "kl": 0.08218777924776077
+          },
+          {
+            "context": "voice0_en_7_ar.pt",
+            "language": "en",
+            "kl": 0.089732825756073
+          },
+          {
+            "context": "voice0_en_8_ar.pt",
+            "language": "en",
+            "kl": 0.08503531664609909
+          },
+          {
+            "context": "voice0_en_9_ar.pt",
+            "language": "en",
+            "kl": 0.09015794098377228
+          }
+        ]
+      },
+      {
+        "local_index": 15,
+        "original_id": 22,
+        "mean_kl": 0.16983190228541692,
+        "cases": [
+          {
+            "context": "voice0_ja_0_ar.pt",
+            "language": "ja",
+            "kl": 0.15742863714694977
+          },
+          {
+            "context": "voice0_ja_1_ar.pt",
+            "language": "ja",
+            "kl": 0.14896135032176971
+          },
+          {
+            "context": "voice0_ja_2_ar.pt",
+            "language": "ja",
+            "kl": 0.14538763463497162
+          },
+          {
+            "context": "voice0_ja_3_ar.pt",
+            "language": "ja",
+            "kl": 0.15984345972537994
+          },
+          {
+            "context": "voice0_ja_4_ar.pt",
+            "language": "ja",
+            "kl": 0.15057577192783356
+          },
+          {
+            "context": "voice0_ja_5_ar.pt",
+            "language": "ja",
+            "kl": 0.16193895041942596
+          },
+          {
+            "context": "voice0_ja_6_ar.pt",
+            "language": "ja",
+            "kl": 0.15550363063812256
+          },
+          {
+            "context": "voice0_ja_7_ar.pt",
+            "language": "ja",
+            "kl": 0.14988823235034943
+          },
+          {
+            "context": "voice0_ja_8_ar.pt",
+            "language": "ja",
+            "kl": 0.1540893167257309
+          },
+          {
+            "context": "voice0_ja_9_ar.pt",
+            "language": "ja",
+            "kl": 0.1571420431137085
+          },
+          {
+            "context": "voice0_ko_0_ar.pt",
+            "language": "ko",
+            "kl": 0.17104439437389374
+          },
+          {
+            "context": "voice0_ko_1_ar.pt",
+            "language": "ko",
+            "kl": 0.15698027610778809
+          },
+          {
+            "context": "voice0_ko_2_ar.pt",
+            "language": "ko",
+            "kl": 0.15333662927150726
+          },
+          {
+            "context": "voice0_ko_3_ar.pt",
+            "language": "ko",
+            "kl": 0.15962183475494385
+          },
+          {
+            "context": "voice0_ko_4_ar.pt",
+            "language": "ko",
+            "kl": 0.18938641250133514
+          },
+          {
+            "context": "voice0_ko_5_ar.pt",
+            "language": "ko",
+            "kl": 0.16615372896194458
+          },
+          {
+            "context": "voice0_ko_6_ar.pt",
+            "language": "ko",
+            "kl": 0.18039804697036743
+          },
+          {
+            "context": "voice0_ko_7_ar.pt",
+            "language": "ko",
+            "kl": 0.16400852799415588
+          },
+          {
+            "context": "voice0_ko_8_ar.pt",
+            "language": "ko",
+            "kl": 0.16298870742321014
+          },
+          {
+            "context": "voice0_ko_9_ar.pt",
+            "language": "ko",
+            "kl": 0.16527369618415833
+          },
+          {
+            "context": "voice0_en_0_ar.pt",
+            "language": "en",
+            "kl": 0.17852681875228882
+          },
+          {
+            "context": "voice0_en_1_ar.pt",
+            "language": "en",
+            "kl": 0.18437212705612183
+          },
+          {
+            "context": "voice0_en_2_ar.pt",
+            "language": "en",
+            "kl": 0.19460706412792206
+          },
+          {
+            "context": "voice0_en_3_ar.pt",
+            "language": "en",
+            "kl": 0.2056935876607895
+          },
+          {
+            "context": "voice0_en_4_ar.pt",
+            "language": "en",
+            "kl": 0.18441003561019897
+          },
+          {
+            "context": "voice0_en_5_ar.pt",
+            "language": "en",
+            "kl": 0.17830444872379303
+          },
+          {
+            "context": "voice0_en_6_ar.pt",
+            "language": "en",
+            "kl": 0.1864551603794098
+          },
+          {
+            "context": "voice0_en_7_ar.pt",
+            "language": "en",
+            "kl": 0.19466839730739594
+          },
+          {
+            "context": "voice0_en_8_ar.pt",
+            "language": "en",
+            "kl": 0.19943936169147491
+          },
+          {
+            "context": "voice0_en_9_ar.pt",
+            "language": "en",
+            "kl": 0.1785287857055664
+          }
+        ]
+      }
+    ],
+    "selected": {
+      "local_index": 7,
+      "original_id": 7,
+      "mean_kl": 0.05874335120121638,
+      "cases": [
+        {
+          "context": "voice0_ja_0_ar.pt",
+          "language": "ja",
+          "kl": 0.0543641671538353
+        },
+        {
+          "context": "voice0_ja_1_ar.pt",
+          "language": "ja",
+          "kl": 0.05649634078145027
+        },
+        {
+          "context": "voice0_ja_2_ar.pt",
+          "language": "ja",
+          "kl": 0.0631725862622261
+        },
+        {
+          "context": "voice0_ja_3_ar.pt",
+          "language": "ja",
+          "kl": 0.062019575387239456
+        },
+        {
+          "context": "voice0_ja_4_ar.pt",
+          "language": "ja",
+          "kl": 0.06098237633705139
+        },
+        {
+          "context": "voice0_ja_5_ar.pt",
+          "language": "ja",
+          "kl": 0.0593637116253376
+        },
+        {
+          "context": "voice0_ja_6_ar.pt",
+          "language": "ja",
+          "kl": 0.047714490443468094
+        },
+        {
+          "context": "voice0_ja_7_ar.pt",
+          "language": "ja",
+          "kl": 0.06120220944285393
+        },
+        {
+          "context": "voice0_ja_8_ar.pt",
+          "language": "ja",
+          "kl": 0.06566445529460907
+        },
+        {
+          "context": "voice0_ja_9_ar.pt",
+          "language": "ja",
+          "kl": 0.05928409472107887
+        },
+        {
+          "context": "voice0_ko_0_ar.pt",
+          "language": "ko",
+          "kl": 0.05139691382646561
+        },
+        {
+          "context": "voice0_ko_1_ar.pt",
+          "language": "ko",
+          "kl": 0.05603419616818428
+        },
+        {
+          "context": "voice0_ko_2_ar.pt",
+          "language": "ko",
+          "kl": 0.05660073459148407
+        },
+        {
+          "context": "voice0_ko_3_ar.pt",
+          "language": "ko",
+          "kl": 0.05503551661968231
+        },
+        {
+          "context": "voice0_ko_4_ar.pt",
+          "language": "ko",
+          "kl": 0.05958762392401695
+        },
+        {
+          "context": "voice0_ko_5_ar.pt",
+          "language": "ko",
+          "kl": 0.05532725900411606
+        },
+        {
+          "context": "voice0_ko_6_ar.pt",
+          "language": "ko",
+          "kl": 0.053677190095186234
+        },
+        {
+          "context": "voice0_ko_7_ar.pt",
+          "language": "ko",
+          "kl": 0.0693950355052948
+        },
+        {
+          "context": "voice0_ko_8_ar.pt",
+          "language": "ko",
+          "kl": 0.06400754302740097
+        },
+        {
+          "context": "voice0_ko_9_ar.pt",
+          "language": "ko",
+          "kl": 0.059883881360292435
+        },
+        {
+          "context": "voice0_en_0_ar.pt",
+          "language": "en",
+          "kl": 0.05220899358391762
+        },
+        {
+          "context": "voice0_en_1_ar.pt",
+          "language": "en",
+          "kl": 0.05602661147713661
+        },
+        {
+          "context": "voice0_en_2_ar.pt",
+          "language": "en",
+          "kl": 0.0624983124434948
+        },
+        {
+          "context": "voice0_en_3_ar.pt",
+          "language": "en",
+          "kl": 0.05637781322002411
+        },
+        {
+          "context": "voice0_en_4_ar.pt",
+          "language": "en",
+          "kl": 0.06860500574111938
+        },
+        {
+          "context": "voice0_en_5_ar.pt",
+          "language": "en",
+          "kl": 0.056822534650564194
+        },
+        {
+          "context": "voice0_en_6_ar.pt",
+          "language": "en",
+          "kl": 0.05268526077270508
+        },
+        {
+          "context": "voice0_en_7_ar.pt",
+          "language": "en",
+          "kl": 0.06304985284805298
+        },
+        {
+          "context": "voice0_en_8_ar.pt",
+          "language": "en",
+          "kl": 0.056776195764541626
+        },
+        {
+          "context": "voice0_en_9_ar.pt",
+          "language": "en",
+          "kl": 0.0660400539636612
+        }
+      ]
+    },
+    "export_tensors_exact": true,
+    "initial_sha256": "92509f7f1d23151727d5c65175115ee6454be5ee23b2c22eabfd5455f23d9b96"
+  },
+  "history": {
+    "scope": "Teacher forcing only; no free-generation approval",
+    "train_contexts": 30,
+    "validation_contexts": 6,
+    "history": [
+      {
+        "step": 0,
+        "validation_kl": 0.1155855543911457,
+        "validation_feature": 0.03238436269263426,
+        "validation_objective": 0.11882399066040913,
+        "elapsed_seconds": 1.8785611249986687
+      },
+      {
+        "step": 50,
+        "validation_kl": 0.08837653199831645,
+        "validation_feature": 0.02946573154379924,
+        "validation_objective": 0.09132310515269637,
+        "elapsed_seconds": 56.84978299999784
+      },
+      {
+        "step": 100,
+        "validation_kl": 0.08535352721810341,
+        "validation_feature": 0.028866779680053394,
+        "validation_objective": 0.08824020518610876,
+        "elapsed_seconds": 116.01308162499481
+      },
+      {
+        "step": 150,
+        "validation_kl": 0.08413207158446312,
+        "validation_feature": 0.02856994482378165,
+        "validation_objective": 0.08698906606684129,
+        "elapsed_seconds": 171.91754495799978
+      },
+      {
+        "step": 200,
+        "validation_kl": 0.08434377113978068,
+        "validation_feature": 0.028469511307775974,
+        "validation_objective": 0.08719072227055828,
+        "elapsed_seconds": 231.9377367499983
+      }
+    ],
+    "provenance": {
+      "teacher_sha256": "87133414860ea14ff6620c483a3db5ed07b44be42e2c3fcdad65523a729a745a",
+      "manifest_sha256": "54c87e32dbba8277350b82279c8c9e872460fb55b8e4d6abe135c0096d60f98c",
+      "resume_sha256": "92509f7f1d23151727d5c65175115ee6454be5ee23b2c22eabfd5455f23d9b96",
+      "lr": 3e-06,
+      "temperature": 2.0,
+      "device": "cpu",
+      "dtype": "float32",
+      "grad_accum": 3,
+      "lr_final_ratio": 0.1,
+      "feature_weight": 0.1,
+      "qat_decode_surrogate": true,
+      "feature_manifest_sha256": "7442b9326722bdeb0d9d3fd2a21504a8f445c76a0002219255b3bd452ee3eacd"
+    }
+  },
+  "conversion": {
+    "parent_sha256": "ba2385f83bfa4f3c1d0416c0112f32dcc743b71cd14fc9812f4feb1d1ceac99d",
+    "output_sha256": "e15b83131e28e4e28e8e1aece6ab980b254d3265976610e8ffb422293cb2f0d4",
+    "quality_approved": false,
+    "lossy_conversion_relative_to_parent": true,
+    "compute_dtype": "FP32",
+    "native_ar_cache_dtype": "FP16",
+    "unchanged": "All other checkpoint tensor values, including bias/norm/embedding",
+    "matrices": [
+      {
+        "name": "model.ar_predict_layer.weight",
+        "elements": 524800,
+        "changed_elements": 524727,
+        "max_abs_error": 0.0001214444637298584,
+        "rms_error": 1.424612128175795e-05
+      },
+      {
+        "name": "model.h.layers.0.self_attn.in_proj_weight",
+        "elements": 786432,
+        "changed_elements": 786333,
+        "max_abs_error": 0.00011596083641052246,
+        "rms_error": 2.505292059140629e-06
+      },
+      {
+        "name": "model.h.layers.0.self_attn.out_proj.weight",
+        "elements": 262144,
+        "changed_elements": 262111,
+        "max_abs_error": 0.0001398324966430664,
+        "rms_error": 1.0826182915479876e-05
+      },
+      {
+        "name": "model.h.layers.0.linear1.weight",
+        "elements": 1048576,
+        "changed_elements": 954721,
+        "max_abs_error": 9.924173355102539e-05,
+        "rms_error": 4.36276059190277e-06
+      },
+      {
+        "name": "model.h.layers.0.linear2.weight",
+        "elements": 1048576,
+        "changed_elements": 953661,
+        "max_abs_error": 0.000156402587890625,
+        "rms_error": 9.226303518516943e-06
+      },
+      {
+        "name": "model.h.layers.1.self_attn.in_proj_weight",
+        "elements": 786432,
+        "changed_elements": 786335,
+        "max_abs_error": 5.958974361419678e-05,
+        "rms_error": 3.0313942716020392e-06
+      },
+      {
+        "name": "model.h.layers.1.self_attn.out_proj.weight",
+        "elements": 262144,
+        "changed_elements": 262101,
+        "max_abs_error": 0.00012069940567016602,
+        "rms_error": 9.82590063358657e-06
+      },
+      {
+        "name": "model.h.layers.1.linear1.weight",
+        "elements": 1048576,
+        "changed_elements": 991529,
+        "max_abs_error": 5.9291720390319824e-05,
+        "rms_error": 3.95044980905368e-06
+      },
+      {
+        "name": "model.h.layers.1.linear2.weight",
+        "elements": 1048576,
+        "changed_elements": 990767,
+        "max_abs_error": 0.0001582503318786621,
+        "rms_error": 1.4167495464789681e-05
+      },
+      {
+        "name": "model.h.layers.2.self_attn.in_proj_weight",
+        "elements": 786432,
+        "changed_elements": 786344,
+        "max_abs_error": 5.866587162017822e-05,
+        "rms_error": 2.970227342302678e-06
+      },
+      {
+        "name": "model.h.layers.2.self_attn.out_proj.weight",
+        "elements": 262144,
+        "changed_elements": 262107,
+        "max_abs_error": 0.00011780858039855957,
+        "rms_error": 1.1407379133743234e-05
+      },
+      {
+        "name": "model.h.layers.2.linear1.weight",
+        "elements": 1048576,
+        "changed_elements": 1035124,
+        "max_abs_error": 3.049522638320923e-05,
+        "rms_error": 3.299075387985795e-06
+      },
+      {
+        "name": "model.h.layers.2.linear2.weight",
+        "elements": 1048576,
+        "changed_elements": 1035148,
+        "max_abs_error": 0.00015217065811157227,
+        "rms_error": 1.8020824427367188e-05
+      },
+      {
+        "name": "model.h.layers.3.self_attn.in_proj_weight",
+        "elements": 786432,
+        "changed_elements": 786328,
+        "max_abs_error": 0.000102996826171875,
+        "rms_error": 3.7265810988174053e-06
+      },
+      {
+        "name": "model.h.layers.3.self_attn.out_proj.weight",
+        "elements": 262144,
+        "changed_elements": 262115,
+        "max_abs_error": 0.00011613965034484863,
+        "rms_error": 8.479565622110385e-06
+      },
+      {
+        "name": "model.h.layers.3.linear1.weight",
+        "elements": 1048576,
+        "changed_elements": 1039218,
+        "max_abs_error": 6.070733070373535e-05,
+        "rms_error": 6.3845877775747795e-06
+      },
+      {
+        "name": "model.h.layers.3.linear2.weight",
+        "elements": 1048576,
+        "changed_elements": 1038719,
+        "max_abs_error": 0.00012171268463134766,
+        "rms_error": 1.2649155905819498e-05
+      },
+      {
+        "name": "model.h.layers.4.self_attn.in_proj_weight",
+        "elements": 786432,
+        "changed_elements": 786320,
+        "max_abs_error": 5.824863910675049e-05,
+        "rms_error": 3.2863067644939292e-06
+      },
+      {
+        "name": "model.h.layers.4.self_attn.out_proj.weight",
+        "elements": 262144,
+        "changed_elements": 262119,
+        "max_abs_error": 0.00010928511619567871,
+        "rms_error": 1.1196202649443876e-05
+      },
+      {
+        "name": "model.h.layers.4.linear1.weight",
+        "elements": 1048576,
+        "changed_elements": 1031542,
+        "max_abs_error": 0.00011971592903137207,
+        "rms_error": 7.108849786163773e-06
+      },
+      {
+        "name": "model.h.layers.4.linear2.weight",
+        "elements": 1048576,
+        "changed_elements": 1031562,
+        "max_abs_error": 0.00011894106864929199,
+        "rms_error": 8.64050343807321e-06
+      },
+      {
+        "name": "model.h.layers.5.self_attn.in_proj_weight",
+        "elements": 786432,
+        "changed_elements": 786321,
+        "max_abs_error": 5.967915058135986e-05,
+        "rms_error": 2.9959107905597193e-06
+      },
+      {
+        "name": "model.h.layers.5.self_attn.out_proj.weight",
+        "elements": 262144,
+        "changed_elements": 262118,
+        "max_abs_error": 0.0001214742660522461,
+        "rms_error": 1.7581640349817462e-05
+      },
+      {
+        "name": "model.h.layers.5.linear1.weight",
+        "elements": 1048576,
+        "changed_elements": 934575,
+        "max_abs_error": 5.994737148284912e-05,
+        "rms_error": 3.546362449924345e-06
+      },
+      {
+        "name": "model.h.layers.5.linear2.weight",
+        "elements": 1048576,
+        "changed_elements": 932717,
+        "max_abs_error": 0.00013911724090576172,
+        "rms_error": 1.7906604625750333e-05
+      },
+      {
+        "name": "model.h.layers.6.self_attn.in_proj_weight",
+        "elements": 786432,
+        "changed_elements": 786325,
+        "max_abs_error": 5.961954593658447e-05,
+        "rms_error": 2.7499763746163808e-06
+      },
+      {
+        "name": "model.h.layers.6.self_attn.out_proj.weight",
+        "elements": 262144,
+        "changed_elements": 262106,
+        "max_abs_error": 0.00017905235290527344,
+        "rms_error": 1.8268752683070488e-05
+      },
+      {
+        "name": "model.h.layers.6.linear1.weight",
+        "elements": 1048576,
+        "changed_elements": 883398,
+        "max_abs_error": 0.00012186169624328613,
+        "rms_error": 9.793031495064497e-06
+      },
+      {
+        "name": "model.h.layers.6.linear2.weight",
+        "elements": 1048576,
+        "changed_elements": 882319,
+        "max_abs_error": 0.00014013051986694336,
+        "rms_error": 9.692428648122586e-06
+      },
+      {
+        "name": "model.h.layers.7.self_attn.in_proj_weight",
+        "elements": 786432,
+        "changed_elements": 786347,
+        "max_abs_error": 5.8710575103759766e-05,
+        "rms_error": 3.5257537547295215e-06
+      },
+      {
+        "name": "model.h.layers.7.self_attn.out_proj.weight",
+        "elements": 262144,
+        "changed_elements": 262116,
+        "max_abs_error": 0.00011786818504333496,
+        "rms_error": 8.121151040541008e-06
+      },
+      {
+        "name": "model.h.layers.7.linear1.weight",
+        "elements": 1048576,
+        "changed_elements": 955164,
+        "max_abs_error": 5.970895290374756e-05,
+        "rms_error": 3.6341250506666256e-06
+      },
+      {
+        "name": "model.h.layers.7.linear2.weight",
+        "elements": 1048576,
+        "changed_elements": 954255,
+        "max_abs_error": 0.00013810396194458008,
+        "rms_error": 1.4219858712749556e-05
+      },
+      {
+        "name": "model.h.layers.8.self_attn.in_proj_weight",
+        "elements": 786432,
+        "changed_elements": 786329,
+        "max_abs_error": 5.9485435485839844e-05,
+        "rms_error": 3.239495299567352e-06
+      },
+      {
+        "name": "model.h.layers.8.self_attn.out_proj.weight",
+        "elements": 262144,
+        "changed_elements": 262126,
+        "max_abs_error": 0.00011646747589111328,
+        "rms_error": 9.789791874936782e-06
+      },
+      {
+        "name": "model.h.layers.8.linear1.weight",
+        "elements": 1048576,
+        "changed_elements": 918292,
+        "max_abs_error": 5.093216896057129e-05,
+        "rms_error": 3.6178548725729343e-06
+      },
+      {
+        "name": "model.h.layers.8.linear2.weight",
+        "elements": 1048576,
+        "changed_elements": 917915,
+        "max_abs_error": 0.00013524293899536133,
+        "rms_error": 1.3858575584890787e-05
+      },
+      {
+        "name": "model.h.layers.9.self_attn.in_proj_weight",
+        "elements": 786432,
+        "changed_elements": 786359,
+        "max_abs_error": 5.9038400650024414e-05,
+        "rms_error": 3.145963773931726e-06
+      },
+      {
+        "name": "model.h.layers.9.self_attn.out_proj.weight",
+        "elements": 262144,
+        "changed_elements": 262104,
+        "max_abs_error": 0.00011417269706726074,
+        "rms_error": 1.0914452104771044e-05
+      },
+      {
+        "name": "model.h.layers.9.linear1.weight",
+        "elements": 1048576,
+        "changed_elements": 1013508,
+        "max_abs_error": 5.7816505432128906e-05,
+        "rms_error": 4.101016656932188e-06
+      },
+      {
+        "name": "model.h.layers.9.linear2.weight",
+        "elements": 1048576,
+        "changed_elements": 1012621,
+        "max_abs_error": 0.0001239776611328125,
+        "rms_error": 9.75532293523429e-06
+      },
+      {
+        "name": "model.h.layers.10.self_attn.in_proj_weight",
+        "elements": 786432,
+        "changed_elements": 786349,
+        "max_abs_error": 5.857646465301514e-05,
+        "rms_error": 3.4639281238924013e-06
+      },
+      {
+        "name": "model.h.layers.10.self_attn.out_proj.weight",
+        "elements": 262144,
+        "changed_elements": 262109,
+        "max_abs_error": 6.058812141418457e-05,
+        "rms_error": 7.2738685048534535e-06
+      },
+      {
+        "name": "model.h.layers.10.linear1.weight",
+        "elements": 1048576,
+        "changed_elements": 1025400,
+        "max_abs_error": 3.022700548171997e-05,
+        "rms_error": 2.5017809548444347e-06
+      },
+      {
+        "name": "model.h.layers.10.linear2.weight",
+        "elements": 1048576,
+        "changed_elements": 1025415,
+        "max_abs_error": 0.000141143798828125,
+        "rms_error": 1.2296779459575191e-05
+      },
+      {
+        "name": "model.h.layers.11.self_attn.in_proj_weight",
+        "elements": 786432,
+        "changed_elements": 786337,
+        "max_abs_error": 5.780160427093506e-05,
+        "rms_error": 3.248685061407741e-06
+      },
+      {
+        "name": "model.h.layers.11.self_attn.out_proj.weight",
+        "elements": 262144,
+        "changed_elements": 262114,
+        "max_abs_error": 3.049522638320923e-05,
+        "rms_error": 4.475823971006321e-06
+      },
+      {
+        "name": "model.h.layers.11.linear1.weight",
+        "elements": 1048576,
+        "changed_elements": 1048461,
+        "max_abs_error": 4.667043685913086e-05,
+        "rms_error": 4.350285053078551e-06
+      },
+      {
+        "name": "model.h.layers.11.linear2.weight",
+        "elements": 1048576,
+        "changed_elements": 1048455,
+        "max_abs_error": 9.083747863769531e-05,
+        "rms_error": 5.570568646362517e-06
+      },
+      {
+        "name": "model.h.layers.12.self_attn.in_proj_weight",
+        "elements": 786432,
+        "changed_elements": 786344,
+        "max_abs_error": 5.8770179748535156e-05,
+        "rms_error": 3.260054427300929e-06
+      },
+      {
+        "name": "model.h.layers.12.self_attn.out_proj.weight",
+        "elements": 262144,
+        "changed_elements": 262128,
+        "max_abs_error": 3.0502676963806152e-05,
+        "rms_error": 4.615268608176848e-06
+      },
+      {
+        "name": "model.h.layers.12.linear1.weight",
+        "elements": 1048576,
+        "changed_elements": 1048429,
+        "max_abs_error": 3.795325756072998e-05,
+        "rms_error": 4.215490662318189e-06
+      },
+      {
+        "name": "model.h.layers.12.linear2.weight",
+        "elements": 1048576,
+        "changed_elements": 1048441,
+        "max_abs_error": 0.0001188814640045166,
+        "rms_error": 5.701175723515917e-06
+      },
+      {
+        "name": "model.h.layers.13.self_attn.in_proj_weight",
+        "elements": 786432,
+        "changed_elements": 786336,
+        "max_abs_error": 5.342066287994385e-05,
+        "rms_error": 3.3833389352366794e-06
+      },
+      {
+        "name": "model.h.layers.13.self_attn.out_proj.weight",
+        "elements": 262144,
+        "changed_elements": 262109,
+        "max_abs_error": 5.05298376083374e-05,
+        "rms_error": 6.062300144549226e-06
+      },
+      {
+        "name": "model.h.layers.13.linear1.weight",
+        "elements": 1048576,
+        "changed_elements": 1048438,
+        "max_abs_error": 5.041062831878662e-05,
+        "rms_error": 4.250432539265603e-06
+      },
+      {
+        "name": "model.h.layers.13.linear2.weight",
+        "elements": 1048576,
+        "changed_elements": 1048466,
+        "max_abs_error": 6.084144115447998e-05,
+        "rms_error": 5.793242053186987e-06
+      },
+      {
+        "name": "model.h.layers.14.self_attn.in_proj_weight",
+        "elements": 786432,
+        "changed_elements": 786338,
+        "max_abs_error": 3.0174851417541504e-05,
+        "rms_error": 3.310366992081981e-06
+      },
+      {
+        "name": "model.h.layers.14.self_attn.out_proj.weight",
+        "elements": 262144,
+        "changed_elements": 262115,
+        "max_abs_error": 3.0517578125e-05,
+        "rms_error": 5.251321908872342e-06
+      },
+      {
+        "name": "model.h.layers.14.linear1.weight",
+        "elements": 1048576,
+        "changed_elements": 1048428,
+        "max_abs_error": 3.0517578125e-05,
+        "rms_error": 4.644586169888498e-06
+      },
+      {
+        "name": "model.h.layers.14.linear2.weight",
+        "elements": 1048576,
+        "changed_elements": 1048435,
+        "max_abs_error": 5.911290645599365e-05,
+        "rms_error": 4.91588207296445e-06
+      },
+      {
+        "name": "model.h.layers.15.self_attn.in_proj_weight",
+        "elements": 786432,
+        "changed_elements": 786338,
+        "max_abs_error": 2.9571354389190674e-05,
+        "rms_error": 3.337622047183686e-06
+      },
+      {
+        "name": "model.h.layers.15.self_attn.out_proj.weight",
+        "elements": 262144,
+        "changed_elements": 262107,
+        "max_abs_error": 3.0517578125e-05,
+        "rms_error": 4.6124387154122815e-06
+      },
+      {
+        "name": "model.h.layers.15.linear1.weight",
+        "elements": 1048576,
+        "changed_elements": 1048414,
+        "max_abs_error": 3.0487775802612305e-05,
+        "rms_error": 3.653601424957742e-06
+      },
+      {
+        "name": "model.h.layers.15.linear2.weight",
+        "elements": 1048576,
+        "changed_elements": 1048437,
+        "max_abs_error": 0.00012820959091186523,
+        "rms_error": 5.081361905467929e-06
+      }
+    ]
+  },
+  "evaluation": {
+    "scope": "Evaluate immutable AR checkpoints on original-teacher heldout contexts.\n\nQAT is a training surrogate, not native bitwise inference or a voice-quality\nrating. This script never selects layers, trains parameters or measures RTF.\n",
+    "runtime_surrogate": "qat",
+    "ar_layers": 16,
+    "ar_keep": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      13,
+      15,
+      19,
+      22,
+      23
+    ],
+    "inputs_sha256": {
+      "teacher": "87133414860ea14ff6620c483a3db5ed07b44be42e2c3fcdad65523a729a745a",
+      "checkpoint": "e15b83131e28e4e28e8e1aece6ab980b254d3265976610e8ffb422293cb2f0d4",
+      "spec": "ae22547478ee9bdaab3758e193c05039d7e809ab23375b2675ee6baad12f7d50",
+      "manifest": "54c87e32dbba8277350b82279c8c9e872460fb55b8e4d6abe135c0096d60f98c"
+    },
+    "feature_manifest_sha256": "7442b9326722bdeb0d9d3fd2a21504a8f445c76a0002219255b3bd452ee3eacd",
+    "parameters_unchanged": true,
+    "input_files_unchanged": true,
+    "quality_approved": false,
+    "actual_n1_measured": false,
+    "mean_kl": 0.08413207158446312,
+    "mean_feature_error": 0.02856994482378165,
+    "groups": [
+      {
+        "language": "ja",
+        "count": 2,
+        "kl": 0.07346491888165474,
+        "feature_error": 0.02879572380334139,
+        "top1_agreement": 0.7488151658767772
+      },
+      {
+        "language": "ko",
+        "count": 2,
+        "kl": 0.07992477715015411,
+        "feature_error": 0.02741555031388998,
+        "top1_agreement": 0.7055837563451777
+      },
+      {
+        "language": "en",
+        "count": 2,
+        "kl": 0.0990065187215805,
+        "feature_error": 0.02949856035411358,
+        "top1_agreement": 0.6621621621621622
+      }
+    ],
+    "cases": [
+      {
+        "context": "voice0_ja_10_ar.pt",
+        "language": "ja",
+        "tokens": 98,
+        "top1_matches": 70,
+        "top1_agreement": 0.7142857142857143,
+        "kl": 0.06733930110931396,
+        "feature_error": 0.028988003730773926
+      },
+      {
+        "context": "voice0_ja_11_ar.pt",
+        "language": "ja",
+        "tokens": 113,
+        "top1_matches": 88,
+        "top1_agreement": 0.7787610619469026,
+        "kl": 0.07959053665399551,
+        "feature_error": 0.02860344387590885
+      },
+      {
+        "context": "voice0_ko_10_ar.pt",
+        "language": "ko",
+        "tokens": 106,
+        "top1_matches": 77,
+        "top1_agreement": 0.7264150943396226,
+        "kl": 0.06400644779205322,
+        "feature_error": 0.026576554402709007
+      },
+      {
+        "context": "voice0_ko_11_ar.pt",
+        "language": "ko",
+        "tokens": 91,
+        "top1_matches": 62,
+        "top1_agreement": 0.6813186813186813,
+        "kl": 0.095843106508255,
+        "feature_error": 0.028254546225070953
+      },
+      {
+        "context": "voice0_en_10_ar.pt",
+        "language": "en",
+        "tokens": 80,
+        "top1_matches": 50,
+        "top1_agreement": 0.625,
+        "kl": 0.09911830723285675,
+        "feature_error": 0.02962142787873745
+      },
+      {
+        "context": "voice0_en_11_ar.pt",
+        "language": "en",
+        "tokens": 68,
+        "top1_matches": 48,
+        "top1_agreement": 0.7058823529411765,
+        "kl": 0.09889473021030426,
+        "feature_error": 0.029375692829489708
+      }
+    ]
+  },
+  "initialization_source_commit": "947101a",
+  "best_checkpoint_sha256": "ba2385f83bfa4f3c1d0416c0112f32dcc743b71cd14fc9812f4feb1d1ceac99d",
+  "decoder_not_changed": true
+}
