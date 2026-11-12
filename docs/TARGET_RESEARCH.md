@@ -26,3 +26,7 @@ The probes and separate profiling invocation completed on the target in [run 431
 ## Small-channel decoder probe
 
 [Run 43130554325](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43130554325) compared tap, FFT and channels-last FP32 convolution on synthetic 24/48-channel geometries. At 48 channels, kernel 7, dilation 1, medians were 0.0462s tap and 0.0392s channels-last; other tested geometries did not show a compelling improvement. A geometry-specific opt-in full synthesis candidate is necessary before any adoption. Raw values and guard are in `results/n1_small_20261112`.
+
+## Thread wait policy
+
+On the actual 2-vCPU host, [run 43131083453](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43131083453) measured ACTIVE/GOMP_SPINCOUNT=100000 at median RTF 1.5733 and PASSIVE/GOMP_SPINCOUNT=0 at 1.6206, three samples per policy. PCM and semantic output were exactly equal. Keep ACTIVE; the earlier V5 proxy result does not transfer to this host. Results and guards are in `results/n1_scheduling_20261112`.
