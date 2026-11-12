@@ -17,6 +17,8 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--warmups", type=int, default=3)
     parser.add_argument("--samples", type=int, default=3)
+    parser.add_argument("--predictor-only", action="store_true")
+    parser.add_argument("--prefetch", type=int, choices=[0, 64, 128, 256], default=0)
     args = parser.parse_args()
     manifest = load_manifest(args.manifest, args.manifest_sha256)
     before = snapshot(args.manifest)
@@ -50,6 +52,7 @@ def main():
         confirm=False,
         profile=False,
         compare=None,
+        predictor_cache=False,
     ):
         file = args.output / f"{language}_{name}.json"
         command = [
@@ -93,6 +96,8 @@ def main():
             "--output",
             str(file),
         ]
+        if predictor_cache:
+            command += ["--predictor-eligibility-cache"]
         if not original:
             command += [
                 "--ar-fp32-cache",
@@ -152,6 +157,7 @@ def main():
             "prefetch": 256 if original else distance,
             "original": original,
             "combined": combined,
+            "predictor_eligibility_cache": predictor_cache,
             "median_rtf": data["median_rtf"],
             "rtfs": [r["rtf"] for r in data["runs"]],
             "median_seconds": data["median_seconds"],
@@ -196,6 +202,52 @@ def main():
         )
         return data, row
 
+    if args.predictor_only:
+        summary["scope"] = (
+            "Actual N1 approved Korean G predictor eligibility cache comparison"
+        )
+        summary["prefetch_selection"] = "Fixed from prior N1 sweep; no new selection"
+        summary["selected_prefetch"] = args.prefetch
+        run(
+            "ko",
+            "predictor_baseline",
+            distance=args.prefetch,
+            combined=True,
+            confirm=True,
+        )
+        baseline_wave = args.output / "ko_predictor_baseline.wav"
+        _, cached = run(
+            "ko",
+            "predictor_cached",
+            distance=args.prefetch,
+            combined=True,
+            confirm=True,
+            compare=baseline_wave,
+            predictor_cache=True,
+        )
+        if (
+            not cached["candidate_pcm_exact_to_n1_student"]
+            or not cached["candidate_tokens_exact_to_n1_student"]
+        ):
+            raise RuntimeError("Predictor eligibility cache changed PCM/tokens")
+        try:
+            run(
+                "ko",
+                "predictor_profile_run",
+                distance=args.prefetch,
+                combined=True,
+                profile=True,
+                compare=baseline_wave,
+                predictor_cache=True,
+            )
+        except subprocess.CalledProcessError as error:
+            summary["profile_error"] = {"exit_code": error.returncode}
+        summary["student_assets_unchanged"] = before == snapshot(args.manifest)
+        summary["complete"] = True
+        save()
+        if not summary["student_assets_unchanged"]:
+            raise RuntimeError("Private student execution assets changed")
+        return
     run("ko", "original", original=True, combined=True)
     _, zero = run("ko", "student_p0")
     hints = [zero]

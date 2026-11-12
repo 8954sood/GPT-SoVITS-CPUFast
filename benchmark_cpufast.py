@@ -79,6 +79,7 @@ def main():
     parser.add_argument("--packed-fft", action="store_true")
     parser.add_argument("--fft-stream", action="store_true")
     parser.add_argument("--parallel-transforms", action="store_true")
+    parser.add_argument("--predictor-eligibility-cache", action="store_true")
     parser.add_argument("--fused-finish", action="store_true")
     parser.add_argument("--tap-small", action="store_true")
     parser.add_argument("--packed-small-48", action="store_true")
@@ -155,6 +156,8 @@ def main():
             if args.engine and not args.fast_experimental and not args.ar_fp32_cache
             else 0
         )
+    if args.predictor_eligibility_cache and not args.engine:
+        parser.error("--predictor-eligibility-cache requires --engine")
     if args.ar_prefetch and not args.engine:
         parser.error("--ar-prefetch requires --engine")
     if args.ar_fp32_cache and not args.engine:
@@ -253,6 +256,7 @@ def main():
             packed_fft=args.packed_fft,
             fft_stream=args.fft_stream,
             parallel_transforms=args.parallel_transforms,
+            predictor_eligibility_cache=args.predictor_eligibility_cache,
             fused_finish=args.fused_finish,
             tap_small=args.tap_small,
             packed_small_48=args.packed_small_48,
@@ -425,6 +429,7 @@ def main():
                 "packed_fft",
                 "fft_stream",
                 "parallel_transforms",
+                "predictor_eligibility_cache",
                 "fused_finish",
                 "tap_small",
                 "packed_small_48",

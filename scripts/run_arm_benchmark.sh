@@ -10,7 +10,8 @@ warmups=${5:-2}
 samples=${6:-3}
 mode=${7:-compare}
 student_manifest_sha=${8:-}
-[[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention || "$mode" == small || "$mode" == scheduling || "$mode" == packed48 || "$mode" == fft || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference || "$mode" == runtime || "$mode" == student ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
+student_prefetch=${9:-0}
+[[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention || "$mode" == small || "$mode" == scheduling || "$mode" == packed48 || "$mode" == fft || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference || "$mode" == runtime || "$mode" == student || "$mode" == studentpredictor ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
 project="$bench_root/project"
 assets="$bench_root/cpufast-cefae22/assets/pretrained_models"
 reference="$bench_root/reference_ja_4s.wav"
@@ -22,7 +23,7 @@ if docker info >/dev/null 2>&1; then docker_cmd=(docker); else docker_cmd=(sudo 
 "${docker_cmd[@]}" image inspect "$image" >/dev/null
 mkdir -p "$repo_dir/ci-results"
 student_mount=()
-if [[ "$mode" == student ]]; then
+if [[ "$mode" == student || "$mode" == studentpredictor ]]; then
   [[ "$student_manifest_sha" =~ ^[0-9a-f]{64}$ ]] || { echo 'Approved student manifest SHA required' >&2; exit 1; }
   student_mount=(--mount "type=bind,src=$bench_root/student-assets/$student_manifest_sha,dst=/student,readonly" -e NLTK_DATA=/repo/.experiments/nltk_data)
 fi
@@ -50,11 +51,16 @@ run_container python -m unittest discover -s tests -p test_fp32_head_attention.p
 run_container python -m unittest discover -s tests -p test_fft_stream.py -v
 run_container python -m unittest discover -s tests -p test_parallel_transforms.py -v
 run_container python -m unittest discover -s tests -p test_fp32_cache_prefetch.py -v
-if [[ "$mode" == student ]]; then
+if [[ "$mode" == student || "$mode" == studentpredictor ]]; then
   run_container python scripts/verify_student_assets.py /student "$student_manifest_sha"
   run_container python -m nltk.downloader -q -d /repo/.experiments/nltk_data cmudict averaged_perceptron_tagger averaged_perceptron_tagger_eng
+  student_args=()
+  if [[ "$mode" == studentpredictor ]]; then
+    [[ "$student_prefetch" == 0 || "$student_prefetch" == 64 || "$student_prefetch" == 128 || "$student_prefetch" == 256 ]] || exit 2
+    student_args=(--predictor-only --prefetch "$student_prefetch")
+  fi
   run_container python scripts/run_student_matrix.py --manifest /student/manifest.json \
-    --manifest-sha256 "$student_manifest_sha" --output /repo/ci-results --warmups "$warmups" --samples "$samples"
+    --manifest-sha256 "$student_manifest_sha" --output /repo/ci-results --warmups "$warmups" --samples "$samples" "${student_args[@]}"
   exit 0
 fi
 common=(--engine --head-major --cook-phase --fft-layout --packed-fft --fused-finish
@@ -118,7 +124,7 @@ if [[ "$mode" == diagnostics ]]; then
   done
   exit 0
 fi
-if [[ "$mode" == runtime || "$mode" == student ]]; then
+if [[ "$mode" == runtime ]]; then
   for index in 0 1; do
     number=$((index + 1))
     if (( index == 0 )); then variants=(baseline parallel inference combined); else variants=(baseline combined inference parallel); fi
@@ -138,7 +144,7 @@ if [[ "$mode" == runtime || "$mode" == student ]]; then
 fi
 for index in 0 1; do
   number=$((index + 1))
-  if [[ "$mode" == attention || "$mode" == packed48 || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference || "$mode" == runtime || "$mode" == student ]]; then
+  if [[ "$mode" == attention || "$mode" == packed48 || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference || "$mode" == runtime || "$mode" == student || "$mode" == studentpredictor ]]; then
     candidate_args=(--native-attention)
     if [[ "$mode" == packed48 ]]; then candidate_args=(--packed-small-48); fi
     if [[ "$mode" == fftcandidate ]]; then candidate_args=(--n1-fft-sizes); fi

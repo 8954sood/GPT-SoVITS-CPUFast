@@ -149,3 +149,13 @@ SHA/size, original S2/reference hash, architecture, text, prompt language and
 seed match. Original checkpoint files remain unchanged. Within-student prefetch
 and combined candidates must produce the same PCM/tokens/duration as N1 G0.
 Local approved-waveform matches are reported separately from the N1 comparisons.
+
+`mode=studentpredictor` is a separate, opt-in follow-up for the same immutable
+approved G bundle. Supply `student_prefetch` from the preceding N1 sweep. It
+compares the combined G baseline against `--predictor-eligibility-cache` with
+five retained measurements each on Korean, then records a separate candidate
+operator profile. The optimization caches only a failed FP16-storage eligibility
+check; the predictor continues to execute its original authoritative FP32
+`F.linear`. Parameter ID/version/storage/dtype/device changes invalidate the
+negative cache. This mode must pass bit-exact PCM/token/duration checks before
+any adoption; preparing its code is not a performance claim.

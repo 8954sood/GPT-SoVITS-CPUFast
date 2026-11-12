@@ -6,7 +6,7 @@ on:
       mode:
         description: Full audio comparison or targeted diagnostics
         type: choice
-        options: ['compare', 'diagnostics', 'attention', 'small', 'scheduling', 'packed48', 'fft', 'fftcandidate', 'arcache', 'prefetch', 'prefetchcandidate', 'winograd', 'direct3', 'locality', 'fftstream', 'transforms', 'inference', 'runtime', 'student']
+        options: ['compare', 'diagnostics', 'attention', 'small', 'scheduling', 'packed48', 'fft', 'fftcandidate', 'arcache', 'prefetch', 'prefetchcandidate', 'winograd', 'direct3', 'locality', 'fftstream', 'transforms', 'inference', 'runtime', 'student', 'studentpredictor']
         default: 'compare'
       warmups:
         description: Excluded warmup runs (1–5)
@@ -36,6 +36,12 @@ on:
         type: string
         default: ''
 
+      student_prefetch:
+        description: Fixed previously measured prefetch for studentpredictor mode
+        type: choice
+        options: ['0', '64', '128', '256']
+        default: '0'
+
 permissions:
   contents: read
 
@@ -50,7 +56,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install pinned private asset downloader
-        if: inputs.mode == 'student'
+        if: inputs.mode == 'student' || inputs.mode == 'studentpredictor'
         shell: bash
         run: python3 -m pip install --quiet --disable-pip-version-check --no-compile --target "$RUNNER_TEMP/student-python" 'huggingface_hub==0.36.2'
       - name: Run benchmark on ARM host
@@ -65,6 +71,7 @@ jobs:
           ARM_BENCH_MEMORY: ${{ vars.ARM_BENCH_MEMORY }}
           ARM_BENCH_CPUS: ${{ vars.ARM_BENCH_CPUS }}
           MODE: ${{ inputs.mode }}
+          STUDENT_PREFETCH: ${{ inputs.student_prefetch }}
           HF_STUDENT_TOKEN: ${{ secrets.HF_STUDENT_TOKEN }}
           HF_STUDENT_REPO: ${{ inputs.student_repo }}
           HF_STUDENT_REVISION: ${{ inputs.student_revision }}
@@ -81,7 +88,7 @@ jobs:
           set -euo pipefail
           : "${ARM_HOST:?Missing ARM_SSH_HOST secret}" "${ARM_USER:?Missing ARM_SSH_USER secret}" "${ARM_PRIVATE_KEY:?Missing ARM_SSH_PRIVATE_KEY secret}" "${ARM_KNOWN_HOSTS:?Missing ARM_SSH_KNOWN_HOSTS secret}"
           [[ "$ARM_HOST" =~ ^[A-Za-z0-9._-]+$ && "$ARM_USER" =~ ^[A-Za-z_][A-Za-z0-9_-]*$ ]] || { echo "Invalid SSH host or user format" >&2; exit 1; }
-          [[ "$MODE" == compare || "$MODE" == diagnostics || "$MODE" == attention || "$MODE" == small || "$MODE" == scheduling || "$MODE" == packed48 || "$MODE" == fft || "$MODE" == fftcandidate || "$MODE" == arcache || "$MODE" == prefetch || "$MODE" == prefetchcandidate || "$MODE" == winograd || "$MODE" == direct3 || "$MODE" == locality || "$MODE" == fftstream || "$MODE" == transforms || "$MODE" == inference || "$MODE" == runtime || "$MODE" == student ]] || { echo "Invalid mode" >&2; exit 1; }
+          [[ "$MODE" == compare || "$MODE" == diagnostics || "$MODE" == attention || "$MODE" == small || "$MODE" == scheduling || "$MODE" == packed48 || "$MODE" == fft || "$MODE" == fftcandidate || "$MODE" == arcache || "$MODE" == prefetch || "$MODE" == prefetchcandidate || "$MODE" == winograd || "$MODE" == direct3 || "$MODE" == locality || "$MODE" == fftstream || "$MODE" == transforms || "$MODE" == inference || "$MODE" == runtime || "$MODE" == student || "$MODE" == studentpredictor ]] || { echo "Invalid mode" >&2; exit 1; }
           [[ "$WARMUPS" =~ ^[1-5]$ && "$SAMPLES" =~ ^([1-9]|1[0-9]|20)$ ]] || { echo "Invalid sample counts" >&2; exit 1; }
           [[ "$GITHUB_RUN_ID" =~ ^[0-9]+$ && "$GITHUB_RUN_ATTEMPT" =~ ^[0-9]+$ ]] || { echo "Invalid run identifier" >&2; exit 1; }
           umask 077
@@ -100,7 +107,7 @@ jobs:
           trap cleanup_remote EXIT
           ssh "${ssh_args[@]}" "$target" "mkdir -p \"\$HOME/$remote_rel\""
           git archive "$GITHUB_SHA" | ssh "${ssh_args[@]}" "$target" "tar -x -C \"\$HOME/$remote_rel\""
-          if [[ "$MODE" == student ]]; then
+          if [[ "$MODE" == student || "$MODE" == studentpredictor ]]; then
             [[ "$HF_STUDENT_MANIFEST_SHA256" =~ ^[0-9a-f]{64}$ && "$HF_STUDENT_REVISION" =~ ^[0-9a-f]{40}$ ]] || { echo 'Pinned student manifest/revision required' >&2; exit 1; }
             export PYTHONPATH="$GITHUB_WORKSPACE:$RUNNER_TEMP/student-python"
             python3 scripts/download_student_assets.py --output "$RUNNER_TEMP/private_student" --manifest-only
@@ -114,7 +121,7 @@ jobs:
               ssh "${ssh_args[@]}" "$target" "bash \"\$HOME/$remote_rel/scripts/prepare_student_assets.sh\"$asset_args install"
             fi
           fi
-          printf -v benchmark_args ' %q' "${ARM_BENCH_ROOT:-}" "${ARM_BENCH_IMAGE:-}" "${ARM_BENCH_MEMORY:-}" "${ARM_BENCH_CPUS:-}" "$WARMUPS" "$SAMPLES" "$MODE" "${HF_STUDENT_MANIFEST_SHA256:-}"
+          printf -v benchmark_args ' %q' "${ARM_BENCH_ROOT:-}" "${ARM_BENCH_IMAGE:-}" "${ARM_BENCH_MEMORY:-}" "${ARM_BENCH_CPUS:-}" "$WARMUPS" "$SAMPLES" "$MODE" "${HF_STUDENT_MANIFEST_SHA256:-}" "${STUDENT_PREFETCH:-0}"
           benchmark_status=0
           ssh "${ssh_args[@]}" "$target" "bash \"\$HOME/$remote_rel/scripts/run_arm_benchmark.sh\"$benchmark_args" || benchmark_status=$?
           mkdir -p ci-artifact
@@ -128,7 +135,7 @@ jobs:
           import json
           from pathlib import Path
           import os
-          if os.environ['MODE'] == 'student':
+          if os.environ['MODE'] in ('student', 'studentpredictor'):
               d = json.loads(Path('ci-artifact/student_summary.json').read_text())
               print('### Actual N1 approved G student performance')
               print('Korean listening approval only; JA/EN are performance/synthesis checks.')
