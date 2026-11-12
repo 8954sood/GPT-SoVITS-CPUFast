@@ -62,3 +62,15 @@ static at::Tensor lossless_linear_prefetch_locality(const at::Tensor& x,const at
 }
 TORCH_LIBRARY_FRAGMENT(cpufast_cpp,m){m.def("lossless_linear_prefetch_locality(Tensor input, Tensor weight, Tensor bias, int locality) -> Tensor");}
 TORCH_LIBRARY_IMPL(cpufast_cpp,CPU,m){m.impl("lossless_linear_prefetch_locality",TORCH_FN(lossless_linear_prefetch_locality));}
+
+// Optional prefetch for learned FP32 student coefficients. No coefficient conversion.
+static at::Tensor lossless_linear_f32_prefetch(const at::Tensor& x,const at::Tensor& w,const at::Tensor& b,int64_t prefetch){
+ TORCH_CHECK(x.device().is_cpu() && w.device().is_cpu() && b.device().is_cpu() && x.scalar_type()==at::kFloat && w.scalar_type()==at::kFloat && b.scalar_type()==at::kFloat,"CPU FP32 tensors required");
+ TORCH_CHECK(w.dim()==3 && w.size(2)==8 && w.size(1)%4==0 && x.dim()>0 && x.numel()==w.size(1) && x.size(-1)==w.size(1) && b.numel()==w.size(0)*8 && x.is_contiguous() && w.is_contiguous() && b.is_contiguous(),"Invalid FP32 GEMV geometry");
+ TORCH_CHECK(prefetch==0 || prefetch==64 || prefetch==128 || prefetch==256,"Invalid FP32 prefetch distance");
+ auto shape=x.sizes().vec();shape.back()=w.size(0)*8;auto y=at::empty(shape,x.options());
+ auto xp=x.const_data_ptr<float>();auto wp=w.const_data_ptr<float>();auto bp=b.const_data_ptr<float>();auto yp=y.mutable_data_ptr<float>();auto blocks=w.size(0),k=w.size(1);
+ at::parallel_for(0,blocks,8,[&](int64_t start,int64_t end){cpufast_ar_gemv(xp,wp+start*k*8,bp+start*8,yp+start*8,(end-start)*8,k,0,prefetch);});return y;
+}
+TORCH_LIBRARY_FRAGMENT(cpufast_cpp,m){m.def("lossless_linear_f32_prefetch(Tensor input, Tensor weight, Tensor bias, int distance) -> Tensor");}
+TORCH_LIBRARY_IMPL(cpufast_cpp,CPU,m){m.impl("lossless_linear_f32_prefetch",TORCH_FN(lossless_linear_f32_prefetch));}

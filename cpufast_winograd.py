@@ -19,6 +19,7 @@ class WinogradConv1d(torch.nn.Module):
         self.dilation = original.dilation[0]
         self._key = self._transformed = None
         self.native = native
+        self.parallel_transforms = False
         self.train(original.training)
 
     def forward(self, x, *, activate=False, residual=None):
@@ -65,10 +66,19 @@ class WinogradConv1d(torch.nn.Module):
         n, c, _ = padded.shape
         streams = padded.reshape(n, c, -1, d).permute(0, 3, 1, 2).reshape(n * d, c, -1)
         if self.native:
-            transformed = torch.ops.cpufast_cpp.winograd_input(streams.contiguous())
+            transformed = torch.ops.cpufast_cpp.winograd_input(
+                streams.contiguous(), self.parallel_transforms
+            )
             products = torch.bmm(self._transformed, transformed)
             return torch.ops.cpufast_cpp.winograd_output(
-                products, n, d, desired, self.bias, activate, residual
+                products,
+                n,
+                d,
+                desired,
+                self.bias,
+                activate,
+                residual,
+                self.parallel_transforms,
             )
         length = streams.shape[-1] - 2
         windows = F.pad(streams, (0, (-length) % 4)).unfold(-1, 6, 4)

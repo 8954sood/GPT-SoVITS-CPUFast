@@ -74,6 +74,8 @@ def main():
     )
     parser.add_argument("--compare-pcm", type=Path)
     parser.add_argument("--packed-fft", action="store_true")
+    parser.add_argument("--fft-stream", action="store_true")
+    parser.add_argument("--parallel-transforms", action="store_true")
     parser.add_argument("--fused-finish", action="store_true")
     parser.add_argument("--tap-small", action="store_true")
     parser.add_argument("--packed-small-48", action="store_true")
@@ -110,7 +112,11 @@ def main():
     if args.threads is None:
         args.threads = 1 if args.engine else 2
     if args.ar_prefetch is None:
-        args.ar_prefetch = 256 if args.engine and not args.fast_experimental else 0
+        args.ar_prefetch = (
+            256
+            if args.engine and not args.fast_experimental and not args.ar_fp32_cache
+            else 0
+        )
     if args.ar_prefetch and not args.engine:
         parser.error("--ar-prefetch requires --engine")
     if args.ar_fp32_cache and not args.engine:
@@ -180,6 +186,8 @@ def main():
             cook_resblock=args.cook_resblock,
             fft_layout=args.fft_layout,
             packed_fft=args.packed_fft,
+            fft_stream=args.fft_stream,
+            parallel_transforms=args.parallel_transforms,
             fused_finish=args.fused_finish,
             tap_small=args.tap_small,
             packed_small_48=args.packed_small_48,
@@ -340,6 +348,8 @@ def main():
                 "fft_layout",
                 "native_attention",
                 "packed_fft",
+                "fft_stream",
+                "parallel_transforms",
                 "fused_finish",
                 "tap_small",
                 "packed_small_48",
@@ -477,7 +487,9 @@ def main():
         with torch.profiler.profile(
             activities=[torch.profiler.ProfilerActivity.CPU], record_shapes=True
         ) as prof:
-            list(runtime.run(inputs))
+            # Profile the same execution mode as the measured inference.
+            with torch.inference_mode(args.inference_mode):
+                list(runtime.run(inputs))
         rows = [
             {
                 "name": event.key,

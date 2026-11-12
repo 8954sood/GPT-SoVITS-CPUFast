@@ -1,0 +1,22 @@
+{
+  "command": [
+    "python",
+    "experiments/rtf07/bench_fft_stream.py",
+    "--output",
+    "/repo/ci-results/fft_stream.json"
+  ],
+  "cpu_quota_cores": 2,
+  "memory_limit_bytes": 8000000000,
+  "peak_sampled_tree_rss_bytes": 570990592,
+  "kernel_child_peak_rss_bytes": 571985920,
+  "cpu_seconds": 7.831708,
+  "elapsed_seconds": 6.332366524264216,
+  "average_cpu_cores": 1.2367742723025652,
+  "quota_stop_seconds": 0.0,
+  "maximum_cpu_debt_seconds": 0.0,
+  "samples": 597,
+  "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+  "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+  "violation": null,
+  "exit_code": 0
+}

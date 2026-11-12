@@ -1,0 +1,11 @@
+{
+  "run_id": 43154054097,
+  "url": "https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43154054097",
+  "head_sha": "c02af800162638e5044eedcebd8da74bcfc76d12",
+  "baseline": "Original FP32 tap profile, ar_prefetch=256, 2 threads per stage",
+  "candidate": "Baseline plus fft_stream=True only",
+  "warmups": 3,
+  "samples": 3,
+  "decision": "provisional small gain; requires independent five-sample verification; not a default",
+  "pcm": "Every measured candidate is bit-exact to its corresponding baseline"
+}

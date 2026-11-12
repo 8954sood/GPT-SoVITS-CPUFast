@@ -38,3 +38,80 @@ bash scripts/run_arm_benchmark.sh "$HOME/gpt-sovits-benchmark" cpufast-n1:cefae2
 ```
 
 The outputs are `ci-results/{baseline,tap}_{1,2}.json`, their guard reports and corresponding WAV files. The script rebuilds the FP32 native extension in that checkout.
+
+`mode=fftstream` compares the independently verified FP32 tap/prefetch-256
+baseline against an opt-in four-frequency streaming spectral GEMM. It retains
+the same ACL FP32 kernel and complex reconstruction order, but writes the
+complex inverse-FFT layout from bounded scratch storage rather than retaining
+all three frequency-product planes. The job first checks bit-exact synthetic
+products and convolution epilogues, then reports a synthetic probe and full
+synthesis of both fixed sentences. This is a candidate, with no N1 performance
+claim until the action completes; the default engine remains unchanged.
+
+`mode=transforms` separately tests channel-parallel Winograd input/output and
+FFT finishing (`--parallel-transforms`). Independent channels retain the same
+FP32 arithmetic and output order; this is not branch-parallel synthesis.
+The default remains serial transforms until target full-TTS repeats justify a
+change. Native tests compare serial/parallel outputs exactly, including
+non-contiguous residual channel rows.
+
+`mode=inference` compares the same original FP32 profile under its existing
+`no_grad` path and the benchmark's explicit `torch.inference_mode()` context.
+Model loading and installation remain outside that context, preserving normal
+parameter version counters and the cache-validity checks. Both variants use
+fresh processes, with every warmup/sample recorded. Local checks establish
+correctness only; any performance claim must use the target action.
+
+`mode=runtime` batches an independent original-FP32 baseline, parallel transforms,
+inference mode, and their combination with FFT streaming on both fixed
+sentences. The non-baseline order is reversed for the second sentence. Use
+three excluded warmups and five retained samples for confirmation. Every
+candidate is compared to that sentence's baseline WAV, and the combined RTF is
+measured directly. Individual improvements are not added together.
+
+For a separately approved model requiring FP32 AR storage, the experimental
+`--ar-fp32-cache --ar-prefetch 256` combination is now supported. Unspecified
+prefetch with FP32 cache defaults to zero. This option passed local ARM64
+bit-exact operator checks only and has no target-server speed claim; do not
+infer a benefit from the original model's exact-half-cache prefetch results.
+
+## Verified original-model runtime profile
+
+Actual-server five-sample `mode=runtime` verification measured the combined
+original FP32 configuration at median RTF **1.4732 / 1.4464**, compared with
+**1.5340 / 1.5501** for its baseline on the two fixed Japanese sentences.
+All candidate PCM outputs were exact. The target RTF below 1 remains open.
+Raw reports/provenance are in `results/n1_runtime_20261112`; see
+`docs/TARGET_RESEARCH.md` for the independent comparisons.
+
+Build the current native library first. For an already initialized, evaluation
+FP32 V2ProPlus CPU pipeline, keep model loading and installation outside
+inference mode so original parameter version checks remain available:
+
+```python
+import torch
+from cpufast_engine import optimize
+
+engine = optimize(
+    pipeline,
+    head_major=True,
+    cook_phase=True,
+    fft_layout=True,
+    packed_fft=True,
+    fused_finish=True,
+    tap_small=True,
+    fft_stream=True,
+    parallel_transforms=True,
+    ar_prefetch=256,
+    ar_threads=2,
+    acoustic_threads=2,
+)
+with torch.inference_mode():
+    chunks = list(engine.run(request))
+```
+
+The benchmark equivalent adds `--fft-stream --parallel-transforms
+--inference-mode` to the existing approved tap/prefetch profile. These options
+remain explicit and preserve original-model coefficients. The combined score
+has not been measured with trained students. A fresh pipeline is required when
+changing weights/settings; rebuild the extension after native source changes.

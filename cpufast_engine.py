@@ -13,6 +13,8 @@ def optimize(
     cook_resblock=0,
     fft_layout=False,
     packed_fft=False,
+    fft_stream=False,
+    parallel_transforms=False,
     fused_finish=False,
     tap_small=False,
     packed_small_48=False,
@@ -32,15 +34,19 @@ def optimize(
     must be built for the installed Linux ARM64 PyTorch version.
     """
     if ar_prefetch is None:
-        ar_prefetch = 0 if fast_experimental else 256
+        ar_prefetch = 0 if fast_experimental or ar_fp32_cache else 256
     if ar_threads not in (1, 2) or acoustic_threads not in (1, 2):
         raise ValueError("Expected one or two CPU threads per stage")
-    if ar_prefetch not in (0, 64, 128, 256) or (ar_prefetch and ar_fp32_cache):
-        raise ValueError("Invalid prefetch or incompatible cache storage")
+    if ar_prefetch not in (0, 64, 128, 256):
+        raise ValueError("Invalid prefetch distance")
     if fast_experimental and ar_prefetch:
         raise ValueError("Prefetch cannot be combined with fast experimental mode")
     if fast_experimental and ar_fp32_cache:
         raise ValueError("FP32 cache cannot be combined with fast experimental mode")
+    if parallel_transforms and fast_experimental:
+        raise ValueError("parallel_transforms requires FP32")
+    if fft_stream and (not packed_fft or not fft_layout or fast_experimental):
+        raise ValueError("fft_stream requires packed_fft, fft_layout and FP32")
     if packed_small_48 and not tap_small:
         raise ValueError("packed_small_48 requires tap_small")
     if fast_experimental and (tap_small or cook_resblock):
@@ -54,6 +60,10 @@ def optimize(
             acoustic_threads,
         ):
             raise ValueError("Recreate the pipeline before changing thread settings")
+        if existing.audit.get("parallel_transforms", False) != parallel_transforms:
+            raise ValueError("Recreate the pipeline before changing transform scheduling")
+        if existing.audit.get("fft_stream", False) != fft_stream:
+            raise ValueError("Recreate the pipeline before changing FFT streaming")
         if existing.audit.get("tap_small", False) != tap_small:
             raise ValueError("Recreate the pipeline before changing tap settings")
         if existing.audit.get("packed_small_48", False) != packed_small_48:
@@ -124,6 +134,7 @@ def optimize(
         for module in pipeline.vits_model.dec.modules():
             if isinstance(module, FFTConv1d):
                 module.output_layout = True
+                module.stream_products = fft_stream
     if cook_resblock:
         from cpufast_cooktoom import CookToomConv1d
         from cpufast_winograd import WinogradConv1d
@@ -145,6 +156,13 @@ def optimize(
             if isinstance(module, FFTConv1d):
                 module.fused_finish = True
                 module.fast_half = fast_experimental
+    if parallel_transforms:
+        from cpufast_fft import FFTConv1d
+        from cpufast_winograd import WinogradConv1d
+
+        for module in pipeline.vits_model.dec.modules():
+            if isinstance(module, (FFTConv1d, WinogradConv1d)):
+                module.parallel_transforms = True
     taps = 0
     if tap_small:
         from cpufast_tap import install_small_taps
@@ -205,6 +223,8 @@ def optimize(
         "winograd_convolutions": winograd,
         "tap_convolutions": taps,
         "tap_small": tap_small,
+        "fft_stream": fft_stream,
+        "parallel_transforms": parallel_transforms,
         "packed_small_48": packed_small_48,
         "n1_fft_sizes": n1_fft_sizes,
         "n1_small_direct": n1_small_direct,

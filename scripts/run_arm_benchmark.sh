@@ -9,7 +9,7 @@ cpus=${4:-2}
 warmups=${5:-2}
 samples=${6:-3}
 mode=${7:-compare}
-[[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention || "$mode" == small || "$mode" == scheduling || "$mode" == packed48 || "$mode" == fft || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
+[[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention || "$mode" == small || "$mode" == scheduling || "$mode" == packed48 || "$mode" == fft || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference || "$mode" == runtime ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
 project="$bench_root/project"
 assets="$bench_root/cpufast-cefae22/assets/pretrained_models"
 reference="$bench_root/reference_ja_4s.wav"
@@ -40,6 +40,9 @@ run_container python build_cpufast_ar.py --output /repo/libcpufast_ar_torch.so
 run_container python -m unittest discover -s tests -p test_cpufast_tap.py -v
 run_container python experiments/rtf07/test_fusion_layout.py
 run_container python -m unittest discover -s tests -p test_fp32_head_attention.py -v
+run_container python -m unittest discover -s tests -p test_fft_stream.py -v
+run_container python -m unittest discover -s tests -p test_parallel_transforms.py -v
+run_container python -m unittest discover -s tests -p test_fp32_cache_prefetch.py -v
 common=(--engine --head-major --cook-phase --fft-layout --packed-fft --fused-finish
   --ar-threads 2 --threads 2
   --s1 /project/models/s1v3.ckpt --s2 /repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth
@@ -86,6 +89,10 @@ if [[ "$mode" == small ]]; then
     python experiments/rtf07/bench_decoder_small.py --output /repo/ci-results/decoder_small.json
   exit 0
 fi
+if [[ "$mode" == fftstream ]]; then
+  run_container python resource_guard.py --report /repo/ci-results/fft_stream_guard.json -- \
+    python experiments/rtf07/bench_fft_stream.py --output /repo/ci-results/fft_stream.json
+fi
 if [[ "$mode" == diagnostics ]]; then
   run_container python resource_guard.py --report /repo/ci-results/profile_guard.json -- \
     python benchmark_cpufast.py "${common[@]}" --tap-small --text "${texts[0]}" \
@@ -97,15 +104,35 @@ if [[ "$mode" == diagnostics ]]; then
   done
   exit 0
 fi
+if [[ "$mode" == runtime ]]; then
+  for index in 0 1; do
+    number=$((index + 1))
+    if (( index == 0 )); then variants=(baseline parallel inference combined); else variants=(baseline combined inference parallel); fi
+    for variant in "${variants[@]}"; do
+      candidate_args=()
+      compare_args=()
+      if [[ "$variant" != baseline ]]; then compare_args=(--compare-pcm "/repo/ci-results/baseline_${number}.wav"); fi
+      if [[ "$variant" == parallel ]]; then candidate_args=(--parallel-transforms); fi
+      if [[ "$variant" == inference ]]; then candidate_args=(--inference-mode); fi
+      if [[ "$variant" == combined ]]; then candidate_args=(--fft-stream --parallel-transforms --inference-mode); fi
+      run_container python resource_guard.py --report "/repo/ci-results/${variant}_${number}_guard.json" -- \
+        python benchmark_cpufast.py "${common[@]}" --tap-small "${candidate_args[@]}" --text "${texts[$index]}" \
+        "${compare_args[@]}" --output "/repo/ci-results/${variant}_${number}.json"
+    done
+  done
+  exit 0
+fi
 for index in 0 1; do
   number=$((index + 1))
-  if [[ "$mode" == attention || "$mode" == packed48 || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality ]]; then
+  if [[ "$mode" == attention || "$mode" == packed48 || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch || "$mode" == prefetchcandidate || "$mode" == winograd || "$mode" == direct3 || "$mode" == locality || "$mode" == fftstream || "$mode" == transforms || "$mode" == inference || "$mode" == runtime ]]; then
     candidate_args=(--native-attention)
     if [[ "$mode" == packed48 ]]; then candidate_args=(--packed-small-48); fi
     if [[ "$mode" == fftcandidate ]]; then candidate_args=(--n1-fft-sizes); fi
     if [[ "$mode" == arcache ]]; then candidate_args=(--ar-fp32-cache); fi
     if [[ "$mode" == prefetchcandidate ]]; then candidate_args=(--ar-prefetch 256); fi
     if [[ "$mode" == direct3 ]]; then candidate_args=(--n1-small-direct); fi
+    if [[ "$mode" == fftstream ]]; then candidate_args=(--fft-stream); fi
+    if [[ "$mode" == transforms || "$mode" == inference || "$mode" == runtime ]]; then candidate_args=(--parallel-transforms); fi
     echo "Benchmarking sentence $number: approved tap and $mode candidate"
     run_container python resource_guard.py --report "/repo/ci-results/tap_${number}_guard.json" -- \
       python benchmark_cpufast.py "${common[@]}" --tap-small --text "${texts[$index]}" \

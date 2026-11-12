@@ -68,3 +68,96 @@ The subsequent full-model [run 43138450302](https://github.com/8954sood/GPT-SoVI
 ## Prefetch locality
 
 [Run 43139552360](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43139552360) measured locality hints 0/1/2/3 at 9.288/9.006/8.982/8.949ms per synthetic model-sized traversal. Hint 0 had two slow outliers; all samples are preserved. Hints 1–3 differ by less than one percent, so keep the independently validated locality 1. Results: `results/n1_locality_20261112`.
+
+
+## Streaming FFT products
+
+[Run 43154054097](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43154054097)
+compared the prefetch-256 FP32 tap baseline against four-frequency streamed
+spectral GEMM/complex reconstruction. It removes the full three-plane product
+buffer while retaining the existing ACL kernel and FP32 evaluation order.
+Baseline/candidate medians were **1.5336/1.5151** and **1.5410/1.5183**, with
+three excluded warmups and three retained samples per variant. Decoder medians
+were 4.990/4.897s and 4.407/4.388s; AR timing varied despite unchanged AR code.
+The small full-RTF improvement is provisional and needs independent five-sample
+verification before adoption. Every measured candidate PCM and semantic output
+matched its baseline exactly, parameter/checkpoint hashes were unchanged, and
+guards passed. Synthetic packed-GEMM/reconstruction improved at 192/96 channels
+but was approximately tied at 384 channels. Raw reports and provenance are in
+`results/n1_fftstream_20261112`; local Docker results were correctness checks only.
+
+
+## Channel-parallel transform and finishing
+
+[Run 43154873191](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43154873191)
+compared the original FP32 prefetch-256 tap profile against channel-parallel
+Winograd input/output and FFT finishing. This retains each channel's arithmetic
+and distributes independent channels across the existing two Torch threads.
+Baseline/candidate RTF medians were **1.5555/1.5212** and **1.5321/1.5157**,
+three warmups and three retained samples per case. Decoder median fell
+5.135/4.870s and 4.515/4.220s, while unchanged AR timing rose by about 0.06/0.13s.
+All measured candidate PCM/semantic outputs were exact, parameter/checkpoint
+hashes unchanged and guards passed. Independent five-sample verification is
+required before adopting this small overall gain. Raw reports and provenance:
+`results/n1_transforms_20261112`. The FFT streaming flag was off in both cases.
+
+
+Independent five-sample stream confirmation
+[run 43155674421](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43155674421)
+reproduced the small gain: baseline/stream medians **1.5411/1.5248** and
+**1.5598/1.5446**. Decoder medians were 5.083/4.942s and 4.549/4.427s, with
+slightly slower AR despite unchanged AR code. All ten measured candidate
+waveforms were PCM-exact, semantic tokens/durations unchanged, and integrity
+checks/guards passed. Keep the streaming implementation as an opt-in; this
+roughly one-percent total gain is specific to the two target workloads and
+does not reach real-time synthesis. Raw runs, including every warmup and slow
+sample, are in `results/n1_fftstream_repeat_20261112`.
+
+## Prepared FP32-cache prefetch for future student validation
+
+Trained student coefficients may no longer round-trip exactly through FP16
+storage. The existing explicit FP32 AR cache preserves them, but the N1
+full-model experiment above found that a larger FP32 cache can lose despite
+winning cache-hot matrix probes. Its native path previously hard-coded
+prefetch 0. A new opt-in `lossless_linear_f32_prefetch` uses the existing FP32
+GEMV arithmetic and coefficient storage with explicit distance 64/128/256.
+`optimize(ar_fp32_cache=True)` keeps prefetch 0 when unspecified; requesting a
+nonzero distance is an experiment, not a recommended student default.
+
+The Linux ARM64 local correctness test compares all five actual AR matrix
+shapes using FP32 coefficients that cannot be exactly converted to half, at
+one/two threads and four distances. Every output was bit-exact to the existing
+no-prefetch FP32 operator, original coefficients remained unchanged, and the
+TorchScript classes imported/compiled successfully. These are tiny correctness
+checks, not performance evidence. No student or full-model N1 run has validated
+this option. Keep original and trained student checkpoints separate and obtain
+quality approval before measuring a student on the actual server.
+
+
+## Independent runtime and combined original-model validation
+
+[Run 43156673437](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43156673437)
+used the unchanged original model on the real N1 with 2 CPU, 8,000,000,000 bytes
+and no swap. Each of eight fresh processes excluded three warmups and retained
+five samples. Non-baseline variant order was reversed for sentence 2.
+
+| Original FP32 configuration | Sentence 1 median RTF | Sentence 2 median RTF |
+| --- | ---: | ---: |
+| Approved tap/prefetch256 baseline | 1.5340 | 1.5501 |
+| Channel-parallel transforms only | 1.4967 | 1.4956 |
+| Inference context only | 1.5107 | 1.5171 |
+| FFT streaming + parallel transforms + inference context | **1.4732** | **1.4464** |
+
+The combined improvement of 3.97%/6.69% is directly measured, not a sum of
+isolated gains. Decoder medians fell 5.053 to 4.786s and 4.492 to 4.188s.
+Every one of the 30 measured candidate outputs was PCM-exact to its baseline;
+semantic tokens, duration, sample rate, reference, request/seed and resource
+settings matched. All checkpoint/parameter checks and guards passed, with
+peak sampled tree RSS below 5.4GB. Every warmup and measured run, including
+slower observations, is in `results/n1_runtime_20261112` with provenance.
+
+Keep these original-model paths as opt-in improvements. The default engine
+configuration and original weights remain unchanged. This does not reach RTF
+1, does not establish an optimum or coverage of other voices/languages, and
+does not predict the performance/quality of separately trained students.
+See `ARM_BENCHMARK.md` for the exact original-model settings.
