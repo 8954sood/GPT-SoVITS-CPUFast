@@ -228,7 +228,7 @@ class T2SMLP:
 class T2SBlock:
     def __init__(
         self,
-        num_heads,
+        num_heads: int,
         hidden_dim: int,
         mlp: T2SMLP,
         qkv_w,
@@ -237,10 +237,10 @@ class T2SBlock:
         out_b,
         norm_w1,
         norm_b1,
-        norm_eps1,
+        norm_eps1: float,
         norm_w2,
         norm_b2,
-        norm_eps2,
+        norm_eps2: float,
     ):
         self.num_heads = num_heads
         self.mlp = mlp
