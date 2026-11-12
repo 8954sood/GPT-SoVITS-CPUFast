@@ -1,0 +1,57 @@
+{
+  "reason": "Remove unused/unselected initializations, superseded latest checkpoints and unadopted aggressive decoder checkpoints. Retain original teachers, corpus targets, histories, audio, approved frozen G/H2/H3, H1 parent best and conservative decoder best.",
+  "approved_backup_revision": "423984f1ff08206bb0a6f6193f6b06c8da3d2991",
+  "files": [
+    {
+      "path": ".experiments/student/prune_g_next/ar18_initial.pt",
+      "bytes": 231991354,
+      "sha256": "50f80c6ca875be0c7146097da974fe7ffb7c9b24f78399a7f92e0105f6a555b6"
+    },
+    {
+      "path": ".experiments/student/prune_g_next/decoder12_initial.pt",
+      "bytes": 123879731,
+      "sha256": "b5b2e33b0d308294f5289175bf033abedf70da3a625a0eeb1d8b96fc6b4f9ccc"
+    },
+    {
+      "path": ".experiments/student/prune_g_bounded/ar18_initial.pt",
+      "bytes": 231991354,
+      "sha256": "50f80c6ca875be0c7146097da974fe7ffb7c9b24f78399a7f92e0105f6a555b6"
+    },
+    {
+      "path": ".experiments/student/prune_g_bounded/decoder12_initial.pt",
+      "bytes": 94678835,
+      "sha256": "db1be0f82d3745f4482730528684621b3098a8244738bf27cf84119e1519cd14"
+    },
+    {
+      "path": ".experiments/student/ar18_next/latest.pt",
+      "bytes": 231984028,
+      "sha256": "0647a0b11aa560eae29e6aef50fe8ad4dbc6176e689c1df2318771fea74f63f0"
+    },
+    {
+      "path": ".experiments/student/ar18_features/latest.pt",
+      "bytes": 231984220,
+      "sha256": "dd9109864772d3b364369b3ebcacaf7f3a363f4e6ec25a99bc6c80846b2d90a1"
+    },
+    {
+      "path": ".experiments/student/decoder12_next/best.pt",
+      "bytes": 94677249,
+      "sha256": "a236759d339da5639a53d070d10a5a51556c01eebbce75f21679980b292adce7"
+    },
+    {
+      "path": ".experiments/student/decoder12_next/latest.pt",
+      "bytes": 94671196,
+      "sha256": "9f98d174a758f2719769b690cb6b7755f050c0fc5c92a9a39844abe9831738c0"
+    },
+    {
+      "path": ".experiments/student/decoder12_conservative_init/initial.pt",
+      "bytes": 122988417,
+      "sha256": "8abc751dc733e42b5b42c783e6a3c570c255c7db73a9114643f33bf7d981b7b2"
+    },
+    {
+      "path": ".experiments/student/decoder12_conservative/latest.pt",
+      "bytes": 122982748,
+      "sha256": "16f3591b2bb9276c5fdac483c452e4b9741908adb14472a5047466338d264ea3"
+    }
+  ],
+  "bytes_unlinked": 1581829132
+}

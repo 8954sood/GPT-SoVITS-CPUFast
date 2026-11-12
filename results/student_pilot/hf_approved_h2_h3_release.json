@@ -1,0 +1,80 @@
+{
+  "repo_id": "babihoba/gpt-sovits-v2proplus-arm-students",
+  "private": true,
+  "revision": "423984f1ff08206bb0a6f6193f6b06c8da3d2991",
+  "source_commit": "19e23fb43f80cc9903c223e237f3e789918315b6",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1485,
+      "sha256": "b6240dd2ede20aab2127c07ef38ea35412ab2610477663e3b6834ea4dd0fb13c"
+    },
+    {
+      "path": "approved-h2-20261112/ar.pt",
+      "bytes": 231990337,
+      "sha256": "c251559209da56d06d8d0a633602599fab5d287fcc3119a067ab8829276ed130"
+    },
+    {
+      "path": "approved-h2-20261112/decoder.pt",
+      "bytes": 133618793,
+      "sha256": "ac54705c303b811bdead74d0f38adac93d320044255e3b5c39da1f8bdf114006"
+    },
+    {
+      "path": "approved-h2-20261112/manifest.json",
+      "bytes": 4138,
+      "sha256": "2b855a33c96b817bffb1d01df91e2bdc93bfba916ea2930543d1db046bfbc682"
+    },
+    {
+      "path": "approved-h2-20261112/student_runtime.py",
+      "bytes": 4645,
+      "sha256": "85f9827c1130ebcde7aa3f984aa91706035638ff8a2074700a902ae2d20a2430"
+    },
+    {
+      "path": "approved-h2-20261112/student_spec.json",
+      "bytes": 655,
+      "sha256": "88db2016d95b4407c335ffe4b2cefc3f7259bff0bf897047914805747fb1de79"
+    },
+    {
+      "path": "approved-h2-20261112/training-report.json",
+      "bytes": 19478,
+      "sha256": "9e896c7e860a53cb8d9f0fb441c1d848326f844b9083367e14cb86abe52d9612"
+    },
+    {
+      "path": "approved-h3-20261112/ar.pt",
+      "bytes": 231975560,
+      "sha256": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335"
+    },
+    {
+      "path": "approved-h3-20261112/conversion-report.json",
+      "bytes": 16196,
+      "sha256": "ff25e3c14eb75e8a013a877db54a7baf3846908461b0f0daff2eddd5f13df7e0"
+    },
+    {
+      "path": "approved-h3-20261112/decoder.pt",
+      "bytes": 133618793,
+      "sha256": "ac54705c303b811bdead74d0f38adac93d320044255e3b5c39da1f8bdf114006"
+    },
+    {
+      "path": "approved-h3-20261112/manifest.json",
+      "bytes": 4330,
+      "sha256": "ba160d0a4811620f3be581716fec8d5d8c0306c7d03cc7aa19cd773af4b48329"
+    },
+    {
+      "path": "approved-h3-20261112/student_runtime.py",
+      "bytes": 4645,
+      "sha256": "85f9827c1130ebcde7aa3f984aa91706035638ff8a2074700a902ae2d20a2430"
+    },
+    {
+      "path": "approved-h3-20261112/student_spec.json",
+      "bytes": 664,
+      "sha256": "dbd55bdf93c0bf9da3559a73c11d6ddb4c1035ce1a6b9e3688f10a1c067d3276"
+    },
+    {
+      "path": "approved-h3-20261112/training-report.json",
+      "bytes": 19478,
+      "sha256": "9e896c7e860a53cb8d9f0fb441c1d848326f844b9083367e14cb86abe52d9612"
+    }
+  ],
+  "remote_lfs_and_fresh_download_sha256_verified": true,
+  "token_persisted_locally": false
+}

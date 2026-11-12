@@ -1,0 +1,143 @@
+{
+  "quality_approved": true,
+  "scope": "User accepts K versus H3 in Korean same reference/text/seed; not broad zero-shot or JA/EN listening approval",
+  "feedback": "K 사용 가능",
+  "ar_layers": 18,
+  "decoder_branches": [
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ]
+  ],
+  "ar_selected_additional_step": 400,
+  "decoder_selected_additional_step": 100,
+  "additional_updates_executed_each": null,
+  "files": {
+    "ar.pt": {
+      "sha256": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+      "bytes": 231975560
+    },
+    "decoder.pt": {
+      "sha256": "a2fe6478aae00a8a481209f32aba85eab97198cd30aca0ce1ff63d9ec31c3c1d",
+      "bytes": 122988801
+    },
+    "student_spec.json": {
+      "sha256": "6b4b12ecdf6f4716b4089f1590c0833c98f8397e6a8ea90c79e1180abf4c0002",
+      "bytes": 675
+    }
+  },
+  "runtime": "FP16-representable AR matrix cache, FP32 multiply/accumulate; biases/norm/embedding/decoder unchanged",
+  "original_teacher_files_overwritten": false,
+  "listening_report": {
+    "scope": "Local free-generation listening smoke; not N1 performance",
+    "variant": "D",
+    "ar_cache_storage": "exact FP16",
+    "quality_approved": false,
+    "ar_layers": 18,
+    "decoder_branches": [
+      [
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    "cases": [
+      {
+        "language": "ko",
+        "text": "오늘은 날씨가 참 좋네요. 잠깐 쉬었다가 함께 이야기를 이어 가요.",
+        "sample_rate": 32000,
+        "audio_seconds": 5.1,
+        "smoke_elapsed_seconds": 5.356238502000001,
+        "semantic": [
+          {
+            "tokens": 120,
+            "sha256": "fee8ae9803f48a1f6b9754dfa4d3f45ecf0a459a819602f1f4a44acb67f18546"
+          }
+        ],
+        "pcm_sha256": "d621776549b0353e9f1498804b283e0e6ed0ab4b35f273e92c50fa099063b03f"
+      },
+      {
+        "language": "ja",
+        "text": "今日は穏やかな天気ですね。少し休んでから、また一緒に続きを進めましょう。",
+        "sample_rate": 32000,
+        "audio_seconds": 6.94,
+        "smoke_elapsed_seconds": 2.6727930430000004,
+        "semantic": [
+          {
+            "tokens": 166,
+            "sha256": "d4f3e9bf87c26d75a5c649ef7be39da9795d5c519b032fee2915ead0ae6fa232"
+          }
+        ],
+        "pcm_sha256": "33a5b07ddbb09bae76906807396fd962591f6554bf5794bc887b7d6b09581365"
+      },
+      {
+        "language": "en",
+        "text": "The weather is pleasant today. Let us take a short break and continue together.",
+        "sample_rate": 32000,
+        "audio_seconds": 4.58,
+        "smoke_elapsed_seconds": 1.7153145419999998,
+        "semantic": [
+          {
+            "tokens": 107,
+            "sha256": "fb60ec34817170d67841d0c4ca6caca0c07778d556dd2f7de3afd423f312269b"
+          }
+        ],
+        "pcm_sha256": "380966dbf3911496c4fc5d88470a782e8eda9d5da9da3546a016c0dfe36e06fb"
+      }
+    ],
+    "student_parameters_unchanged_during_inference": true,
+    "checkpoint_files_unchanged": true,
+    "finite_original_rate_wavs": 3
+  },
+  "training_report": "results/student_pilot/conservative_decoder12.json",
+  "reference_sha256": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+  "prompt_text": "スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。",
+  "prompt_language": "ja",
+  "seed": 42,
+  "original_s2_sha256": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+  "scope_note": "Korean approved. JA/EN synthesis checks only. K actual N1 speed not yet measured.",
+  "ar_additional_updates_executed": 800,
+  "decoder_additional_updates_executed": 100,
+  "ar_training": "Incrementally prune G AR20 to18, KL400 then KL+original6/13/23 features400; accum3 cosine CPU FP32",
+  "parent_manifest_sha256": "ba160d0a4811620f3be581716fec8d5d8c0306c7d03cc7aa19cd773af4b48329",
+  "ar_cache_storage": "exact_fp16",
+  "model_variant": "K",
+  "conversion_report": "results/student_pilot/h3_half_conversion.json",
+  "lossy_conversion_relative_to_h2": true,
+  "decoder_training": "Approved G decoder13 remove first-stage original3-tap branch;100CPU FP32 full-context logmel/feature updates with accum3 cosine"
+}
