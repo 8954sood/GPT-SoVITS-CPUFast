@@ -45,7 +45,9 @@ def main():
         if path.exists():
             report = json.loads(path.read_text())
             report.update(candidate="Unapproved runtime FFT128-on-Cin240; unchanged approved AR17 QAT200 and original V400 model weights",
-                quality_approved=False, scope="Quality-only runtime numeric/listening candidate, not a performance benchmark",
+                quality_approved=False, approximate_inference=True,
+                ar_cache_storage="INT8 per-output-channel derived weights; unchanged exact-half-representable original AR coefficients",
+                scope="Quality-only runtime numeric/listening candidate, not a performance benchmark",
                 ar_arithmetic="Unchanged approved W8A8/native FP32 attention with canonical value schedule",
                 acoustic_arithmetic="Normal FP32 except six FFT transform lengths256to128; no half products",
                 runtime_audit=audit)
