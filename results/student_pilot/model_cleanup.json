@@ -1,0 +1,102 @@
+{
+  "authorization": "User requested important-model HF backup and unused-model cleanup",
+  "backup_repo": "babihoba/gpt-sovits-v2proplus-arm-students",
+  "backup_revision": "7f23879f3a49617251170746a66c1145f47697eb",
+  "remote_backup_verified": true,
+  "retained_active_directory": ".experiments/student/approved_g_20261112",
+  "original_teachers_preserved": true,
+  "teacher_contexts_logs_audio_preserved": true,
+  "removed": [
+    {
+      "path": ".experiments/student/listening_trained_C/decoder_student.pt",
+      "bytes": 133618217,
+      "sha256": "d5e2535d077494a707dec5c2078112243dea0936f9eab55b27e8531bba2acb3e",
+      "reason": "Duplicate listening export"
+    },
+    {
+      "path": ".experiments/student/listening_D/decoder_student.pt",
+      "bytes": 133618217,
+      "sha256": "643c836fa20ccc1d50ca0707b81a3cc4610ffd522c24d2a835d320e3ab7dc34d",
+      "reason": "Duplicate listening export"
+    },
+    {
+      "path": ".experiments/student/listening_C/decoder_student.pt",
+      "bytes": 133618217,
+      "sha256": "643c836fa20ccc1d50ca0707b81a3cc4610ffd522c24d2a835d320e3ab7dc34d",
+      "reason": "Duplicate listening export"
+    },
+    {
+      "path": ".experiments/student/listening_trained_D_fp32/decoder_student.pt",
+      "bytes": 133618217,
+      "sha256": "d5e2535d077494a707dec5c2078112243dea0936f9eab55b27e8531bba2acb3e",
+      "reason": "Duplicate listening export"
+    },
+    {
+      "path": ".experiments/student/ar20_distilled_pilot/latest.pt",
+      "bytes": 257210068,
+      "sha256": "aef564d0a0df86a6682fe954378a26b6c1cfed960cdf6b2c779008adf8779f3b",
+      "reason": "Rejected untrained/short pilot"
+    },
+    {
+      "path": ".experiments/student/ar20_distilled_pilot/best.pt",
+      "bytes": 257216209,
+      "sha256": "b65dcfb4396eab8a1cbf37eb58469c07c98e26e35b54c8c059b195f36d0d298e",
+      "reason": "Rejected untrained/short pilot"
+    },
+    {
+      "path": ".experiments/student/decoder13_recovery400/latest.pt",
+      "bytes": 133612728,
+      "sha256": "e1460c8dcf8bd76ca1491151c39e2ff7f2f6344f0e81980e76abf7f6a26b5b17",
+      "reason": "Unselected final400 checkpoint"
+    },
+    {
+      "path": ".experiments/student/decoder13_recovery400/best.pt",
+      "bytes": 133618793,
+      "sha256": "ac54705c303b811bdead74d0f38adac93d320044255e3b5c39da1f8bdf114006",
+      "reason": "Approved weight duplicate; frozen active copy and verified HF revision retained"
+    },
+    {
+      "path": ".experiments/student/subsets_pilot/ar20_untrained.ckpt",
+      "bytes": 130071313,
+      "sha256": "f09a28c33772c93cc26304e07276bcc63974afb580e67a61003b6835a1d21afd",
+      "reason": "Rejected untrained/short pilot"
+    },
+    {
+      "path": ".experiments/student/listening_recovery_G/decoder_student.pt",
+      "bytes": 133618217,
+      "sha256": "0bf0914adf69118b837e0257da46adf0e46d5808d827db8fdc7bd0e1cd7310fe",
+      "reason": "Duplicate listening export"
+    },
+    {
+      "path": ".experiments/student/listening_recovery_F/decoder_student.pt",
+      "bytes": 133618217,
+      "sha256": "0bf0914adf69118b837e0257da46adf0e46d5808d827db8fdc7bd0e1cd7310fe",
+      "reason": "Duplicate listening export"
+    },
+    {
+      "path": ".experiments/student/decoder13_distilled_pilot/latest.pt",
+      "bytes": 133612216,
+      "sha256": "ca61fb244b6a549577ae087a8cab1653a1e2d8242d457ca669c4b5d39e82675a",
+      "reason": "Rejected untrained/short pilot"
+    },
+    {
+      "path": ".experiments/student/decoder13_distilled_pilot/best.pt",
+      "bytes": 133618281,
+      "sha256": "cd22c3d828b656f67d9fbc7b214fb86c213668c32d194cceef8e38e02ea1ac1f",
+      "reason": "Rejected untrained/short pilot"
+    },
+    {
+      "path": ".experiments/student/ar20_recovery400/latest.pt",
+      "bytes": 257210516,
+      "sha256": "43b72e6f9a18ae019a25a0fef9f43b465dddc055de467760e95b09d2142f26dc",
+      "reason": "Unselected final400 checkpoint"
+    },
+    {
+      "path": ".experiments/student/ar20_recovery400/best.pt",
+      "bytes": 257216593,
+      "sha256": "9a8571d454c76875057fc894643fca995e090a7abb7516f023ceefae3ca01e82",
+      "reason": "Approved weight duplicate; frozen active copy and verified HF revision retained"
+    }
+  ],
+  "removed_bytes": 2495096019
+}

@@ -1,0 +1,51 @@
+{
+  "repo_id": "babihoba/gpt-sovits-v2proplus-arm-students",
+  "private": true,
+  "revision": "7f23879f3a49617251170746a66c1145f47697eb",
+  "source_commit": "da2dac9a0383020e79b73a00b3ae8e474c7cb2d8",
+  "files": [
+    {
+      "path": "LICENSE",
+      "bytes": 1110,
+      "sha256": "d1f8243106846c8ec965682d9549d835c47f9b8905a2820697582d190d49cf22"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1655,
+      "sha256": "4bd57af2e7ba82db56688eda82f65266a8295ccd1c7cfed9adb9e23bcf7d8daa"
+    },
+    {
+      "path": "approved-g-20261112/ar.pt",
+      "bytes": 257216593,
+      "sha256": "9a8571d454c76875057fc894643fca995e090a7abb7516f023ceefae3ca01e82"
+    },
+    {
+      "path": "approved-g-20261112/decoder.pt",
+      "bytes": 133618793,
+      "sha256": "ac54705c303b811bdead74d0f38adac93d320044255e3b5c39da1f8bdf114006"
+    },
+    {
+      "path": "approved-g-20261112/manifest.json",
+      "bytes": 4028,
+      "sha256": "684e5c5f093af572ff1a77a70facd83e86808908e696330e0d5bcc42f3d98654"
+    },
+    {
+      "path": "approved-g-20261112/student_runtime.py",
+      "bytes": 4645,
+      "sha256": "85f9827c1130ebcde7aa3f984aa91706035638ff8a2074700a902ae2d20a2430"
+    },
+    {
+      "path": "approved-g-20261112/student_spec.json",
+      "bytes": 531,
+      "sha256": "4ec72f1b08c90397b56427f8093c490c9f1b97599a729b18e412b301697c2a7c"
+    },
+    {
+      "path": "approved-g-20261112/training-report.json",
+      "bytes": 13085,
+      "sha256": "134ff6f61e0439131b4be32fe0e2f9e91439c4bf8cf4050b888236ee1a6479cf"
+    }
+  ],
+  "remote_lfs_and_fresh_download_sha256_verified": true,
+  "actions_secret_configured": "HF_STUDENT_TOKEN",
+  "token_persisted_locally": false
+}
