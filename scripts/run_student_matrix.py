@@ -20,6 +20,7 @@ def main():
     parser.add_argument("--prefetch", type=int, choices=[0, 64, 128, 256], default=0)
     parser.add_argument("--baseline-manifest", type=Path)
     parser.add_argument("--baseline-manifest-sha256")
+    parser.add_argument("--ar-depth-comparison", action="store_true")
     parser.add_argument("--decoder-only", action="store_true")
     parser.add_argument("--decoder-ar-int8", action="store_true")
     parser.add_argument("--ar-int8-comparison", action="store_true")
@@ -33,6 +34,16 @@ def main():
     parser.add_argument("--fft-output-tiles-comparison", action="store_true")
     parser.add_argument("--decoder-candidate-label", choices=["R", "U", "V"], default="R")
     args = parser.parse_args()
+    if args.ar_depth_comparison and (
+        not args.baseline_manifest or args.warmups != 3 or args.samples != 5
+        or any((args.decoder_only, args.decoder_ar_int8, args.ar_int8_comparison,
+                args.ar_int8_confirm_only, args.fft_half_comparison,
+                args.fft_half_stream_comparison, args.alternating_decoder_comparison,
+                args.packed_prefill_comparison, args.int8_prefill_comparison,
+                args.diagnostic_profile_only, args.fft_output_tiles_comparison))
+        or args.decoder_candidate_label != "R"
+    ):
+        parser.error("AR depth comparison requires isolated two approved bundles, 3warm5sample")
     prefill_comparison = args.packed_prefill_comparison or args.int8_prefill_comparison
     runtime_comparison = prefill_comparison or args.fft_output_tiles_comparison
     if args.fft_output_tiles_comparison and (
@@ -145,6 +156,18 @@ def main():
             parser.error(
                 "First bottleneck comparison must preserve original outer channels and branches"
             )
+    if args.ar_depth_comparison:
+        for key in ("decoder.pt",):
+            if baseline["files"][key] != manifest["files"][key]:
+                parser.error("AR depth comparison must preserve decoder bytes")
+        for key in ("decoder_branches", "decoder_bottlenecks", "decoder_channel_keep",
+                    "ar_runtime", "ar_cache_storage", "original_s1_sha256"):
+            if baseline.get(key) != manifest.get(key):
+                parser.error("AR depth comparison changed shared decoder/runtime/original: " + key)
+        if (baseline.get("ar_layers") != 18 or manifest.get("ar_layers") != 17
+            or manifest.get("ar_runtime") != "int8_native"
+            or manifest.get("ar_cache_storage") != "exact_fp16"):
+            parser.error("This approved depth comparison requires native AR18 versus AR17")
     args.output.mkdir(parents=True, exist_ok=True)
     summary_file = args.output / "student_summary.json"
     if summary_file.exists():
@@ -152,10 +175,14 @@ def main():
     summary = {
         "scope": "Actual N1 original/student performance; user approval covers Korean listening only",
         "manifest_sha256": args.manifest_sha256,
-        "ar_selected_additional_step": manifest["ar_selected_additional_step"],
+        "ar_selected_additional_step": manifest.get("ar_selected_additional_step"),
         "decoder_selected_additional_step": manifest[
             "decoder_selected_additional_step"
         ],
+        "ar_training": manifest.get("ar_training"),
+        "ar_selected_step": manifest.get("ar_selected_step"),
+        "ar_recovery_updates": manifest.get("ar_recovery_updates"),
+        "ar_control_parent_updates": manifest.get("ar_control_parent_updates"),
         "prefetch_selection": "KO median RTF; retain 0 unless best hint improves at least 1%; provisional until independent verification",
         "cases": [],
     }
@@ -232,6 +259,7 @@ def main():
             if profile
             and not (
                 args.diagnostic_profile_only
+                or args.ar_depth_comparison
                 or args.decoder_candidate_label in ("U", "V")
                 or args.int8_prefill_comparison
                 or args.fft_output_tiles_comparison
@@ -444,6 +472,23 @@ def main():
                 for r in data["runs"]
             ),
         }
+        if args.ar_depth_comparison:
+            tokens = sum(int(r["index"]) for r in data["runs"][0]["semantic"])
+            audit = data["ar_coefficient_audit"]["matrices"]
+            blocks = sorted({int(r["block"]) for r in audit})
+            if blocks != list(range(run_manifest["ar_layers"])):
+                raise RuntimeError("Actual AR block audit does not match approved depth")
+            if not (row["local_approved_pcm_match"] and row["local_approved_generated_tokens_match"]
+                    and all(r["audio_seconds"] == run_cases[language]["audio_seconds"] for r in data["runs"])):
+                raise RuntimeError("AR comparison did not reproduce its own approved voice")
+            row.update({
+                "runtime_variant": "unchanged_native_W8A8_FP32_acoustics",
+                "generated_tokens": tokens,
+                "actual_ar_blocks": blocks,
+                "median_ar_seconds_per_generated_token": statistics.median(
+                    r["stages"]["ar_seconds"] / sum(int(x["index"]) for x in r["semantic"])
+                    for r in data["runs"]),
+            })
         if profile:
             summary["profile_run"] = row
         else:
@@ -474,6 +519,70 @@ def main():
         save()
         if not summary["student_assets_unchanged"]:
             raise RuntimeError("Private diagnostic assets changed")
+        return
+    if args.ar_depth_comparison:
+        summary["scope"] = (
+            "Actual N1 owner-approved AR18 V400 versus AR17 QAT200 same V400; "
+            "fresh processes, 3 warmups excluded per process, 5 AB/BA pairs. "
+            "Different approved token counts/audio lengths; RTF is not isolated layer compute gain."
+        )
+        summary["prefetch_selection"] = "No search; same native W8A8 AR and normal FP32 acoustics"
+        summary["comparison_order"] = []
+        samples = {"AR18_V400": [], "AR17_QAT200_V400": []}
+        for index in range(5):
+            order = list(samples) if index % 2 == 0 else list(reversed(samples))
+            for label in order:
+                data, row = run("ko", f"paired_{index}_{label}", distance=256,
+                    combined=True, ar_int8_only=True, measured_samples=1,
+                    baseline_bundle=label == "AR18_V400")
+                observed = data["runs"][0]
+                if samples[label] and any(
+                    observed[k] != samples[label][0][0][k]
+                    for k in ("semantic", "audio_seconds", "pcm_sha256")
+                ):
+                    raise RuntimeError("Same-model process changed approved tokens/duration/PCM")
+                samples[label].append((observed, row))
+                summary["comparison_order"].append({"round": index, "runtime": label, "name": row["name"]})
+                save()
+        summary["paired_aggregate"] = []
+        for label, records in samples.items():
+            summary["paired_aggregate"].append({
+                "runtime": label, "samples": 5,
+                "rtfs": [r[0]["rtf"] for r in records],
+                "median_rtf": statistics.median(r[0]["rtf"] for r in records),
+                "median_seconds": statistics.median(r[1]["median_seconds"] for r in records),
+                "median_cpu_seconds": statistics.median(r[0]["cpu_seconds"] for r in records),
+                "median_stages": {k: statistics.median(r[0]["stages"][k] for r in records)
+                                  for k in records[0][0]["stages"]},
+                "audio_seconds": records[0][0]["audio_seconds"],
+                "generated_tokens": records[0][1]["generated_tokens"],
+                "semantic": records[0][0]["semantic"],
+                "pcm_sha256": records[0][0]["pcm_sha256"],
+                "actual_ar_blocks": records[0][1]["actual_ar_blocks"],
+                "median_ar_seconds_per_generated_token": statistics.median(
+                    r[1]["median_ar_seconds_per_generated_token"] for r in records),
+                "median_decoder_seconds_per_audio_second": statistics.median(
+                    r[1]["median_decoder_seconds_per_audio_second"] for r in records),
+                "peak_sampled_tree_rss_bytes": max(r[1]["peak_sampled_tree_rss_bytes"] for r in records),
+            })
+        summary["excluded_profiles"] = []
+        for label in samples:
+            _, row = run("ko", f"{label}_profile_run", distance=256,
+                combined=True, ar_int8_only=True, profile=True,
+                baseline_bundle=label == "AR18_V400",
+                compare=args.output / f"ko_paired_4_{label}.wav")
+            if not row["candidate_pcm_exact_to_n1_student"]:
+                raise RuntimeError("Profile process changed approved same-model PCM")
+            # Each model keeps a distinct operator profile file.
+            (args.output / "ko_student_profile_ops.json").rename(
+                args.output / f"ko_{label}_profile_ops.json")
+            summary["excluded_profiles"].append(row)
+        summary["student_assets_unchanged"] = (
+            before == snapshot(args.manifest) and baseline_before == snapshot(args.baseline_manifest))
+        summary["complete"] = True
+        save()
+        if not summary["student_assets_unchanged"]:
+            raise RuntimeError("AR depth comparison changed private assets")
         return
     if args.alternating_decoder_comparison or runtime_comparison:
         candidate_label = (

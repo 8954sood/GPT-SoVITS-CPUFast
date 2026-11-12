@@ -377,3 +377,75 @@ def test_decoder_comparison_rejects_different_ar_before_inference(
     monkeypatch.setattr(run_student_matrix.subprocess, "run", forbidden)
     with pytest.raises(SystemExit):
         run_student_matrix.main()
+
+
+@pytest.mark.parametrize("corruption", [None, "decoder", "pcm", "blocks"])
+def test_ar_depth_separates_approved_lengths_and_guards(monkeypatch, tmp_path, corruption):
+    paths = [synthetic_bundle(tmp_path / "baseline", "V", "exact_fp16"),
+             synthetic_bundle(tmp_path / "candidate", "AR17_QAT200_V400", "exact_fp16")]
+    shared_decoder = (paths[0].parent / "decoder.pt").read_bytes()
+    for index, path in enumerate(paths):
+        (path.parent / "decoder.pt").write_bytes(shared_decoder)
+        data = json.loads(path.read_text())
+        data.update(ar_layers=18-index, ar_runtime="int8_native",
+                    runtime_implementation={"path": "experiments/student/synthetic.py", "sha256": "a"*64})
+        data["files"]["decoder.pt"] = {"bytes": len(shared_decoder), "sha256": sha256(path.parent / "decoder.pt")}
+        data.pop("ar_selected_additional_step")  # New model training metadata is independent.
+        for case in data["listening_report"]["cases"]:
+            case.update(audio_seconds=1.0+index, pcm_sha256=f"pcm{index}",
+                        semantic=[{"tokens": index+1, "sha256": f"semantic{index}"}])
+        path.write_text(json.dumps(data))
+    if corruption == "decoder":
+        path = paths[1]
+        (path.parent / "decoder.pt").write_text("different")
+        data = json.loads(path.read_text())
+        data["files"]["decoder.pt"] = {"bytes": 9, "sha256": sha256(path.parent / "decoder.pt")}
+        path.write_text(json.dumps(data))
+    output = tmp_path / "output"
+    monkeypatch.setattr(sys, "argv", ["matrix", "--ar-depth-comparison", "--warmups", "3", "--samples", "5",
+        "--manifest", str(paths[1]), "--manifest-sha256", sha256(paths[1]),
+        "--baseline-manifest", str(paths[0]), "--baseline-manifest-sha256", sha256(paths[0]),
+        "--output", str(output)])
+    calls = []
+    def execute(command, check):
+        assert check and corruption != "decoder"
+        calls.append(command)
+        value = lambda key: command[command.index(key)+1]
+        manifest = json.loads(Path(value("--student-manifest")).read_text())
+        index = 18-manifest["ar_layers"]
+        assert value("--warmups") == "3" and value("--samples") == "1"
+        assert "--ar-int8-only" in command and "--fft-half-products" not in command
+        file = Path(value("--output"))
+        data = {"checkpoint_files_unchanged": True, "parameters_unchanged": True,
+            "ar_parameters_unchanged": True, "student_files_unchanged": True,
+            "approximate_ar_int8_only": True, "experimental_options": {"fast_experimental": False},
+            "fp16_acoustic_modules": 0, "model_variant": manifest["model_variant"],
+            "median_rtf": 1.2, "median_seconds": 1.2*(1+index),
+            "cgroup": {"cpu.max": "200000 100000", "memory.max": "8000000000", "memory.swap.max": "0"},
+            "ar_coefficient_audit": {"matrices": [{"block": b} for b in range(manifest["ar_layers"]-(corruption == "blocks"))]},
+            "runs": [{"rtf": 1.2, "cpu_seconds": 2., "audio_seconds": float(1+index),
+                "stages": {"ar_seconds": .5, "dec_seconds": .6},
+                "pcm_sha256": "bad" if corruption == "pcm" else f"pcm{index}",
+                "semantic": [{"index": 1+index, "generated_sha256": f"semantic{index}"}],
+                "comparison": {"exact": True}}]}
+        file.write_text(json.dumps(data))
+        file.with_suffix(".wav").write_bytes(b"wav")
+        Path(value("--report")).write_text(json.dumps({"exit_code": 0, "peak_sampled_tree_rss_bytes": 100}))
+        if "--profile-output" in command:
+            Path(value("--profile-output")).write_text("{}")
+    monkeypatch.setattr(run_student_matrix.subprocess, "run", execute)
+    if corruption:
+        with pytest.raises(SystemExit if corruption == "decoder" else RuntimeError):
+            run_student_matrix.main()
+        assert len(calls) == (0 if corruption == "decoder" else 1)
+        return
+    run_student_matrix.main()
+    summary = json.loads((output / "student_summary.json").read_text())
+    assert len(calls) == 12 and summary["complete"] and summary["student_assets_unchanged"]
+    assert [r["runtime"] for r in summary["comparison_order"]] == [
+        "AR18_V400", "AR17_QAT200_V400", "AR17_QAT200_V400", "AR18_V400",
+        "AR18_V400", "AR17_QAT200_V400", "AR17_QAT200_V400", "AR18_V400", "AR18_V400", "AR17_QAT200_V400"]
+    assert [r["audio_seconds"] for r in summary["paired_aggregate"]] == [1., 2.]
+    assert [r["generated_tokens"] for r in summary["paired_aggregate"]] == [1, 2]
+    assert [r["median_ar_seconds_per_generated_token"] for r in summary["paired_aggregate"]] == [.5, .25]
+    assert len(summary["excluded_profiles"]) == 2

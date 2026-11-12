@@ -1,0 +1,48 @@
+{
+  "model_variant": "AR17_QAT200_V400",
+  "quality_approved": true,
+  "feedback": "음질 괜찮음, AR17도 RTF 측정",
+  "scope": "Owner-approved Korean same-reference/text/seed AR17 QAT200 + original V400. JA/EN synthesis checks only; no broad language/voice approval.",
+  "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+  "parent_manifest_sha256": "def34d8555ea01c87091547fccbd27aa8a3bd33e8b6bbebb0df62095004c5d7c",
+  "files": {
+    "ar.pt": {
+      "bytes": 219381787,
+      "sha256": "a25ae9826d4d608ca41adca04075ff75a5ac66ababa0e823da60b7990f354352"
+    },
+    "decoder.pt": {
+      "bytes": 91304833,
+      "sha256": "7d4c184c638b09880a7e61b088b999542598644d22166e84e32137c5649b9524"
+    },
+    "student_spec.json": {
+      "bytes": 33892,
+      "sha256": "9348c090eff2f00f82eceada445ed6e090d375c55ee77a091d18ff19e4f2a7a2"
+    }
+  },
+  "ar_layers": 17,
+  "ar_runtime": "int8_native",
+  "ar_cache_storage": "exact_fp16",
+  "runtime_implementation": {
+    "path": "experiments/student/listen_bottleneck_decoder.py",
+    "sha256": "1c232283c860f9304d31646639e14f89a75fdb75c9800aac1d16d6c768a4c9cc"
+  },
+  "reference_sha256": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+  "original_s2_sha256": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+  "korean_case": {
+    "language": "ko",
+    "text": "오늘은 날씨가 참 좋네요. 잠깐 쉬었다가 함께 이야기를 이어 가요.",
+    "sample_rate": 32000,
+    "audio_seconds": 5.62,
+    "smoke_elapsed_seconds": 12.622875437140465,
+    "semantic": [
+      {
+        "tokens": 133,
+        "sha256": "96f1ed9a0a60ec22fd8466d372e3132d365c8d855fa2332c64009f6f028573d1"
+      }
+    ],
+    "pcm_sha256": "2d7691a829c0f793796be37c9a1287a88497ea41dcd1328729333c6b0ec0e83e"
+  },
+  "listening_source_sha": "73780c6820b0832ce0765ca80e14a780b17c0490",
+  "actual_n1_measured": false,
+  "heldout_kl_worse_than_ar18": true
+}
