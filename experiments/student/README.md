@@ -113,3 +113,13 @@ V2의 다음 확장 실험은 다음과 같습니다.
 Torch SDPA 교체(M), temporal tap tiling, 명시적 im2col+SGEMM은 실제 서버에서 총 지연 개선을 얻지 못했습니다. 디코더 폭640(N)은 품질 저하로 거부됐습니다. 폭672(O)는 학습 문맥에서 빠진 채널의 기여를 retained input weight에 보정한 뒤200회 후학습해 검증 log-mel0.353449→0.194747을 얻었지만 역시 사용자 청취에서 거부됐습니다. N/O는 실제 N1에 보내지 않으며 중요 모델 HF 백업 대상으로도 채택하지 않습니다. O는 구조를 유지한 별도 추가200회 회복 실험을 진행합니다. 폭과 초기화가 함께 달라졌으므로 N 대비 오차 차이 전부를 보정 초기화의 효과라고 해석하지 않습니다.
 
 P는 K 모델 파일과 L AR 실행을 유지하고 큰 FFT 컨볼루션의 spectral product 입력/파생 계수/누산만 FP16으로 바꾼 실행 후보입니다. rFFT/iFFT와 다른 acoustic 연산은 FP32이며 원본 FP32 파라미터는 그대로입니다. 한국어 청취에서 사용 가능으로 승인됐고, 공통 helper로 옮긴 뒤에도 승인 음성과 PCM/token/길이가 같습니다. 실제 N1의 L/P3warmup+5sample 결과는 RTF1.16173→1.13344,5.8319초→5.6899초입니다. 같은 AR 단계가7.4% 변동하고 디코더는0.83%만 줄어 안정적 성능 이득으로 확정하지 않습니다. sampled tree peak RSS도5.059GB→6.371GB로 늘었으며, 아직 목표 미달입니다. `results/n1_student_p_20261112/`에 원시 결과를 보존합니다. 승인 provenance는 `results/student_pilot/approved_p_runtime.json`에 고정합니다.
+
+## SOL Pro 제안 기반 pair 내부 bottleneck (로컬 연구 브랜치)
+
+새 첫 후보는 승인 L을 기준으로 AR18·W8A8 decode·native FP32 attention과 K12분기를 유지합니다. Generator의768/384/192/96/48/24폭, 업샘플링, 잔차 연결, 마지막C24 및 conv_post는 그대로입니다. C48/K11의 원본branch2 내부pair1(dilation3),pair2(dilation5)만48→36→48로 바꿉니다. Conv1 출력/편향과 Conv2 입력의 같은 원본 채널을 실제로 선택하며 새1×1 projection이나 마스크는 없습니다. 원본 모델은 변경하지 않습니다.
+
+`init_bottleneck_decoder.py`는 기존JA/KO/EN 학습 문맥 각1개에서 Conv2에 실제로 들어가는 활성 RMS×소비 가중치 norm으로 내부 채널을 선정합니다. 같은 학습 데이터의 ridge covariance로 빠진 입력의 예측 가능한 기여를 Conv2 초기 가중치에 접어 넣으며 추론 연산은 추가하지 않습니다. 최종 청취/검증 문장은 선택에 쓰지 않습니다. `student_runtime.StudentGenerator`의 bottlenecks 옵션은 모든 위치/형상을 먼저 검증하고 선택 블록만 복사하므로 부모 가중치와 모듈 목록이 유지됩니다.
+
+`collect_student_contexts.py`로 기존36문장을 승인 L AR의 자유 생성으로 다시 수집했습니다. 해당AR18 logit은 원본AR24 교사 자료로 사용하지 않습니다. `combine_decoder_contexts.py`는 기존 원본AR 자료A와 새L AR 자료B의 디코더 교사가 완전히 같은지 확인하고60학습/12검증으로 합칩니다. 두 종류 모두 정확히 같은 latent와speaker conditioning을 원본V2 디코더와 학생에게 입력합니다. 학습은 기존 log-mel +.25log-STFT +.5spectral +.5stage feature에, 선택한 Conv쌍의 잔차 합산 후 원래C채널 경계 손실.25를 더합니다. 내부36채널을 원본48채널에 직접 정렬하지 않습니다. 모든 경계 특징은 clone하며 학습 forward는 배포 forward와 정확히 같은 파형을 내는 테스트를 통과했습니다.
+
+구조 매핑·경계/시간 길이·원본 불변·유한한gradient·재로딩을 포함한 호스트45개 테스트가 통과했습니다(ARM전용14개는 호스트에서 제외). `capture_decoder_replay.py`가 실제K의 한·일·영 학습 문맥 블록 입력/가중치를 보존하며, 이는 단순 무작위 텐서 대신 직사각형 커널의 연속 블록 검증에 사용합니다. Mac 학습과 같은 물리적 자원에서 성능 측정을 겹치지 않습니다. 새 학생의 청취 승인과 실제N1 측정 전에는 속도/품질 성공을 주장하지 않습니다. 기준과 수집/초기화 provenance는 `results/student_pilot/bottleneck*.json`에 있습니다. 새 모델/기본 경로 교체와 원격 push는 사용자 승인 범위 안에서만 진행합니다.
