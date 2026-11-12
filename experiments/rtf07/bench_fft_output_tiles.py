@@ -64,7 +64,7 @@ def main():
             for chunk in (1, min(4, groups), groups):
                 expected = baseline(x, w, batch, blocks)
                 actual = candidate(x, w, batch, blocks, chunk)
-                if not torch.equal(actual, expected):
+                if not torch.equal(actual.view(torch.int32), expected.view(torch.int32)):
                     raise AssertionError("FP32 output tiling changed exact values")
                 report["correctness"].append({
                     "batch": batch, "blocks": blocks, "k": k, "groups": groups,
@@ -89,7 +89,10 @@ def main():
             "baseline": lambda: baseline(x, w, 1, blocks),
             "output_tile4": lambda: candidate(x, w, 1, blocks, 4),
         }
-        assert torch.equal(functions["baseline"](), functions["output_tile4"]())
+        assert torch.equal(
+            functions["baseline"]().view(torch.int32),
+            functions["output_tile4"]().view(torch.int32),
+        )
         for call in functions.values():
             for _ in range(3):
                 call()

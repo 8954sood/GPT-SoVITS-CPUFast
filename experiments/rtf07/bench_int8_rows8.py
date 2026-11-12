@@ -38,7 +38,10 @@ def main():
             originals = [t.clone() for t in (x, w, s, bias)]
             for threads in (1, 2):
                 torch.set_num_threads(threads)
-                assert torch.equal(baseline(x, w, s, bias), candidate(x, w, s, bias))
+                assert torch.equal(
+                    baseline(x, w, s, bias).view(torch.int32),
+                    candidate(x, w, s, bias).view(torch.int32),
+                )
                 report["correctness"].append({"n": n, "k": k, "factor": factor,
                                               "threads": threads, "bitwise_equal": True})
             assert all(torch.equal(a, b) for a, b in zip((x, w, s, bias), originals))
