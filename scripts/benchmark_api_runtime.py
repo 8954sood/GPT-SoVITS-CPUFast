@@ -34,6 +34,7 @@ def main():
     p.add_argument('--runs', type=int, default=3)
     p.add_argument('--profile', action='store_true')
     p.add_argument('--tap-finish', action='store_true')
+    p.add_argument('--script-ar',action='store_true')
     p.add_argument('--int8-probe',choices=('none','quant-neon','ffn2-rows8'),default='none')
     p.add_argument('--int8-probe-library',type=Path)
     p.add_argument('--expected-wait-policy')
@@ -53,6 +54,21 @@ def main():
     inputs_before = {'s2':sha256(args.s2), 'reference':sha256(args.reference)}
     engine = Engine(SimpleNamespace(manifest=args.manifest, manifest_sha256=APPROVED_MANIFEST_SHA256,
         s2=args.s2, hubert=args.hubert, threads=args.threads, ar_threads=args.ar_threads))
+    script_ar_audit=None
+    if args.script_ar:
+        original=engine.pipeline.t2s_model.model.t2s_transformer
+        before_versions=engine._current_versions()
+        begin=time.perf_counter()
+        compiled=torch.jit.script(original)
+        script_ar_audit={'constructor_seconds':time.perf_counter()-begin,
+            'original_type':str(type(original)),'compiled_type':str(type(compiled)),
+            'original_decode_has_python_code':hasattr(original.decode_next_token,'__code__'),
+            'compiled_decode_has_python_code':hasattr(compiled.decode_next_token,'__code__'),
+            'decode_graph':str(compiled.decode_next_token.graph)}
+        engine.pipeline.t2s_model.model.t2s_transformer=compiled
+        assert before_versions==engine._current_versions()
+        assert not script_ar_audit['compiled_decode_has_python_code']
+        script_ar_audit['all_authoritative_parameter_pointers_versions_unchanged']=True
     probe_audit=None
     if args.int8_probe!='none':
         if args.int8_probe_library is None:p.error('Explicit probe library required')
@@ -103,7 +119,10 @@ def main():
             finally:diagnostic['ar_prefill_seconds']=diagnostic.get('ar_prefill_seconds',0.)+time.perf_counter()-begin
         def decode_next_token(self,*a,**kw):
             begin=time.perf_counter()
-            try:return transformer.decode_next_token(*a,**kw)
+            try:
+                result=transformer.decode_next_token(*a,**kw)
+                diagnostic['ar_decode_calls']=diagnostic.get('ar_decode_calls',0)+1
+                return result
             finally:diagnostic['ar_decode_seconds']=diagnostic.get('ar_decode_seconds',0.)+time.perf_counter()-begin
     engine.pipeline.t2s_model.model.t2s_transformer=TransformerProbe()
     timed(engine.pipeline,'empty_cache','empty_cache_seconds')
@@ -171,7 +190,7 @@ def main():
         cgroup=cgroup,all_expected_pcm_match=all(r['expected_native_and_wire_pcm_match'] for r in rows),observations=rows,excluded_profile=profile,tap_finish_audit=tap_audit,
         loaded_openmp_libraries=sorted({line.split()[-1] for line in Path('/proc/self/maps').read_text().splitlines() if 'libgomp' in line}),
         process_threads=len(list(Path('/proc/self/task').iterdir())),torch_parallel_info=torch.__config__.parallel_info(),
-        int8_probe=probe_audit,model_files_unchanged=True,original_inputs_unchanged=True,native_files_unchanged=True,
+        script_ar=script_ar_audit,int8_probe=probe_audit,model_files_unchanged=True,original_inputs_unchanged=True,native_files_unchanged=True,
         native_files_sha256=native_after,model_input_sha256=engine.input_sha256,
         runtime_source_sha256=engine.source_sha256,manifest_sha256=APPROVED_MANIFEST_SHA256)
     args.output.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
