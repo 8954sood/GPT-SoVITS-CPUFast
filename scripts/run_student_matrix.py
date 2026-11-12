@@ -641,6 +641,8 @@ def main():
                 "scheduling; fresh counterbalanced processes, unchanged weights/AR arithmetic/FP32 acoustics"
             )
             summary["prefetch_selection"] = "No tuning; only dim32 weighted-value accumulation schedule changes"
+            summary["baseline_model_variant"] = manifest["model_variant"]
+            summary["runtime_label_note"] = "L denotes unchanged runtime here, not the earlier L decoder model"
         samples = {"L": [], candidate_label: []}
         last_candidate = None
         reference = None
