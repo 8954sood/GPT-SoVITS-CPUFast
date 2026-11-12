@@ -1,0 +1,55 @@
+{
+  "checked_unix_time": 1794497873.5222929,
+  "active_benchmark_containers": [],
+  "host_lock_available": true,
+  "image_id": "sha256:23eb9b78c3c75319c99172766f94bba4faa8cffe05f8765ce4b33a3c34bb989b",
+  "installed_HTTP_addons_in_disposable_target_only": {
+    "annotated-doc": "0.0.6",
+    "pydantic": "2.10.6",
+    "anyio": "4.16.0",
+    "typing_extensions": "4.16.0",
+    "idna": "3.20",
+    "click": "8.5.1",
+    "typing-inspection": "0.4.5",
+    "python-multipart": "0.0.33",
+    "httpx": "0.28.1",
+    "httpcore": "1.0.9",
+    "opentelemetry-api": "1.45.2",
+    "h11": "0.16.0",
+    "certifi": "2026.10.23",
+    "annotated-types": "0.8.0",
+    "starlette": "0.52.1",
+    "fastapi": "0.162.2",
+    "uvicorn": "0.54.0",
+    "pydantic_core": "2.27.2"
+  },
+  "native_files_after": {
+    "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19",
+    "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0"
+  },
+  "student_files_after": {
+    "ar.pt": "a25ae9826d4d608ca41adca04075ff75a5ac66ababa0e823da60b7990f354352",
+    "decoder.pt": "afac9da039331cb1a8511d709998396a28ffc29469ba092fda3c7fc823d0ab11",
+    "student_spec.json": "3a6550930e73dafadd07a9fdbe79a4e00fe7a55e1bfcd370ff237d0da074dc69"
+  },
+  "original_inputs_after": {
+    "s2": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+    "reference": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839"
+  },
+  "all_hashes_match_approved_or_backend_startup": true,
+  "HTTP_server_logs": {
+    "http-server-2.log": {
+      "sha256": "d016b1131c4e4e365bc0d3de303edde7e3e2286b8df8fa1568402e0f221c35f5",
+      "graceful_shutdown_logged": true
+    },
+    "http-server-1.log": {
+      "sha256": "a3729211fdf32e880f386e8eb9989bd7b4bcc43e0d4eea8bef5a02480144f59e",
+      "graceful_shutdown_logged": true
+    }
+  },
+  "all_model_processes_sequential_and_stopped": true,
+  "public_host_port_opened": false,
+  "deployed": false
+}

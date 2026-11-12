@@ -1,0 +1,513 @@
+{
+  "scope": "Temporary loopback-only actual N1 HTTP contract and persistent prepared-reference restart, not a deployment or new paired RTF experiment",
+  "server_processes_sequential": true,
+  "bind": "127.0.0.1",
+  "docker_host_port_published": false,
+  "streams": [
+    {
+      "latency_mode": "fast",
+      "status": 200,
+      "bytes": 487680,
+      "pcm48k_sha256": "23fb33fc18e04d63d9eab28910d32c3369a65bcd8c1922df2e4f65fede707706",
+      "headers": {
+        "x-audio-sample-rate": "48000",
+        "x-audio-channels": "1",
+        "x-audio-format": "s16le",
+        "x-style-id": "c6077985d4b742cbb663ed814c7aa90d",
+        "x-latency-mode": "fast",
+        "x-latency-mode-effective": "fixed_approved_model",
+        "x-first-audio-samples": "98880",
+        "x-stream-segments": "2",
+        "x-request-id": "39556cdbb8254c3abc744a904075ba31",
+        "x-time-to-first-audio-ms": "2395.754",
+        "x-accel-buffering": "no"
+      }
+    },
+    {
+      "latency_mode": "quality",
+      "status": 200,
+      "bytes": 487680,
+      "pcm48k_sha256": "23fb33fc18e04d63d9eab28910d32c3369a65bcd8c1922df2e4f65fede707706",
+      "headers": {
+        "x-audio-sample-rate": "48000",
+        "x-audio-channels": "1",
+        "x-audio-format": "s16le",
+        "x-style-id": "c6077985d4b742cbb663ed814c7aa90d",
+        "x-latency-mode": "quality",
+        "x-latency-mode-effective": "fixed_approved_model",
+        "x-first-audio-samples": "98880",
+        "x-stream-segments": "2",
+        "x-request-id": "fa310f3db78d41939c870cedb7c2ff6a",
+        "x-time-to-first-audio-ms": "2326.548",
+        "x-accel-buffering": "no"
+      }
+    },
+    {
+      "latency_mode": "balanced",
+      "status": 200,
+      "bytes": 487680,
+      "pcm48k_sha256": "23fb33fc18e04d63d9eab28910d32c3369a65bcd8c1922df2e4f65fede707706",
+      "headers": {
+        "x-audio-sample-rate": "48000",
+        "x-audio-channels": "1",
+        "x-audio-format": "s16le",
+        "x-style-id": "c6077985d4b742cbb663ed814c7aa90d",
+        "x-latency-mode": "balanced",
+        "x-latency-mode-effective": "fixed_approved_model",
+        "x-first-audio-samples": "98880",
+        "x-stream-segments": "2",
+        "x-request-id": "52e8464c60ea481ea5e6ea3c05ee135c",
+        "x-time-to-first-audio-ms": "2228.189",
+        "x-accel-buffering": "no"
+      }
+    }
+  ],
+  "registration_status": 201,
+  "style_id": "c6077985d4b742cbb663ed814c7aa90d",
+  "busy_health_observed": true,
+  "busy_second_request_status": 429,
+  "first_process_health_after": {
+    "ready": true,
+    "busy": false,
+    "styles": 1,
+    "cache_bytes": 1489518,
+    "preloaded_from_disk": 0,
+    "rebuilt_on_startup": 0,
+    "steps": null,
+    "cfg": null,
+    "acoustic_threads": 2,
+    "ar_threads": 2,
+    "streaming": "sentence_fragments",
+    "default_latency_mode": "fast",
+    "cfm_backend": null,
+    "native_gelu": false,
+    "cached_rotary": false,
+    "arm_extreme": false,
+    "arm_profile": null,
+    "upstream_revision": null,
+    "model_variant": "AR17_QAT200_C24_TWO_BRANCH_VTARGET100",
+    "model_manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+    "native_sample_rate": 32000,
+    "output_sample_rate": 48000,
+    "latency_mode_effect": "fixed_approved_model"
+  },
+  "restart_health": {
+    "ready": true,
+    "busy": false,
+    "styles": 1,
+    "cache_bytes": 1489518,
+    "preloaded_from_disk": 1,
+    "rebuilt_on_startup": 0,
+    "steps": null,
+    "cfg": null,
+    "acoustic_threads": 2,
+    "ar_threads": 2,
+    "streaming": "sentence_fragments",
+    "default_latency_mode": "fast",
+    "cfm_backend": null,
+    "native_gelu": false,
+    "cached_rotary": false,
+    "arm_extreme": false,
+    "arm_profile": null,
+    "upstream_revision": null,
+    "model_variant": "AR17_QAT200_C24_TWO_BRANCH_VTARGET100",
+    "model_manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+    "native_sample_rate": 32000,
+    "output_sample_rate": 48000,
+    "latency_mode_effect": "fixed_approved_model"
+  },
+  "unsupported_modes_rejected_422": true,
+  "delete_status": 204,
+  "final_health": {
+    "ready": true,
+    "busy": false,
+    "styles": 0,
+    "cache_bytes": 0,
+    "preloaded_from_disk": 1,
+    "rebuilt_on_startup": 0,
+    "steps": null,
+    "cfg": null,
+    "acoustic_threads": 2,
+    "ar_threads": 2,
+    "streaming": "sentence_fragments",
+    "default_latency_mode": "fast",
+    "cfm_backend": null,
+    "native_gelu": false,
+    "cached_rotary": false,
+    "arm_extreme": false,
+    "arm_profile": null,
+    "upstream_revision": null,
+    "model_variant": "AR17_QAT200_C24_TWO_BRANCH_VTARGET100",
+    "model_manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+    "native_sample_rate": 32000,
+    "output_sample_rate": 48000,
+    "latency_mode_effect": "fixed_approved_model"
+  },
+  "complete": true,
+  "all_temporary_server_processes_stopped": true,
+  "server_exit_codes": [
+    -15,
+    -15
+  ],
+  "cgroup": {
+    "cpu.max": "200000 100000",
+    "memory.max": "8000000000",
+    "memory.swap.max": "0"
+  },
+  "actual_stream_segment_reports": [
+    {
+      "request_id": "39556cdbb8254c3abc744a904075ba31",
+      "style_id": "c6077985d4b742cbb663ed814c7aa90d",
+      "first_audio_seconds": 2.3957535661756992,
+      "latency_mode": "fast",
+      "first_segment_timing": {
+        "sample_rate": 48000,
+        "native_sample_rate": 32000,
+        "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+        "native_samples": 65920,
+        "wire_samples": 98880,
+        "audio_seconds": 2.06,
+        "native_inference_seconds": 2.3795276675373316,
+        "total_seconds": 2.3950944393873215,
+        "rtf": 1.1626672035860783,
+        "semantic": [
+          {
+            "tokens": 44,
+            "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+          }
+        ],
+        "semantic_tokens": 44,
+        "ar_seconds": 0.9756570272147655,
+        "seed": 42,
+        "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+        "engine_fingerprint": "c58a1982700f882b112c789f4a8c849f618d6c773e14516fa9982876951d68e4",
+        "actual_ar_blocks": 17,
+        "actual_decoder_residual_blocks": 11,
+        "model_parameter_versions_unchanged": true,
+        "native_files_sha256": {
+          "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+          "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+          "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+          "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+        },
+        "reference_preprocessing_on_request": false,
+        "approved_request_pcm_match": null,
+        "streaming": "sentence_fragments",
+        "cfm": false,
+        "latency_profile": "fixed_approved_C24"
+      },
+      "segment_timings": [
+        {
+          "sample_rate": 48000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 98880,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 2.3795276675373316,
+          "total_seconds": 2.3950944393873215,
+          "rtf": 1.1626672035860783,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 0.9756570272147655,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "c58a1982700f882b112c789f4a8c849f618d6c773e14516fa9982876951d68e4",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24"
+        },
+        {
+          "sample_rate": 48000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 144960,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 3.262758957222104,
+          "total_seconds": 3.2708718236535788,
+          "rtf": 1.083070140282642,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 1.1590967737138271,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "c58a1982700f882b112c789f4a8c849f618d6c773e14516fa9982876951d68e4",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24"
+        }
+      ],
+      "completed_segments": 2,
+      "total_seconds": 5.720711566507816
+    },
+    {
+      "request_id": "fa310f3db78d41939c870cedb7c2ff6a",
+      "style_id": "c6077985d4b742cbb663ed814c7aa90d",
+      "first_audio_seconds": 2.326548019424081,
+      "latency_mode": "quality",
+      "first_segment_timing": {
+        "sample_rate": 48000,
+        "native_sample_rate": 32000,
+        "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+        "native_samples": 65920,
+        "wire_samples": 98880,
+        "audio_seconds": 2.06,
+        "native_inference_seconds": 2.3182237930595875,
+        "total_seconds": 2.3258211743086576,
+        "rtf": 1.1290394050042027,
+        "semantic": [
+          {
+            "tokens": 44,
+            "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+          }
+        ],
+        "semantic_tokens": 44,
+        "ar_seconds": 0.9152363985776901,
+        "seed": 42,
+        "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+        "engine_fingerprint": "c58a1982700f882b112c789f4a8c849f618d6c773e14516fa9982876951d68e4",
+        "actual_ar_blocks": 17,
+        "actual_decoder_residual_blocks": 11,
+        "model_parameter_versions_unchanged": true,
+        "native_files_sha256": {
+          "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+          "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+          "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+          "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+        },
+        "reference_preprocessing_on_request": false,
+        "approved_request_pcm_match": null,
+        "streaming": "sentence_fragments",
+        "cfm": false,
+        "latency_profile": "fixed_approved_C24"
+      },
+      "segment_timings": [
+        {
+          "sample_rate": 48000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 98880,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 2.3182237930595875,
+          "total_seconds": 2.3258211743086576,
+          "rtf": 1.1290394050042027,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 0.9152363985776901,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "c58a1982700f882b112c789f4a8c849f618d6c773e14516fa9982876951d68e4",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24"
+        },
+        {
+          "sample_rate": 48000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 144960,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 3.2496748864650726,
+          "total_seconds": 3.25773711130023,
+          "rtf": 1.078720897781533,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 1.178190054371953,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "c58a1982700f882b112c789f4a8c849f618d6c773e14516fa9982876951d68e4",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24"
+        }
+      ],
+      "completed_segments": 2,
+      "total_seconds": 5.599514104425907
+    },
+    {
+      "request_id": "52e8464c60ea481ea5e6ea3c05ee135c",
+      "style_id": "c6077985d4b742cbb663ed814c7aa90d",
+      "first_audio_seconds": 2.2281893510371447,
+      "latency_mode": "balanced",
+      "first_segment_timing": {
+        "sample_rate": 48000,
+        "native_sample_rate": 32000,
+        "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+        "native_samples": 65920,
+        "wire_samples": 98880,
+        "audio_seconds": 2.06,
+        "native_inference_seconds": 2.219464996829629,
+        "total_seconds": 2.227142620831728,
+        "rtf": 1.0811371945785087,
+        "semantic": [
+          {
+            "tokens": 44,
+            "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+          }
+        ],
+        "semantic_tokens": 44,
+        "ar_seconds": 0.8639994487166405,
+        "seed": 42,
+        "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+        "engine_fingerprint": "c58a1982700f882b112c789f4a8c849f618d6c773e14516fa9982876951d68e4",
+        "actual_ar_blocks": 17,
+        "actual_decoder_residual_blocks": 11,
+        "model_parameter_versions_unchanged": true,
+        "native_files_sha256": {
+          "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+          "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+          "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+          "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+        },
+        "reference_preprocessing_on_request": false,
+        "approved_request_pcm_match": null,
+        "streaming": "sentence_fragments",
+        "cfm": false,
+        "latency_profile": "fixed_approved_C24"
+      },
+      "segment_timings": [
+        {
+          "sample_rate": 48000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897",
+          "native_samples": 65920,
+          "wire_samples": 98880,
+          "audio_seconds": 2.06,
+          "native_inference_seconds": 2.219464996829629,
+          "total_seconds": 2.227142620831728,
+          "rtf": 1.0811371945785087,
+          "semantic": [
+            {
+              "tokens": 44,
+              "sha256": "bf00e88ed09e2067177d574ee40fd7ae87d5a2e71ac35dc27e8a307382ed1769"
+            }
+          ],
+          "semantic_tokens": 44,
+          "ar_seconds": 0.8639994487166405,
+          "seed": 42,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "c58a1982700f882b112c789f4a8c849f618d6c773e14516fa9982876951d68e4",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24"
+        },
+        {
+          "sample_rate": 48000,
+          "native_sample_rate": 32000,
+          "native_pcm_sha256": "719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a",
+          "native_samples": 96640,
+          "wire_samples": 144960,
+          "audio_seconds": 3.02,
+          "native_inference_seconds": 3.1877579633146524,
+          "total_seconds": 3.1957223135977983,
+          "rtf": 1.0581861965555623,
+          "semantic": [
+            {
+              "tokens": 68,
+              "sha256": "f6065ddb74ad55968561641cf57a9e60897939357529f6338f4d724c30f1eb6c"
+            }
+          ],
+          "semantic_tokens": 68,
+          "ar_seconds": 1.1510871071368456,
+          "seed": 43,
+          "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+          "engine_fingerprint": "c58a1982700f882b112c789f4a8c849f618d6c773e14516fa9982876951d68e4",
+          "actual_ar_blocks": 17,
+          "actual_decoder_residual_blocks": 11,
+          "model_parameter_versions_unchanged": true,
+          "native_files_sha256": {
+            "libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+            "libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+            "libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+            "libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+          },
+          "reference_preprocessing_on_request": false,
+          "approved_request_pcm_match": null,
+          "streaming": "sentence_fragments",
+          "cfm": false,
+          "latency_profile": "fixed_approved_C24"
+        }
+      ],
+      "completed_segments": 2,
+      "total_seconds": 5.426993407309055
+    }
+  ]
+}
