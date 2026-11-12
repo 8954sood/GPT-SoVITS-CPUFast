@@ -1,0 +1,38 @@
+{
+  "scope": "First training context per JA/KO/EN; diagnostic only, no quality/N1 speed claim",
+  "teacher_s2_sha256": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+  "corpus_manifest_sha256": "54c87e32dbba8277350b82279c8c9e872460fb55b8e4d6abe135c0096d60f98c",
+  "checkpoint_sha256": "af710a8f2e0d8e52b0a0d9085e56fe3ebbf5f2267c38470d8939953013de7296",
+  "checkpoint_unchanged": true,
+  "feature_weight": 0.5,
+  "rows": [
+    {
+      "language": "ja",
+      "context": "voice0_ja_0_decoder.pt",
+      "reconstruction": 0.5473812818527222,
+      "feature": 0.16066041588783264,
+      "gradient_cosine": 0.28629964602330715,
+      "feature_gradient_relative_norm_at_weight_half": 0.13160897026979781
+    },
+    {
+      "language": "ko",
+      "context": "voice0_ko_0_decoder.pt",
+      "reconstruction": 0.5759075880050659,
+      "feature": 0.15737637877464294,
+      "gradient_cosine": 0.3313435719887256,
+      "feature_gradient_relative_norm_at_weight_half": 0.12535058186149817
+    },
+    {
+      "language": "en",
+      "context": "voice0_en_0_decoder.pt",
+      "reconstruction": 0.5582679510116577,
+      "feature": 0.15770283341407776,
+      "gradient_cosine": 0.49471142423649817,
+      "feature_gradient_relative_norm_at_weight_half": 0.15299168649397243
+    }
+  ],
+  "executed_implementation_sha256": "2171c3f5e8d26e8bc34530271704df6bc5df0d7838b758c176a36ae15abc22ad",
+  "implementation_sha256": "900a9ce9f339c014052b170c9a9fb185fac5a89a3dd100ad23574cb3405396ea",
+  "post_execution_changes": "Only dict literal/import formatting; diagnostic arithmetic unchanged",
+  "interpretation": "On these three training contexts gradient directions have positive cosine; feature gradient at weight 0.5 is 12.5-15.3% of reconstruction gradient norm. This does not support feature-gradient domination/conflict as the primary observed problem. Not a general proof or quality result."
+}
