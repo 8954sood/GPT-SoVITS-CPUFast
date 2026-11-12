@@ -42,3 +42,7 @@ On [run 43131935673](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs
 ## FFT selection and AR cache
 
 [Run 43133005529](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43133005529) compared the two selected FFT sizes against tap. Tap/candidate medians were 1.5766/1.5911 and 1.5953/1.5709 across two sentences; mixed and noisy, so do not adopt based on these three samples. Semantic output matched; PCM changed by at most one unit. In the same run, exact-FP16 versus FP32 storage of the same coefficients produced bit-identical GEMV outputs. At two threads the FP32 cache improved all five synthetic matrix shapes by approximately 14–27%, motivating a full synthesis test. All arithmetic remains FP32; higher memory use and full-model performance remain to be checked. Results: `results/n1_fftcandidate_20261112`.
+
+## FP32 AR cache full synthesis
+
+[Run 43134001131](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43134001131) measured tap/FP32-cache RTF 1.5842/1.6892 and 1.5922/1.6967 on two sentences. AR time rose from about 4.09s to 4.70s for sentence 1, and output was PCM-exact. Target guard peaks were about 5.45GB. The cache-hot single-matrix probe did not predict full-model performance; do not adopt. Results: `results/n1_arcache_20261112`. Next probe traverses a synthetic 24-layer weight set to reflect model-scale cache pressure.

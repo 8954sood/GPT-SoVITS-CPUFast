@@ -10,8 +10,10 @@ static void gemv(const float* x, const void* data, const float* bias, float* y, 
   float32x4_t c00=vdupq_n_f32(0),c01=c00,c10=c00,c11=c00,c20=c00,c21=c00,c30=c00,c31=c00;
   for (int64_t i=0;i<k;i+=4) {
    if constexpr (PREFETCH>0) {
+    if (i+PREFETCH<k) {
     if constexpr (HALF) __builtin_prefetch(h+(i+PREFETCH)*8,0,1);
     else __builtin_prefetch(f+(i+PREFETCH)*8,0,1);
+    }
    }
    auto a=vld1q_f32(x+i);
 #define STEP(R) {float32x4_t w0,w1; if constexpr(HALF) {auto w=vld1q_f16(h+(i+R)*8);w0=vcvt_f32_f16(vget_low_f16(w));w1=vcvt_f32_f16(vget_high_f16(w));} else {w0=vld1q_f32(f+(i+R)*8);w1=vld1q_f32(f+(i+R)*8+4);} c##R##0=vfmaq_laneq_f32(c##R##0,w0,a,R);c##R##1=vfmaq_laneq_f32(c##R##1,w1,a,R);}

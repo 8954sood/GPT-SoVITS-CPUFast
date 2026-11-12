@@ -9,7 +9,7 @@ cpus=${4:-2}
 warmups=${5:-2}
 samples=${6:-3}
 mode=${7:-compare}
-[[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention || "$mode" == small || "$mode" == scheduling || "$mode" == packed48 || "$mode" == fft || "$mode" == fftcandidate || "$mode" == arcache ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
+[[ "$mode" == compare || "$mode" == diagnostics || "$mode" == attention || "$mode" == small || "$mode" == scheduling || "$mode" == packed48 || "$mode" == fft || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
 project="$bench_root/project"
 assets="$bench_root/cpufast-cefae22/assets/pretrained_models"
 reference="$bench_root/reference_ja_4s.wav"
@@ -48,6 +48,11 @@ common=(--engine --head-major --cook-phase --fft-layout --packed-fft --fused-fin
   --warmups "$warmups" --samples "$samples")
 texts=('今日は穏やかな天気ですね。少し休んでから、また一緒に続きを進めましょう。'
        '今日は新しい音声合成モデルを使って、声の雰囲気を確かめています。')
+if [[ "$mode" == prefetch ]]; then
+  run_container python resource_guard.py --report /repo/ci-results/ar_prefetch_guard.json -- \
+    python experiments/rtf07/bench_ar_prefetch.py --output /repo/ci-results/ar_prefetch.json
+  exit 0
+fi
 if [[ "$mode" == fft ]]; then
   run_container python resource_guard.py --report /repo/ci-results/fft_sizes_guard.json -- \
     python experiments/rtf07/bench_fft_sizes.py --output /repo/ci-results/fft_sizes.json
@@ -83,7 +88,7 @@ if [[ "$mode" == diagnostics ]]; then
 fi
 for index in 0 1; do
   number=$((index + 1))
-  if [[ "$mode" == attention || "$mode" == packed48 || "$mode" == fftcandidate || "$mode" == arcache ]]; then
+  if [[ "$mode" == attention || "$mode" == packed48 || "$mode" == fftcandidate || "$mode" == arcache || "$mode" == prefetch ]]; then
     candidate_flag=--native-attention
     if [[ "$mode" == packed48 ]]; then candidate_flag=--packed-small-48; fi
     if [[ "$mode" == fftcandidate ]]; then candidate_flag=--n1-fft-sizes; fi
