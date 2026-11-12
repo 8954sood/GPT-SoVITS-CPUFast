@@ -6,7 +6,10 @@
 #include <arm_neon.h>
 #include <cmath>
 #include <vector>
+#include <atomic>
+static std::atomic<int64_t> rows8_calls{0};
 static at::Tensor arq8(const at::Tensor& x,const at::Tensor& w,const at::Tensor& scales,const at::Tensor& bias){
+ rows8_calls.fetch_add(1,std::memory_order_relaxed);
  TORCH_CHECK(x.is_contiguous() && w.is_contiguous() && w.scalar_type()==at::kChar && w.dim()==2 && x.scalar_type()==at::kFloat && x.dim()>0 && w.size(0)>0 && w.size(1)>0 && x.size(-1)==w.size(1) && w.size(1)==x.numel() && w.size(1)%16==0,"bad input");
  int64_t n=w.size(0),k=w.size(1); const float* a=x.const_data_ptr<float>(); float maxv=0;
  TORCH_CHECK(x.device().is_cpu() && w.device().is_cpu() && scales.device().is_cpu() && bias.device().is_cpu() && scales.scalar_type()==at::kFloat && bias.scalar_type()==at::kFloat && scales.is_contiguous() && bias.is_contiguous() && scales.numel()==n && bias.numel()==n && n%8==0,"invalid int8 operands");
@@ -43,3 +46,11 @@ static at::Tensor arq8(const at::Tensor& x,const at::Tensor& w,const at::Tensor&
 }
 TORCH_LIBRARY_FRAGMENT(cpufast_cpp,m){m.def("int8_linear_rows8(Tensor x, Tensor w, Tensor scales, Tensor bias) -> Tensor");}
 TORCH_LIBRARY_IMPL(cpufast_cpp,CPU,m){m.impl("int8_linear_rows8",TORCH_FN(arq8));}
+TORCH_LIBRARY_FRAGMENT(cpufast_cpp,m){
+ m.def("int8_rows8_calls() -> int",[](){return rows8_calls.load(std::memory_order_relaxed);});
+}
+// Optional disposable-process substitution reaches the operator already used
+// by TorchScript. Nothing replaces the baseline DSO file or source on disk.
+#ifdef CPUFAST_REPLACE_INT8_ROWS8
+TORCH_LIBRARY_IMPL(cpufast_cpp,CPU,m){m.impl("int8_linear",TORCH_FN(arq8));}
+#endif

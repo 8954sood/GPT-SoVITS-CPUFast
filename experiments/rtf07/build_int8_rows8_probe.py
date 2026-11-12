@@ -25,6 +25,7 @@ def hashes():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--replace-runtime", action="store_true")
     args = parser.parse_args()
     if platform.system() != "Linux" or platform.machine() != "aarch64":
         parser.error("Use the Linux ARM64 kernel-build image")
@@ -41,6 +42,8 @@ def main():
         f"-D_GLIBCXX_USE_CXX11_ABI={int(torch._C._GLIBCXX_USE_CXX11_ABI)}",
     ]
     before = hashes()
+    if args.replace_runtime:
+        flags += ["-DCPUFAST_REPLACE_INT8_ROWS8=1"]
     command = ["c++", *flags]
     for path in include_paths():
         command += ["-I", path]
