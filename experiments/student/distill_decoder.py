@@ -4,6 +4,7 @@ import argparse
 import copy
 import hashlib
 import json
+import math
 import os
 import random
 import time
@@ -93,12 +94,17 @@ def main():
     parser.add_argument("--full-context", action="store_true")
     parser.add_argument("--log-mel", action="store_true")
     parser.add_argument("--validate-every", type=int, default=10)
+    parser.add_argument("--grad-accum", type=int, default=1)
+    parser.add_argument("--lr-final-ratio", type=float, default=1.0)
     args = parser.parse_args()
     if (
         args.output.exists()
         or not 1 <= args.steps <= 1000
         or args.crop < 8
         or args.validate_every < 1
+        or not 1 <= args.grad_accum <= 3
+        or not 0 <= args.lr_final_ratio <= 1
+        or args.lr <= 0
     ):
         parser.error("Fresh output and bounded pilot required")
     manifest = json.loads(args.manifest.read_text())
@@ -163,6 +169,8 @@ def main():
         "lr": args.lr,
         "device": "cpu",
         "dtype": "float32",
+        "grad_accum": args.grad_accum,
+        "lr_final_ratio": args.lr_final_ratio,
     }
     cache = {}
 
@@ -198,21 +206,31 @@ def main():
 
     for step in range(args.steps + 1):
         if step:
-            z, g, target, teacher_features = target_batch(
-                train[(step - 1) % len(train)], True
-            )
             optimizer.zero_grad(set_to_none=True)
-            audio, features = generate_with_features(student, z, g)
-            feature_loss = torch.stack(
-                [
-                    (a - b).abs().mean() / b.abs().mean().clamp_min(1e-5)
-                    for a, b in zip(features, teacher_features)
-                ]
-            ).mean()
-            loss = reconstruction(audio, target)[0] + 0.5 * feature_loss
-            if not torch.isfinite(loss):
-                raise RuntimeError("Nonfinite decoder loss")
-            loss.backward()
+            progress = (step - 1) / max(args.steps - 1, 1)
+            lr = args.lr * (
+                args.lr_final_ratio
+                + (1 - args.lr_final_ratio) * (1 + math.cos(math.pi * progress)) / 2
+            )
+            for group in optimizer.param_groups:
+                group["lr"] = lr
+            for micro in range(args.grad_accum):
+                z, g, target, teacher_features = target_batch(
+                    train[((step - 1) * args.grad_accum + micro) % len(train)], True
+                )
+                audio, features = generate_with_features(student, z, g)
+                feature_loss = torch.stack(
+                    [
+                        (a - b).abs().mean() / b.abs().mean().clamp_min(1e-5)
+                        for a, b in zip(features, teacher_features)
+                    ]
+                ).mean()
+                loss = (
+                    reconstruction(audio, target)[0] + 0.5 * feature_loss
+                ) / args.grad_accum
+                if not torch.isfinite(loss):
+                    raise RuntimeError("Nonfinite decoder loss")
+                loss.backward()
             torch.nn.utils.clip_grad_norm_(student.parameters(), 1.0)
             optimizer.step()
         if step % args.validate_every == 0 or step == args.steps:

@@ -1,0 +1,522 @@
+{
+  "scope": "CPU research. Actual N1 speed must be measured separately; approval limited to one Korean reference/text/seed. No default replacement.",
+  "primary_objective": "Reduce actual N1 RTF while preserving accepted listening quality; parameter count and validation losses are not speed outcomes.",
+  "experiments": {
+    "ar18_next": {
+      "history": {
+        "scope": "Teacher forcing only; no free-generation approval",
+        "train_contexts": 30,
+        "validation_contexts": 6,
+        "history": [
+          {
+            "step": 0,
+            "validation_kl": 0.11851215859254201,
+            "elapsed_seconds": 0.49411337496712804
+          },
+          {
+            "step": 25,
+            "validation_kl": 0.06667098713417847,
+            "elapsed_seconds": 10.803855458972976
+          },
+          {
+            "step": 50,
+            "validation_kl": 0.05792998398343722,
+            "elapsed_seconds": 21.188519208983053
+          },
+          {
+            "step": 75,
+            "validation_kl": 0.055103996147712074,
+            "elapsed_seconds": 31.242025709012523
+          },
+          {
+            "step": 100,
+            "validation_kl": 0.0527505191663901,
+            "elapsed_seconds": 41.53124083398143
+          },
+          {
+            "step": 125,
+            "validation_kl": 0.052305868516365685,
+            "elapsed_seconds": 51.79540070897201
+          },
+          {
+            "step": 150,
+            "validation_kl": 0.04980221018195152,
+            "elapsed_seconds": 62.33613491698634
+          },
+          {
+            "step": 175,
+            "validation_kl": 0.04868920395771662,
+            "elapsed_seconds": 72.90665474999696
+          },
+          {
+            "step": 200,
+            "validation_kl": 0.047989762698610626,
+            "elapsed_seconds": 83.62458320899168
+          },
+          {
+            "step": 225,
+            "validation_kl": 0.04750553953150908,
+            "elapsed_seconds": 94.38437904196326
+          },
+          {
+            "step": 250,
+            "validation_kl": 0.04714809668560823,
+            "elapsed_seconds": 105.2482880000025
+          },
+          {
+            "step": 275,
+            "validation_kl": 0.046881312504410744,
+            "elapsed_seconds": 115.29500816698419
+          },
+          {
+            "step": 300,
+            "validation_kl": 0.04667310789227486,
+            "elapsed_seconds": 125.80390458396869
+          },
+          {
+            "step": 325,
+            "validation_kl": 0.046524202451109886,
+            "elapsed_seconds": 136.39104212500388
+          },
+          {
+            "step": 350,
+            "validation_kl": 0.04640712837378184,
+            "elapsed_seconds": 146.50859154196223
+          },
+          {
+            "step": 375,
+            "validation_kl": 0.04631976659099261,
+            "elapsed_seconds": 156.12850941700162
+          },
+          {
+            "step": 400,
+            "validation_kl": 0.04624117041627566,
+            "elapsed_seconds": 166.21035962499445
+          }
+        ],
+        "provenance": {
+          "teacher_sha256": "87133414860ea14ff6620c483a3db5ed07b44be42e2c3fcdad65523a729a745a",
+          "manifest_sha256": "54c87e32dbba8277350b82279c8c9e872460fb55b8e4d6abe135c0096d60f98c",
+          "resume_sha256": "50f80c6ca875be0c7146097da974fe7ffb7c9b24f78399a7f92e0105f6a555b6",
+          "lr": 1e-05,
+          "temperature": 2.0,
+          "device": "cpu",
+          "dtype": "float32",
+          "grad_accum": 3,
+          "lr_final_ratio": 0.1
+        }
+      },
+      "host_observation": {
+        "command": [
+          "/Users/byungjun/Desktop/python/gpt-sovits-v5-optimization/.venv/bin/python",
+          "-u",
+          "experiments/student/distill_ar.py",
+          "--teacher",
+          "/Users/byungjun/Desktop/python/gpt-sovits-v5-optimization/models/s1v3.ckpt",
+          "--resume",
+          "/Users/byungjun/Desktop/python/GPT-SoVITS-CPUFast/.experiments/student/prune_g_bounded/ar18_initial.pt",
+          "--steps",
+          "400",
+          "--lr",
+          "0.00001",
+          "--output",
+          "/Users/byungjun/Desktop/python/GPT-SoVITS-CPUFast/.experiments/student/ar18_next",
+          "--spec",
+          "/Users/byungjun/Desktop/python/GPT-SoVITS-CPUFast/.experiments/student/prune_g_bounded/student_spec.json",
+          "--manifest",
+          "/Users/byungjun/Desktop/python/GPT-SoVITS-CPUFast/.experiments/student/recovery_corpus36_retry/manifest.json",
+          "--threads",
+          "8",
+          "--validate-every",
+          "25",
+          "--grad-accum",
+          "3",
+          "--lr-final-ratio",
+          "0.1"
+        ],
+        "platform": "Darwin",
+        "machine": "arm64",
+        "device_policy": "CPU only; train script rejects GPU/MPS parameters",
+        "cpu_quota_cores": null,
+        "memory_limit_bytes": null,
+        "scope": "unrestricted host training observation; not an inference RTF benchmark",
+        "logical_cpus": 14,
+        "physical_ram_bytes": 38654705664,
+        "peak_sampled_tree_rss_bytes": 2498969600,
+        "cpu_seconds": 487.73435392,
+        "elapsed_seconds": 171.079304917017,
+        "average_cpu_cores": 2.8509255059025307,
+        "exit_code": 0,
+        "status": "complete"
+      },
+      "selected_validation": {
+        "step": 400,
+        "validation_kl": 0.04624117041627566,
+        "elapsed_seconds": 166.21035962499445
+      },
+      "selected_checkpoint": {
+        "sha256": "e541bd9d718bbe6c9b7948fbd3cdf232c6d48f8e5c2403ae0101b1ecfce200a0",
+        "bytes": 231990145
+      },
+      "quality_approved": false
+    },
+    "ar18_features": {
+      "history": {
+        "scope": "Teacher forcing only; no free-generation approval",
+        "train_contexts": 30,
+        "validation_contexts": 6,
+        "history": [
+          {
+            "step": 0,
+            "validation_kl": 0.04624117041627566,
+            "validation_feature": 0.019814363370339077,
+            "validation_objective": 0.04822260675330957,
+            "elapsed_seconds": 0.5626028749975376
+          },
+          {
+            "step": 25,
+            "validation_kl": 0.04580851892630259,
+            "validation_feature": 0.018023500839869182,
+            "validation_objective": 0.047610869010289505,
+            "elapsed_seconds": 10.804352459032089
+          },
+          {
+            "step": 50,
+            "validation_kl": 0.04525149427354336,
+            "validation_feature": 0.017342526155213516,
+            "validation_objective": 0.04698574688906471,
+            "elapsed_seconds": 21.674799417029135
+          },
+          {
+            "step": 75,
+            "validation_kl": 0.04533089138567448,
+            "validation_feature": 0.01684490777552128,
+            "validation_objective": 0.04701538216322661,
+            "elapsed_seconds": 31.743799625022803
+          },
+          {
+            "step": 100,
+            "validation_kl": 0.04530288216968378,
+            "validation_feature": 0.016499212787797052,
+            "validation_objective": 0.04695280344846348,
+            "elapsed_seconds": 41.43438487499952
+          },
+          {
+            "step": 125,
+            "validation_kl": 0.04484521970152855,
+            "validation_feature": 0.016142698470503092,
+            "validation_objective": 0.046459489548578856,
+            "elapsed_seconds": 52.362604708992876
+          },
+          {
+            "step": 150,
+            "validation_kl": 0.04416044677297274,
+            "validation_feature": 0.015876472151527803,
+            "validation_objective": 0.04574809398812552,
+            "elapsed_seconds": 62.6425258340314
+          },
+          {
+            "step": 175,
+            "validation_kl": 0.04402874348064264,
+            "validation_feature": 0.015649429832895596,
+            "validation_objective": 0.0455936864639322,
+            "elapsed_seconds": 73.37841212499188
+          },
+          {
+            "step": 200,
+            "validation_kl": 0.0438893586397171,
+            "validation_feature": 0.015450880397111177,
+            "validation_objective": 0.04543444667942822,
+            "elapsed_seconds": 84.27035987499403
+          },
+          {
+            "step": 225,
+            "validation_kl": 0.04376574046909809,
+            "validation_feature": 0.015276958234608173,
+            "validation_objective": 0.04529343629255891,
+            "elapsed_seconds": 95.10510554199573
+          },
+          {
+            "step": 250,
+            "validation_kl": 0.04366309382021427,
+            "validation_feature": 0.015135259057084719,
+            "validation_objective": 0.04517661972592275,
+            "elapsed_seconds": 105.32024254201679
+          },
+          {
+            "step": 275,
+            "validation_kl": 0.04358255925277869,
+            "validation_feature": 0.015017519549777111,
+            "validation_objective": 0.0450843112077564,
+            "elapsed_seconds": 115.34209350001765
+          },
+          {
+            "step": 300,
+            "validation_kl": 0.043517982587218285,
+            "validation_feature": 0.014925656995425621,
+            "validation_objective": 0.04501054828676085,
+            "elapsed_seconds": 125.19914333400084
+          },
+          {
+            "step": 325,
+            "validation_kl": 0.04346936754882336,
+            "validation_feature": 0.014852880189816156,
+            "validation_objective": 0.04495465556780497,
+            "elapsed_seconds": 135.33519308402902
+          },
+          {
+            "step": 350,
+            "validation_kl": 0.043431670094529785,
+            "validation_feature": 0.014797620630512634,
+            "validation_objective": 0.04491143215758105,
+            "elapsed_seconds": 146.18985520902788
+          },
+          {
+            "step": 375,
+            "validation_kl": 0.04340220429003239,
+            "validation_feature": 0.014752809423953295,
+            "validation_objective": 0.04487748523242772,
+            "elapsed_seconds": 156.8443079169956
+          },
+          {
+            "step": 400,
+            "validation_kl": 0.043376109252373375,
+            "validation_feature": 0.014714268346627554,
+            "validation_objective": 0.04484753608703613,
+            "elapsed_seconds": 166.88284141704207
+          }
+        ],
+        "provenance": {
+          "teacher_sha256": "87133414860ea14ff6620c483a3db5ed07b44be42e2c3fcdad65523a729a745a",
+          "manifest_sha256": "54c87e32dbba8277350b82279c8c9e872460fb55b8e4d6abe135c0096d60f98c",
+          "resume_sha256": "e541bd9d718bbe6c9b7948fbd3cdf232c6d48f8e5c2403ae0101b1ecfce200a0",
+          "lr": 3e-06,
+          "temperature": 2.0,
+          "device": "cpu",
+          "dtype": "float32",
+          "grad_accum": 3,
+          "lr_final_ratio": 0.1,
+          "feature_weight": 0.1,
+          "feature_manifest_sha256": "7442b9326722bdeb0d9d3fd2a21504a8f445c76a0002219255b3bd452ee3eacd"
+        }
+      },
+      "host_observation": {
+        "command": [
+          "/Users/byungjun/Desktop/python/gpt-sovits-v5-optimization/.venv/bin/python",
+          "-u",
+          "experiments/student/distill_ar.py",
+          "--teacher",
+          "/Users/byungjun/Desktop/python/gpt-sovits-v5-optimization/models/s1v3.ckpt",
+          "--spec",
+          ".experiments/student/prune_g_bounded/student_spec.json",
+          "--manifest",
+          ".experiments/student/recovery_corpus36_retry/manifest.json",
+          "--resume",
+          ".experiments/student/ar18_next/best.pt",
+          "--output",
+          ".experiments/student/ar18_features",
+          "--steps",
+          "400",
+          "--threads",
+          "8",
+          "--lr",
+          "0.000003",
+          "--grad-accum",
+          "3",
+          "--lr-final-ratio",
+          "0.1",
+          "--validate-every",
+          "25",
+          "--feature-dir",
+          ".experiments/student/ar_teacher_features",
+          "--feature-weight",
+          "0.1"
+        ],
+        "platform": "Darwin",
+        "machine": "arm64",
+        "device_policy": "CPU only; train script rejects GPU/MPS parameters",
+        "cpu_quota_cores": null,
+        "memory_limit_bytes": null,
+        "scope": "unrestricted host training observation; not an inference RTF benchmark",
+        "logical_cpus": 14,
+        "physical_ram_bytes": 38654705664,
+        "peak_sampled_tree_rss_bytes": 2635890688,
+        "cpu_seconds": 487.73355110399996,
+        "elapsed_seconds": 172.3828727080254,
+        "average_cpu_cores": 2.829362009357518,
+        "exit_code": 0,
+        "status": "complete"
+      },
+      "selected_validation": {
+        "step": 400,
+        "validation_kl": 0.043376109252373375,
+        "validation_feature": 0.014714268346627554,
+        "validation_objective": 0.04484753608703613,
+        "elapsed_seconds": 166.88284141704207
+      },
+      "selected_checkpoint": {
+        "sha256": "c251559209da56d06d8d0a633602599fab5d287fcc3119a067ab8829276ed130",
+        "bytes": 231990337
+      },
+      "quality_approved": true
+    },
+    "decoder12_next": {
+      "history": {
+        "scope": "CPU recovery research; not listening approved or N1 performance",
+        "train_records": 30,
+        "validation_records": 6,
+        "history": [
+          {
+            "step": 0,
+            "validation_objective": 1.3980451822280884,
+            "validation_log_mel": 0.4944983720779419,
+            "validation_log_stft": 0.7512343525886536,
+            "validation_spectral": 1.4314762353897095,
+            "elapsed_seconds": 3.525650041003246
+          },
+          {
+            "step": 25,
+            "validation_objective": 0.9470036625862122,
+            "validation_log_mel": 0.29440566897392273,
+            "validation_log_stft": 0.6224607825279236,
+            "validation_spectral": 0.9939656853675842,
+            "elapsed_seconds": 93.06931491597788
+          },
+          {
+            "step": 50,
+            "validation_objective": 0.8946121335029602,
+            "validation_log_mel": 0.2724064886569977,
+            "validation_log_stft": 0.5981988906860352,
+            "validation_spectral": 0.945311963558197,
+            "elapsed_seconds": 173.87643008300802
+          },
+          {
+            "step": 75,
+            "validation_objective": 0.8775963187217712,
+            "validation_log_mel": 0.2656615674495697,
+            "validation_log_stft": 0.5899100303649902,
+            "validation_spectral": 0.9289143681526184,
+            "elapsed_seconds": 253.26922495797044
+          },
+          {
+            "step": 100,
+            "validation_objective": 0.8661897778511047,
+            "validation_log_mel": 0.2605536878108978,
+            "validation_log_stft": 0.5854556560516357,
+            "validation_spectral": 0.9185444712638855,
+            "elapsed_seconds": 342.1648218749906
+          },
+          {
+            "step": 125,
+            "validation_objective": 0.8618001341819763,
+            "validation_log_mel": 0.25924840569496155,
+            "validation_log_stft": 0.5829271674156189,
+            "validation_spectral": 0.9136398434638977,
+            "elapsed_seconds": 425.7132647499675
+          },
+          {
+            "step": 150,
+            "validation_objective": 0.8538565635681152,
+            "validation_log_mel": 0.2562384009361267,
+            "validation_log_stft": 0.5784034729003906,
+            "validation_spectral": 0.9060346484184265,
+            "elapsed_seconds": 508.7216803749907
+          },
+          {
+            "step": 175,
+            "validation_objective": 0.8509888648986816,
+            "validation_log_mel": 0.25543317198753357,
+            "validation_log_stft": 0.5770192742347717,
+            "validation_spectral": 0.9026017189025879,
+            "elapsed_seconds": 590.2581157499808
+          },
+          {
+            "step": 200,
+            "validation_objective": 0.8493422865867615,
+            "validation_log_mel": 0.2545250356197357,
+            "validation_log_stft": 0.5763207674026489,
+            "validation_spectral": 0.9014742970466614,
+            "elapsed_seconds": 671.4835736249806
+          }
+        ],
+        "provenance": {
+          "teacher_s2_sha256": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b",
+          "manifest_sha256": "54c87e32dbba8277350b82279c8c9e872460fb55b8e4d6abe135c0096d60f98c",
+          "resume_sha256": "db1be0f82d3745f4482730528684621b3098a8244738bf27cf84119e1519cd14",
+          "full_context": true,
+          "log_mel": true,
+          "sample_rate": 32000,
+          "lr": 1e-05,
+          "device": "cpu",
+          "dtype": "float32",
+          "grad_accum": 3,
+          "lr_final_ratio": 0.1
+        }
+      },
+      "host_observation": {
+        "command": [
+          "/Users/byungjun/Desktop/python/gpt-sovits-v5-optimization/.venv/bin/python",
+          "-u",
+          "experiments/student/distill_decoder.py",
+          "--s2",
+          "/Users/byungjun/Desktop/python/gpt-sovits-v5-optimization/data/cpufast-v2proplus/assets/v2Pro/s2Gv2ProPlus.pth",
+          "--resume",
+          "/Users/byungjun/Desktop/python/GPT-SoVITS-CPUFast/.experiments/student/prune_g_bounded/decoder12_initial.pt",
+          "--steps",
+          "200",
+          "--lr",
+          "0.00001",
+          "--full-context",
+          "--log-mel",
+          "--output",
+          "/Users/byungjun/Desktop/python/GPT-SoVITS-CPUFast/.experiments/student/decoder12_next",
+          "--spec",
+          "/Users/byungjun/Desktop/python/GPT-SoVITS-CPUFast/.experiments/student/prune_g_bounded/student_spec.json",
+          "--manifest",
+          "/Users/byungjun/Desktop/python/GPT-SoVITS-CPUFast/.experiments/student/recovery_corpus36_retry/manifest.json",
+          "--threads",
+          "8",
+          "--validate-every",
+          "25",
+          "--grad-accum",
+          "3",
+          "--lr-final-ratio",
+          "0.1"
+        ],
+        "platform": "Darwin",
+        "machine": "arm64",
+        "device_policy": "CPU only; train script rejects GPU/MPS parameters",
+        "cpu_quota_cores": null,
+        "memory_limit_bytes": null,
+        "scope": "unrestricted host training observation; not an inference RTF benchmark",
+        "logical_cpus": 14,
+        "physical_ram_bytes": 38654705664,
+        "peak_sampled_tree_rss_bytes": 4809621504,
+        "cpu_seconds": 1940.154384384,
+        "elapsed_seconds": 677.6925246250466,
+        "average_cpu_cores": 2.8628829651875645,
+        "exit_code": 0,
+        "status": "complete"
+      },
+      "selected_validation": {
+        "step": 200,
+        "validation_objective": 0.8493422865867615,
+        "validation_log_mel": 0.2545250356197357,
+        "validation_log_stft": 0.5763207674026489,
+        "validation_spectral": 0.9014742970466614,
+        "elapsed_seconds": 671.4835736249806
+      },
+      "selected_checkpoint": {
+        "sha256": "a236759d339da5639a53d070d10a5a51556c01eebbce75f21679980b292adce7",
+        "bytes": 94677249
+      },
+      "quality_approved": false
+    }
+  },
+  "h_feedback": "Slightly lacking relative to teacher; refine before adoption",
+  "h2_feedback": "H2 사용 가능",
+  "aggressive_decoder12_decision": "Reconstruction gap remains; not adopted, not submitted as improved listening candidate",
+  "training_data": "One synthetic reference, JA/KO/EN30train6validation; no heldout speaker approval",
+  "teacher_unchanged": true,
+  "original_s1_sha256": "87133414860ea14ff6620c483a3db5ed07b44be42e2c3fcdad65523a729a745a"
+}

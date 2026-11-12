@@ -1,0 +1,522 @@
+{
+  "parent_sha256": "c251559209da56d06d8d0a633602599fab5d287fcc3119a067ab8829276ed130",
+  "output_sha256": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+  "quality_approved": false,
+  "lossy_conversion_relative_to_parent": true,
+  "compute_dtype": "FP32",
+  "native_ar_cache_dtype": "FP16",
+  "unchanged": "All other checkpoint tensor values, including bias/norm/embedding",
+  "matrices": [
+    {
+      "name": "model.ar_predict_layer.weight",
+      "elements": 524800,
+      "changed_elements": 524732,
+      "max_abs_error": 0.00012138485908508301,
+      "rms_error": 1.4244615158531815e-05
+    },
+    {
+      "name": "model.h.layers.0.self_attn.in_proj_weight",
+      "elements": 786432,
+      "changed_elements": 786340,
+      "max_abs_error": 0.00012165307998657227,
+      "rms_error": 2.5103302050411003e-06
+    },
+    {
+      "name": "model.h.layers.0.self_attn.out_proj.weight",
+      "elements": 262144,
+      "changed_elements": 262115,
+      "max_abs_error": 0.00022041797637939453,
+      "rms_error": 1.0910190212598536e-05
+    },
+    {
+      "name": "model.h.layers.0.linear1.weight",
+      "elements": 1048576,
+      "changed_elements": 958858,
+      "max_abs_error": 0.00011709332466125488,
+      "rms_error": 4.388552497402998e-06
+    },
+    {
+      "name": "model.h.layers.0.linear2.weight",
+      "elements": 1048576,
+      "changed_elements": 958843,
+      "max_abs_error": 0.0002663135528564453,
+      "rms_error": 9.466243682254571e-06
+    },
+    {
+      "name": "model.h.layers.1.self_attn.in_proj_weight",
+      "elements": 786432,
+      "changed_elements": 786318,
+      "max_abs_error": 5.8978796005249023e-05,
+      "rms_error": 3.0415510536840884e-06
+    },
+    {
+      "name": "model.h.layers.1.self_attn.out_proj.weight",
+      "elements": 262144,
+      "changed_elements": 262117,
+      "max_abs_error": 0.00013828277587890625,
+      "rms_error": 9.907098501571454e-06
+    },
+    {
+      "name": "model.h.layers.1.linear1.weight",
+      "elements": 1048576,
+      "changed_elements": 995202,
+      "max_abs_error": 4.766881465911865e-05,
+      "rms_error": 3.9555420698889066e-06
+    },
+    {
+      "name": "model.h.layers.1.linear2.weight",
+      "elements": 1048576,
+      "changed_elements": 995201,
+      "max_abs_error": 0.00025725364685058594,
+      "rms_error": 1.4244347767089494e-05
+    },
+    {
+      "name": "model.h.layers.2.self_attn.in_proj_weight",
+      "elements": 786432,
+      "changed_elements": 786321,
+      "max_abs_error": 3.540515899658203e-05,
+      "rms_error": 2.9628702122863615e-06
+    },
+    {
+      "name": "model.h.layers.2.self_attn.out_proj.weight",
+      "elements": 262144,
+      "changed_elements": 262100,
+      "max_abs_error": 0.00013107061386108398,
+      "rms_error": 1.144593352364609e-05
+    },
+    {
+      "name": "model.h.layers.2.linear1.weight",
+      "elements": 1048576,
+      "changed_elements": 1035650,
+      "max_abs_error": 3.049522638320923e-05,
+      "rms_error": 3.298717956567998e-06
+    },
+    {
+      "name": "model.h.layers.2.linear2.weight",
+      "elements": 1048576,
+      "changed_elements": 1035631,
+      "max_abs_error": 0.0003598928451538086,
+      "rms_error": 1.8487931811250746e-05
+    },
+    {
+      "name": "model.h.layers.3.self_attn.in_proj_weight",
+      "elements": 786432,
+      "changed_elements": 786321,
+      "max_abs_error": 7.456541061401367e-05,
+      "rms_error": 3.7163983961363556e-06
+    },
+    {
+      "name": "model.h.layers.3.self_attn.out_proj.weight",
+      "elements": 262144,
+      "changed_elements": 262115,
+      "max_abs_error": 0.00012058019638061523,
+      "rms_error": 8.487147169944365e-06
+    },
+    {
+      "name": "model.h.layers.3.linear1.weight",
+      "elements": 1048576,
+      "changed_elements": 1040769,
+      "max_abs_error": 6.063282489776611e-05,
+      "rms_error": 6.386949280567933e-06
+    },
+    {
+      "name": "model.h.layers.3.linear2.weight",
+      "elements": 1048576,
+      "changed_elements": 1040767,
+      "max_abs_error": 0.0001824498176574707,
+      "rms_error": 1.2577182133099996e-05
+    },
+    {
+      "name": "model.h.layers.4.self_attn.in_proj_weight",
+      "elements": 786432,
+      "changed_elements": 786333,
+      "max_abs_error": 5.805492401123047e-05,
+      "rms_error": 3.2849525268829893e-06
+    },
+    {
+      "name": "model.h.layers.4.self_attn.out_proj.weight",
+      "elements": 262144,
+      "changed_elements": 262119,
+      "max_abs_error": 0.00011917948722839355,
+      "rms_error": 1.1180334695382044e-05
+    },
+    {
+      "name": "model.h.layers.4.linear1.weight",
+      "elements": 1048576,
+      "changed_elements": 1033099,
+      "max_abs_error": 6.225705146789551e-05,
+      "rms_error": 7.099317372194491e-06
+    },
+    {
+      "name": "model.h.layers.4.linear2.weight",
+      "elements": 1048576,
+      "changed_elements": 1033082,
+      "max_abs_error": 0.00019758939743041992,
+      "rms_error": 8.631075615994632e-06
+    },
+    {
+      "name": "model.h.layers.5.self_attn.in_proj_weight",
+      "elements": 786432,
+      "changed_elements": 786331,
+      "max_abs_error": 6.031990051269531e-05,
+      "rms_error": 2.9857048957637744e-06
+    },
+    {
+      "name": "model.h.layers.5.self_attn.out_proj.weight",
+      "elements": 262144,
+      "changed_elements": 262104,
+      "max_abs_error": 0.00014930963516235352,
+      "rms_error": 1.7659487639321014e-05
+    },
+    {
+      "name": "model.h.layers.5.linear1.weight",
+      "elements": 1048576,
+      "changed_elements": 938371,
+      "max_abs_error": 6.0677528381347656e-05,
+      "rms_error": 3.5493262657837477e-06
+    },
+    {
+      "name": "model.h.layers.5.linear2.weight",
+      "elements": 1048576,
+      "changed_elements": 938000,
+      "max_abs_error": 0.00044536590576171875,
+      "rms_error": 1.8432163415127434e-05
+    },
+    {
+      "name": "model.h.layers.6.self_attn.in_proj_weight",
+      "elements": 786432,
+      "changed_elements": 786343,
+      "max_abs_error": 5.760788917541504e-05,
+      "rms_error": 2.749384066191851e-06
+    },
+    {
+      "name": "model.h.layers.6.self_attn.out_proj.weight",
+      "elements": 262144,
+      "changed_elements": 262115,
+      "max_abs_error": 0.00015687942504882812,
+      "rms_error": 1.829636858019512e-05
+    },
+    {
+      "name": "model.h.layers.6.linear1.weight",
+      "elements": 1048576,
+      "changed_elements": 889229,
+      "max_abs_error": 0.00022614002227783203,
+      "rms_error": 9.791631782718468e-06
+    },
+    {
+      "name": "model.h.layers.6.linear2.weight",
+      "elements": 1048576,
+      "changed_elements": 889147,
+      "max_abs_error": 0.00034439563751220703,
+      "rms_error": 9.70241308095865e-06
+    },
+    {
+      "name": "model.h.layers.7.self_attn.in_proj_weight",
+      "elements": 786432,
+      "changed_elements": 786344,
+      "max_abs_error": 5.961954593658447e-05,
+      "rms_error": 3.2087457384477602e-06
+    },
+    {
+      "name": "model.h.layers.7.self_attn.out_proj.weight",
+      "elements": 262144,
+      "changed_elements": 262114,
+      "max_abs_error": 0.00012195110321044922,
+      "rms_error": 1.1186513802385889e-05
+    },
+    {
+      "name": "model.h.layers.7.linear1.weight",
+      "elements": 1048576,
+      "changed_elements": 910226,
+      "max_abs_error": 5.809962749481201e-05,
+      "rms_error": 3.613992021200829e-06
+    },
+    {
+      "name": "model.h.layers.7.linear2.weight",
+      "elements": 1048576,
+      "changed_elements": 910206,
+      "max_abs_error": 0.0002560615539550781,
+      "rms_error": 1.5584169887006283e-05
+    },
+    {
+      "name": "model.h.layers.8.self_attn.in_proj_weight",
+      "elements": 786432,
+      "changed_elements": 786319,
+      "max_abs_error": 6.0424208641052246e-05,
+      "rms_error": 3.5201769605919253e-06
+    },
+    {
+      "name": "model.h.layers.8.self_attn.out_proj.weight",
+      "elements": 262144,
+      "changed_elements": 262112,
+      "max_abs_error": 6.0945749282836914e-05,
+      "rms_error": 8.078131031652447e-06
+    },
+    {
+      "name": "model.h.layers.8.linear1.weight",
+      "elements": 1048576,
+      "changed_elements": 965020,
+      "max_abs_error": 3.680586814880371e-05,
+      "rms_error": 3.6569356325344415e-06
+    },
+    {
+      "name": "model.h.layers.8.linear2.weight",
+      "elements": 1048576,
+      "changed_elements": 964999,
+      "max_abs_error": 0.0004706382751464844,
+      "rms_error": 1.4256365830078721e-05
+    },
+    {
+      "name": "model.h.layers.9.self_attn.in_proj_weight",
+      "elements": 786432,
+      "changed_elements": 786336,
+      "max_abs_error": 5.8963894844055176e-05,
+      "rms_error": 3.2328237011824967e-06
+    },
+    {
+      "name": "model.h.layers.9.self_attn.out_proj.weight",
+      "elements": 262144,
+      "changed_elements": 262114,
+      "max_abs_error": 0.00010788440704345703,
+      "rms_error": 9.83626796369208e-06
+    },
+    {
+      "name": "model.h.layers.9.linear1.weight",
+      "elements": 1048576,
+      "changed_elements": 925583,
+      "max_abs_error": 3.0502676963806152e-05,
+      "rms_error": 3.636947212726227e-06
+    },
+    {
+      "name": "model.h.layers.9.linear2.weight",
+      "elements": 1048576,
+      "changed_elements": 925228,
+      "max_abs_error": 0.000274658203125,
+      "rms_error": 1.3871847841073759e-05
+    },
+    {
+      "name": "model.h.layers.10.self_attn.in_proj_weight",
+      "elements": 786432,
+      "changed_elements": 786343,
+      "max_abs_error": 4.7847628593444824e-05,
+      "rms_error": 3.1484157716477057e-06
+    },
+    {
+      "name": "model.h.layers.10.self_attn.out_proj.weight",
+      "elements": 262144,
+      "changed_elements": 262115,
+      "max_abs_error": 0.00011804699897766113,
+      "rms_error": 1.0870049663935788e-05
+    },
+    {
+      "name": "model.h.layers.10.linear1.weight",
+      "elements": 1048576,
+      "changed_elements": 1016194,
+      "max_abs_error": 4.604458808898926e-05,
+      "rms_error": 4.099930720258271e-06
+    },
+    {
+      "name": "model.h.layers.10.linear2.weight",
+      "elements": 1048576,
+      "changed_elements": 1015701,
+      "max_abs_error": 0.0003675222396850586,
+      "rms_error": 9.775025318958797e-06
+    },
+    {
+      "name": "model.h.layers.11.self_attn.in_proj_weight",
+      "elements": 786432,
+      "changed_elements": 786351,
+      "max_abs_error": 6.070733070373535e-05,
+      "rms_error": 3.4594283988553798e-06
+    },
+    {
+      "name": "model.h.layers.11.self_attn.out_proj.weight",
+      "elements": 262144,
+      "changed_elements": 262112,
+      "max_abs_error": 6.082653999328613e-05,
+      "rms_error": 7.242772880999837e-06
+    },
+    {
+      "name": "model.h.layers.11.linear1.weight",
+      "elements": 1048576,
+      "changed_elements": 1024904,
+      "max_abs_error": 3.0249357223510742e-05,
+      "rms_error": 2.4976143322419375e-06
+    },
+    {
+      "name": "model.h.layers.11.linear2.weight",
+      "elements": 1048576,
+      "changed_elements": 1024892,
+      "max_abs_error": 0.0002194046974182129,
+      "rms_error": 1.227816755999811e-05
+    },
+    {
+      "name": "model.h.layers.12.self_attn.in_proj_weight",
+      "elements": 786432,
+      "changed_elements": 786334,
+      "max_abs_error": 5.5462121963500977e-05,
+      "rms_error": 3.2504785849596374e-06
+    },
+    {
+      "name": "model.h.layers.12.self_attn.out_proj.weight",
+      "elements": 262144,
+      "changed_elements": 262117,
+      "max_abs_error": 3.0517578125e-05,
+      "rms_error": 4.475307378015714e-06
+    },
+    {
+      "name": "model.h.layers.12.linear1.weight",
+      "elements": 1048576,
+      "changed_elements": 1048438,
+      "max_abs_error": 5.945563316345215e-05,
+      "rms_error": 4.338511189416749e-06
+    },
+    {
+      "name": "model.h.layers.12.linear2.weight",
+      "elements": 1048576,
+      "changed_elements": 1048442,
+      "max_abs_error": 6.517767906188965e-05,
+      "rms_error": 5.562405476666754e-06
+    },
+    {
+      "name": "model.h.layers.13.self_attn.in_proj_weight",
+      "elements": 786432,
+      "changed_elements": 786327,
+      "max_abs_error": 6.057322025299072e-05,
+      "rms_error": 3.254511966588325e-06
+    },
+    {
+      "name": "model.h.layers.13.self_attn.out_proj.weight",
+      "elements": 262144,
+      "changed_elements": 262113,
+      "max_abs_error": 3.0502676963806152e-05,
+      "rms_error": 4.608650669979397e-06
+    },
+    {
+      "name": "model.h.layers.13.linear1.weight",
+      "elements": 1048576,
+      "changed_elements": 1047940,
+      "max_abs_error": 3.049522638320923e-05,
+      "rms_error": 4.205732238915516e-06
+    },
+    {
+      "name": "model.h.layers.13.linear2.weight",
+      "elements": 1048576,
+      "changed_elements": 1047953,
+      "max_abs_error": 0.00010025501251220703,
+      "rms_error": 5.70702059121686e-06
+    },
+    {
+      "name": "model.h.layers.14.self_attn.in_proj_weight",
+      "elements": 786432,
+      "changed_elements": 786345,
+      "max_abs_error": 4.813075065612793e-05,
+      "rms_error": 3.3813366826507263e-06
+    },
+    {
+      "name": "model.h.layers.14.self_attn.out_proj.weight",
+      "elements": 262144,
+      "changed_elements": 262103,
+      "max_abs_error": 5.525350570678711e-05,
+      "rms_error": 6.067615231586387e-06
+    },
+    {
+      "name": "model.h.layers.14.linear1.weight",
+      "elements": 1048576,
+      "changed_elements": 1048429,
+      "max_abs_error": 4.9501657485961914e-05,
+      "rms_error": 4.241194801579695e-06
+    },
+    {
+      "name": "model.h.layers.14.linear2.weight",
+      "elements": 1048576,
+      "changed_elements": 1048429,
+      "max_abs_error": 6.052851676940918e-05,
+      "rms_error": 5.79060179006774e-06
+    },
+    {
+      "name": "model.h.layers.15.self_attn.in_proj_weight",
+      "elements": 786432,
+      "changed_elements": 786315,
+      "max_abs_error": 2.921372652053833e-05,
+      "rms_error": 3.348780182932387e-06
+    },
+    {
+      "name": "model.h.layers.15.self_attn.out_proj.weight",
+      "elements": 262144,
+      "changed_elements": 262110,
+      "max_abs_error": 4.029273986816406e-05,
+      "rms_error": 5.5007458286127076e-06
+    },
+    {
+      "name": "model.h.layers.15.linear1.weight",
+      "elements": 1048576,
+      "changed_elements": 1048462,
+      "max_abs_error": 4.400312900543213e-05,
+      "rms_error": 4.5504079935199115e-06
+    },
+    {
+      "name": "model.h.layers.15.linear2.weight",
+      "elements": 1048576,
+      "changed_elements": 1048443,
+      "max_abs_error": 4.8786401748657227e-05,
+      "rms_error": 5.260665147943655e-06
+    },
+    {
+      "name": "model.h.layers.16.self_attn.in_proj_weight",
+      "elements": 786432,
+      "changed_elements": 786328,
+      "max_abs_error": 3.0152499675750732e-05,
+      "rms_error": 3.316512447781861e-06
+    },
+    {
+      "name": "model.h.layers.16.self_attn.out_proj.weight",
+      "elements": 262144,
+      "changed_elements": 262121,
+      "max_abs_error": 4.8354268074035645e-05,
+      "rms_error": 5.244399744697148e-06
+    },
+    {
+      "name": "model.h.layers.16.linear1.weight",
+      "elements": 1048576,
+      "changed_elements": 1048454,
+      "max_abs_error": 5.996227264404297e-05,
+      "rms_error": 4.640958195523126e-06
+    },
+    {
+      "name": "model.h.layers.16.linear2.weight",
+      "elements": 1048576,
+      "changed_elements": 1048448,
+      "max_abs_error": 6.00665807723999e-05,
+      "rms_error": 4.910989900963614e-06
+    },
+    {
+      "name": "model.h.layers.17.self_attn.in_proj_weight",
+      "elements": 786432,
+      "changed_elements": 786359,
+      "max_abs_error": 3.0390918254852295e-05,
+      "rms_error": 3.3308565434708726e-06
+    },
+    {
+      "name": "model.h.layers.17.self_attn.out_proj.weight",
+      "elements": 262144,
+      "changed_elements": 262117,
+      "max_abs_error": 5.59687614440918e-05,
+      "rms_error": 4.6263289732451085e-06
+    },
+    {
+      "name": "model.h.layers.17.linear1.weight",
+      "elements": 1048576,
+      "changed_elements": 1048446,
+      "max_abs_error": 3.0435621738433838e-05,
+      "rms_error": 3.6505196021607844e-06
+    },
+    {
+      "name": "model.h.layers.17.linear2.weight",
+      "elements": 1048576,
+      "changed_elements": 1048462,
+      "max_abs_error": 6.03795051574707e-05,
+      "rms_error": 5.076999059383525e-06
+    }
+  ]
+}

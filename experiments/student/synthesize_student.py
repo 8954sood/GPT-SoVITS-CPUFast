@@ -25,6 +25,11 @@ def main():
     parser.add_argument("--prompt-text", required=True)
     parser.add_argument("--decoder-student", type=Path)
     parser.add_argument(
+        "--export-decoder",
+        action="store_true",
+        help="Also save a decoder copy; normally omitted to avoid duplicate large model files",
+    )
+    parser.add_argument(
         "--ar-fp32-cache",
         action="store_true",
         help="Preserve general FP32 posttraining coefficients in native AR cache",
@@ -77,17 +82,18 @@ def main():
             if trained["student_spec"]["decoder_branches"] != spec["decoder_branches"]:
                 raise ValueError("Decoder checkpoint/spec mismatch")
             pipeline.vits_model.dec.load_state_dict(trained["state_dict"], strict=True)
-        # Store a separate decoder-only artifact before runtime cache replacement.
-        with (args.output / "decoder_student.pt").open("xb") as source:
-            torch.save(
-                {
-                    "teacher_s2_sha256": file_before[str(args.s2)],
-                    "student_spec": spec,
-                    "state_dict": pipeline.vits_model.dec.state_dict(),
-                    "quality_approved": False,
-                },
-                source,
-            )
+        # Export only when explicitly requested; the authoritative input is kept.
+        if args.export_decoder:
+            with (args.output / "decoder_student.pt").open("xb") as source:
+                torch.save(
+                    {
+                        "teacher_s2_sha256": file_before[str(args.s2)],
+                        "student_spec": spec,
+                        "state_dict": pipeline.vits_model.dec.state_dict(),
+                        "quality_approved": False,
+                    },
+                    source,
+                )
     decoder = pipeline.t2s_model.model
     before = {
         "ar": ar_digest(decoder.t2s_transformer),
