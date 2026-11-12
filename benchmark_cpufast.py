@@ -777,6 +777,7 @@ def main():
         else None,
         "student_files_before": student_files_before,
         "student_fp32_control": args.student_fp32_control,
+        "decoder_residual_block_count": len(pipeline.vits_model.dec.resblocks),
         "decoder_bottlenecks": student_manifest.get("decoder_bottlenecks")
         if student_manifest
         else None,

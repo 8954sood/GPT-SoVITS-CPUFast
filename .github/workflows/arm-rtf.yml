@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: Full audio or diagnostics; new studentardepth/head modes need3warm5samples
+        description: Full audio or diagnostics; studentc24/ardepth/head modes require3warm5samples
         type: choice
-        options: ['compare', 'diagnostics', 'attention', 'small', 'scheduling', 'packed48', 'fft', 'fftcandidate', 'arcache', 'prefetch', 'prefetchcandidate', 'winograd', 'direct3', 'locality', 'fftstream', 'transforms', 'inference', 'runtime', 'student', 'studentcompare', 'studentdecoder', 'studentdecoderint8', 'studentbottleneck', 'studentardepth', 'studentheadv32', 'studentheadqk4', 'studentheadconfirm', 'studentu', 'studentprefill', 'studentprefillint8', 'studentprofile', 'studentarint8', 'studentarint8confirm', 'studentffthalf', 'studenthalfstream', 'taptiles', 'im2col']
+        options: ['compare', 'diagnostics', 'attention', 'small', 'scheduling', 'packed48', 'fft', 'fftcandidate', 'arcache', 'prefetch', 'prefetchcandidate', 'winograd', 'direct3', 'locality', 'fftstream', 'transforms', 'inference', 'runtime', 'student', 'studentcompare', 'studentdecoder', 'studentdecoderint8', 'studentbottleneck', 'studentardepth', 'studentc24', 'studentc24confirm', 'studentheadv32', 'studentheadqk4', 'studentheadconfirm', 'studentu', 'studentprefill', 'studentprefillint8', 'studentprofile', 'studentarint8', 'studentarint8confirm', 'studentffthalf', 'studenthalfstream', 'taptiles', 'im2col']
         default: 'compare'
       warmups:
         description: Excluded warmup runs (1–5)
@@ -20,7 +20,7 @@ on:
         default: '3'
 
       student_repo:
-        description: Private HF model repository (student mode only)
+        description: Private HF model repository on cache miss (student modes)
         type: string
         default: ''
       student_revision:
@@ -32,7 +32,7 @@ on:
         type: string
         default: 'approved-g-20261112/manifest.json'
       student_manifest_sha256:
-        description: Trusted approved manifest SHA256 (student mode only)
+        description: Trusted approved manifest SHA256 (student modes; verified host cache preferred)
         type: string
         default: ''
 
@@ -99,10 +99,10 @@ jobs:
           set -euo pipefail
           : "${ARM_HOST:?Missing ARM_SSH_HOST secret}" "${ARM_USER:?Missing ARM_SSH_USER secret}" "${ARM_PRIVATE_KEY:?Missing ARM_SSH_PRIVATE_KEY secret}" "${ARM_KNOWN_HOSTS:?Missing ARM_SSH_KNOWN_HOSTS secret}"
           [[ "$ARM_HOST" =~ ^[A-Za-z0-9._-]+$ && "$ARM_USER" =~ ^[A-Za-z_][A-Za-z0-9_-]*$ ]] || { echo "Invalid SSH host or user format" >&2; exit 1; }
-          [[ "$MODE" == compare || "$MODE" == diagnostics || "$MODE" == attention || "$MODE" == small || "$MODE" == scheduling || "$MODE" == packed48 || "$MODE" == fft || "$MODE" == fftcandidate || "$MODE" == arcache || "$MODE" == prefetch || "$MODE" == prefetchcandidate || "$MODE" == winograd || "$MODE" == direct3 || "$MODE" == locality || "$MODE" == fftstream || "$MODE" == transforms || "$MODE" == inference || "$MODE" == runtime || "$MODE" == student || "$MODE" == studentcompare || "$MODE" == studentdecoder || "$MODE" == studentheadqk4 || "$MODE" == studentheadv32 || "$MODE" == studentheadconfirm || "$MODE" == studentprofile || "$MODE" == studentprefillint8 || "$MODE" == studentprefill || "$MODE" == studentu || "$MODE" == studentbottleneck || "$MODE" == studentardepth || "$MODE" == studentdecoderint8 || "$MODE" == studentarint8 || "$MODE" == studentarint8confirm || "$MODE" == studenthalfstream || "$MODE" == studentffthalf || "$MODE" == taptiles || "$MODE" == im2col ]] || { echo "Invalid mode" >&2; exit 1; }
+          [[ "$MODE" == compare || "$MODE" == diagnostics || "$MODE" == attention || "$MODE" == small || "$MODE" == scheduling || "$MODE" == packed48 || "$MODE" == fft || "$MODE" == fftcandidate || "$MODE" == arcache || "$MODE" == prefetch || "$MODE" == prefetchcandidate || "$MODE" == winograd || "$MODE" == direct3 || "$MODE" == locality || "$MODE" == fftstream || "$MODE" == transforms || "$MODE" == inference || "$MODE" == runtime || "$MODE" == student || "$MODE" == studentcompare || "$MODE" == studentdecoder || "$MODE" == studentheadqk4 || "$MODE" == studentheadv32 || "$MODE" == studentheadconfirm || "$MODE" == studentc24confirm || "$MODE" == studentprofile || "$MODE" == studentprefillint8 || "$MODE" == studentprefill || "$MODE" == studentu || "$MODE" == studentbottleneck || "$MODE" == studentardepth || "$MODE" == studentc24 || "$MODE" == studentdecoderint8 || "$MODE" == studentarint8 || "$MODE" == studentarint8confirm || "$MODE" == studenthalfstream || "$MODE" == studentffthalf || "$MODE" == taptiles || "$MODE" == im2col ]] || { echo "Invalid mode" >&2; exit 1; }
           [[ "$WARMUPS" =~ ^[1-5]$ && "$SAMPLES" =~ ^([1-9]|1[0-9]|20)$ ]] || { echo "Invalid sample counts" >&2; exit 1; }
           [[ "$GITHUB_RUN_ID" =~ ^[0-9]+$ && "$GITHUB_RUN_ATTEMPT" =~ ^[0-9]+$ ]] || { echo "Invalid run identifier" >&2; exit 1; }
-          if [[ "$MODE" == studentardepth || "$MODE" == studentheadqk4 || "$MODE" == studentheadv32 || "$MODE" == studentheadconfirm ]]; then
+          if [[ "$MODE" == studentardepth || "$MODE" == studentc24 || "$MODE" == studentheadqk4 || "$MODE" == studentheadv32 || "$MODE" == studentheadconfirm || "$MODE" == studentc24confirm ]]; then
             [[ "$WARMUPS" == 3 && "$SAMPLES" == 5 ]] || { echo 'New isolated student comparisons require3warm5samples' >&2; exit 1; }
           fi
           umask 077
@@ -121,16 +121,16 @@ jobs:
           trap cleanup_remote EXIT
           ssh "${ssh_args[@]}" "$target" "mkdir -p \"\$HOME/$remote_rel\""
           git archive "$GITHUB_SHA" | ssh "${ssh_args[@]}" "$target" "tar -x -C \"\$HOME/$remote_rel\""
-          if [[ "$MODE" == student || "$MODE" == studentcompare || "$MODE" == studentdecoder || "$MODE" == studentheadqk4 || "$MODE" == studentheadv32 || "$MODE" == studentheadconfirm || "$MODE" == studentprofile || "$MODE" == studentprefillint8 || "$MODE" == studentprefill || "$MODE" == studentu || "$MODE" == studentbottleneck || "$MODE" == studentardepth || "$MODE" == studentdecoderint8 || "$MODE" == studentarint8 || "$MODE" == studentarint8confirm || "$MODE" == studenthalfstream || "$MODE" == studentffthalf ]]; then
+          if [[ "$MODE" == student || "$MODE" == studentcompare || "$MODE" == studentdecoder || "$MODE" == studentheadqk4 || "$MODE" == studentheadv32 || "$MODE" == studentheadconfirm || "$MODE" == studentc24confirm || "$MODE" == studentprofile || "$MODE" == studentprefillint8 || "$MODE" == studentprefill || "$MODE" == studentu || "$MODE" == studentbottleneck || "$MODE" == studentardepth || "$MODE" == studentc24 || "$MODE" == studentdecoderint8 || "$MODE" == studentarint8 || "$MODE" == studentarint8confirm || "$MODE" == studenthalfstream || "$MODE" == studentffthalf ]]; then
             export PYTHONPATH="$GITHUB_WORKSPACE:$RUNNER_TEMP/student-python"
             prepare_bundle() {
               local bundle_path=$1 bundle_sha=$2
-              [[ "$bundle_sha" =~ ^[0-9a-f]{64}$ && "$HF_STUDENT_REVISION" =~ ^[0-9a-f]{40}$ ]] || { echo 'Pinned student manifest/revision required' >&2; exit 1; }
+              [[ "$bundle_sha" =~ ^[0-9a-f]{64}$ ]] || { echo 'Trusted student manifest SHA required' >&2; exit 1; }
               local bundle_dir="$RUNNER_TEMP/private_student/$bundle_sha"
-              HF_STUDENT_MANIFEST_PATH="$bundle_path" HF_STUDENT_MANIFEST_SHA256="$bundle_sha" python3 scripts/download_student_assets.py --output "$bundle_dir" --manifest-only
               local asset_args
               printf -v asset_args ' %q' "${ARM_BENCH_ROOT:-}" "$bundle_sha"
               if ! ssh "${ssh_args[@]}" "$target" "bash \"\$HOME/$remote_rel/scripts/prepare_student_assets.sh\"$asset_args verify"; then
+                [[ "$HF_STUDENT_REVISION" =~ ^[0-9a-f]{40}$ ]] || { echo 'Cache miss requires pinned private HF revision' >&2; exit 1; }
                 HF_STUDENT_MANIFEST_PATH="$bundle_path" HF_STUDENT_MANIFEST_SHA256="$bundle_sha" python3 scripts/download_student_assets.py --output "$bundle_dir"
                 ssh "${ssh_args[@]}" "$target" "umask 077 && mkdir -p \"\$HOME/$remote_rel/.private-student-upload\" && chmod 700 \"\$HOME/$remote_rel/.private-student-upload\""
                 for name in manifest.json ar.pt decoder.pt student_spec.json; do
@@ -140,7 +140,7 @@ jobs:
               fi
             }
             prepare_bundle "$HF_STUDENT_MANIFEST_PATH" "$HF_STUDENT_MANIFEST_SHA256"
-            if [[ "$MODE" == studentcompare || "$MODE" == studentdecoder || "$MODE" == studentu || "$MODE" == studentbottleneck || "$MODE" == studentardepth || "$MODE" == studentdecoderint8 ]]; then
+            if [[ "$MODE" == studentcompare || "$MODE" == studentdecoder || "$MODE" == studentu || "$MODE" == studentbottleneck || "$MODE" == studentardepth || "$MODE" == studentc24 || "$MODE" == studentdecoderint8 ]]; then
               prepare_bundle "$COMPARISON_MANIFEST_PATH" "$COMPARISON_MANIFEST_SHA256"
             fi
           fi
@@ -168,6 +168,11 @@ jobs:
                   print(f"- {row['language']} / {row['name']}: median RTF **{row['median_rtf']:.4f}**, duration {row['audio_seconds']:.2f}s")
               for row in d.get('paired_aggregate', []):
                   print(f"- Counterbalanced {row['runtime']} aggregate5: RTF **{row['median_rtf']:.4f}**, wall {row['median_seconds']:.4f}s")
+              if os.environ['MODE'] == 'studentc24':
+                  print('- Same approved AR17 bytes; only final C24 K11 branch removed. Each model must reproduce its own approved PCM/semantic and actual12/11 residual block count.')
+                  print('- Canonical FFT256/Tap/value runtime; no FFT128, Tap-finish, QK4 or FFN2 candidates.')
+                  for row in d.get('paired_aggregate', []):
+                      print(f"- {row['runtime']}: all five RTFs {row['rtfs']}; worst **{row['max_rtf']:.6f}**; every observation below1: {row['all_measured_rtf_below_one']}")
               if os.environ['MODE'] == 'studentardepth':
                   print('- Different approved generated lengths: compare wall and AR per token alongside RTF; shared decoder bytes are enforced.')
                   for row in d.get('paired_aggregate', []):
@@ -176,10 +181,12 @@ jobs:
                   print('- Same-model exact head scheduling probe. Historical pre-adoption causal comparison uses source75779d2; latest canonical runtime already includes that loop.')
               if os.environ['MODE'] == 'studentheadqk4':
                   print('- Isolated opt-in QK4 research comparison; this candidate was not adopted after the original full paired evaluation.')
-              if os.environ['MODE'] == 'studentheadconfirm':
+              if os.environ['MODE'] in ('studentheadconfirm', 'studentc24confirm'):
                   row = d['aggregate']
                   print(f"- Canonical five-fresh median RTF **{row['median_rtf']:.6f}**, range {row['rtf_range'][0]:.6f}–{row['rtf_range'][1]:.6f}.")
                   print('- Independent integrated-path confirmation; not a fresh paired speed estimate.')
+                  if os.environ['MODE'] == 'studentc24confirm':
+                      print(f"- Approved AR17/C24Vtarget100 fixed bundle; worst **{row['max_rtf']:.6f}**, all five below1: {row['all_measured_rtf_below_one']}.")
                   if not d.get('native_files_unchanged') or not d.get('profile_head_attn_operator'):
                       raise SystemExit('Integrated canonical library/operator proof missing')
               print(f"- Selected provisional FP32-cache prefetch: {d.get('selected_prefetch')}")

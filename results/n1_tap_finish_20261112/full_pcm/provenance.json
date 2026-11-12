@@ -1,0 +1,40 @@
+{
+  "scope": "One full-model correctness gate only;3warm1sample, no paired speed/adoption claim",
+  "source_commit": "b3bdb91",
+  "source_archive_sha256": "4b43b85ae2ba023639f8d0b866ba4ddc544e48c4f660ae8fd9761114e4ed850c",
+  "manifest_sha256": "e30cdb7521a7e58053c554a2d78bf6f4d187d856b13083ff2d9e15987dc85bbb",
+  "rtf_single_correctness_observation": 1.0052724260823582,
+  "tap_fused_calls": 96,
+  "tap_module_count": 24,
+  "fallback_calls": 0,
+  "all_warmups_samples_exact_approved_pcm_semantic": true,
+  "all_model_guards": true,
+  "native_before": {
+    "/repo/libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "/repo/libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "/repo/libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "/repo/libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+  },
+  "native_after": {
+    "/repo/libcpufast_ar_torch.so": "b6f70ad0b81c24297e08cd83cb4da10a84ce20c33baf95f14cc440b4803c99e0",
+    "/repo/libcpufast_fast.so": "b728f7aada3b95a7388ed12e82f012abb16ae7c65f2d6c0d3da5a7885cd89f6f",
+    "/repo/libcpufast_ar_torch.so.json": "075770cd813556a57b201e972ccdabaa740a100434c377bd18872e5bcb09f9a5",
+    "/repo/libcpufast_fast.so.json": "ceea2d417e55c903b40b3852ac1f69c435b0c63555b5ca5475ccaad5b7e2fa19"
+  },
+  "native_files_unchanged": true,
+  "cgroup": {
+    "cpu.max": "200000 100000",
+    "cpuset.cpus.effective": "0-1",
+    "memory.max": "8000000000",
+    "memory.swap.max": "0"
+  },
+  "resource_guard_exit": 0,
+  "canonical_default_modified": false,
+  "decision": "No adoption yet; model comparison has priority; a later fixed-model paired experiment is required if further runtime gain is needed.",
+  "raw_sha256": {
+    "tap_finish_full_pcm_guard.json": "771eda6430701715c6774e7b91cb0b160d84db33f126df50b0a86e9e97a206b7",
+    "tap_finish_full_pcm.json": "adcc167f63a4b08b046133e321ad99c700c30d2b40387bc75b320ffe632d5f86",
+    "full.sh": "89610c93f980cc4d4d7dfdcb91d056c29f1a9d955d7590cb2e15a63d0da077d9",
+    "full.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  }
+}
