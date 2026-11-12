@@ -1,0 +1,503 @@
+{
+  "candidate": "M: K weights, W8A8 + head-major Torch SDPA + normal FP32 acoustic",
+  "quality_approved": true,
+  "approval_basis": "Inherited approved L Korean PCM equality, not a separate user answer",
+  "scope": "Same Korean reference/text/seed. JA/EN outputs differ from L and have no listening approval.",
+  "local_Korean_pcm_and_semantic_exact_to_approved_L": true,
+  "comparison": {
+    "scope": "Local free-generation listening smoke; not N1 performance",
+    "variant": "D",
+    "ar_cache_storage": "INT8 per-output-channel weights",
+    "quality_approved": false,
+    "ar_layers": 18,
+    "decoder_branches": [
+      [
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    "cases": [
+      {
+        "language": "ko",
+        "text": "\uc624\ub298\uc740 \ub0a0\uc528\uac00 \ucc38 \uc88b\ub124\uc694. \uc7a0\uae50 \uc26c\uc5c8\ub2e4\uac00 \ud568\uaed8 \uc774\uc57c\uae30\ub97c \uc774\uc5b4 \uac00\uc694.",
+        "sample_rate": 32000,
+        "audio_seconds": 5.02,
+        "smoke_elapsed_seconds": 5.103947834999985,
+        "semantic": [
+          {
+            "tokens": 118,
+            "sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+          }
+        ],
+        "pcm_sha256": "92a135e36f8a0a0fd111cfbc42b1075e0ae3a421401fcc823d509e67be7edd9f"
+      },
+      {
+        "language": "ja",
+        "text": "\u4eca\u65e5\u306f\u7a4f\u3084\u304b\u306a\u5929\u6c17\u3067\u3059\u306d\u3002\u5c11\u3057\u4f11\u3093\u3067\u304b\u3089\u3001\u307e\u305f\u4e00\u7dd2\u306b\u7d9a\u304d\u3092\u9032\u3081\u307e\u3057\u3087\u3046\u3002",
+        "sample_rate": 32000,
+        "audio_seconds": 6.66,
+        "smoke_elapsed_seconds": 2.5568726670000217,
+        "semantic": [
+          {
+            "tokens": 159,
+            "sha256": "f006f36743a90e82c4cc75b0c4125790673ef238a2789ee3d872e965813de6e1"
+          }
+        ],
+        "pcm_sha256": "9221ed569d4eec1ffb9e0ea1c5b1d3801a17214e2df57dbec7478c730afa6220"
+      },
+      {
+        "language": "en",
+        "text": "The weather is pleasant today. Let us take a short break and continue together.",
+        "sample_rate": 32000,
+        "audio_seconds": 4.38,
+        "smoke_elapsed_seconds": 1.6161813349999932,
+        "semantic": [
+          {
+            "tokens": 102,
+            "sha256": "0372b6671ff057bc400ba36d8a7cb13b27883b2ff0fe47141e016883d26d2612"
+          }
+        ],
+        "pcm_sha256": "2aff4eea047cd06ccbf099c65e5d942f00a39e2ba9cfe0af941b6f9e2eb73516"
+      }
+    ],
+    "student_parameters_unchanged_during_inference": true,
+    "checkpoint_files_unchanged": true,
+    "candidate": "M: approved K weights with W8A8 AR and head-major Torch SDPA",
+    "ar_arithmetic": "W8A8 with FP32 dequantization and Torch SDPA attention",
+    "acoustic_arithmetic": "Normal FP32 engine, no FP16 FFT accumulation",
+    "approximate_inference": true,
+    "ar_runtime_audit": {
+      "matrices": [
+        {
+          "block": 0,
+          "matrix": "qkv",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 0,
+          "matrix": "out",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 0,
+          "matrix": "ff1",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 0,
+          "matrix": "ff2",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 1,
+          "matrix": "qkv",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 1,
+          "matrix": "out",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 1,
+          "matrix": "ff1",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 1,
+          "matrix": "ff2",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 2,
+          "matrix": "qkv",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 2,
+          "matrix": "out",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 2,
+          "matrix": "ff1",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 2,
+          "matrix": "ff2",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 3,
+          "matrix": "qkv",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 3,
+          "matrix": "out",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 3,
+          "matrix": "ff1",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 3,
+          "matrix": "ff2",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 4,
+          "matrix": "qkv",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 4,
+          "matrix": "out",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 4,
+          "matrix": "ff1",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 4,
+          "matrix": "ff2",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 5,
+          "matrix": "qkv",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 5,
+          "matrix": "out",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 5,
+          "matrix": "ff1",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 5,
+          "matrix": "ff2",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 6,
+          "matrix": "qkv",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 6,
+          "matrix": "out",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 6,
+          "matrix": "ff1",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 6,
+          "matrix": "ff2",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 7,
+          "matrix": "qkv",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 7,
+          "matrix": "out",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 7,
+          "matrix": "ff1",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 7,
+          "matrix": "ff2",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 8,
+          "matrix": "qkv",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 8,
+          "matrix": "out",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 8,
+          "matrix": "ff1",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 8,
+          "matrix": "ff2",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 9,
+          "matrix": "qkv",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 9,
+          "matrix": "out",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 9,
+          "matrix": "ff1",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 9,
+          "matrix": "ff2",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 10,
+          "matrix": "qkv",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 10,
+          "matrix": "out",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 10,
+          "matrix": "ff1",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 10,
+          "matrix": "ff2",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 11,
+          "matrix": "qkv",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 11,
+          "matrix": "out",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 11,
+          "matrix": "ff1",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 11,
+          "matrix": "ff2",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 12,
+          "matrix": "qkv",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 12,
+          "matrix": "out",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 12,
+          "matrix": "ff1",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 12,
+          "matrix": "ff2",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 13,
+          "matrix": "qkv",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 13,
+          "matrix": "out",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 13,
+          "matrix": "ff1",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 13,
+          "matrix": "ff2",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 14,
+          "matrix": "qkv",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 14,
+          "matrix": "out",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 14,
+          "matrix": "ff1",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 14,
+          "matrix": "ff2",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 15,
+          "matrix": "qkv",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 15,
+          "matrix": "out",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 15,
+          "matrix": "ff1",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 15,
+          "matrix": "ff2",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 16,
+          "matrix": "qkv",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 16,
+          "matrix": "out",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 16,
+          "matrix": "ff1",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 16,
+          "matrix": "ff2",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 17,
+          "matrix": "qkv",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 17,
+          "matrix": "out",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 17,
+          "matrix": "ff1",
+          "fp16_roundtrip_exact": true
+        },
+        {
+          "block": 17,
+          "matrix": "ff2",
+          "fp16_roundtrip_exact": true
+        }
+      ],
+      "original_digest_before": "3eec4aa909625f4c9f0b1f6e2b5c8e0db9d8fd520eb3a1e7ae03d9ab46bafc9f",
+      "original_digest_after": "3eec4aa909625f4c9f0b1f6e2b5c8e0db9d8fd520eb3a1e7ae03d9ab46bafc9f",
+      "authoritative_coefficients_unchanged": true,
+      "int8_cache_lossless": false,
+      "arithmetic": "experimental W8A8 multiplication with per-channel weights",
+      "head_major": true,
+      "torch_head_attention": true,
+      "native_workers": 1,
+      "fp16_acoustic_modules": 0
+    }
+  },
+  "guard": {
+    "command": [
+      "python",
+      "/repo/experiments/student/listen_ar_int8_sdpa.py",
+      "--s1",
+      "/repo/.experiments/student/approved_k_20261112/ar.pt",
+      "--s2",
+      "/work/assets/v2Pro/s2Gv2ProPlus.pth",
+      "--hubert",
+      "/baseline/models/chinese-hubert-base",
+      "--reference",
+      "/work/reference_segment.wav",
+      "--prompt-text",
+      "\u30b9\u30de\u30fc\u30c8\u30d5\u30a9\u30f3\u304b\u3089\u30d5\u30a3\u30fc\u30c1\u30e3\u30fc\u30d5\u30a9\u30f3\u307e\u3067\u3001\u30de\u30eb\u30c1\u30c7\u30d0\u30a4\u30b9\u306b\u5bfe\u5fdc\u3002",
+      "--spec",
+      "/repo/.experiments/student/approved_k_20261112/student_spec.json",
+      "--decoder-student",
+      "/repo/.experiments/student/approved_k_20261112/decoder.pt",
+      "--output",
+      "/repo/.experiments/student/listening_M",
+      "--variant",
+      "D",
+      "--languages",
+      "ko",
+      "ja",
+      "en"
+    ],
+    "cpu_quota_cores": 2,
+    "memory_limit_bytes": 8000000000,
+    "peak_sampled_tree_rss_bytes": 5495853056,
+    "kernel_child_peak_rss_bytes": 5495664640,
+    "cpu_seconds": 21.717747,
+    "elapsed_seconds": 16.641214297999994,
+    "average_cpu_cores": 1.305057828779365,
+    "quota_stop_seconds": 0.0,
+    "maximum_cpu_debt_seconds": 0.0,
+    "samples": 1458,
+    "memory_control": "sampled process-tree RSS watchdog plus final kernel child peak check; not a kernel hard cap",
+    "cpu_control": "aggregate CPU time quota; 20ms CPU-time burst allowance; not cpuset",
+    "violation": null,
+    "exit_code": 0
+  }
+}

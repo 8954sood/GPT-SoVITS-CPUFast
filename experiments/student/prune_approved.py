@@ -1,4 +1,4 @@
-"""Select incremental AR18/decoder12 initializations from the accepted G weights.
+"""Select two-layer AR/one-branch decoder deletions from verified parent weights.
 
 Uses one training context per language for sensitivity selection, never validation
 texts. MAC estimates rank candidates; they are not measured speed improvements.
@@ -48,12 +48,15 @@ def copied_decoder(teacher, source, branches):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    for key in ("approved", "teacher", "s2", "manifest", "output"):
+    for key in ("approved", "teacher", "manifest", "output"):
         p.add_argument("--" + key, type=Path, required=True)
+    p.add_argument("--s2", type=Path)
+    p.add_argument("--ar-only", action="store_true")
+    p.add_argument("--protect-ar-layers", nargs="+", type=int, default=[0, 23])
     p.add_argument("--max-parent-log-mel", type=float, default=0.55)
     a = p.parse_args()
-    if a.output.exists():
-        p.error("Fresh output required")
+    if a.output.exists() or (not a.ar_only and a.s2 is None):
+        p.error("Fresh output required; decoder selection also requires --s2")
     torch.set_num_threads(8)
     torch.set_num_interop_threads(1)
     approved = json.loads((a.approved / "manifest.json").read_text())
@@ -75,15 +78,16 @@ def main():
     saved = torch.load(
         a.approved / "ar.pt", weights_only=False, map_location="cpu", mmap=True
     )
-    full = ARStudent(saved, list(range(20))).eval()
+    layers = saved["config"]["model"]["n_layer"]
+    full = ARStudent(saved, list(range(layers))).eval()
     original_ids = list(saved["student_metadata"]["original_layer_ids"])
-    keep = list(range(20))
+    keep = list(range(layers))
     rounds = []
     with torch.no_grad():
         for _ in range(2):
             scores = []
             for remove in keep:
-                if original_ids[remove] in (0, 23):
+                if original_ids[remove] in a.protect_ar_layers:
                     continue
                 selected = [i for i in keep if i != remove]
                 values = []
@@ -105,6 +109,8 @@ def main():
                         "values": values,
                     }
                 )
+            if not scores:
+                raise ValueError("No eligible AR layer remains outside protected IDs")
             selected = min(scores, key=lambda r: r["kl"])
             keep.remove(selected["local_layer"])
             rounds.append({"chosen": selected, "candidates": scores})
@@ -116,12 +122,36 @@ def main():
     exported["student_metadata"].update(
         {
             "original_layer_ids": [original_ids[i] for i in keep],
-            "training": "Untrained incremental pruning of approved AR20; quality unapproved",
+            "training": f"Untrained incremental pruning of approved AR{layers}; quality unapproved",
             "parent_sha256": sha(a.approved / "ar.pt"),
         }
     )
-    torch.save(exported, a.output / "ar18_initial.pt")
+    torch.save(exported, a.output / f"ar{len(keep)}_initial.pt")
     del full, ar, original, exported, saved
+
+    if a.ar_only:
+        spec = json.loads((a.approved / "student_spec.json").read_text())
+        spec.update(
+            ar_keep=[original_ids[i] for i in keep],
+            quality_approved=False,
+            training="AR-only incremental pruning; not posttrained/listening approved",
+        )
+        (a.output / "student_spec.json").write_text(json.dumps(spec, indent=2) + "\n")
+        (a.output / "selection.json").write_text(
+            json.dumps(
+                {
+                    "scope": "Three training contexts only; no N1 speed evidence",
+                    "parent_manifest_sha256": sha(a.approved / "manifest.json"),
+                    "protected_original_layers": a.protect_ar_layers,
+                    "ar_keep": spec["ar_keep"],
+                    "ar_greedy_rounds": rounds,
+                    "quality_approved": False,
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+        return
 
     teacher = decoder_from_teacher(a.s2, root / "teacher_decoder.pt")
     spec = json.loads((a.approved / "student_spec.json").read_text())

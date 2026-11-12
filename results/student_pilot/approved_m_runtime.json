@@ -1,0 +1,24 @@
+{
+  "model_variant": "M",
+  "quality_approved": true,
+  "feedback": null,
+  "scope": "Same Korean reference/text/seed. JA/EN outputs differ from L and have no listening approval.",
+  "model_weights_changed": false,
+  "underlying_hf_repo": "babihoba/gpt-sovits-v2proplus-arm-students",
+  "underlying_hf_revision": "475ac97f4a503ea9c6581333c8b936fd5c9f6dcd",
+  "underlying_manifest_path": "approved-k-20261112/manifest.json",
+  "underlying_manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+  "arithmetic": {
+    "ar": "W8A8 per-output-channel weights, dynamically quantized input; FP32 dequantization",
+    "attention": "Torch SDPA with unchanged head-major KV cache",
+    "acoustic": "Normal FP32 engine, fast_half0, no mixed global fast mode"
+  },
+  "implementation": "experiments/student/listen_ar_int8_sdpa.py",
+  "implementation_sha256": "929f6477597650271d149a193812984de316ca1affb6064ec8eb4cb9427f97ae",
+  "reference_sha256": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+  "seed": 42,
+  "listening_report": "results/student_pilot/ar_int8_sdpa_listening.json",
+  "actual_n1_rtf_measured": false,
+  "primary_objective": "Reduce actual target N1 latency/RTF with accepted quality; size alone is not success",
+  "approval_basis": "Inherited approved L Korean PCM equality, not a separate user answer"
+}
