@@ -1,0 +1,1010 @@
+{
+  "model_variant": "K",
+  "student_manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+  "student_quality_scope": "User accepts K versus H3 in Korean same reference/text/seed; not broad zero-shot or JA/EN listening approval",
+  "student_files_before": {
+    "manifest.json": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+    "ar.pt": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+    "decoder.pt": "a2fe6478aae00a8a481209f32aba85eab97198cd30aca0ce1ff63d9ec31c3c1d",
+    "student_spec.json": "6b4b12ecdf6f4716b4089f1590c0833c98f8397e6a8ea90c79e1180abf4c0002"
+  },
+  "student_fp32_control": false,
+  "decoder_bottlenecks": null,
+  "approximate_ar_int8_only": true,
+  "ar_runtime_approval": {
+    "model_variant": "L",
+    "quality_approved": true,
+    "feedback": "L 사용 가능",
+    "scope": "Korean same reference/text/seed versus approved K. Not broad zero-shot or JA/EN listening approval.",
+    "model_weights_changed": false,
+    "underlying_hf_repo": "babihoba/gpt-sovits-v2proplus-arm-students",
+    "underlying_hf_revision": "475ac97f4a503ea9c6581333c8b936fd5c9f6dcd",
+    "underlying_manifest_path": "approved-k-20261112/manifest.json",
+    "underlying_manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+    "arithmetic": {
+      "ar": "W8A8 per-output-channel weights, dynamically quantized input; FP32 dequantization",
+      "attention": "Native FP32 head-major attention",
+      "acoustic": "Normal FP32 engine, fast_half0, no mixed global fast mode"
+    },
+    "implementation": "experiments/student/listen_ar_int8.py",
+    "implementation_sha256": "170a6532158d27262ba8d2aeb0ed1c6b0f9c11ab95946a2a3c8273768f3e4587",
+    "reference_sha256": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+    "seed": 42,
+    "listening_report": "results/student_pilot/ar_int8_listening.json",
+    "actual_n1_rtf_measured": false,
+    "primary_objective": "Reduce actual target N1 latency/RTF with accepted quality; size alone is not success"
+  },
+  "packed_prefill_ffn": true,
+  "packed_prefill_equivalence": {
+    "scope": "Korean same reference/text/seed PCM+semantic+duration exactly equal to explicitly approved L. JA/EN changed and remain unapproved. Local correctness only; no local speed claim.",
+    "quality_approval_basis": "Inherited solely from exact approved L Korean waveform, authorized by Main; no new user listening answer claimed",
+    "quality_inherited_ko_only": true,
+    "full_pcm_exact_to_approved_l": true,
+    "underlying_manifest_sha256": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+    "baseline_runtime_approval_sha256": "5ddde36edec32eec8f720c6c1517e7ebd26dca8d9dda26cd432095f18730b355",
+    "reference_sha256": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+    "seed": 42,
+    "case": {
+      "language": "ko",
+      "text": "오늘은 날씨가 참 좋네요. 잠깐 쉬었다가 함께 이야기를 이어 가요.",
+      "sample_rate": 32000,
+      "audio_seconds": 5.02,
+      "smoke_elapsed_seconds": 13.07133650500009,
+      "semantic": [
+        {
+          "tokens": 118,
+          "sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "pcm_sha256": "92a135e36f8a0a0fd111cfbc42b1075e0ae3a421401fcc823d509e67be7edd9f"
+    },
+    "native_fp32_tests_passed": 2,
+    "native_tolerance": {
+      "rtol": 0.0001,
+      "atol": 0.0001
+    },
+    "source_parameters_and_files_unchanged": true,
+    "sources": {
+      "cpufast_prefill_probe.py": "030ba4469e059064241b861f5794b7eb421ad1d32308ce3344e33c20d5c43768",
+      "native/cpufast_prefill_packed.cpp": "2065634c8d25f05f92ced39cb0344610b29714a4655a281598174bd901f5bae2",
+      "native/acl_sgemm_8x12.cpp": "5be9c92b0bee523b1f54f9b65cf4d85445b8fb3c42d331ae35438ae9e05992c5",
+      "native/acl_asmlib.hpp": "9ce1af08a2a6708ed36406a9a61ae8ce2ab220cb9a627d394f619842e7584048",
+      "experiments/rtf07/build_prefill_probe.py": "6125d353ce8bf72147b6cb487b947de30d46c6b3401bdd2fc0a4c2e70272ef46",
+      "experiments/rtf07/listen_prefill_ffn.py": "365640f4fd27acdccc525d7f2389684be63b8b7306b7e98e99f5de6c05e5fc19",
+      "experiments/rtf07/test_prefill_probe.py": "039d7de0f24e9710b56119595dbb7ca5647132c0f43097bcd7e17b2580954856"
+    },
+    "native_library_manifest": {
+      "abi": 1,
+      "torch_version": "2.8.0+cpu",
+      "architecture": "aarch64",
+      "flags": [
+        "-O3",
+        "-fopenmp",
+        "-std=c++17",
+        "-march=armv8-a",
+        "-mtune=neoverse-n1",
+        "-ffp-contract=off",
+        "-fno-fast-math",
+        "-fPIC",
+        "-shared",
+        "-D_GLIBCXX_USE_CXX11_ABI=1"
+      ],
+      "sources": {
+        "native/cpufast_prefill_packed.cpp": "2065634c8d25f05f92ced39cb0344610b29714a4655a281598174bd901f5bae2",
+        "native/acl_sgemm_8x12.cpp": "5be9c92b0bee523b1f54f9b65cf4d85445b8fb3c42d331ae35438ae9e05992c5",
+        "native/acl_asmlib.hpp": "9ce1af08a2a6708ed36406a9a61ae8ce2ab220cb9a627d394f619842e7584048"
+      },
+      "library_sha256": "d206ee7cfd57b1ab496ab2a3e38e6b937bab16d87e4859226d656baf56a919e8"
+    }
+  },
+  "packed_prefill_audit": [
+    {
+      "block": 0,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 4,
+      "input_shape": [
+        1,
+        256,
+        512
+      ]
+    },
+    {
+      "block": 1,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 4,
+      "input_shape": [
+        1,
+        256,
+        512
+      ]
+    },
+    {
+      "block": 2,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 4,
+      "input_shape": [
+        1,
+        256,
+        512
+      ]
+    },
+    {
+      "block": 3,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 4,
+      "input_shape": [
+        1,
+        256,
+        512
+      ]
+    },
+    {
+      "block": 4,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 4,
+      "input_shape": [
+        1,
+        256,
+        512
+      ]
+    },
+    {
+      "block": 5,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 4,
+      "input_shape": [
+        1,
+        256,
+        512
+      ]
+    },
+    {
+      "block": 6,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 4,
+      "input_shape": [
+        1,
+        256,
+        512
+      ]
+    },
+    {
+      "block": 7,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 4,
+      "input_shape": [
+        1,
+        256,
+        512
+      ]
+    },
+    {
+      "block": 8,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 4,
+      "input_shape": [
+        1,
+        256,
+        512
+      ]
+    },
+    {
+      "block": 9,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 4,
+      "input_shape": [
+        1,
+        256,
+        512
+      ]
+    },
+    {
+      "block": 10,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 4,
+      "input_shape": [
+        1,
+        256,
+        512
+      ]
+    },
+    {
+      "block": 11,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 4,
+      "input_shape": [
+        1,
+        256,
+        512
+      ]
+    },
+    {
+      "block": 12,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 4,
+      "input_shape": [
+        1,
+        256,
+        512
+      ]
+    },
+    {
+      "block": 13,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 4,
+      "input_shape": [
+        1,
+        256,
+        512
+      ]
+    },
+    {
+      "block": 14,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 4,
+      "input_shape": [
+        1,
+        256,
+        512
+      ]
+    },
+    {
+      "block": 15,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 4,
+      "input_shape": [
+        1,
+        256,
+        512
+      ]
+    },
+    {
+      "block": 16,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 4,
+      "input_shape": [
+        1,
+        256,
+        512
+      ]
+    },
+    {
+      "block": 17,
+      "ffn1_weight_shape": [
+        512,
+        2048
+      ],
+      "ffn2_weight_shape": [
+        2048,
+        512
+      ],
+      "calls": 4,
+      "input_shape": [
+        1,
+        256,
+        512
+      ]
+    }
+  ],
+  "approximate_fft_half_products": false,
+  "fft_half_runtime_approval": null,
+  "approximate_fft_half_stream": false,
+  "fft_half_stream_equivalence": null,
+  "fft_half_product_modules": [],
+  "ar_runtime_library_manifest": {
+    "abi": 1,
+    "torch_version": "2.8.0+cpu",
+    "system": "Linux",
+    "architecture": "aarch64",
+    "flags": [
+      "-O3",
+      "-std=c++17",
+      "-march=armv8.2-a+fp16+dotprod",
+      "-mtune=neoverse-n1",
+      "-fopenmp",
+      "-fPIC",
+      "-shared",
+      "-D_GLIBCXX_USE_CXX11_ABI=1"
+    ],
+    "sources": {
+      "native/cpufast_fast_int8.cpp": "1e6b496c6547e7f4e27a382de9b52cc5882afd46cb38c5f3040af4fb532e4838",
+      "native/cpufast_fast_attention.cpp": "cd8d4ff9549b2012e425e8dac7992e1d66f60a63fb1379d42fb8627c4f3a7c29",
+      "native/cpufast_fast_half.cpp": "e4f2569cf7aff34f6eac62502b9a9ef2bc1d7de4bd81026faa20ab00cb1b0ecb"
+    },
+    "library_sha256": "54d89f5397ddf906e9e0e269d66df6f139b93f5851a43e62636060a7f6969143"
+  },
+  "fp16_acoustic_modules": 0,
+  "fft_padded_output_cache": [],
+  "student_load_seconds": 0.06389342062175274,
+  "experimental_options": {
+    "head_major": true,
+    "cook_phase": true,
+    "cook_resblock": 0,
+    "fft_layout": true,
+    "native_attention": false,
+    "packed_fft": true,
+    "fft_stream": true,
+    "fft_pad_channels": false,
+    "fft_half_products": false,
+    "fft_half_stream": false,
+    "parallel_transforms": true,
+    "fused_finish": true,
+    "tap_small": true,
+    "packed_small_48": false,
+    "n1_fft_sizes": false,
+    "n1_small_direct": false,
+    "ar_fp32_cache": false,
+    "ar_prefetch": 256,
+    "fast_experimental": false
+  },
+  "scope": "nonstreaming synthesis on the executing host; see cgroup and hardware",
+  "cgroup": {
+    "cpu.max": "200000 100000",
+    "cpuset.cpus.effective": "0-1",
+    "memory.max": "8000000000",
+    "memory.swap.max": "0"
+  },
+  "hardware": {
+    "machine": "aarch64",
+    "platform": "Linux-6.8.0-1054-oracle-aarch64-with-glibc2.36",
+    "python": "3.12.16",
+    "torch": "2.8.0+cpu",
+    "cpu_affinity": [
+      0,
+      1
+    ]
+  },
+  "inputs": {
+    "text": "오늘은 날씨가 참 좋네요. 잠깐 쉬었다가 함께 이야기를 이어 가요.",
+    "text_lang": "ko",
+    "ref_audio_path": "/reference.wav",
+    "prompt_text": "スマートフォンからフィーチャーフォンまで、マルチデバイスに対応。",
+    "prompt_lang": "ja",
+    "top_k": 15,
+    "top_p": 1.0,
+    "temperature": 1.0,
+    "text_split_method": "cut0",
+    "batch_size": 1,
+    "seed": 42,
+    "parallel_infer": true,
+    "vits_parallel_infer": false,
+    "fragment_interval": 0.3
+  },
+  "backend": "phase_fft_winograd",
+  "ar_threads": 2,
+  "native_threading": {
+    "configured_ar_threads": 2,
+    "configured_acoustic_threads": 2,
+    "torch_interop_threads": 1,
+    "native_operator_pool": "ATen parallel_for uses the global Torch intra-op pool; legacy native_workers=1 audit field is not the actual thread cap"
+  },
+  "ar_layout": "cpp_int8_ar_only",
+  "ar_coefficient_audit": {
+    "matrices": [
+      {
+        "block": 0,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 0,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 0,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 0,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 1,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 1,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 1,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 1,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 2,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 2,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 2,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 2,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 3,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 3,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 3,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 3,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 4,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 4,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 4,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 4,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 5,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 5,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 5,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 5,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 6,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 6,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 6,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 6,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 7,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 7,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 7,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 7,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 8,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 8,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 8,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 8,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 9,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 9,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 9,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 9,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 10,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 10,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 10,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 10,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 11,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 11,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 11,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 11,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 12,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 12,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 12,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 12,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 13,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 13,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 13,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 13,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 14,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 14,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 14,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 14,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 15,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 15,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 15,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 15,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 16,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 16,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 16,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 16,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 17,
+        "matrix": "qkv",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 17,
+        "matrix": "out",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 17,
+        "matrix": "ff1",
+        "fp16_roundtrip_exact": true
+      },
+      {
+        "block": 17,
+        "matrix": "ff2",
+        "fp16_roundtrip_exact": true
+      }
+    ],
+    "original_digest_before": "3eec4aa909625f4c9f0b1f6e2b5c8e0db9d8fd520eb3a1e7ae03d9ab46bafc9f",
+    "original_digest_after": "3eec4aa909625f4c9f0b1f6e2b5c8e0db9d8fd520eb3a1e7ae03d9ab46bafc9f",
+    "authoritative_coefficients_unchanged": true,
+    "int8_cache_lossless": false,
+    "arithmetic": "experimental W8A8 multiplication with per-channel weights",
+    "head_major": true,
+    "torch_head_attention": false,
+    "native_workers": 1
+  },
+  "n1_small_direct_count": 0,
+  "n1_fft_size_count": 0,
+  "packed_small_48_count": 0,
+  "native_predictor": true,
+  "inference_mode": true,
+  "fused_fft": true,
+  "acoustic_threads": 2,
+  "load_seconds": 3.166614631190896,
+  "installation_seconds": 2.1786567624658346,
+  "ar_installation_seconds": 0.0,
+  "convolutions_replaced": 77,
+  "fft_convolutions": 54,
+  "winograd_convolutions": 18,
+  "reference_sha256": "d88a56e042cecc419fceaef1bb73cbcf21d7e0f9122b2206a8f5045b8f577839",
+  "checkpoints_before": {
+    "/student/ar.pt": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+    "/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b"
+  },
+  "vits_parameters_before": "44bc7f14845d88310c09124f5c2abd86cad4cb78d7b9507c91b27a94a9a1529b",
+  "ar_parameters_before": "b03366c2e726a0f5cdf1373a26b10174c38b4e80799f2a5bdea0b0077f099bc1",
+  "ar_module_before": "0c0b6040bfe359ca0e249a2222894577dc537f791fbef9c15b3aced56a9caf48",
+  "warmups": [
+    {
+      "seconds": 13.716054229065776,
+      "cpu_seconds": 22.86849988,
+      "rtf": 2.7322817189374056,
+      "audio_seconds": 5.02,
+      "sample_rate": 32000,
+      "pcm_sha256": "0269c2ff38ef266552fb60743ff958a0376018280afa2197ef8bf01363069907",
+      "stages": {
+        "ar_seconds": 2.0022937189787626,
+        "enc_p_seconds": 0.12872404418885708,
+        "flow_seconds": 0.0800121147185564,
+        "dec_seconds": 7.225333925336599
+      },
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "runtime_local_pcm_match": false,
+      "runtime_local_generated_tokens_match": true
+    },
+    {
+      "seconds": 5.704945378005505,
+      "cpu_seconds": 9.811521639999995,
+      "rtf": 1.1364433023915348,
+      "audio_seconds": 5.02,
+      "sample_rate": 32000,
+      "pcm_sha256": "0269c2ff38ef266552fb60743ff958a0376018280afa2197ef8bf01363069907",
+      "stages": {
+        "ar_seconds": 1.9273701701313257,
+        "enc_p_seconds": 0.12707850709557533,
+        "flow_seconds": 0.07914146594703197,
+        "dec_seconds": 3.3886452596634626
+      },
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "runtime_local_pcm_match": false,
+      "runtime_local_generated_tokens_match": true
+    },
+    {
+      "seconds": 5.872287388890982,
+      "cpu_seconds": 9.958307399999995,
+      "rtf": 1.1697783643209128,
+      "audio_seconds": 5.02,
+      "sample_rate": 32000,
+      "pcm_sha256": "0269c2ff38ef266552fb60743ff958a0376018280afa2197ef8bf01363069907",
+      "stages": {
+        "ar_seconds": 1.9593633208423853,
+        "enc_p_seconds": 0.12376400269567966,
+        "flow_seconds": 0.07753157243132591,
+        "dec_seconds": 3.530974294990301
+      },
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "runtime_local_pcm_match": false,
+      "runtime_local_generated_tokens_match": true
+    }
+  ],
+  "runs": [
+    {
+      "seconds": 5.844828717410564,
+      "cpu_seconds": 9.93782324,
+      "rtf": 1.1643085094443357,
+      "audio_seconds": 5.02,
+      "sample_rate": 32000,
+      "pcm_sha256": "0269c2ff38ef266552fb60743ff958a0376018280afa2197ef8bf01363069907",
+      "stages": {
+        "ar_seconds": 1.980950379744172,
+        "enc_p_seconds": 0.1275615133345127,
+        "flow_seconds": 0.08120444230735302,
+        "dec_seconds": 3.4728578068315983
+      },
+      "semantic": [
+        {
+          "sha256": "c3ba76cd69bad11beb86a6bda122f5f47a74e7a711aa4435ceaf5ee9f372e8aa",
+          "index": 118,
+          "generated_sha256": "de58113b4925307206f189dd71945298f00c64b97cec964501f98b8f738d50d9"
+        }
+      ],
+      "runtime_local_pcm_match": false,
+      "runtime_local_generated_tokens_match": true
+    }
+  ],
+  "frontend_note": "Chinese BERT not loaded; original full HuBERT used",
+  "median_rtf": 1.1643085094443357,
+  "median_seconds": 5.844828717410564,
+  "checkpoints_after": {
+    "/student/ar.pt": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+    "/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth": "d42a22bbbf65fb2bbdd45ad6a66841156977db45c7aabe0a6992ff378d9c7d3b"
+  },
+  "vits_parameters_after": "44bc7f14845d88310c09124f5c2abd86cad4cb78d7b9507c91b27a94a9a1529b",
+  "checkpoint_files_unchanged": true,
+  "parameters_unchanged": true,
+  "ar_parameters_after": "b03366c2e726a0f5cdf1373a26b10174c38b4e80799f2a5bdea0b0077f099bc1",
+  "ar_module_after": "0c0b6040bfe359ca0e249a2222894577dc537f791fbef9c15b3aced56a9caf48",
+  "ar_parameters_unchanged": true,
+  "student_files_after": {
+    "manifest.json": "761a3dd80e40211d469823a2fffd8c3c5d153162790029bae12cf152cc7a17b4",
+    "ar.pt": "4051df84ee71e52eeb9858a53a060c4785eef912cf25a51051069ddd99041335",
+    "decoder.pt": "a2fe6478aae00a8a481209f32aba85eab97198cd30aca0ce1ff63d9ec31c3c1d",
+    "student_spec.json": "6b4b12ecdf6f4716b4089f1590c0833c98f8397e6a8ea90c79e1180abf4c0002"
+  },
+  "student_files_unchanged": true
+}

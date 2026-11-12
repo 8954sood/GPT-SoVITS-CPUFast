@@ -541,3 +541,34 @@ TorchDispatch labeling may produce both an outer dispatch and redispatched
 operator entry in the profiler, so raw `operators[].calls` is not a kernel-call
 count for instrumented AR. Read `ar_phases` for actual role/shape/invocation
 counts. This diagnostic issue does not instrument the timed observations.
+
+## Packed FP32 FFN prefill: complete N1 voice comparison
+
+Run `43181086060`, source `80513b7c4ae7be0470c7d7cb535326034f9709db`,
+measures only the explicit packed-RHS FP32 FFN1 bias/ReLU and FFN2 prefill
+prototype against approved L. Decode stays W8A8/native attention and acoustics
+stay FP32. The same fixed N1 2-vCPU / 8,000,000,000-byte / no-swap profile
+uses five fresh-process pairs alternating L/packed and packed/L, each with
+three excluded warmups and one measurement. R and P are not combined.
+
+| Runtime | Median RTF | Wall s | CPU s | AR s | Decoder s | Peak sampled tree RSS GB |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| L | 1.160028 | 5.823341 | 9.901378 | 1.936976 | 3.481215 | 5.101 |
+| Packed FP32 FFN prefill | 1.148206 | 5.763992 | 9.845126 | 1.977127 | 3.400939 | 5.338 |
+
+All ten unprofiled waveforms, 118 semantic tokens and 5.02s lengths match
+on N1; the separate candidate profile also matches its own unprofiled PCM.
+All checkpoint/reference/parameter/resource guards pass. Overall RTF falls
+1.02%, but changed AR grows 2.07%, while unchanged decoder falls 2.31%.
+This does not demonstrate prefill speedup; retain L as operational baseline,
+keep this prototype explicit and do not retune/repeat it without new evidence.
+Raw cold/warm/slow observations and hashes are in
+`results/n1_prefill_fp32_20261112`.
+
+The excluded profile confirms 18 packed FFN1 and 18 packed FFN2 invocations
+on the real `[1,256,512]` prefill. Diagnostic range totals are .154720s and
+.156645s respectively, versus an earlier independent profile's original FFN1,
+activation and FFN2 total of .348480s. This cross-run diagnostic difference is
+not an isolated speed comparison and cannot override the measured AR result.
+TorchDispatch produces outer and redispatched entries, so raw operator call
+counts are doubled; the role metadata records actual invocations.
