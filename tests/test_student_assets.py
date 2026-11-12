@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from cpufast_student_assets import load_manifest, sha256
+from cpufast_student_assets import load_manifest, sha256, inline_runtime_approval
 
 
 def bundle(tmp_path):
@@ -84,4 +84,44 @@ def test_only_explicit_lossless_cache_storage_allowed(tmp_path):
     data["ar_cache_storage"] = "fp16_arithmetic"
     manifest.write_text(json.dumps(data))
     with pytest.raises(ValueError, match="cache storage"):
+        load_manifest(manifest, sha256(manifest))
+
+
+def test_declared_runtime_source_is_pinned_and_traversal_rejected(tmp_path):
+    manifest, data = bundle(tmp_path)
+    source = tmp_path / "experiments/student/listen_thin_decoder.py"
+    source.parent.mkdir(parents=True)
+    source.write_text("# synthetic approved implementation\n")
+    data.update(
+        ar_runtime="int8_native",
+        ar_cache_storage="exact_fp16",
+        model_variant="synthetic_width",
+        scope="Synthetic unit case only",
+        runtime_implementation={
+            "path": "experiments/student/listen_thin_decoder.py",
+            "sha256": sha256(source),
+        },
+    )
+    manifest.write_text(json.dumps(data))
+    verified = load_manifest(manifest, sha256(manifest))
+    approval = inline_runtime_approval(verified, sha256(manifest), tmp_path)
+    assert approval["underlying_manifest_sha256"] == sha256(manifest)
+    source.write_text("# changed implementation\n")
+    with pytest.raises(ValueError, match="checksum"):
+        inline_runtime_approval(verified, sha256(manifest), tmp_path)
+    data["runtime_implementation"]["path"] = "experiments/student/../../outside.py"
+    manifest.write_text(json.dumps(data))
+    with pytest.raises(ValueError, match="Source-pinned"):
+        load_manifest(manifest, sha256(manifest))
+
+
+def test_optional_channel_selections_are_original_unique_sorted_ids(tmp_path):
+    manifest, data = bundle(tmp_path)
+    selected = [list(range(n)) for n in (640, 320, 160, 80, 40, 20)]
+    data["decoder_channel_keep"] = selected
+    manifest.write_text(json.dumps(data))
+    assert load_manifest(manifest, sha256(manifest))["decoder_channel_keep"] == selected
+    selected[-1].append(19)
+    manifest.write_text(json.dumps(data))
+    with pytest.raises(ValueError, match="channel selection"):
         load_manifest(manifest, sha256(manifest))

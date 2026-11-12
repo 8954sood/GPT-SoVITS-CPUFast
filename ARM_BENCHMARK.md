@@ -255,14 +255,15 @@ because the first result did not meet the below-1 condition. `im2col` is the
 historical standalone synthetic mode using the preserved L profile. Repeating
 the rejected tiles/im2col without a new computational hypothesis is unwarranted.
 
-`mode=studentattention` isolates L's native FP32 attention against the Korean
-M Torch-SDPA runtime on the same K bundle, W8A8 projections, head-major KV cache,
-FP32 acoustic engine, reference/request and seed. It runs three warmups and
-five samples each plus an excluded M profile. M inherits Korean approval from
-local exact L PCM/token/duration equality; it does not claim a separate user
-answer. Benchmark `--ar-int8-torch-sdpa` requires `--ar-int8-only`, Korean scope,
-and source-pinned `approved_m_runtime.json`. N1 PCM/tokens/duration must remain
-exact to L before adoption; JA/EN are outside this approval.
+Historical `mode=studentattention` isolated L's native FP32 attention against
+M Torch SDPA using the same K bundle/projections/head-major KV cache/acoustics.
+Actual N1 run 43170346259 measured L/M **1.1592/1.1609**, no overall gain.
+All five M waveforms/tokens/durations matched N1 L exactly. M's Korean approval
+was inherited from exact L PCM, not a separate user answer. The rejected
+benchmark flag/workflow mode was removed; source `b6dbc40adc1d2fda8296994eeb6ebe0c000c8604`
+and complete raw reports in `results/n1_student_m_20261112` preserve reproduction.
+The default-false `fast_ar` Torch-attention API remains only for the archived
+Main research helper, per explicit request. Keep L native attention operationally.
 
 For separately approved future widths with non-12-aligned decoder output
 channels, `optimize(..., packed_fft=True, fft_pad_channels=True)` prepares

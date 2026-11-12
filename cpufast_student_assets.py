@@ -3,7 +3,7 @@
 import hashlib
 import json
 import re
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 
 FILES = {"ar.pt", "decoder.pt", "student_spec.json"}
@@ -28,6 +28,31 @@ def load_manifest(path, expected_sha256, *, check_files=True):
         raise ValueError("Approved immutable student bundle required")
     if data.get("ar_cache_storage", "fp32") not in ("fp32", "exact_fp16"):
         raise ValueError("Unsupported student coefficient cache storage")
+    if data.get("ar_runtime", "fp32") not in ("fp32", "int8_native"):
+        raise ValueError("Unsupported approved AR runtime")
+    if data.get("ar_runtime") == "int8_native":
+        record = data.get("runtime_implementation", {})
+        source = PurePosixPath(record.get("path", ""))
+        if (
+            data.get("ar_cache_storage") != "exact_fp16"
+            or source.is_absolute()
+            or ".." in source.parts
+            or source.parts[:2] != ("experiments", "student")
+            or not re.fullmatch(r"[0-9a-f]{64}", record.get("sha256", ""))
+        ):
+            raise ValueError("Source-pinned approved INT8 runtime required")
+    channels = data.get("decoder_channel_keep")
+    if channels is not None:
+        if not isinstance(channels, list) or len(channels) != 6:
+            raise ValueError("Six original decoder channel selections required")
+        for selected, width in zip(channels, [768, 384, 192, 96, 48, 24]):
+            if (
+                not isinstance(selected, list)
+                or not selected
+                or any(type(i) is not int or not 0 <= i < width for i in selected)
+                or sorted(set(selected)) != selected
+            ):
+                raise ValueError("Invalid original decoder channel selection")
     if data.get("seed") != 42 or data.get("prompt_language") not in ("ja", "ko", "en"):
         raise ValueError("Unsupported approved synthesis request")
     for key in ("reference_sha256", "original_s2_sha256"):
@@ -59,6 +84,29 @@ def load_manifest(path, expected_sha256, *, check_files=True):
             ):
                 raise ValueError(f"Student execution asset integrity failure: {name}")
     return data
+
+
+def inline_runtime_approval(data, manifest_sha, root):
+    """Verify the source declaration of a whole-bundle listening approval."""
+    record = data["runtime_implementation"]
+    root = Path(root).resolve()
+    source = (root / record["path"]).resolve()
+    if (
+        not source.is_relative_to(root)
+        or not source.is_file()
+        or sha256(source) != record["sha256"]
+    ):
+        raise ValueError("Approved bundle runtime implementation checksum mismatch")
+    return {
+        "model_variant": data["model_variant"],
+        "quality_approved": data["quality_approved"],
+        "scope": data["scope"],
+        "approval_basis": "Immutable whole-bundle approval declares int8_native",
+        "underlying_manifest_sha256": manifest_sha,
+        "implementation": record["path"],
+        "implementation_sha256": record["sha256"],
+        "reference_sha256": data["reference_sha256"],
+    }
 
 
 def snapshot(path):

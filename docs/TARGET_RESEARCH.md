@@ -372,3 +372,60 @@ projections and head-major KV layout while using Torch SDPA. Tiny Linux ARM
 one/two-thread block checks passed mask/all-masked-head, cache-write identity
 and FP32 output tolerance. This preparation has no full-TTS quality or actual
 N1 speed claim; new listening approval and target measurement are required.
+
+## M attention-only comparison: no total speed gain
+
+[Run 43170346259](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43170346259)
+fixed source `b6dbc40adc1d2fda8296994eeb6ebe0c000c8604`, same K coefficients,
+W8A8 projections, head-major KV cache, FP32 acoustics, Korean reference/text/seed.
+Each case excluded three warmups and retained five samples. M changed only the
+native FP32 attention implementation to Torch SDPA.
+
+| Runtime | Median RTF | Wall s | CPU s | AR s | Decoder s |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Approved L native attention | **1.1592** | **5.8190** | 9.8961 | 2.0536 | 3.3696 |
+| M Torch SDPA attention | 1.1609 | 5.8276 | 9.8438 | 2.0356 | 3.3322 |
+
+Both generate 118 tokens and 5.02s, and every one of the five M PCM/token/duration
+outputs exactly matched N1 L. M inherited Korean approval from exact local L
+PCM equality; it did not have a separate user approval answer. JA/EN are outside
+the approval. Guards and model/reference/checkpoint hashes passed. Profiled M
+also matched its unprofiled same-process waveform exactly.
+
+The overall RTF difference is +.148%, not an improvement. Small stage/CPU
+reductions do not establish full synthesis gain; all slow samples, including
+the baseline outlier, remain in `results/n1_student_m_20261112`. The excluded
+M profile recorded self times of .377s Torch CPU attention, .517s INT8 projection,
+.828s FFT stream and 1.219s addmm. Do not add these to wall time or compare
+cross-run profiling numbers as an isolated speed estimate.
+
+Keep L native attention as the operational baseline. Remove M benchmark/CLI
+and workflow selection after preserving the run SHA/raw data. The default-false
+`cpufast_fast_ar` attention API remains for Main's archived research helper,
+per explicit request. No redundant M performance rerun is justified.
+
+## Narrow decoder execution support, quality gate still separate
+
+The rejected N640 voice candidate is not deployed or benchmarked on N1.
+Generic execution support remains available for separately approved future
+channel selections: immutable `decoder_channel_keep` IDs must match manifest,
+spec and trained decoder spec before loading. An inline whole-bundle approval
+may declare `ar_runtime: int8_native`, authoritative `ar_cache_storage:
+exact_fp16`, and source-pinned `runtime_implementation`. Checksum/path checks
+reject changed implementations and traversal. Legacy manifests retain their
+previous behavior; the K bundle still uses the separate approved L runtime.
+
+`studentdecoderint8` compares two approved bundles with identical AR bytes/cache,
+W8A8/native attention on both, and fixed semantic tokens/durations. A selected
+channel model requests the opt-in zero-padded FFT output cache and reports
+actual padded modules; cross-model decoder PCM equality is not required.
+No new-width server job runs before its listening approval and immutable assets.
+
+Local Linux ARM correctness verified output-cache padding at 320/160/80/40/20
+channels bit-exact to explicit zero-padded references, including one/two threads,
+batch1/2, layout/stream, activation/residual, parameter identity and immutability.
+The prospective 672-width model's C42/C21 three-tap Winograd path also passed
+dilation1/3/5, ragged time137, noncontiguous residual, batch1/2, direct-convolution
+FP32 tolerance and bit-exact serial/parallel comparisons. Its spatial SIMD does
+not impose a four-channel count requirement. These are compatibility checks,
+not speech-quality or actual-N1 speed claims.

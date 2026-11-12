@@ -6,7 +6,7 @@ on:
       mode:
         description: Full audio comparison or targeted diagnostics
         type: choice
-        options: ['compare', 'diagnostics', 'attention', 'small', 'scheduling', 'packed48', 'fft', 'fftcandidate', 'arcache', 'prefetch', 'prefetchcandidate', 'winograd', 'direct3', 'locality', 'fftstream', 'transforms', 'inference', 'runtime', 'student', 'studentcompare', 'studentdecoder', 'studentarint8', 'studentattention', 'studentarint8confirm', 'taptiles', 'im2col']
+        options: ['compare', 'diagnostics', 'attention', 'small', 'scheduling', 'packed48', 'fft', 'fftcandidate', 'arcache', 'prefetch', 'prefetchcandidate', 'winograd', 'direct3', 'locality', 'fftstream', 'transforms', 'inference', 'runtime', 'student', 'studentcompare', 'studentdecoder', 'studentdecoderint8', 'studentarint8', 'studentarint8confirm', 'taptiles', 'im2col']
         default: 'compare'
       warmups:
         description: Excluded warmup runs (1–5)
@@ -99,7 +99,7 @@ jobs:
           set -euo pipefail
           : "${ARM_HOST:?Missing ARM_SSH_HOST secret}" "${ARM_USER:?Missing ARM_SSH_USER secret}" "${ARM_PRIVATE_KEY:?Missing ARM_SSH_PRIVATE_KEY secret}" "${ARM_KNOWN_HOSTS:?Missing ARM_SSH_KNOWN_HOSTS secret}"
           [[ "$ARM_HOST" =~ ^[A-Za-z0-9._-]+$ && "$ARM_USER" =~ ^[A-Za-z_][A-Za-z0-9_-]*$ ]] || { echo "Invalid SSH host or user format" >&2; exit 1; }
-          [[ "$MODE" == compare || "$MODE" == diagnostics || "$MODE" == attention || "$MODE" == small || "$MODE" == scheduling || "$MODE" == packed48 || "$MODE" == fft || "$MODE" == fftcandidate || "$MODE" == arcache || "$MODE" == prefetch || "$MODE" == prefetchcandidate || "$MODE" == winograd || "$MODE" == direct3 || "$MODE" == locality || "$MODE" == fftstream || "$MODE" == transforms || "$MODE" == inference || "$MODE" == runtime || "$MODE" == student || "$MODE" == studentcompare || "$MODE" == studentdecoder || "$MODE" == studentattention || "$MODE" == studentarint8 || "$MODE" == studentarint8confirm || "$MODE" == taptiles || "$MODE" == im2col ]] || { echo "Invalid mode" >&2; exit 1; }
+          [[ "$MODE" == compare || "$MODE" == diagnostics || "$MODE" == attention || "$MODE" == small || "$MODE" == scheduling || "$MODE" == packed48 || "$MODE" == fft || "$MODE" == fftcandidate || "$MODE" == arcache || "$MODE" == prefetch || "$MODE" == prefetchcandidate || "$MODE" == winograd || "$MODE" == direct3 || "$MODE" == locality || "$MODE" == fftstream || "$MODE" == transforms || "$MODE" == inference || "$MODE" == runtime || "$MODE" == student || "$MODE" == studentcompare || "$MODE" == studentdecoder || "$MODE" == studentdecoderint8 || "$MODE" == studentarint8 || "$MODE" == studentarint8confirm || "$MODE" == taptiles || "$MODE" == im2col ]] || { echo "Invalid mode" >&2; exit 1; }
           [[ "$WARMUPS" =~ ^[1-5]$ && "$SAMPLES" =~ ^([1-9]|1[0-9]|20)$ ]] || { echo "Invalid sample counts" >&2; exit 1; }
           [[ "$GITHUB_RUN_ID" =~ ^[0-9]+$ && "$GITHUB_RUN_ATTEMPT" =~ ^[0-9]+$ ]] || { echo "Invalid run identifier" >&2; exit 1; }
           umask 077
@@ -118,7 +118,7 @@ jobs:
           trap cleanup_remote EXIT
           ssh "${ssh_args[@]}" "$target" "mkdir -p \"\$HOME/$remote_rel\""
           git archive "$GITHUB_SHA" | ssh "${ssh_args[@]}" "$target" "tar -x -C \"\$HOME/$remote_rel\""
-          if [[ "$MODE" == student || "$MODE" == studentcompare || "$MODE" == studentdecoder || "$MODE" == studentattention || "$MODE" == studentarint8 || "$MODE" == studentarint8confirm ]]; then
+          if [[ "$MODE" == student || "$MODE" == studentcompare || "$MODE" == studentdecoder || "$MODE" == studentdecoderint8 || "$MODE" == studentarint8 || "$MODE" == studentarint8confirm ]]; then
             export PYTHONPATH="$GITHUB_WORKSPACE:$RUNNER_TEMP/student-python"
             prepare_bundle() {
               local bundle_path=$1 bundle_sha=$2
@@ -137,7 +137,7 @@ jobs:
               fi
             }
             prepare_bundle "$HF_STUDENT_MANIFEST_PATH" "$HF_STUDENT_MANIFEST_SHA256"
-            if [[ "$MODE" == studentcompare || "$MODE" == studentdecoder ]]; then
+            if [[ "$MODE" == studentcompare || "$MODE" == studentdecoder || "$MODE" == studentdecoderint8 ]]; then
               prepare_bundle "$COMPARISON_MANIFEST_PATH" "$COMPARISON_MANIFEST_SHA256"
             fi
           fi
