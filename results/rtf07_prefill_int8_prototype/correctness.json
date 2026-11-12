@@ -1,0 +1,99 @@
+{
+  "scope": "Local primitive/proxy correctness only; approximate prefill arithmetic. No TTS listening approval, no N1 candidate performance measurement or adoption.",
+  "algorithm": {
+    "tile": "4prompt rows x4output columns,16K SDOT groups",
+    "genuine_multirow_GEMM": true,
+    "reused_RHS": "Each4output RHS vector block is loaded once and reused for4prompt rows; no single-row int8_linear call or GEMV fallback.",
+    "weights": "Derived per-output q/scale from unchanged CPU FP32 exact-half parent source matrices; scale=maxabs/127 clampedmin1e-12.",
+    "activations": "Independent per-token maxabs/127, zero-token scale1, nearbyint(input*reciprocal) then clamp[-127,127].",
+    "accumulation": "Exact int32 SDOT withK<=65536 preventing signed32 overflow; FP32 dequant multiply-multiply-bias with FMA contraction disabled. Optional FFN1ReLU finalstore.",
+    "layout": "RHS[ceilN4,ceilK16,4,16], activation[ceilM4,ceilK16,4,16]; zeros in all row/column/K tails. OriginalK passed explicitly for strict shape validation.",
+    "integration": "Separate DSO/build/cache/loader; process_prompt-only MLP replacement inherits unchanged restoration/decode delegation. Original attention,QKV,out,norm and cache-management code untouched; arithmetic can still alter later KV values and voice."
+  },
+  "tests": {
+    "native_tests_passed": 4,
+    "native_shapes_M_K_N": [
+      [
+        256,
+        512,
+        2048
+      ],
+      [
+        256,
+        2048,
+        512
+      ],
+      [
+        256,
+        512,
+        1536
+      ],
+      [
+        256,
+        1536,
+        512
+      ],
+      [
+        7,
+        17,
+        13
+      ],
+      [
+        2,
+        1,
+        1
+      ]
+    ],
+    "threads": [
+      1,
+      2
+    ],
+    "relu": [
+      false,
+      true
+    ],
+    "comparison": "Bitwise exact to explicitly defined per-token W8A8 reference, not original FP32 output",
+    "zero_activation_weight_and_tail_checks_passed": true,
+    "input_weights_scales_bias_immutable": true,
+    "version_mutation_rebuilds_cache": true,
+    "bias_mutation_uses_current_bias_without_repacking_weights": true,
+    "nonexact_FP16_source_rejected_without_mutation": true,
+    "invalid_M1_K_nonfinite_scales_rejected": true,
+    "host_prompt_scope_restore_and_decode_delegate_tests_passed": 1,
+    "extra_model_assets_required": false
+  },
+  "first_validation_failure": "Original packed tensor layout lost originalK within a16-column padded group, so a mismatching inputK could pass. Explicitinput_features argument fixes strict validation. Failure log retained locally; final four native tests pass.",
+  "source_sha256": {
+    "native/cpufast_prefill_int8.cpp": "8834a85397759f363f45e92df36e924d804e488da2e03dd3426a816e4ef4b404",
+    "cpufast_prefill_int8_probe.py": "929ce65abc68ef3f40647e78f4518366040c5cd122dcece051467017ffe25681",
+    "experiments/rtf07/build_prefill_int8_probe.py": "3854d3ef04aac3f61735120b908dc39891e8eeaf3f9ed2805497e9eb9e18bd57",
+    "experiments/rtf07/test_prefill_int8_probe.py": "d9b679d21654b130006bf16780f7ae4eb3cceedf5c93df51f1144dc664dc2b8c",
+    "tests/test_int8_prefill_proxy.py": "3fef7a7744a2acab2ce214cbe5c9948caaf93bc71cb18fcdb41b96866d4e7a7f"
+  },
+  "native_build_manifest": {
+    "abi": 1,
+    "torch_version": "2.8.0+cpu",
+    "architecture": "aarch64",
+    "flags": [
+      "-O3",
+      "-fopenmp",
+      "-std=c++17",
+      "-march=armv8.2-a+dotprod",
+      "-mtune=neoverse-n1",
+      "-ffp-contract=off",
+      "-fno-fast-math",
+      "-fPIC",
+      "-shared",
+      "-D_GLIBCXX_USE_CXX11_ABI=1"
+    ],
+    "sources": {
+      "native/cpufast_prefill_int8.cpp": "8834a85397759f363f45e92df36e924d804e488da2e03dd3426a816e4ef4b404"
+    },
+    "library_sha256": "c838353126f794670f253d50538cfffcdd0692c3345a11297d80c2f482eb1971"
+  },
+  "quality_approved": false,
+  "actual_n1_measured": false,
+  "default_runtime_changed": false,
+  "current_U_remote_source_changed": false,
+  "next_gate": "Separate fullTTS voice generation with original L reference/audio guards, user listening before actualN1 speed comparison. No speed claim from these unit tests."
+}
