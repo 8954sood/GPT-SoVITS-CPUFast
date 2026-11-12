@@ -1,0 +1,75 @@
+{
+  "scope": "CPU-only original-teacher decoder recovery; fixed validation numerical result, no listening or N1 speed approval",
+  "parent_checkpoint_sha256": "7d4c184c638b09880a7e61b088b999542598644d22166e84e32137c5649b9524",
+  "candidate_checkpoint_sha256": "dc0dc379ad7294f89fdcc6232c5457d065427e937c2ead2d00936a3b482dbd7d",
+  "spec_sha256": "cb411065f3e69c2725791fc00272940589c309a67bd5122abcd26499cfde6a16",
+  "device": "cpu",
+  "torch_version": "2.8.0",
+  "python_version": "3.12.6",
+  "additional_updates": 100,
+  "selected_additional_step": 100,
+  "learning_rate": 2e-06,
+  "final_lr_ratio": 0.1,
+  "threads": 8,
+  "gradient_accumulation": 3,
+  "full_context": true,
+  "changed_state_tensors": 159,
+  "teacher_and_student_unchanged_during_evaluation": true,
+  "mean_validation_log_mel_before": 0.16221135233839354,
+  "mean_validation_log_mel_after": 0.16045901303490004,
+  "relative_log_mel_reduction": 0.010802815451768732,
+  "groups": [
+    {
+      "language": "ja",
+      "latent_origin": "original_AR_teacher",
+      "before_log_mel": 0.16001473367214203,
+      "after_log_mel": 0.15796874463558197,
+      "before_log_stft": 0.37404683232307434,
+      "after_log_stft": 0.37077856063842773
+    },
+    {
+      "language": "ko",
+      "latent_origin": "original_AR_teacher",
+      "before_log_mel": 0.1609276756644249,
+      "after_log_mel": 0.15922190248966217,
+      "before_log_stft": 0.3755931556224823,
+      "after_log_stft": 0.37306518852710724
+    },
+    {
+      "language": "en",
+      "latent_origin": "original_AR_teacher",
+      "before_log_mel": 0.16919365525245667,
+      "after_log_mel": 0.1676306203007698,
+      "before_log_stft": 0.3923441767692566,
+      "after_log_stft": 0.38998332619667053
+    },
+    {
+      "language": "ja",
+      "latent_origin": "approved_L_free_generation",
+      "before_log_mel": 0.16110409796237946,
+      "after_log_mel": 0.1596413031220436,
+      "before_log_stft": 0.37771034240722656,
+      "after_log_stft": 0.37579552829265594
+    },
+    {
+      "language": "ko",
+      "latent_origin": "approved_L_free_generation",
+      "before_log_mel": 0.16206838935613632,
+      "after_log_mel": 0.16009919345378876,
+      "before_log_stft": 0.3734259009361267,
+      "after_log_stft": 0.37026073038578033
+    },
+    {
+      "language": "en",
+      "latent_origin": "approved_L_free_generation",
+      "before_log_mel": 0.1599595621228218,
+      "after_log_mel": 0.15819231420755386,
+      "before_log_stft": 0.38349302113056183,
+      "after_log_stft": 0.37982724606990814
+    }
+  ],
+  "quality_approved": false,
+  "actual_n1_measured": false,
+  "parent_checkpoint_preserved": true,
+  "redundant_latest_tensors_equal_best": true
+}
