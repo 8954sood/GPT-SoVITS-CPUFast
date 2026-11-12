@@ -29,11 +29,20 @@
   `results/n1_head_v32_20261112/{full_pcm,integrated}/`에 보존한다.
 - QK4의 전체5쌍은 baseline/candidate 중앙RTF0.996747/0.996269로 사실상
   같았고 AR시간도 일관되게 줄지 않아 채택하지 않았다. 원자료와 재현용
-  workflow `studentheadqk4`만 보존한다. worker는 승인AR17+V400와 채택된
-  value scheduling을 고정하고 FFN2-only row8 INT8 후보를 다음으로 시험한다.
+  workflow `studentheadqk4`만 보존한다. FFN2-only row8도 원래PCM/실제호출
+  검증은 통과했지만 단일RTF1.00254는 정합성 관측이며 성능 채택 근거가 아니다.
+  현재 기본경로에는 QK4/FFN2가 없다. worker는 승인AR17+V400와 채택된
+  value scheduling을 고정하고 stage0 Cin240 conv2 여섯 모듈의 FFT256→128을
+  시험한다. KO/JA/EN 수치 비교는 최대1PCM LSB, SNR92dB 이상으로 길이와
+  semantic이 같았다. 가중치 변경 없이 생긴 roundoff 수준 차이여서 기존
+  최적화 권한으로 RTF 비교를 진행하며, 성능 결과 전에는 채택하지 않는다.
 - 사용자는 새 AR16의 음질을 거부해 해당 모델을 보류했고 성능 측정은 없다.
   V recovery200은 같은 구조에서 CPU 추가학습을 마쳤고 고정입력 logmel 오차가
   원래V보다2.35% 낮지만 청취/RTF 미승인 후보다. 현재서버의 V400을 바꾸지 않는다.
+- Main은 실제 Tap 모듈 계측을 근거로 마지막 C24 K11 분기만 제거한 후보도
+  별도로 학습한다. AR17과 prefix/upsampler/나머지 geometry는 고정하고 마지막
+  두 residual block+conv_post만 회복한다. 첫200회 logmel .403049→.186033은
+  기존V .162211보다 나쁘며 아직 청취/RTF 승인이 없다. 짧은 추가회복 진행 중이다.
 - Main의 AR16, history 보강, inactive-FFN slice는 별도 미승인 연구 후보다.
   승인 모델 파일을 덮어쓰거나 이들 후보를 현재 서버 비교에 섞지 않는다.
 
