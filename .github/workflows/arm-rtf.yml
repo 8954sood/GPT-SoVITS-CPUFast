@@ -3,6 +3,11 @@ name: ARM RTF benchmark
 on:
   workflow_dispatch:
     inputs:
+      mode:
+        description: Full audio comparison or targeted diagnostics
+        type: choice
+        options: ['compare', 'diagnostics']
+        default: 'compare'
       warmups:
         description: Excluded warmup runs (1–5)
         type: choice
@@ -38,6 +43,7 @@ jobs:
           ARM_BENCH_IMAGE: ${{ vars.ARM_BENCH_IMAGE }}
           ARM_BENCH_MEMORY: ${{ vars.ARM_BENCH_MEMORY }}
           ARM_BENCH_CPUS: ${{ vars.ARM_BENCH_CPUS }}
+          MODE: ${{ inputs.mode }}
           WARMUPS: ${{ inputs.warmups }}
           SAMPLES: ${{ inputs.samples }}
         shell: bash
@@ -45,6 +51,7 @@ jobs:
           set -euo pipefail
           : "${ARM_HOST:?Missing ARM_SSH_HOST secret}" "${ARM_USER:?Missing ARM_SSH_USER secret}" "${ARM_PRIVATE_KEY:?Missing ARM_SSH_PRIVATE_KEY secret}" "${ARM_KNOWN_HOSTS:?Missing ARM_SSH_KNOWN_HOSTS secret}"
           [[ "$ARM_HOST" =~ ^[A-Za-z0-9._-]+$ && "$ARM_USER" =~ ^[A-Za-z_][A-Za-z0-9_-]*$ ]]
+          [[ "$MODE" == compare || "$MODE" == diagnostics ]]
           [[ "$WARMUPS" =~ ^[1-5]$ && "$SAMPLES" =~ ^([1-9]|1[0-9]|20)$ ]]
           [[ "$GITHUB_RUN_ID" =~ ^[0-9]+$ && "$GITHUB_RUN_ATTEMPT" =~ ^[0-9]+$ ]]
           umask 077
@@ -63,7 +70,7 @@ jobs:
           trap cleanup_remote EXIT
           ssh "${ssh_args[@]}" "$target" "mkdir -p \"\$HOME/$remote_rel\""
           git archive "$GITHUB_SHA" | ssh "${ssh_args[@]}" "$target" "tar -x -C \"\$HOME/$remote_rel\""
-          printf -v benchmark_args ' %q' "${ARM_BENCH_ROOT:-}" "${ARM_BENCH_IMAGE:-}" "${ARM_BENCH_MEMORY:-}" "${ARM_BENCH_CPUS:-}" "$WARMUPS" "$SAMPLES"
+          printf -v benchmark_args ' %q' "${ARM_BENCH_ROOT:-}" "${ARM_BENCH_IMAGE:-}" "${ARM_BENCH_MEMORY:-}" "${ARM_BENCH_CPUS:-}" "$WARMUPS" "$SAMPLES" "$MODE"
           benchmark_status=0
           ssh "${ssh_args[@]}" "$target" "bash \"\$HOME/$remote_rel/scripts/run_arm_benchmark.sh\"$benchmark_args" || benchmark_status=$?
           mkdir -p ci-artifact
@@ -76,6 +83,15 @@ jobs:
           python3 - <<'PY' | tee -a "$GITHUB_STEP_SUMMARY"
           import json
           from pathlib import Path
+          import os
+          if os.environ['MODE'] == 'diagnostics':
+              d = json.loads(Path('ci-artifact/profile_run.json').read_text())
+              print('### ARM 2-vCPU FP32 diagnostics')
+              print(f"- Unprofiled tap run median RTF: {d['median_rtf']:.4f}; profiling is a separate invocation.")
+              print('- Operator profile and synthetic kernel timing details are in the JSON artifacts.')
+              if not all(d.get(k) for k in ('checkpoint_files_unchanged', 'parameters_unchanged', 'ar_parameters_unchanged')):
+                  raise SystemExit('Parameter integrity verification failed')
+              raise SystemExit(0)
           print('### ARM 2-vCPU FP32 comparison')
           print('RTF is synthesis wall time divided by audio duration; warmups and all measured runs are recorded.')
           for n in (1, 2):

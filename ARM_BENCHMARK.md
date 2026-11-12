@@ -27,6 +27,8 @@ Optional repository variables: `ARM_BENCH_ROOT` (absolute path to the layout abo
 
 ## Run
 
+Select `compare` for the two-sentence audio comparison or `diagnostics` for a separate operator profile and synthetic FP32 kernel probes on the same target. Profiling runs after the measured synthesis and is excluded from RTF; synthetic timings are not end-to-end performance results.
+
 Open **Actions → ARM RTF benchmark → Run workflow**, choose the trusted branch and warmup/sample counts. The summary reports median and individual RTF; download the JSON and WAV artifacts from the run for details and listening. A temporary checkout is removed from the server after the run. The default workload uses the Japanese reference and text specified in `scripts/run_arm_benchmark.sh`, with seed 42. Hardware load, CPU quota, memory, runtime image and thermal conditions can affect the result.
 
 To run directly on an already prepared target from a checkout:

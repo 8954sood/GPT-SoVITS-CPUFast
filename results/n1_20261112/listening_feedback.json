@@ -1,0 +1,6 @@
+{
+  "workflow_run": "https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43127735619",
+  "comparison": "baseline vs tap, sentences 1 and 2",
+  "user_feedback": "차이 없음",
+  "note": "User listened to both comparisons; three measured samples per configuration are exploratory."
+}

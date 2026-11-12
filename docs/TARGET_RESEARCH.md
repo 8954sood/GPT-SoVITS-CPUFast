@@ -1,0 +1,20 @@
+# Actual 2-vCPU ARM server: next hypotheses
+
+The target is the configured ARM server under its 2-vCPU/8,000,000,000-byte Docker limit. The immediate objective is a warmed end-to-end RTF below 1 with unchanged authoritative model weights, value-preserving coefficient caches and FP32 arithmetic. Local 0.7426-CPU measurements are not the target-server score. Keep model loading and every warmup/slow run explicit; compare equal reference, text, seed, semantic tokens, duration and audio.
+
+## Evidence consulted
+
+- GPT-SoVITS V5's phase upsampling and channels-last layout reduced decoder cost, but much less of total synthesis; full XNNPACK and residual-branch parallelization were not consistently helpful. Both phase upsampling and packed FP32 layouts already exist here. V5's ORT FFN gain was in a different CFM model and hardware proxy, so it does not establish an AR prefill gain here.
+- Audio8's channel-selected direct tap GEMM improved its decoder, whereas larger Winograd variants won some microbenchmarks but lost on full TTS. The current `tap_small` path checks <=48 channels. Probe 96/192 channel geometries on the actual server before broadening it. Local proxy probes made these larger tap cases much slower than FFT; server results may differ.
+- Audio8's grouped-query attention shares K/V among query heads. This GPT-SoVITS AR model has distinct per-head K/V, so the same grouping is not automatically applicable. It still suggests testing thread counts and head-major cache layout without altering attention semantics.
+- [Supertonic 3](https://github.com/8954sood/supertonic3-optimization) found reference conditioning worth caching, but this CPUFast checkout already caches `decode_ge`, `decode_ge_text`, prompt semantics and reference features. Avoid claiming those existing caches as a new gain. Its 2-vCPU N1 result is a different model and cannot predict this model's RTF.
+- Prior local probes found the custom single-token attention and most generalized Winograd/Strassen cases slower. Do not reintroduce them without target-hardware evidence. W8A8 and FP16 arithmetic remain outside this task's earlier FP32/lossless coefficient constraint even though another remote branch added them as separate opt-in experiments.
+
+## Prepared diagnostics
+
+1. Record a separate profiled inference using `benchmark_cpufast.py --profile-output PATH`; this extra invocation is excluded from RTF statistics. CPU operator totals can overlap across threads and contain profiler overhead.
+2. Run `experiments/rtf07/bench_ar_gemv.py` to compare native GEMV tile 8/16 and one/two threads across the actual AR matrix shapes. It checks exact output equality and reports every measured call. Synthetic tensors make it a kernel probe, not a quality or full-RTF result.
+3. Run `experiments/rtf07/bench_decoder_methods.py` to compare packed FFT with tap GEMM on representative decoder shapes. Synthetic weights, differing cache behavior, and isolated calls mean any apparent win still requires full inference and listening.
+4. Test the smallest promising change on both sentences, with a fresh approved-waveform comparison and independent warmed repeats. Do not select from a single lowest measurement.
+
+The two probes have passed local execution; target-server timing and the extra profiling invocation have not yet been run. Sources, results and implementation from the referenced projects are evidence and must not be modified by this repository's workflow.

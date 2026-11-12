@@ -42,7 +42,7 @@ class CppLosslessBlock:
         x, k, v, length = self.block.process_prompt(
             x, mask, max_decode_steps, padding, torch_sdpa
         )
-        if self.head_major and x.shape[0] == 1:
+        if self.head_major and x.shape[0] == 1 and torch_sdpa:
             b, l, width = k.shape
             k = k.view(b, l, self.block.num_heads, -1).transpose(1, 2).contiguous()
             v = v.view(b, l, self.block.num_heads, -1).transpose(1, 2).contiguous()
@@ -73,13 +73,27 @@ class CppLosslessBlock:
             values[:, :, cache_len:next_len] = v.view(1, 1, b.num_heads, -1).transpose(
                 1, 2
             )
-            a = F.scaled_dot_product_attention(
-                q.view(1, 1, b.num_heads, -1).transpose(1, 2),
-                keys[:, :, :next_len],
-                values[:, :, :next_len],
-                ~mask if mask is not None else None,
-            )
-            a = a.transpose(1, 2).reshape(1, 1, -1)
+            if self.native_attention and (
+                mask is None
+                or mask.numel() == next_len
+                or mask.numel() == b.num_heads * next_len
+            ):
+                a = torch.ops.cpufast_cpp.head_attn_fp32(
+                    q.contiguous(),
+                    keys,
+                    values,
+                    next_len,
+                    b.num_heads,
+                    mask.contiguous() if mask is not None else None,
+                )
+            else:
+                a = F.scaled_dot_product_attention(
+                    q.view(1, 1, b.num_heads, -1).transpose(1, 2),
+                    keys[:, :, :next_len],
+                    values[:, :, :next_len],
+                    ~mask if mask is not None else None,
+                )
+                a = a.transpose(1, 2).reshape(1, 1, -1)
         else:
             keys[:, cache_len:next_len] = k
             values[:, cache_len:next_len] = v

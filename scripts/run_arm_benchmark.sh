@@ -8,6 +8,8 @@ memory=${3:-8000000000}
 cpus=${4:-2}
 warmups=${5:-2}
 samples=${6:-3}
+mode=${7:-compare}
+[[ "$mode" == compare || "$mode" == diagnostics ]] || { echo "Invalid benchmark mode" >&2; exit 1; }
 project="$bench_root/project"
 assets="$bench_root/cpufast-cefae22/assets/pretrained_models"
 reference="$bench_root/reference_ja_4s.wav"
@@ -37,6 +39,7 @@ mkdir -p "$repo_dir/.experiments"
 run_container python build_cpufast_ar.py --output /repo/libcpufast_ar_torch.so
 run_container python -m unittest discover -s tests -p test_cpufast_tap.py -v
 run_container python experiments/rtf07/test_fusion_layout.py
+run_container python -m unittest discover -s tests -p test_fp32_head_attention.py -v
 common=(--engine --head-major --cook-phase --fft-layout --packed-fft --fused-finish
   --ar-threads 2 --threads 2
   --s1 /project/models/s1v3.ckpt --s2 /repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth
@@ -45,6 +48,17 @@ common=(--engine --head-major --cook-phase --fft-layout --packed-fft --fused-fin
   --warmups "$warmups" --samples "$samples")
 texts=('今日は穏やかな天気ですね。少し休んでから、また一緒に続きを進めましょう。'
        '今日は新しい音声合成モデルを使って、声の雰囲気を確かめています。')
+if [[ "$mode" == diagnostics ]]; then
+  run_container python resource_guard.py --report /repo/ci-results/profile_guard.json -- \
+    python benchmark_cpufast.py "${common[@]}" --tap-small --text "${texts[0]}" \
+    --output /repo/ci-results/profile_run.json --profile-output /repo/ci-results/profile_ops.json
+  for probe in ar_gemv head_attention decoder_methods; do
+    echo "Running synthetic FP32 probe: $probe"
+    run_container python resource_guard.py --report "/repo/ci-results/${probe}_guard.json" -- \
+      python "experiments/rtf07/bench_${probe}.py" --output "/repo/ci-results/${probe}.json"
+  done
+  exit 0
+fi
 for index in 0 1; do
   number=$((index + 1))
   echo "Benchmarking sentence $number: FP32 baseline"

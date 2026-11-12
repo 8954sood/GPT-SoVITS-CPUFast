@@ -78,6 +78,11 @@ def main():
     parser.add_argument("--tap-small", action="store_true")
     parser.add_argument("--fast-experimental", action="store_true")
     parser.add_argument("--no-save-audio", action="store_true")
+    parser.add_argument(
+        "--profile-output",
+        type=Path,
+        help="Optional fresh JSON for a separate extra profiled inference (excluded from RTF)",
+    )
     parser.add_argument("--head-major", action="store_true")
     parser.add_argument("--cook-phase", action="store_true")
     parser.add_argument("--cook-resblock", type=int, choices=[0, 6, 8], default=0)
@@ -103,10 +108,16 @@ def main():
         parser.error("--fast-experimental requires --engine")
     if (
         args.output.exists()
+        or (args.profile_output is not None and args.profile_output.exists())
         or not 1 <= args.samples <= 20
         or not 1 <= args.warmups <= 5
     ):
         parser.error("Use a fresh output, 1–20 samples and 1–5 warmups")
+    if (
+        args.profile_output is not None
+        and args.profile_output.resolve() == args.output.resolve()
+    ):
+        parser.error("Profile and benchmark outputs must be different files")
     torch.set_num_threads(args.threads)
     torch.set_num_interop_threads(1)
     from TTS_infer_pack.TTS import TTS, TTS_Config
@@ -312,13 +323,21 @@ def main():
         },
         "scope": "nonstreaming synthesis on the executing host; see cgroup and hardware",
         "cgroup": cgroup(),
-        "hardware": {"machine": platform.machine(), "platform": platform.platform(),
-                     "python": platform.python_version(), "torch": torch.__version__,
-                     "cpu_affinity": sorted(os.sched_getaffinity(0)) if hasattr(os, "sched_getaffinity") else None},
+        "hardware": {
+            "machine": platform.machine(),
+            "platform": platform.platform(),
+            "python": platform.python_version(),
+            "torch": torch.__version__,
+            "cpu_affinity": sorted(os.sched_getaffinity(0))
+            if hasattr(os, "sched_getaffinity")
+            else None,
+        },
         "inputs": inputs,
         "backend": args.backend,
         "ar_threads": args.ar_threads,
-        "ar_layout": "cpp_int8_experimental" if args.fast_experimental else args.ar_layout,
+        "ar_layout": "cpp_int8_experimental"
+        if args.fast_experimental
+        else args.ar_layout,
         "ar_coefficient_audit": ar_audit,
         "native_predictor": args.native_predictor,
         "inference_mode": args.inference_mode,
@@ -415,6 +434,41 @@ def main():
     assert report["checkpoint_files_unchanged"] and report["parameters_unchanged"]
     assert report["ar_parameters_unchanged"]
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+    if args.profile_output is not None:
+        # The additional profiled synthesis is explicitly excluded from the RTF runs.
+        with torch.profiler.profile(
+            activities=[torch.profiler.ProfilerActivity.CPU]
+        ) as prof:
+            list(runtime.run(inputs))
+        rows = [
+            {
+                "name": event.key,
+                "calls": event.count,
+                "self_cpu_us": event.self_cpu_time_total,
+                "total_cpu_us": event.cpu_time_total,
+            }
+            for event in prof.key_averages()
+        ]
+        args.profile_output.write_text(
+            json.dumps(
+                {
+                    "note": "Extra profiled inference, excluded from RTF; CPU totals may overlap across threads and include profiler overhead",
+                    "operators": sorted(
+                        rows, key=lambda row: row["self_cpu_us"], reverse=True
+                    ),
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+        report["profile_output"] = str(args.profile_output)
+        if (
+            parameter_digest(pipeline.vits_model) != parameters_before
+            or ar_digest(pipeline.t2s_model.model.t2s_transformer) != ar_before
+            or parameter_digest(pipeline.t2s_model.model) != ar_module_before
+        ):
+            raise RuntimeError("Model parameters changed during profiling")
+        args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
 
 
 if __name__ == "__main__":

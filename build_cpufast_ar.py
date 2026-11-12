@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parent
 SOURCES = [
     "native/cpufast_ar_torch.cpp",
     "native/cpufast_attention_torch.cpp",
+    "native/cpufast_head_attention.cpp",
     "native/cpufast_ar_gemv.cpp",
     "native/cpufast_winograd_torch.cpp",
     "native/cpufast_fft_torch.cpp",
