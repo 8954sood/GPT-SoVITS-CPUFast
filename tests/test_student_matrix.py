@@ -56,6 +56,7 @@ def synthetic_bundle(root, variant, storage):
         ("exact_fp16", "exact_fp16", True, False),
         ("exact_fp16", "exact_fp16", False, True),
         ("exact_fp16", "exact_fp16", False, "confirm"),
+        ("exact_fp16", "exact_fp16", False, "attention"),
     ],
 )
 def test_comparison_uses_each_approved_bundle_and_matching_cache(
@@ -90,7 +91,11 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
         for key in ("--baseline-manifest", "--baseline-manifest-sha256"):
             index = argv.index(key)
             del argv[index : index + 2]
-        argv.append("--ar-int8-comparison")
+        argv.append(
+            "--ar-int8-attention-comparison"
+            if ar_only == "attention"
+            else "--ar-int8-comparison"
+        )
         if ar_only == "confirm":
             argv.append("--ar-int8-confirm-only")
     if decoder_only:
@@ -158,12 +163,15 @@ def test_comparison_uses_each_approved_bundle_and_matching_cache(
         assert command[command.index("--samples") + 1] == (
             "1" if index == len(calls) - 1 else "5"
         )
+        assert ("--ar-int8-torch-sdpa" in command) == (
+            ar_only == "attention" and index > 0
+        )
         assert ("--student-fp32-control" in command) == (has_control and index == 1)
         assert ("--compare-pcm" in command) == (
-            index >= 2 or (confirm_only and index == 1)
+            index >= 2 or ((confirm_only or ar_only == "attention") and index == 1)
         )
         assert ("--ar-int8-only" in command) == bool(
-            ar_only and (index > 0 or confirm_only)
+            ar_only and (index > 0 or confirm_only or ar_only == "attention")
         )
     assert calls[-1][calls[-1].index("--compare-pcm") + 1] == str(
         output
