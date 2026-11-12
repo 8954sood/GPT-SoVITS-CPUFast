@@ -85,3 +85,18 @@ matched its baseline exactly, parameter/checkpoint hashes were unchanged, and
 guards passed. Synthetic packed-GEMM/reconstruction improved at 192/96 channels
 but was approximately tied at 384 channels. Raw reports and provenance are in
 `results/n1_fftstream_20261112`; local Docker results were correctness checks only.
+
+
+## Channel-parallel transform and finishing
+
+[Run 43154873191](https://github.com/8954sood/GPT-SoVITS-CPUFast/actions/runs/43154873191)
+compared the original FP32 prefetch-256 tap profile against channel-parallel
+Winograd input/output and FFT finishing. This retains each channel's arithmetic
+and distributes independent channels across the existing two Torch threads.
+Baseline/candidate RTF medians were **1.5555/1.5212** and **1.5321/1.5157**,
+three warmups and three retained samples per case. Decoder median fell
+5.135/4.870s and 4.515/4.220s, while unchanged AR timing rose by about 0.06/0.13s.
+All measured candidate PCM/semantic outputs were exact, parameter/checkpoint
+hashes unchanged and guards passed. Independent five-sample verification is
+required before adopting this small overall gain. Raw reports and provenance:
+`results/n1_transforms_20261112`. The FFT streaming flag was off in both cases.
