@@ -1008,3 +1008,23 @@ with canonical head scheduling and verified16blocks/unchanged checkpoints.
 The owner rejected it: “기존보다 나쁨, AR16 보류”. No AR16 performance measurement
 or approved execution manifest was made. Keep approved AR17+V400 fixed for
 continued independent QK runtime scheduling work.
+
+
+## V recovery200 preserves architecture; quality remains unapproved
+
+A CPU-only continuation starts from unapproved recovery100 and performs100
+additional updates, lr4e-6->4e-7, accumulation3, full-context/logmel. Original
+V400, recovery100 and approved AR17 execution files remain unchanged. All159
+state-tensor shapes and22,811,196 coefficients retain the original V geometry;
+this is quality recovery, not a model/runtime speed result. The selected step
+is100 of this phase(200 recovery updates since original V400).
+
+Validation logmel changes0.1622114(originalV400)->0.1604590(recovery100)
+->0.1584041(recovery200), a2.35% reduction from original V400. All six existing
+language/latent-origin groups improve versus recovery100. These12 validation
+records were reused for checkpoint selection and do not establish perceived
+quality or independent generalization. No new listening approval, native
+performance measurement or replacement of the server's V400 baseline occurs.
+The redundant latest file is removed only after tensor/spec/step equality
+with the retained best checkpoint. Complete history and grouped fixed-input
+evaluation are in `results/student_pilot/v_recovery200_cpu_20261112.json`.
