@@ -2,6 +2,8 @@
 import argparse
 import hashlib
 import json
+import os
+import resource
 from pathlib import Path
 import time
 from types import SimpleNamespace
@@ -9,6 +11,17 @@ from types import SimpleNamespace
 EXPECTED_WIRE = '23fb33fc18e04d63d9eab28910d32c3369a65bcd8c1922df2e4f65fede707706'
 EXPECTED_NATIVE = ('48dca061126afdacd1b1f4e96deb62e2ff86cce96e54b0895f3312b99b57a897',
                    '719ce751b7b17cd1522a01235578e88739dfc7e79d09fd9628862f9c0b28389a')
+
+
+def counters():
+    values={}
+    for name in ('cpu.stat','cpu.pressure'):
+        p=Path('/sys/fs/cgroup')/name
+        if p.exists():values[name]=p.read_text().strip()
+    r=resource.getrusage(resource.RUSAGE_SELF)
+    values.update(voluntary_context_switches=r.ru_nvcsw,involuntary_context_switches=r.ru_nivcsw,maxrss_kib=r.ru_maxrss)
+    values['host_cpu_jiffies']=Path('/proc/stat').read_text().splitlines()[0]
+    return values
 
 
 def main():
@@ -79,7 +92,7 @@ def main():
         from cpufast_tap_epilogue_runtime import enable_tap_epilogues
         tap_audit=enable_tap_epilogues(engine.pipeline.vits_model.dec)
     def pair(role, index):
-        reports=[];wire=[];begin=time.perf_counter();cpu_begin=time.process_time()
+        reports=[];wire=[];before=counters();begin=time.perf_counter();cpu_begin=time.process_time()
         for i,text in enumerate(segments):
             diagnostic.clear()
             audio,report=engine.synthesize_prepared(text, ref, lang='ko', seed=42+i)
@@ -94,7 +107,7 @@ def main():
             and tuple(r['native_pcm_sha256'] for r in reports)==EXPECTED_NATIVE)
         assert all(r['model_parameter_versions_unchanged'] for r in reports)
         observation=dict(role=role,index=index,wall_seconds=elapsed,cpu_seconds=time.process_time()-cpu_begin,sample_rate=rate,audio_seconds=len(wire)/2/rate,rtf=elapsed/(len(wire)/2/rate),
-            expected_native_and_wire_pcm_match=pcm_match,wire_pcm_sha256=wire_hash,segments=reports)
+            resource_counters_before=before,resource_counters_after=counters(),expected_native_and_wire_pcm_match=pcm_match,wire_pcm_sha256=wire_hash,segments=reports)
         print('API_RUNTIME',role,index,args.ar_threads,args.threads,elapsed,flush=True)
         return observation
     rows=[pair('warmup',i) for i in range(args.warmups)]
@@ -127,6 +140,7 @@ def main():
     cgroup={n:(Path('/sys/fs/cgroup')/n).read_text().strip() for n in ('cpu.max','memory.max','memory.swap.max')}
     assert cgroup=={'cpu.max':'200000 100000','memory.max':'8000000000','memory.swap.max':'0'}
     result=dict(complete=True,scope='Fixed sentence split/seed42,43/full reference/native32k API adapter exploration; HTTP overhead excluded',
+        environment={k:os.environ.get(k) for k in ('OMP_WAIT_POLICY','GOMP_SPINCOUNT','OPENBLAS_NUM_THREADS','OPENBLAS_CORETYPE')},
         settings={'threads':args.threads,'ar_threads':args.ar_threads,'tap_finish':args.tap_finish,'gc_policy':args.gc_policy},
         cgroup=cgroup,all_expected_pcm_match=all(r['expected_native_and_wire_pcm_match'] for r in rows),observations=rows,excluded_profile=profile,tap_finish_audit=tap_audit,
         model_files_unchanged=True,original_inputs_unchanged=True,native_files_unchanged=True,
