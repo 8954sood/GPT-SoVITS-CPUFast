@@ -22,6 +22,38 @@ spec SHA is `3a6550930e73dafadd07a9fdbe79a4e00fe7a55e1bfcd370ff237d0da074dc69`.
 Its approved Korean PCM SHA is `ab9179ec076b5b3e1bd7f90879486c4e4447d183936f9ae698bc714260a6b279`.
 Both produce133semantic tokens and5.62seconds on this request.
 
+## Verified private backup and cleaned host (2026-11-13)
+
+The approved four-file bundle is backed up in the existing private repository
+`babihoba/gpt-sovits-v2proplus-arm-students` at immutable revision
+`0ec6d1f0ebee55c566446cc17f23562f3bc0dc48`, under
+`approved-ar17-c24-vtarget100-20261113/manifest.json`.
+All four committed files were downloaded again and their byte counts and SHA256
+verified. The manifest SHA above is unchanged. Credentials and checkpoint bytes
+are not included in source Git. [Backup verification](../results/n1_cleanup_20261113/hf_backup.json).
+
+Old TTS models, source copies and build images were removed from N1 at the owner's
+request, while the Discord bot and unrelated services were preserved. The retained
+layout under `/home/ubuntu/gpt-sovits-benchmark` is:
+
+- `student-assets/696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865/`: approved AR17+C24 bundle.
+- `current-runtime/`: one copy of the measured production source and original native libraries.
+- `runtime-assets/`: required original S2, full HuBERT, SV/language assets, Japanese dictionary and API packages.
+- `reference_ja_4s.wav` and `run-current-api.sh`: reference and retained runtime launcher.
+
+`bash /home/ubuntu/gpt-sovits-benchmark/run-current-api.sh verify` runs a temporary
+HTTP validation without generated audio files or published ports; `serve` starts
+the API bound to host localhost:9880. The post-cleanup check reproduced the exact
+native32 PCM and stopped normally. This single functional check is separate from
+the earlier fixed ten-sample performance experiment.
+
+`studentc24confirm` in the current benchmark script supports the cleaned layout.
+The historical `studentc24` paired comparison below needs the removed V400
+baseline and legacy assets restored first. Other legacy modes may need their
+deleted models too; cleanup does not silently download them again.
+[Cleanup and service checks](../results/n1_cleanup_20261113/cleanup.json),
+[HTTP check](../results/n1_cleanup_20261113/http_validation.json).
+
 Actual N1 measured results: five counterbalanced C24 samples plus five
 independent fresh confirmations all stayed below1. Their complete range was
 .934545–.962389, median.945295 and worst.962389. Raw reports and excluded

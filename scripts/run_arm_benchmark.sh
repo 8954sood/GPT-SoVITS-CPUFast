@@ -19,10 +19,23 @@ if [[ "$decoder_candidate_label" == V && "$mode" != studentbottleneck ]]; then e
 project="$bench_root/project"
 assets="$bench_root/cpufast-cefae22/assets/pretrained_models"
 reference="$bench_root/reference_ja_4s.wav"
+frontend_mounts=(--mount "type=bind,src=$project,dst=/project,readonly")
+required_frontend=("$project/models/s1v3.ckpt" "$project/models/chinese-hubert-base")
+# The cleaned host intentionally keeps only the approved C24 model. Its isolated
+# confirmation uses the student AR checkpoint, so no deleted S1 teacher is needed.
+if [[ "$mode" == studentc24confirm && -d "$bench_root/runtime-assets" ]]; then
+  assets="$bench_root/runtime-assets/pretrained_models"
+  hubert="$bench_root/runtime-assets/chinese-hubert-base"
+  jtalk="$bench_root/runtime-assets/open_jtalk_dic_utf_8-1.11"
+  required_frontend=("$hubert" "$jtalk")
+  frontend_mounts=(
+    --mount "type=bind,src=$hubert,dst=/project/models/chinese-hubert-base,readonly"
+    --mount "type=bind,src=$jtalk,dst=/project/.venv/lib/python3.12/site-packages/pyopenjtalk/open_jtalk_dic_utf_8-1.11,readonly")
+fi
 # Keep direct SSH runs and Actions runs using this script serial on the host.
 exec 9>"$bench_root/.cpufast-arm-benchmark.lock"
 flock -n 9 || { echo 'Another ARM benchmark holds the host lock' >&2; exit 1; }
-for path in "$project/models/s1v3.ckpt" "$project/models/chinese-hubert-base" "$assets/v2Pro/s2Gv2ProPlus.pth" "$assets/sv/pretrained_eres2netv2w24s4ep4.ckpt" "$reference"; do
+for path in "${required_frontend[@]}" "$assets/v2Pro/s2Gv2ProPlus.pth" "$assets/sv/pretrained_eres2netv2w24s4ep4.ckpt" "$reference"; do
   if [[ ! -e "$path" ]]; then printf 'Required benchmark asset missing: %s\n' "$path" >&2; exit 1; fi
 done
 if [[ "$(uname -m)" != aarch64 ]]; then echo 'Target must be Linux ARM64.' >&2; exit 1; fi
@@ -43,7 +56,7 @@ docker_args=(run --rm --user "$(id -u):$(id -g)" --platform linux/arm64 --cpus "
   --mount "type=bind,src=$assets,dst=/repo/GPT_SoVITS/pretrained_models"
   --mount "type=bind,src=$assets/v2Pro/s2Gv2ProPlus.pth,dst=/repo/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth,readonly"
   --mount "type=bind,src=$assets/sv/pretrained_eres2netv2w24s4ep4.ckpt,dst=/repo/GPT_SoVITS/pretrained_models/sv/pretrained_eres2netv2w24s4ep4.ckpt,readonly"
-  --mount "type=bind,src=$project,dst=/project,readonly"
+  "${frontend_mounts[@]}"
   --mount "type=bind,src=$reference,dst=/reference.wav,readonly"
   "${student_mount[@]}"
   -e PYTHONPATH=/repo:/repo/GPT_SoVITS

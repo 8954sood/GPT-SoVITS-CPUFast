@@ -1,0 +1,27 @@
+{
+  "repo": "babihoba/gpt-sovits-v2proplus-arm-students",
+  "private": true,
+  "revision": "0ec6d1f0ebee55c566446cc17f23562f3bc0dc48",
+  "path": "approved-ar17-c24-vtarget100-20261113",
+  "action": "uploaded",
+  "manifest_sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+  "files": {
+    "manifest.json": {
+      "sha256": "696966debccf516f2af6ef0f87be2c2cf52548d313d70f8f467731dbf1f7a865",
+      "bytes": 38085
+    },
+    "ar.pt": {
+      "sha256": "a25ae9826d4d608ca41adca04075ff75a5ac66ababa0e823da60b7990f354352",
+      "bytes": 219381787
+    },
+    "decoder.pt": {
+      "sha256": "afac9da039331cb1a8511d709998396a28ffc29469ba092fda3c7fc823d0ab11",
+      "bytes": 91149721
+    },
+    "student_spec.json": {
+      "sha256": "3a6550930e73dafadd07a9fdbe79a4e00fe7a55e1bfcd370ff237d0da074dc69",
+      "bytes": 33875
+    }
+  },
+  "all_committed_files_downloaded_and_sha256_verified": true
+}

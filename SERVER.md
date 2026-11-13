@@ -36,6 +36,13 @@ health와 목록 조회는 합성 중에도 응답한다.
 
 ## 시작
 
+정리된 실제 N1 서버에는 승인 모델과 실행 환경 한 벌이 남아 있다.
+`bash /home/ubuntu/gpt-sovits-benchmark/run-current-api.sh serve`로 시작하고,
+`verify`로 임시 검증만 수행할 수 있다. 기본 호스트 접속은 localhost:9880이다.
+정리 후 모델 백업 revision·경로와 남은 디렉터리는
+[재현 지침](docs/C24_N1_REPRODUCTION.md#verified-private-backup-and-cleaned-host-2026-11-13)에 있다.
+아래는 다른 환경에 설치할 때의 수동 시작 방법이다.
+
 Linux ARM64에서 기존 CPUFast 추론 의존성, 승인 모델, HuBERT·SV·언어 자료를
 준비한다. 네이티브 라이브러리는 같은 PyTorch 환경과 현재 소스로 빌드한다.
 실제 사용한 모델과 호스트 준비는 [재현 지침](docs/C24_N1_REPRODUCTION.md)을 따른다.
